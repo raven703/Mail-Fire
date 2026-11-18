@@ -19,6 +19,7 @@ def upgrade():
         sa.Column("title", sa.String(160), nullable=False, server_default=""),
         sa.Column("enabled", sa.Boolean, nullable=False, server_default=sa.true()),
         sa.Column("risk", sa.Integer, nullable=False, server_default="70"),
+        sa.Column("priority", sa.Integer, nullable=False, server_default="100"),
         sa.Column("config", JSONB, nullable=False),
         sa.CheckConstraint("risk >= 0 AND risk <= 100", name="ck_category_rule_risk"),
     )

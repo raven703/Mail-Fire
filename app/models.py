@@ -206,6 +206,7 @@ class CategoryRule(IDMixin, Base):
     title: Mapped[str] = mapped_column(String(160), default="")
     enabled: Mapped[bool] = mapped_column(default=True)
     risk: Mapped[int] = mapped_column(default=70)
+    priority: Mapped[int] = mapped_column(default=100)
     config: Mapped[dict] = mapped_column(JSONB, default=dict)
 
 

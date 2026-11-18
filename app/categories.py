@@ -64,7 +64,7 @@ def rules_for(session):
         select(CategoryRule, Category)
         .join(Category, Category.id == CategoryRule.category_id)
         .where(Category.active.is_(True), CategoryRule.enabled.is_(True))
-        .order_by(CategoryRule.created_at, CategoryRule.id)
+        .order_by(CategoryRule.priority, CategoryRule.created_at, CategoryRule.id)
     )
     groups = {}
     for rule, category in rows:
@@ -86,6 +86,9 @@ def _make_finding(category, rule, text, source, *, confidence=None):
 
 def _hits(rule, category, text, matches, ml_scores):
     config = rule.config or {}
+    lower = text.lower()
+    if any(phrase.lower() in lower for phrase in config.get("exclude_phrases", [])):
+        return []
     if rule.kind == "keywords":
         lower = text.lower()
         result = []
