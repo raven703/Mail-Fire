@@ -90,7 +90,7 @@ def test_training_example_from_incident():
     from app.db import transaction
     from app.main import app
     from app.mail import ingest
-    from app.models import Content, Incident, MailEvent, Message, Policy, TrainingExample
+    from app.models import Blob, Content, ImportRecord, Incident, Job, MailEvent, Message, Policy, TrainingExample
 
     data = b"From: analyst@example.com\r\nTo: boss@example.net\r\nSubject: synthetic feedback\r\n\r\n" + b"test " * 20
     with transaction() as session:
@@ -128,10 +128,18 @@ def test_training_example_from_incident():
             json={"labels": ["NORMAL"], "approved": True},
         ).status_code == 409
     with transaction() as session:
-        # Only remove test-specific data; queued analysis/evaluation jobs are
-        # not executed by these synchronous API tests.
-        example = session.get(TrainingExample, example_id)
-        session.delete(example)
-        session.flush()
-        incident = session.get(Incident, incident_id)
-        session.delete(incident)
+        from sqlalchemy import delete
+
+        event_ids = select(MailEvent.id).where(MailEvent.message_id == mail.id)
+        session.execute(delete(TrainingExample).where(TrainingExample.id == example_id))
+        session.execute(delete(Incident).where(Incident.id == incident_id))
+        session.execute(delete(Job).where(
+            (Job.payload["message_id"].astext == mail.id)
+            | Job.payload["event_id"].astext.in_(event_ids)
+        ))
+        session.execute(delete(ImportRecord).where(ImportRecord.message_id == mail.id))
+        session.execute(delete(MailEvent).where(MailEvent.message_id == mail.id))
+        session.execute(delete(Message).where(Message.id == mail.id))
+        session.execute(delete(Content).where(Content.id == content.id))
+        session.execute(delete(Policy).where(Policy.id == policy.id))
+        session.execute(delete(Blob).where(Blob.sha == mail.original_sha))
