@@ -92,7 +92,13 @@ def test_training_example_from_incident():
     from app.mail import ingest
     from app.models import Blob, Content, ImportRecord, Incident, Job, MailEvent, Message, Policy, TrainingExample
 
-    data = b"From: analyst@example.com\r\nTo: boss@example.net\r\nSubject: synthetic feedback\r\n\r\n" + b"test " * 20
+    nonce = __import__("uuid").uuid4().hex
+    data = (
+        b"From: analyst@example.com\r\nTo: boss@example.net\r\n"
+        + ("Message-ID: <" + nonce + "@example.test>\r\n").encode()
+        + b"Subject: synthetic feedback\r\n\r\n"
+        + b"test " * 20
+    )
     with transaction() as session:
         record = ingest(session, data, "test", "feedback-test-" + __import__("uuid").uuid4().hex, "feedback.eml")
         mail = session.get(Message, record.message_id)
