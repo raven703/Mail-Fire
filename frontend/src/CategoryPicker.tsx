@@ -6,9 +6,16 @@ export function CategoryCreator({api,onCreated,onCancel}:{api:API,onCreated:(c:R
  [mode,setMode]=useState('ml'),[phrases,setPhrases]=useState(''),[reference,setReference]=useState(''),
  [references,setReferences]=useState<Row[]>([]),[error,setError]=useState(''),[busy,setBusy]=useState(false);
  useEffect(()=>{api('references').then(d=>setReferences(d.items||[])).catch(()=>setReferences([]))},[]);
- return <form className="category-create" onSubmit={e=>{e.preventDefault();setError('');setBusy(true);
-  void api('categories',json({name,group_name:group,mode,keywords:mode==='keywords'?phrases.split('\n').map(s=>s.trim()).filter(Boolean):[],reference_id:mode==='reference'?reference:null}))
-   .then(onCreated).catch(e=>setError(String(e))).finally(()=>setBusy(false))}}>
+ const save=()=>{if(!name.trim()||!group.trim()||(mode==='keywords'&&!phrases.trim())||(mode==='reference'&&!reference)){
+   setError('Заполните обязательные поля');return;
+  }
+  setError('');setBusy(true);
+  void api('categories',json({name:name.trim(),group_name:group.trim(),mode,
+    keywords:mode==='keywords'?phrases.split('\n').map(s=>s.trim()).filter(Boolean):[],
+    reference_id:mode==='reference'?reference:null}))
+    .then(onCreated).catch(e=>setError(String(e))).finally(()=>setBusy(false));
+ };
+ return <div className="category-create">
   <h3>Новая категория</h3>
   <label>Название<input required minLength={2} maxLength={160} value={name} onChange={e=>setName(e.target.value)}/></label>
   <label>Группа<input required value={group} onChange={e=>setGroup(e.target.value)}/></label>
@@ -17,14 +24,14 @@ export function CategoryCreator({api,onCreated,onCancel}:{api:API,onCreated:(c:R
    <option value="keywords">Ключевые фразы</option>
    <option value="reference">По эталонному документу</option>
   </select></label>
-  {mode==='keywords'&&<label>Ключевые фразы по одной на строку<textarea required value={phrases} onChange={e=>setPhrases(e.target.value)}/></label>}
-  {mode==='reference'&&<label>Эталонный документ<select value={reference} required onChange={e=>setReference(e.target.value)}>
+  {mode==='keywords'&&<label>Ключевые фразы по одной на строку<textarea value={phrases} onChange={e=>setPhrases(e.target.value)}/></label>}
+  {mode==='reference'&&<label>Эталонный документ<select value={reference} onChange={e=>setReference(e.target.value)}>
     <option value="">Выберите эталон</option>{references.map(r=><option key={r.id} value={r.id}>{r.name}</option>)}
   </select></label>}
   <p className="muted">{mode==='ml'?'ML-категория начнёт обнаруживаться только после обучения и публикации модели.':mode==='keywords'?'Поиск выполняется по тексту и вложениям.':'Срабатывание зависит от совпадения с выбранным эталоном.'}</p>
   {error&&<p role="alert" className="error">{error}</p>}
-  <div className="actions"><button disabled={busy} className="primary">Создать</button><button type="button" onClick={onCancel}>Отмена</button></div>
- </form>;
+  <div className="actions"><button type="button" disabled={busy} className="primary" onClick={save}>Создать</button><button type="button" onClick={onCancel}>Отмена</button></div>
+ </div>;
 }
 
 export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
