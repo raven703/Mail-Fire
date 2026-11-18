@@ -92,6 +92,35 @@ def parse_mail(data):
     )
 
 
+def classify_direction(sender, recipients, internal_domains):
+    """Conservative direction inference based only on message addresses.
+
+    SMTP BCC collector recipient is not necessarily an original recipient.
+    """
+    domains = {d.strip().lower().lstrip("@") for d in internal_domains.split(",") if d.strip()}
+    if not domains:
+        return "UNKNOWN"
+
+    def is_internal(address):
+        address = (address or "").strip().lower()
+        if address.count("@") != 1:
+            return None
+        domain = address.rsplit("@", 1)[1]
+        return domain in domains or any(domain.endswith("." + d) for d in domains)
+
+    src = is_internal(sender)
+    dst = {is_internal(addr) for addr in recipients if addr}
+    if src is None or not dst or None in dst:
+        return "UNKNOWN"
+    if src and False in dst:
+        return "OUTBOUND"
+    if not src and True in dst:
+        return "INBOUND"
+    if src and dst == {True}:
+        return "INTERNAL"
+    return "UNKNOWN"
+
+
 def ingest(session, data, source, source_key, name, envelope=None):
     if len(data) > settings().max_message_bytes:
         raise ValueError("Превышен размер письма")

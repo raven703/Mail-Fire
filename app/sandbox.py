@@ -67,12 +67,18 @@ def call(operation, data, name=""):
     import httpx
 
     with httpx.Client(timeout=settings().analysis_timeout + 15, trust_env=False) as client:
-        response = client.post(
+        with client.stream(
+            "POST",
             settings().parser_url + "/parse",
             json={"operation": operation, "data": base64.b64encode(data).decode(), "name": name},
-        )
-        response.raise_for_status()
-        output = response.json()
+        ) as response:
+            response.raise_for_status()
+            payload = bytearray()
+            for chunk in response.iter_bytes():
+                if len(payload) + len(chunk) > settings().parser_response_bytes:
+                    raise ValueError("Parser response limit")
+                payload.extend(chunk)
+            output = json.loads(payload)
     if operation == "mail":
         for attachment in output["attachments"]:
             attachment[2] = base64.b64decode(attachment[2], validate=True)
@@ -94,20 +100,24 @@ def local_call(operation, data, name=""):
             "OCR_BACKEND": settings().ocr_backend,
             "OCR_MODEL_ROOT": settings().ocr_model_root,
         }
-        result = subprocess.run(
-            [sys.executable, "-m", "app.sandbox"],
-            input=payload,
-            capture_output=True,
-            env=env,
-            cwd=directory,
-            timeout=settings().analysis_timeout,
-            close_fds=True,
-        )
+        with tempfile.TemporaryFile() as output_file, tempfile.TemporaryFile() as error_file:
+            result = subprocess.run(
+                [sys.executable, "-m", "app.sandbox"],
+                input=payload,
+                stdout=output_file,
+                stderr=error_file,
+                env=env,
+                cwd=directory,
+                timeout=settings().analysis_timeout,
+                close_fds=True,
+            )
+            output_file.seek(0)
+            output_bytes = output_file.read(settings().parser_response_bytes + 1)
     if result.returncode:
         raise RuntimeError("Parser sandbox failed")
-    if len(result.stdout) > settings().max_expanded_bytes * 2:
+    if len(output_bytes) > settings().parser_response_bytes:
         raise ValueError("Parser output limit")
-    output = json.loads(result.stdout)
+    output = json.loads(output_bytes)
     if output.get("error"):
         raise ValueError(output["error"])
     if operation == "mail":
@@ -118,7 +128,7 @@ def local_call(operation, data, name=""):
 
 def main():
     request = json.loads(sys.stdin.buffer.read(70 * 1024**2))
-    restrict(scan=request.get("operation") == "scan")
+    restrict(scan=request.get("operation") in {"scan", "extract"})
     data = base64.b64decode(request["data"], validate=True)
     try:
         if request["operation"] == "probe":
@@ -160,7 +170,10 @@ def main():
             raise ValueError("Unknown sandbox operation")
     except Exception as exc:
         output = {"error": type(exc).__name__}
-    sys.stdout.write(json.dumps(output))
+    encoded = json.dumps(output)
+    if len(encoded.encode()) > settings().parser_response_bytes:
+        raise ValueError("Parser response limit")
+    sys.stdout.write(encoded)
 
 
 if __name__ == "__main__":

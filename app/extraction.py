@@ -95,7 +95,7 @@ def extract(data, name, depth=0, budget=None):
         if zipfile.is_zipfile(io.BytesIO(data)):
             if depth >= settings().max_archive_depth:
                 return "", "PARTIAL", {"error": "archive depth"}
-            texts, states = [], []
+            texts, states, findings = [], [], []
             with zipfile.ZipFile(io.BytesIO(data)) as archive:
                 for member in archive.infolist():
                     path = PurePosixPath(member.filename)
@@ -115,13 +115,20 @@ def extract(data, name, depth=0, budget=None):
                         or member.file_size > max(member.compress_size, 1) * 200
                     ):
                         raise ValueError("Archive expansion limit")
-                    text, state, _ = extract(archive.read(member), member.filename, depth + 1, budget)
-                    texts.append(text)
+                    if budget[0] >= settings().max_objects:
+                        raise ValueError("Archive object limit")
+                    child = archive.read(member)
+                    from app.advanced_detectors import static_scan
+
+                    findings.extend(static_scan(child, member.filename)["findings"])
+                    child_text, state, child_details = extract(child, member.filename, depth + 1, budget)
+                    findings.extend(child_details.get("findings", []))
+                    texts.append(child_text)
                     states.append(state)
             return (
                 "\n".join(texts),
                 "ANALYZED" if all(s == "ANALYZED" for s in states) else "PARTIAL",
-                {"children": states},
+                {"children": states, "findings": findings},
             )
         if suffix in {
             ".txt",
