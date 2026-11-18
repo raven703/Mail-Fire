@@ -126,3 +126,7 @@ kind evaluate; не пересчитывает сохранённые incident d
 удаление сохраняет blob до retention и исторические findings. ML настоящий
 TF-IDF baseline, НЕ RuBERT/SetFit. Проверь расширенные сценарии CRUD/permissions;
 API smoke на disposable DB успешен, browser partial interruption отмечен.
+
+Latest detail UX: Evidence.tsx (Summary/Evidence), main.tsx integration.
+Build/smoke /tmp/mailfire-detail-{build,smoke}.log. Последний dist скопирован
+в web, immutable image следует пересобрать при следующем deploy.
