@@ -112,3 +112,8 @@ Smoke /tmp/mailfire-reference-smoke.log прошёл, web Compose обновлё
 Последнее: theme icon light/dark (system в UI удалён), диаграмма категорий
 по Policy.name, IncidentTable общий. Smoke: /tmp/mailfire-category-smoke3.log.
 Ожидание PUT в smoke обязательно (400ms было недостаточно для persistence).
+
+Toolbar refinement: health dot проверяет только /api/health (API+DB),
+не все контейнеры; click -> system. Bell -> open incidents. Polling 10с
+для лёгких списков/overview, без карточек и тяжёлых операций. Ещё требуется
+дальнейшая унификация фильтров административных разделов и расширение health.
