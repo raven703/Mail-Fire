@@ -1,73 +1,93 @@
-# Category catalog and analyst feedback (draft PR)
+# Unified categories, multi-rule detection, and analyst ML feedback
 
-## Implemented
+> Draft implementation branch. Changes were authored through GitHub without
+> running a local Docker/PostgreSQL/TypeScript build. The integration agent
+> must validate and fix problems BEFORE merging into master.
 
-- `0004_categories` Alembic migration: unified `categories` table seeded with
-  currently implemented detector result categories, plus ML-only `NORMAL`.
-  Existing builtin detector codes are retained for compatibility; this is
-  **not** a promise to preserve them in a development-only project.
-- Administrator-only category creation, editing and archiving via
-  `/api/categories`. Read requires authenticated account.
-- Searchable Russian multi-select with groups, inline category creation and
-  selected-category chips. Reused by policy editor and ML manual labeling.
-- New catalog administration section in the navigation.
-- Category detection options: literal keyword/phrase matching, binding a
-  reference document, and an ML-only label (effective after training and
-  publishing an eligible model). Creating an ML category **does not** train it.
-- Policy category validation: unknown, archived and ML-only `NORMAL` category
-  cannot be selected in policies. Empty selection retains current semantics:
-  all categories.
-- `POST /api/ml/incidents/{id}/example`: analysts with originals permission
-  can explicitly label an investigated incident's extracted text, mark its
-  labeling approved, and save it for a future training run. Duplicate
-  incident-derived examples return 409. Incidents do **not** train or publish
-  ML automatically. Feedback is audited.
-- Manual `POST /api/ml/examples` also validates category IDs.
+## Data model and migration
 
-## Migration and validation for the local agent
+- `0004_categories` seeds the category catalog and adds provenance for
+  training examples originating from an incident.
+- `0005_category_rules` introduces `category_rules`, one-to-many
+  relationships from custom categories to their independent detection rules,
+  and `categories.match_mode` (ANY / ALL). An existing draft single-mode
+  custom category is converted to one appropriate detection rule.
+- Built-in detector IDs remain internally as an implementation convenience;
+  users select translated Russian names and can freely create new categories.
+  The user stated that legacy category IDs do not need long-term compatibility.
+- User categories use a generated ID and have a group, description, archive
+  status, and ANY/ALL mode. Built-in system categories are immutable.
+- Rule fields: type, display title, enabled flag, risk (0–100), priority
+  (0–10000), exclusion phrases and type-specific configuration.
+- Rule types:
+  * `keywords`: up to 30 literal case-insensitive phrases;
+  * `regex`: deliberately restricted syntax with bounded repeats, without
+    groups, alternation, '*'/'+' wildcards, or unbounded patterns;
+  * `reference`: up to 20 attached reference IDs with similarity threshold;
+  * `ml`: category probability threshold, active only after an eligible
+    trained model is published.
+- Rule evaluation: only enabled rules count. ANY fires with any matching
+  enabled rule; ALL requires every enabled rule to match. With unavailable
+  ML engine, an ALL rule requiring ML does not match. An exclusion phrase
+  suppresses only its own rule, not the entire category.
+- Policy scope (sender, recipient, direction) remains separate from
+  detection rules; category rules examine extracted text and reference/ML
+  evidence. A category matching an email DOES NOT block delivery.
 
-1. Compare this branch against the local HEAD. If `master` advanced,
-   merge or cherry-pick into a fresh integration branch; resolve conflicts
-   before running migrations.
-2. Use a disposable PostgreSQL database; run `alembic upgrade head`,
-   inspect seeded category rows, exercise downgrade only against a disposable
-   copy. Preserve the user's original database.
-3. Run Ruff, Python compileall, all tests (including the new
-   `tests/test_categories.py` with `MAILFIRE_TEST_DB`), and frontend
-   TypeScript build. The changes were authored remotely; **these checks
-   have not been executed by ChatGPT**.
-4. Browser E2E: create a keyword category, create a policy by selecting it,
-   import an EML and confirm the finding; create a reference category,
-   confirm reference matching; from an incident save an approved ML example;
-   train and publish a model when the corpus is sufficient.
-5. Explicit negative tests: unauthenticated category access, nonadmin
-   mutation, role without original-content permission, unknown/archived
-   categories, duplicate incident example, empty category selection semantics,
-   malformed reference IDs, and large/hostile keyword lists.
-6. Verify no nested HTML forms, keyboard accessibility, focus management,
-   readability on light/dark theme, and Russian localization.
-7. Rebuild and validate Compose only after passing tests. Keep PR as draft
-   until verified; no push/merge into master without user/agent approval.
+## Features
 
-## Security / known limits
+- Category catalog administration at `?page=categories`: create, edit,
+  archive, search. Add/remove multiple rule cards, select linked references,
+  configure thresholds and ANY/ALL logic.
+- Searchable grouped category picker with labels and chips, shared by policy
+  editor and ML labeling. Inline creation is available to administrators.
+- `POST /api/ml/incidents/{id}/example` explicitly copies the extracted
+  text to a labeled training example after an analyst acts; duplicates
+  per incident are rejected. Approving an incident or saving an example
+  does NOT automatically train or publish a model.
+- Existing ML model quality gates, holdout partitions and manual
+  publication remain in force.
 
-- Custom keyword rules are **literal case-insensitive phrases**, not raw
-  user-provided regex. Arbitrary regexes could cause catastrophic
-  backtracking; implement separately with bounded, safe matching if needed.
-- ML-labeled `NORMAL` examples are negative examples; predictions for
-  `NORMAL` are intentionally omitted from incident findings.
-- Current TF-IDF classifier still requires a sizeable diverse approved
-  dataset, 60/20/20 split and per-label coverage. UI actions do not bypass
-  quality gates; training remains asynchronous via PostgreSQL.
-- Analyst feedback currently stores copied sensitive extracted text in
-  `training_examples`. Review retention, legal-hold, deletion of source
-  message, role-based access, and purpose limitation before production.
-- The current `Content.analysis` shared mutation/lease problem and
-  existing incident policy reevaluation limitations are NOT addressed here.
-- System categories are immutable in the catalog and customer categories
-  are archived, not physically deleted, to keep historical labels readable.
-- A category linked to a deleted reference remains a dormant configuration
-  until rebound; the DB foreign key clears the link.
-- Only category codes for detector outputs are seeded; if new detectors are
-  introduced later, their categories must be included by a follow-up
-  migration or seeding mechanism.
+## Acceptance tests required
+
+1. Compare current local master with the PR base before integration.
+   On a disposable database: `alembic upgrade head`, inspect tables,
+   test reverting only on the disposable copy.
+2. Run `ruff check .`, `python -m compileall app migrations`,
+   all unit tests, `MAILFIRE_TEST_DB` PostgreSQL integration tests,
+   `npm run build` for the frontend.
+3. Test create/edit/archive, multi-rule ANY/ALL, disabled rules, keyword
+   exclusions, priority, literal phrases with Cyrillic, regex invalid
+   patterns/backtracking attempts, malformed data, and max limits.
+4. Create one category with two keyword patterns, two linked references,
+   regex and ML rule, then verify results from an imported EML and
+   multi-attachment email. Check reference matching from both
+   fingerprint and semantic index.
+5. Check RBAC/CSRF on writes, unauthorized text access, ML feedback,
+   duplicate training examples and published model inference. Check
+   mobile layout, keyboard operation, accessibility and dark theme.
+6. Test behavior if a model or reference is unavailable and evaluate
+   false positives for ANY/ALL.
+7. Run browser E2E and Docker Compose rebuild with preserved PostgreSQL
+   before local merge. Do not push to GitHub unless explicitly approved.
+8. Provide a clear per-file report and test log; fix newly detected
+   implementation issues rather than claiming unexecuted tests pass.
+
+## Important limitations
+
+- This PR does NOT repair existing mutability of shared Content.analysis,
+  worker/heartbeat long transaction issues, or policy reevaluation history.
+- Custom regex is intentionally NOT the complete PCRE syntax; patterns are
+  constrained because submitted text is untrusted.
+- Full-text bytes are stored for feedback training: access control,
+  retention and legal-hold behavior must be reviewed before production.
+- Existing rules are replaced atomically on category edits, so they receive
+  new rule IDs; old incident evidence keeps the old textual ID. Rule
+  versioning is a later enhancement.
+- Semantic reference search retrieves the top 10 candidates, so matching
+  every selected reference cannot be guaranteed at large catalog scale.
+- Training with a new category requires sufficient approved positive and
+  negative samples and subsequent manual model publication.
+- The reference document source remains linked by ID, and removing a
+  reference may leave a nonmatching rule that needs reconfiguration.
+- This is a feature branch, not a production-ready certified DLP release.
