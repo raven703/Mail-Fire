@@ -115,8 +115,14 @@ def analyze(message_id, job_id=None, owner=None):
 
             predictions = infer(active_model.artifact, text)
             ml_scores = {p["category"]: p for p in predictions}
+            # Custom categories are emitted only by their configured ML rule.
+            from app.models import Category
+
+            builtin_categories = set(session.scalars(
+                select(Category.id).where(Category.mode == "builtin", Category.active.is_(True))
+            ))
             for prediction in predictions:
-                if prediction["matched"] and prediction["category"] != "NORMAL":
+                if prediction["matched"] and prediction["category"] in builtin_categories:
                     findings.append(
                         {
                             "category": prediction["category"],
@@ -224,7 +230,7 @@ def analyze(message_id, job_id=None, owner=None):
         # Include semantic evidence in the same ANY/ALL category decision.
         semantic_refs = [
             {"reference_id": m["source_id"], "confidence": m["similarity"], "excerpt": m["text"][:1000]}
-            for m in matches if m["similarity"] >= 0.8
+            for m in matches
         ]
         merged = custom_findings(
             session, text, references=reference_matches + semantic_refs, ml_scores=ml_scores,
