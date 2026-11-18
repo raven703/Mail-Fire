@@ -305,7 +305,18 @@ def overview(
     recent = session.execute(
         incident_query().where(within).order_by(Incident.risk.desc(), Incident.created_at.desc()).limit(8)
     )
+    categories = [
+        dict(name=name, count=count)
+        for name, count in session.execute(
+            select(Policy.name, func.count(Incident.id))
+            .join(Incident, Incident.policy_id == Policy.id)
+            .where(within)
+            .group_by(Policy.name)
+            .order_by(func.count(Incident.id).desc())
+        )
+    ]
     return {
+        "categories": categories,
         "incidents": sum(levels.values()),
         "review": session.scalar(
             select(func.count()).select_from(Incident).where(within, Incident.status.in_(OPEN))

@@ -108,3 +108,7 @@ sidebar с SVG, breadcrumbs, cards/tables/badges, dashboard grid. Исходны
 Reference-UI пользовательский: не изменять и не включать в commit автоматически.
 Smoke /tmp/mailfire-reference-smoke.log прошёл, web Compose обновлён.
 Пользователь просит экономить токены и запускать минимум необходимых тестов.
+
+Последнее: theme icon light/dark (system в UI удалён), диаграмма категорий
+по Policy.name, IncidentTable общий. Smoke: /tmp/mailfire-category-smoke3.log.
+Ожидание PUT в smoke обязательно (400ms было недостаточно для persistence).
