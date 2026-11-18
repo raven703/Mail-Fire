@@ -68,3 +68,14 @@ monitoring.py добавляет read-only PostgreSQL/queue/flow/resource endpoi
 Приоритеты: настоящий filesystem/container sandbox, semantic embeddings/pgvector,
 полноценные healthchecks/diagnostic agent, RBAC UI actions, browser E2E,
 Paddle primary, ML advanced и остальные исходные требования.
+
+## Последнее состояние изоляции
+Parser теперь отдельный Compose service (app.parser_service), без env_file и
+mounts, internal parsing network, ограничения ресурсов, non-root/read-only.
+app.sandbox.call использует PARSER_URL в API/worker; local_call оставлен для
+тестов и broker. Недоверенный child seccomp запрещает sockets.
+Реальные проверки: scripts/check_isolation.py и scripts/container_checks.py
+прошли после build/up. Не возвращать парсинг в DB-connected worker.
+Далее: semantic embeddings/pgvector, Paddle primary и остальные требования.
+Важно: broker использует тот же image с лишними установленными зависимостями;
+минимизация image желательна. Internal network не заменяет seccomp child.

@@ -45,3 +45,12 @@ RapidOCR english image integration, SIEM HTTP/UDP outbox, retention API,
 Полная контейнерная изоляция без файлового доступа к секретам отсутствует;
 OCR ru/Paddle не проверены; SIEM notification email отсутствует; embeddings
 отсутствуют; retention auto scheduling отсутствует; новые UI отсутствуют.
+
+## Актуализация изоляции
+Предыдущий пункт о запуске парсеров в DB-connected worker устранён в Compose:
+parser вынесен в отдельный контейнер без секретов/mounts/DB network. Runtime
+проверки доступны в scripts/check_isolation.py. Broker имеет internal network
+для входящих запросов API/worker, а subprocess парсера дополнительно seccomp
+блокирует все sockets. Защита не является доказательством отсутствия kernel
+escape; выделенный runtime вроде gVisor и уменьшенный parser image не внедрены.
+Локальный режим без PARSER_URL предназначен только для разработки/тестов.

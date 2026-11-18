@@ -59,6 +59,24 @@ def restrict():
 
 
 def call(operation, data, name=""):
+    if not settings().parser_url:
+        return local_call(operation, data, name)
+    import httpx
+
+    with httpx.Client(timeout=settings().analysis_timeout + 15, trust_env=False) as client:
+        response = client.post(
+            settings().parser_url + "/parse",
+            json={"operation": operation, "data": base64.b64encode(data).decode(), "name": name},
+        )
+        response.raise_for_status()
+        output = response.json()
+    if operation == "mail":
+        for attachment in output["attachments"]:
+            attachment[2] = base64.b64decode(attachment[2], validate=True)
+    return output
+
+
+def local_call(operation, data, name=""):
     payload = json.dumps(
         {"operation": operation, "data": base64.b64encode(data).decode(), "name": name}
     ).encode()
@@ -106,7 +124,17 @@ def main():
             try:
                 socket.socket()
             except PermissionError:
-                output = {"network_denied": True, "database_secret": os.getenv("DATABASE_URL")}
+                from pathlib import Path
+
+                sensitive = {}
+                for path in ("/app/.env", "/var/run/docker.sock", "/imports", "/var/lib/postgresql/data"):
+                    sensitive[path] = Path(path).exists()
+                output = {
+                    "network_denied": True,
+                    "database_secret": os.getenv("DATABASE_URL"),
+                    "sensitive_paths": sensitive,
+                    "uid": os.getuid(),
+                }
             else:
                 raise RuntimeError("Network unexpectedly allowed")
         elif request["operation"] == "mail":

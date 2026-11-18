@@ -96,3 +96,18 @@
 - UI: эталоны, ML-разметка/обучение/публикация/откат, retention, SIEM destinations
   и outbox, диагностические запросы; ZIP chooser. Build прошёл.
 - 35 tests passed / 1 warning. Семантические embeddings всё ещё не реализованы.
+
+## Контейнерная изоляция парсеров
+- Добавлен отдельный parser service: без env_file/секретов, host mounts,
+  Docker Socket и доступа к сети БД. Только internal parsing network;
+  к ней подключены API/worker и parser. Порт не опубликован на хост.
+- Non-root UID 10001, read-only rootfs, tmpfs 256MiB, cap_drop ALL,
+  no-new-privileges, pids_limit 96, mem_limit 3GiB и CPU limit 2.
+- Broker принимает только mail/extract/probe, ограничивает размер запроса
+  и параллелизм; недоверенные парсеры работают в seccomp subprocess без сети.
+- scripts/check_isolation.py проверил runtime Docker inspect и реальные
+  попытки socket/записи rootfs/доступа к PostgreSQL и чувствительным путям.
+  Все проверки прошли на пересобранном Compose.
+- Сквозной container_checks.py прошёл через удалённый parser:
+  run 0b1e468d2dde41b9808247525954429c, письмо ANALYZED, OCR/эталон/FTS/hold OK.
+- Embeddings, Paddle primary, extended ML, browser E2E и load остаются.

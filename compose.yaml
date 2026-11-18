@@ -5,6 +5,8 @@ x-backend: &backend
   environment:
     DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
     OCR_BACKEND: ${OCR_BACKEND:-rapidocr}
+    PARSER_URL: http://parser:8090
+  networks: [default]
   restart: unless-stopped
   read_only: true
   tmpfs:
@@ -15,6 +17,25 @@ x-backend: &backend
     migrate:
       condition: service_completed_successfully
 services:
+  parser:
+    build: .
+    command: [python, -m, app.parser_service]
+    environment:
+      OCR_BACKEND: ${OCR_BACKEND:-rapidocr}
+    networks: [parsing]
+    read_only: true
+    tmpfs: ['/tmp:size=256m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 96
+    mem_limit: 3g
+    cpus: 2
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
   web:
     build: ./frontend
     ports: ['127.0.0.1:8080:80']
@@ -41,12 +62,14 @@ services:
         condition: service_healthy
   api:
     <<: *backend
+    networks: [default, parsing]
     ports: ['127.0.0.1:8000:8000']
     healthcheck:
       test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
       interval: 15s
   worker:
     <<: *backend
+    networks: [default, parsing]
     command: [python, -m, app.worker]
   maintenance:
     <<: *backend
@@ -61,3 +84,6 @@ services:
     ports: ['127.0.0.1:2525:2525']
 volumes:
   postgres:
+networks:
+  parsing:
+    internal: true

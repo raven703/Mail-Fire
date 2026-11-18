@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     job_heartbeat_seconds: int = 15
     ocr_backend: str = "disabled"
     ocr_model_root: str = "/opt/ocr-models"
+    parser_url: str = ""
 
 
 @lru_cache

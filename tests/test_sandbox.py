@@ -7,7 +7,7 @@ def test_network_denied_and_secrets_removed(monkeypatch):
     settings()
     monkeypatch.setenv("DATABASE_URL", "secret-must-not-escape")
     result = call("probe", b"")
-    assert result == {"network_denied": True, "database_secret": None}
+    assert result["network_denied"] and result["database_secret"] is None
 
 
 def test_real_sandbox_mail_and_extraction():
