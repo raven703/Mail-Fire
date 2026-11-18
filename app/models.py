@@ -191,11 +191,22 @@ class Category(Base):
     group_name: Mapped[str] = mapped_column(String(120), default="Другое")
     description: Mapped[str] = mapped_column(Text, default="")
     mode: Mapped[str] = mapped_column(String(24), default="ml")
+    match_mode: Mapped[str] = mapped_column(String(8), default="any")
     active: Mapped[bool] = mapped_column(default=True)
     keywords: Mapped[list] = mapped_column(JSONB, default=list)
     reference_id: Mapped[str | None] = mapped_column(
         ForeignKey("references.id", ondelete="SET NULL"), nullable=True
     )
+
+
+class CategoryRule(IDMixin, Base):
+    __tablename__ = "category_rules"
+    category_id: Mapped[str] = mapped_column(ForeignKey("categories.id", ondelete="CASCADE"), index=True)
+    kind: Mapped[str] = mapped_column(String(24))
+    title: Mapped[str] = mapped_column(String(160), default="")
+    enabled: Mapped[bool] = mapped_column(default=True)
+    risk: Mapped[int] = mapped_column(default=70)
+    config: Mapped[dict] = mapped_column(JSONB, default=dict)
 
 
 class TrainingExample(IDMixin, Base):

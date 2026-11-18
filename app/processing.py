@@ -77,20 +77,20 @@ def analyze(message_id, job_id=None, owner=None):
     from app.advanced_detectors import pii
 
     findings.extend(pii(text))
+    reference_matches = []
     with transaction() as session:
-        from app.categories import keyword_findings, reference_findings
         from app.fingerprints import compare
 
-        findings.extend(keyword_findings(session, text))
         for reference in session.scalars(select(Reference)):
             match = compare(text, reference.text, reference.fingerprint)
             if match["exact"] or (
                 match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
             ):
-                findings.extend(reference_findings(
-                    session, reference.id, "\\n".join(match["matched_fragments"])[:1000],
-                    similarity=match["reference_coverage"],
-                ))
+                reference_matches.append({
+                    "reference_id": reference.id,
+                    "confidence": match["reference_coverage"],
+                    "excerpt": "\n".join(match["matched_fragments"])[:1000],
+                })
                 findings.append(
                     {
                         "category": "REFERENCE_DOCUMENT",
@@ -107,12 +107,14 @@ def analyze(message_id, job_id=None, owner=None):
                         "similarity": match,
                     }
                 )
+    ml_scores = {}
     with transaction() as session:
         active_model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
         if active_model:
             from app.ml import infer
 
             predictions = infer(active_model.artifact, text)
+            ml_scores = {p["category"]: p for p in predictions}
             for prediction in predictions:
                 if prediction["matched"] and prediction["category"] != "NORMAL":
                     findings.append(
@@ -130,6 +132,14 @@ def analyze(message_id, job_id=None, owner=None):
                             "status": "ANALYZED",
                         }
                     )
+    with transaction() as session:
+        from app.categories import custom_findings
+
+        findings.extend(custom_findings(
+            session, text, references=reference_matches, ml_scores=ml_scores,
+            available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+        ))
+
     with transaction() as session:
         assert_current_job(session, job_id, owner)
         message = session.get(Message, message_id, with_for_update=True)
@@ -194,12 +204,6 @@ def analyze(message_id, job_id=None, owner=None):
         semantic_findings = []
         for match in matches:
             if match["similarity"] >= 0.8:
-                from app.categories import reference_findings
-
-                semantic_findings.extend(reference_findings(
-                    session, match["source_id"], match["text"][:1000],
-                    similarity=match["similarity"],
-                ))
                 semantic_findings.append(
                     {
                         "category": "SEMANTIC_REFERENCE",
@@ -215,8 +219,20 @@ def analyze(message_id, job_id=None, owner=None):
                         "status": "ANALYZED",
                     }
                 )
+        from app.categories import custom_findings
+
+        # Include semantic evidence in the same ANY/ALL category decision.
+        semantic_refs = [
+            {"reference_id": m["source_id"], "confidence": m["similarity"], "excerpt": m["text"][:1000]}
+            for m in matches if m["similarity"] >= 0.8
+        ]
+        merged = custom_findings(
+            session, text, references=reference_matches + semantic_refs, ml_scores=ml_scores,
+            available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+        )
+        original = [f for f in findings if not str(f.get("source", "")).startswith("custom-")]
         current = session.get(Content, content.id)
-        current.analysis = {"findings": findings + semantic_findings}
+        current.analysis = {"findings": original + merged + semantic_findings}
     for event_id in event_ids:
         evaluate(event_id, job_id, owner)
 
