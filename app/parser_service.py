@@ -9,7 +9,7 @@ from socketserver import ThreadingMixIn
 from app.sandbox import local_call
 
 LIMIT = 70 * 1024**2
-slots = threading.BoundedSemaphore(2)
+slots = threading.BoundedSemaphore(1)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -45,6 +45,10 @@ class Handler(BaseHTTPRequestHandler):
                     [n, m, base64.b64encode(d).decode()] for n, m, d in result["attachments"]
                 ]
             payload = json.dumps(result).encode()
+            from app.config import settings
+
+            if len(payload) > settings().parser_response_bytes:
+                raise ValueError("Parser response limit")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(payload)))

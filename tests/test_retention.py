@@ -13,7 +13,7 @@ def test_retention_dry_run_and_legal_hold():
 
     from app.db import transaction
     from app.mail import ingest
-    from app.models import Job, Message, now
+    from app.models import Job, MailEvent, Message, now
     from app.retention import cleanup
 
     with transaction() as db:
@@ -23,6 +23,9 @@ def test_retention_dry_run_and_legal_hold():
         message.created_at = now() - timedelta(days=500)
         message.legal_hold = True
         for job in db.query(Job).filter(Job.payload["message_id"].astext == message_id):
+            job.status = "DONE"
+        events = [r.id for r in db.query(MailEvent).filter(MailEvent.message_id == message_id)]
+        for job in db.query(Job).filter(Job.payload["event_id"].astext.in_(events)):
             job.status = "DONE"
     assert message_id not in cleanup(True)["candidates"]
     with transaction() as db:

@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     job_heartbeat_seconds: int = 15
     ocr_backend: str = "disabled"
     ocr_model_root: str = "/opt/ocr-models"
+    parser_response_bytes: int = 80 * 1024 * 1024
     parser_url: str = ""
     clamav_host: str = ""
     clamav_port: int = 3310

@@ -52,6 +52,10 @@ def cleanup(dry_run=True, limit=100):
             .execution_options(yield_per=500)
         )
         for message in rows:
+            # Recheck hold while holding the same row lock used by analysis.
+            session.refresh(message, with_for_update=True)
+            if message.legal_hold:
+                continue
             incidents = list(
                 session.scalars(
                     select(Incident)
@@ -68,9 +72,14 @@ def cleanup(dry_run=True, limit=100):
             )
             if message.created_at > (now() - timedelta(days=days)).replace(tzinfo=None):
                 continue
+            event_ids = select(MailEvent.id).where(MailEvent.message_id == message.id)
             active_jobs = session.scalar(
                 select(Job.id)
-                .where(Job.status.in_(["PENDING", "RUNNING"]), Job.payload["message_id"].astext == message.id)
+                .where(
+                    Job.status.in_(["PENDING", "RUNNING"]),
+                    (Job.payload["message_id"].astext == message.id)
+                    | Job.payload["event_id"].astext.in_(event_ids),
+                )
                 .limit(1)
             )
             if active_jobs:
@@ -94,6 +103,7 @@ def cleanup(dry_run=True, limit=100):
             session.execute(delete(Incident).where(Incident.event_id.in_(events)))
             session.execute(delete(ImportRecord).where(ImportRecord.message_id == message_id))
             session.execute(delete(Attachment).where(Attachment.message_id == message_id))
+            session.execute(delete(Job).where(Job.payload["event_id"].astext.in_(events)))
             session.execute(delete(MailEvent).where(MailEvent.message_id == message_id))
             session.execute(delete(Job).where(Job.payload["message_id"].astext == message_id))
             session.execute(delete(Message).where(Message.id == message_id))

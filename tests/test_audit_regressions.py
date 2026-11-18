@@ -1,5 +1,5 @@
 """Audit regressions for direction inference and archive scanning."""
-import base64
+
 import io
 import zipfile
 
@@ -17,15 +17,40 @@ def test_direction_classification():
     assert classify_direction("bad-address", ["b@company.ru"], domains) == "UNKNOWN"
 
 
-def test_archive_members_exposed_for_separate_scanning():
+def test_archive_members_scanned_without_binary_response():
     from app.extraction import extract
 
     stream = io.BytesIO()
     with zipfile.ZipFile(stream, "w") as archive:
-        archive.writestr("secret.txt", "synthetic token")
+        archive.writestr("secret.txt", "powershell -EncodedCommand QUJDRA==")
         archive.writestr("unknown.bin", b"\x01\x02")
     text, status, details = extract(stream.getvalue(), "mail.zip")
-    assert "synthetic token" in text
-    assert len(details["scan_members"]) == 2
-    assert base64.b64decode(details["scan_members"][0]["data"]) == b"synthetic token"
+    assert "powershell -EncodedCommand QUJDRA==" in text
+    assert "scan_members" not in details
+    assert any(f["source"] == "yara" for f in details["findings"])
     assert status == "PARTIAL"
+
+
+def test_nested_zip_scan_has_no_binary_payload():
+    from app.sandbox import local_call
+
+    inner = io.BytesIO()
+    with zipfile.ZipFile(inner, "w", zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("command.ps1", "powershell -EncodedCommand QUJDRA==")
+    outer = io.BytesIO()
+    with zipfile.ZipFile(outer, "w", zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("nested.zip", inner.getvalue())
+    result = local_call("extract", outer.getvalue(), "outer.zip")
+    assert any(f["source"] == "yara" for f in result["details"]["findings"])
+    assert "scan_members" not in str(result)
+
+
+def test_parser_output_limit(monkeypatch):
+    import pytest
+
+    from app.config import settings
+    from app.sandbox import local_call
+
+    monkeypatch.setattr(settings(), "parser_response_bytes", 20)
+    with pytest.raises(ValueError, match="output limit"):
+        local_call("extract", b"a" * 100, "test.txt")

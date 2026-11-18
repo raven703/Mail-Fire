@@ -14,9 +14,9 @@ from app.models import (
     Blob,
     Content,
     Incident,
+    Job,
     MailEvent,
     Message,
-    Job,
     MLModel,
     Policy,
     Reference,
@@ -30,6 +30,7 @@ def assert_current_job(session, job_id=None, owner=None):
     if job_id is None:
         return
     from datetime import UTC
+
     from app.models import now
 
     job = session.get(Job, job_id, with_for_update=True)
@@ -45,6 +46,7 @@ def analyze(message_id, job_id=None, owner=None):
         raw = session.get(Blob, message.original_sha).data
     parsed = call("mail", raw)
     from app.antivirus import scan as antivirus_scan
+
     objects = []
     antivirus_states = []
     initial_av = antivirus_scan(raw, "message.eml")
@@ -59,14 +61,7 @@ def analyze(message_id, job_id=None, owner=None):
         attachment_findings.extend(call("scan", data, name)["findings"])
         result = call("extract", data, name)
         extracted, status, details = result["text"], result["status"], result["details"]
-        # Scan archived binaries separately; extracted text alone is insufficient.
-        import base64
-        for member in details.pop("scan_members", []):
-            member_bytes = base64.b64decode(member["data"], validate=True)
-            nested_av = antivirus_scan(member_bytes, member["name"])
-            antivirus_states.append(nested_av["status"])
-            attachment_findings.extend(nested_av["findings"])
-            attachment_findings.extend(call("scan", member_bytes, member["name"])["findings"])
+        attachment_findings.extend(details.pop("findings", []))
         text += "\n" + extracted
         objects.append((name, mime, data, extracted, status, details))
     normalized = re.sub(r"\s+", " ", text).strip()
@@ -152,10 +147,14 @@ def analyze(message_id, job_id=None, owner=None):
         content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
-        message.status = "PARTIAL" if (
-            any(o[4] != "ANALYZED" for o in objects)
-            or any(state not in {"OK", "FOUND"} for state in antivirus_states)
-        ) else "ANALYZED"
+        message.status = (
+            "PARTIAL"
+            if (
+                any(o[4] != "ANALYZED" for o in objects)
+                or any(state not in {"OK", "FOUND"} for state in antivirus_states)
+            )
+            else "ANALYZED"
+        )
         for address in set([parsed["sender"]] + parsed["recipients"]):
             if address:
                 session.execute(insert(Address).values(email=address.lower()).on_conflict_do_nothing())
@@ -214,7 +213,10 @@ def evaluate(event_id, job_id=None, owner=None):
     with transaction() as session:
         assert_current_job(session, job_id, owner)
         event = session.get(MailEvent, event_id)
-        message = session.get(Message, event.message_id)
+        if not event:
+            return
+        message = session.get(Message, event.message_id, with_for_update=True)
+        event.direction = classify_direction(message.sender, message.recipients, settings().internal_domains)
         if not message.content_id:
             return
         findings = session.get(Content, message.content_id).analysis.get("findings", [])
