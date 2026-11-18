@@ -21,3 +21,9 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
 .category-chips button{border-radius:15px;padding:.25rem .6rem}
 .category-create{display:grid;gap:.6rem;border:1px solid #8885;padding:1rem;border-radius:10px;margin:1rem 0}
 .incident-training{margin-top:1.3rem;border-top:1px solid #8885;padding-top:1rem}
+
+.category-rule{border:1px solid #8885;border-radius:9px;padding:.8rem;margin:.75rem 0;display:grid;gap:.55rem}
+.category-rule .actions{justify-content:space-between;align-items:center}
+.category-rule label{max-width:100%;min-width:0}
+.category-rule input[type="text"],.category-rule textarea,.category-rule select{width:100%;box-sizing:border-box}
+.category-rule .category-options{max-height:160px}
