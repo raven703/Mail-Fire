@@ -9,11 +9,20 @@ from app.config import settings
 def engine():
     backend = settings().ocr_backend
     if backend == "rapidocr":
-        from rapidocr import RapidOCR
+        from pathlib import Path
+
+        import rapidocr
+        from rapidocr import LangRec, ModelType, OCRVersion, RapidOCR
 
         return RapidOCR(
             params={
                 "Global.log_level": "critical",
+                "Rec.model_path": str(
+                    Path(rapidocr.__file__).parent / "models" / "cyrillic_PP-OCRv5_rec_mobile.onnx"
+                ),
+                "Rec.lang_type": LangRec.CYRILLIC,
+                "Rec.ocr_version": OCRVersion.PPOCRV5,
+                "Rec.model_type": ModelType.MOBILE,
                 "EngineConfig.onnxruntime.intra_op_num_threads": 1,
                 "EngineConfig.onnxruntime.inter_op_num_threads": 1,
             }

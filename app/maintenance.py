@@ -5,12 +5,17 @@ import psutil
 from app.db import transaction
 from app.integrations import deliver_one
 from app.models import Metric
+from app.retention import cleanup
 
 
 def main():
     last_metric = 0
+    last_cleanup = 0
     while True:
         try:
+            if time.monotonic() - last_cleanup > 3600:
+                cleanup(dry_run=False)
+                last_cleanup = time.monotonic()
             if time.monotonic() - last_metric > 30:
                 with transaction() as session:
                     memory = psutil.virtual_memory()

@@ -4,6 +4,7 @@ x-backend: &backend
   env_file: .env
   environment:
     DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+    OCR_BACKEND: ${OCR_BACKEND:-rapidocr}
   restart: unless-stopped
   read_only: true
   tmpfs:

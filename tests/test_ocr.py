@@ -38,3 +38,22 @@ def test_real_ocr_sandbox(monkeypatch):
     result = call("extract", stream.getvalue(), "scan.png")
     assert result["status"] == "ANALYZED"
     assert "SECRET" in result["text"]
+
+
+def test_real_russian_ocr(monkeypatch):
+    from PIL import Image, ImageDraw, ImageFont
+
+    from app.sandbox import call
+
+    monkeypatch.setattr(settings(), "ocr_backend", "rapidocr")
+    image = Image.new("RGB", (1600, 180), "white")
+    ImageDraw.Draw(image).text(
+        (20, 40),
+        "КОНФИДЕНЦИАЛЬНЫЙ ФИНАНСОВЫЙ ОТЧЕТ",
+        fill="black",
+        font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 40),
+    )
+    stream = io.BytesIO()
+    image.save(stream, format="PNG")
+    result = call("extract", stream.getvalue(), "russian.png")
+    assert "ФИНАНСОВЫЙ" in result["text"].upper()

@@ -57,3 +57,14 @@ Paddle adapter непроверен. Полного filesystem sandbox нет; �
 Compose всё ещё использует предыдущие образы: пересобрать и проверить.
 UI новых подсистем ещё отсутствует. Retention не запускается автоматически.
 Embeddings и полноценный semantic search не реализованы.
+
+## Последнее продолжение
+Читайте CONTAINER_VALIDATION.md: последние образы уже пересобраны/запущены.
+Русский OCR исправлен явной моделью Rec.model_path; prepare_ocr.py материализует
+кириллическую модель в installed rapidocr/models при Docker build.
+35 passed / 1 warning; frontend build OK. UI Operations.tsx добавлен.
+Maintenance теперь запускает retention автоматически каждый час, до 100 писем.
+monitoring.py добавляет read-only PostgreSQL/queue/flow/resource endpoints.
+Приоритеты: настоящий filesystem/container sandbox, semantic embeddings/pgvector,
+полноценные healthchecks/diagnostic agent, RBAC UI actions, browser E2E,
+Paddle primary, ML advanced и остальные исходные требования.
