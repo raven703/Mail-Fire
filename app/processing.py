@@ -127,6 +127,33 @@ def analyze(message_id):
         event_ids = list(session.scalars(select(MailEvent.id).where(MailEvent.message_id == message_id)))
     for event_id in event_ids:
         evaluate(event_id)
+    from app.semantic import index_document, search
+
+    with transaction() as session:
+        index_document(session, "content", content.id, text)
+        matches = search(session, text[:10000], "reference", 10)
+        semantic_findings = []
+        for match in matches:
+            if match["similarity"] >= 0.8:
+                semantic_findings.append(
+                    {
+                        "category": "SEMANTIC_REFERENCE",
+                        "rule_id": match["source_id"],
+                        "risk": 50,
+                        "confidence": match["similarity"],
+                        "start": 0,
+                        "end": 0,
+                        "excerpt": match["text"][:1000],
+                        "source": "semantic",
+                        "version": match["model"],
+                        "reason": "Семантическое сходство; не доказательство утечки",
+                        "status": "ANALYZED",
+                    }
+                )
+        current = session.get(Content, content.id)
+        current.analysis = {"findings": findings + semantic_findings}
+    for event_id in event_ids:
+        evaluate(event_id)
 
 
 def evaluate(event_id):

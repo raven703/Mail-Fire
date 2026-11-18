@@ -42,4 +42,8 @@ async def upload_reference(file: UploadFile, account=Depends(analyst), session=D
     session.add(row)
     session.add(Audit(actor=account.id, action="reference_upload", target=row.name))
     session.commit()
+    from app.semantic import index_document
+
+    index_document(session, "reference", row.id, row.text)
+    session.commit()
     return serialize(row)

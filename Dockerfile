@@ -4,6 +4,8 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 COPY scripts/prepare_ocr.py /tmp/prepare_ocr.py
 RUN /app/.venv/bin/python /tmp/prepare_ocr.py && rm /tmp/prepare_ocr.py
+COPY scripts/prepare_embeddings.py /tmp/prepare_embeddings.py
+RUN /app/.venv/bin/python /tmp/prepare_embeddings.py && chmod -R a+rX /opt/embedding-models && rm /tmp/prepare_embeddings.py
 COPY app ./app
 COPY migrations ./migrations
 COPY alembic.ini ./

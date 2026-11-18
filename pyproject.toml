@@ -9,6 +9,7 @@ dependencies = [
     "beautifulsoup4>=4.15.0",
     "extract-msg>=0.58.2",
     "fastapi>=0.163.2",
+    "fastembed>=0.9.1",
     "httpx>=0.28.1",
     "onnxruntime>=1.32.0",
     "openpyxl>=3.1.5",

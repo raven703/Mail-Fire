@@ -78,6 +78,12 @@ def cleanup(dry_run=True, limit=100):
         if dry_run:
             return {"paused": False, "candidates": candidates, "deleted": 0}
         for message_id in candidates:
+            session.execute(
+                __import__("sqlalchemy").text(
+                    "DELETE FROM semantic_chunks WHERE source_type='content' AND source_id IN (SELECT content_id FROM messages WHERE id=:id) AND source_id NOT IN (SELECT content_id FROM messages WHERE id<>:id AND content_id IS NOT NULL)"
+                ),
+                {"id": message_id},
+            )
             events = select(MailEvent.id).where(MailEvent.message_id == message_id)
             incidents = select(Incident.id).where(Incident.event_id.in_(events))
             session.execute(delete(Comment).where(Comment.incident_id.in_(incidents)))

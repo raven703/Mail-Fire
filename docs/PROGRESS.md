@@ -111,3 +111,21 @@
 - Сквозной container_checks.py прошёл через удалённый parser:
   run 0b1e468d2dde41b9808247525954429c, письмо ANALYZED, OCR/эталон/FTS/hold OK.
 - Embeddings, Paddle primary, extended ML, browser E2E и load остаются.
+
+## Embeddings / pgvector — проверенный блок
+- Реальный multilingual MiniLM-L12-v2 через FastEmbed/ONNX, 384 измерения.
+  Изначально выбранный E5-small не поддерживался FastEmbed; заменён реально
+  поддерживаемой multilingual моделью, без фиктивных embeddings.
+- Миграция 0002 добавляет semantic_chunks с model/source/chunk metadata,
+  vector(384), cosine HNSW. Существующие таблицы/данные не удаляются.
+- Chunking 180 слов/40 overlap, индексация эталонов/contents, semantic API
+  search/status/reindex, semantic findings в анализе писем. Порог .8 —
+  начальная настройка, не валидированный порог доказанной утечки.
+- Модель включена в Docker image; runtime local_files_only, без скачивания.
+- Compose build/up и миграция прошли; container_checks.py повторно прошёл.
+- Реальный cross-language pgvector test внутри API: English financial query
+  -> русский финансовый эталон .882, несвязанный рецепт .030.
+- Suite с настоящей моделью/БД: 37 passed, 1 warning. Исправлена выявленная
+  ошибка ambiguous parameter SQL явным CAST optional source_type.
+- Paddle primary, RuBERT/SetFit, semantic UI, browser E2E и полный мониторинг
+  контейнеров ещё не завершены.

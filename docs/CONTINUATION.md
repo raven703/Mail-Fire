@@ -79,3 +79,15 @@ app.sandbox.call использует PARSER_URL в API/worker; local_call ос�
 Далее: semantic embeddings/pgvector, Paddle primary и остальные требования.
 Важно: broker использует тот же image с лишними установленными зависимостями;
 минимизация image желательна. Internal network не заменяет seccomp child.
+
+## Последний semantic checkpoint
+Добавлена миграция 0002 и app/semantic.py, semantic_api.py. FastEmbed использует
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2, 384 dims; weights
+build-time /opt/embedding-models. Локальные тесты: EMBEDDING_CACHE_DIR=
+/tmp/mailfire-embedding-models MAILFIRE_EMBEDDING_TEST=1. Suite 37 passed.
+Compose пересобран/запущен, cross-language query проверен (.882 vs .030).
+API /api/semantic/search, /status, /reindex (до 1000 docs/type синхронно).
+Продолжить Paddle primary, RuBERT/SetFit/analyst decisions, semantic UI,
+container diagnostics и browser E2E. Не повторять изоляцию без критичной причины.
+В semantic_chunks есть 2 синтетических тестовых источника semantic-synthetic-*
+без Reference rows; это явно тестовые данные cross-language проверки.
