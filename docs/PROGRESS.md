@@ -139,3 +139,7 @@ Chromium smoke прошёл восемь разделов, темы, поиск 
   ошибка ambiguous parameter SQL явным CAST optional source_type.
 - Paddle primary, RuBERT/SetFit, semantic UI, browser E2E и полный мониторинг
   контейнеров ещё не завершены.
+### Reference-UI: визуальный перенос
+Перенесены navy sidebar/SVG-навигация, breadcrumbs, стилистика карточек,
+таблиц и статусов; увеличена читаемость. Web пересобран и запущен Compose.
+Минимальные проверки: build + Chromium smoke прошли. Backend не менялся.

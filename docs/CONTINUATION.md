@@ -103,3 +103,8 @@ API /api/semantic/search, /status, /reindex (до 1000 docs/type синхрон�
 container diagnostics и browser E2E. Не повторять изоляцию без критичной причины.
 В semantic_chunks есть 2 синтетических тестовых источника semantic-synthetic-*
 без Reference rows; это явно тестовые данные cross-language проверки.
+Последний визуальный этап: Reference-UI перенесён частично в React — navy
+sidebar с SVG, breadcrumbs, cards/tables/badges, dashboard grid. Исходный
+Reference-UI пользовательский: не изменять и не включать в commit автоматически.
+Smoke /tmp/mailfire-reference-smoke.log прошёл, web Compose обновлён.
+Пользователь просит экономить токены и запускать минимум необходимых тестов.
