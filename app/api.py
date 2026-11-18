@@ -28,6 +28,7 @@ from app.models import (
     Policy,
     now,
 )
+from app.uploads import upload_members
 
 app = FastAPI(title="Mail Fire", version="0.1.0")
 
@@ -170,9 +171,14 @@ async def upload(files: list[UploadFile], account=Depends(analyst)):
     for file in files:
         data = await file.read(settings().max_message_bytes + 1)
         try:
-            with transaction() as session:
-                record = ingest(session, data, "web", "web:" + sha(data), file.filename or "upload")
-                results.append(serialize(record))
+            members = upload_members(data, file.filename or "upload")
+            for name, payload in members:
+                try:
+                    with transaction() as session:
+                        record = ingest(session, payload, "web", "web:" + sha(payload), name)
+                        results.append(serialize(record))
+                except Exception as exc:
+                    results.append({"name": name, "status": "FAILED", "error": type(exc).__name__})
         except Exception as exc:
             results.append({"name": file.filename, "status": "FAILED", "error": type(exc).__name__})
     return results

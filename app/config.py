@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     smtp_port: int = 2525
     session_hours: int = 8
     analysis_timeout: int = 120
+    job_lease_seconds: int = 60
+    job_heartbeat_seconds: int = 15
 
 
 @lru_cache

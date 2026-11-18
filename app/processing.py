@@ -16,6 +16,7 @@ from app.models import (
     Incident,
     MailEvent,
     Message,
+    MLModel,
     Policy,
 )
 
@@ -35,6 +36,29 @@ def analyze(message_id):
     digest = hashlib.sha256(normalized.encode()).hexdigest()
     findings = detect(text)
     with transaction() as session:
+        active_model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
+        if active_model:
+            from app.ml import infer
+
+            predictions = infer(active_model.artifact, text)
+            for prediction in predictions:
+                if prediction["matched"]:
+                    findings.append(
+                        {
+                            "category": prediction["category"],
+                            "rule_id": "ml-classification",
+                            "risk": 50,
+                            "confidence": prediction["confidence"],
+                            "start": 0,
+                            "end": 0,
+                            "excerpt": "",
+                            "source": "supervised-ml",
+                            "version": active_model.id,
+                            "reason": "Вероятностная классификация; не доказательство утечки",
+                            "status": "ANALYZED",
+                        }
+                    )
+    with transaction() as session:
         message = session.get(Message, message_id, with_for_update=True)
         content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         if not content:
@@ -51,6 +75,9 @@ def analyze(message_id):
             )
             content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         message.content_id = content.id
+        # Reanalysis must update results after detector/model changes.
+        content.analysis = {"findings": findings}
+        content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
         message.status = "PARTIAL" if any(o[4] != "ANALYZED" for o in objects) else "ANALYZED"

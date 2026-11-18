@@ -31,3 +31,16 @@ Compose config не прошёл из-за отсутствующего .env; т
 Следующие приоритеты: checkpoint Git и документация; Compose live verification;
 исправить importer archive reimport и symlink ancestor race; очередь heartbeat
 и fencing; безопасный ZIP upload; затем sandbox extraction/OCR и другие этапы.
+
+## Актуализация после продолжения
+Compose уже собран и запущен. UI localhost:8080, API localhost:8000.
+Локальный .env создан со случайными секретами (не коммитить). В compose БД
+проверен импорт 3 синтетических писем: 3 ANALYZED / 6 DONE / 3 incidents.
+Тестовая отдельная БД mailfire-test-db остаётся на :55432.
+Последние тесты: 25 passed, 1 warning. Добавлены heartbeat и lease completion
+fencing, ZIP upload, настоящий ML baseline с API в app/ml_api.py.
+Точка входа теперь app.main:app (включает ML router).
+Не путать ML baseline с выполнением RuBERT/SetFit требований.
+Приоритет: sandbox parser без DB credentials/network, реальный OCR;
+полное fencing derived results; UI ZIP/ML; нормализация событий/получателей;
+SIEM/retention/эталоны/диагностика. Далее остальные пункты плана.

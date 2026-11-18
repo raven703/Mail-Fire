@@ -38,3 +38,23 @@
   обновление latest автоматически проблему не устранило. Не скрывать её.
 
 Проект — незавершённая разработка, не готов к промышленному использованию.
+
+## Продолжение сессии: проверенные изменения
+- Создан локальный Git checkpoint b0b8160; удалённая публикация не выполнялась.
+- Создан игнорируемый `.env` со случайными локальными паролями.
+- Compose config, сборка всех образов и `docker compose up -d` успешно выполнены.
+  PostgreSQL и API healthy; web/importer/worker/SMTP запущены. У последних
+  пока нет самостоятельных healthchecks.
+- Через nginx: UI 200, /api/health OK, login 200, ML статус UNTRAINED.
+- Реальный файловый импорт трёх синтетических EML: 3 ANALYZED, 6 DONE jobs,
+  3 инцидента в Compose PostgreSQL; исходные файлы сохранены.
+- Heartbeat очереди, fencing завершения по owner/lease, recovery-тест.
+  Полное fencing записи результатов ещё не реализовано.
+- Безопасный ограниченный ZIP upload endpoint, security-тесты ZIP.
+- Исключение .imported из сканирования, обработка исчезновения файла.
+- Настоящий ML baseline TF-IDF + logistic multilabel, дедупликация групп,
+  train/validation/test, validation thresholds, per-label precision/recall/F1,
+  quality gate, хранение артефактов в БД, publication/rollback API.
+  Подключён к анализу почты. RuBERT/SetFit и ML UI ещё отсутствуют.
+- Финальный запуск: **25 passed**, 1 deprecation warning, настоящая тестовая БД.
+  Ruff и compileall проходят. См. KNOWN_LIMITATIONS.md.

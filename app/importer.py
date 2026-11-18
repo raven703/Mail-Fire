@@ -15,7 +15,11 @@ def scan(root, observed):
     root = Path(root).resolve(strict=True)
     paths = root.rglob("*") if settings().import_recursive else root.iterdir()
     for path in paths:
-        if path.is_symlink() or path.suffix.lower() not in {".eml", ".msg"}:
+        if (
+            ".imported" in path.relative_to(root).parts
+            or path.is_symlink()
+            or path.suffix.lower() not in {".eml", ".msg"}
+        ):
             continue
         try:
             if root not in path.resolve().parents:
@@ -53,7 +57,11 @@ def scan(root, observed):
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     path.rename(destination)
         except Exception as exc:
-            key = "failed:" + str(path) + ":" + str(path.lstat().st_mtime_ns)
+            try:
+                failed_mtime = path.lstat().st_mtime_ns
+            except OSError:
+                continue
+            key = "failed:" + str(path) + ":" + str(failed_mtime)
             with transaction() as session:
                 if not session.scalar(select(ImportRecord).where(ImportRecord.source_key == key)):
                     session.add(
