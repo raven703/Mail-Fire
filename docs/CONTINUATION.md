@@ -157,3 +157,9 @@ and calibrated metrics, ClamAV real EICAR acceptance, per-container telemetry,
 full security/failure-recovery audit, DB integration tests for new job handlers,
 all administrative browser CRUD scenarios. Do not claim production readiness.
 Logs /tmp/mailfire-{all-build,rebuild-fix,redeploy-fix,deployed-browser,hardening-final-tests}.log.
+
+PR #1 cbc8e342 reviewed locally, corrected in a718086, merged locally to master
+cd2f213 after disposable PostgreSQL suite (44 passed, 2 skipped) and four targeted
+regressions. All Compose images rebuilt, stack recreated; api/db/parser healthy.
+Browser smoke passes. Production message/blob counts unchanged across deployment;
+backup /tmp/mailfire-before-audit.dump. No push performed. update/ user files untouched.
