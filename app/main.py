@@ -1,5 +1,6 @@
 from app.admin_api import router as admin_router
 from app.api import app
+from app.catalog_api import router as catalog_router
 from app.ml_api import router
 from app.monitoring import router as monitoring_router
 from app.reference_api import router as reference_router
@@ -14,3 +15,4 @@ app.include_router(retention_router)
 app.include_router(monitoring_router)
 app.include_router(semantic_router)
 app.include_router(workspace_router)
+app.include_router(catalog_router)

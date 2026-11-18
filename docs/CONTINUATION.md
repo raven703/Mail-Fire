@@ -117,3 +117,12 @@ Toolbar refinement: health dot проверяет только /api/health (API+
 не все контейнеры; click -> system. Bell -> open incidents. Polling 10с
 для лёгких списков/overview, без карточек и тяжёлых операций. Ещё требуется
 дальнейшая унификация фильтров административных разделов и расширение health.
+
+Management block: app/catalog_api.py + frontend/src/Management.tsx. Detector
+switches применяются в processing.evaluate к новым findings, не отключают
+сам inference/extraction. Реестр пока импортируется из catalog_api (следует
+вынести в независимый модуль). Reevaluate bounded 1000 events, existing worker
+kind evaluate; не пересчитывает сохранённые incident decisions. Reference
+удаление сохраняет blob до retention и исторические findings. ML настоящий
+TF-IDF baseline, НЕ RuBERT/SetFit. Проверь расширенные сценарии CRUD/permissions;
+API smoke на disposable DB успешен, browser partial interruption отмечен.

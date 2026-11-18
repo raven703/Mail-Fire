@@ -85,3 +85,11 @@ ZIP происхождение отдельно не сохранено стар
 IncidentTable: тема/дата, аватар отправителя, адрес, категория, риск и статус.
 Проверки: Compose build api/web, Ruff, Chromium smoke с ожиданием PUT темы
 и проверкой её восстановления после reload. Полный pytest не запускался.
+
+## Management pages
+Политики: KPI active/shadow/daily hits, rows/toggles/history/editor, reassess.
+ML: настоящий TF-IDF, версии/разметка/train/test metrics/publish/rollback.
+Детекторы: реестр реально реализованных правил, persistent audited toggles.
+Эталоны: cards/search/stats/detail/matches/index/delete. Все /api/catalog
+операции соблюдают роли/CSRF; sensitive text требует originals.
+Ограничения: KNOWN_LIMITATIONS.md (management), не все действия E2E покрыты.

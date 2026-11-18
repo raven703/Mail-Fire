@@ -18,6 +18,7 @@ from app.models import (
     MLModel,
     Policy,
     Reference,
+    Setting,
 )
 from app.sandbox import call
 
@@ -163,6 +164,21 @@ def evaluate(event_id):
         if not message.content_id:
             return
         findings = session.get(Content, message.content_id).analysis.get("findings", [])
+        from app.catalog_api import DETECTORS
+
+        config = session.get(Setting, "detectors")
+        disabled = {
+            category
+            for key, value in DETECTORS.items()
+            if config and not config.value.get(key, True)
+            for category in value[2]
+        }
+        findings = [
+            f
+            for f in findings
+            if f["category"] not in disabled
+            and not (config and not config.value.get("ml", True) and f.get("source") == "supervised-ml")
+        ]
         for policy in session.scalars(
             select(Policy).where(Policy.enabled.is_(True)).order_by(Policy.priority)
         ):
