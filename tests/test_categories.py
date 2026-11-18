@@ -28,16 +28,47 @@ def test_category_lifecycle_policy_and_ml_labels():
             "/api/categories",
             headers=headers,
             json={"name": "Синтетический финансовый прогноз", "group_name": "Финансы",
-                  "mode": "keywords", "keywords": ["плановая выручка"]},
+                  "match_mode": "any", "rules": [
+                    {"kind": "keywords", "title": "Фраза выручка", "phrases": ["плановая выручка"]},
+                    {"kind": "regex", "title": "Код проекта", "pattern": "FNC-[0-9]{4}"},
+                  ]},
         )
         assert creation.status_code == 200, creation.text
         category_id = creation.json()["id"]
         try:
             with transaction() as session:
-                from app.categories import keyword_findings
+                from app.categories import custom_findings
 
-                findings = keyword_findings(session, "Письмо содержит плановая выручка будущего года")
-                assert any(x["category"] == category_id for x in findings)
+                one = custom_findings(session, "Письмо содержит плановая выручка будущего года")
+                assert any(x["category"] == category_id for x in one)
+                regex = custom_findings(session, "Проект FNC-2027 успешно создан")
+                assert any(x["source"] == "custom-regex" for x in regex)
+                miss = custom_findings(session, "Несвязанная заметка")
+                assert not any(x["category"] == category_id for x in miss)
+
+            body_all = {
+                "name": "Синтетический финансовый прогноз", "group_name": "Финансы",
+                "match_mode": "all", "rules": [
+                    {"kind": "keywords", "phrases": ["плановая выручка"]},
+                    {"kind": "regex", "pattern": "FNC-[0-9]{4}"},
+                ],
+            }
+            updated = client.put("/api/categories/" + category_id, headers=headers, json=body_all)
+            assert updated.status_code == 200, updated.text
+            with transaction() as session:
+                from app.categories import custom_findings
+                only_one = custom_findings(session, "плановая выручка")
+                assert not any(x["category"] == category_id for x in only_one)
+                both = custom_findings(session, "плановая выручка FNC-2027")
+                assert len([x for x in both if x["category"] == category_id]) == 2
+
+            bad_pattern = client.put(
+                "/api/categories/" + category_id, headers=headers,
+                json={"name": "Синтетический финансовый прогноз", "rules": [
+                    {"kind": "regex", "pattern": "(a+)+"}
+                ]},
+            )
+            assert bad_pattern.status_code == 422
 
             invalid = client.post(
                 "/api/workspace/policies",
