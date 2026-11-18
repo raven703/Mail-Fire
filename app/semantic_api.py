@@ -3,8 +3,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select, text
 
 from app.api import admin, db, user
-from app.models import Audit, Content, Reference
-from app.semantic import MODEL, index_document, search
+from app.models import Audit, Content, Job, Reference
+from app.semantic import MODEL, search
 
 router = APIRouter(prefix="/api/semantic", tags=["Semantic search"])
 
@@ -26,15 +26,18 @@ def searching(body: Query, account=Depends(user), session=Depends(db)):
     return {"model": MODEL, "items": result, "warning": "Сходство не является доказательством утечки"}
 
 
-@router.post("/reindex")
+@router.post("/reindex", status_code=202)
 def reindex(account=Depends(admin), session=Depends(db)):
-    count = 0
+    if not account.originals:
+        raise HTTPException(403)
+    items = []
     for kind, model in [("reference", Reference), ("content", Content)]:
-        for row in session.scalars(select(model).limit(1000)):
-            count += index_document(session, kind, row.id, row.text)
+        items.extend([[kind, row_id] for row_id in session.scalars(select(model.id).order_by(model.id))])
+    job = Job(kind="semantic_reindex", payload={"items": items, "completed": 0, "progress": 0})
+    session.add(job)
     session.add(Audit(actor=account.id, action="semantic_reindex", target=MODEL))
     session.commit()
-    return {"chunks_indexed": count, "model": MODEL, "document_limit_per_type": 1000}
+    return {"job_id": job.id, "documents": len(items), "status": job.status}
 
 
 @router.get("/status")

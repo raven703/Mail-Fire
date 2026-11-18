@@ -300,8 +300,26 @@ def retry(job_id: str, account=Depends(admin), session=Depends(db)):
     job = session.get(Job, job_id, with_for_update=True)
     if not job:
         raise HTTPException(404)
-    if job.status not in {"DEAD", "DONE"}:
+    if job.status not in {"DEAD", "DONE", "CANCELLED"}:
         raise HTTPException(409, "Задание ещё активно")
     job.status, job.attempts, job.available_at = "PENDING", 0, now()
     session.commit()
     return {"queued": True}
+
+
+@app.post("/api/jobs/{job_id}/cancel")
+def cancel_job(job_id: str, account=Depends(admin), session=Depends(db)):
+    job = session.get(Job, job_id, with_for_update=True)
+    if not job:
+        raise HTTPException(404)
+    if job.kind not in {"ml_train", "semantic_reindex"}:
+        raise HTTPException(409, "Отмена этого типа задач пока не поддерживается")
+    if job.status not in {"PENDING", "RUNNING"}:
+        raise HTTPException(409, "Задание уже завершено")
+    job.status, job.finished_at, job.lease_until = "CANCELLED", now(), None
+    session.add(Audit(actor=account.id, action="job_cancel", target=job_id))
+    session.commit()
+    return {
+        "cancelled": True,
+        "note": "Результат обучения не будет опубликован; вычисление может завершаться в фоне",
+    }

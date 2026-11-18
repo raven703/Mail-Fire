@@ -1,6 +1,30 @@
 import io
+import os
+
+import pytest
 
 from app.config import settings
+
+
+@pytest.mark.skipif(not os.getenv("MAILFIRE_TEST_PADDLE"), reason="Requires preinstalled Paddle weights")
+def test_real_paddle_russian_english(monkeypatch):
+    from PIL import Image, ImageDraw, ImageFont
+
+    from app.sandbox import local_call
+
+    monkeypatch.setattr(settings(), "ocr_backend", "paddleocr")
+    image = Image.new("RGB", (1800, 220), "white")
+    ImageDraw.Draw(image).text(
+        (20, 40),
+        "ФИНАНСОВЫЙ ОТЧЕТ SECRET",
+        fill="black",
+        font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 48),
+    )
+    stream = io.BytesIO()
+    image.save(stream, format="PNG")
+    result = local_call("extract", stream.getvalue(), "paddle.png")
+    assert "ФИНАНСОВЫЙ" in result["text"].upper()
+    assert "SECRET" in result["text"].upper()
 
 
 def test_real_rapidocr_image(monkeypatch):

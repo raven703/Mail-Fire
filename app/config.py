@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     ocr_backend: str = "disabled"
     ocr_model_root: str = "/opt/ocr-models"
     parser_url: str = ""
+    clamav_host: str = ""
+    clamav_port: int = 3310
 
 
 @lru_cache

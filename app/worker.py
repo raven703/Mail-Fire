@@ -3,9 +3,9 @@ import socket
 import threading
 import time
 import uuid
-from datetime import timedelta
+from datetime import UTC, timedelta
 
-from sqlalchemy import and_, or_, select, update
+from sqlalchemy import and_, or_, select, text, update
 
 from app.config import settings
 from app.db import transaction
@@ -15,13 +15,21 @@ from app.processing import analyze, evaluate
 
 def claim(owner):
     with transaction() as session:
+        # Serialize claims only, not processing; at most one live training lease.
+        session.execute(text("SELECT pg_advisory_xact_lock(hashtext('job-claim'))"))
+        training_busy = session.scalar(
+            select(Job.id)
+            .where(Job.kind == "ml_train", Job.status == "RUNNING", Job.lease_until > now())
+            .limit(1)
+        )
         job = session.scalar(
             select(Job)
             .where(
+                Job.kind != "ml_train" if training_busy else True,
                 or_(
                     and_(Job.status == "PENDING", Job.available_at <= now()),
                     and_(Job.status == "RUNNING", Job.lease_until < now()),
-                )
+                ),
             )
             .order_by(Job.priority, Job.created_at)
             .with_for_update(skip_locked=True)
@@ -70,7 +78,6 @@ def complete(job_id, owner):
 
 
 def main():
-    # External parsers still need a separate sandbox before production use.
     owner = f"{socket.gethostname()}:{os.getpid()}:{uuid.uuid4().hex}"
     while True:
         try:
@@ -87,13 +94,26 @@ def main():
                     analyze(payload["message_id"])
                 elif kind == "evaluate":
                     evaluate(payload["event_id"])
+                elif kind == "ml_train":
+                    from app.background import train_job
+
+                    train_job(job_id, owner, payload)
+                elif kind == "semantic_reindex":
+                    from app.background import reindex_job
+
+                    reindex_job(job_id, owner, payload)
                 else:
                     raise ValueError("Unknown job type")
                 complete(job_id, owner)
             except Exception as exc:
                 with transaction() as session:
                     job = session.get(Job, job_id, with_for_update=True)
-                    if job.owner != owner:
+                    if (
+                        job.owner != owner
+                        or job.status != "RUNNING"
+                        or not job.lease_until
+                        or job.lease_until.replace(tzinfo=UTC) <= now()
+                    ):
                         continue
                     job.error = type(exc).__name__
                     job.status = "DEAD" if job.attempts >= 5 else "PENDING"

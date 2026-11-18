@@ -14,9 +14,12 @@ import tempfile
 from app.config import settings
 
 
-def restrict():
+def restrict(scan=False):
     resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
-    resource.setrlimit(resource.RLIMIT_AS, (3 * 1024**3, 3 * 1024**3))
+    # Gitleaks' WASM regex runtime reserves 4GiB virtual memory; RSS remains
+    # bounded by the parser container's 3GiB cgroup limit.
+    address_limit = (8 if scan else 3) * 1024**3
+    resource.setrlimit(resource.RLIMIT_AS, (address_limit, address_limit))
     resource.setrlimit(resource.RLIMIT_FSIZE, (128 * 1024**2, 128 * 1024**2))
     resource.setrlimit(resource.RLIMIT_NOFILE, (128, 128))
     resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
@@ -82,7 +85,7 @@ def local_call(operation, data, name=""):
     ).encode()
     with tempfile.TemporaryDirectory(prefix="mailfire-parser-") as directory:
         env = {
-            "PATH": os.path.dirname(sys.executable) + ":/usr/bin:/bin",
+            "PATH": os.path.dirname(sys.executable) + ":/usr/local/bin:/usr/bin:/bin",
             "HOME": directory,
             "TMPDIR": directory,
             "PYTHONPATH": str(__import__("pathlib").Path(__file__).resolve().parent.parent),
@@ -114,8 +117,8 @@ def local_call(operation, data, name=""):
 
 
 def main():
-    restrict()
     request = json.loads(sys.stdin.buffer.read(70 * 1024**2))
+    restrict(scan=request.get("operation") == "scan")
     data = base64.b64decode(request["data"], validate=True)
     try:
         if request["operation"] == "probe":
@@ -137,6 +140,10 @@ def main():
                 }
             else:
                 raise RuntimeError("Network unexpectedly allowed")
+        elif request["operation"] == "scan":
+            from app.advanced_detectors import static_scan
+
+            output = static_scan(data, request["name"])
         elif request["operation"] == "mail":
             from app.mail import parse_mail
 

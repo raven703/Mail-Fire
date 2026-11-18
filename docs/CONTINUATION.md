@@ -130,3 +130,30 @@ API smoke на disposable DB успешен, browser partial interruption отм
 Latest detail UX: Evidence.tsx (Summary/Evidence), main.tsx integration.
 Build/smoke /tmp/mailfire-detail-{build,smoke}.log. Последний dist скопирован
 в web, immutable image следует пересобрать при следующем deploy.
+
+2026-11-18 functional hardening work in progress (not production acceptance):
+- Added actual Presidio PatternRecognizers (RU INN/SNILS checksums, contextual passport, phone), YARA and oletools isolated scan operation, Gitleaks 8.30.1 checksum-pinned build installer and CLI adapter. New synthetic tests pass with local binary.
+- Added Clamd INSTREAM adapter (disabled unless CLAMAV_HOST is set), optional Compose antivirus profile. Real ClamAV signatures/EICAR NOT yet verified.
+- Training now enqueues ml_train and returns 202; worker lease-fenced model persistence, single live training claim, admin cancellation suppresses persistence but does not terminate native computation. Frontend accepts queued response. Progress currently only 0/100, no intermediate progress. Other heavy operations unchanged.
+- Content digest includes binary attachment hashes and detector revision to avoid sharing binary evidence across different files with identical text.
+- Ruff passes; 18 targeted tests pass; frontend build passes. PostgreSQL training/cancellation tests and browser regression NOT yet run.
+- uv add paddleocr paddlepaddle still downloading at last check (/tmp/mailfire-paddle-install.log); dependencies/lock updated, runtime NOT verified. OCR default remains unchanged, no pretrained RuBERT/SetFit integration yet.
+- First Docker build succeeded but snapshot predates final edits. Second build running (/tmp/mailfire-final-engines-build.log), no new deployment yet. Do NOT assume running services include these changes.
+- User requests autonomous completion of full hardening scope; monitoring, RBAC audit, corpus metrics, admin CRUD and operational acceptance remain open. Preserve Reference-UI and PostgreSQL data.
+
+Follow-up deployed: all standard Compose images successfully built and services recreated.
+api/db/parser healthy, worker/importer/maintenance/smtp/web running. Browser smoke passes.
+PaddleOCR 2.10 CPU RU+EN verified locally and inside deployed parser. 3.x conflicts
+with current Presidio PyYAML constraints; exact 2.10 pinned. Compose default Paddle,
+but existing OCR_BACKEND env override still takes precedence. RapidOCR retained.
+Fixed native OpenCV runtime libs in Docker and Gitleaks WASM virtual allocation:
+scan subprocess AS limit 8GiB, parser cgroup RSS remains 3GiB; other operations 3GiB.
+Deployed sandbox Gitleaks/YARA reports OK and synthetic secret detected.
+Added accounts API+settings UI, role/enable/original permissions/password updates,
+session revocation, last-admin protection. Reindex durable per-document checkpoints,
+admin jobs/alerts endpoints. 23 targeted tests passed including real Paddle/Rapid OCR.
+Remaining NOT complete: RuBERT/SetFit, analyst-decision training flow, full corpus
+and calibrated metrics, ClamAV real EICAR acceptance, per-container telemetry,
+full security/failure-recovery audit, DB integration tests for new job handlers,
+all administrative browser CRUD scenarios. Do not claim production readiness.
+Logs /tmp/mailfire-{all-build,rebuild-fix,redeploy-fix,deployed-browser,hardening-final-tests}.log.

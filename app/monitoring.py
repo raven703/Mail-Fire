@@ -4,9 +4,37 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select, text
 
 from app.api import admin, db, serialize, user
-from app.models import Metric
+from app.models import Job, Metric
 
 router = APIRouter(prefix="/api/monitoring", tags=["Monitoring"])
+
+
+@router.get("/jobs")
+def job_details(account=Depends(admin), session=Depends(db)):
+    rows = session.scalars(select(Job).order_by(Job.created_at.desc()).limit(100))
+    return {
+        "items": [
+            {
+                k: getattr(r, k)
+                for k in ("id", "kind", "status", "attempts", "error", "created_at", "finished_at")
+            }
+            | {
+                "progress": r.payload.get("progress"),
+                "completed": r.payload.get("completed"),
+                "total": len(r.payload.get("items", [])),
+            }
+            for r in rows
+        ]
+    }
+
+
+@router.get("/alerts")
+def alerts(account=Depends(admin), session=Depends(db)):
+    rows = session.execute(
+        text("""SELECT kind, count(*) AS count FROM jobs
+        WHERE status='DEAD' OR (status='RUNNING' AND lease_until < now()) GROUP BY kind""")
+    )
+    return {"items": [dict(r._mapping) for r in rows], "scope": "dead jobs and expired leases"}
 
 
 @router.get("/queues")

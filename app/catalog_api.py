@@ -24,7 +24,17 @@ from app.workspace_api import PolicyBody, persist_policy
 
 router = APIRouter(prefix="/api/catalog", tags=["Management"])
 DETECTORS = {
-    "pii": ("Персональные данные", "Статические правила, контрольная сумма ИНН", ["EMAIL", "PHONE", "INN"]),
+    "pii": (
+        "Персональные данные",
+        "Presidio: российские ПДн, контрольные суммы ИНН/СНИЛС",
+        ["EMAIL", "PHONE", "INN", "RU_INN", "RU_SNILS", "RU_PASSPORT", "RU_PHONE"],
+    ),
+    "static_files": (
+        "Статический анализ вложений",
+        "YARA и oletools; без исполнения кода",
+        ["YARA", "OFFICE_MACRO"],
+    ),
+    "antivirus": ("Антивирус", "ClamAV INSTREAM; требует включённого сервиса", ["MALWARE"]),
     "secrets": ("Секреты и ключи", "Статические сигнатуры", ["SECRET", "PRIVATE_KEY"]),
     "confidential": ("Коммерческая тайна", "Контекстные словари", ["CONFIDENTIAL"]),
     "code": ("Исходный код и команды", "Статические эвристики", ["CODE", "SUSPICIOUS_COMMAND"]),
@@ -211,12 +221,13 @@ def reindex_reference(reference_id: str, account=Depends(analyst), session=Depen
     row = session.get(Reference, reference_id)
     if not row:
         raise HTTPException(404)
-    from app.semantic import index_document
-
-    count = index_document(session, "reference", row.id, row.text)
+    job = Job(
+        kind="semantic_reindex", payload={"items": [["reference", row.id]], "completed": 0, "progress": 0}
+    )
+    session.add(job)
     session.add(Audit(actor=account.id, action="reference_reindex", target=row.id))
     session.commit()
-    return {"chunks": count}
+    return {"job_id": job.id, "queued": True}
 
 
 @router.delete("/references/{reference_id}")

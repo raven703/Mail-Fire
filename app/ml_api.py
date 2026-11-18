@@ -3,8 +3,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select, text, update
 
 from app.api import admin, analyst, db, serialize, user
-from app.ml import group_hash, infer, train
-from app.models import Audit, MLModel, TrainingExample
+from app.ml import group_hash, infer
+from app.models import Audit, Job, MLModel, TrainingExample
 
 router = APIRouter(prefix="/api/ml", tags=["ML"])
 
@@ -45,22 +45,20 @@ class TrainBody(BaseModel):
     min_f1: float = Field(default=0.7, ge=0.5, le=1)
 
 
-@router.post("/train")
+@router.post("/train", status_code=202)
 def training(body: TrainBody, account=Depends(admin), session=Depends(db)):
     rows = list(
         session.scalars(select(TrainingExample).where(TrainingExample.approved.is_(True)).limit(10001))
     )
     if len(rows) > 10000:
         raise HTTPException(422, "Используйте выделенный training worker для более 10000 примеров")
-    try:
-        artifact, metrics, eligible = train([{"text": r.text, "labels": r.labels} for r in rows], body.min_f1)
-    except ValueError as exc:
-        raise HTTPException(422, str(exc))
-    model = MLModel(name=body.name, artifact=artifact, metrics=metrics, eligible=eligible)
-    session.add(model)
+    if len(rows) < 30:
+        raise HTTPException(422, "Нужно не менее 30 различных утверждённых примеров")
+    job = Job(kind="ml_train", payload={"name": body.name, "min_f1": body.min_f1, "progress": 0})
+    session.add(job)
     session.add(Audit(actor=account.id, action="ml_train", target=body.name))
     session.commit()
-    return serialize(model)
+    return serialize(job)
 
 
 @router.post("/models/{model_id}/publish")

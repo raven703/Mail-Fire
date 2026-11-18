@@ -28,16 +28,31 @@ def analyze(message_id):
         message = session.get(Message, message_id)
         raw = session.get(Blob, message.original_sha).data
     parsed = call("mail", raw)
+    from app.antivirus import scan as antivirus_scan
     objects = []
+    attachment_findings = antivirus_scan(raw, "message.eml")["findings"]
     text = parsed["text"]
+    attachment_findings.extend(call("scan", text.encode(), "body.txt")["findings"])
     for name, mime, data in parsed["attachments"]:
+        attachment_findings.extend(antivirus_scan(data, name)["findings"])
+        attachment_findings.extend(call("scan", data, name)["findings"])
         result = call("extract", data, name)
         extracted, status, details = result["text"], result["status"], result["details"]
         text += "\n" + extracted
         objects.append((name, mime, data, extracted, status, details))
     normalized = re.sub(r"\s+", " ", text).strip()
-    digest = hashlib.sha256(normalized.encode()).hexdigest()
+    # Binary evidence is not determined by extracted text alone (macros, executables).
+    identity = (
+        normalized.encode()
+        + b"\0advanced-1\0"
+        + b"\0".join(hashlib.sha256(data).digest() for _, _, data in parsed["attachments"])
+    )
+    digest = hashlib.sha256(identity).hexdigest()
     findings = detect(text)
+    findings.extend(attachment_findings)
+    from app.advanced_detectors import pii
+
+    findings.extend(pii(text))
     with transaction() as session:
         from app.fingerprints import compare
 
