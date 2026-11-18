@@ -184,8 +184,25 @@ class Reference(IDMixin, Base):
     fingerprint: Mapped[dict] = mapped_column(JSONB)
 
 
+class Category(Base):
+    __tablename__ = "categories"
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    name: Mapped[str] = mapped_column(String(160), unique=True)
+    group_name: Mapped[str] = mapped_column(String(120), default="Другое")
+    description: Mapped[str] = mapped_column(Text, default="")
+    mode: Mapped[str] = mapped_column(String(24), default="ml")
+    active: Mapped[bool] = mapped_column(default=True)
+    keywords: Mapped[list] = mapped_column(JSONB, default=list)
+    reference_id: Mapped[str | None] = mapped_column(
+        ForeignKey("references.id", ondelete="SET NULL"), nullable=True
+    )
+
+
 class TrainingExample(IDMixin, Base):
     __tablename__ = "training_examples"
+    source_incident_id: Mapped[str | None] = mapped_column(
+        ForeignKey("incidents.id", ondelete="SET NULL"), unique=True, nullable=True
+    )
     text: Mapped[str] = mapped_column(Text)
     group_sha: Mapped[str] = mapped_column(String(64), index=True)
     labels: Mapped[list] = mapped_column(JSONB)

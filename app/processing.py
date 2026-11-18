@@ -78,13 +78,19 @@ def analyze(message_id, job_id=None, owner=None):
 
     findings.extend(pii(text))
     with transaction() as session:
+        from app.categories import keyword_findings, reference_findings
         from app.fingerprints import compare
 
+        findings.extend(keyword_findings(session, text))
         for reference in session.scalars(select(Reference)):
             match = compare(text, reference.text, reference.fingerprint)
             if match["exact"] or (
                 match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
             ):
+                findings.extend(reference_findings(
+                    session, reference.id, "\\n".join(match["matched_fragments"])[:1000],
+                    similarity=match["reference_coverage"],
+                ))
                 findings.append(
                     {
                         "category": "REFERENCE_DOCUMENT",
@@ -108,7 +114,7 @@ def analyze(message_id, job_id=None, owner=None):
 
             predictions = infer(active_model.artifact, text)
             for prediction in predictions:
-                if prediction["matched"]:
+                if prediction["matched"] and prediction["category"] != "NORMAL":
                     findings.append(
                         {
                             "category": prediction["category"],
@@ -188,6 +194,12 @@ def analyze(message_id, job_id=None, owner=None):
         semantic_findings = []
         for match in matches:
             if match["similarity"] >= 0.8:
+                from app.categories import reference_findings
+
+                semantic_findings.extend(reference_findings(
+                    session, match["source_id"], match["text"][:1000],
+                    similarity=match["similarity"],
+                ))
                 semantic_findings.append(
                     {
                         "category": "SEMANTIC_REFERENCE",
@@ -229,10 +241,15 @@ def evaluate(event_id, job_id=None, owner=None):
             if config and not config.value.get(key, True)
             for category in value[2]
         }
+        from app.models import Category
+
+        active_categories = set(session.scalars(
+            select(Category.id).where(Category.active.is_(True))
+        ))
         findings = [
             f
             for f in findings
-            if f["category"] not in disabled
+            if f["category"] in active_categories and f["category"] not in disabled
             and not (config and not config.value.get("ml", True) and f.get("source") == "supervised-ml")
         ]
         for policy in session.scalars(

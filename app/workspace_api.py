@@ -477,6 +477,10 @@ class PolicyBody(BaseModel):
 
 
 def persist_policy(body, session, account, row):
+    from app.categories import available_categories
+
+    if not available_categories(session, body.categories, allow_label=False):
+        raise HTTPException(422, "Категория неизвестна, архивирована или предназначена только для ML")
     if any(d not in {"INBOUND", "OUTBOUND", "UNKNOWN", "INTERNAL"} for d in body.direction):
         raise HTTPException(422, "Неизвестное направление")
     before = serialize(row) if row.id else None
