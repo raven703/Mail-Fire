@@ -1,6 +1,6 @@
 import hashlib
 import secrets
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from argon2 import PasswordHasher
 from fastapi import Depends, FastAPI, HTTPException, Request, Response, UploadFile
@@ -142,7 +142,15 @@ RESOURCES = {
 
 @app.get("/api/list/{resource}")
 def listing(
-    resource: str, offset: int = 0, limit: int = 50, q: str = "", account=Depends(user), session=Depends(db)
+    resource: str,
+    offset: int = 0,
+    limit: int = 50,
+    q: str = "",
+    status: str = "",
+    start: datetime | None = None,
+    end: datetime | None = None,
+    account=Depends(user),
+    session=Depends(db),
 ):
     model = RESOURCES.get(resource)
     if not model or offset < 0 or not 1 <= limit <= 200:
@@ -150,8 +158,27 @@ def listing(
     if resource in {"audit", "logs"} and account.role != "admin":
         raise HTTPException(403)
     query = select(model)
+    if start or end:
+        from app.workspace_api import period
+
+        begin, finish = period(start, end)
+        query = query.where(model.created_at >= begin, model.created_at < finish)
+    if status and hasattr(model, "status"):
+        query = query.where(
+            model.status.in_(["PENDING", "RUNNING"]) if status == "active" else model.status == status
+        )
     if q and model is Message:
         query = query.where(Message.subject.ilike("%" + q[:200] + "%"))
+    elif q:
+        from sqlalchemy import String, cast, or_
+
+        fields = [
+            getattr(model, key)
+            for key in ("name", "email", "action", "event", "service", "kind")
+            if hasattr(model, key)
+        ]
+        if fields:
+            query = query.where(or_(*(cast(field, String).ilike("%" + q[:200] + "%") for field in fields)))
     count = session.scalar(select(func.count()).select_from(query.subquery()))
     rows = session.scalars(query.order_by(model.created_at.desc()).offset(offset).limit(limit))
     items = [serialize(r) for r in rows]

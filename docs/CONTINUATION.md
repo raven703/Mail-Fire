@@ -1,3 +1,15 @@
+# Продолжение UI/UX после 2026-11-18
+
+Сначала читать UI_UX_DESIGN.md: содержит реализованное и открытые пункты.
+Последний полный pytest: 39 passed, /tmp/mailfire-ui-final-tests.log.
+Browser: /tmp/mailfire-ui-browser2.log, scripts/ui_smoke.cjs.
+Compose api/web пересобраны; 0003 применена без удаления данных.
+Продолжить полноценные analytics/address statistics, reference management,
+ML tabs/incident labeling, system telemetry, settings/access CRUD и E2E.
+Не считать smoke проверкой 1000+ записей/60k daily или всех разрешений.
+Фронтенд пока содержит длинные JSX-строки; требуется декомпозиция/форматирование.
+Не менять шлюз, не удалять PostgreSQL volume, не выполнять push.
+
 # Продолжение
 
 Сначала прочитать PROGRESS.md, IMPLEMENTATION_PLAN.md, git status и реальные

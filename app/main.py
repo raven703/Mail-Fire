@@ -5,6 +5,7 @@ from app.monitoring import router as monitoring_router
 from app.reference_api import router as reference_router
 from app.retention_api import router as retention_router
 from app.semantic_api import router as semantic_router
+from app.workspace_api import router as workspace_router
 
 app.include_router(router)
 app.include_router(admin_router)
@@ -12,3 +13,4 @@ app.include_router(reference_router)
 app.include_router(retention_router)
 app.include_router(monitoring_router)
 app.include_router(semantic_router)
+app.include_router(workspace_router)
