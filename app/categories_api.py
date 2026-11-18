@@ -5,7 +5,6 @@ from typing import Literal
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy import delete, func, select
-from sqlalchemy.exc import IntegrityError
 
 from app.api import admin, db, user
 from app.categories import safe_regex
