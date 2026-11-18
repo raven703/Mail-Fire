@@ -4,9 +4,10 @@ import re
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 
+from app.config import settings
 from app.db import transaction
 from app.detectors import VERSION, detect
-from app.mail import put_blob
+from app.mail import classify_direction, put_blob
 from app.models import (
     Address,
     Attachment,
@@ -15,6 +16,7 @@ from app.models import (
     Incident,
     MailEvent,
     Message,
+    Job,
     MLModel,
     Policy,
     Reference,
@@ -23,21 +25,48 @@ from app.models import (
 from app.sandbox import call
 
 
-def analyze(message_id):
+def assert_current_job(session, job_id=None, owner=None):
+    """Prevent an expired worker lease from committing derived results."""
+    if job_id is None:
+        return
+    from datetime import UTC
+    from app.models import now
+
+    job = session.get(Job, job_id, with_for_update=True)
+    if not job or job.owner != owner or job.status != "RUNNING" or not job.lease_until:
+        raise RuntimeError("Stale job lease: refusing writes")
+    if job.lease_until.replace(tzinfo=UTC) <= now():
+        raise RuntimeError("Expired job lease: refusing writes")
+
+
+def analyze(message_id, job_id=None, owner=None):
     with transaction() as session:
         message = session.get(Message, message_id)
         raw = session.get(Blob, message.original_sha).data
     parsed = call("mail", raw)
     from app.antivirus import scan as antivirus_scan
     objects = []
-    attachment_findings = antivirus_scan(raw, "message.eml")["findings"]
+    antivirus_states = []
+    initial_av = antivirus_scan(raw, "message.eml")
+    antivirus_states.append(initial_av["status"])
+    attachment_findings = initial_av["findings"]
     text = parsed["text"]
     attachment_findings.extend(call("scan", text.encode(), "body.txt")["findings"])
     for name, mime, data in parsed["attachments"]:
-        attachment_findings.extend(antivirus_scan(data, name)["findings"])
+        av_result = antivirus_scan(data, name)
+        antivirus_states.append(av_result["status"])
+        attachment_findings.extend(av_result["findings"])
         attachment_findings.extend(call("scan", data, name)["findings"])
         result = call("extract", data, name)
         extracted, status, details = result["text"], result["status"], result["details"]
+        # Scan archived binaries separately; extracted text alone is insufficient.
+        import base64
+        for member in details.pop("scan_members", []):
+            member_bytes = base64.b64decode(member["data"], validate=True)
+            nested_av = antivirus_scan(member_bytes, member["name"])
+            antivirus_states.append(nested_av["status"])
+            attachment_findings.extend(nested_av["findings"])
+            attachment_findings.extend(call("scan", member_bytes, member["name"])["findings"])
         text += "\n" + extracted
         objects.append((name, mime, data, extracted, status, details))
     normalized = re.sub(r"\s+", " ", text).strip()
@@ -101,6 +130,7 @@ def analyze(message_id):
                         }
                     )
     with transaction() as session:
+        assert_current_job(session, job_id, owner)
         message = session.get(Message, message_id, with_for_update=True)
         content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         if not content:
@@ -122,7 +152,10 @@ def analyze(message_id):
         content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
-        message.status = "PARTIAL" if any(o[4] != "ANALYZED" for o in objects) else "ANALYZED"
+        message.status = "PARTIAL" if (
+            any(o[4] != "ANALYZED" for o in objects)
+            or any(state not in {"OK", "FOUND"} for state in antivirus_states)
+        ) else "ANALYZED"
         for address in set([parsed["sender"]] + parsed["recipients"]):
             if address:
                 session.execute(insert(Address).values(email=address.lower()).on_conflict_do_nothing())
@@ -140,12 +173,17 @@ def analyze(message_id):
                     details=details,
                 )
             )
-        event_ids = list(session.scalars(select(MailEvent.id).where(MailEvent.message_id == message_id)))
+        events = list(session.scalars(select(MailEvent).where(MailEvent.message_id == message_id)))
+        direction = classify_direction(parsed["sender"], parsed["recipients"], settings().internal_domains)
+        for event in events:
+            event.direction = direction
+        event_ids = [event.id for event in events]
     for event_id in event_ids:
-        evaluate(event_id)
+        evaluate(event_id, job_id, owner)
     from app.semantic import index_document, search
 
     with transaction() as session:
+        assert_current_job(session, job_id, owner)
         index_document(session, "content", content.id, text)
         matches = search(session, text[:10000], "reference", 10)
         semantic_findings = []
@@ -169,11 +207,12 @@ def analyze(message_id):
         current = session.get(Content, content.id)
         current.analysis = {"findings": findings + semantic_findings}
     for event_id in event_ids:
-        evaluate(event_id)
+        evaluate(event_id, job_id, owner)
 
 
-def evaluate(event_id):
+def evaluate(event_id, job_id=None, owner=None):
     with transaction() as session:
+        assert_current_job(session, job_id, owner)
         event = session.get(MailEvent, event_id)
         message = session.get(Message, event.message_id)
         if not message.content_id:

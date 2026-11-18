@@ -1,3 +1,4 @@
+import base64
 import io
 import zipfile
 from pathlib import PurePosixPath
@@ -95,7 +96,7 @@ def extract(data, name, depth=0, budget=None):
         if zipfile.is_zipfile(io.BytesIO(data)):
             if depth >= settings().max_archive_depth:
                 return "", "PARTIAL", {"error": "archive depth"}
-            texts, states = [], []
+            texts, states, scan_members = [], [], []
             with zipfile.ZipFile(io.BytesIO(data)) as archive:
                 for member in archive.infolist():
                     path = PurePosixPath(member.filename)
@@ -115,13 +116,16 @@ def extract(data, name, depth=0, budget=None):
                         or member.file_size > max(member.compress_size, 1) * 200
                     ):
                         raise ValueError("Archive expansion limit")
-                    text, state, _ = extract(archive.read(member), member.filename, depth + 1, budget)
-                    texts.append(text)
+                    child = archive.read(member)
+                    child_text, state, child_details = extract(child, member.filename, depth + 1, budget)
+                    scan_members.append({"name": member.filename[:1024], "data": base64.b64encode(child).decode("ascii")})
+                    scan_members.extend(child_details.pop("scan_members", []))
+                    texts.append(child_text)
                     states.append(state)
             return (
                 "\n".join(texts),
                 "ANALYZED" if all(s == "ANALYZED" for s in states) else "PARTIAL",
-                {"children": states},
+                {"children": states, "scan_members": scan_members},
             )
         if suffix in {
             ".txt",

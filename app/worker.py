@@ -91,9 +91,9 @@ def main():
             renewer.start()
             try:
                 if kind == "analyze":
-                    analyze(payload["message_id"])
+                    analyze(payload["message_id"], job_id, owner)
                 elif kind == "evaluate":
-                    evaluate(payload["event_id"])
+                    evaluate(payload["event_id"], job_id, owner)
                 elif kind == "ml_train":
                     from app.background import train_job
 

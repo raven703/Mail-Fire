@@ -46,7 +46,10 @@ def cleanup(dry_run=True, limit=100):
             return {"paused": True, "candidates": [], "deleted": 0}
         candidates = []
         rows = session.scalars(
-            select(Message).where(Message.legal_hold.is_(False)).order_by(Message.created_at).limit(5000)
+            select(Message)
+            .where(Message.legal_hold.is_(False))
+            .order_by(Message.created_at, Message.id)
+            .execution_options(yield_per=500)
         )
         for message in rows:
             incidents = list(
