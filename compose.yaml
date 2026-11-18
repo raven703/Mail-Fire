@@ -1,0 +1,59 @@
+name: mailfire
+x-backend: &backend
+  build: .
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=256m,noexec,nosuid
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+services:
+  web:
+    build: ./frontend
+    ports: ['127.0.0.1:8080:80']
+    depends_on: [api]
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: mailfire
+      POSTGRES_USER: mailfire
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes: [postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U mailfire -d mailfire']
+      interval: 5s
+      retries: 20
+  migrate:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD}@db:5432/mailfire
+    command: [sh, -c, 'alembic upgrade head && python -m app.bootstrap']
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    <<: *backend
+    ports: ['127.0.0.1:8000:8000']
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 15s
+  worker:
+    <<: *backend
+    command: [python, -m, app.worker]
+  importer:
+    <<: *backend
+    command: [python, -m, app.importer]
+    volumes: ['./data/import/inbox:/imports:ro']
+  smtp:
+    <<: *backend
+    command: [python, -m, app.smtp]
+    ports: ['127.0.0.1:2525:2525']
+volumes:
+  postgres:
