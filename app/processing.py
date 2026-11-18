@@ -6,8 +6,7 @@ from sqlalchemy.dialects.postgresql import insert
 
 from app.db import transaction
 from app.detectors import VERSION, detect
-from app.extraction import extract
-from app.mail import parse_mail, put_blob
+from app.mail import put_blob
 from app.models import (
     Address,
     Attachment,
@@ -18,23 +17,50 @@ from app.models import (
     Message,
     MLModel,
     Policy,
+    Reference,
 )
+from app.sandbox import call
 
 
 def analyze(message_id):
     with transaction() as session:
         message = session.get(Message, message_id)
         raw = session.get(Blob, message.original_sha).data
-    parsed = parse_mail(raw)
+    parsed = call("mail", raw)
     objects = []
     text = parsed["text"]
     for name, mime, data in parsed["attachments"]:
-        extracted, status, details = extract(data, name)
+        result = call("extract", data, name)
+        extracted, status, details = result["text"], result["status"], result["details"]
         text += "\n" + extracted
         objects.append((name, mime, data, extracted, status, details))
     normalized = re.sub(r"\s+", " ", text).strip()
     digest = hashlib.sha256(normalized.encode()).hexdigest()
     findings = detect(text)
+    with transaction() as session:
+        from app.fingerprints import compare
+
+        for reference in session.scalars(select(Reference)):
+            match = compare(text, reference.text, reference.fingerprint)
+            if match["exact"] or (
+                match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
+            ):
+                findings.append(
+                    {
+                        "category": "REFERENCE_DOCUMENT",
+                        "rule_id": reference.id,
+                        "risk": 75,
+                        "confidence": match["reference_coverage"],
+                        "start": 0,
+                        "end": 0,
+                        "excerpt": "\n".join(match["matched_fragments"])[:1000],
+                        "source": "fingerprint",
+                        "version": "shingle5-minhash64-v1",
+                        "reason": match["reason"],
+                        "status": "ANALYZED",
+                        "similarity": match,
+                    }
+                )
     with transaction() as session:
         active_model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
         if active_model:
@@ -126,7 +152,7 @@ def evaluate(event_id):
             ]
             if len(matches) < conditions.get("min_count", 1) or policy.shadow:
                 continue
-            session.execute(
+            result = session.execute(
                 insert(Incident)
                 .values(
                     event_id=event.id,
@@ -135,4 +161,10 @@ def evaluate(event_id):
                     findings=matches,
                 )
                 .on_conflict_do_nothing()
+                .returning(Incident.id)
             )
+            incident_id = result.scalar_one_or_none()
+            if incident_id:
+                from app.integrations import enqueue
+
+                enqueue(session, session.get(Incident, incident_id))

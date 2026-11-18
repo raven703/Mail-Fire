@@ -23,12 +23,34 @@ def extract(data, name, depth=0, budget=None):
                     return "", "ENCRYPTED", {}
                 if len(doc) > 200:
                     return "", "PARTIAL", {"error": "page limit"}
-                pages = [p.get_text() for p in doc]
+                pages = []
+                ocr_pages = []
+                for index, page in enumerate(doc):
+                    text = page.get_text()
+                    if len(text.strip()) < 20 and settings().ocr_backend != "disabled":
+                        from app.ocr import recognize
+
+                        text, metadata = recognize(
+                            page.get_pixmap(matrix=pymupdf.Matrix(2, 2)).tobytes("png"), index + 1
+                        )
+                        ocr_pages.append(metadata)
+                    pages.append(text)
                 return (
                     "\n".join(pages),
                     "PARTIAL" if any(len(t.strip()) < 20 for t in pages) else "ANALYZED",
-                    {"ocr_required": any(len(t.strip()) < 20 for t in pages), "pages": len(pages)},
+                    {
+                        "ocr_required": any(len(t.strip()) < 20 for t in pages),
+                        "pages": len(pages),
+                        "ocr": ocr_pages,
+                    },
                 )
+        if suffix in {".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp", ".webp"}:
+            if settings().ocr_backend == "disabled":
+                return "", "PARTIAL", {"ocr_required": True}
+            from app.ocr import recognize
+
+            text, details = recognize(data)
+            return text, "ANALYZED" if text.strip() else "PARTIAL", details
         if suffix == ".docx":
             from docx import Document
 

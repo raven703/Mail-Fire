@@ -47,6 +47,9 @@ services:
   worker:
     <<: *backend
     command: [python, -m, app.worker]
+  maintenance:
+    <<: *backend
+    command: [python, -m, app.maintenance]
   importer:
     <<: *backend
     command: [python, -m, app.importer]

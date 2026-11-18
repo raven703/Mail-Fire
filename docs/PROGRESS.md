@@ -58,3 +58,27 @@
   Подключён к анализу почты. RuBERT/SetFit и ML UI ещё отсутствуют.
 - Финальный запуск: **25 passed**, 1 deprecation warning, настоящая тестовая БД.
   Ruff и compileall проходят. См. KNOWN_LIMITATIONS.md.
+
+## Следующий реализованный блок
+- Парсинг mail/attachments вынесен в subprocess с очищенным environment,
+  seccomp deny network/ptrace/mount и rlimits CPU/RAM/files. Тесты подтверждают
+  отказ socket и отсутствие DATABASE_URL. Это не полная filesystem isolation.
+- Установлены RapidOCR/ONNXRuntime/Pillow с uv.lock. Реальный английский OCR
+  изображения проходит напрямую и в sandbox; сохраняются box/confidence/page.
+  PDF без текста и изображения подключены к OCR при включённом backend.
+  Paddle adapter добавлен, но Paddle не установлен/не проверен; русский OCR
+  и многостраничные изображения ещё требуют реализации/проверки.
+- SIEM transactional outbox, HTTP JSON с idempotency header, UDP JSON/CEF,
+  bounded timeout/backoff/dead state; admin integration API. Реальные HTTP и
+  UDP endpoint тесты проходят. UDP не обеспечивает подтверждённую доставку.
+- Maintenance service добавлен для outbox и CPU/RAM/swap/disk метрик в БД.
+- PostgreSQL FTS API, attachment listing/download с отдельным разрешением/аудитом.
+- Эталоны: загрузка/извлечение, SHA/MinHash/shingles и объяснимое совпадение
+  фрагментов, подключение к DLP. Embeddings/pgvector semantic search ещё нет.
+- Retention config API, dry run, explicit deletion confirmation, legal hold,
+  reference-aware удаление писем/общих blobs и производных данных. Тест на БД
+  подтверждает legal hold и фактическое удаление. Автозапуск cleanup не включён.
+- **34 passed**, 1 warning на настоящей PostgreSQL; Ruff проходит.
+- Эти изменения пока НЕ пересобраны в работающих Compose контейнерах:
+  работающий стенд остаётся на предыдущем image. Следующий шаг — UI интеграция,
+  контейнерная пересборка/проверка OCR и закрытие ограничений безопасности.

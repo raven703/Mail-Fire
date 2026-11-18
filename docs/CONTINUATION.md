@@ -44,3 +44,16 @@ fencing, ZIP upload, настоящий ML baseline с API в app/ml_api.py.
 Приоритет: sandbox parser без DB credentials/network, реальный OCR;
 полное fencing derived results; UI ZIP/ML; нормализация событий/получателей;
 SIEM/retention/эталоны/диагностика. Далее остальные пункты плана.
+
+## Последний блок
+34 tests passed / 1 warning; uv.lock обновлён (rapidocr, onnxruntime, pillow).
+Добавлены sandbox.py, ocr.py, integrations.py, maintenance.py, admin_api.py,
+fingerprints.py/reference_api.py, retention.py/retention_api.py.
+OCR по умолчанию disabled; для проверки RAPIDOCR задать OCR_BACKEND=rapidocr.
+Модели RapidOCR входят в установленный пакет; загрузка через сеть sandbox
+запрещена. Реальный english image OCR проверен внутри sandbox.
+Paddle adapter непроверен. Полного filesystem sandbox нет; нельзя объявлять
+секреты недоступными через /proc/fs только из-за очистки environment.
+Compose всё ещё использует предыдущие образы: пересобрать и проверить.
+UI новых подсистем ещё отсутствует. Retention не запускается автоматически.
+Embeddings и полноценный semantic search не реализованы.

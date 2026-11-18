@@ -37,3 +37,11 @@
 - Npm audit обнаружил 4 high в build-time цепочке Vite. Latest обновление
   их не устранило; force downgrade без анализа не применялся.
 - TestClient выдаёт deprecation warning об использовании httpx.
+
+## Уточнение после последнего блока
+Некоторые пункты выше теперь частично реализованы: subprocess/seccomp parser,
+RapidOCR english image integration, SIEM HTTP/UDP outbox, retention API,
+шингловые эталоны и FTS API. Это не закрывает весь соответствующий раздел ТЗ.
+Полная контейнерная изоляция без файлового доступа к секретам отсутствует;
+OCR ru/Paddle не проверены; SIEM notification email отсутствует; embeddings
+отсутствуют; retention auto scheduling отсутствует; новые UI отсутствуют.

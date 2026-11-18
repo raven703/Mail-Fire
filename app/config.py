@@ -24,6 +24,8 @@ class Settings(BaseSettings):
     analysis_timeout: int = 120
     job_lease_seconds: int = 60
     job_heartbeat_seconds: int = 15
+    ocr_backend: str = "disabled"
+    ocr_model_root: str = "/opt/ocr-models"
 
 
 @lru_cache
