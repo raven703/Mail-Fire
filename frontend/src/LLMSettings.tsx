@@ -2,7 +2,7 @@ import {useEffect,useState,type FormEvent} from 'react';
 import type {API,Row} from './components';
 
 type Config={
- enabled:boolean,provider:'local'|'openai',base_url:string,model:string,
+ enabled:boolean,base_url:string,model:string,
  routing:'uncertain'|'selected'|'both',categories:string[],min_confidence:number,
  timeout_seconds:number,max_chars:number,allow_external_content:boolean,api_key_env:string,
 };
@@ -28,21 +28,13 @@ export function LLMSettings({api}:{api:API}){
  };
  if(!config)return <p>{error||'Загрузка LLM-настроек…'}</p>;
  return <section className="settings-summary"><h3>LLM-анализ содержимого писем</h3>
-  <p className="muted">Отключён по умолчанию. Локальный GGUF или внешний OpenAI-совместимый API. Разрешение на внешнюю передачу задаётся отдельно.</p>
+  <p className="muted">Подключение только через OpenAI-совместимый API. Mail-Fire не загружает веса модели и не запускает LLM-сервер. По умолчанию отключено.</p>
   <form className="edit-form-grid" onSubmit={save}>
    <label><input type="checkbox" checked={config.enabled} onChange={e=>change({enabled:e.target.checked})}/>Включить LLM-анализ</label>
-   <label>Провайдер<select value={config.provider} onChange={e=>change({provider:e.target.value as Config['provider'],allow_external_content:false})}>
-    <option value="local">Локальная GGUF / llama.cpp</option>
-    <option value="openai">Внешний OpenAI-совместимый API</option>
-   </select></label>
-   {config.provider==='openai'?
-    <label>Base URL (HTTPS)<input type="url" value={config.base_url} required onChange={e=>change({base_url:e.target.value})} placeholder="https://llm.example.com/v1"/></label>:
-    <p className="muted">Поместите веса в data/models/llm/model.gguf, затем запустите профиль compose.llm.yaml. URL: http://llm:8080/v1</p>}
-   <label>Model ID<input value={config.model} maxLength={160} required onChange={e=>change({model:e.target.value})}/></label>
-   {config.provider==='openai'&&<>
-    <label><input type="checkbox" checked={config.allow_external_content} onChange={e=>change({allow_external_content:e.target.checked})}/>Я разрешаю передачу текста писем и вложений внешнему API (возможны ПДн и конфиденциальные данные)</label>
-    <p className="muted">API-ключ не хранится в БД. Установите {config.api_key_env} в env_file worker.</p>
-   </>}
+   <label>Base URL API (HTTPS)<input type="url" value={config.base_url} required={config.enabled} onChange={e=>change({base_url:e.target.value})} placeholder="https://llm.example.com/v1"/></label>
+   <label>Model ID<input value={config.model} maxLength={160} required={config.enabled} onChange={e=>change({model:e.target.value})} placeholder="model-id"/></label>
+   <label><input type="checkbox" checked={config.allow_external_content} onChange={e=>change({allow_external_content:e.target.checked})}/>Разрешаю передачу текста писем и вложений указанному API (возможны ПДн и конфиденциальные сведения)</label>
+   <p className="muted">API-ключ не сохраняется в базе. При необходимости установите переменную {config.api_key_env} в конфигурации worker. Любой совместимый LLM-сервер размещается и обслуживается отдельно.</p>
    <label>Маршрутизация<select value={config.routing} onChange={e=>change({routing:e.target.value as Config['routing']})}>
     <option value="uncertain">Только неоднозначные ML-находки</option>
     <option value="selected">Всегда проверять выбранные категории</option>
