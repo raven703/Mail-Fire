@@ -42,3 +42,15 @@ SMTP collector слушает локальный порт 2525, не перес�
 аудит, базовый русский React UI. OCR/ML/SIEM и многие требования ещё не готовы.
 
 Подробный план: `docs/IMPLEMENTATION_PLAN.md`; продолжение: `docs/CONTINUATION.md`.
+## Файловые DLP-правила (опционально)
+
+Русскоязычный базовый пакет категорий и политик находится в
+`config/rulepacks/base_ru.json`. Сначала предпросмотр без изменения БД:
+
+```bash
+docker compose exec -T api python -m app.rulepacks_cli preview - < config/rulepacks/base_ru.json
+```
+
+Применение только по явной команде администратора. По умолчанию политики из
+пакета выключены. Команды `apply`, `export` и правила безопасного обновления
+описаны в [docs/RULEPACKS_RU.md](docs/RULEPACKS_RU.md).
