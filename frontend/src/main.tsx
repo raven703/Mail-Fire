@@ -12,6 +12,7 @@ import {IncidentTraining} from './IncidentTraining';
 import {Badge,DateTimeRangeFilter,Table,Value,date,json,labels,type Row} from './components';
 import './style.css';
 import './controls.css';
+import './editor-dialog.css';
 import './security-overview.css';
 const groups:Record<string,Record<string,string>>={'Мониторинг и расследования':{dashboard:'Обзор безопасности',incidents:'Инциденты',messages:'Почтовые сообщения',analytics:'Аналитика и отчёты'},'Анализ и политики':{policies:'DLP-политики',detectors:'Детекторы',categories:'Категории данных',references:'Эталонные документы',ml:'ML-модели и обучение',addresses:'Адреса и сотрудники'},'Администрирование':{imports:'Импорт писем',jobs:'Очереди обработки',system:'Состояние системы',logs:'Журналы и аудит',settings:'Настройки'}};
 const titles=Object.assign({},...Object.values(groups));
