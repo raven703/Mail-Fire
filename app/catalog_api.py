@@ -46,7 +46,7 @@ DETECTORS = {
 
 
 @router.get("/policies")
-def policies(account=Depends(user), session=Depends(db)):
+def policies(include_archived: bool = False, account=Depends(user), session=Depends(db)):
     day = now().replace(tzinfo=None) - timedelta(days=1)
     week = day - timedelta(days=6)
     counts = dict(session.execute(
@@ -55,7 +55,7 @@ def policies(account=Depends(user), session=Depends(db)):
                 WHERE i.created_at >= :week GROUP BY hit->>'policy_id'"""),
         {"week": week},
     ).all())
-    rows = list(session.scalars(select(Policy).where(Policy.archived.is_(False)).order_by(Policy.priority, Policy.name)))
+    rows = list(session.scalars(select(Policy).where(Policy.archived.is_(False) if not include_archived else True).order_by(Policy.priority, Policy.name)))
     return {
         "items": [{**serialize(r), "hits": counts.get(r.id, 0)} for r in rows],
         "active": sum(r.enabled and not r.shadow for r in rows),
