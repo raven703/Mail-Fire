@@ -12,7 +12,7 @@ pytestmark = pytest.mark.skipif(not os.getenv("MAILFIRE_TEST_DB"), reason="Dispo
 
 def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monkeypatch):
     from app.db import transaction
-    from app.models import Blob, Content, Incident, MailEvent, Message, Policy
+    from app.models import Account, Blob, Comment, Content, Incident, MailEvent, Message, Policy
     from app.processing import evaluate
 
     token = uuid.uuid4().hex
@@ -56,6 +56,10 @@ def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monke
             first = db.query(Incident).filter_by(event_id=event_id, policy_id=policy_id).one()
             assert first.risk == 45
             first.status = "REVIEW"
+            account = db.query(Account).filter_by(username="admin").one()
+            first.assignee = account.id
+            assignee_id = account.id
+            db.add(Comment(incident_id=first.id, account_id=account.id, text="Synthetic review note"))
             first_id = first.id
             db.get(Content, content_id).analysis = {
                 "findings": [
@@ -72,11 +76,15 @@ def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monke
             assert incident.risk == 90
             assert len(incident.findings) == 2
             assert incident.status == "REVIEW"
+            assert incident.assignee == assignee_id
+            assert db.query(Comment).filter_by(incident_id=first_id).one().text == "Synthetic review note"
         assert sent.count(first_id) == 1
     finally:
         # Cleanup in FK order so this test never modifies shared fixtures.
         with transaction() as db:
             if "event_id" in locals():
+                if "first_id" in locals():
+                    db.query(Comment).filter_by(incident_id=first_id).delete()
                 db.query(Incident).filter_by(event_id=event_id).delete()
                 db.query(MailEvent).filter_by(id=event_id).delete()
             if "mail_id" in locals():
