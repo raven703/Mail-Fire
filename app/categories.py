@@ -3,7 +3,9 @@
 A category fires when ANY/ALL of its enabled detection rules match. A disabled
 or missing engine does not silently count as a negative match.
 """
+
 import re
+import subprocess
 
 from sqlalchemy import select
 
@@ -76,7 +78,10 @@ def _make_finding(category, rule, text, source, *, confidence=None):
     from app.advanced_detectors import finding
 
     found = finding(
-        category.id, source, text[:500], risk=rule.risk,
+        category.id,
+        source,
+        text[:500],
+        risk=rule.risk,
         reason="Совпадение с пользовательским правилом: " + (rule.title or rule.kind),
     )
     found["rule_id"] = rule.id
@@ -95,13 +100,26 @@ def _hits(rule, category, text, matches, ml_scores):
         for phrase in config.get("phrases", [])[:30]:
             pos = lower.find(phrase.lower())
             if pos >= 0:
-                result.append(_make_finding(category, rule, text[max(0, pos - 40): pos + len(phrase) + 40], "custom-keywords"))
+                result.append(
+                    _make_finding(
+                        category, rule, text[max(0, pos - 40) : pos + len(phrase) + 40], "custom-keywords"
+                    )
+                )
         return result
     if rule.kind == "regex":
-        pattern = safe_regex(config["pattern"])
+        from app.sandbox import local_call
+
         output = []
-        for match in pattern.finditer(text[:MAX_REGEX_TEXT]):
-            output.append(_make_finding(category, rule, text[max(0, match.start() - 40):match.end() + 40], "custom-regex"))
+        try:
+            spans = local_call("regex", text[:MAX_REGEX_TEXT].encode(), config["pattern"])
+        except (RuntimeError, ValueError, subprocess.TimeoutExpired):
+            return []
+        for start, end in spans:
+            output.append(
+                _make_finding(
+                    category, rule, text[max(0, start - 40) : end + 40], "custom-regex"
+                )
+            )
             if len(output) >= 10:
                 break
         return output
@@ -111,11 +129,19 @@ def _hits(rule, category, text, matches, ml_scores):
         threshold = float(config.get("min_similarity", 0.8))
         for item in matches:
             if item["reference_id"] in ids and item["confidence"] >= threshold:
-                result.append(_make_finding(category, rule, item["excerpt"], "custom-reference", confidence=item["confidence"]))
+                result.append(
+                    _make_finding(
+                        category, rule, item["excerpt"], "custom-reference", confidence=item["confidence"]
+                    )
+                )
         return result
     if rule.kind == "ml":
         prediction = ml_scores.get(category.id)
-        if prediction and prediction["matched"] and prediction["confidence"] >= float(config.get("min_confidence", 0.7)):
+        if (
+            prediction
+            and prediction["matched"]
+            and prediction["confidence"] >= float(config.get("min_confidence", 0.7))
+        ):
             return [_make_finding(category, rule, "", "custom-ml", confidence=prediction["confidence"])]
         return []
     return []
@@ -130,7 +156,8 @@ def custom_findings(session, text, *, references=(), ml_scores=None, available_e
     """
     result = []
     ml_scores = ml_scores or {}
-    available_engines = available_engines or {"keywords", "regex", "reference", "ml"}
+    if available_engines is None:
+        available_engines = {"keywords", "regex", "reference", "ml"}
     for bucket in rules_for(session).values():
         category, rules = bucket["category"], bucket["rules"]
         if category.mode in {"builtin", "label"}:

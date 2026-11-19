@@ -86,11 +86,13 @@ def analyze(message_id, job_id=None, owner=None):
             if match["exact"] or (
                 match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
             ):
-                reference_matches.append({
-                    "reference_id": reference.id,
-                    "confidence": match["reference_coverage"],
-                    "excerpt": "\n".join(match["matched_fragments"])[:1000],
-                })
+                reference_matches.append(
+                    {
+                        "reference_id": reference.id,
+                        "confidence": match["reference_coverage"],
+                        "excerpt": "\n".join(match["matched_fragments"])[:1000],
+                    }
+                )
                 findings.append(
                     {
                         "category": "REFERENCE_DOCUMENT",
@@ -113,14 +115,21 @@ def analyze(message_id, job_id=None, owner=None):
         if active_model:
             from app.ml import infer
 
-            predictions = infer(active_model.artifact, text)
+            try:
+                predictions = infer(active_model.artifact, text)
+            except Exception:
+                # Preserve deterministic evidence when the model is unavailable.
+                predictions = []
+                active_model = None
             ml_scores = {p["category"]: p for p in predictions}
             # Custom categories are emitted only by their configured ML rule.
             from app.models import Category
 
-            builtin_categories = set(session.scalars(
-                select(Category.id).where(Category.mode == "builtin", Category.active.is_(True))
-            ))
+            builtin_categories = set(
+                session.scalars(
+                    select(Category.id).where(Category.mode == "builtin", Category.active.is_(True))
+                )
+            )
             for prediction in predictions:
                 if prediction["matched"] and prediction["category"] in builtin_categories:
                     findings.append(
@@ -141,10 +150,15 @@ def analyze(message_id, job_id=None, owner=None):
     with transaction() as session:
         from app.categories import custom_findings
 
-        findings.extend(custom_findings(
-            session, text, references=reference_matches, ml_scores=ml_scores,
-            available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
-        ))
+        findings.extend(
+            custom_findings(
+                session,
+                text,
+                references=reference_matches,
+                ml_scores=ml_scores,
+                available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+            )
+        )
 
     with transaction() as session:
         assert_current_job(session, job_id, owner)
@@ -233,7 +247,10 @@ def analyze(message_id, job_id=None, owner=None):
             for m in matches
         ]
         merged = custom_findings(
-            session, text, references=reference_matches + semantic_refs, ml_scores=ml_scores,
+            session,
+            text,
+            references=reference_matches + semantic_refs,
+            ml_scores=ml_scores,
             available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
         )
         original = [f for f in findings if not str(f.get("source", "")).startswith("custom-")]
@@ -265,13 +282,12 @@ def evaluate(event_id, job_id=None, owner=None):
         }
         from app.models import Category
 
-        active_categories = set(session.scalars(
-            select(Category.id).where(Category.active.is_(True))
-        ))
+        active_categories = set(session.scalars(select(Category.id).where(Category.active.is_(True))))
         findings = [
             f
             for f in findings
-            if f["category"] in active_categories and f["category"] not in disabled
+            if f["category"] in active_categories
+            and f["category"] not in disabled
             and not (config and not config.value.get("ml", True) and f.get("source") == "supervised-ml")
         ]
         for policy in session.scalars(

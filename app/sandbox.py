@@ -108,7 +108,7 @@ def local_call(operation, data, name=""):
                 stderr=error_file,
                 env=env,
                 cwd=directory,
-                timeout=settings().analysis_timeout,
+                timeout=2 if operation == "regex" else settings().analysis_timeout,
                 close_fds=True,
             )
             output_file.seek(0)
@@ -118,7 +118,7 @@ def local_call(operation, data, name=""):
     if len(output_bytes) > settings().parser_response_bytes:
         raise ValueError("Parser output limit")
     output = json.loads(output_bytes)
-    if output.get("error"):
+    if isinstance(output, dict) and output.get("error"):
         raise ValueError(output["error"])
     if operation == "mail":
         for attachment in output["attachments"]:
@@ -150,6 +150,14 @@ def main():
                 }
             else:
                 raise RuntimeError("Network unexpectedly allowed")
+        elif request["operation"] == "regex":
+            from app.categories import safe_regex
+
+            output = []
+            for match in safe_regex(request["name"]).finditer(data.decode()):
+                output.append([match.start(), match.end()])
+                if len(output) >= 10:
+                    break
         elif request["operation"] == "scan":
             from app.advanced_detectors import static_scan
 

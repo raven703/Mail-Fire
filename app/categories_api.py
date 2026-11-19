@@ -1,4 +1,5 @@
 """Category catalog with bounded, auditable multi-rule administration."""
+
 import uuid
 from typing import Literal
 
@@ -39,14 +40,22 @@ class CategoryBody(BaseModel):
 
 def present(row, rules=()):
     return {
-        "id": row.id, "name": row.name, "group_name": row.group_name,
-        "description": row.description, "active": row.active,
-        "mode": row.mode, "match_mode": row.match_mode,
+        "id": row.id,
+        "name": row.name,
+        "group_name": row.group_name,
+        "description": row.description,
+        "active": row.active,
+        "mode": row.mode,
+        "match_mode": row.match_mode,
         "system": row.mode in {"builtin", "label"},
         "rules": [
             {
-                "id": rule.id, "kind": rule.kind, "title": rule.title,
-                "enabled": rule.enabled, "risk": rule.risk, "priority": rule.priority,
+                "id": rule.id,
+                "kind": rule.kind,
+                "title": rule.title,
+                "enabled": rule.enabled,
+                "risk": rule.risk,
+                "priority": rule.priority,
                 **(rule.config or {}),
             }
             for rule in rules
@@ -90,7 +99,11 @@ def rule_config(body, session):
         existing = set(session.scalars(select(Reference.id).where(Reference.id.in_(ids))))
         if ids != existing:
             raise HTTPException(422, "Один или несколько эталонов не существуют")
-        return {"reference_ids": sorted(ids), "min_similarity": body.min_similarity, "exclude_phrases": excludes}
+        return {
+            "reference_ids": sorted(ids),
+            "min_similarity": body.min_similarity,
+            "exclude_phrases": excludes,
+        }
     if body.kind == "ml":
         return {"min_confidence": body.min_confidence, "exclude_phrases": excludes}
     raise HTTPException(422, "Неизвестный тип правила")
@@ -114,19 +127,38 @@ def validate(body, session, *, existing_id=None):
 def create(body: CategoryBody, account=Depends(admin), session=Depends(db)):
     name, group, rules = validate(body, session)
     row = Category(
-        id="custom-" + uuid.uuid4().hex, name=name, group_name=group,
-        description=body.description.strip(), mode="custom", active=body.active,
-        match_mode=body.match_mode, keywords=[], reference_id=None,
+        id="custom-" + uuid.uuid4().hex,
+        name=name,
+        group_name=group,
+        description=body.description.strip(),
+        mode="custom",
+        active=body.active,
+        match_mode=body.match_mode,
+        keywords=[],
+        reference_id=None,
     )
     session.add(row)
     session.flush()
     for item, config in rules:
-        session.add(CategoryRule(
-            category_id=row.id, kind=item.kind, title=item.title.strip(),
-            enabled=item.enabled, risk=item.risk, priority=item.priority, config=config,
-        ))
-    session.add(Audit(actor=account.id, action="category_create", target=row.id,
-                      details={"name": row.name, "rules": len(rules)}))
+        session.add(
+            CategoryRule(
+                category_id=row.id,
+                kind=item.kind,
+                title=item.title.strip(),
+                enabled=item.enabled,
+                risk=item.risk,
+                priority=item.priority,
+                config=config,
+            )
+        )
+    session.add(
+        Audit(
+            actor=account.id,
+            action="category_create",
+            target=row.id,
+            details={"name": row.name, "rules": len(rules)},
+        )
+    )
     session.commit()
     return present(row, list(session.scalars(select(CategoryRule).where(CategoryRule.category_id == row.id))))
 
@@ -140,10 +172,11 @@ def update(category_id: str, body: CategoryBody, account=Depends(admin), session
         raise HTTPException(409, "Системные категории нельзя изменять")
     name, group, rules = validate(body, session, existing_id=category_id)
     before = {
-        "name": row.name, "match_mode": row.match_mode,
-        "rule_ids": list(session.scalars(
-            select(CategoryRule.id).where(CategoryRule.category_id == category_id)
-        )),
+        "name": row.name,
+        "match_mode": row.match_mode,
+        "rule_ids": list(
+            session.scalars(select(CategoryRule.id).where(CategoryRule.category_id == category_id))
+        ),
     }
     row.name, row.group_name, row.description = name, group, body.description.strip()
     row.active, row.match_mode, row.mode = body.active, body.match_mode, "custom"
@@ -151,12 +184,25 @@ def update(category_id: str, body: CategoryBody, account=Depends(admin), session
     session.execute(delete(CategoryRule).where(CategoryRule.category_id == category_id))
     session.flush()
     for item, config in rules:
-        session.add(CategoryRule(
-            category_id=row.id, kind=item.kind, title=item.title.strip(),
-            enabled=item.enabled, risk=item.risk, priority=item.priority, config=config,
-        ))
-    session.add(Audit(actor=account.id, action="category_update", target=row.id,
-                      details={"before": before, "name": name, "rule_count": len(rules)}))
+        session.add(
+            CategoryRule(
+                category_id=row.id,
+                kind=item.kind,
+                title=item.title.strip(),
+                enabled=item.enabled,
+                risk=item.risk,
+                priority=item.priority,
+                config=config,
+            )
+        )
+    session.add(
+        Audit(
+            actor=account.id,
+            action="category_update",
+            target=row.id,
+            details={"before": before, "name": name, "rule_count": len(rules)},
+        )
+    )
     session.commit()
     return present(row, list(session.scalars(select(CategoryRule).where(CategoryRule.category_id == row.id))))
 

@@ -40,7 +40,9 @@ def upgrade():
         sa.Column("mode", sa.String(24), nullable=False),
         sa.Column("active", sa.Boolean, nullable=False),
         sa.Column("keywords", JSONB, nullable=False),
-        sa.Column("reference_id", sa.String(36), sa.ForeignKey("references.id", ondelete="SET NULL"), nullable=True),
+        sa.Column(
+            "reference_id", sa.String(36), sa.ForeignKey("references.id", ondelete="SET NULL"), nullable=True
+        ),
     )
     categories = sa.table(
         "categories",
@@ -56,8 +58,16 @@ def upgrade():
     op.bulk_insert(
         categories,
         [
-            dict(id=code, name=name, group_name=group, description="", mode=("label" if code == "NORMAL" else "builtin"),
-                 active=True, keywords=[], reference_id=None)
+            dict(
+                id=code,
+                name=name,
+                group_name=group,
+                description="",
+                mode=("label" if code == "NORMAL" else "builtin"),
+                active=True,
+                keywords=[],
+                reference_id=None,
+            )
             for code, name, group in BUILTIN
         ],
     )

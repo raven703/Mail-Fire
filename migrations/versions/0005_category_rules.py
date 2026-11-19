@@ -14,7 +14,9 @@ def upgrade():
         "category_rules",
         sa.Column("id", sa.String(36), primary_key=True),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
-        sa.Column("category_id", sa.String(64), sa.ForeignKey("categories.id", ondelete="CASCADE"), nullable=False),
+        sa.Column(
+            "category_id", sa.String(64), sa.ForeignKey("categories.id", ondelete="CASCADE"), nullable=False
+        ),
         sa.Column("kind", sa.String(24), nullable=False),
         sa.Column("title", sa.String(160), nullable=False, server_default=""),
         sa.Column("enabled", sa.Boolean, nullable=False, server_default=sa.true()),

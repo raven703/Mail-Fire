@@ -91,3 +91,30 @@
 - The reference document source remains linked by ID, and removing a
   reference may leave a nonmatching rule that needs reconfiguration.
 - This is a feature branch, not a production-ready certified DLP release.
+
+## Local integration review — 2026-11-18
+
+Reviewed feature tip 8a95239 against local master 2883127. Fixed fresh-install
+migration collisions caused by 0001 importing current ORM metadata (catalog
+objects and feedback column must be created by 0004/0005). On isolated
+mailfire_pr2_test: upgrade head, downgrade 0003, upgrade head succeeded;
+full PostgreSQL pytest: 52 passed, 2 skipped, one TestClient deprecation warning.
+Additional rule regressions: 6 passed, including explicit empty engine set,
+ML threshold boundary and regex timeout under ANY/ALL. Ruff and compileall pass;
+frontend TypeScript/Vite and all Compose image builds pass.
+Regex execution is now in a network-denied subprocess with a two-second
+wall deadline (bounded repeats alone do not prevent exponential backtracking).
+Model inference exceptions preserve deterministic findings; incident feedback
+locks its incident row to serialize duplicate submissions. No automatic training
+or publication was added. Multiple rules, exclusions and references retained.
+Browser general smoke passed; category browser test passed create with keyword
+and regex, ALL, edit ANY, mobile viewport, archive. Initial general smoke failed
+because nginx retained the replaced API upstream IP; restarting web resolved it.
+Production backup /tmp/mailfire-before-pr2.dump; messages/blobs/accounts counts
+unchanged after deployment. Synthetic browser category is archived, not deleted.
+
+Limitations: exhaustive RBAC role/CSRF matrix, multi-attachment end-to-end
+reference+published custom ML acceptance and accessibility audit remain unproven.
+Model failure currently has no dedicated persisted health finding. Regex timeout
+suppresses that rule; ALL cannot fire from incomplete regex evidence. Shared
+Content mutability and worker heartbeat limitations remain as documented above.

@@ -2,11 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy import select, text, update
 
-from app.categories import available_categories
-
 from app.api import admin, analyst, db, serialize, user
+from app.categories import available_categories
 from app.ml import group_hash, infer
-from app.models import Audit, Content, Incident, Job, MLModel, MailEvent, Message, TrainingExample
+from app.models import Audit, Content, Incident, Job, MailEvent, Message, MLModel, TrainingExample
 
 router = APIRouter(prefix="/api/ml", tags=["ML"])
 
@@ -41,14 +40,12 @@ class IncidentExampleBody(BaseModel):
 
 
 @router.post("/incidents/{incident_id}/example")
-def from_incident(
-    incident_id: str, body: IncidentExampleBody, account=Depends(analyst), session=Depends(db)
-):
+def from_incident(incident_id: str, body: IncidentExampleBody, account=Depends(analyst), session=Depends(db)):
     if not account.originals:
         raise HTTPException(403, "Нет доступа к содержимому письма")
     if not available_categories(session, body.labels):
         raise HTTPException(422, "Выберите действующие категории из справочника")
-    incident = session.get(Incident, incident_id)
+    incident = session.get(Incident, incident_id, with_for_update=True)
     if not incident:
         raise HTTPException(404)
     event = session.get(MailEvent, incident.event_id)
@@ -56,7 +53,9 @@ def from_incident(
     content = session.get(Content, message.content_id) if message.content_id else None
     if not content or len(content.text.strip()) < 10:
         raise HTTPException(409, "Содержимое письма ещё не извлечено")
-    previous = session.scalar(select(TrainingExample).where(TrainingExample.source_incident_id == incident_id))
+    previous = session.scalar(
+        select(TrainingExample).where(TrainingExample.source_incident_id == incident_id)
+    )
     if previous:
         raise HTTPException(409, "Инцидент уже связан с обучающим примером")
     example = TrainingExample(
@@ -67,8 +66,14 @@ def from_incident(
         source_incident_id=incident_id,
     )
     session.add(example)
-    session.add(Audit(actor=account.id, action="ml_label_from_incident", target=incident_id,
-                      details={"categories": example.labels, "approved": example.approved}))
+    session.add(
+        Audit(
+            actor=account.id,
+            action="ml_label_from_incident",
+            target=incident_id,
+            details={"categories": example.labels, "approved": example.approved},
+        )
+    )
     session.commit()
     return serialize(example)
 
