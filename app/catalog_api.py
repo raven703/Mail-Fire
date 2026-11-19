@@ -4,7 +4,7 @@ from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
-from sqlalchemy import text, func, select, text
+from sqlalchemy import func, select, text
 
 from app.api import admin, analyst, db, serialize, user
 from app.models import (
