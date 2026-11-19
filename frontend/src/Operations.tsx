@@ -2,6 +2,7 @@ import {useEffect,useState,type FormEvent} from 'react';
 import {EditorDialog} from './EditorDialog';
 import {Value,Table} from './components';
 import {Accounts} from './Accounts';
+import {LLMSettings} from './LLMSettings';
 type API=(path:string,init?:RequestInit)=>Promise<any>;
 export function Operations({page:section,api}:{page:string,api:API}){
  const [settingTab,setSettingTab]=useState('integrations');
@@ -10,7 +11,7 @@ export function Operations({page:section,api}:{page:string,api:API}){
  const [editor,setEditor]=useState<'retention'|'integrations'|null>(null),[editorError,setEditorError]=useState('');
  const paths:Record<string,string>={references:'references',ml:'ml/models',retention:'retention',integrations:'integrations',diagnostics:'monitoring/queues'};
  async function run(work:()=>Promise<any>){setBusy(true);setError('');try{await work()}catch(e){setError(String(e))}finally{setBusy(false)}}
-  async function load(){if(page!=='accounts')setData(await api(paths[page]))}
+  async function load(){if(page!=='accounts'&&page!=='llm')setData(await api(paths[page]))}
  useEffect(()=>{setData(null);setResult(null);setEditor(null);void run(load)},[page]);
  const json=(body:any,method='POST')=>({method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
  const saveSettings=async(event:FormEvent<HTMLFormElement>)=>{
@@ -30,8 +31,8 @@ export function Operations({page:section,api}:{page:string,api:API}){
   }catch(e){setEditorError(String(e))}
   finally{setBusy(false)}
  };
- return <section>{section==='settings'&&<nav className="tabs"><button onClick={()=>setSettingTab('integrations')}>SIEM и уведомления</button><button onClick={()=>setSettingTab('retention')}>Хранение и очистка</button><button onClick={()=>setSettingTab('accounts')}>Пользователи</button></nav>}<header><h3>{{references:'Эталонные документы',ml:'Модели и обучение',retention:'Сроки хранения',integrations:'SIEM и уведомления',diagnostics:'Диагностика обработки'}[page]}</h3></header>{busy&&<p role="status">Загрузка…</p>}{error&&<p role="alert">{error}</p>}
- {page==='accounts'&&<Accounts api={api}/>}
+ return <section>{section==='settings'&&<nav className="tabs"><button onClick={()=>setSettingTab('integrations')}>SIEM и уведомления</button><button onClick={()=>setSettingTab('retention')}>Хранение и очистка</button><button onClick={()=>setSettingTab('llm')}>LLM-анализ</button><button onClick={()=>setSettingTab('accounts')}>Пользователи</button></nav>}<header><h3>{{references:'Эталонные документы',ml:'Модели и обучение',retention:'Сроки хранения',integrations:'SIEM и уведомления',diagnostics:'Диагностика обработки',llm:'LLM-анализ'}[page]}</h3></header>{busy&&<p role="status">Загрузка…</p>}{error&&<p role="alert">{error}</p>}
+ {page==='accounts'&&<Accounts api={api}/>}{page==='llm'&&<LLMSettings api={api}/>}
  {page==='references'&&<label>Загрузить эталон<input type="file" disabled={busy} onChange={e=>{const file=e.target.files?.[0];if(!file)return;const body=new FormData();body.append('file',file);void run(async()=>{setResult(await api('references',{method:'POST',body}));await load()})}}/></label>}
  {page==='ml'&&<><p>Статус классификатора: {data?.status||'Загрузка'}</p><form onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget);void run(async()=>setResult(await api('ml/examples',json({text:f.get('text'),labels:String(f.get('labels')).split(',').map(s=>s.trim()).filter(Boolean),approved:f.get('approved')==='on'}))))}}><label>Текст примера<textarea name="text" required minLength={10}/></label><label>Категории через запятую<input name="labels" required/></label><label><input type="checkbox" name="approved"/> Проверено аналитиком</label><button disabled={busy}>Добавить пример</button></form><button disabled={busy} onClick={()=>void run(async()=>{setResult(await api('ml/train',json({name:'Модель '+new Date().toISOString(),min_f1:.7})));await load()})}>Обучить на проверенных примерах</button>{data?.items?.map((m:any)=><article key={m.id}><strong>{m.name}</strong><p>{m.active?'Опубликована':m.eligible?'Прошла контроль качества':'Не прошла контроль качества'}</p><button disabled={busy||!m.eligible||m.active} onClick={()=>{if(confirm('Опубликовать выбранную версию?'))void run(async()=>{await api(`ml/models/${m.id}/publish`,json({}));await load()})}}>Опубликовать / откатить</button></article>)}</>}
  {page==='retention'&&data&&<section className="settings-summary">
