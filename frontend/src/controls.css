@@ -4,6 +4,7 @@
    Policy/category selectors intentionally use ROUND checkboxes, like reference. */
 
 :root {
+  color-scheme: light;
   --mf-control-height: 40px;
   --mf-control-compact-height: 34px;
   --mf-control-radius: 10px;
@@ -72,6 +73,8 @@ select[multiple] {
 /* Buttons: shared quiet geometry; keep role-specific color and layout. */
 button,
 input[type="button"], input[type="submit"], input[type="reset"] {
+  color: var(--text);
+  background-color: var(--card);
   font: inherit;
   font-size: 13px;
   font-weight: 550;
@@ -338,3 +341,11 @@ a:focus-visible, summary:focus-visible {
   .filters input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
   .filters select, .range select { min-height: 34px; }
 }
+/* Override legacy light-only control colors when the dark palette is active. */
+:root[data-theme="dark"] button:not(.primary):not(.toggle),
+:root[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea{color:var(--text);background-color:var(--card)}
+:root[data-theme="dark"] .layout>aside button{background:transparent;color:var(--muted)}
+:root[data-theme="dark"] .layout>aside button.selected{background:var(--selected);color:var(--text)}
+:root[data-theme="dark"] .security-overview button{color:var(--text)}
