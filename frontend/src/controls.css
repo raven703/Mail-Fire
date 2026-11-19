@@ -222,7 +222,9 @@ label:has(> input[type="radio"]:disabled) { cursor: not-allowed; }
 .category-option input[type="checkbox"]:checked::after { transform: scale(1); }
 
 /* Distinct option rows stay full-width and align even with long labels. */
-label.policy-category-option, label.cp-option, label.category-option {
+label.policy-category-option:has(> input[type="checkbox"]),
+label.cp-option:has(> input[type="checkbox"]),
+label.category-option:has(> input[type="checkbox"]) {
   display: flex;
   width: 100%;
   align-items: center;
@@ -246,7 +248,8 @@ label.policy-category-option:hover, label.cp-option:hover, label.category-option
   width: 20px; height: 20px; min-width: 20px; min-height: 20px;
   flex-basis: 20px; accent-color: initial;
 }
-.policy-category-match label {
+.policy-category-match label:has(> input[type="radio"]) {
+  display: flex;
   width: 100%;
   align-items: flex-start;
   padding: 7px 9px;
