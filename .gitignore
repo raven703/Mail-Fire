@@ -8,3 +8,5 @@ data/import/inbox/*
 node_modules/
 dist/
 *.egg-info/
+# Trusted pretrained ML weights are staged locally and must never be committed.
+data/models/

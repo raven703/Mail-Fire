@@ -4,7 +4,7 @@ from sqlalchemy import select, text, update
 
 from app.api import admin, analyst, db, serialize, user
 from app.categories import available_categories
-from app.ml import group_hash
+from app.ml import group_hash, snapshot_hash
 from app.models import Audit, Category, Content, Incident, Job, MailEvent, MLDataset, Message, MLModel, TrainingExample
 
 router = APIRouter(prefix="/api/ml", tags=["ML"])
@@ -27,6 +27,7 @@ def add_example(body: ExampleBody, account=Depends(analyst), session=Depends(db)
         labels=sorted(set(body.labels)),
         approved=body.approved,
         group_sha=group_hash(body.text),
+        source="manual", reviewed_by=account.id if body.approved else None,
     )
     session.add(row)
     session.add(Audit(actor=account.id, action="ml_label", target=row.group_sha))
@@ -64,6 +65,7 @@ def from_incident(incident_id: str, body: IncidentExampleBody, account=Depends(a
         approved=body.approved,
         group_sha=group_hash(content.text[:100000]),
         source_incident_id=incident_id,
+        source="incident", reviewed_by=account.id if body.approved else None,
     )
     session.add(example)
     session.add(
@@ -113,9 +115,11 @@ def training(body: TrainBody, account=Depends(admin), session=Depends(db)):
         raise HTTPException(422, "Используйте выделенный training worker для более 10000 примеров")
     if len(rows) < 30:
         raise HTTPException(422, "Нужно не менее 30 различных утверждённых примеров")
+    snapshot = snapshot_hash([{"text": r.text, "labels": r.labels} for r in rows])
     job = Job(kind="ml_train", payload={
         "name":body.name, "min_f1":body.min_f1, "engine":body.engine,
-        "category_id":body.category_id, "dataset_id":body.dataset_id, "progress":0,
+        "category_id":body.category_id, "dataset_id":body.dataset_id,
+        "snapshot_sha":snapshot, "progress":0,
     })
     session.add(job)
     session.add(Audit(actor=account.id, action="ml_train", target=body.name))

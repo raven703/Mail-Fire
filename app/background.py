@@ -5,7 +5,7 @@ from datetime import UTC
 from sqlalchemy import select
 
 from app.db import transaction
-from app.ml import group_hash, train
+from app.ml import snapshot_hash, train
 from app.models import Content, Job, MLModel, Reference, TrainingExample, now
 
 
@@ -54,6 +54,9 @@ def train_job(job_id, owner, payload):
         if len(examples) > 10000:
             raise ValueError("Training corpus exceeds configured limit")
         rows = [{"text": r.text, "labels": r.labels} for r in examples]
+    snapshot = snapshot_hash(rows)
+    if payload.get("snapshot_sha") and payload["snapshot_sha"] != snapshot:
+        raise ValueError("Training examples changed after job was queued; create a new job")
     engine = payload.get("engine", "tfidf")
     category = payload.get("category_id")
     if engine == "tfidf":
@@ -63,9 +66,7 @@ def train_job(job_id, owner, payload):
 
         artifact, metrics, eligible = train_binary(rows, engine, category, payload["min_f1"])
     metrics["dataset_id"] = payload.get("dataset_id")
-    metrics["dataset_snapshot_sha"] = __import__("hashlib").sha256(
-        "\n".join(sorted(group_hash(r["text"]) + ":" + ",".join(sorted(r["labels"])) for r in rows)).encode()
-    ).hexdigest()
+    metrics["dataset_snapshot_sha"] = snapshot
     with transaction() as session:
         job = session.get(Job, job_id, with_for_update=True)
         if not live(job, owner):
