@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS base
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
@@ -18,3 +18,15 @@ RUN useradd --uid 10001 --create-home app
 USER app
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Explicit target for local ML workloads. The default remains the lightweight base.
+FROM base AS neural
+USER root
+# CPU-only Torch avoids pulling CUDA runtime into the optional ML image.
+RUN uv pip install --python /app/.venv/bin/python \
+    --index-url https://download.pytorch.org/whl/cpu "torch>=2.4,<3"
+RUN uv pip install --python /app/.venv/bin/python \
+    "transformers>=4.46,<6" "setfit>=1.1,<2" \
+    "datasets>=3,<5" "accelerate>=1,<2" "sentence-transformers>=3,<6"
+USER app
+
+FROM base AS final

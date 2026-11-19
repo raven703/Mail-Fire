@@ -1,0 +1,47 @@
+# Start only after staging a local model directory and rebuilding the ML target:
+# docker compose -f compose.yaml -f compose.ml.yaml up --build -d
+services:
+  api:
+    build:
+      context: .
+      target: neural
+    tmpfs:
+      - /tmp:size=1g,noexec,nosuid
+  worker:
+    build:
+      context: .
+      target: neural
+    environment:
+      ML_NEURAL_ONLY: "false"
+    tmpfs:
+      - /tmp:size=1g,noexec,nosuid
+  neural-worker:
+    build:
+      context: .
+      target: neural
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+      ML_NEURAL_ONLY: "true"
+      # One downloaded cointegrated/rubert-tiny2 snapshot for both trainers.
+      # Override ML_SETFIT_BASE_PATH to switch SetFit to another local encoder.
+      ML_RUBERT_BASE_PATH: /opt/local-ml/rubert
+      ML_SETFIT_BASE_PATH: ${ML_SETFIT_BASE_PATH:-/opt/local-ml/rubert}
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      HF_DATASETS_OFFLINE: "1"
+    command: [python, -m, app.worker]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - ./data/models:/opt/local-ml:ro
+    networks: [default]
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=2g,noexec,nosuid
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 5g
+    cpus: 2

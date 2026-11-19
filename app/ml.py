@@ -19,6 +19,15 @@ def group_hash(text):
     return hashlib.sha256(re.sub(r"\s+", " ", text).strip().lower().encode()).hexdigest()
 
 
+def snapshot_hash(examples):
+    """Reproducible digest of the selected reviewed training corpus."""
+    value = "\n".join(sorted(
+        group_hash(item["text"]) + ":" + ",".join(sorted(item["labels"]))
+        for item in examples
+    ))
+    return hashlib.sha256(value.encode()).hexdigest()
+
+
 def train(examples, min_f1=0.7):
     if not 0 <= min_f1 <= 1:
         raise ValueError("Invalid F1 threshold")

@@ -5,7 +5,7 @@ from datetime import UTC
 from sqlalchemy import select
 
 from app.db import transaction
-from app.ml import train
+from app.ml import snapshot_hash, train
 from app.models import Content, Job, MLModel, Reference, TrainingExample, now
 
 
@@ -47,18 +47,39 @@ def reindex_job(job_id, owner, payload):
 
 def train_job(job_id, owner, payload):
     with transaction() as session:
-        examples = list(
-            session.scalars(select(TrainingExample).where(TrainingExample.approved.is_(True)).limit(10001))
-        )
+        query = select(TrainingExample).where(TrainingExample.approved.is_(True))
+        if payload.get("dataset_id"):
+            query = query.where(TrainingExample.dataset_id == payload["dataset_id"])
+        examples = list(session.scalars(query.order_by(TrainingExample.id).limit(10001)))
         if len(examples) > 10000:
             raise ValueError("Training corpus exceeds configured limit")
         rows = [{"text": r.text, "labels": r.labels} for r in examples]
-    artifact, metrics, eligible = train(rows, payload["min_f1"])
+    snapshot = snapshot_hash(rows)
+    if payload.get("snapshot_sha") and payload["snapshot_sha"] != snapshot:
+        raise ValueError("Training examples changed after job was queued; create a new job")
+    engine = payload.get("engine", "tfidf")
+    category = payload.get("category_id")
+    if engine == "tfidf":
+        artifact, metrics, eligible = train(rows, payload["min_f1"])
+    else:
+        from app.ml_engines import train_binary
+
+        artifact, metrics, eligible = train_binary(rows, engine, category, payload["min_f1"])
+    metrics["dataset_id"] = payload.get("dataset_id")
+    metrics["dataset_snapshot_sha"] = snapshot
     with transaction() as session:
         job = session.get(Job, job_id, with_for_update=True)
         if not live(job, owner):
             return
-        model = MLModel(name=payload["name"], artifact=artifact, metrics=metrics, eligible=eligible)
+        model = MLModel(
+            name=payload["name"],
+            engine=engine,
+            category_id=category,
+            dataset_id=payload.get("dataset_id"),
+            artifact=artifact,
+            metrics=metrics,
+            eligible=eligible,
+        )
         session.add(model)
         session.flush()
         job.payload = {**job.payload, "progress": 100, "model_id": model.id}

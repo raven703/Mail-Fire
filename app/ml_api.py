@@ -4,8 +4,19 @@ from sqlalchemy import select, text, update
 
 from app.api import admin, analyst, db, serialize, user
 from app.categories import available_categories
-from app.ml import group_hash, infer
-from app.models import Audit, Content, Incident, Job, MailEvent, Message, MLModel, TrainingExample
+from app.ml import group_hash, snapshot_hash
+from app.models import (
+    Audit,
+    Category,
+    Content,
+    Incident,
+    Job,
+    MailEvent,
+    Message,
+    MLDataset,
+    MLModel,
+    TrainingExample,
+)
 
 router = APIRouter(prefix="/api/ml", tags=["ML"])
 
@@ -27,6 +38,8 @@ def add_example(body: ExampleBody, account=Depends(analyst), session=Depends(db)
         labels=sorted(set(body.labels)),
         approved=body.approved,
         group_sha=group_hash(body.text),
+        source="manual",
+        reviewed_by=account.id if body.approved else None,
     )
     session.add(row)
     session.add(Audit(actor=account.id, action="ml_label", target=row.group_sha))
@@ -64,6 +77,8 @@ def from_incident(incident_id: str, body: IncidentExampleBody, account=Depends(a
         approved=body.approved,
         group_sha=group_hash(content.text[:100000]),
         source_incident_id=incident_id,
+        source="incident",
+        reviewed_by=account.id if body.approved else None,
     )
     session.add(example)
     session.add(
@@ -90,18 +105,42 @@ def models(account=Depends(user), session=Depends(db)):
 class TrainBody(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     min_f1: float = Field(default=0.7, ge=0.5, le=1)
+    engine: str = Field(default="tfidf", pattern="^(tfidf|setfit|rubert)$")
+    category_id: str | None = None
+    dataset_id: str | None = None
 
 
 @router.post("/train", status_code=202)
 def training(body: TrainBody, account=Depends(admin), session=Depends(db)):
-    rows = list(
-        session.scalars(select(TrainingExample).where(TrainingExample.approved.is_(True)).limit(10001))
-    )
+    if body.engine in {"setfit", "rubert"}:
+        category = session.get(Category, body.category_id) if body.category_id else None
+        if not category or not category.active or category.mode == "label":
+            raise HTTPException(422, "Выберите активную категорию для нейросетевой модели")
+    elif body.category_id:
+        raise HTTPException(422, "TF-IDF обучается как общая многометочная модель")
+    if body.dataset_id and not session.get(MLDataset, body.dataset_id):
+        raise HTTPException(422, "Датасет не найден")
+    query = select(TrainingExample).where(TrainingExample.approved.is_(True))
+    if body.dataset_id:
+        query = query.where(TrainingExample.dataset_id == body.dataset_id)
+    rows = list(session.scalars(query.limit(10001)))
     if len(rows) > 10000:
         raise HTTPException(422, "Используйте выделенный training worker для более 10000 примеров")
     if len(rows) < 30:
         raise HTTPException(422, "Нужно не менее 30 различных утверждённых примеров")
-    job = Job(kind="ml_train", payload={"name": body.name, "min_f1": body.min_f1, "progress": 0})
+    snapshot = snapshot_hash([{"text": r.text, "labels": r.labels} for r in rows])
+    job = Job(
+        kind="ml_train",
+        payload={
+            "name": body.name,
+            "min_f1": body.min_f1,
+            "engine": body.engine,
+            "category_id": body.category_id,
+            "dataset_id": body.dataset_id,
+            "snapshot_sha": snapshot,
+            "progress": 0,
+        },
+    )
     session.add(job)
     session.add(Audit(actor=account.id, action="ml_train", target=body.name))
     session.commit()
@@ -116,7 +155,15 @@ def publish(model_id: str, account=Depends(admin), session=Depends(db)):
         raise HTTPException(404)
     if not model.eligible:
         raise HTTPException(409, "Модель не прошла метрики качества")
-    session.execute(update(MLModel).values(active=False))
+    session.execute(
+        update(MLModel)
+        .where(
+            MLModel.category_id == model.category_id
+            if model.category_id is not None
+            else MLModel.category_id.is_(None)
+        )
+        .values(active=False)
+    )
     model.active = True
     session.add(Audit(actor=account.id, action="ml_publish_or_rollback", target=model.id))
     session.commit()
@@ -129,7 +176,21 @@ class InferenceBody(BaseModel):
 
 @router.post("/infer")
 def inference(body: InferenceBody, account=Depends(analyst), session=Depends(db)):
-    model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
-    if not model:
-        return {"status": "UNTRAINED", "predictions": []}
-    return {"status": "ANALYZED", "model_id": model.id, "predictions": infer(model.artifact, body.text)}
+    if not account.originals:
+        raise HTTPException(403, "Требуется доступ к оригиналам")
+    from app.ml_runtime import infer_active
+
+    predictions, errors = infer_active(session, body.text)
+    # Preserve the legacy global TF-IDF identifier while returning per-prediction
+    # provenance for the new independent classifiers.
+    global_model_id = session.scalar(
+        select(MLModel.id).where(
+            MLModel.active.is_(True), MLModel.engine == "tfidf", MLModel.category_id.is_(None)
+        )
+    )
+    return {
+        "model_id": global_model_id,
+        "status": "PARTIAL" if errors else "ANALYZED" if predictions else "UNTRAINED",
+        "predictions": predictions,
+        "errors": errors,
+    }

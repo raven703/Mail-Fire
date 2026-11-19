@@ -110,43 +110,36 @@ def analyze(message_id, job_id=None, owner=None):
                     }
                 )
     ml_scores = {}
+    ml_available = False
+    ml_errors = []
     with transaction() as session:
-        active_model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
-        if active_model:
-            from app.ml import infer
+        from app.ml_runtime import infer_active
 
-            try:
-                predictions = infer(active_model.artifact, text)
-            except Exception:
-                # Preserve deterministic evidence when the model is unavailable.
-                predictions = []
-                active_model = None
-            ml_scores = {p["category"]: p for p in predictions}
-            # Custom categories are emitted only by their configured ML rule.
-            from app.models import Category
+        predictions, ml_errors = infer_active(session, text)
+        ml_available = bool(session.scalar(select(MLModel.id).where(MLModel.active.is_(True)).limit(1)))
+        ml_scores = {p["category"]: p for p in predictions}
+        from app.models import Category
 
-            builtin_categories = set(
-                session.scalars(
-                    select(Category.id).where(Category.mode == "builtin", Category.active.is_(True))
+        builtin_categories = set(
+            session.scalars(select(Category.id).where(Category.mode == "builtin", Category.active.is_(True)))
+        )
+        for prediction in predictions:
+            if prediction["matched"] and prediction["category"] in builtin_categories:
+                findings.append(
+                    {
+                        "category": prediction["category"],
+                        "rule_id": "ml-classification",
+                        "risk": 50,
+                        "confidence": prediction["confidence"],
+                        "start": 0,
+                        "end": 0,
+                        "excerpt": "",
+                        "source": "supervised-ml",
+                        "version": prediction.get("model_id", ""),
+                        "reason": "Вероятностная классификация; не доказательство утечки",
+                        "status": "ANALYZED",
+                    }
                 )
-            )
-            for prediction in predictions:
-                if prediction["matched"] and prediction["category"] in builtin_categories:
-                    findings.append(
-                        {
-                            "category": prediction["category"],
-                            "rule_id": "ml-classification",
-                            "risk": 50,
-                            "confidence": prediction["confidence"],
-                            "start": 0,
-                            "end": 0,
-                            "excerpt": "",
-                            "source": "supervised-ml",
-                            "version": active_model.id,
-                            "reason": "Вероятностная классификация; не доказательство утечки",
-                            "status": "ANALYZED",
-                        }
-                    )
     with transaction() as session:
         from app.categories import custom_findings
 
@@ -156,7 +149,7 @@ def analyze(message_id, job_id=None, owner=None):
                 text,
                 references=reference_matches,
                 ml_scores=ml_scores,
-                available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+                available_engines={"keywords", "regex", "reference"} | ({"ml"} if ml_available else set()),
             )
         )
 
@@ -171,7 +164,7 @@ def analyze(message_id, job_id=None, owner=None):
                     id=__import__("uuid").uuid4().hex,
                     normalized_sha=digest,
                     text=text,
-                    analysis={"findings": findings},
+                    analysis={"findings": findings, "engine_errors": ml_errors},
                     version=VERSION,
                 )
                 .on_conflict_do_nothing()
@@ -179,14 +172,15 @@ def analyze(message_id, job_id=None, owner=None):
             content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         message.content_id = content.id
         # Reanalysis must update results after detector/model changes.
-        content.analysis = {"findings": findings}
+        content.analysis = {"findings": findings, "engine_errors": ml_errors}
         content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
         message.status = (
             "PARTIAL"
             if (
-                any(o[4] != "ANALYZED" for o in objects)
+                bool(ml_errors)
+                or any(o[4] != "ANALYZED" for o in objects)
                 or any(state not in {"OK", "FOUND"} for state in antivirus_states)
             )
             else "ANALYZED"
@@ -251,11 +245,14 @@ def analyze(message_id, job_id=None, owner=None):
             text,
             references=reference_matches + semantic_refs,
             ml_scores=ml_scores,
-            available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+            available_engines={"keywords", "regex", "reference"} | ({"ml"} if ml_available else set()),
         )
         original = [f for f in findings if not str(f.get("source", "")).startswith("custom-")]
         current = session.get(Content, content.id)
-        current.analysis = {"findings": original + merged + semantic_findings}
+        current.analysis = {
+            "findings": original + merged + semantic_findings,
+            "engine_errors": ml_errors,
+        }
     for event_id in event_ids:
         evaluate(event_id, job_id, owner)
 
@@ -269,9 +266,9 @@ def policy_matches(findings, conditions):
     """
     requested = set(conditions.get("categories") or [])
     result = [
-        f for f in findings
-        if f["risk"] >= conditions.get("min_risk", 0)
-        and (not requested or f["category"] in requested)
+        f
+        for f in findings
+        if f["risk"] >= conditions.get("min_risk", 0) and (not requested or f["category"] in requested)
     ]
     if len(result) < conditions.get("min_count", 1):
         return []
@@ -309,7 +306,11 @@ def evaluate(event_id, job_id=None, owner=None):
             for f in findings
             if f["category"] in active_categories
             and f["category"] not in disabled
-            and not (config and not config.value.get("ml", True) and f.get("source") == "supervised-ml")
+            and not (
+                config
+                and not config.value.get("ml", True)
+                and f.get("source") in {"supervised-ml", "custom-ml"}
+            )
         ]
         for policy in session.scalars(
             select(Policy).where(Policy.enabled.is_(True)).order_by(Policy.priority)

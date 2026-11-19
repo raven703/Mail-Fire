@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     parser_url: str = ""
     clamav_host: str = ""
     clamav_port: int = 3310
+    ml_setfit_base_path: str = ""
+    ml_rubert_base_path: str = ""
 
 
 @lru_cache
