@@ -471,21 +471,24 @@ class PolicyBody(BaseModel):
     priority: int = Field(default=10, ge=0, le=10000)
     min_risk: int = Field(default=40, ge=0, le=100)
     min_count: int = Field(default=1, ge=1, le=1000)
+    category_match: str = Field(default="any", pattern="^(any|all)$")
     categories: list[str] = Field(default_factory=list, max_length=50)
-    direction: list[str] = Field(default_factory=list, max_length=3)
+    direction: list[str] = Field(default_factory=list, max_length=4)
     senders: list[str] = Field(default_factory=list, max_length=200)
 
 
 def persist_policy(body, session, account, row):
     from app.categories import available_categories
 
+    if body.category_match == "all" and not body.categories:
+        raise HTTPException(422, "Для режима «Все категории» выберите хотя бы одну категорию")
     if not available_categories(session, body.categories, allow_label=False):
         raise HTTPException(422, "Категория неизвестна, архивирована или предназначена только для ML")
     if any(d not in {"INBOUND", "OUTBOUND", "UNKNOWN", "INTERNAL"} for d in body.direction):
         raise HTTPException(422, "Неизвестное направление")
     before = serialize(row) if row.id else None
     row.name, row.enabled, row.shadow, row.priority = body.name, body.enabled, body.shadow, body.priority
-    row.conditions = body.model_dump(include={"min_risk", "min_count", "categories", "direction", "senders"})
+    row.conditions = body.model_dump(include={"min_risk", "min_count", "category_match", "categories", "direction", "senders"})
     row.version = (row.version or 0) + 1
     session.add(row)
     session.flush()

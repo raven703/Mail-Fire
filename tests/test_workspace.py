@@ -75,4 +75,14 @@ def test_workspace_api():
         updated = client.put("/api/workspace/policies/" + policy_id, json=body, headers=headers)
         assert updated.status_code == 200, updated.text
         assert updated.json()["version"] == 2
-        assert len(client.get(f"/api/workspace/policies/{policy_id}/history").json()["items"]) == 2
+        body["category_match"] = "all"
+        body["categories"] = ["CONFIDENTIAL", "SECRET"]
+        all_mode = client.put("/api/workspace/policies/" + policy_id, json=body, headers=headers)
+        assert all_mode.status_code == 200, all_mode.text
+        assert all_mode.json()["conditions"]["category_match"] == "all"
+        assert client.put(
+            "/api/workspace/policies/" + policy_id, json={**body, "categories": []}, headers=headers
+        ).status_code == 422
+        body["category_match"] = "any"
+        body["categories"] = ["CONFIDENTIAL"]
+        assert len(client.get(f"/api/workspace/policies/{policy_id}/history").json()["items"]) == 3
