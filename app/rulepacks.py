@@ -99,7 +99,9 @@ def inspect_pack(session, pack, *, update_existing=False):
     changes = {"categories": [], "policies": []}
     # A disabled category in an incoming update may NOT be referenced by a policy.
     available = {ident for ident, category in existing.items() if category.active and category.mode != "label"}
+    known = {ident for ident, category in existing.items() if category.mode != "label"}
     for cat in pack.categories:
+        known.add(cat.id)
         if update_existing or cat.id not in existing:
             if cat.active:
                 available.add(cat.id)
@@ -125,7 +127,9 @@ def inspect_pack(session, pack, *, update_existing=False):
             raise ValueError(f"Набор категорий для ALL пуст: {pol.name}")
         if len(body.categories) != len(set(body.categories)):
             raise ValueError(f"Дубликаты категорий в политике: {pol.name}")
-        missing = set(body.categories) - available
+        # Disabled policies may preserve references to archived categories for
+        # roundtrip backup; enabling them still requires active categories.
+        missing = set(body.categories) - (available if body.enabled else known)
         if missing:
             raise ValueError(f"Политика {pol.name}: нет активных категорий {sorted(missing)}")
         if any(direction not in {"INBOUND", "OUTBOUND", "INTERNAL", "UNKNOWN"} for direction in body.direction):
