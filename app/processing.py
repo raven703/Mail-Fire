@@ -323,12 +323,29 @@ def evaluate(event_id, job_id=None, owner=None):
             matches = policy_matches(findings, conditions)
             if not matches or policy.shadow:
                 continue
+            # Analysis runs twice for a message: before and after semantic
+            # evidence is appended. An earlier incident must be refreshed
+            # rather than silently ignored by the unique(event_id, policy_id)
+            # constraint. Keep its workflow state, assignee and comments.
+            incident = session.scalar(
+                select(Incident)
+                .where(Incident.event_id == event.id, Incident.policy_id == policy.id)
+                .with_for_update()
+            )
+            risk = max(f["risk"] for f in matches)
+            if incident:
+                if incident.risk != risk or incident.findings != matches:
+                    incident.risk = risk
+                    incident.findings = matches
+                    # Already enqueued external alerts remain immutable; no
+                    # duplicate notification is sent for reanalysis.
+                continue
             result = session.execute(
                 insert(Incident)
                 .values(
                     event_id=event.id,
                     policy_id=policy.id,
-                    risk=max(f["risk"] for f in matches),
+                    risk=risk,
                     findings=matches,
                 )
                 .on_conflict_do_nothing()
