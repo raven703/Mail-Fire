@@ -34,9 +34,10 @@ export function EditorDialog({
   className={'editor-dialog'+(wide?' editor-dialog-wide':'')}
   aria-labelledby={titleId}
   aria-describedby={subtitle?descriptionId:undefined}
-  onCancel={event=>{event.preventDefault();if(!busy)onClose()}}>
+  onCancel={event=>{event.preventDefault();event.stopPropagation();if(!busy)onClose()}}>
   <form className="editor-dialog-layout" onSubmit={event=>{
    event.preventDefault();
+   event.stopPropagation();
    if(!busy&&!submitDisabled)onSubmit?.(event);
   }}>
    <header className="editor-dialog-header">

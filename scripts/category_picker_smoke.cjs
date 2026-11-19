@@ -34,8 +34,8 @@ const {execFileSync}=require('child_process');
   if(!await parent.isVisible())throw Error('Parent dialog unexpectedly closed');
   for(const theme of ['light','dark']){
    await page.evaluate(t=>document.documentElement.dataset.theme=t,theme);
-   for(const width of [1440,390]){
-    await page.setViewportSize({width,height:920});
+   for(const width of [1920,375]){
+    await page.setViewportSize({width,height:width===375?812:1080});
     if(await parent.evaluate(el=>el.scrollWidth>el.clientWidth+2))throw Error('Horizontal overflow');
     await page.screenshot({path:'/tmp/category-picker-'+theme+'-'+width+'.png'});
    }

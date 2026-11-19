@@ -13,8 +13,8 @@ export function CategoryManagement({api,admin}:{api:API,admin:boolean}){
   {admin&&<button className="primary" onClick={()=>{setCreating(true);setEditing(null)}}>＋ Категория</button>}</header>
   <label>Поиск категории<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Название или группа"/></label>
   {error&&<p className="error" role="alert">{error}</p>}
-  {creating&&<CategoryForm api={api} onCancel={()=>setCreating(false)} onSaved={()=>{setCreating(false);void refresh()}}/>}
-  {editing&&<CategoryForm key={editing.id} api={api} initial={editing} onCancel={()=>setEditing(null)} onSaved={()=>{setEditing(null);void refresh()}}/>}
+  {creating&&<CategoryForm api={api} onCancel={()=>setCreating(false)} onSaved={async()=>{await refresh();setCreating(false)}}/>}
+  {editing&&<CategoryForm key={editing.id} api={api} initial={editing} onCancel={()=>setEditing(null)} onSaved={async()=>{await refresh();setEditing(null)}}/>}
   <section><h2>Категории ({items.length})</h2>
   {filtered.map(c=><div key={c.id} className="policy-row">
     <div className="policy-info">

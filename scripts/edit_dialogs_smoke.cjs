@@ -122,8 +122,8 @@ async function run(){
   await nav('Категории данных');
   for(const theme of ['light','dark']){
    await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
-   for(const width of [1440,375]){
-    await page.setViewportSize({width,height:820});
+   for(const width of [1920,375]){
+    await page.setViewportSize({width,height:width===375?812:1080});
     await page.getByRole('button',{name:'＋ Категория'}).click();
     await checkDialog('Новая категория');
     if(await modal().evaluate(d=>d.scrollWidth>d.clientWidth+2))
