@@ -210,8 +210,26 @@ class CategoryRule(IDMixin, Base):
     config: Mapped[dict] = mapped_column(JSONB, default=dict)
 
 
+class MLDataset(IDMixin, Base):
+    __tablename__ = "ml_datasets"
+    name: Mapped[str] = mapped_column(String(160))
+    source: Mapped[str] = mapped_column(String(120), default="external-llm")
+    description: Mapped[str] = mapped_column(Text, default="")
+    version: Mapped[int] = mapped_column(default=1)
+    status: Mapped[str] = mapped_column(String(20), default="DRAFT")
+    fingerprint: Mapped[str] = mapped_column(String(64), default="")
+    example_count: Mapped[int] = mapped_column(default=0)
+
+
 class TrainingExample(IDMixin, Base):
     __tablename__ = "training_examples"
+    dataset_id: Mapped[str | None] = mapped_column(
+        ForeignKey("ml_datasets.id", ondelete="SET NULL"), index=True, nullable=True
+    )
+    source: Mapped[str] = mapped_column(String(80), default="manual")
+    reviewed_by: Mapped[str | None] = mapped_column(
+        ForeignKey("accounts.id", ondelete="SET NULL"), nullable=True
+    )
     source_incident_id: Mapped[str | None] = mapped_column(
         ForeignKey("incidents.id", ondelete="SET NULL"), unique=True, nullable=True
     )
@@ -223,6 +241,13 @@ class TrainingExample(IDMixin, Base):
 
 class MLModel(IDMixin, Base):
     __tablename__ = "ml_models"
+    engine: Mapped[str] = mapped_column(String(24), default="tfidf")
+    category_id: Mapped[str | None] = mapped_column(
+        ForeignKey("categories.id", ondelete="SET NULL"), index=True, nullable=True
+    )
+    dataset_id: Mapped[str | None] = mapped_column(
+        ForeignKey("ml_datasets.id", ondelete="SET NULL"), nullable=True
+    )
     name: Mapped[str]
     artifact: Mapped[bytes] = mapped_column(LargeBinary)
     metrics: Mapped[dict] = mapped_column(JSONB)
