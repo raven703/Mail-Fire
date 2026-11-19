@@ -22,11 +22,12 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
  useEffect(()=>{
   const current=dialog.current;
   if(!current)return;
+  const previousFocus=document.activeElement as HTMLElement|null;
   current.showModal();
   const previous=document.body.style.overflow;
   document.body.style.overflow='hidden';
   nameField.current?.focus();
-  return ()=>{document.body.style.overflow=previous;if(current.open)current.close()};
+  return ()=>{document.body.style.overflow=previous;if(current.open)current.close();previousFocus?.focus()};
  },[]);
 
  const invalidAll=categoryMatch==='all'&&categories.length===0;

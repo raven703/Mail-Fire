@@ -71,3 +71,21 @@ focus containment. All validation errors remain in the dialog.
 7. Check desktop, mobile, dark/light theme, browser E2E, screen-reader
    labels, focus restoration, and report any failures.
 8. Do not touch production data or push/merge automatically.
+
+## Local acceptance
+
+Reviewed and integrated with preserved picker checkpoint 5f5ce09. Compact PR
+picker intentionally supersedes the earlier two-panel picker; shared React
+usage and complete rule constructor remain. Fixed nested category creation:
+portal dialog avoids required category fields blocking the policy form and
+Escape closes only the top dialog. Explicit focus restoration added to policy.
+Ruff passes; TypeScript/Vite passes; local pytest 48 passed/12 skipped;
+isolated PostgreSQL mailfire_pr3_test: 58 passed/2 skipped, one deprecation warning.
+Browser policy_modal_smoke.cjs passes Esc/X/Cancel, outside click retention,
+focus restoration, zero implicit policy writes, three-category ANY/ALL preview,
+real API category creation, light/dark at 1440/390px without modal overflow.
+Synthetic browser category remains in catalog. General smoke and post-deploy
+health checked separately. Backup /tmp/mailfire-before-pr3.dump.
+No migration: missing category_match retains ANY semantics. Complete screen-reader
+and exhaustive RBAC audits are not claimed. Counts are detector findings, not
+independent/deduplicated evidence. User explicitly authorized local merge/push.

@@ -1,4 +1,5 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useId,useRef,useState} from 'react';
+import {createPortal} from 'react-dom';
 import {json,type API,type Row} from './components';
 
 type Kind='keywords'|'regex'|'reference'|'ml';
@@ -63,6 +64,12 @@ export function CategoryCreator({api,onCreated,onCancel}:{api:API,onCreated:(c:R
  return <CategoryForm api={api} onSaved={onCreated} onCancel={onCancel}/>;
 }
 
+function CategoryDialog({api,onCreated,onClose}:{api:API,onCreated:(c:Row)=>void,onClose:()=>void}){
+ const ref=useRef<HTMLDialogElement>(null),id=useId();
+ useEffect(()=>{const previous=document.activeElement as HTMLElement|null;const current=ref.current!;current.showModal();return()=>{if(current.open)current.close();previous?.focus()}},[]);
+ return createPortal(<dialog ref={ref} className="category-dialog" aria-labelledby={id} onCancel={e=>{e.preventDefault();onClose()}}><header><h2 id={id}>Создать категорию</h2><button type="button" aria-label="Закрыть окно категории" onClick={onClose}>×</button></header><CategoryCreator api={api} onCreated={onCreated} onCancel={onClose}/></dialog>,document.body);
+}
+
 export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
  {api:API,value:string[],onChange:(v:string[])=>void,canCreate?:boolean,usage?:'policy'|'ml'}){
  const [items,setItems]=useState<Row[]>([]),[q,setQ]=useState(''),[adding,setAdding]=useState(false),[error,setError]=useState('');
@@ -112,7 +119,7 @@ export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
    </div>
   </div>
   {error&&<p role="alert" className="error">{error}</p>}
-  {adding&&<CategoryCreator api={api} onCancel={()=>setAdding(false)}
+   {adding&&<CategoryDialog api={api} onClose={()=>setAdding(false)}
    onCreated={c=>{setItems(old=>[...old,c]);onChange([...value,c.id]);setAdding(false)}}/>}
  </div>;
 }
