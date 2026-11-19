@@ -42,11 +42,12 @@ async function run(){
    return d;
   }
   async function closeWith(method){
+   const before=await page.locator('dialog[open]').count();
    const d=modal();
    if(method==='Escape')await page.keyboard.press('Escape');
    else if(method==='X')await d.getByRole('button',{name:'Закрыть окно'}).click();
    else await d.getByRole('button',{name:'Отмена'}).click();
-   await d.waitFor({state:'hidden'});
+   await page.waitForFunction(count=>document.querySelectorAll('dialog[open]').length===count-1,before);
   }
 
   await nav('Категории данных');
