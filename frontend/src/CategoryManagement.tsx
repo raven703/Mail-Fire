@@ -1,3 +1,4 @@
+import {RulepackTransfer} from './RulepackTransfer';
 import {useEffect,useState} from 'react';
 import {CategoryForm} from './CategoryPicker';
 import {json,type API,type Row} from './components';
@@ -9,6 +10,7 @@ export function CategoryManagement({api,admin}:{api:API,admin:boolean}){
  useEffect(()=>{void refresh()},[]);
  const filtered=items.filter(c=>(c.name+' '+c.group_name).toLowerCase().includes(search.toLowerCase()));
  return <div className="management">
+  {admin&&<RulepackTransfer api={api} onSaved={refresh}/>}
   <header><p className="muted">У категории может быть несколько независимых правил: ключевые фразы, безопасный Regex, эталоны, ML. Системные категории не редактируются.</p>
   {admin&&<button className="primary" onClick={()=>{setCreating(true);setEditing(null)}}>＋ Категория</button>}</header>
   <label>Поиск категории<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Название или группа"/></label>
