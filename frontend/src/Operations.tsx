@@ -22,7 +22,7 @@ export function Operations({page:section,api}:{page:string,api:API}){
     Object.keys(data).filter(k=>k.endsWith('_days')).forEach(k=>payload[k]=Number(form.get(k)));
     setData(await api('retention',json(payload,'PUT')));
    }else if(editor==='integrations'){
-    const destinations=String(form.get('urls')||'').split('\\n').map(v=>v.trim()).filter(Boolean)
+    const destinations=String(form.get('urls')||'').split('\n').map(v=>v.trim()).filter(Boolean)
      .map(url=>({url,enabled:true}));
     setData(await api('integrations',json({destinations},'PUT')));
    }
@@ -69,7 +69,7 @@ export function Operations({page:section,api}:{page:string,api:API}){
   subtitle="Разрешённые адреса назначения, по одному на строку" busy={busy}
   onClose={()=>setEditor(null)} onSubmit={saveSettings} submitLabel="Сохранить назначения">
   <label>Адреса SIEM / Webhook
-   <textarea name="urls" rows={7} defaultValue={data.destinations?.map((d:any)=>d.url).join('\\n')||''}/>
+   <textarea name="urls" rows={7} defaultValue={data.destinations?.map((d:any)=>d.url).join('\n')||''}/>
   </label>
   <p className="edit-intro">Поддерживаются http(s)://, syslog:// и cef://. Настройка доступна только администратору.</p>
   {editorError&&<p role="alert" className="error edit-error">{editorError}</p>}
