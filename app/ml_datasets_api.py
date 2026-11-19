@@ -140,6 +140,15 @@ def review_example(
     row.labels = labels
     row.approved = body.approved
     row.reviewed_by = account.id
+    session.flush()
+    dataset = session.get(MLDataset, dataset_id, with_for_update=True)
+    pending = session.scalar(
+        select(func.count()).select_from(TrainingExample).where(
+            TrainingExample.dataset_id == dataset_id,
+            TrainingExample.approved.is_(False),
+        )
+    )
+    dataset.status = "READY" if pending == 0 else "REVIEW"
     session.add(Audit(actor=account.id, action="ml_dataset_review",
                       target=row.id, details={"dataset_id":dataset_id,"before":before,"labels":labels,"approved":body.approved}))
     session.commit()
