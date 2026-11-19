@@ -77,6 +77,7 @@ def analyze(message_id, job_id=None, owner=None):
     from app.advanced_detectors import pii
 
     findings.extend(pii(text))
+    reference_matches = []
     with transaction() as session:
         from app.fingerprints import compare
 
@@ -85,6 +86,13 @@ def analyze(message_id, job_id=None, owner=None):
             if match["exact"] or (
                 match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
             ):
+                reference_matches.append(
+                    {
+                        "reference_id": reference.id,
+                        "confidence": match["reference_coverage"],
+                        "excerpt": "\n".join(match["matched_fragments"])[:1000],
+                    }
+                )
                 findings.append(
                     {
                         "category": "REFERENCE_DOCUMENT",
@@ -101,14 +109,29 @@ def analyze(message_id, job_id=None, owner=None):
                         "similarity": match,
                     }
                 )
+    ml_scores = {}
     with transaction() as session:
         active_model = session.scalar(select(MLModel).where(MLModel.active.is_(True)))
         if active_model:
             from app.ml import infer
 
-            predictions = infer(active_model.artifact, text)
+            try:
+                predictions = infer(active_model.artifact, text)
+            except Exception:
+                # Preserve deterministic evidence when the model is unavailable.
+                predictions = []
+                active_model = None
+            ml_scores = {p["category"]: p for p in predictions}
+            # Custom categories are emitted only by their configured ML rule.
+            from app.models import Category
+
+            builtin_categories = set(
+                session.scalars(
+                    select(Category.id).where(Category.mode == "builtin", Category.active.is_(True))
+                )
+            )
             for prediction in predictions:
-                if prediction["matched"]:
+                if prediction["matched"] and prediction["category"] in builtin_categories:
                     findings.append(
                         {
                             "category": prediction["category"],
@@ -124,6 +147,19 @@ def analyze(message_id, job_id=None, owner=None):
                             "status": "ANALYZED",
                         }
                     )
+    with transaction() as session:
+        from app.categories import custom_findings
+
+        findings.extend(
+            custom_findings(
+                session,
+                text,
+                references=reference_matches,
+                ml_scores=ml_scores,
+                available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+            )
+        )
+
     with transaction() as session:
         assert_current_job(session, job_id, owner)
         message = session.get(Message, message_id, with_for_update=True)
@@ -203,8 +239,23 @@ def analyze(message_id, job_id=None, owner=None):
                         "status": "ANALYZED",
                     }
                 )
+        from app.categories import custom_findings
+
+        # Include semantic evidence in the same ANY/ALL category decision.
+        semantic_refs = [
+            {"reference_id": m["source_id"], "confidence": m["similarity"], "excerpt": m["text"][:1000]}
+            for m in matches
+        ]
+        merged = custom_findings(
+            session,
+            text,
+            references=reference_matches + semantic_refs,
+            ml_scores=ml_scores,
+            available_engines={"keywords", "regex", "reference"} | ({"ml"} if active_model else set()),
+        )
+        original = [f for f in findings if not str(f.get("source", "")).startswith("custom-")]
         current = session.get(Content, content.id)
-        current.analysis = {"findings": findings + semantic_findings}
+        current.analysis = {"findings": original + merged + semantic_findings}
     for event_id in event_ids:
         evaluate(event_id, job_id, owner)
 
@@ -229,10 +280,14 @@ def evaluate(event_id, job_id=None, owner=None):
             if config and not config.value.get(key, True)
             for category in value[2]
         }
+        from app.models import Category
+
+        active_categories = set(session.scalars(select(Category.id).where(Category.active.is_(True))))
         findings = [
             f
             for f in findings
-            if f["category"] not in disabled
+            if f["category"] in active_categories
+            and f["category"] not in disabled
             and not (config and not config.value.get("ml", True) and f.get("source") == "supervised-ml")
         ]
         for policy in session.scalars(

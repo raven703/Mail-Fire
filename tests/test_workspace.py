@@ -67,7 +67,7 @@ def test_workspace_api():
             == 200
         )
         assert client.get("/api/workspace/preferences").json()["theme"] == "dark"
-        body = {"name": "Synthetic workspace policy", "shadow": True, "categories": ["TEST"]}
+        body = {"name": "Synthetic workspace policy", "shadow": True, "categories": ["CONFIDENTIAL"]}
         created = client.post("/api/workspace/policies", json=body, headers=headers)
         assert created.status_code == 200, created.text
         policy_id = created.json()["id"]
