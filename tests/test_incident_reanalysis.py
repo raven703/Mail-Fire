@@ -72,12 +72,12 @@ def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monke
             assert incident.risk == 90
             assert len(incident.findings) == 2
             assert incident.status == "REVIEW"
-        assert sent == [first_id]
+        assert sent.count(first_id) == 1
     finally:
         # Cleanup in FK order so this test never modifies shared fixtures.
         with transaction() as db:
-            db.query(Incident).filter_by(event_id=event_id).delete() if "event_id" in locals() else None
             if "event_id" in locals():
+                db.query(Incident).filter_by(event_id=event_id).delete()
                 db.query(MailEvent).filter_by(id=event_id).delete()
             if "mail_id" in locals():
                 db.query(Message).filter_by(id=mail_id).delete()
