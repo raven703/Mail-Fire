@@ -54,7 +54,7 @@ def incident_query():
         select(Incident, Message, Policy.name, Account.username)
         .join(MailEvent, MailEvent.id == Incident.event_id)
         .join(Message, Message.id == MailEvent.message_id)
-        .join(Policy, Policy.id == Incident.policy_id)
+        .outerjoin(Policy, Policy.id == Incident.policy_id)
         .outerjoin(Account, Account.id == Incident.assignee)
     )
 
@@ -67,7 +67,8 @@ def incident_row(row, sensitive):
         subject=mail.subject,
         sender=mail.sender,
         recipients=mail.recipients,
-        category=policy,
+        category=", ".join(h.get("name", "") for h in (item.policy_hits or []) if h.get("active")) or policy or "Исторические политики",
+        policies=[{"id": h.get("policy_id"), "name": h.get("name"), "risk": h.get("risk"), "active": h.get("active", True), "version": h.get("version")} for h in (item.policy_hits or [])],
         analyst=assignee,
         severity=severity(item.risk),
     )
@@ -305,14 +306,20 @@ def overview(
     recent = session.execute(
         incident_query().where(within).order_by(Incident.risk.desc(), Incident.created_at.desc()).limit(8)
     )
+    # One incident may match multiple policies; policy hit counts are not
+    # the same as the number of unique incidents.
     categories = [
         dict(name=name, count=count)
         for name, count in session.execute(
-            select(Policy.name, func.count(Incident.id))
-            .join(Incident, Incident.policy_id == Policy.id)
-            .where(within)
-            .group_by(Policy.name)
-            .order_by(func.count(Incident.id).desc())
+            __import__("sqlalchemy").text("""
+                SELECT hit->>'name' AS name, count(*) AS count
+                FROM incidents i
+                CROSS JOIN LATERAL jsonb_array_elements(i.policy_hits) AS hit
+                WHERE i.created_at >= :begin AND i.created_at < :finish
+                  AND hit->>'name' IS NOT NULL
+                GROUP BY hit->>'name' ORDER BY count(*) DESC
+            """),
+            {"begin": begin, "finish": finish},
         )
     ]
     return {
@@ -386,6 +393,7 @@ def incident_detail(incident_id: str, account=Depends(user), session=Depends(db)
     if not row:
         raise HTTPException(404)
     result = incident_row(row, account.originals)
+    result["policy_hits"] = row[0].policy_hits or []
     result["comments"] = [
         dict(id=c.id, text=c.text, created_at=c.created_at, username=name)
         for c, name in session.execute(
@@ -530,3 +538,34 @@ def policy_history(policy_id: str, account=Depends(user), session=Depends(db)):
             )
         ]
     }
+
+@router.post("/policies/{policy_id}/archive")
+def archive_policy(policy_id: str, account=Depends(admin), session=Depends(db)):
+    row = session.get(Policy, policy_id, with_for_update=True)
+    if not row:
+        raise HTTPException(404)
+    row.enabled = False
+    row.archived = True
+    session.add(Audit(actor=account.id, action="policy_archive", target=row.id, details={"snapshot": jsonable_encoder(serialize(row))}))
+    session.commit()
+    return {"archived": True}
+
+
+@router.delete("/policies/{policy_id}")
+def delete_policy(policy_id: str, account=Depends(admin), session=Depends(db)):
+    """Delete from active catalog without destroying historical incident evidence."""
+    row = session.get(Policy, policy_id, with_for_update=True)
+    if not row:
+        raise HTTPException(404)
+    snapshot = jsonable_encoder(serialize(row))
+    # Historical incidents keep policy_hits as an immutable snapshot, and the
+    # representative nullable FK is cleared before deleting the policy row.
+    session.execute(
+        __import__("sqlalchemy").update(Incident)
+        .where(Incident.policy_id == policy_id).values(policy_id=None)
+    )
+    session.add(Audit(actor=account.id, action="policy_delete", target=policy_id,
+                      details={"snapshot": snapshot}))
+    session.delete(row)
+    session.commit()
+    return {"deleted": True, "id": policy_id}
