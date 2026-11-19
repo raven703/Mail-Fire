@@ -153,6 +153,14 @@ def analyze(message_id, job_id=None, owner=None):
             )
         )
 
+    # Optional LLM runs only after cheap deterministic/ML detectors and never
+    # holds a database transaction while waiting for remote inference.
+    from app.llm_analyzer import analyze as llm_analyze
+
+    llm_findings, llm_errors = llm_analyze(text, findings)
+    findings.extend(llm_findings)
+    ml_errors.extend(llm_errors)
+
     with transaction() as session:
         assert_current_job(session, job_id, owner)
         message = session.get(Message, message_id, with_for_update=True)
