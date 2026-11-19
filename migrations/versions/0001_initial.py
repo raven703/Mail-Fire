@@ -25,6 +25,8 @@ def upgrade():
         historical.tables["policies"]._columns.remove(historical.tables["policies"].c[name])
     for name in ["message_id", "policy_hits"]:
         column = historical.tables["incidents"].c[name]
+        for foreign_key in list(column.foreign_keys):
+            historical.tables["incidents"].foreign_keys.discard(foreign_key)
         for constraint in list(historical.tables["incidents"].constraints):
             if any(c is column for c in constraint.columns):
                 historical.tables["incidents"].constraints.remove(constraint)
