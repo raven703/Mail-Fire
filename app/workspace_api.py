@@ -74,6 +74,7 @@ def incident_row(row, sensitive):
     )
     if not sensitive:
         result.pop("findings", None)
+        result.pop("policy_hits", None)
     return result
 
 
@@ -400,7 +401,7 @@ def incident_detail(incident_id: str, account=Depends(user), session=Depends(db)
         raise HTTPException(404)
     result = incident_row(row, account.originals)
     result["policy_hits"] = [
-        (dict(h) if account.originals else {k: v for k, v in h.items() if k != "findings"})
+        (dict(h) if account.originals else {k: v for k, v in h.items() if k not in {"findings", "conditions"}})
         for h in (row[0].policy_hits or [])
     ]
     result["comments"] = [
