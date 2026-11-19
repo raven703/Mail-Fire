@@ -66,23 +66,53 @@ export function CategoryCreator({api,onCreated,onCancel}:{api:API,onCreated:(c:R
 export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
  {api:API,value:string[],onChange:(v:string[])=>void,canCreate?:boolean,usage?:'policy'|'ml'}){
  const [items,setItems]=useState<Row[]>([]),[q,setQ]=useState(''),[adding,setAdding]=useState(false),[error,setError]=useState('');
- useEffect(()=>{api('categories').then(d=>setItems(d.items||[])).catch(e=>setError(String(e)))},[]);
+ const refresh=()=>api('categories').then(d=>setItems(d.items||[])).catch(e=>setError(String(e)));
+ useEffect(()=>{void refresh()},[]);
  const chosen=items.filter(c=>value.includes(c.id));
  const filtered=items.filter(c=>c.active&&(usage!=='policy'||c.mode!=='label') &&
-   (c.name.toLowerCase().includes(q.toLowerCase())||c.group_name.toLowerCase().includes(q.toLowerCase())));
+   (c.name.toLocaleLowerCase('ru').includes(q.toLocaleLowerCase('ru')) ||
+    c.group_name.toLocaleLowerCase('ru').includes(q.toLocaleLowerCase('ru'))));
  const groups=[...new Set(filtered.map(c=>String(c.group_name)))];
- return <div className="category-picker">
-  <label>Категории для {usage==='policy'?'политики':'обучения'}<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Поиск: ИНН, паспорт, финансовые документы…"/></label>
-  <div className="category-options">{groups.map(group=><section key={group}><strong>{group}</strong>
-    {filtered.filter(c=>c.group_name===group).map(c=><label className="category-option" key={c.id}>
-       <input type="checkbox" checked={value.includes(c.id)} onChange={e=>onChange(e.target.checked?[...value,c.id]:value.filter(id=>id!==c.id))}/>
-       <span>{c.name}<small>{c.mode==='label'?'Учебная метка':c.mode==='builtin'?'Системный детектор':c.rules?.map((r:Row)=>modeNames[r.kind as Kind]||r.kind).join(' + ')||'Нет активных правил'}</small></span>
-      </label>)}</section>)}
-    {!filtered.length&&<p className="muted">Совпадений нет</p>}</div>
-  <div className="category-chips">{chosen.map(c=><button type="button" title="Убрать категорию" key={c.id} onClick={()=>onChange(value.filter(id=>id!==c.id))}>{c.name} ×</button>)}</div>
-  <p className="muted">Выбрано: {value.length}{usage==='policy'&&value.length===0?' · Пустой выбор означает все категории':''}</p>
+ return <div className="policy-category-card">
+  <div className="policy-category-heading">
+   <div><strong>Категории обнаружения</strong>
+    <p>{usage==='policy'?'Выберите, какие типы данных контролировать':'Выберите подтверждённые категории для обучения'}</p>
+   </div>
+   <span className="policy-category-count" aria-live="polite">{value.length} выбрано</span>
+  </div>
+  <label className="policy-category-search">
+   <span className="visually-hidden">Поиск категорий</span>
+   <input type="search" value={q} onChange={e=>setQ(e.target.value)}
+    placeholder="Поиск: паспорт, ИНН, секреты…" autoComplete="off"/>
+  </label>
+  <div className="policy-category-scroll" role="group" aria-label="Доступные категории обнаружения">
+   {groups.map(group=><div className="policy-category-group" key={group}>
+    <div className="policy-category-group-name">{group}</div>
+    {filtered.filter(c=>c.group_name===group).map(c=><label className="policy-category-option" key={c.id}>
+     <input type="checkbox" checked={value.includes(c.id)}
+      onChange={e=>onChange(e.target.checked?[...value,c.id]:value.filter(id=>id!==c.id))}/>
+     <span className="policy-category-option-title">{c.name}
+      <small>{c.mode==='label'?'Учебная категория':c.mode==='builtin'?'Системный детектор':
+       c.rules?.map((r:Row)=>modeNames[r.kind as Kind]||r.kind).join(' · ')||'Правила обнаружения'}</small>
+     </span>
+    </label>)}
+   </div>)}
+   {!filtered.length&&<p className="policy-category-empty">По вашему запросу ничего не найдено</p>}
+  </div>
+  <div className="policy-category-footer">
+   <div className="policy-category-selected">
+    {chosen.map(c=><button type="button" className="policy-category-chip" key={c.id}
+      title={'Убрать: '+c.name} aria-label={'Убрать категорию '+c.name}
+      onClick={()=>onChange(value.filter(id=>id!==c.id))}>{c.name} <span aria-hidden="true">×</span></button>)}
+    {!value.length&&<span className="muted">{usage==='policy'?'Не выбрано — контроль всех категорий':'Пока ничего не выбрано'}</span>}
+   </div>
+   <div className="policy-category-actions">
+    {canCreate&&!adding&&<button type="button" className="policy-category-add" onClick={()=>setAdding(true)}>＋ Новая категория</button>}
+    {value.length>0&&<button type="button" className="policy-category-reset" onClick={()=>onChange([])}>Сбросить</button>}
+   </div>
+  </div>
   {error&&<p role="alert" className="error">{error}</p>}
-  {canCreate&&!adding&&<button type="button" onClick={()=>setAdding(true)}>＋ Создать новую категорию</button>}
-  {adding&&<CategoryCreator api={api} onCancel={()=>setAdding(false)} onCreated={c=>{setItems(old=>[...old,c]);onChange([...value,c.id]);setAdding(false)}}/>}
+  {adding&&<CategoryCreator api={api} onCancel={()=>setAdding(false)}
+   onCreated={c=>{setItems(old=>[...old,c]);onChange([...value,c.id]);setAdding(false)}}/>}
  </div>;
 }
