@@ -22,16 +22,36 @@ def upgrade():
     )
     op.create_index("ix_ml_datasets_created_at", "ml_datasets", ["created_at"])
     op.add_column("training_examples", sa.Column("dataset_id", sa.String(36), nullable=True))
-    op.add_column("training_examples", sa.Column("source", sa.String(80), nullable=False, server_default="manual"))
+    op.add_column(
+        "training_examples", sa.Column("source", sa.String(80), nullable=False, server_default="manual")
+    )
     op.add_column("training_examples", sa.Column("reviewed_by", sa.String(36), nullable=True))
-    op.create_foreign_key("fk_ml_examples_dataset", "training_examples", "ml_datasets", ["dataset_id"], ["id"], ondelete="SET NULL")
-    op.create_foreign_key("fk_ml_examples_reviewer", "training_examples", "accounts", ["reviewed_by"], ["id"], ondelete="SET NULL")
+    op.create_foreign_key(
+        "fk_ml_examples_dataset",
+        "training_examples",
+        "ml_datasets",
+        ["dataset_id"],
+        ["id"],
+        ondelete="SET NULL",
+    )
+    op.create_foreign_key(
+        "fk_ml_examples_reviewer",
+        "training_examples",
+        "accounts",
+        ["reviewed_by"],
+        ["id"],
+        ondelete="SET NULL",
+    )
     op.create_index("ix_training_examples_dataset_id", "training_examples", ["dataset_id"])
     op.add_column("ml_models", sa.Column("engine", sa.String(24), nullable=False, server_default="tfidf"))
     op.add_column("ml_models", sa.Column("category_id", sa.String(64), nullable=True))
     op.add_column("ml_models", sa.Column("dataset_id", sa.String(36), nullable=True))
-    op.create_foreign_key("fk_ml_models_category", "ml_models", "categories", ["category_id"], ["id"], ondelete="SET NULL")
-    op.create_foreign_key("fk_ml_models_dataset", "ml_models", "ml_datasets", ["dataset_id"], ["id"], ondelete="SET NULL")
+    op.create_foreign_key(
+        "fk_ml_models_category", "ml_models", "categories", ["category_id"], ["id"], ondelete="SET NULL"
+    )
+    op.create_foreign_key(
+        "fk_ml_models_dataset", "ml_models", "ml_datasets", ["dataset_id"], ["id"], ondelete="SET NULL"
+    )
     op.create_index("ix_ml_models_category_id", "ml_models", ["category_id"])
     # Existing TF-IDF model remains valid and publishable as the global classifier.
 

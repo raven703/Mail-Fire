@@ -161,3 +161,20 @@ should pin and verify compatibility before production.
    model listing. Report all remaining failures; fix before merging.
 9. After review, merge locally and rebuild; do not push without the
    user's authorization.
+
+## Published review checkpoint (not full acceptance)
+
+Fixed historical 0001 schema construction so fresh installations do not create
+0006 objects prematurely, including removal of copied foreign-key metadata.
+Isolated PostgreSQL mailfire_pr4_test: upgrade through 0006, downgrade to 0005,
+and upgrade again executed; final full suite: 64 passed, 2 skipped, one upstream
+TestClient deprecation warning (/tmp/pr4-db4.log). Restored legacy /ml/infer
+model_id alongside per-prediction provenance. SetFit explicitly uses CPU and
+local_files_only; cached extracted model files now follow model lifetime rather
+than accumulating in /tmp. Ruff and frontend TypeScript/Vite build passed.
+
+This checkpoint is published to the PR branch only. Real SetFit/RuBERT pretrained
+training/reload/inference, runtime network isolation verification, neural image
+acceptance and dataset browser flows remain incomplete. Offline flags and code
+review alone do not prove those requirements. Do not treat this checkpoint as
+approval to deploy or merge into master. Production schema was not upgraded.

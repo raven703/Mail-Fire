@@ -17,14 +17,24 @@ def upgrade():
 
     historical = sa.MetaData()
     for table in Base.metadata.sorted_tables:
-        if table.name not in {"categories", "category_rules"}:
+        if table.name not in {"categories", "category_rules", "ml_datasets"}:
             table.to_metadata(historical)
     training = historical.tables["training_examples"]
-    column = training.c.source_incident_id
-    for constraint in list(training.constraints):
-        if column in list(constraint.columns):
-            training.constraints.remove(constraint)
-    training._columns.remove(column)
+    for table, names in [
+        (training, ["source_incident_id", "dataset_id", "source", "reviewed_by"]),
+        (historical.tables["ml_models"], ["engine", "category_id", "dataset_id"]),
+    ]:
+        for name in names:
+            column = table.c[name]
+            for foreign_key in list(column.foreign_keys):
+                table.foreign_keys.discard(foreign_key)
+            for constraint in list(table.constraints):
+                if any(c is column for c in constraint.columns):
+                    table.constraints.remove(constraint)
+            for index in list(table.indexes):
+                if any(c is column for c in index.columns):
+                    table.indexes.remove(index)
+            table._columns.remove(column)
     historical.create_all(op.get_bind())
     op.execute("CREATE INDEX contents_fts ON contents USING gin (to_tsvector('simple', text))")
 

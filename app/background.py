@@ -72,9 +72,13 @@ def train_job(job_id, owner, payload):
         if not live(job, owner):
             return
         model = MLModel(
-            name=payload["name"], engine=engine, category_id=category,
-            dataset_id=payload.get("dataset_id"), artifact=artifact,
-            metrics=metrics, eligible=eligible,
+            name=payload["name"],
+            engine=engine,
+            category_id=category,
+            dataset_id=payload.get("dataset_id"),
+            artifact=artifact,
+            metrics=metrics,
+            eligible=eligible,
         )
         session.add(model)
         session.flush()

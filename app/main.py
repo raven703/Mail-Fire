@@ -3,8 +3,8 @@ from app.admin_api import router as admin_router
 from app.api import app
 from app.catalog_api import router as catalog_router
 from app.categories_api import router as categories_router
-from app.ml_datasets_api import router as datasets_router
 from app.ml_api import router
+from app.ml_datasets_api import router as datasets_router
 from app.monitoring import router as monitoring_router
 from app.reference_api import router as reference_router
 from app.retention_api import router as retention_router

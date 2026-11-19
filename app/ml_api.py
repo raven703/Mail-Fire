@@ -5,7 +5,18 @@ from sqlalchemy import select, text, update
 from app.api import admin, analyst, db, serialize, user
 from app.categories import available_categories
 from app.ml import group_hash, snapshot_hash
-from app.models import Audit, Category, Content, Incident, Job, MailEvent, MLDataset, Message, MLModel, TrainingExample
+from app.models import (
+    Audit,
+    Category,
+    Content,
+    Incident,
+    Job,
+    MailEvent,
+    Message,
+    MLDataset,
+    MLModel,
+    TrainingExample,
+)
 
 router = APIRouter(prefix="/api/ml", tags=["ML"])
 
@@ -27,7 +38,8 @@ def add_example(body: ExampleBody, account=Depends(analyst), session=Depends(db)
         labels=sorted(set(body.labels)),
         approved=body.approved,
         group_sha=group_hash(body.text),
-        source="manual", reviewed_by=account.id if body.approved else None,
+        source="manual",
+        reviewed_by=account.id if body.approved else None,
     )
     session.add(row)
     session.add(Audit(actor=account.id, action="ml_label", target=row.group_sha))
@@ -65,7 +77,8 @@ def from_incident(incident_id: str, body: IncidentExampleBody, account=Depends(a
         approved=body.approved,
         group_sha=group_hash(content.text[:100000]),
         source_incident_id=incident_id,
-        source="incident", reviewed_by=account.id if body.approved else None,
+        source="incident",
+        reviewed_by=account.id if body.approved else None,
     )
     session.add(example)
     session.add(
@@ -116,11 +129,18 @@ def training(body: TrainBody, account=Depends(admin), session=Depends(db)):
     if len(rows) < 30:
         raise HTTPException(422, "Нужно не менее 30 различных утверждённых примеров")
     snapshot = snapshot_hash([{"text": r.text, "labels": r.labels} for r in rows])
-    job = Job(kind="ml_train", payload={
-        "name":body.name, "min_f1":body.min_f1, "engine":body.engine,
-        "category_id":body.category_id, "dataset_id":body.dataset_id,
-        "snapshot_sha":snapshot, "progress":0,
-    })
+    job = Job(
+        kind="ml_train",
+        payload={
+            "name": body.name,
+            "min_f1": body.min_f1,
+            "engine": body.engine,
+            "category_id": body.category_id,
+            "dataset_id": body.dataset_id,
+            "snapshot_sha": snapshot,
+            "progress": 0,
+        },
+    )
     session.add(job)
     session.add(Audit(actor=account.id, action="ml_train", target=body.name))
     session.commit()
@@ -135,11 +155,15 @@ def publish(model_id: str, account=Depends(admin), session=Depends(db)):
         raise HTTPException(404)
     if not model.eligible:
         raise HTTPException(409, "Модель не прошла метрики качества")
-    session.execute(update(MLModel).where(
-        MLModel.category_id == model.category_id
-        if model.category_id is not None
-        else MLModel.category_id.is_(None)
-    ).values(active=False))
+    session.execute(
+        update(MLModel)
+        .where(
+            MLModel.category_id == model.category_id
+            if model.category_id is not None
+            else MLModel.category_id.is_(None)
+        )
+        .values(active=False)
+    )
     model.active = True
     session.add(Audit(actor=account.id, action="ml_publish_or_rollback", target=model.id))
     session.commit()
@@ -157,7 +181,16 @@ def inference(body: InferenceBody, account=Depends(analyst), session=Depends(db)
     from app.ml_runtime import infer_active
 
     predictions, errors = infer_active(session, body.text)
+    # Preserve the legacy global TF-IDF identifier while returning per-prediction
+    # provenance for the new independent classifiers.
+    global_model_id = session.scalar(
+        select(MLModel.id).where(
+            MLModel.active.is_(True), MLModel.engine == "tfidf", MLModel.category_id.is_(None)
+        )
+    )
     return {
+        "model_id": global_model_id,
         "status": "PARTIAL" if errors else "ANALYZED" if predictions else "UNTRAINED",
-        "predictions": predictions, "errors": errors,
+        "predictions": predictions,
+        "errors": errors,
     }

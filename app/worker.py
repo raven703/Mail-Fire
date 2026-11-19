@@ -28,11 +28,20 @@ def claim(owner):
                 Job.kind != "ml_train" if training_busy else True,
                 (
                     (Job.kind == "ml_train")
-                    & (__import__("sqlalchemy").func.coalesce(Job.payload["engine"].astext.in_(["setfit", "rubert"]), False))
-                ) if os.getenv("ML_NEURAL_ONLY", "false").lower() == "true"
+                    & (
+                        __import__("sqlalchemy").func.coalesce(
+                            Job.payload["engine"].astext.in_(["setfit", "rubert"]), False
+                        )
+                    )
+                )
+                if os.getenv("ML_NEURAL_ONLY", "false").lower() == "true"
                 else ~(
                     (Job.kind == "ml_train")
-                    & (__import__("sqlalchemy").func.coalesce(Job.payload["engine"].astext.in_(["setfit", "rubert"]), False))
+                    & (
+                        __import__("sqlalchemy").func.coalesce(
+                            Job.payload["engine"].astext.in_(["setfit", "rubert"]), False
+                        )
+                    )
                 ),
                 or_(
                     and_(Job.status == "PENDING", Job.available_at <= now()),

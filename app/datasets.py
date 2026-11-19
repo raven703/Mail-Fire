@@ -16,6 +16,7 @@ def parse_dataset(raw, filename, category_map):
     except UnicodeDecodeError as exc:
         raise ValueError("Требуется кодировка UTF-8") from exc
     if filename.lower().endswith(".jsonl"):
+
         def source():
             for line_no, line in enumerate(io.StringIO(data), 1):
                 if not line.strip():
@@ -27,6 +28,7 @@ def parse_dataset(raw, filename, category_map):
                 if not isinstance(value, dict):
                     raise ValueError(f"Строка {line_no}: ожидается JSON-объект")
                 yield value
+
         rows = source()
     else:
         rows = csv.DictReader(io.StringIO(data))

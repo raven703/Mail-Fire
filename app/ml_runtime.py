@@ -18,21 +18,25 @@ def infer_active(session, text):
                     raise ValueError("TF-IDF model must be global")
                 for prediction in infer(model.artifact, text):
                     global_predictions[prediction["category"]] = {
-                        **prediction, "model_id": model.id, "engine": "tfidf"
+                        **prediction,
+                        "model_id": model.id,
+                        "engine": "tfidf",
                     }
             elif model.engine in {"setfit", "rubert"} and model.category_id:
                 category = model.category_id
                 threshold = float(model.metrics["threshold"])
                 prediction = infer_binary(model.artifact, text, category, threshold)
-                custom_predictions[category] = {
-                    **prediction, "model_id": model.id, "engine": model.engine
-                }
+                custom_predictions[category] = {**prediction, "model_id": model.id, "engine": model.engine}
             else:
                 raise ValueError("Invalid ML model metadata")
         except Exception as exc:
-            errors.append({
-                "model_id": model.id, "engine": model.engine,
-                "category_id": model.category_id, "error": type(exc).__name__,
-            })
+            errors.append(
+                {
+                    "model_id": model.id,
+                    "engine": model.engine,
+                    "category_id": model.category_id,
+                    "error": type(exc).__name__,
+                }
+            )
     # A specialized model always replaces the global classifier for its category.
     return list({**global_predictions, **custom_predictions}.values()), errors
