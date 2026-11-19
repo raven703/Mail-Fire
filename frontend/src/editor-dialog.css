@@ -81,3 +81,28 @@
  .editor-dialog-actions{width:100%}
  .editor-dialog-body .edit-form-grid{grid-template-columns:1fr}
 }
+
+/* Policy editor previously owned a nested scrolling dialog. Only the shared
+   shell scrolls now; retain policy-specific spacing inside its content. */
+.editor-dialog-body .policy-modal-body{
+ padding:0;
+ min-height:0;
+ overflow:visible;
+ overscroll-behavior:auto;
+}
+.editor-dialog-body .policy-modal-name input{width:100%}
+.editor-dialog-body .policy-modal-numbers{margin-top:13px}
+.editor-dialog-body .policy-category-card{margin:12px 0}
+.editor-dialog-body .policy-modal-field-help{margin:8px 0 12px}
+.editor-dialog-body .ml-example-text{
+ display:block;white-space:pre-wrap;overflow-wrap:anywhere;
+ max-height:160px;overflow-y:auto;border:1px solid var(--border);
+ border-radius:9px;background:var(--bg);padding:12px;line-height:1.5;
+ font-size:12px;
+}
+.editor-dialog-body .filters{margin-bottom:12px}
+.editor-dialog-body .filters label{margin:0;min-width:0}
+.editor-dialog-body .ml-training-options{min-width:0}
+.editor-dialog-body textarea{max-width:100%}
+.editor-dialog-body details{margin:9px 0}
+.editor-dialog-body .policy-category-scroll{max-height:min(32dvh,270px)}
