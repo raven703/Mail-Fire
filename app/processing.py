@@ -294,6 +294,12 @@ def evaluate(event_id, job_id=None, owner=None):
             return
         message = session.get(Message, event.message_id, with_for_update=True)
         event.direction = classify_direction(message.sender, message.recipients, settings().internal_domains)
+        # A message may arrive via several BCC delivery events. Re-evaluate
+        # policy directions across all events so a later event does not clear
+        # previously matched policy hits.
+        events = list(session.scalars(select(MailEvent).where(MailEvent.message_id == message.id)))
+        for delivery in events:
+            delivery.direction = classify_direction(message.sender, message.recipients, settings().internal_domains)
         if not message.content_id:
             return
         findings = session.get(Content, message.content_id).analysis.get("findings", [])
@@ -328,7 +334,11 @@ def evaluate(event_id, job_id=None, owner=None):
             select(Policy).where(Policy.enabled.is_(True), Policy.archived.is_(False)).order_by(Policy.priority)
         ):
             conditions = policy.conditions
-            if conditions.get("direction") and event.direction not in conditions["direction"]:
+            allowed_events = [
+                delivery for delivery in events
+                if not conditions.get("direction") or delivery.direction in conditions["direction"]
+            ]
+            if not allowed_events:
                 continue
             if conditions.get("senders") and message.sender not in conditions["senders"]:
                 continue
@@ -343,6 +353,7 @@ def evaluate(event_id, job_id=None, owner=None):
                 "risk": max(f["risk"] for f in matches),
                 "findings": matches,
                 "active": True,
+                "event_ids": [delivery.id for delivery in allowed_events],
             })
         incident = session.scalar(
             select(Incident).where(Incident.message_id == message.id).with_for_update()
