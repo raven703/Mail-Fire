@@ -81,10 +81,10 @@ input[type="button"], input[type="submit"], input[type="reset"] {
   padding: 9px 14px;
   transition: background-color .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
 }
-button:not(.toggle):not(.icon-control):not(.theme-toggle) {
+button:where(:not(.toggle):not(.icon-control):not(.theme-toggle)) {
   border-color: var(--border);
 }
-button:not(.toggle):not(.icon-control):not(.theme-toggle):hover:not(:disabled) {
+button:where(:not(.toggle):not(.icon-control):not(.theme-toggle)):hover:not(:disabled) {
   background: var(--selected);
   color: var(--text);
   border-color: var(--border);
