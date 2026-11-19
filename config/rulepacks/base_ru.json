@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "name": "base-ru-v1",
+  "description": "Русскоязычные стартовые правила Mail-Fire. Классификация эвристическая, не доказательство угрозы. Политики выключены по умолчанию.",
+  "categories": [
+    {
+      "id": "pack-threat-explosive",
+      "name": "Угрозы взрывов и опасных предметов",
+      "group_name": "Угрозы безопасности",
+      "description": "Прямые текстовые формулировки об угрозе взрыва, минировании. Требуют оценки контекста: цитирование, жалобы, сообщения о предотвращении, шутки.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Прямые формулировки о взрыве",
+          "enabled": true,
+          "risk": 90,
+          "priority": 10,
+          "phrases": [
+            "заложена бомба",
+            "я заложил бомбу",
+            "устрою взрыв",
+            "взорву здание",
+            "взорву школу",
+            "взорву офис",
+            "сообщение о минировании"
+          ]
+        },
+        {
+          "kind": "keywords",
+          "title": "Угроза подрыва",
+          "enabled": true,
+          "risk": 85,
+          "priority": 20,
+          "phrases": [
+            "всё взорвётся",
+            "я вас взорву",
+            "подложил взрывчатку"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-threat-violence",
+      "name": "Угрозы физического насилия",
+      "group_name": "Угрозы безопасности",
+      "description": "Прямые угрозы нанесения вреда людям, без автоматических выводов о реальности намерений.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Прямые угрозы",
+          "enabled": true,
+          "risk": 85,
+          "phrases": [
+            "я тебя убью",
+            "я вас убью",
+            "убью тебя",
+            "убью всех",
+            "тебя зарежу",
+            "я тебя застрелю",
+            "расправлюсь с тобой"
+          ]
+        },
+        {
+          "kind": "keywords",
+          "title": "Угрозы расправы",
+          "enabled": true,
+          "risk": 70,
+          "phrases": [
+            "угрожаю расправой",
+            "физически расправлюсь",
+            "причиню тебе вред"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-threat-extortion",
+      "name": "Вымогательство и шантаж",
+      "group_name": "Угрозы безопасности",
+      "description": "Фразы о вымогательстве и шантаже. Могут встречаться в обращениях пострадавших.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Требование денег и угрозы",
+          "enabled": true,
+          "risk": 75,
+          "phrases": [
+            "заплати или пострадаешь",
+            "переведи деньги иначе",
+            "шантажирую тебя",
+            "буду тебя шантажировать",
+            "требую выкуп"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-financial-forecast",
+      "name": "Непубличные финансовые прогнозы",
+      "group_name": "Коммерческая информация",
+      "description": "Плановые показатели и коммерческие прогнозы. Правила по фразам, без понимания конфиденциальности документа.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Плановая финансовая информация",
+          "enabled": true,
+          "risk": 60,
+          "phrases": [
+            "плановая выручка",
+            "плановая маржинальность",
+            "прогноз прибыли",
+            "внутренний бюджет",
+            "коммерческий прогноз",
+            "непубличный прогноз"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-internal-documents",
+      "name": "Внутренние служебные документы",
+      "group_name": "Коммерческая информация",
+      "description": "Служебные пометки и ограничение распространения. Требуется оценка фактических оснований для ограничения доступа.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Метки доступа",
+          "enabled": true,
+          "risk": 55,
+          "phrases": [
+            "только для внутреннего использования",
+            "не для распространения",
+            "внутренний документ",
+            "служебная информация",
+            "не пересылать третьим лицам"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-credentials-context",
+      "name": "Контекст передачи учётных данных",
+      "group_name": "Учётные данные и доступ",
+      "description": "Текстовые просьбы переслать пароли или ключи, отдельно от встроенных детекторов SECRET и PRIVATE_KEY.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Запросы секретов",
+          "enabled": true,
+          "risk": 75,
+          "phrases": [
+            "пришлите пароль",
+            "отправьте пароль",
+            "перешлите токен доступа",
+            "передайте api ключ",
+            "пришли код доступа"
+          ]
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "name": "[БАЗА] Угрозы взрывов — проверка",
+      "enabled": false,
+      "shadow": false,
+      "priority": 10,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-threat-explosive"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[БАЗА] Угрозы физического насилия — проверка",
+      "enabled": false,
+      "shadow": false,
+      "priority": 20,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-threat-violence"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[БАЗА] Вымогательство — проверка",
+      "enabled": false,
+      "shadow": false,
+      "priority": 30,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-threat-extortion"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[БАЗА] Непубличные финансовые прогнозы",
+      "enabled": false,
+      "shadow": false,
+      "priority": 60,
+      "min_risk": 50,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-financial-forecast"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[БАЗА] Внутренние служебные документы",
+      "enabled": false,
+      "shadow": false,
+      "priority": 70,
+      "min_risk": 50,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-internal-documents"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[БАЗА] Передача учётных данных",
+      "enabled": false,
+      "shadow": false,
+      "priority": 40,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-credentials-context"
+      ],
+      "direction": [],
+      "senders": []
+    }
+  ]
+}
