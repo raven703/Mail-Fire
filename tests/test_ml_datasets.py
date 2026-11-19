@@ -117,3 +117,42 @@ def test_model_runtime_preference_and_failure_isolation(monkeypatch):
     assert next(p for p in predictions if p["category"] == "FINANCE")["confidence"] == 0.94
     assert next(p for p in predictions if p["category"] == "SECRET")["engine"] == "tfidf"
     assert len(errors) == 1 and errors[0]["model_id"] == "bad"
+
+
+def test_shared_rubert_checkpoint_default_for_setfit(tmp_path, monkeypatch):
+    """Both local engines use one base snapshot unless SetFit is overridden."""
+    from app import ml_engines
+
+    base = tmp_path / "rubert"
+    base.mkdir()
+    (base / "config.json").write_text("{}", encoding="utf-8")
+    (base / "modules.json").write_text("[]", encoding="utf-8")
+    monkeypatch.setattr(
+        "app.config.settings",
+        lambda: SimpleNamespace(ml_rubert_base_path=str(base), ml_setfit_base_path=""),
+    )
+    assert ml_engines._base_path("rubert") == str(base)
+    assert ml_engines._base_path("setfit") == str(base)
+
+
+def test_dedicated_setfit_override_and_offline_missing_metadata(tmp_path, monkeypatch):
+    from app import ml_engines
+
+    base = tmp_path / "rubert"
+    base.mkdir()
+    (base / "config.json").write_text("{}", encoding="utf-8")
+    custom = tmp_path / "setfit"
+    custom.mkdir()
+    (custom / "modules.json").write_text("[]", encoding="utf-8")
+    config = SimpleNamespace(ml_rubert_base_path=str(base), ml_setfit_base_path=str(custom))
+    monkeypatch.setattr("app.config.settings", lambda: config)
+    assert ml_engines._base_path("setfit") == str(custom)
+    assert ml_engines._base_path("rubert") == str(base)
+    config.ml_setfit_base_path = ""
+    with pytest.raises(RuntimeError, match="modules.json"):
+        ml_engines._base_path("setfit")
+    with pytest.raises(ValueError, match="Неизвестный"):
+        ml_engines._base_path("unknown")
+    config.ml_rubert_base_path = ""
+    with pytest.raises(RuntimeError, match="ML_RUBERT_BASE_PATH"):
+        ml_engines._base_path("rubert")

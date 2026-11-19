@@ -31,10 +31,35 @@ def _offline():
 def _base_path(engine):
     from app.config import settings
 
-    value = settings().ml_setfit_base_path if engine == "setfit" else settings().ml_rubert_base_path
+    config = settings()
+    # Shared RuBERT-tiny2 checkpoint is the default for both engines.
+    # Optional dedicated SetFit encoder remains supported for future use.
+    if engine not in {"setfit", "rubert"}:
+        raise ValueError("Неизвестный движок ML")
+    value = (
+        config.ml_setfit_base_path or config.ml_rubert_base_path
+        if engine == "setfit"
+        else config.ml_rubert_base_path
+    )
+    if not value:
+        raise RuntimeError(
+            f"Не задан путь к локальной базовой модели для {engine}. "
+            "Укажите ML_RUBERT_BASE_PATH или ML_SETFIT_BASE_PATH."
+        )
     path = Path(value).resolve()
-    if not value or not path.is_dir():
-        raise RuntimeError(f"Локальная базовая модель для {engine} отсутствует: {value or '(не задана)'}")
+    if not path.is_dir():
+        raise RuntimeError(f"Локальная базовая модель для {engine} отсутствует: {value}")
+    # Only local filesystem paths are passed to Transformers/SetFit.
+    # The shared RuBERT snapshot must include SentenceTransformer modules.json
+    # and pooling metadata for SetFit alongside the Hugging Face config/tokenizer.
+    if engine == "setfit" and not (path / "modules.json").is_file():
+        raise RuntimeError(
+            "SetFit требует SentenceTransformer-совместимую модель (modules.json). "
+            "Скачайте полный snapshot cointegrated/rubert-tiny2 с конфигурацией SentenceTransformers, "
+            "а не один файл весов."
+        )
+    if engine == "rubert" and not (path / "config.json").is_file():
+        raise RuntimeError("В каталоге RuBERT отсутствует config.json.")
     return str(path)
 
 

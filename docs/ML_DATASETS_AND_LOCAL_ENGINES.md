@@ -83,13 +83,26 @@ snapshot hash and fail if the reviewed corpus changed while queued.
 ## Optional model installation
 
 The default Compose and API/worker images remain lightweight and run without
-SetFit/Transformers/PyTorch. To use either neural engine, prepare TWO trusted
-pretrained model directories on the deployment host (obtained outside Mail-Fire):
+SetFit/Transformers/PyTorch. **One downloaded checkpoint is enough for both
+training methods:** put the complete trusted snapshot of
+[`cointegrated/rubert-tiny2`](https://huggingface.co/cointegrated/rubert-tiny2)
+into `data/models/rubert/`.
 
-- `data/models/setfit/`: a **Sentence Transformers-compatible multilingual
-  encoder** (e.g. `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`)
-- `data/models/rubert/`: locally staged pretrained `cointegrated/rubert-tiny2`
-  checkpoint and tokenizer.
+Do not download the large MiniLM repository for SetFit. The RuBERT-tiny2
+snapshot includes Sentence Transformers metadata (`modules.json` and its
+pooling/normalization configuration), so SetFit can use the same directory
+as the RuBERT fine-tuning trainer. Download the **full required model
+snapshot**, not merely `pytorch_model.bin`; keep `config.json`,
+tokenizer and SentenceTransformer module files. No duplicate base-weight
+download or second permanent directory is required.
+
+The neural Compose overlay sets both `ML_RUBERT_BASE_PATH` and
+`ML_SETFIT_BASE_PATH` to `/opt/local-ml/rubert`. Internally, if
+`ML_SETFIT_BASE_PATH` is unset, it falls back to `ML_RUBERT_BASE_PATH`.
+For a dedicated SetFit encoder later, set `ML_SETFIT_BASE_PATH` to
+another trusted *local* directory. The two independent training methods
+produce separate trained artifacts even though they start from the
+same base weights.
 
 The files MUST stay local; `.gitignore` excludes `data/models/`. Models
 are downloaded/prepared manually in a trusted environment and mounted read-only
