@@ -10,7 +10,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
  const [stats,setStats]=useState<Row|null>(null);
  const [edit,setEdit]=useState<Row|null>(null),[uploadOpen,setUploadOpen]=useState(false),[approved,setApproved]=useState(false);
  const [labels,setLabels]=useState<string[]>([]);
- const [offset,setOffset]=useState(0),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
+ const [offset,setOffset]=useState(0),[error,setError]=useState(''),[dialogError,setDialogError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
  const reload=()=>api('ml/datasets').then(d=>setDatasets(d.items||[])).catch(e=>setError(String(e)));
  const getSamples=async(id:string,skip=0)=>{
   const [items,summary]=await Promise.all([
@@ -27,7 +27,8 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
   e.preventDefault();
   const form=new FormData(e.currentTarget);
   const mapping=String(form.get('label_mapping')||'{}');
-  try{JSON.parse(mapping)}catch{setError('Сопоставление меток должно быть JSON-объектом');return}
+  try{JSON.parse(mapping)}catch{setDialogError('Сопоставление меток должно быть JSON-объектом');return}
+  setDialogError('');
   void act(async()=>{const result=await api('ml/datasets/import',{method:'POST',body:form});
     setMessage('Датасет загружен, все примеры требуют проверки аналитика.');
     await reload();setSelected(result.id);setUploadOpen(false);await getSamples(result.id);
@@ -44,7 +45,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
   <h2>Наборы данных для ML</h2>
   <p className="muted">Загружайте CSV или JSONL, предварительно размеченные вручную или внешней LLM.
    Mail-Fire не отправляет текст во внешние сервисы. Предложенные метки не используются для обучения до проверки аналитиком.</p>
-  {admin&&<div className="ml-dataset-toolbar"><button type="button" className="primary" onClick={()=>setUploadOpen(true)}>＋ Импортировать датасет</button></div>}
+  {admin&&<div className="ml-dataset-toolbar"><button type="button" className="primary" onClick={()=>{setDialogError('');setUploadOpen(true)}}>＋ Импортировать датасет</button></div>}
   {admin&&uploadOpen&&<EditorDialog title="Импортировать набор данных" subtitle="CSV/JSONL с проверяемыми метками" wide
    busy={busy} onClose={()=>setUploadOpen(false)} onSubmit={upload} submitLabel="Загрузить на проверку">
    <div className="filters">
@@ -59,6 +60,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     </label>
     <small>Если названия совпадают с названиями или кодами категорий Mail-Fire, поле оставьте пустым. Для безопасных текстов передайте пустой список меток или NORMAL.</small>
    </details>
+   {(dialogError||error)&&<p role="alert" className="error edit-error">{dialogError||error}</p>}
   </EditorDialog>}
   {error&&<p role="alert" className="error">{error}</p>}
   {message&&<p role="status" className="notice">{message}</p>}
@@ -100,6 +102,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
    <CategoryPicker api={api} value={labels} onChange={setLabels} usage="ml"/>
    <label><input type="checkbox" checked={approved} onChange={e=>setApproved(e.target.checked)}/>
     Метки проверены аналитиком</label>
+   {error&&<p role="alert" className="error edit-error">{error}</p>}
   </EditorDialog>}
  </div>;
 }
