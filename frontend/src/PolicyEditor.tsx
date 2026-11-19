@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {createPortal} from 'react-dom';
 import {CategoryPicker} from './CategoryPicker';
 import {json,type API,type Row} from './components';
@@ -37,7 +37,7 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
   'Выберите категории для режима «Все категории».':
   `Инцидент создаётся, если обнаружено не менее ${minCount} ${minCount===1?'срабатывания':'срабатываний'} с риском от ${risk} по ${categoryDescription}.`;
 
- const save=(e:React.FormEvent<HTMLFormElement>)=>{
+ const save=(e:FormEvent<HTMLFormElement>)=>{
   e.preventDefault();
   if(invalidAll){setError('Для режима «Все категории» выберите хотя бы одну категорию');return}
   const f=new FormData(e.currentTarget);

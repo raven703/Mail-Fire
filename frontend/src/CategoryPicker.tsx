@@ -94,7 +94,7 @@ export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
      <span className="policy-category-option-title">{c.name}
       <small>{c.mode==='label'?'Учебная категория':c.mode==='builtin'?'Системный детектор':
        c.rules?.map((r:Row)=>modeNames[r.kind as Kind]||r.kind).join(' · ')||'Правила обнаружения'}</small>
-     </span>
+     </span><code className="policy-category-code">{c.id}</code>
     </label>)}
    </div>)}
    {!filtered.length&&<p className="policy-category-empty">По вашему запросу ничего не найдено</p>}

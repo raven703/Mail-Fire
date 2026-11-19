@@ -109,3 +109,6 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
  .policy-modal-footer>span{display:none}
  .policy-modal-footer>div{width:100%;justify-content:flex-end}
 }
+
+.policy-category-code{font-family:inherit;font-size:.62rem;letter-spacing:.01em;color:var(--muted);opacity:.65;max-width:31%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:650px){.policy-category-code{max-width:23%;font-size:.57rem}}
