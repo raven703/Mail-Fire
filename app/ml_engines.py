@@ -174,7 +174,7 @@ def train_binary(examples, engine, category, min_f1):
         for split in ("validation","test"):
             texts, targets = splits[split]
             scores = _scores(engine, model, texts, tokenizer if engine=="rubert" else None)
-            p,r,f,s = precision_recall_fscore_support(targets, scores>=threshold,
+            p,r,f,_ = precision_recall_fscore_support(targets, scores>=threshold,
                                                        average="binary", zero_division=0)
             metrics[split] = {category: {
                 "precision":float(p),"recall":float(r),"f1":float(f),

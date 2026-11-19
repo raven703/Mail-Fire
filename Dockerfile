@@ -21,7 +21,9 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 # Explicit target for local ML workloads. The default remains the lightweight base.
 FROM base AS neural
 USER root
-RUN uv sync --frozen --no-dev --extra ml-neural
+RUN uv pip install --python /app/.venv/bin/python \
+    "torch>=2.4,<3" "transformers>=4.46,<6" "setfit>=1.1,<2" \
+    "datasets>=3,<5" "accelerate>=1,<2" "sentence-transformers>=3,<6"
 USER app
 
 FROM base AS final

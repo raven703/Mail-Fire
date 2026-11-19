@@ -159,7 +159,7 @@ def analyze(message_id, job_id=None, owner=None):
                     id=__import__("uuid").uuid4().hex,
                     normalized_sha=digest,
                     text=text,
-                    analysis={"findings": findings},
+                    analysis={"findings": findings, "engine_errors": ml_errors},
                     version=VERSION,
                 )
                 .on_conflict_do_nothing()
@@ -167,14 +167,15 @@ def analyze(message_id, job_id=None, owner=None):
             content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         message.content_id = content.id
         # Reanalysis must update results after detector/model changes.
-        content.analysis = {"findings": findings}
+        content.analysis = {"findings": findings, "engine_errors": ml_errors}
         content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
         message.status = (
             "PARTIAL"
             if (
-                any(o[4] != "ANALYZED" for o in objects)
+                bool(ml_errors)
+                or any(o[4] != "ANALYZED" for o in objects)
                 or any(state not in {"OK", "FOUND"} for state in antivirus_states)
             )
             else "ANALYZED"
@@ -243,7 +244,10 @@ def analyze(message_id, job_id=None, owner=None):
         )
         original = [f for f in findings if not str(f.get("source", "")).startswith("custom-")]
         current = session.get(Content, content.id)
-        current.analysis = {"findings": original + merged + semantic_findings}
+        current.analysis = {
+            "findings": original + merged + semantic_findings,
+            "engine_errors": ml_errors,
+        }
     for event_id in event_ids:
         evaluate(event_id, job_id, owner)
 

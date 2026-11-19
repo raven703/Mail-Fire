@@ -136,11 +136,12 @@ def review_example(
         raise HTTPException(422, "NORMAL не сочетается с другими метками")
     if not available_categories(session, labels):
         raise HTTPException(422, "Неизвестная или архивированная категория")
+    before = {"labels": list(row.labels), "approved": row.approved}
     row.labels = labels
     row.approved = body.approved
     row.reviewed_by = account.id
     session.add(Audit(actor=account.id, action="ml_dataset_review",
-                      target=row.id, details={"dataset_id":dataset_id,"labels":labels,"approved":body.approved}))
+                      target=row.id, details={"dataset_id":dataset_id,"before":before,"labels":labels,"approved":body.approved}))
     session.commit()
     return {"id":row.id,"labels":row.labels,"approved":row.approved}
 
