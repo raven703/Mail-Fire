@@ -260,6 +260,27 @@ def analyze(message_id, job_id=None, owner=None):
         evaluate(event_id, job_id, owner)
 
 
+def policy_matches(findings, conditions):
+    """Findings are counted individually; any/all applies to category coverage.
+
+    min_risk is a per-finding threshold, min_count is a total finding count,
+    and 'all' additionally needs one qualifying finding from every category.
+    Existing policies default to 'any' for backward compatibility.
+    """
+    requested = set(conditions.get("categories") or [])
+    result = [
+        f for f in findings
+        if f["risk"] >= conditions.get("min_risk", 0)
+        and (not requested or f["category"] in requested)
+    ]
+    if len(result) < conditions.get("min_count", 1):
+        return []
+    if conditions.get("category_match", "any") == "all":
+        if not requested or not requested.issubset({f["category"] for f in result}):
+            return []
+    return result
+
+
 def evaluate(event_id, job_id=None, owner=None):
     with transaction() as session:
         assert_current_job(session, job_id, owner)
@@ -298,13 +319,8 @@ def evaluate(event_id, job_id=None, owner=None):
                 continue
             if conditions.get("senders") and message.sender not in conditions["senders"]:
                 continue
-            matches = [
-                f
-                for f in findings
-                if f["risk"] >= conditions.get("min_risk", 0)
-                and (not conditions.get("categories") or f["category"] in conditions["categories"])
-            ]
-            if len(matches) < conditions.get("min_count", 1) or policy.shadow:
+            matches = policy_matches(findings, conditions)
+            if not matches or policy.shadow:
                 continue
             result = session.execute(
                 insert(Incident)
