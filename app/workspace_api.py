@@ -473,7 +473,7 @@ class PolicyBody(BaseModel):
     min_count: int = Field(default=1, ge=1, le=1000)
     category_match: str = Field(default="any", pattern="^(any|all)$")
     categories: list[str] = Field(default_factory=list, max_length=50)
-    direction: list[str] = Field(default_factory=list, max_length=3)
+    direction: list[str] = Field(default_factory=list, max_length=4)
     senders: list[str] = Field(default_factory=list, max_length=200)
 
 

@@ -101,6 +101,8 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
      <strong>Когда сработает политика?</strong>
      <p>{matchSummary}</p>
      {categories.length>0&&categoryMatch==='all'&&<p>Даже при минимуме 1 требуется минимум по одному совпадению в каждой из {categories.length} категорий.</p>}
+     {categories.length===3&&risk===40&&minCount===1&&categoryMatch==='any'&&
+      <p><strong>Пример:</strong> при трёх выбранных категориях достаточно одного признака с риском 40 или выше в любой из них.</p>}
      <small>{shadow?'Теневой режим: инциденты не создаются.':'При выполнении условий создаётся инцидент, почта не блокируется.'}</small>
     </div>
     <details className="policy-modal-advanced">
