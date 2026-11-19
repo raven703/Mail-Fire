@@ -1,5 +1,5 @@
-import {useEffect,useId,useRef,useState} from 'react';
-import {createPortal} from 'react-dom';
+import {useEffect,useState} from 'react';
+import {EditorDialog} from './EditorDialog';
 import {json,type API,type Row} from './components';
 
 type Kind='keywords'|'regex'|'reference'|'ml';
@@ -24,7 +24,11 @@ export function CategoryForm({api,initial,onSaved,onCancel}:{api:API,initial?:Ro
   const payload={name:name.trim(),group_name:group.trim(),description,active,match_mode:matchMode,rules};
   void api('categories'+(initial?'/'+initial.id:''),json(payload,initial?'PUT':'POST')).then(onSaved).catch(e=>setError(String(e))).finally(()=>setBusy(false));
  };
- return <div className="category-create">
+ return <EditorDialog title={initial?'Редактировать категорию':'Новая категория'}
+  subtitle="Основные настройки и независимые правила обнаружения"
+  onClose={onCancel} onSubmit={()=>save()} submitLabel="Сохранить категорию"
+  busy={busy} wide>
+  <div className="category-create">
   <h3>{initial?'Редактирование категории':'Новая категория'}</h3>
   <label>Название категории<input required maxLength={160} value={name} onChange={e=>setName(e.target.value)}/></label>
   <label>Группа<input required maxLength={120} value={group} onChange={e=>setGroup(e.target.value)}/></label>
@@ -54,20 +58,14 @@ export function CategoryForm({api,initial,onSaved,onCancel}:{api:API,initial?:Ro
     </div><label>Порог сходства (0.5–1)<input type="number" min={.5} max={1} step={.01} value={rule.min_similarity} onChange={e=>edit(index,{min_similarity:Number(e.target.value)})}/></label></>}
    {rule.kind==='ml'&&<><label>Минимальная уверенность ML (0–1)<input type="number" min={0} max={1} step={.01} value={rule.min_confidence} onChange={e=>edit(index,{min_confidence:Number(e.target.value)})}/></label><p className="muted">Начнёт обнаруживать только после обучения и публикации модели с этой категорией.</p></>}
   </section>)}
-  <button type="button" onClick={()=>setRules(old=>[...old,blank()])} disabled={rules.length>=30}>＋ Добавить правило</button>
-  {error&&<p role="alert" className="error">{error}</p>}
-  <div className="actions"><button type="button" className="primary" disabled={busy} onClick={save}>Сохранить категорию</button><button type="button" onClick={onCancel}>Отмена</button></div>
- </div>;
+  <button type="button" onClick={()=>setRules(old=>[...old,blank()])} disabled={busy||rules.length>=30}>＋ Добавить правило</button>
+  {error&&<p role="alert" className="error edit-error">{error}</p>}
+ </div>
+ </EditorDialog>;
 }
 
 export function CategoryCreator({api,onCreated,onCancel}:{api:API,onCreated:(c:Row)=>void,onCancel:()=>void}){
  return <CategoryForm api={api} onSaved={onCreated} onCancel={onCancel}/>;
-}
-
-function CategoryDialog({api,onCreated,onClose}:{api:API,onCreated:(c:Row)=>void,onClose:()=>void}){
- const ref=useRef<HTMLDialogElement>(null),id=useId();
- useEffect(()=>{const previous=document.activeElement as HTMLElement|null;const current=ref.current!;current.showModal();return()=>{if(current.open)current.close();previous?.focus()}},[]);
- return createPortal(<dialog ref={ref} className="category-dialog" aria-labelledby={id} onCancel={e=>{e.preventDefault();onClose()}}><header><h2 id={id}>Создать категорию</h2><button type="button" aria-label="Закрыть окно категории" onClick={onClose}>×</button></header><CategoryCreator api={api} onCreated={onCreated} onCancel={onClose}/></dialog>,document.body);
 }
 
 export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
@@ -119,7 +117,7 @@ export function CategoryPicker({api,value,onChange,canCreate=false,usage='ml'}:
    </div>
   </div>
   {error&&<p role="alert" className="error">{error}</p>}
-   {adding&&<CategoryDialog api={api} onClose={()=>setAdding(false)}
-   onCreated={c=>{setItems(old=>[...old,c]);onChange([...value,c.id]);setAdding(false)}}/>}
+   {adding&&<CategoryForm api={api} onCancel={()=>setAdding(false)}
+   onSaved={c=>{setItems(old=>[...old,c]);onChange([...value,c.id]);setAdding(false)}}/>}
  </div>;
 }

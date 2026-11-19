@@ -1,5 +1,5 @@
-import {useEffect,useRef,useState,type FormEvent} from 'react';
-import {createPortal} from 'react-dom';
+import {useState,type FormEvent} from 'react';
+import {EditorDialog} from './EditorDialog';
 import {CategoryPicker} from './CategoryPicker';
 import {json,type API,type Row} from './components';
 
@@ -9,8 +9,6 @@ const directions:[string,string][]=[
 ];
 
 export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=>void,onClose:()=>void}){
- const dialog=useRef<HTMLDialogElement>(null);
- const nameField=useRef<HTMLInputElement>(null);
  const [error,setError]=useState(''),[busy,setBusy]=useState(false);
  const [categories,setCategories]=useState<string[]>(row?.conditions?.categories||[]);
  const [direction,setDirection]=useState<string[]>(row?.conditions?.direction||[]);
@@ -18,17 +16,6 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
  const [risk,setRisk]=useState<number>(row?.conditions?.min_risk??40);
  const [minCount,setMinCount]=useState<number>(row?.conditions?.min_count??1);
  const [shadow,setShadow]=useState<boolean>(row?.shadow??false);
-
- useEffect(()=>{
-  const current=dialog.current;
-  if(!current)return;
-  const previousFocus=document.activeElement as HTMLElement|null;
-  current.showModal();
-  const previous=document.body.style.overflow;
-  document.body.style.overflow='hidden';
-  nameField.current?.focus();
-  return ()=>{document.body.style.overflow=previous;if(current.open)current.close();previousFocus?.focus()};
- },[]);
 
  const invalidAll=categoryMatch==='all'&&categories.length===0;
  const categoryDescription=categories.length===0?'всех доступных категорий':
@@ -50,21 +37,13 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
     category_match:categoryMatch,categories,senders,direction},row?'PUT':'POST'))
    .then(saved).catch(e=>setError(String(e))).finally(()=>setBusy(false));
  };
- return createPortal(<dialog ref={dialog} className="policy-modal"
-  aria-labelledby="policy-modal-title" aria-describedby="policy-modal-subtitle"
-  onCancel={e=>{e.preventDefault();if(!busy)onClose()}}>
-  <form className="policy-modal-layout" onSubmit={save}>
-   <header className="policy-modal-header">
-    <div className="policy-modal-heading">
-     <h2 id="policy-modal-title">{row?'Изменить политику':'Новая политика'}</h2>
-     <p id="policy-modal-subtitle">Условия создания DLP-инцидента</p>
-    </div>
-    <button type="button" className="policy-modal-close" onClick={onClose} disabled={busy}
-     aria-label="Закрыть окно редактирования политики" title="Закрыть (Esc)">×</button>
-   </header>
+ return <EditorDialog title={row?'Изменить политику':'Новая политика'}
+  subtitle="Условия создания DLP-инцидента" wide
+  busy={busy} submitDisabled={invalidAll} onClose={onClose}
+  onSubmit={save} submitLabel="Сохранить политику">
    <div className="policy-modal-body">
     <label className="policy-modal-name">Название политики
-     <input ref={nameField} name="name" required maxLength={200}
+     <input name="name" required maxLength={200}
       placeholder="Например, Контроль исходящих персональных данных" defaultValue={row?.name||''}/>
     </label>
     <div className="policy-modal-numbers">
@@ -124,15 +103,5 @@ export function PolicyEditor({row,api,saved,onClose}:{row?:Row,api:API,saved:()=
     </details>
     {error&&<p role="alert" className="error">{error}</p>}
    </div>
-   <footer className="policy-modal-footer">
-    <span>Esc — закрыть без сохранения</span>
-    <div>
-     <button type="button" onClick={onClose} disabled={busy}>Отмена</button>
-     <button type="submit" className="primary" disabled={busy||invalidAll}>
-      {busy?'Сохранение…':'Сохранить политику'}
-     </button>
-    </div>
-   </footer>
-  </form>
- </dialog>,document.body);
+ </EditorDialog>;
 }

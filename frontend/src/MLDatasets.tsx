@@ -1,5 +1,6 @@
 import {useEffect,useState,type FormEvent} from 'react';
 import {CategoryPicker} from './CategoryPicker';
+import {EditorDialog} from './EditorDialog';
 import {json,type API,type Row} from './components';
 
 export function MLDatasets({api,admin}:{api:API,admin:boolean}){
@@ -7,9 +8,9 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
  const [selected,setSelected]=useState<string>('');
  const [samples,setSamples]=useState<Row[]>([]);
  const [stats,setStats]=useState<Row|null>(null);
- const [edit,setEdit]=useState<string|null>(null);
+ const [edit,setEdit]=useState<Row|null>(null),[uploadOpen,setUploadOpen]=useState(false),[approved,setApproved]=useState(false);
  const [labels,setLabels]=useState<string[]>([]);
- const [offset,setOffset]=useState(0),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
+ const [offset,setOffset]=useState(0),[error,setError]=useState(''),[dialogError,setDialogError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
  const reload=()=>api('ml/datasets').then(d=>setDatasets(d.items||[])).catch(e=>setError(String(e)));
  const getSamples=async(id:string,skip=0)=>{
   const [items,summary]=await Promise.all([
@@ -26,15 +27,16 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
   e.preventDefault();
   const form=new FormData(e.currentTarget);
   const mapping=String(form.get('label_mapping')||'{}');
-  try{JSON.parse(mapping)}catch{setError('Сопоставление меток должно быть JSON-объектом');return}
+  try{JSON.parse(mapping)}catch{setDialogError('Сопоставление меток должно быть JSON-объектом');return}
+  setDialogError('');
   void act(async()=>{const result=await api('ml/datasets/import',{method:'POST',body:form});
     setMessage('Датасет загружен, все примеры требуют проверки аналитика.');
-    await reload();setSelected(result.id);await getSamples(result.id);
+    await reload();setSelected(result.id);setUploadOpen(false);await getSamples(result.id);
   });
  };
  const review=(sample:Row,approved:boolean)=>{
   void act(async()=>{
-   await api('ml/datasets/'+selected+'/examples/'+sample.id,json({labels:edit===sample.id?labels:sample.labels,approved},'PUT'));
+   await api('ml/datasets/'+selected+'/examples/'+sample.id,json({labels:edit?.id===sample.id?labels:sample.labels,approved},'PUT'));
    setEdit(null);await getSamples(selected,offset);
    setMessage(approved?'Метки подтверждены':'Разметка сохранена как неподтверждённая');
   });
@@ -43,8 +45,9 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
   <h2>Наборы данных для ML</h2>
   <p className="muted">Загружайте CSV или JSONL, предварительно размеченные вручную или внешней LLM.
    Mail-Fire не отправляет текст во внешние сервисы. Предложенные метки не используются для обучения до проверки аналитиком.</p>
-  {admin&&<form className="ml-dataset-upload" onSubmit={upload}>
-   <h3>Импортировать датасет</h3>
+  {admin&&<div className="ml-dataset-toolbar"><button type="button" className="primary" onClick={()=>{setDialogError('');setUploadOpen(true)}}>＋ Импортировать датасет</button></div>}
+  {admin&&uploadOpen&&<EditorDialog title="Импортировать набор данных" subtitle="CSV/JSONL с проверяемыми метками" wide
+   busy={busy} onClose={()=>setUploadOpen(false)} onSubmit={upload} submitLabel="Загрузить на проверку">
    <div className="filters">
     <label>Название<input name="name" required minLength={2} maxLength={160} placeholder="Финансовые документы"/></label>
     <label>Источник<input name="source" defaultValue="external-llm" maxLength={120}/></label>
@@ -57,8 +60,8 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     </label>
     <small>Если названия совпадают с названиями или кодами категорий Mail-Fire, поле оставьте пустым. Для безопасных текстов передайте пустой список меток или NORMAL.</small>
    </details>
-   <button className="primary" disabled={busy}>Загрузить на проверку</button>
-  </form>}
+   {(dialogError||error)&&<p role="alert" className="error edit-error">{dialogError||error}</p>}
+  </EditorDialog>}
   {error&&<p role="alert" className="error">{error}</p>}
   {message&&<p role="status" className="notice">{message}</p>}
   <section><header><h3>Датасеты</h3><button disabled={busy} onClick={()=>void reload()}>Обновить</button></header>
@@ -79,13 +82,10 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
    {samples.map(sample=><article key={sample.id} className="ml-example">
     <p className="ml-example-text">{sample.text}</p>
     <p className="muted">Метки: {(sample.labels||[]).join(', ')} · {sample.approved?'Подтверждено':'Требует проверки'}</p>
-    {edit===sample.id&&<CategoryPicker api={api} value={labels} onChange={setLabels} usage="ml"/>}
     <div className="actions">
-     <button disabled={busy} onClick={()=>{if(edit===sample.id){setEdit(null)}else{setEdit(sample.id);setLabels(sample.labels||[])}}}>
-      {edit===sample.id?'Отменить редактирование':'Изменить метки'}
+     <button type="button" disabled={busy} onClick={()=>{setEdit(sample);setLabels(sample.labels||[]);setApproved(!!sample.approved)}}>
+      Изменить и проверить разметку
      </button>
-     <button disabled={busy} onClick={()=>review(sample,false)}>Сохранить без подтверждения</button>
-     <button className="primary" disabled={busy} onClick={()=>review(sample,true)}>Подтвердить</button>
     </div>
    </article>)}
    <nav className="pagination">
@@ -94,6 +94,16 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     <button disabled={samples.length<20||busy} onClick={()=>void act(()=>getSamples(selected,offset+20))}>Далее</button>
    </nav>
   </section>}
+  {edit&&<EditorDialog title="Проверить разметку" subtitle="Проверьте текст и метки перед включением в обучение" wide
+   busy={busy} onClose={()=>setEdit(null)} onSubmit={()=>review(edit,approved)}
+   submitLabel={approved?'Сохранить и подтвердить':'Сохранить без подтверждения'}
+   submitDisabled={labels.length===0}>
+   <div className="ml-example-text">{edit.text}</div>
+   <CategoryPicker api={api} value={labels} onChange={setLabels} usage="ml"/>
+   <label><input type="checkbox" checked={approved} onChange={e=>setApproved(e.target.checked)}/>
+    Метки проверены аналитиком</label>
+   {error&&<p role="alert" className="error edit-error">{error}</p>}
+  </EditorDialog>}
  </div>;
 }
 
