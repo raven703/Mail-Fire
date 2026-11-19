@@ -119,6 +119,8 @@ def train_binary(examples, engine, category, min_f1):
             args = TrainingArguments(
                 batch_size=8, num_epochs=1, max_steps=120, num_iterations=5,
                 end_to_end=False, show_progress_bar=False,
+                output_dir=str(Path(tmp) / "setfit-checkpoints"), report_to="none",
+                save_strategy="no",
             )
             trainer = Trainer(model=model, args=args, train_dataset=data)
             trainer.train()
@@ -196,6 +198,8 @@ def _load_binary(digest, artifact):
         meta=json.loads(z.read("manifest.json"))
         if meta["engine"] not in {"setfit","rubert"}:
             raise ValueError("Неизвестный движок модели")
+        if sum(item.file_size for item in z.infolist()) > MAX_ARTIFACT:
+            raise ValueError("Превышен суммарный лимит распаковки модели")
         for item in z.infolist():
             if item.file_size>MAX_ARTIFACT:
                 raise ValueError("Превышен лимит размера модели")

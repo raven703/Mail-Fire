@@ -4,10 +4,10 @@ import hashlib
 import json
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 
-from app.api import admin, analyst, db, user
+from app.api import admin, analyst, db
 from app.categories import available_categories
 from app.datasets import parse_dataset
 from app.ml import group_hash
@@ -69,10 +69,11 @@ async def import_dataset(
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     fingerprint = hashlib.sha256(raw).hexdigest()
+    session.execute(__import__("sqlalchemy").text("SELECT pg_advisory_xact_lock(hashtext('ml-dataset-import'))"))
     existing = session.scalar(select(MLDataset).where(MLDataset.fingerprint == fingerprint))
     if existing:
         raise HTTPException(409, f"Этот файл уже загружен как датасет {existing.id}")
-    version = (session.scalar(select(func.max(MLDataset.version)).where(MLDataset.name == name)) or 0) + 1
+    version = (session.scalar(select(func.max(MLDataset.version)).where(MLDataset.name == name.strip())) or 0) + 1
     dataset = MLDataset(
         name=name.strip(), source=source.strip(), description=description.strip(),
         version=version, status="REVIEW", fingerprint=fingerprint, example_count=len(examples),
@@ -115,7 +116,7 @@ def examples(
 
 
 class Review(BaseModel):
-    labels: list[str]
+    labels: list[str] = Field(default_factory=list, max_length=20)
     approved: bool
 
 
