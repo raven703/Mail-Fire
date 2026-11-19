@@ -579,3 +579,14 @@ def delete_policy(policy_id: str, account=Depends(admin), session=Depends(db)):
     session.delete(row)
     session.commit()
     return {"deleted": True, "id": policy_id}
+
+@router.post("/policies/{policy_id}/restore")
+def restore_policy(policy_id: str, account=Depends(admin), session=Depends(db)):
+    row = session.get(Policy, policy_id, with_for_update=True)
+    if not row:
+        raise HTTPException(404)
+    row.archived = False
+    row.enabled = False
+    session.add(Audit(actor=account.id, action="policy_restore", target=row.id))
+    session.commit()
+    return {"restored": True, "enabled": False}
