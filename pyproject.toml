@@ -33,6 +33,16 @@ dependencies = [
     "yara-python>=4.5.4",
 ]
 
+[project.optional-dependencies]
+ml-neural = [
+    "torch>=2.4",
+    "transformers>=4.46",
+    "setfit>=1.1",
+    "datasets>=3.0",
+    "accelerate>=1.0",
+    "sentence-transformers>=3.0",
+]
+
 [dependency-groups]
 dev = [
     "pytest>=9.2.0",
