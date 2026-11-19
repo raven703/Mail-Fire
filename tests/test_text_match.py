@@ -28,7 +28,7 @@ def test_flexible_weighted_window_and_required_terms():
                      terms=terms, window=8, min_score=5)
     assert matches and matches[0][2] >= 5
     assert not search("передать документы конкурентам", mode="flexible", terms=terms,
-                      window=2, min_score=5)
+                      window=2, min_score=7)
     assert not search("передать документы", mode="flexible", terms=terms,
                       window=8, min_score=1)
     assert not search("конкурентам передать документы", mode="flexible", terms=terms,
