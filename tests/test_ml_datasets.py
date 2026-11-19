@@ -66,7 +66,7 @@ def test_binary_splits_are_stratified_without_leakage():
     assert all(not one & two for i,one in enumerate(hashes) for two in hashes[i+1:])
     assert all(set(targets)=={0,1} for _,targets in splits.values())
     with pytest.raises(ValueError,match="минимум 6"):
-        _binary_data(data[:65],"FINANCE")
+        _binary_data(data[:40],"FINANCE")
 
 
 def test_model_runtime_preference_and_failure_isolation(monkeypatch):
