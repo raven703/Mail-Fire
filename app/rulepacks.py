@@ -4,7 +4,7 @@ Never auto-load rulepacks at startup. Only custom categories are managed;
 built-in category IDs are immutable. Rulepacks contain no ML weights or emails.
 """
 import json
-import uuid
+import sys
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -21,7 +21,7 @@ class StrictModel(BaseModel):
 
 
 class CategorySpec(StrictModel):
-    id: str = Field(pattern=r"^pack-[a-z0-9][a-z0-9-]{2,58}$", max_length=64)
+    id: str = Field(pattern=r"^(?:pack-[a-z0-9][a-z0-9-]{2,58}|custom-[a-f0-9]{32})$", max_length=64)
     name: str = Field(min_length=2, max_length=160)
     group_name: str = Field(min_length=1, max_length=120)
     description: str = Field(default="", max_length=2000)
@@ -38,7 +38,7 @@ class PolicySpec(StrictModel):
     min_risk: int = Field(default=40, ge=0, le=100)
     min_count: int = Field(default=1, ge=1, le=1000)
     category_match: str = Field(default="any", pattern=r"^(any|all)$")
-    categories: list[str] = Field(min_length=1, max_length=50)
+    categories: list[str] = Field(default_factory=list, max_length=50)
     direction: list[str] = Field(default_factory=list, max_length=4)
     senders: list[str] = Field(default_factory=list, max_length=200)
 
@@ -63,10 +63,16 @@ class Rulepack(StrictModel):
 
 
 def load_pack(filename):
-    path = Path(filename)
-    if path.stat().st_size > 1024 * 1024:
+    if str(filename) == "-":
+        raw = sys.stdin.buffer.read(1024 * 1024 + 1)
+    else:
+        path = Path(filename)
+        if path.stat().st_size > 1024 * 1024:
+            raise ValueError("Набор правил не может превышать 1 МиБ")
+        raw = path.read_bytes()
+    if len(raw) > 1024 * 1024:
         raise ValueError("Набор правил не может превышать 1 МиБ")
-    return Rulepack.model_validate(json.loads(path.read_text(encoding="utf-8")))
+    return Rulepack.model_validate(json.loads(raw.decode("utf-8")))
 
 
 def _rule_validated(rule):
@@ -91,9 +97,14 @@ def inspect_pack(session, pack, *, update_existing=False):
     for policy in all_policies:
         policies_by_name.setdefault(policy.name.casefold(), []).append(policy)
     changes = {"categories": [], "policies": []}
+    # A disabled category in an incoming update may NOT be referenced by a policy.
     available = {ident for ident, category in existing.items() if category.active and category.mode != "label"}
-    future = {cat.id for cat in pack.categories if cat.active}
-    available |= future
+    for cat in pack.categories:
+        if update_existing or cat.id not in existing:
+            if cat.active:
+                available.add(cat.id)
+            else:
+                available.discard(cat.id)
     for cat in pack.categories:
         validated = CategoryBody.model_validate(cat.model_dump(exclude={"id"}))
         if not validated.rules:
@@ -199,15 +210,17 @@ def export_pack(session, name="mailfire-export"):
                 field: val for field, val in rule.items() if field != "id"
             } for rule in row["rules"]],
         })
-        for row in all_rows(session) if row["mode"] == "custom" and row["id"].startswith("pack-")
+        for row in all_rows(session) if row["mode"] == "custom" and (row["id"].startswith("pack-") or row["id"].startswith("custom-"))
     ]
     cats_ids = {c.id for c in cats}
+    builtin_ids = set(session.scalars(select(Category.id).where(Category.mode == "builtin")))
     policies = []
     for row in session.scalars(select(Policy).order_by(Policy.name)):
         fields = row.conditions or {}
         categories = fields.get("categories", [])
-        # Only policies exclusively referencing exportable categories.
-        if not categories or any(cat not in cats_ids for cat in categories):
+        # Built-in category IDs are present on any matching Mail-Fire install.
+        # Avoid exporting policies referring to missing or nonportable custom IDs.
+        if any(cat not in cats_ids and cat not in builtin_ids for cat in categories):
             continue
         policies.append(PolicySpec.model_validate({
             "name": row.name, "enabled": row.enabled, "shadow": row.shadow,
