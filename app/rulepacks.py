@@ -110,7 +110,7 @@ def inspect_pack(session, pack, *, update_existing=False):
         if not validated.rules:
             raise ValueError(f"Нет правил: {cat.id}")
         for raw in cat.rules:
-            _rule_validated(raw)
+            rule_config(_rule_validated(raw), session)
         conflict = existing_names.get(cat.name.casefold())
         if conflict and conflict != cat.id:
             raise ValueError(f"Название категории уже занято другим ID: {cat.name}")
