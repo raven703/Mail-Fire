@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react';
 import {Badge,date,type Row} from './components';
 
 type Navigate = (page:string, extra?:Record<string,string>)=>void;
@@ -6,7 +7,7 @@ type OverviewProps = {data:Row,onNavigate:Navigate};
 const safeCount = (value:unknown):string => value===null||value===undefined?'—':Number(value).toLocaleString('ru-RU');
 const levelNames:Record<string,string> = {HIGH:'Высокая',MEDIUM:'Средняя',LOW:'Низкая'};
 
-function SectionHeading({title,subtitle,action}:{title:string,subtitle?:string,action?:React.ReactNode}){
+function SectionHeading({title,subtitle,action}:{title:string,subtitle?:string,action?:ReactNode}){
  return <header className="so-section-heading">
   <div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{action}
  </header>;
