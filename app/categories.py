@@ -95,17 +95,27 @@ def _hits(rule, category, text, matches, ml_scores):
     if any(phrase.lower() in lower for phrase in config.get("exclude_phrases", [])):
         return []
     if rule.kind == "keywords":
-        lower = text.lower()
-        result = []
-        for phrase in config.get("phrases", [])[:30]:
-            pos = lower.find(phrase.lower())
-            if pos >= 0:
-                result.append(
-                    _make_finding(
-                        category, rule, text[max(0, pos - 40) : pos + len(phrase) + 40], "custom-keywords"
-                    )
-                )
-        return result
+        from app.text_match import search
+
+        hits = search(
+            text,
+            mode=config.get("match_type", "substring"),
+            phrases=config.get("phrases", []),
+            terms=config.get("terms", []),
+            window=config.get("window", 12),
+            ordered=config.get("ordered", False),
+            min_score=config.get("min_score", 1),
+            exclude_phrases=config.get("exclude_phrases", []),
+        )
+        output = []
+        for start, end, score, confidence in hits:
+            found = _make_finding(
+                category, rule, text[max(0, start-40):min(len(text),end+40)], "custom-keywords",
+                confidence=confidence if config.get("match_type") == "flexible" else None
+            )
+            found["match_score"] = score
+            output.append(found)
+        return output
     if rule.kind == "regex":
         from app.sandbox import local_call
 
