@@ -253,10 +253,16 @@ def incidents(
         (sender, Message.sender),
         (recipient, cast(Message.recipients, String)),
         (assignee, Account.username),
-        (category, Policy.name),
     ]:
         if value:
             query = query.where(column.ilike("%" + value[:200] + "%"))
+    if category:
+        query = query.where(
+            __import__("sqlalchemy").text(
+                "EXISTS (SELECT 1 FROM jsonb_array_elements(incidents.policy_hits) h "
+                "WHERE h->>'name' ILIKE :policy_filter)"
+            ).bindparams(policy_filter="%" + category[:200] + "%")
+        )
     if direction:
         query = query.where(MailEvent.direction == direction)
     if source:
@@ -393,7 +399,10 @@ def incident_detail(incident_id: str, account=Depends(user), session=Depends(db)
     if not row:
         raise HTTPException(404)
     result = incident_row(row, account.originals)
-    result["policy_hits"] = row[0].policy_hits or []
+    result["policy_hits"] = [
+        (dict(h) if account.originals else {k: v for k, v in h.items() if k != "findings"})
+        for h in (row[0].policy_hits or [])
+    ]
     result["comments"] = [
         dict(id=c.id, text=c.text, created_at=c.created_at, username=name)
         for c, name in session.execute(
