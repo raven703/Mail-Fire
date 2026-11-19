@@ -30,7 +30,39 @@ function App(){
  useEffect(()=>{if(!identity)return;api('workspace/preferences').then(d=>setTheme(d.theme==='dark'?'dark':'light')).catch(()=>{});api('workspace/analysts').then(d=>setAnalysts(d.items)).catch(()=>{})},[identity?.username]);
  useEffect(()=>{document.documentElement.dataset.theme=theme},[theme]);
  useEffect(()=>{if(search===(params.get('q')||''))return;const t=setTimeout(()=>change({q:search},true),350);return()=>clearTimeout(t)},[search]);
- useEffect(()=>{if(!identity)return;const controller=new AbortController();setError('');setBusy(true);const p=new URLSearchParams(params);['page','id','range'].forEach(k=>p.delete(k));let path='';if(object&&['messages','incidents'].includes(page))path=`workspace/${page}/${object}`;else if(['dashboard','analytics'].includes(page))path='workspace/overview?'+p;else if(['messages','incidents'].includes(page))path=`workspace/${page}?${p}`;else if(columns[page]&&page!=='policies')path=`list/${page}?${p}`;if(page==='jobs')path=path.replace(/([?&])(start|end)=[^&]*/g,'$1').replace('?&','?');if(!path){setBusy(false);return}const refresh=()=>api(path,{signal:controller.signal}).then(d=>{if(controller.signal.aborted)return;if(object)setDetail(d);else setData(d)}).catch(e=>{if(!controller.signal.aborted)setError(String(e))}).finally(()=>{if(!controller.signal.aborted)setBusy(false)});refresh();const timer=!object&&!['analytics','policies','addresses'].includes(page)?window.setInterval(()=>{if(!document.hidden)void refresh()},10000):undefined;return()=>{controller.abort();clearInterval(timer)}},[identity,page,params.toString(),revision]);
+ useEffect(()=>{if(!identity)return;const controller=new AbortController();setError('');setBusy(true);const p=new URLSearchParams(params);['page','id','range'].forEach(k=>p.delete(k));let path='';if(object&&['messages','incidents'].includes(page))path=`workspace/${page}/${object}`;else if(['dashboard','analytics'].includes(page))path='workspace/overview?'+p;else if(['messages','incidents'].includes(page))path=`workspace/${page}?${p}`;else if(columns[page]&&page!=='policies')path=`list/${page}?${p}`;if(page==='jobs')path=path.replace(/([?&])(start|end)=[^&]*/g,'$1').replace('?&','?');if(!path){setBusy(false);return}let inFlight=false;
+ const refresh=()=>{
+  if(inFlight)return;
+  // Preset periods are rolling windows. Recompute their boundaries for each
+  // refresh: keeping the timestamp from initial navigation hides new incidents.
+  let requestPath=path;
+  if(!object&&['dashboard','analytics'].includes(page)&&params.get('range')!=='custom'){
+   const hours=Number(params.get('range')||'24');
+   if(Number.isFinite(hours)&&hours>0){
+    const end=new Date();
+    const query=new URLSearchParams(p);
+    query.set('start',new Date(end.getTime()-hours*3600000).toISOString());
+    query.set('end',end.toISOString());
+    requestPath='workspace/overview?'+query.toString();
+   }
+  }
+  inFlight=true;
+  void api(requestPath,{signal:controller.signal}).then(d=>{
+   if(controller.signal.aborted)return;
+   if(object)setDetail(d);else setData(d);
+   setError('');
+  }).catch(e=>{if(!controller.signal.aborted)setError(String(e))}).finally(()=>{
+   inFlight=false;
+   if(!controller.signal.aborted)setBusy(false);
+  });
+ };
+ refresh();
+ const timer=!object&&!['policies','addresses'].includes(page)?window.setInterval(()=>{
+  if(!document.hidden)refresh();
+ },10000):undefined;
+ const onVisible=()=>{if(!document.hidden)refresh()};
+ document.addEventListener('visibilitychange',onVisible);
+ return()=>{controller.abort();clearInterval(timer);document.removeEventListener('visibilitychange',onVisible)}},[identity,page,params.toString(),revision]);
  useEffect(()=>{if(!identity)return;let active=true;const check=()=>fetch('/api/health').then(r=>{if(active)setSystemHealth(r.ok?'ok':'error')}).catch(()=>{if(active)setSystemHealth('error')});void check();const timer=setInterval(()=>{if(!document.hidden)void check()},15000);return()=>{active=false;clearInterval(timer)}},[identity?.username]);
  useEffect(()=>{if(!notice)return;const timer=setTimeout(()=>setNotice(''),2500);return()=>clearTimeout(timer)},[notice]);
  useEffect(()=>{const element=document.querySelector('.sticky-period');if(!element){document.documentElement.style.setProperty('--period-height','0px');return}const observer=new ResizeObserver(()=>document.documentElement.style.setProperty('--period-height',element.getBoundingClientRect().height+'px'));observer.observe(element);return()=>observer.disconnect()},[page,object,identity]);
