@@ -194,6 +194,8 @@ approval to deploy or merge into master. Production schema was not upgraded.
 
 ## PR #4 integration acceptance
 
+This completed acceptance supersedes the historical review checkpoint above.
+
 - Integrated with the unified controls/security overview and header period selector;
   retained both sets of CSS rules when resolving the integration conflict.
 - Full suite against a disposable PostgreSQL database in the CPU neural image:
