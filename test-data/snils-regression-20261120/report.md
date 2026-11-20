@@ -8,7 +8,7 @@ The 14 benchmark positive emails ALL contain checksum-invalid synthetic identifi
 parse_mail -> sandbox/parser service extraction (including HTML, DOCX tables, XLSX cells) -> processing concatenates extracted text with body -> pii(text). document_templates is called per attachment only with registered Reference document_template; the protected references snapshot has none configured. Thus relying on templates alone cannot fix normal analysis. Shared snils_matches now runs directly in pii and is also used by templates; no reference registration required for pii.
 
 ## Implementation
-app/snils.py: ASCII digits, separator normalization (spaces including NBSP, hyphen/en/em dashes), bounded 11-digit candidates; checksum weights 9..1, sums 100/101 map to 00, larger sums modulo 101 with remainder 100 mapped to 00. All-zero nine-digit identifiers excluded. Checksum reference: Federal Tax Service, nalog.gov.ru, page “Страховые взносы”, section “Алгоритм формирования контрольного числа СНИЛС”.
+app/snils.py: ASCII digits, separator normalization (spaces including NBSP, hyphen/en/em dashes), bounded 11-digit candidates; checksum weights 9..1, sums 100/101 map to 00, larger sums modulo 101 with remainder 100 mapped to 00. All-zero nine-digit identifiers excluded.
 
 Findings keep category RU_SNILS and include verification=confirmed/suspected, checksum_valid, confidence and reason. Confirmed confidence .85/risk 60; suspected confidence .45/risk 40, require explicit nearby SNILS/insurance-account wording and explain invalid checksum. This verifies arithmetic, NOT registration or ownership. Stored findings retain flags; document-template findings also preserve them. Existing category-based policies are unchanged and may still react to suspected findings.
 
