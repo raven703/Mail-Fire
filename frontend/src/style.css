@@ -69,6 +69,14 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
 .policy-category-selected{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:28px}
 .policy-category-chip{border-radius:999px;background:var(--selected);padding:5px 10px;font-size:.73rem;border:1px solid var(--border)}
 .policy-category-chip span{font-size:.95rem;margin-left:4px}
+.policy-category-selection{display:flex;align-items:flex-start;gap:14px;margin:0 0 14px;padding:12px;background:transparent;border:1px solid var(--border);border-radius:14px}
+.policy-category-selection .policy-category-selected{flex:1;min-width:0;gap:10px 12px}
+.policy-category-selection .policy-category-chip{display:inline-flex;align-items:center;gap:10px;max-width:100%;min-height:38px;overflow-wrap:anywhere;padding:5px 6px 5px 15px;line-height:1.4;border-radius:999px;border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border));background:color-mix(in srgb,var(--accent) 14%,var(--card));color:var(--text);box-shadow:0 2px 5px #00000012;font-size:.76rem;font-weight:500}
+.policy-category-chip .policy-category-chip-remove{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;min-width:26px;width:26px;height:26px;min-height:26px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;font-size:20px;line-height:1;cursor:pointer}
+.policy-category-chip .policy-category-chip-remove{background:color-mix(in srgb,var(--accent) 16%,var(--card));transition:background .15s,color .15s}
+.policy-category-chip .policy-category-chip-remove:hover{background:var(--accent);color:#fff}
+.policy-category-selection>.policy-category-reset{flex-shrink:0;padding:6px 9px;font-size:.73rem}
+@media(max-width:600px){.policy-category-selection{flex-direction:column}}
 .policy-category-actions{display:flex;justify-content:space-between;gap:10px;align-items:center}
 .policy-category-actions button{font-size:.76rem;padding:7px 11px}
 .policy-category-reset{background:transparent;border:0;color:var(--muted)}
