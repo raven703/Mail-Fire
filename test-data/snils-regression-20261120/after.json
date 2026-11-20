@@ -1,0 +1,1320 @@
+{
+  "pending": 0,
+  "items": [
+    {
+      "id": "21be195c-aa92-4efb-b72a-f629ca802625",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "046f2d68-77ed-483f-8e2d-df7d9da0e6c3",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "eabd952f-d12b-43a6-bbea-7e2d7f5604dc",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "a55f5ea0-45f1-4cc8-a8a0-f26965a1eff8",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "a4fe12ad-03c6-4c0b-a9cb-0ffdb86860a6",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "c70e20e2-9296-49ea-a793-cfc9c68afbdd",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ef39a273-f4f6-4e27-ac45-9e92f2aa6a98",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "ccc43597-87b8-42ee-af2e-c065a4efe029",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c42df0f8-f1d1-41ad-a590-256c25fcc5d3",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "9dcd41d7-f6bc-42b6-82b3-1d53d7deaa9b",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "73fe1a6b-2297-4da6-92f4-e0b9d834e3de",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "9be0fa0a-174f-476a-9962-80437f31a61b",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b7242b4d-e2e1-4b9e-be9c-e21c1d68468c",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "34c7215a-7313-41ec-bbb8-59928d25df49",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "8157d9ec-77c3-42af-9a09-23a78cff1f6d",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "f647ee01-85e9-4f0a-ba11-5d21375a4c01",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "6328f17c-e4b9-48b3-8238-214e282af023",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "fccb1578-a8a7-4abd-ada5-750ba97ecaf9",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b5a4a5c5-a48e-41a2-84e5-bea4de289aec",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "bf6b23ad-0584-40c0-b277-3ee6869b3972",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "82d92a00-0304-490a-908a-d7ae047f9b44",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "9b9c1dfd-ca2f-43ad-96c7-8f1413115f2e",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d9ec4daf-8036-4015-b93b-9c7542f3e1b5",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "c2787797-82a6-4473-954b-6dc9d38e5250",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "67cbe8a9-2ea5-4603-85b6-92fe54044efb",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "67b19468-c690-4f20-ad15-07019ec9c03a",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b8007f9f-76f5-4932-9e1d-fc3603824ec1",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "eb4962c6-4224-4826-b0e0-9b32376d1c8b",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "954b5472-a7d4-4a52-9b82-f9b143a13491",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "d5689e5c-3551-4af4-9639-cd813b291047",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "0cc6df7d-362c-4f6d-89b1-7d42e823f828",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "6808c904-7419-4985-b16b-2b83cdd80325",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c171724e-7ac8-4bd4-905d-fa7a09496fe0",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b0d48b83-b5af-42ca-bbb3-121da0bf39b3",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "e8e6691b-e005-4d1e-a54e-a4fd72967a4f",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "658e654f-36dd-4368-b390-bf2ab60a209c",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "dc06f967-742e-4054-88f2-aff243c1d3ae",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "fd01b8f5-ddc4-4837-b17e-ca2a011760c4",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d6b8f350-bd99-4dcf-a213-c5c610682833",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "66cfe5e3-42fa-448f-996d-9acd80dbec66",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b39e9c9e-d95f-41b4-aae9-a63e9e1a55bf",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "4a30bf0e-5916-4f76-92e0-84529dbcba49",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "13efc9db-e66c-421e-ab04-2fd64af5774a",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ca0a0660-7667-4f15-b21c-e44a45836256",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "3f945e5b-35cc-4bea-aa32-5208e8e389c7",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "6eaaa20a-4a18-44ee-8798-af939adf67da",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "0f03edf7-4f0c-426a-aa7d-0f4c4214f4c6",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "262c06c8-eb36-4e8b-b175-fa06dd454b64",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "439adff3-913a-49d2-af9d-36716c922010",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "868ec6ef-f871-427c-8f15-715270b88bea",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ab4e3c58-f511-42cf-9679-ab30bc55c5a0",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "8f09125a-1604-4501-b121-5ff5fea544cd",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "64bc7b1d-3308-4d52-b27f-9a66a1f24b9a",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "12d9f030-a65c-4128-b284-f82a729c76e9",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "4429d0a0-bf03-44a8-b159-69763e5c9f57",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b6d4bbe3-53eb-4dec-8186-5dc86b84bede",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "1e825a67-7364-49b9-97a9-beb889a764dc",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "cbc0926e-b6f2-41f4-a4cb-da0636ecb199",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "abd8444e-989f-497e-88b4-42dfbca362c0",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "2b704082-65fa-4f13-9d1c-58c126767d26",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "c0471c37-e32a-4367-93c0-b00f4f871038",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 124,
+          "risk": 40,
+          "start": 112,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100080947-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 375,
+          "risk": 40,
+          "start": 363,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100080947-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "f4f9b215-9f76-44a5-a8a8-d4cd187246f7",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100086255-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ea413319-c7ea-4f13-b395-b210ec6c2ebb",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 344,
+          "risk": 40,
+          "start": 332,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100091563-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "25333063-f5c0-4d54-add9-696506e50f67",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100096871-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 396,
+          "risk": 40,
+          "start": 384,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100096871-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "9a80d609-2e2c-4cf1-8d2f-f471189f3b5d",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 124,
+          "risk": 40,
+          "start": 112,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100102179-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 370,
+          "risk": 40,
+          "start": 358,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100102179-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "8223103e-5386-4395-ac3d-01146ce40b86",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 343,
+          "risk": 40,
+          "start": 331,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100107487-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "0d8aacf0-3bed-44ee-b132-059b99fa6061",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 124,
+          "risk": 40,
+          "start": 112,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100112795-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "7bb6888e-b651-40ac-87cf-a5d2a22e0d16",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100118103-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 371,
+          "risk": 40,
+          "start": 359,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100118103-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "2c9b9283-72c3-4ae6-b68a-49e3820fab52",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 369,
+          "risk": 40,
+          "start": 357,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100123411-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d5316b43-2a99-4f2e-afe0-7ce725b0c52d",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100128719-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 367,
+          "risk": 40,
+          "start": 355,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100128719-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d63c1a85-61b3-44ea-acb8-a31535b39463",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 124,
+          "risk": 40,
+          "start": 112,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100134027-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 375,
+          "risk": 40,
+          "start": 363,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100134027-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "e3335a8b-e76a-4725-82d9-e378ed6bbaa3",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100139335-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "88860646-843f-4ecc-be08-35464936863f",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 124,
+          "risk": 40,
+          "start": 112,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100144643-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 374,
+          "risk": 40,
+          "start": 362,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100144643-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "56633e47-8389-4177-92e3-762ca4978bd0",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 123,
+          "risk": 40,
+          "start": 111,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100149951-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        },
+        {
+          "end": 396,
+          "risk": 40,
+          "start": 384,
+          "reason": "Предполагаемый СНИЛС: явный контекст, но неверная контрольная сумма; требуется проверка",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "100149951-00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 0.45,
+          "verification": "suspected",
+          "checksum_valid": false
+        }
+      ],
+      "error": null
+    }
+  ]
+}

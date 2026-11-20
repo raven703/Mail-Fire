@@ -5,7 +5,7 @@ the template. Recognition is local, OCR-dependent and deliberately conservative.
 """
 import re
 from app.detectors import inn_valid
-from app.advanced_detectors import snils_valid
+from app.snils import snils_matches
 
 TEMPLATES = {
     "passport_ru": {
@@ -62,8 +62,7 @@ def _variable_present(text, kind):
         issued = re.search(r"(?<!\d)\d{2}[./]\d{2}[./]\d{4}(?!\d)", text)
         return bool(series or subdivision or issued)
     if kind == "snils_ru":
-        return any(snils_valid(m.group()) for m in re.finditer(
-            r"(?<!\d)\d{3}[- ]?\d{3}[- ]?\d{3}[ -]?\d{2}(?!\d)", text))
+        return bool(snils_matches(text))
     if kind == "inn_ru":
         return any(inn_valid(m.group()) for m in re.finditer(
             r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", text))
@@ -87,6 +86,11 @@ def match_document(text, template):
     if not passport_fields and (len(anchors) < spec["min_anchors"] or not _variable_present(text, kind)):
         return None
     confidence = min(0.98, 0.60 + 0.08 * len(anchors))
+    if kind == "snils_ru":
+        matches = snils_matches(text)
+        best = max(matches, key=lambda m: m["checksum_valid"])
+        return {"category": spec["category"], "kind": kind, "anchors": anchors,
+                **{k: best[k] for k in ("confidence", "reason", "checksum_valid", "verification")}}
     return {"category": spec["category"], "kind": kind,
             "confidence": round(confidence, 2), "anchors": anchors,
             "reason": "Тип документа: постоянные реквизиты бланка и формат переменного поля"}
@@ -97,8 +101,9 @@ def finding_for_template(text, template, reference_id, filename):
         return None
     return {"category": matched["category"], "source": "document-template",
             "rule_id": "document-template:" + reference_id,
-            "risk": 75, "confidence": matched["confidence"],
+            "risk": 40 if matched.get("verification") == "suspected" else 75, "confidence": matched["confidence"],
             "start": 0, "end": 0,
             "excerpt": "; ".join(matched["anchors"])[:300],
             "reason": matched["reason"], "status": "ANALYZED",
+            **{k: matched[k] for k in ("verification", "checksum_valid") if k in matched},
             "version": "document-template-1", "filename": filename}

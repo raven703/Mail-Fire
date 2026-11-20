@@ -24,7 +24,9 @@ def test_snils_valid_checksum_and_anchor():
                   for c in range(100) if snils_valid(f"{n:09d}{c:02d}"))
     formatted = f"{number[:3]}-{number[3:6]}-{number[6:9]} {number[9:]}"
     assert match_document("СНИЛС " + formatted, template_config("snils_ru"))
-    assert not match_document("СНИЛС 123-456-789 00", template_config("snils_ru"))
+    result = match_document("СНИЛС 123-456-789 00", template_config("snils_ru"))
+    assert result["verification"] == "suspected"
+    assert result["checksum_valid"] is False
 
 def test_inn_requires_checksum_and_fixed_context():
     from app.detectors import inn_valid

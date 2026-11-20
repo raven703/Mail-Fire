@@ -3,14 +3,7 @@
 from functools import lru_cache
 
 from app.detectors import inn_valid
-
-
-def snils_valid(value):
-    digits = "".join(c for c in value if c.isdigit())
-    if len(digits) != 11:
-        return False
-    checksum = sum(int(d) * w for d, w in zip(digits[:9], range(9, 0, -1))) % 101
-    return int(digits[-2:]) == (0 if checksum == 100 else checksum)
+from app.snils import snils_matches, snils_valid
 
 
 @lru_cache
@@ -31,7 +24,6 @@ def recognizers():
         )
         for entity, pattern, score in [
             ("RU_INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 0.85),
-            ("RU_SNILS", r"(?<!\d)\d{3}[- ]?\d{3}[- ]?\d{3} ?\d{2}(?!\d)", 0.85),
             ("RU_PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 0.7),
         ]
     ]
@@ -56,6 +48,11 @@ def finding(category, source, excerpt="", risk=80, reason="Требуется п
 
 def pii(text):
     output = []
+    for match in snils_matches(text):
+        output.append(finding(
+            "RU_SNILS", "presidio", text[match["start"]:match["end"]],
+            60 if match["checksum_valid"] else 40, match["reason"],
+        ) | match)
     from app.passport import passport_spans
 
     for start, end in passport_spans(text):
