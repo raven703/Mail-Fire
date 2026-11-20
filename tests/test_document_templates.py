@@ -39,3 +39,17 @@ def test_evidence_does_not_expose_personal_data():
     assert hit
     assert "СЕКРЕТНОВА" not in str(hit) and "12.03.2021" not in str(hit)
     assert hit["rule_id"] == "document-template:ref-1"
+
+
+def test_anchor_must_match_whole_words():
+    from app.detectors import inn_valid
+
+    number = next(str(n) for n in range(7700000000, 7700005000) if inn_valid(str(n)))
+    assert not match_document("Длинный номер " + number, template_config("inn_ru"))
+    assert match_document("ИНН: " + number, template_config("inn_ru"))
+
+
+def test_template_config_does_not_share_mutable_anchors():
+    config = template_config("inn_ru")
+    config["anchors"].append("personal sample")
+    assert "personal sample" not in template_config("inn_ru")["anchors"]

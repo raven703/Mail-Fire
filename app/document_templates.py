@@ -47,7 +47,7 @@ def template_config(kind):
         raise ValueError("Неизвестный тип шаблона")
     spec = TEMPLATES[kind]
     # Only allowlisted fixed words are persisted, never OCR values from sample.
-    return {"kind": kind, "version": 1, "anchors": spec["anchors"],
+    return {"kind": kind, "version": 1, "anchors": list(spec["anchors"]),
             "min_anchors": spec["min_anchors"], "category": spec["category"]}
 
 def _variable_present(text, kind):
@@ -73,7 +73,10 @@ def match_document(text, template):
     spec = TEMPLATES[kind]
     document = normalized(text)
     # Enforce built-in anchors, even if a stored template was tampered with.
-    anchors = [a for a in spec["anchors"] if normalized(a) in document]
+    anchors = [
+        a for a in spec["anchors"]
+        if re.search(r"(?<!\w)" + re.escape(normalized(a)) + r"(?!\w)", document)
+    ]
     if len(anchors) < spec["min_anchors"] or not _variable_present(text, kind):
         return None
     confidence = min(0.98, 0.60 + 0.08 * len(anchors))
