@@ -178,7 +178,9 @@ def analyze(message_id, job_id=None, owner=None):
 
     llm_findings, llm_errors = llm_analyze(text, findings)
     findings.extend(llm_findings)
-    ml_errors.extend(llm_errors)
+    engine_errors = ml_errors + llm_errors
+
+    from app.analysis_status import classify_analysis
 
     with transaction() as session:
         assert_current_job(session, job_id, owner)
@@ -191,27 +193,33 @@ def analyze(message_id, job_id=None, owner=None):
                     id=__import__("uuid").uuid4().hex,
                     normalized_sha=digest,
                     text=text,
-                    analysis={"findings": findings, "engine_errors": ml_errors},
+                    analysis={"findings": findings, "engine_errors": engine_errors},
                     version=VERSION,
                 )
                 .on_conflict_do_nothing()
             )
             content = session.scalar(select(Content).where(Content.normalized_sha == digest))
         message.content_id = content.id
+        detector_settings = session.get(Setting, "detectors")
+        enabled = detector_settings.value if detector_settings else {}
+        message_status, skipped_checks = classify_analysis(
+            [(o[4], o[5]) for o in objects],
+            antivirus_states,
+            ml_errors,
+            llm_errors,
+            antivirus_enabled=enabled.get("antivirus", True),
+            ml_enabled=enabled.get("ml", True),
+            ocr_enabled=settings().ocr_backend != "disabled",
+        )
         # Reanalysis must update results after detector/model changes.
-        content.analysis = {"findings": findings, "engine_errors": ml_errors}
+        content.analysis = {
+            "findings": findings, "engine_errors": engine_errors,
+            "skipped_checks": skipped_checks,
+        }
         content.version = VERSION
         message.subject, message.sender = parsed["subject"], parsed["sender"]
         message.recipients, message.headers = parsed["recipients"], parsed["headers"]
-        message.status = (
-            "PARTIAL"
-            if (
-                bool(ml_errors)
-                or any(o[4] != "ANALYZED" for o in objects)
-                or any(state not in {"OK", "FOUND"} for state in antivirus_states)
-            )
-            else "ANALYZED"
-        )
+        message.status = message_status
         for address in set([parsed["sender"]] + parsed["recipients"]):
             if address:
                 session.execute(insert(Address).values(email=address.lower()).on_conflict_do_nothing())
@@ -278,7 +286,8 @@ def analyze(message_id, job_id=None, owner=None):
         current = session.get(Content, content.id)
         current.analysis = {
             "findings": original + merged + semantic_findings,
-            "engine_errors": ml_errors,
+            "engine_errors": engine_errors,
+            "skipped_checks": skipped_checks,
         }
     for event_id in event_ids:
         evaluate(event_id, job_id, owner)
