@@ -1,0 +1,36 @@
+From: office20@sever-logistics.example.test
+To: department9@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:03:09 GMT
+Subject: =?UTF-8?B?0JLRi9Cz0YDRg9C30LrQsCDQutC70LjQtdC90YLRgdC60L7QuSDQsdCw0LfRiyDQtNC70Y8g0YHQstC10YDQutC4?=
+Message-ID: <mf300-0274@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0274
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0274-boundary"
+
+--mailfire-benchmark-MF300-0274-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Выгрузка клиентской базы для сверки». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Анна Сергеева
+Отдел финансов
+--mailfire-benchmark-MF300-0274-boundary
+Content-Type: text/csv; name="MF300-0274-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0274-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JLRi9Cz0YDRg9C3
+0LrQsCDQutC70LjQtdC90YLRgdC60L7QuSDQsdCw0LfRiyDQtNC70Y8g0YHQstC10YDQutC4Igoy
+OyLQotGA0LXQsdGD0LXRgtGB0Y8g0LLRi9Cz0YDRg9C30LrQsCDQsdCw0LfRiyDQutC70LjQtdC9
+0YLQvtCyINCyIENTVjog0KTQmNCeLCDRgtC10LvQtdGE0L7QvdGLLCDQsNC00YDQtdGB0LAg0Y3Q
+u9C10LrRgtGA0L7QvdC90L7QuSDQv9C+0YfRgtGLLCDQuNGB0YLQvtGA0LjRjyDQt9Cw0LrQsNC3
+0L7Qsi4g0J/QvtC20LDQu9GD0LnRgdGC0LAsINC+0YLQv9GA0LDQstGM0YLQtSDRgdC/0LjRgdC+
+0Log0LrQvtC90YLQsNC60YLQvtCyINCyINC+0YLQtNC10Lsg0YHQvtC/0YDQvtCy0L7QttC00LXQ
+vdC40Y8uIgozOyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7Q
+tdC60YIiCjQ7ItCe0LHRitC10Lw6IDIgMzExIDg4NyDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHR
+gtCy0LXQvdC90YvQuTog0JDQvdC90LAg0KHQtdGA0LPQtdC10LLQsCI=
+--mailfire-benchmark-MF300-0274-boundary--

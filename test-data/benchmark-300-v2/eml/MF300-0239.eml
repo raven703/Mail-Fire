@@ -1,0 +1,34 @@
+From: office8@meridian-trade.example.test
+To: department7@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:08:54 GMT
+Subject: =?UTF-8?B?0J/QtdGA0LXQtNCw0YfQsCDQutC+0L3RhNC40LPRg9GA0LDRhtC40Lg=?=
+Message-ID: <mf300-0239@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0239
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0239-boundary"
+
+--mailfire-benchmark-MF300-0239-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+В переписку попала строка api_key=mf_demo_secret_2026_7f3d8e19c4b65a12. Этот ключ выглядит действующим, требуется инцидент и отзыв секрета.
+
+С уважением,
+Павел Никитин
+Отдел финансов
+--mailfire-benchmark-MF300-0239-boundary
+Content-Type: text/csv; name="MF300-0239-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0239-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0J/QtdGA0LXQtNCw
+0YfQsCDQutC+0L3RhNC40LPRg9GA0LDRhtC40LgiCjI7ItCSINC/0LXRgNC10L/QuNGB0LrRgyDQ
+v9C+0L/QsNC70LAg0YHRgtGA0L7QutCwIGFwaV9rZXk9bWZfZGVtb19zZWNyZXRfMjAyNl83ZjNk
+OGUxOWM0YjY1YTEyLiDQrdGC0L7RgiDQutC70Y7RhyDQstGL0LPQu9GP0LTQuNGCINC00LXQudGB
+0YLQstGD0Y7RidC40LwsINGC0YDQtdCx0YPQtdGC0YHRjyDQuNC90YbQuNC00LXQvdGCINC4INC+
+0YLQt9GL0LIg0YHQtdC60YDQtdGC0LAuIgozOyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA
+0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHRitC10Lw6IDIgMDM0IDcyMiDRgNGD0LEu
+Igo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0J/QsNCy0LXQuyDQndC40LrQuNGC0LjQ
+vSI=
+--mailfire-benchmark-MF300-0239-boundary--

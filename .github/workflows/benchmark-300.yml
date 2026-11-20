@@ -1,0 +1,66 @@
+name: Benchmark 300 fixture validation
+on:
+  pull_request:
+    paths:
+      - "test-data/benchmark-300-v2/**"
+      - "scripts/*benchmark_300_v2.mjs"
+      - ".github/workflows/benchmark-300.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate manifest and unique message IDs
+        run: node scripts/validate_benchmark_300_v2.mjs
+      - name: Confirm bit-for-bit reproducibility
+        run: |
+          node scripts/generate_benchmark_300_v2.mjs /tmp/mailfire-benchmark-300
+          diff -qr test-data/benchmark-300-v2/eml /tmp/mailfire-benchmark-300/eml
+          cmp test-data/benchmark-300-v2/manifest.jsonl /tmp/mailfire-benchmark-300/manifest.jsonl
+      - name: Verify MIME, attachment archives and ground truth
+        run: |
+          python - <<'PY'
+          import json, io, zipfile, pathlib
+          from email import policy
+          from email.parser import BytesParser
+          root=pathlib.Path('test-data/benchmark-300-v2')
+          entries=[json.loads(s) for s in (root/'manifest.jsonl').read_text().splitlines()]
+          assert len(entries)==300
+          seen=set()
+          counts={'txt':0,'html':0,'csv':0,'docx':0,'xlsx':0}
+          for item in entries:
+              raw=(root/item['file']).read_bytes()
+              mail=BytesParser(policy=policy.default).parsebytes(raw)
+              assert not mail.defects, (item['id'], mail.defects)
+              assert mail['Message-ID'] not in seen
+              seen.add(mail['Message-ID'])
+              assert mail['X-MailFire-Benchmark-ID']==item['id']
+              assert item['evaluation_split']=='holdout'
+              att=list(mail.iter_attachments())
+              if item['attachment_type']=='none':
+                  assert not att
+                  continue
+              assert len(att)==1, item['id']
+              a=att[0]
+              filename=a.get_filename()
+              assert filename.endswith('.'+item['attachment_type'])
+              payload=a.get_payload(decode=True)
+              assert payload
+              if item['attachment_type'] in ('docx','xlsx'):
+                  with zipfile.ZipFile(io.BytesIO(payload)) as z:
+                      assert z.testzip() is None
+                      assert '[Content_Types].xml' in z.namelist()
+              else:
+                  payload.decode('utf-8')
+              counts[item['attachment_type']]+=1
+          assert all(counts.values()),counts
+          print('Validated 300 EML, archives, attachments, labels; formats:',counts)
+          PY

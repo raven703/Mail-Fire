@@ -1,0 +1,34 @@
+From: office10@altiar-project.example.test
+To: department7@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:00:42 GMT
+Subject: =?UTF-8?B?0KPQs9GA0L7Qt9CwINCw0LTQvNC40L3QuNGB0YLRgNCw0YbQuNC4INC+0YTQuNGB0LA=?=
+Message-ID: <mf300-0195@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0195
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0195-boundary"
+
+--mailfire-benchmark-MF300-0195-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Я устрою взрыв в здании офиса завтра. Это прямое угрожающее сообщение, прошу немедленно передать его службе безопасности.
+
+С уважением,
+Дмитрий Орлов
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0195-boundary
+Content-Type: text/html; name="MF300-0195-attachment.html"
+Content-Disposition: attachment; filename="MF300-0195-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7Qo9Cz0YDQ
+vtC30LAg0LDQtNC80LjQvdC40YHRgtGA0LDRhtC40Lgg0L7RhNC40YHQsDwvcD48cD7QryDRg9GB
+0YLRgNC+0Y4g0LLQt9GA0YvQsiDQsiDQt9C00LDQvdC40Lgg0L7RhNC40YHQsCDQt9Cw0LLRgtGA
+0LAuINCt0YLQviDQv9GA0Y/QvNC+0LUg0YPQs9GA0L7QttCw0Y7RidC10LUg0YHQvtC+0LHRidC1
+0L3QuNC1LCDQv9GA0L7RiNGDINC90LXQvNC10LTQu9C10L3QvdC+INC/0LXRgNC10LTQsNGC0Ywg
+0LXQs9C+INGB0LvRg9C20LHQtSDQsdC10LfQvtC/0LDRgdC90L7RgdGC0LguPC9wPjxwPtCa0L7Q
+vdGC0YDQsNCz0LXQvdGCOiDQktC10LrRgtC+0YAt0KHQtdGA0LLQuNGBPC9wPjxwPtCe0LHRitC1
+0Lw6IDEgNjg2IDI4NiDRgNGD0LEuPC9wPjxwPtCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQ
+lNC80LjRgtGA0LjQuSDQntGA0LvQvtCyPC9wPjwvYm9keT48L2h0bWw+
+--mailfire-benchmark-MF300-0195-boundary--

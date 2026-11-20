@@ -1,0 +1,36 @@
+From: office21@meridian-trade.example.test
+To: department10@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:04:42 GMT
+Subject: =?UTF-8?B?0JrQvtC/0LjRgNC+0LLQsNC90LjQtSDQtNC+0LrRg9C80LXQvdGC0LAg0LLQviDQstC90LXRiNC90LjQuSDQutC+0L3RgtGD0YA=?=
+Message-ID: <mf300-0275@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0275
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0275-boundary"
+
+--mailfire-benchmark-MF300-0275-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Прошу отправить внутренний файл с коммерческими документами на личную почту внешнего подрядчика. Контрагенту нельзя выдавать материалы до разрешения службы безопасности.
+
+С уважением,
+Дмитрий Орлов
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0275-boundary
+Content-Type: text/html; name="MF300-0275-attachment.html"
+Content-Disposition: attachment; filename="MF300-0275-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7QmtC+0L/Q
+uNGA0L7QstCw0L3QuNC1INC00L7QutGD0LzQtdC90YLQsCDQstC+INCy0L3QtdGI0L3QuNC5INC6
+0L7QvdGC0YPRgDwvcD48cD7Qn9GA0L7RiNGDINC+0YLQv9GA0LDQstC40YLRjCDQstC90YPRgtGA
+0LXQvdC90LjQuSDRhNCw0LnQuyDRgSDQutC+0LzQvNC10YDRh9C10YHQutC40LzQuCDQtNC+0LrR
+g9C80LXQvdGC0LDQvNC4INC90LAg0LvQuNGH0L3Rg9GOINC/0L7Rh9GC0YMg0LLQvdC10YjQvdC1
+0LPQviDQv9C+0LTRgNGP0LTRh9C40LrQsC4g0JrQvtC90YLRgNCw0LPQtdC90YLRgyDQvdC10LvR
+jNC30Y8g0LLRi9C00LDQstCw0YLRjCDQvNCw0YLQtdGA0LjQsNC70Ysg0LTQviDRgNCw0LfRgNC1
+0YjQtdC90LjRjyDRgdC70YPQttCx0Ysg0LHQtdC30L7Qv9Cw0YHQvdC+0YHRgtC4LjwvcD48cD7Q
+mtC+0L3RgtGA0LDQs9C10L3Rgjog0JLQtdC60YLQvtGALdCh0LXRgNCy0LjRgTwvcD48cD7QntCx
+0YrQtdC8OiAyIDMxOSA4MDYg0YDRg9CxLjwvcD48cD7QntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQ
+uTog0JTQvNC40YLRgNC40Lkg0J7RgNC70L7QsjwvcD48L2JvZHk+PC9odG1sPg==
+--mailfire-benchmark-MF300-0275-boundary--

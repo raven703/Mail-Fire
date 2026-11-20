@@ -1,0 +1,34 @@
+From: office4@altiar-project.example.test
+To: department1@mailfire.example.test
+Date: Fri, 20 Nov 2026 10:51:24 GMT
+Subject: =?UTF-8?B?0KLRgNC10LHQvtCy0LDQvdC40LUg0LLRi9C60YPQv9Cw?=
+Message-ID: <mf300-0189@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0189
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0189-boundary"
+
+--mailfire-benchmark-MF300-0189-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Требую выкуп за данные организации. Заплатите деньги, иначе опубликую внутренние документы; отсчет начинается сегодня.
+
+С уважением,
+Алексей Кузнецов
+Отдел финансов
+--mailfire-benchmark-MF300-0189-boundary
+Content-Type: text/csv; name="MF300-0189-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0189-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KLRgNC10LHQvtCy
+0LDQvdC40LUg0LLRi9C60YPQv9CwIgoyOyLQotGA0LXQsdGD0Y4g0LLRi9C60YPQvyDQt9CwINC0
+0LDQvdC90YvQtSDQvtGA0LPQsNC90LjQt9Cw0YbQuNC4LiDQl9Cw0L/Qu9Cw0YLQuNGC0LUg0LTQ
+tdC90YzQs9C4LCDQuNC90LDRh9C1INC+0L/Rg9Cx0LvQuNC60YPRjiDQstC90YPRgtGA0LXQvdC9
+0LjQtSDQtNC+0LrRg9C80LXQvdGC0Ys7INC+0YLRgdGH0LXRgiDQvdCw0YfQuNC90LDQtdGC0YHR
+jyDRgdC10LPQvtC00L3Rjy4iCjM7ItCa0L7QvdGC0YDQsNCz0LXQvdGCOiDQk9C+0YDQuNC30L7Q
+vdGCLdCf0YDQvtC10LrRgiIKNDsi0J7QsdGK0LXQvDogMSA2MzggNzcyINGA0YPQsS4iCjU7ItCe
+0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQkNC70LXQutGB0LXQuSDQmtGD0LfQvdC10YbQvtCy
+Ig==
+--mailfire-benchmark-MF300-0189-boundary--
