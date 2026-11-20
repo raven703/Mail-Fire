@@ -44,7 +44,7 @@ async def upload_reference(file: UploadFile, template_type: str = Form(""), acco
         # Do not retain image or variable OCR fields from a sample.
         safe_text = " ".join(spec["anchors"])
         row = Reference(
-            name=file.filename or TEMPLATES[template_type]["label"],
+            name=TEMPLATES[template_type]["label"] + " — шаблон",
             blob_sha=put_blob(session, ("document-template:" + template_type).encode()),
             text=safe_text,
             fingerprint={"document_template": spec},
