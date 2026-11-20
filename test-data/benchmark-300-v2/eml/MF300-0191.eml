@@ -6,6 +6,9 @@ Message-ID: <mf300-0191@benchmark.mailfire.example.test>
 MIME-Version: 1.0
 X-MailFire-Benchmark: benchmark-300-v2
 X-MailFire-Benchmark-ID: MF300-0191
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0191-boundary"
+
+--mailfire-benchmark-MF300-0191-boundary
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
@@ -14,3 +17,17 @@ Content-Transfer-Encoding: 8bit
 С уважением,
 Павел Никитин
 Отдел закупок
+--mailfire-benchmark-MF300-0191-boundary
+Content-Type: text/plain; name="MF300-0191-attachment.txt"
+Content-Disposition: attachment; filename="MF300-0191-attachment.txt"
+Content-Transfer-Encoding: base64
+
+0KPQs9GA0L7Qt9CwINCw0LTQvNC40L3QuNGB0YLRgNCw0YbQuNC4INC+0YTQuNGB0LAK0K8g0YPR
+gdGC0YDQvtGOINCy0LfRgNGL0LIg0LIg0LfQtNCw0L3QuNC4INC+0YTQuNGB0LAg0LfQsNCy0YLR
+gNCwLiDQrdGC0L4g0L/RgNGP0LzQvtC1INGD0LPRgNC+0LbQsNGO0YnQtdC1INGB0L7QvtCx0YnQ
+tdC90LjQtSwg0L/RgNC+0YjRgyDQvdC10LzQtdC00LvQtdC90L3QviDQv9C10YDQtdC00LDRgtGM
+INC10LPQviDRgdC70YPQttCx0LUg0LHQtdC30L7Qv9Cw0YHQvdC+0YHRgtC4LgrQmtC+0L3RgtGA
+0LDQs9C10L3Rgjog0KHQtdCy0LXRgC3Qm9C+0LPQuNGB0YLQuNC60LAK0J7QsdGK0LXQvDogMSA2
+NTQgNjEwINGA0YPQsS4K0J7RgtCy0LXRgtGB0YLQstC10L3QvdGL0Lk6INCf0LDQstC10Lsg0J3Q
+uNC60LjRgtC40L0=
+--mailfire-benchmark-MF300-0191-boundary--

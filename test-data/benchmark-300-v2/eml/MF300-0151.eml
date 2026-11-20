@@ -6,11 +6,31 @@ Message-ID: <mf300-0151@benchmark.mailfire.example.test>
 MIME-Version: 1.0
 X-MailFire-Benchmark: benchmark-300-v2
 X-MailFire-Benchmark-ID: MF300-0151
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0151-boundary"
+
+--mailfire-benchmark-MF300-0151-boundary
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Внутренний прогноз выручки на следующий квартал: 1 337 850 рублей. Плановый прирост по основным клиентам 7,8%, пересмотр после закрытия периода. Не включать в публичную презентацию.
+Добрый день, прошу рассмотреть вложенный материал по теме «Прогноз выручки Север-Логистика». Ожидаю обратную связь до конца недели.
+
 
 С уважением,
 Павел Никитин
 Отдел закупок
+--mailfire-benchmark-MF300-0151-boundary
+Content-Type: text/plain; name="MF300-0151-attachment.txt"
+Content-Disposition: attachment; filename="MF300-0151-attachment.txt"
+Content-Transfer-Encoding: base64
+
+0J/RgNC+0LPQvdC+0Lcg0LLRi9GA0YPRh9C60Lgg0KHQtdCy0LXRgC3Qm9C+0LPQuNGB0YLQuNC6
+0LAK0JLQvdGD0YLRgNC10L3QvdC40Lkg0L/RgNC+0LPQvdC+0Lcg0LLRi9GA0YPRh9C60Lgg0L3Q
+sCDRgdC70LXQtNGD0Y7RidC40Lkg0LrQstCw0YDRgtCw0Ls6IDEgMzM3IDg1MCDRgNGD0LHQu9C1
+0LkuINCf0LvQsNC90L7QstGL0Lkg0L/RgNC40YDQvtGB0YIg0L/QviDQvtGB0L3QvtCy0L3Ri9C8
+INC60LvQuNC10L3RgtCw0LwgNyw4JSwg0L/QtdGA0LXRgdC80L7RgtGAINC/0L7RgdC70LUg0LfQ
+sNC60YDRi9GC0LjRjyDQv9C10YDQuNC+0LTQsC4g0J3QtSDQstC60LvRjtGH0LDRgtGMINCyINC/
+0YPQsdC70LjRh9C90YPRjiDQv9GA0LXQt9C10L3RgtCw0YbQuNGOLgrQmtC+0L3RgtGA0LDQs9C1
+0L3Rgjog0KHQtdCy0LXRgC3Qm9C+0LPQuNGB0YLQuNC60LAK0J7QsdGK0LXQvDogMSAzMzcgODUw
+INGA0YPQsS4K0J7RgtCy0LXRgtGB0YLQstC10L3QvdGL0Lk6INCf0LDQstC10Lsg0J3QuNC60LjR
+gtC40L0=
+--mailfire-benchmark-MF300-0151-boundary--
