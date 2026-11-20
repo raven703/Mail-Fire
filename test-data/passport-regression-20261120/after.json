@@ -1,0 +1,1380 @@
+{
+  "pending": 0,
+  "items": [
+    {
+      "id": "21be195c-aa92-4efb-b72a-f629ca802625",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "046f2d68-77ed-483f-8e2d-df7d9da0e6c3",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "eabd952f-d12b-43a6-bbea-7e2d7f5604dc",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "a55f5ea0-45f1-4cc8-a8a0-f26965a1eff8",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "a4fe12ad-03c6-4c0b-a9cb-0ffdb86860a6",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "c70e20e2-9296-49ea-a793-cfc9c68afbdd",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ef39a273-f4f6-4e27-ac45-9e92f2aa6a98",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "ccc43597-87b8-42ee-af2e-c065a4efe029",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c42df0f8-f1d1-41ad-a590-256c25fcc5d3",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "9dcd41d7-f6bc-42b6-82b3-1d53d7deaa9b",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "73fe1a6b-2297-4da6-92f4-e0b9d834e3de",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "9be0fa0a-174f-476a-9962-80437f31a61b",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b7242b4d-e2e1-4b9e-be9c-e21c1d68468c",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "34c7215a-7313-41ec-bbb8-59928d25df49",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "8157d9ec-77c3-42af-9a09-23a78cff1f6d",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "f647ee01-85e9-4f0a-ba11-5d21375a4c01",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "6328f17c-e4b9-48b3-8238-214e282af023",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "fccb1578-a8a7-4abd-ada5-750ba97ecaf9",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b5a4a5c5-a48e-41a2-84e5-bea4de289aec",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "bf6b23ad-0584-40c0-b277-3ee6869b3972",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "82d92a00-0304-490a-908a-d7ae047f9b44",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "9b9c1dfd-ca2f-43ad-96c7-8f1413115f2e",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d9ec4daf-8036-4015-b93b-9c7542f3e1b5",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "c2787797-82a6-4473-954b-6dc9d38e5250",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "67cbe8a9-2ea5-4603-85b6-92fe54044efb",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "67b19468-c690-4f20-ad15-07019ec9c03a",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b8007f9f-76f5-4932-9e1d-fc3603824ec1",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "eb4962c6-4224-4826-b0e0-9b32376d1c8b",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "954b5472-a7d4-4a52-9b82-f9b143a13491",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "d5689e5c-3551-4af4-9639-cd813b291047",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "0cc6df7d-362c-4f6d-89b1-7d42e823f828",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "6808c904-7419-4985-b16b-2b83cdd80325",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c171724e-7ac8-4bd4-905d-fa7a09496fe0",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b0d48b83-b5af-42ca-bbb3-121da0bf39b3",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "e8e6691b-e005-4d1e-a54e-a4fd72967a4f",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "658e654f-36dd-4368-b390-bf2ab60a209c",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "dc06f967-742e-4054-88f2-aff243c1d3ae",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "fd01b8f5-ddc4-4837-b17e-ca2a011760c4",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d6b8f350-bd99-4dcf-a213-c5c610682833",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "66cfe5e3-42fa-448f-996d-9acd80dbec66",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "b39e9c9e-d95f-41b4-aae9-a63e9e1a55bf",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "4a30bf0e-5916-4f76-92e0-84529dbcba49",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "13efc9db-e66c-421e-ab04-2fd64af5774a",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ca0a0660-7667-4f15-b21c-e44a45836256",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "3f945e5b-35cc-4bea-aa32-5208e8e389c7",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "6eaaa20a-4a18-44ee-8798-af939adf67da",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "0f03edf7-4f0c-426a-aa7d-0f4c4214f4c6",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "262c06c8-eb36-4e8b-b175-fa06dd454b64",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "439adff3-913a-49d2-af9d-36716c922010",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "868ec6ef-f871-427c-8f15-715270b88bea",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "ab4e3c58-f511-42cf-9679-ab30bc55c5a0",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "8f09125a-1604-4501-b121-5ff5fea544cd",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "64bc7b1d-3308-4d52-b27f-9a66a1f24b9a",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "12d9f030-a65c-4128-b284-f82a729c76e9",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 62,
+          "risk": 40,
+          "start": 52,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "inn",
+          "version": "rules-1",
+          "category": "INN",
+          "confidence": null
+        },
+        {
+          "end": 62,
+          "risk": 60,
+          "start": 52,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "0000000000",
+          "rule_id": "ru_inn",
+          "version": "advanced-1",
+          "category": "RU_INN",
+          "confidence": 1.0
+        },
+        {
+          "end": 85,
+          "risk": 60,
+          "start": 71,
+          "reason": "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "000-000-000 00",
+          "rule_id": "ru_snils",
+          "version": "advanced-1",
+          "category": "RU_SNILS",
+          "confidence": 1.0
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "4429d0a0-bf03-44a8-b159-69763e5c9f57",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "b6d4bbe3-53eb-4dec-8186-5dc86b84bede",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 71,
+          "risk": 85,
+          "start": 37,
+          "reason": "Совпадение статического правила; требуется проверка контекста",
+          "source": "text",
+          "status": "ANALYZED",
+          "excerpt": "api_key=EXAMPLE_NOT_A_REAL_SECRET;",
+          "rule_id": "secret",
+          "version": "rules-1",
+          "category": "SECRET",
+          "confidence": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "1e825a67-7364-49b9-97a9-beb889a764dc",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "cbc0926e-b6f2-41f4-a4cb-da0636ecb199",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 85,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Передать пароль для подтверждения аккаунта",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": "На обучении разбирали письмо «подтвердить аккаунт и сообщить пароль». Это цитата учебного образца фишинга, ",
+          "rule_id": "3cee5a91-d6d4-4b6c-b9cf-9538f98e3f2e",
+          "version": "advanced-1",
+          "category": "pack-ru2-phishing",
+          "confidence": 0.611,
+          "match_score": 11
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "abd8444e-989f-497e-88b4-42dfbca362c0",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 0,
+          "risk": 94,
+          "start": 0,
+          "reason": "Совпадение с пользовательским правилом: Прямые угрозы взрыва",
+          "source": "custom-keywords",
+          "status": "ANALYZED",
+          "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+          "rule_id": "a36da6a3-4dfc-4824-8789-ace26003b24f",
+          "version": "advanced-1",
+          "category": "pack-ru2-explosive-threat",
+          "confidence": null,
+          "match_score": 1
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "2b704082-65fa-4f13-9d1c-58c126767d26",
+      "status": "ANALYZED",
+      "findings": [],
+      "error": null
+    },
+    {
+      "id": "4f8462d1-d12b-47f0-867c-6653048ca6ef",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 352,
+          "risk": 60,
+          "start": 327,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 102940",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "de0e3087-f816-4b0b-8ff7-f141cd298d4a",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 97,
+          "risk": 60,
+          "start": 72,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103136",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 404,
+          "risk": 60,
+          "start": 379,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103136",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "a2109b92-968a-42c2-a953-dfa28b6c4f30",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 101,
+          "risk": 60,
+          "start": 76,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103332",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 445,
+          "risk": 60,
+          "start": 420,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103332",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "3b0b5d91-7d4d-4e5e-9e90-1007a05d5b52",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 337,
+          "risk": 60,
+          "start": 312,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103528",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "904b026d-f0be-4f30-bfe0-e96267f2f946",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 101,
+          "risk": 60,
+          "start": 76,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103724",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 421,
+          "risk": 60,
+          "start": 396,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103724",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "d8c696aa-d759-4f04-8be7-862d35da701d",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 97,
+          "risk": 60,
+          "start": 72,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103920",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 399,
+          "risk": 60,
+          "start": 374,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 103920",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "45b294a9-1c24-4c4b-9c74-2ff8d07b2648",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 357,
+          "risk": 60,
+          "start": 332,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104116",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "7d94c224-c0f0-45bc-8780-14349bbb2514",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 97,
+          "risk": 60,
+          "start": 72,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104312",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 429,
+          "risk": 60,
+          "start": 404,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104312",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "50598e0e-8278-4896-9273-3618aa74975e",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 101,
+          "risk": 60,
+          "start": 76,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104508",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 416,
+          "risk": 60,
+          "start": 391,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104508",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "3cf69786-2f0e-43d6-81d8-89335789343d",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 342,
+          "risk": 60,
+          "start": 317,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104704",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c325ae1f-39f6-40a5-91b4-15f1b93ea10d",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 101,
+          "risk": 60,
+          "start": 76,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104900",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 415,
+          "risk": 60,
+          "start": 390,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 104900",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "e5bf42b4-08f5-476c-af14-ca410e29de10",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 97,
+          "risk": 60,
+          "start": 72,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 105096",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 404,
+          "risk": 60,
+          "start": 379,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 105096",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "85a50cfa-705a-4b57-b449-64f79da4ebd1",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 382,
+          "risk": 60,
+          "start": 357,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 105292",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "c223ff81-f37a-44b2-b316-3c636bb93171",
+      "status": "ANALYZED",
+      "findings": [
+        {
+          "end": 97,
+          "risk": 60,
+          "start": 72,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 105488",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        },
+        {
+          "end": 400,
+          "risk": 60,
+          "start": 375,
+          "reason": "Серия и номер паспорта в контексте паспортных реквизитов",
+          "source": "presidio",
+          "status": "ANALYZED",
+          "excerpt": "Серия 45 08, номер 105488",
+          "rule_id": "ru_passport",
+          "version": "advanced-1",
+          "category": "RU_PASSPORT",
+          "confidence": 0.8
+        }
+      ],
+      "error": null
+    }
+  ]
+}

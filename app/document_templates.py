@@ -52,6 +52,10 @@ def template_config(kind):
 
 def _variable_present(text, kind):
     if kind == "passport_ru":
+        from app.passport import passport_spans
+
+        if passport_spans(text):
+            return True
         # Typical series+number, subdivision code or issue-date evidence.
         series = re.search(r"(?<!\d)\d{2}\s?\d{2}\s?\d{6}(?!\d)", text)
         subdivision = re.search(r"(?<!\d)\d{3}[- ]\d{3}(?!\d)", text)
@@ -77,7 +81,10 @@ def match_document(text, template):
         a for a in spec["anchors"]
         if re.search(r"(?<!\w)" + re.escape(normalized(a)) + r"(?!\w)", document)
     ]
-    if len(anchors) < spec["min_anchors"] or not _variable_present(text, kind):
+    from app.passport import passport_spans
+
+    passport_fields = kind == "passport_ru" and bool(passport_spans(text))
+    if not passport_fields and (len(anchors) < spec["min_anchors"] or not _variable_present(text, kind)):
         return None
     confidence = min(0.98, 0.60 + 0.08 * len(anchors))
     return {"category": spec["category"], "kind": kind,

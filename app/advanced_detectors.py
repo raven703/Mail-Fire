@@ -32,7 +32,6 @@ def recognizers():
         for entity, pattern, score in [
             ("RU_INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 0.85),
             ("RU_SNILS", r"(?<!\d)\d{3}[- ]?\d{3}[- ]?\d{3} ?\d{2}(?!\d)", 0.85),
-            ("RU_PASSPORT", r"(?i)паспорт\s*[:№]?\s*\d{2}\s?\d{2}\s?\d{6}(?!\d)", 0.8),
             ("RU_PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 0.7),
         ]
     ]
@@ -57,6 +56,13 @@ def finding(category, source, excerpt="", risk=80, reason="Требуется п
 
 def pii(text):
     output = []
+    from app.passport import passport_spans
+
+    for start, end in passport_spans(text):
+        output.append(finding(
+            "RU_PASSPORT", "presidio", text[start:end], 60,
+            "Серия и номер паспорта в контексте паспортных реквизитов",
+        ) | {"start": start, "end": end, "confidence": 0.8})
     for recognizer in recognizers():
         for match in recognizer.analyze(text, recognizer.supported_entities):
             if match.score:
