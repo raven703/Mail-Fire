@@ -1,0 +1,35 @@
+From: office13@meridian-trade.example.test
+To: department3@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:27:57 GMT
+Subject: =?UTF-8?B?0KHQv9C40YHQvtC6INC60LvQuNC10L3RgtC+0LIg0YHQviDRgdC60LjQtNC60LDQvNC4?=
+Message-ID: <mf300-0290@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0290
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0290-boundary"
+
+--mailfire-benchmark-MF300-0290-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Выгрузка базы клиентов для индивидуальных скидок: клиент Вектор-Сервис, согласовать скидку 12% к цене, контакты и история заказов приложены.
+
+С уважением,
+Анна Сергеева
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0290-boundary
+Content-Type: text/html; name="MF300-0290-attachment.html"
+Content-Disposition: attachment; filename="MF300-0290-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7QodC/0LjR
+gdC+0Log0LrQu9C40LXQvdGC0L7QsiDRgdC+INGB0LrQuNC00LrQsNC80Lg8L3A+PHA+0JLRi9Cz
+0YDRg9C30LrQsCDQsdCw0LfRiyDQutC70LjQtdC90YLQvtCyINC00LvRjyDQuNC90LTQuNCy0LjQ
+tNGD0LDQu9GM0L3Ri9GFINGB0LrQuNC00L7Qujog0LrQu9C40LXQvdGCINCS0LXQutGC0L7RgC3Q
+odC10YDQstC40YEsINGB0L7Qs9C70LDRgdC+0LLQsNGC0Ywg0YHQutC40LTQutGDIDEyJSDQuiDR
+htC10L3QtSwg0LrQvtC90YLQsNC60YLRiyDQuCDQuNGB0YLQvtGA0LjRjyDQt9Cw0LrQsNC30L7Q
+siDQv9GA0LjQu9C+0LbQtdC90YsuPC9wPjxwPtCa0L7QvdGC0YDQsNCz0LXQvdGCOiDQktC10LrR
+gtC+0YAt0KHQtdGA0LLQuNGBPC9wPjxwPtCe0LHRitC10Lw6IDIgNDM4IDU5MSDRgNGD0LEuPC9w
+PjxwPtCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQkNC90L3QsCDQodC10YDQs9C10LXQstCw
+PC9wPjwvYm9keT48L2h0bWw+
+--mailfire-benchmark-MF300-0290-boundary--

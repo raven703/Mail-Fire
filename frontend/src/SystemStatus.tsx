@@ -47,7 +47,7 @@ export function SystemStatus({api}:{api:API}){
   {data&&tab==='resources'&&<>
    {!rows.length?<div className="empty">Показатели ресурсов ещё не поступили. Сбор выполняется примерно каждые 30 секунд.</div>:<>
     <Cards items={[["Загрузка CPU",latest.cpu_percent==null?'—':number(latest.cpu_percent)+' %'],['Использование памяти',memory==null?'—':number(memory)+' %',bytes(latest.ram_used)+' из '+bytes(latest.ram_total)],['Свободно на диске',bytes(latest.disk_free)],['Используется swap',bytes(latest.swap_used)]]}/>
-    <p className="muted">Последний замер: {date(rows[0].created_at)}. Показатели видимого maintenance-процессу окружения, не отдельных контейнеров Mail-Fire.</p>
+    <p className="muted">Последний замер: {date(rows[0].created_at)}. Показатели видимого maintenance-процессу окружения, не отдельных контейнеров MICE.</p>
     <h3>Последние 20 замеров</h3><Table rows={rows.slice(0,20).map(r=>({id:r.id,time:date(r.created_at),cpu:r.values?.cpu_percent==null?'—':number(r.values.cpu_percent)+' %',ram:bytes(r.values?.ram_used),disk:bytes(r.values?.disk_free)}))} columns={[["time","Время"],["cpu","CPU"],["ram","Память занята"],["disk","Диск свободен"]]}/>
    </>}
   </>}

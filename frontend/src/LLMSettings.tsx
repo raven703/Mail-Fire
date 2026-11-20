@@ -28,7 +28,7 @@ export function LLMSettings({api}:{api:API}){
  };
  if(!config)return <p>{error||'Загрузка LLM-настроек…'}</p>;
  return <section className="settings-summary"><h3>LLM-анализ содержимого писем</h3>
-  <p className="muted">Подключение только через OpenAI-совместимый API. Mail-Fire не загружает веса модели и не запускает LLM-сервер. По умолчанию отключено.</p>
+  <p className="muted">Подключение только через OpenAI-совместимый API. MICE не загружает веса модели и не запускает LLM-сервер. По умолчанию отключено.</p>
   <form className="edit-form-grid" onSubmit={save}>
    <label><input type="checkbox" checked={config.enabled} onChange={e=>change({enabled:e.target.checked})}/>Включить LLM-анализ</label>
    <label>Base URL API (HTTPS)<input type="url" value={config.base_url} required={config.enabled} onChange={e=>change({base_url:e.target.value})} placeholder="https://llm.example.com/v1"/></label>

@@ -44,7 +44,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
  return <div className="ml-datasets">
   <h2>Наборы данных для ML</h2>
   <p className="muted">Загружайте CSV или JSONL, предварительно размеченные вручную или внешней LLM.
-   Mail-Fire не отправляет текст во внешние сервисы. Предложенные метки не используются для обучения до проверки аналитиком.</p>
+   MICE не отправляет текст во внешние сервисы. Предложенные метки не используются для обучения до проверки аналитиком.</p>
   {admin&&<div className="ml-dataset-toolbar"><button type="button" className="primary" onClick={()=>{setDialogError('');setUploadOpen(true)}}>＋ Импортировать датасет</button></div>}
   {admin&&uploadOpen&&<EditorDialog title="Импортировать набор данных" subtitle="CSV/JSONL с проверяемыми метками" wide
    busy={busy} onClose={()=>setUploadOpen(false)} onSubmit={upload} submitLabel="Загрузить на проверку">
@@ -58,7 +58,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     <label>JSON-объект: внешнее название → код существующей категории
      <textarea name="label_mapping" defaultValue="{}" rows={3}/>
     </label>
-    <small>Если названия совпадают с названиями или кодами категорий Mail-Fire, поле оставьте пустым. Для безопасных текстов передайте пустой список меток или NORMAL.</small>
+    <small>Если названия совпадают с названиями или кодами категорий MICE, поле оставьте пустым. Для безопасных текстов передайте пустой список меток или NORMAL.</small>
    </details>
    {(dialogError||error)&&<p role="alert" className="error edit-error">{dialogError||error}</p>}
   </EditorDialog>}

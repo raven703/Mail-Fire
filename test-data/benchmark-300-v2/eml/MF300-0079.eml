@@ -1,0 +1,36 @@
+From: office9@sever-logistics.example.test
+To: department1@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:00:54 GMT
+Subject: =?UTF-8?B?0KDQtdC60LLQuNC30LjRgtGLINC90LDQu9C+0LPQvtC/0LvQsNGC0LXQu9GM0YnQuNC60LA=?=
+Message-ID: <mf300-0079@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0079
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0079-boundary"
+
+--mailfire-benchmark-MF300-0079-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Реквизиты налогоплательщика». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Павел Никитин
+Отдел финансов
+--mailfire-benchmark-MF300-0079-boundary
+Content-Type: text/csv; name="MF300-0079-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0079-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KDQtdC60LLQuNC3
+0LjRgtGLINC90LDQu9C+0LPQvtC/0LvQsNGC0LXQu9GM0YnQuNC60LAiCjI7ItCh0LLQuNC00LXR
+gtC10LvRjNGB0YLQstC+INC+INC/0L7RgdGC0LDQvdC+0LLQutC1INC90LAg0YPRh9C10YIg0YTQ
+uNC30LjRh9C10YHQutC+0LPQviDQu9C40YbQsC4g0JjQtNC10L3RgtC40YTQuNC60LDRhtC40L7Q
+vdC90YvQuSDQvdC+0LzQtdGAINC90LDQu9C+0LPQvtC/0LvQsNGC0LXQu9GM0YnQuNC60LAg0JjQ
+ndCdIDE2ODA0MjY4MzguINCf0LDQstC10Lsg0J3QuNC60LjRgtC40L0uINCf0L7QtNGC0LLQtdGA
+0LTQuNGC0LUg0L/QvtC70YPRh9C10L3QuNC1LiIKMzsi0JrQvtC90YLRgNCw0LPQtdC90YI6INCT
+0L7RgNC40LfQvtC90YIt0J/RgNC+0LXQutGCIgo0OyLQntCx0YrQtdC8OiA3NjcgNjgyINGA0YPQ
+sS4iCjU7ItCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQn9Cw0LLQtdC7INCd0LjQutC40YLQ
+uNC9Ig==
+--mailfire-benchmark-MF300-0079-boundary--

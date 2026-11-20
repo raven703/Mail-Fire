@@ -1,0 +1,36 @@
+From: office12@sever-logistics.example.test
+To: department2@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:26:24 GMT
+Subject: =?UTF-8?B?0KHRgNC+0YfQvdCw0Y8g0YHQstC10YDQutCwINCx0Y7QtNC20LXRgtCwINC4INC00L7RgdGC0YPQv9C+0LI=?=
+Message-ID: <mf300-0289@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0289
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0289-boundary"
+
+--mailfire-benchmark-MF300-0289-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Срочная сверка бюджета и доступов». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Игорь Громов
+Отдел финансов
+--mailfire-benchmark-MF300-0289-boundary
+Content-Type: text/csv; name="MF300-0289-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0289-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KHRgNC+0YfQvdCw
+0Y8g0YHQstC10YDQutCwINCx0Y7QtNC20LXRgtCwINC4INC00L7RgdGC0YPQv9C+0LIiCjI7ItCd
+0LXQv9GD0LHQu9C40YfQvdGL0Lkg0LHRjtC00LbQtdGCINC/0L7QtNGA0LDQt9C00LXQu9C10L3Q
+uNGPINC90LAg0LTQtdC60LDQsdGA0YwgMiA0MzAgNjcyINGA0YPQsdC70LXQuS4g0J/RgNC40YjQ
+u9C40YLQtSDRgNCw0LHQvtGH0LjQuSDQv9Cw0YDQvtC70Ywg0Lgg0YLQvtC60LXQvSDQtNC+0YHR
+gtGD0L/QsCwg0YfRgtC+0LHRiyDQstGA0LXQvNC10L3QvdC+INC+0YLQutGA0YvRgtGMINC+0YLR
+h9C10YIg0LLQvdC10YjQvdC10LzRgyDQutC+0L3RgdGD0LvRjNGC0LDQvdGC0YMuIgozOyLQmtC+
+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHR
+itC10Lw6IDIgNDMwIDY3MiDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog
+0JjQs9C+0YDRjCDQk9GA0L7QvNC+0LIi
+--mailfire-benchmark-MF300-0289-boundary--
