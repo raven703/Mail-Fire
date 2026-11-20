@@ -174,7 +174,9 @@ def references(
             "created_at": r.created_at,
             "size": size,
             "chunks": chunks.get(r.id, 0),
-            "status": "INDEXED" if chunks.get(r.id) else "TEXT_EXTRACTED",
+            "status": "TEMPLATE" if "document_template" in (r.fingerprint or {}) else "INDEXED" if chunks.get(r.id) else "TEXT_EXTRACTED",
+            "template_type": (r.fingerprint or {}).get("document_template", {}).get("kind"),
+            "template_anchors": (r.fingerprint or {}).get("document_template", {}).get("anchors", []),
         }
         for r, size in session.execute(query.order_by(Reference.created_at.desc()).offset(offset).limit(50))
     ]
