@@ -1,0 +1,27 @@
+{
+  "configuration_unchanged": true,
+  "all_categories_micro_vs_manifest": {
+    "TP": 275,
+    "FP": 35,
+    "FN": 28,
+    "precision": 0.8870967741935484,
+    "recall": 0.9075907590759076,
+    "F1": 0.8972267536704731
+  },
+  "incident_execution_vs_actual_findings": {
+    "TP": 146,
+    "TN": 104
+  },
+  "exact_policy_sets": 250,
+  "policy_hits": {
+    "Prompt Injection": 0,
+    "Вредоносное содержимое": 0,
+    "Исходный код и внутренние документы": 0,
+    "Коммерческая тайна": 56,
+    "Пароли и секреты": 0,
+    "Персональные данные": 97,
+    "Угрозы безопасности": 0,
+    "Фишинг и социальная инженерия": 0
+  },
+  "note": "Incident metrics validate execution against actual findings and configured thresholds, not independent semantic ground truth. Pricing FP means unexpected by manifest."
+}
