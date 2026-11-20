@@ -72,4 +72,4 @@ jobs:
           alembic upgrade head
           python -m app.bootstrap
       - name: Validate unified incidents and workspace lifecycle
-        run: pytest -q tests/test_unified_incidents.py tests/test_incident_reanalysis.py tests/test_workspace.py tests/test_llm_api_only.py
+        run: pytest -q tests/test_unified_incidents.py tests/test_incident_reanalysis.py tests/test_workspace.py tests/test_llm_api_only.py tests/test_document_templates.py
