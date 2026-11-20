@@ -74,6 +74,23 @@ def analyze(message_id, job_id=None, owner=None):
     digest = hashlib.sha256(identity).hexdigest()
     findings = detect(text)
     findings.extend(attachment_findings)
+    # Type templates are checked per attachment, not on concatenated mail body.
+    # Individual data in the sample is never part of a template.
+    from app.document_templates import finding_for_template
+
+    with transaction() as session:
+        templates = [
+            (ref.id, ref.fingerprint["document_template"])
+            for ref in session.scalars(select(Reference))
+            if isinstance(ref.fingerprint, dict) and "document_template" in ref.fingerprint
+        ]
+    for name, mime, data, extracted, status, details in objects:
+        if status not in {"ANALYZED", "PARTIAL"} or not extracted.strip():
+            continue
+        for ref_id, template in templates:
+            hit = finding_for_template(extracted, template, ref_id, name)
+            if hit:
+                findings.append(hit)
     from app.advanced_detectors import pii
 
     findings.extend(pii(text))
@@ -82,6 +99,8 @@ def analyze(message_id, job_id=None, owner=None):
         from app.fingerprints import compare
 
         for reference in session.scalars(select(Reference)):
+            if "document_template" in (reference.fingerprint or {}):
+                continue
             match = compare(text, reference.text, reference.fingerprint)
             if match["exact"] or (
                 match["reference_coverage"] >= 0.3 and len(match["matched_fragments"]) >= 3
