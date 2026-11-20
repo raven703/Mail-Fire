@@ -1,35 +1,18 @@
 """Bounded CPU-only Russian-aware keyword and flexible phrase matcher.
 
-Default literal matching is kept for imported rulepacks. Morphology uses a
-Russian word-form stemmer (and pymorphy3 when installed), without requiring a
-downloaded model. Each configured term scores at most once per window.
+Default literal matching is kept for imported rulepacks. Morphology uses
+Razdel tokenization and pymorphy3 dictionaries, without downloaded model
+weights. Each configured term scores at most once per window.
 """
 import re
 from functools import lru_cache
+from razdel import tokenize
 
 WORD = re.compile(r"[^\W_]+", re.UNICODE)
-# Productive inflections; conservative fallback if pymorphy3 is unavailable.
-ENDINGS = tuple(sorted((
-    "иями","ями","ами","иями","иями","ов","ев","ей","ие","ые","ое","ее",
-    "ого","его","ому","ему","ими","ыми","ая","яя","ую","юю","ий",
-    "ый","ой","ам","ям","ах","ях","ом","ем","у","ю","а","я",
-    "ы","и","е","о","ь","й","ов","ев","ть","ти","ться","тся",
-    "ешь","ете","ем","ет","ут","ют","ат","ят","ил","ила","или",
-    "али","ала","айте","ите","ейте","ия","иям","иях",
-), key=len, reverse=True))
-
 @lru_cache(maxsize=8192)
 def norm(word: str, morph: bool = False) -> str:
     word = word.casefold().replace("ё", "е")
     if not morph or not re.search(r"[а-я]", word):
-        return word
-    try:
-        from pymorphy3 import MorphAnalyzer
-    except ImportError:
-        # Conservative suffix approximation for constrained installations.
-        for ending in ENDINGS:
-            if len(word) > len(ending) + 3 and word.endswith(ending):
-                return word[:-len(ending)]
         return word
     return _morph().parse(word)[0].normal_form.replace("ё", "е")
 
@@ -41,7 +24,8 @@ def _morph():
 
 
 def tokens(text: str, morph: bool):
-    return [(norm(m.group(), morph), m.start(), m.end()) for m in WORD.finditer(text)]
+    return [(norm(t.text, morph), t.start, t.stop)
+            for t in tokenize(text) if WORD.search(t.text)]
 
 
 def search(text, *, mode="substring", phrases=(), terms=(), window=12,
@@ -68,7 +52,7 @@ def search(text, *, mode="substring", phrases=(), terms=(), window=12,
     if mode in {"word", "morphology"}:
         result = []
         for phrase in phrases[:30]:
-            pattern = [norm(w.group(), morph) for w in WORD.finditer(phrase)]
+            pattern = [t[0] for t in tokens(phrase, morph)]
             if not pattern:
                 continue
             size = len(pattern)
@@ -82,7 +66,7 @@ def search(text, *, mode="substring", phrases=(), terms=(), window=12,
     groups = []
     for entry in terms[:30]:
         phrase = entry.get("text", "")
-        parts = [norm(w.group(), True) for w in WORD.finditer(phrase)]
+        parts = [t[0] for t in tokens(phrase, True)]
         if parts:
             groups.append((parts, int(entry.get("weight", 1)), bool(entry.get("required", False))))
     if not groups:

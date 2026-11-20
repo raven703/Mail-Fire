@@ -62,27 +62,30 @@ def mail_queue(account=Depends(user), session=Depends(db)):
               SELECT 1 FROM jobs j
               WHERE j.kind='analyze' AND j.status='RUNNING'
                 AND j.payload->>'message_id'=m.id
+          ) AND NOT EXISTS (
+              SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='DEAD'
+                AND j.payload->>'message_id'=m.id
           )) AS pending,
           count(*) FILTER (WHERE m.status = 'PENDING' AND EXISTS (
               SELECT 1 FROM jobs j
               WHERE j.kind='analyze' AND j.status='RUNNING'
                 AND j.payload->>'message_id'=m.id
           )) AS processing,
-          count(*) FILTER (WHERE m.status IN ('FAILED','ERROR')) AS errors,
+          count(*) FILTER (WHERE m.status IN ('FAILED','ERROR') OR (
+              m.status='PENDING' AND EXISTS (
+                  SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='DEAD'
+                    AND j.payload->>'message_id'=m.id
+              ) AND NOT EXISTS (
+                  SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='RUNNING'
+                    AND j.payload->>'message_id'=m.id
+              )
+          )) AS errors,
           count(*) FILTER (WHERE m.created_at >= now()-interval '24 hours') AS received_24h,
           count(*) AS total
         FROM messages m
     """)).mappings().one())
-    # A failed analyze job is an error even if its parent message was not
-    # advanced from PENDING; count unique messages, not repeated attempts.
-    failed = session.scalar(text("""
-        SELECT count(DISTINCT j.payload->>'message_id')
-        FROM jobs j JOIN messages m ON m.id=j.payload->>'message_id'
-        WHERE j.kind='analyze' AND j.status='DEAD'
-          AND m.status='PENDING'
-    """)) or 0
-    data["errors"] += failed
-    data["pending"] = max(0, data["pending"] - failed)
+    # RUNNING takes precedence over historical DEAD attempts. All buckets are
+    # computed in one snapshot and each unique message occupies only one.
     return data
 
 

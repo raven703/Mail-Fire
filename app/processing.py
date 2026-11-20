@@ -362,7 +362,7 @@ def evaluate(event_id, job_id=None, owner=None):
             return
         # Historical snapshots are never thrown away when a policy is disabled,
         # archived, deleted or the evidence changes on a later analysis.
-        prior = {str(h.get("policy_id")): h for h in (incident.policy_hits or [])} if incident else {}
+        prior = {str(h.get("policy_id")): dict(h) for h in (incident.policy_hits or [])} if incident else {}
         for old in prior.values():
             old["active"] = False
         for hit in matched:

@@ -18,6 +18,16 @@ def test_russian_inflection_and_normalized_yo():
     assert norm("Ёж", False) == "еж"
 
 
+def test_dictionary_morphology_and_razdel_offsets():
+    from app.text_match import tokens
+
+    assert norm("людьми", True) == norm("человек", True)
+    text = "Отправьте кому-то документы."
+    stream = tokens(text, True)
+    assert any(text[start:end] == "кому-то" for _, start, end in stream)
+    assert search("Документами обменялись люди", mode="morphology", phrases=["документ"])
+
+
 def test_flexible_weighted_window_and_required_terms():
     terms = [
         {"text": "передать", "weight": 2, "required": False},
