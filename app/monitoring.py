@@ -51,6 +51,44 @@ def queues(account=Depends(user), session=Depends(db)):
     return {"items": [dict(r._mapping) for r in rows]}
 
 
+@router.get("/mail-queue")
+def mail_queue(account=Depends(user), session=Depends(db)):
+    """One row per unique message, independent of the technical job count."""
+    data = dict(session.execute(text("""
+        SELECT
+          count(*) FILTER (WHERE m.status = 'ANALYZED') AS analyzed,
+          count(*) FILTER (WHERE m.status = 'PARTIAL') AS partial,
+          count(*) FILTER (WHERE m.status = 'PENDING' AND NOT EXISTS (
+              SELECT 1 FROM jobs j
+              WHERE j.kind='analyze' AND j.status='RUNNING'
+                AND j.payload->>'message_id'=m.id
+          ) AND NOT EXISTS (
+              SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='DEAD'
+                AND j.payload->>'message_id'=m.id
+          )) AS pending,
+          count(*) FILTER (WHERE m.status = 'PENDING' AND EXISTS (
+              SELECT 1 FROM jobs j
+              WHERE j.kind='analyze' AND j.status='RUNNING'
+                AND j.payload->>'message_id'=m.id
+          )) AS processing,
+          count(*) FILTER (WHERE m.status IN ('FAILED','ERROR') OR (
+              m.status='PENDING' AND EXISTS (
+                  SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='DEAD'
+                    AND j.payload->>'message_id'=m.id
+              ) AND NOT EXISTS (
+                  SELECT 1 FROM jobs j WHERE j.kind='analyze' AND j.status='RUNNING'
+                    AND j.payload->>'message_id'=m.id
+              )
+          )) AS errors,
+          count(*) FILTER (WHERE m.created_at >= now()-interval '24 hours') AS received_24h,
+          count(*) AS total
+        FROM messages m
+    """)).mappings().one())
+    # RUNNING takes precedence over historical DEAD attempts. All buckets are
+    # computed in one snapshot and each unique message occupies only one.
+    return data
+
+
 @router.get("/flow")
 def flow(account=Depends(user), session=Depends(db)):
     rows = session.execute(

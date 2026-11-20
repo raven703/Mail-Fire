@@ -1,0 +1,1402 @@
+{
+  "schema_version": 1,
+  "name": "ru2-context-morph-weighted-v1",
+  "description": "Контекстные правила RU (морфология, гибкие фразы, взвешенные признаки). Экспериментальная база для калибровки на размеченных EML. Политики импортируются отключёнными. Наличие находки не означает доказанную угрозу/утечку. Разработано под PR #10.",
+  "categories": [
+    {
+      "id": "pack-ru2-financial-plans",
+      "name": "[RU2] Непубличные финансовые планы",
+      "group_name": "Коммерческая информация",
+      "description": "Контекст внутренних бюджетов, будущих финансовых показателей, плановых расходов. Не доказывает наличие коммерческой тайны.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Прогноз выручки с внутренним контекстом",
+          "enabled": true,
+          "risk": 68,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "прогноз",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "выручка",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "внутренний",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "план",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "квартал",
+              "weight": 1,
+              "required": false
+            }
+          ],
+          "min_score": 7,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Бюджет с непубличным контекстом",
+          "enabled": true,
+          "risk": 72,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "бюджет",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "непубличный",
+              "weight": 5,
+              "required": false
+            },
+            {
+              "text": "конфиденциальный",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "внутренний",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "утвердить",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 6,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явные пометки финансовых прогнозов",
+          "enabled": true,
+          "risk": 66,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "непубличный финансовый прогноз",
+            "плановая маржинальность",
+            "внутренний бюджет подразделения"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-pricing",
+      "name": "[RU2] Специальные цены и коммерческие условия",
+      "group_name": "Коммерческая информация",
+      "description": "Индивидуальные коммерческие условия и скидки в рабочем контексте.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Персональное предложение с тарифом",
+          "enabled": true,
+          "risk": 67,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "клиент",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "индивидуальный",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "скидка",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "согласовать",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "цена",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 7,
+          "window": 17,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Закрытая себестоимость и наценка",
+          "enabled": true,
+          "risk": 70,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "себестоимость",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "наценка",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "маржа",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "внутренний",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "проект",
+              "weight": 1,
+              "required": false
+            }
+          ],
+          "min_score": 7,
+          "window": 14,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явные коммерческие пометки",
+          "enabled": true,
+          "risk": 65,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "индивидуальные условия поставки",
+            "закрытый прайс лист",
+            "коммерческое предложение конфиденциально"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-internal-docs",
+      "name": "[RU2] Ограничение распространения документов",
+      "group_name": "Коммерческая информация",
+      "description": "Явные текстовые пометки доступа. Не является доказательством нарушения: учитывайте направление доставки и разрешённость отправителя.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Метки внутреннего обращения",
+          "enabled": true,
+          "risk": 65,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "только для внутреннего использования",
+            "не подлежит распространению",
+            "запрещено передавать третьим лицам",
+            "строго конфиденциально",
+            "для служебного пользования",
+            "не пересылать третьим лицам"
+          ],
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Передача внутреннего документа вовне",
+          "enabled": true,
+          "risk": 70,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "внутренний",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "документ",
+              "weight": 2,
+              "required": true
+            },
+            {
+              "text": "отправить",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "переслать",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "внешний",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "подрядчик",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 7,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-customer-data",
+      "name": "[RU2] Выгрузки клиентов и контактных баз",
+      "group_name": "Персональные данные и базы",
+      "description": "Речь о передаче массивов клиентских записей, без попытки обнаруживать конкретные ПДн вместо встроенных детекторов.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Экспорт клиентской базы",
+          "enabled": true,
+          "risk": 76,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "клиент",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "база",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "выгрузка",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "экспорт",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "скачать",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "csv",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 17,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Отправка списка контактов",
+          "enabled": true,
+          "risk": 72,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "контакт",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "список",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "переслать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выгрузить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "рассылка",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 7,
+          "window": 14,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Прямая формулировка выгрузки",
+          "enabled": true,
+          "risk": 75,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "выгрузка персональных данных",
+            "реестр клиентов с телефонами",
+            "список клиентов с адресами"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-credential-transfer",
+      "name": "[RU2] Передача паролей и ключей",
+      "group_name": "Учётные данные и доступ",
+      "description": "Просьбы передать рабочие секреты; не заменяет статические SECRET и PRIVATE_KEY.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Запрос пароля",
+          "enabled": true,
+          "risk": 80,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "пароль",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "пришлите",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отправить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "переслать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "скинуть",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "доступ",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 13,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Запрос API-токена",
+          "enabled": true,
+          "risk": 82,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "токен",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "доступ",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "ключ",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "передать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отправить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "прислать",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 14,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явная передача приватного ключа",
+          "enabled": true,
+          "risk": 86,
+          "priority": 30,
+          "match_type": "word",
+          "phrases": [
+            "отправьте приватный ключ",
+            "пришлите приватный ключ",
+            "перешлите секретный ключ"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-phishing",
+      "name": "[RU2] Фишинговые требования к получателю",
+      "group_name": "Социальная инженерия",
+      "description": "Требования предоставить пароль, код подтверждения или войти по ссылке. Содержимое может быть учебным примером.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Подтверждение аккаунта с паролем",
+          "enabled": true,
+          "risk": 80,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "подтвердить",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "учетный",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "аккаунт",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "пароль",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "ссылка",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "немедленно",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 20,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Запрос одноразового кода",
+          "enabled": true,
+          "risk": 82,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "код",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "подтверждение",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "одноразовый",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "сообщить",
+              "weight": 5,
+              "required": false
+            },
+            {
+              "text": "переслать",
+              "weight": 5,
+              "required": false
+            },
+            {
+              "text": "назвать",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Ссылка для разблокировки",
+          "enabled": true,
+          "risk": 76,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "перейти",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "ссылка",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "заблокировать",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "аккаунт",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "срочно",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-data-exfil",
+      "name": "[RU2] Вывод информации за пределы организации",
+      "group_name": "Коммерческая информация",
+      "description": "Комбинации действий по пересылке внутренних материалов неуполномоченным получателям.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Передача внутреннего файла внешнему получателю",
+          "enabled": true,
+          "risk": 78,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "внутренний",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "файл",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "личный",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "почта",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "внешний",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отправить",
+              "weight": 3,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 19,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Экспорт коммерческих документов",
+          "enabled": true,
+          "risk": 80,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "коммерческий",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "документ",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "выгрузить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "скопировать",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "наружу",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "контрагент",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-extortion",
+      "name": "[RU2] Шантаж и вымогательство",
+      "group_name": "Угрозы и безопасность",
+      "description": "Требование денег или иных действий под угрозой раскрытия или причинения ущерба; необходима оценка контекста.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Требование оплаты под угрозой",
+          "enabled": true,
+          "risk": 82,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "перевести",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "заплатить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "деньги",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "иначе",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "раскрыть",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "опубликовать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "пострадать",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 10,
+          "window": 20,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Выкуп за данные",
+          "enabled": true,
+          "risk": 85,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "выкуп",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "данные",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "зашифровать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "вернуть",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "оплатить",
+              "weight": 3,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явное требование выкупа",
+          "enabled": true,
+          "risk": 85,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "требую выкуп за данные",
+            "переведите выкуп",
+            "заплатите иначе опубликую"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-explosive-threat",
+      "name": "[RU2] Сообщения с угрозой взрыва",
+      "group_name": "Угрозы и безопасность",
+      "description": "Только явно выраженные угрозы, а не одно слово «бомба». Необходимо отдельно рассматривать сообщения очевидцев, учебные материалы и цитаты.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Угроза взрыва здания",
+          "enabled": true,
+          "risk": 90,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "взорвать",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "здание",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "офис",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "школа",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "завтра",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "сегодня",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Сообщение о заложенном устройстве",
+          "enabled": true,
+          "risk": 90,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "заложить",
+              "weight": 5,
+              "required": true
+            },
+            {
+              "text": "бомба",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "здание",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "офис",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "школа",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 11,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "enabled": true,
+          "risk": 92,
+          "priority": 30,
+          "match_type": "word",
+          "phrases": [
+            "я устрою взрыв",
+            "я вас взорву",
+            "я заложил бомбу",
+            "я заложила бомбу"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-violence-threat",
+      "name": "[RU2] Прямые угрозы физической расправы",
+      "group_name": "Угрозы и безопасность",
+      "description": "Прямые угрозы нанесения вреда, не любой разговор о насилии.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Прямые угрозы адресату",
+          "enabled": true,
+          "risk": 90,
+          "priority": 30,
+          "match_type": "word",
+          "phrases": [
+            "я тебя убью",
+            "я вас убью",
+            "я тебя зарежу",
+            "тебя застрелю",
+            "убью вас всех"
+          ],
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Выраженное намерение расправы",
+          "enabled": true,
+          "risk": 84,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "убить",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "тебя",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "вас",
+              "weight": 4,
+              "required": false            },
+            {
+              "text": "найти",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "завтра",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "сегодня",
+              "weight": 2,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 13,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явная угроза расправы",
+          "enabled": true,
+          "risk": 86,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "угрожаю физической расправой",
+            "причиню тебе физический вред"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-sabotage",
+      "name": "[RU2] Угрозы саботажа ИТ-инфраструктуры",
+      "group_name": "Угрозы и безопасность",
+      "description": "Сочетания угроз и объекта инфраструктуры. Не считать автоматически каждое техническое обсуждение саботажем.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Намерение вывести сервер из строя",
+          "enabled": true,
+          "risk": 78,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "сервер",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "вывести",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "сломать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отключить",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "намеренно",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "работа",
+              "weight": 1,
+              "required": false
+            }
+          ],
+          "min_score": 8,
+          "window": 19,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Умышленное удаление резервных копий",
+          "enabled": true,
+          "risk": 82,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "резервный",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "копия",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "удалить",
+              "weight": 5,
+              "required": false
+            },
+            {
+              "text": "стереть",
+              "weight": 5,
+              "required": false
+            },
+            {
+              "text": "уничтожить",
+              "weight": 5,
+              "required": false
+            }
+          ],
+          "min_score": 10,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-pii-handling",
+      "name": "[RU2] Пересылка персональных данных",
+      "group_name": "Персональные данные и базы",
+      "description": "Организационный контекст пересылки ПДн; конкретные паспортные номера, ИНН и т.п. должны обнаруживаться встроенными структурными детекторами.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Переслать персональные данные",
+          "enabled": true,
+          "risk": 75,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "персональный",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "данные",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "переслать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отправить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "передать",
+              "weight": 3,
+              "required": false
+            }
+          ],
+          "min_score": 11,
+          "window": 17,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Передача паспортных сканов",
+          "enabled": true,
+          "risk": 78,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "паспорт",
+              "weight": 4,
+              "required": true
+            },
+            {
+              "text": "скан",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "отправить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "переслать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "прикрепить",
+              "weight": 3,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Явные обозначения выгрузки ПДн",
+          "enabled": true,
+          "risk": 75,
+          "priority": 40,
+          "match_type": "morphology",
+          "phrases": [
+            "реестр персональных данных",
+            "копии паспортов клиентов"
+          ],
+          "exclude_phrases": []
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "name": "[RU2] Непубличные финансовые планы — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 100,
+      "min_risk": 60,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-financial-plans"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Специальные цены и коммерческие условия — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 110,
+      "min_risk": 60,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-pricing"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Ограничение распространения документов — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 120,
+      "min_risk": 60,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-internal-docs"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Выгрузки клиентов и контактных баз — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 130,
+      "min_risk": 65,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-customer-data"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Передача паролей и ключей — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 140,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-credential-transfer"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Фишинговые требования к получателю — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 150,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-phishing"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Вывод информации за пределы организации — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 160,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-data-exfil"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Шантаж и вымогательство — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 170,
+      "min_risk": 75,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-extortion"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Сообщения с угрозой взрыва — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 180,
+      "min_risk": 80,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-explosive-threat"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Прямые угрозы физической расправы — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 190,
+      "min_risk": 80,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-violence-threat"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Угрозы саботажа ИТ-инфраструктуры — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 200,
+      "min_risk": 70,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-sabotage"
+      ],
+      "direction": [],
+      "senders": []
+    },
+    {
+      "name": "[RU2] Пересылка персональных данных — проверка аналитиком",
+      "enabled": false,
+      "shadow": false,
+      "priority": 210,
+      "min_risk": 65,
+      "min_count": 1,
+      "category_match": "any",
+      "categories": [
+        "pack-ru2-pii-handling"
+      ],
+      "direction": [],
+      "senders": []
+    }
+  ]
+}

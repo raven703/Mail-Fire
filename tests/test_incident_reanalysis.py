@@ -53,7 +53,7 @@ def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monke
             event_id, content_id, policy_id, mail_id = event.id, content.id, policy.id, mail.id
         evaluate(event_id)
         with transaction() as db:
-            first = db.query(Incident).filter_by(event_id=event_id, policy_id=policy_id).one()
+            first = db.query(Incident).filter_by(message_id=mail_id).one()
             assert first.risk == 45
             first.status = "REVIEW"
             account = db.query(Account).filter_by(username="admin").one()
@@ -69,7 +69,7 @@ def test_evaluate_refreshes_evidence_preserves_review_and_does_not_realert(monke
             }
         evaluate(event_id)
         with transaction() as db:
-            incidents = db.query(Incident).filter_by(event_id=event_id, policy_id=policy_id).all()
+            incidents = db.query(Incident).filter_by(message_id=mail_id).all()
             assert len(incidents) == 1
             incident = incidents[0]
             assert incident.id == first_id

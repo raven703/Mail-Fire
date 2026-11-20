@@ -153,6 +153,14 @@ def analyze(message_id, job_id=None, owner=None):
             )
         )
 
+    # Optional LLM runs only after cheap deterministic/ML detectors and never
+    # holds a database transaction while waiting for remote inference.
+    from app.llm_analyzer import analyze as llm_analyze
+
+    llm_findings, llm_errors = llm_analyze(text, findings)
+    findings.extend(llm_findings)
+    ml_errors.extend(llm_errors)
+
     with transaction() as session:
         assert_current_job(session, job_id, owner)
         message = session.get(Message, message_id, with_for_update=True)
@@ -286,6 +294,12 @@ def evaluate(event_id, job_id=None, owner=None):
             return
         message = session.get(Message, event.message_id, with_for_update=True)
         event.direction = classify_direction(message.sender, message.recipients, settings().internal_domains)
+        # A message may arrive via several BCC delivery events. Re-evaluate
+        # policy directions across all events so a later event does not clear
+        # previously matched policy hits.
+        events = list(session.scalars(select(MailEvent).where(MailEvent.message_id == message.id)))
+        for delivery in events:
+            delivery.direction = classify_direction(message.sender, message.recipients, settings().internal_domains)
         if not message.content_id:
             return
         findings = session.get(Content, message.content_id).analysis.get("findings", [])
@@ -312,47 +326,76 @@ def evaluate(event_id, job_id=None, owner=None):
                 and f.get("source") in {"supervised-ml", "custom-ml"}
             )
         ]
+        # Aggregate all policy matches for this message in one incident. Message
+        # row is locked above, serializing concurrent evaluate jobs for all
+        # delivery events of the same underlying email.
+        matched = []
         for policy in session.scalars(
-            select(Policy).where(Policy.enabled.is_(True)).order_by(Policy.priority)
+            select(Policy).where(Policy.enabled.is_(True), Policy.archived.is_(False)).order_by(Policy.priority)
         ):
             conditions = policy.conditions
-            if conditions.get("direction") and event.direction not in conditions["direction"]:
+            allowed_events = [
+                delivery for delivery in events
+                if not conditions.get("direction") or delivery.direction in conditions["direction"]
+            ]
+            if not allowed_events:
                 continue
             if conditions.get("senders") and message.sender not in conditions["senders"]:
                 continue
             matches = policy_matches(findings, conditions)
             if not matches or policy.shadow:
                 continue
-            # Analysis runs twice for a message: before and after semantic
-            # evidence is appended. An earlier incident must be refreshed
-            # rather than silently ignored by the unique(event_id, policy_id)
-            # constraint. Keep its workflow state, assignee and comments.
-            incident = session.scalar(
-                select(Incident)
-                .where(Incident.event_id == event.id, Incident.policy_id == policy.id)
-                .with_for_update()
+            matched.append({
+                "policy_id": policy.id,
+                "name": policy.name,
+                "version": policy.version,
+                "conditions": conditions,
+                "risk": max(f["risk"] for f in matches),
+                "findings": matches,
+                "active": True,
+                "event_ids": [delivery.id for delivery in allowed_events],
+            })
+        incident = session.scalar(
+            select(Incident).where(Incident.message_id == message.id).with_for_update()
+        )
+        if not matched and not incident:
+            return
+        # Historical snapshots are never thrown away when a policy is disabled,
+        # archived, deleted or the evidence changes on a later analysis.
+        prior = {str(h.get("policy_id")): dict(h) for h in (incident.policy_hits or [])} if incident else {}
+        for old in prior.values():
+            old["active"] = False
+        for hit in matched:
+            prior[hit["policy_id"]] = hit
+        history = list(prior.values())
+        combined = []
+        for hit in history:
+            for finding in hit.get("findings", []):
+                if finding not in combined:
+                    combined.append(finding)
+        risk = max((h.get("risk", 0) for h in history), default=0)
+        if incident:
+            # Preserve workflow, assigned analyst, comments and notifications.
+            incident.policy_hits = history
+            incident.findings = combined
+            incident.risk = risk
+            return
+        primary = matched[0]
+        result = session.execute(
+            insert(Incident)
+            .values(
+                event_id=event.id,
+                message_id=message.id,
+                policy_id=primary["policy_id"],
+                policy_hits=history,
+                risk=risk,
+                findings=combined,
             )
-            risk = max(f["risk"] for f in matches)
-            if incident:
-                if incident.risk != risk or incident.findings != matches:
-                    incident.risk = risk
-                    incident.findings = matches
-                    # Already enqueued external alerts remain immutable; no
-                    # duplicate notification is sent for reanalysis.
-                continue
-            result = session.execute(
-                insert(Incident)
-                .values(
-                    event_id=event.id,
-                    policy_id=policy.id,
-                    risk=risk,
-                    findings=matches,
-                )
-                .on_conflict_do_nothing()
-                .returning(Incident.id)
-            )
-            incident_id = result.scalar_one_or_none()
-            if incident_id:
-                from app.integrations import enqueue
+            .on_conflict_do_nothing(index_elements=["message_id"])
+            .returning(Incident.id)
+        )
+        incident_id = result.scalar_one_or_none()
+        if incident_id:
+            from app.integrations import enqueue
 
-                enqueue(session, session.get(Incident, incident_id))
+            enqueue(session, session.get(Incident, incident_id))

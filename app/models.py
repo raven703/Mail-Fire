@@ -112,17 +112,19 @@ class Policy(IDMixin, Base):
     version: Mapped[int] = mapped_column(default=1)
     priority: Mapped[int] = mapped_column(default=10)
     conditions: Mapped[dict] = mapped_column(JSONB)
+    archived: Mapped[bool] = mapped_column(default=False)
 
 
 class Incident(IDMixin, Base):
     __tablename__ = "incidents"
     event_id: Mapped[str] = mapped_column(ForeignKey("mail_events.id"))
-    policy_id: Mapped[str] = mapped_column(ForeignKey("policies.id"))
+    message_id: Mapped[str] = mapped_column(ForeignKey("messages.id"), unique=True, index=True)
+    policy_id: Mapped[str | None] = mapped_column(ForeignKey("policies.id"), nullable=True)
+    policy_hits: Mapped[list] = mapped_column(JSONB, default=list)
     status: Mapped[str] = mapped_column(default="NEW")
     risk: Mapped[int] = mapped_column(default=0)
     findings: Mapped[list] = mapped_column(JSONB)
     assignee: Mapped[str | None] = mapped_column(ForeignKey("accounts.id"))
-    __table_args__ = (UniqueConstraint("event_id", "policy_id"),)
 
 
 class Comment(IDMixin, Base):

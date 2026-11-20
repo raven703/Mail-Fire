@@ -181,7 +181,7 @@ def test_training_example_from_incident():
         session.add(policy)
         session.flush()
         event = session.scalar(select(MailEvent).where(MailEvent.message_id == mail.id))
-        incident = Incident(event_id=event.id, policy_id=policy.id, findings=[], risk=50)
+        incident = Incident(event_id=event.id, message_id=mail.id, policy_id=policy.id, findings=[], risk=50)
         session.add(incident)
         session.flush()
         incident_id = incident.id

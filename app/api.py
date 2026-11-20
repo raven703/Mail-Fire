@@ -185,6 +185,7 @@ def listing(
     if not account.originals:
         for item in items:
             item.pop("findings", None)
+            item.pop("policy_hits", None)
             item.pop("headers", None)
             item.pop("envelope", None)
     return {"total": count, "items": items}
@@ -278,7 +279,11 @@ def decision(incident_id: str, body: Decision, account=Depends(analyst), session
         )
     )
     session.commit()
-    return serialize(incident)
+    result = serialize(incident)
+    if not account.originals:
+        result.pop("findings", None)
+        result.pop("policy_hits", None)
+    return result
 
 
 @app.get("/api/monitor")

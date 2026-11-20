@@ -23,6 +23,11 @@ class RuleBody(BaseModel):
     priority: int = Field(default=100, ge=0, le=10000)
     exclude_phrases: list[str] = Field(default_factory=list, max_length=30)
     phrases: list[str] = Field(default_factory=list, max_length=30)
+    match_type: Literal["substring", "word", "morphology", "flexible"] = "substring"
+    terms: list[dict] = Field(default_factory=list, max_length=30)
+    min_score: int = Field(default=1, ge=1, le=1000)
+    window: int = Field(default=12, ge=1, le=80)
+    ordered: bool = False
     pattern: str = Field(default="", max_length=120)
     reference_ids: list[str] = Field(default_factory=list, max_length=20)
     min_similarity: float = Field(default=0.8, ge=0.5, le=1)
@@ -83,9 +88,26 @@ def rule_config(body, session):
         raise HTTPException(422, "Фразы исключений: от 3 до 120 символов")
     if body.kind == "keywords":
         phrases = sorted(set(x.strip() for x in body.phrases if x.strip()))
-        if not phrases or any(len(x) < 3 or len(x) > 120 for x in phrases):
+        if body.match_type != "flexible" and (not phrases or any(len(x) < 3 or len(x) > 120 for x in phrases)):
             raise HTTPException(422, "Введите ключевые фразы длиной от 3 до 120 символов")
-        return {"phrases": phrases, "exclude_phrases": excludes}
+        terms = []
+        if body.match_type == "flexible":
+            for item in body.terms:
+                if not isinstance(item, dict) or set(item) - {"text", "weight", "required"}:
+                    raise HTTPException(422, "Некорректные поля взвешенного термина")
+                phrase = item.get("text")
+                weight = item.get("weight", 1)
+                required = item.get("required", False)
+                if not isinstance(phrase, str) or not 2 <= len(phrase.strip()) <= 120:
+                    raise HTTPException(422, "Длина термина: 2–120 символов")
+                if type(weight) is not int or not 1 <= weight <= 100 or type(required) is not bool:
+                    raise HTTPException(422, "Вес: 1–100; required должен быть логическим")
+                terms.append({"text": phrase.strip(), "weight": weight, "required": required})
+            if not terms:
+                raise HTTPException(422, "Добавьте хотя бы один взвешенный термин")
+        return {"phrases": phrases, "match_type": body.match_type,
+                "terms": terms, "min_score": body.min_score, "window": body.window,
+                "ordered": body.ordered, "exclude_phrases": excludes}
     if body.kind == "regex":
         try:
             safe_regex(body.pattern)
