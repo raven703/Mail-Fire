@@ -69,6 +69,12 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
 .policy-category-selected{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:28px}
 .policy-category-chip{border-radius:999px;background:var(--selected);padding:5px 10px;font-size:.73rem;border:1px solid var(--border)}
 .policy-category-chip span{font-size:.95rem;margin-left:4px}
+.category-catalog-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.category-catalog-heading h2{margin:0}
+.category-kind-filter{display:flex;flex-wrap:wrap;gap:5px;padding:5px;border:1px solid var(--border);border-radius:16px;background:var(--card)}
+.category-kind-filter button{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);padding:8px 12px;font-size:.8rem;transition:background .15s,color .15s}
+.category-kind-filter button[aria-pressed="true"]{background:var(--selected);border-color:var(--border);color:var(--text)}
+.category-kind-filter button span{padding:2px 6px;border-radius:999px;background:var(--selected);font-size:.7rem}
 .policy-category-selection{display:flex;align-items:flex-start;gap:14px;margin:0 0 14px;padding:12px;background:transparent;border:1px solid var(--border);border-radius:14px}
 .policy-category-selection .policy-category-selected{flex:1;min-width:0;gap:10px 12px}
 .policy-category-selection .policy-category-chip{display:inline-flex;align-items:center;gap:10px;max-width:100%;min-height:38px;overflow-wrap:anywhere;padding:5px 6px 5px 15px;line-height:1.4;border-radius:999px;border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border));background:color-mix(in srgb,var(--accent) 14%,var(--card));color:var(--text);box-shadow:0 2px 5px #00000012;font-size:.76rem;font-weight:500}
