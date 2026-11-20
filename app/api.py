@@ -250,8 +250,10 @@ def original(message_id: str, account=Depends(user), session=Depends(db)):
 
 @app.post("/api/messages/{message_id}/reanalyze")
 def reanalyze(message_id: str, account=Depends(analyst), session=Depends(db)):
-    if not session.get(Message, message_id):
+    message = session.get(Message, message_id, with_for_update=True)
+    if not message:
         raise HTTPException(404)
+    message.status = "PENDING"
     session.add(Job(kind="analyze", payload={"message_id": message_id}, priority=50))
     session.add(Audit(actor=account.id, action="reanalyze", target=message_id))
     session.commit()
