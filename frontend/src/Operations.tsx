@@ -3,6 +3,7 @@ import {EditorDialog} from './EditorDialog';
 import {Value,Table} from './components';
 import {Accounts} from './Accounts';
 import {LLMSettings} from './LLMSettings';
+import {SystemStatus} from './SystemStatus';
 type API=(path:string,init?:RequestInit)=>Promise<any>;
 export function Operations({page:section,api}:{page:string,api:API}){
  const [settingTab,setSettingTab]=useState('integrations');
@@ -11,7 +12,7 @@ export function Operations({page:section,api}:{page:string,api:API}){
  const [editor,setEditor]=useState<'retention'|'integrations'|null>(null),[editorError,setEditorError]=useState('');
  const paths:Record<string,string>={references:'references',ml:'ml/models',retention:'retention',integrations:'integrations',diagnostics:'monitoring/queues'};
  async function run(work:()=>Promise<any>){setBusy(true);setError('');try{await work()}catch(e){setError(String(e))}finally{setBusy(false)}}
-  async function load(){if(page!=='accounts'&&page!=='llm')setData(await api(paths[page]))}
+  async function load(){if(page!=='accounts'&&page!=='llm'&&page!=='diagnostics')setData(await api(paths[page]))}
  useEffect(()=>{setData(null);setResult(null);setEditor(null);void run(load)},[page]);
  const json=(body:any,method='POST')=>({method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
  const saveSettings=async(event:FormEvent<HTMLFormElement>)=>{
@@ -30,7 +31,8 @@ export function Operations({page:section,api}:{page:string,api:API}){
    setEditor(null);
   }catch(e){setEditorError(String(e))}
   finally{setBusy(false)}
- };
+  };
+  if(page==='diagnostics')return <SystemStatus api={api}/>;
  return <section>{section==='settings'&&<nav className="tabs"><button onClick={()=>setSettingTab('integrations')}>SIEM и уведомления</button><button onClick={()=>setSettingTab('retention')}>Хранение и очистка</button><button onClick={()=>setSettingTab('llm')}>LLM-анализ</button><button onClick={()=>setSettingTab('accounts')}>Пользователи</button></nav>}<header><h3>{{references:'Эталонные документы',ml:'Модели и обучение',retention:'Сроки хранения',integrations:'SIEM и уведомления',diagnostics:'Диагностика обработки',llm:'LLM-анализ'}[page]}</h3></header>{busy&&<p role="status">Загрузка…</p>}{error&&<p role="alert">{error}</p>}
  {page==='accounts'&&<Accounts api={api}/>}{page==='llm'&&<LLMSettings api={api}/>}
  {page==='references'&&<label>Загрузить эталон<input type="file" disabled={busy} onChange={e=>{const file=e.target.files?.[0];if(!file)return;const body=new FormData();body.append('file',file);void run(async()=>{setResult(await api('references',{method:'POST',body}));await load()})}}/></label>}
