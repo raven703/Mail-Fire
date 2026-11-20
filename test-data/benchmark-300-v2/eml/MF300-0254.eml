@@ -1,0 +1,34 @@
+From: office0@meridian-trade.example.test
+To: department0@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:32:09 GMT
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINGB0LXQutGA0LXRgtC90L7Qs9C+INC60LvRjtGH0LAg0YHQtdGA0LLQuNGB0LA=?=
+Message-ID: <mf300-0254@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0254
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0254-boundary"
+
+--mailfire-benchmark-MF300-0254-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Прошу прислать токен доступа к API, отправить приватный ключ и рабочий пароль для подключения партнера. Доступ необходимо открыть сегодня.
+
+С уважением,
+Ольга Морозова
+Отдел финансов
+--mailfire-benchmark-MF300-0254-boundary
+Content-Type: text/csv; name="MF300-0254-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0254-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JfQsNC/0YDQvtGB
+INGB0LXQutGA0LXRgtC90L7Qs9C+INC60LvRjtGH0LAg0YHQtdGA0LLQuNGB0LAiCjI7ItCf0YDQ
+vtGI0YMg0L/RgNC40YHQu9Cw0YLRjCDRgtC+0LrQtdC9INC00L7RgdGC0YPQv9CwINC6IEFQSSwg
+0L7RgtC/0YDQsNCy0LjRgtGMINC/0YDQuNCy0LDRgtC90YvQuSDQutC70Y7RhyDQuCDRgNCw0LHQ
+vtGH0LjQuSDQv9Cw0YDQvtC70Ywg0LTQu9GPINC/0L7QtNC60LvRjtGH0LXQvdC40Y8g0L/QsNGA
+0YLQvdC10YDQsC4g0JTQvtGB0YLRg9C/INC90LXQvtCx0YXQvtC00LjQvNC+INC+0YLQutGA0YvR
+gtGMINGB0LXQs9C+0LTQvdGPLiIKMzsi0JrQvtC90YLRgNCw0LPQtdC90YI6INCT0L7RgNC40LfQ
+vtC90YIt0J/RgNC+0LXQutGCIgo0OyLQntCx0YrQtdC8OiAyIDE1MyA1MDcg0YDRg9CxLiIKNTsi
+0J7RgtCy0LXRgtGB0YLQstC10L3QvdGL0Lk6INCe0LvRjNCz0LAg0JzQvtGA0L7Qt9C+0LLQsCI=
+--mailfire-benchmark-MF300-0254-boundary--

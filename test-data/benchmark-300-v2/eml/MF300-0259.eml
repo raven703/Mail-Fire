@@ -1,0 +1,37 @@
+From: office5@sever-logistics.example.test
+To: department5@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:39:54 GMT
+Subject: =?UTF-8?B?0JrQvtC/0LjRgNC+0LLQsNC90LjQtSDQtNC+0LrRg9C80LXQvdGC0LAg0LLQviDQstC90LXRiNC90LjQuSDQutC+0L3RgtGD0YA=?=
+Message-ID: <mf300-0259@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0259
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0259-boundary"
+
+--mailfire-benchmark-MF300-0259-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Копирование документа во внешний контур». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Дмитрий Орлов
+Отдел финансов
+--mailfire-benchmark-MF300-0259-boundary
+Content-Type: text/csv; name="MF300-0259-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0259-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JrQvtC/0LjRgNC+
+0LLQsNC90LjQtSDQtNC+0LrRg9C80LXQvdGC0LAg0LLQviDQstC90LXRiNC90LjQuSDQutC+0L3R
+gtGD0YAiCjI7ItCf0YDQvtGI0YMg0L7RgtC/0YDQsNCy0LjRgtGMINCy0L3Rg9GC0YDQtdC90L3Q
+uNC5INGE0LDQudC7INGBINC60L7QvNC80LXRgNGH0LXRgdC60LjQvNC4INC00L7QutGD0LzQtdC9
+0YLQsNC80Lgg0L3QsCDQu9C40YfQvdGD0Y4g0L/QvtGH0YLRgyDQstC90LXRiNC90LXQs9C+INC/
+0L7QtNGA0Y/QtNGH0LjQutCwLiDQmtC+0L3RgtGA0LDQs9C10L3RgtGDINC90LXQu9GM0LfRjyDQ
+stGL0LTQsNCy0LDRgtGMINC80LDRgtC10YDQuNCw0LvRiyDQtNC+INGA0LDQt9GA0LXRiNC10L3Q
+uNGPINGB0LvRg9C20LHRiyDQsdC10LfQvtC/0LDRgdC90L7RgdGC0LguIgozOyLQmtC+0L3RgtGA
+0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHRitC10Lw6
+IDIgMTkzIDEwMiDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JTQvNC4
+0YLRgNC40Lkg0J7RgNC70L7QsiI=
+--mailfire-benchmark-MF300-0259-boundary--

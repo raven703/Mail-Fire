@@ -1,0 +1,35 @@
+From: office6@sever-logistics.example.test
+To: department4@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:30:09 GMT
+Subject: =?UTF-8?B?0KPQs9GA0L7Qt9CwINGD0L3QuNGH0YLQvtC20LjRgtGMINGA0LXQt9C10YDQstC90YvQtSDQutC+0L/QuNC4?=
+Message-ID: <mf300-0214@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0214
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0214-boundary"
+
+--mailfire-benchmark-MF300-0214-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Угроза уничтожить резервные копии». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Ольга Морозова
+Отдел финансов
+--mailfire-benchmark-MF300-0214-boundary
+Content-Type: text/csv; name="MF300-0214-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0214-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KPQs9GA0L7Qt9Cw
+INGD0L3QuNGH0YLQvtC20LjRgtGMINGA0LXQt9C10YDQstC90YvQtSDQutC+0L/QuNC4IgoyOyLQ
+ryDQvdCw0LzQtdGA0LXQvdC90L4g0YPQtNCw0LvRjiDRgNC10LfQtdGA0LLQvdGL0LUg0LrQvtC/
+0LjQuCDRgdC10YDQstC10YDQvtCyINC4INCy0YvQstC10LTRgyDRgdC10YDQstC10YAg0LjQtyDR
+gdGC0YDQvtGPINCyINC60L7QvdGG0LUg0YHQvNC10L3Riy4g0J3QtSDQv9GL0YLQsNC50YLQtdGB
+0Ywg0YHQutGA0YvRgtGMINGN0YLQviDRgdC+0L7QsdGJ0LXQvdC40LUuIgozOyLQmtC+0L3RgtGA
+0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHRitC10Lw6
+IDEgODM2IDc0NyDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0J7Qu9GM
+0LPQsCDQnNC+0YDQvtC30L7QstCwIg==
+--mailfire-benchmark-MF300-0214-boundary--

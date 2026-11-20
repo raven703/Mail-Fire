@@ -1,0 +1,35 @@
+From: office21@sever-logistics.example.test
+To: department8@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:53:24 GMT
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINC+0LTQvdC+0YDQsNC30L7QstC+0LPQviDQutC+0LTQsA==?=
+Message-ID: <mf300-0229@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0229
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0229-boundary"
+
+--mailfire-benchmark-MF300-0229-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Запрос одноразового кода». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Алексей Кузнецов
+Отдел финансов
+--mailfire-benchmark-MF300-0229-boundary
+Content-Type: text/csv; name="MF300-0229-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0229-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JfQsNC/0YDQvtGB
+INC+0LTQvdC+0YDQsNC30L7QstC+0LPQviDQutC+0LTQsCIKMjsi0JTQu9GPINC30LDQstC10YDR
+iNC10L3QuNGPINC/0YDQvtCy0LXRgNC60Lgg0YHQvtC+0LHRidC40YLQtSDQvtC00L3QvtGA0LDQ
+t9C+0LLRi9C5INC60L7QtCDQv9C+0LTRgtCy0LXRgNC20LTQtdC90LjRjyDQuNC3IFNNUy4g0J/R
+gNC40YjQu9C40YLQtSDQtdCz0L4g0L7RgtCy0LXRgtC+0Lwg0L3QsCDRjdGC0L4g0L/QuNGB0YzQ
+vNC+LCDRh9GC0L7QsdGLINCy0L7RgdGB0YLQsNC90L7QstC40YLRjCDQtNC+0YHRgtGD0L8uIgoz
+OyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7
+ItCe0LHRitC10Lw6IDEgOTU1IDUzMiDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC9
+0YvQuTog0JDQu9C10LrRgdC10Lkg0JrRg9C30L3QtdGG0L7QsiI=
+--mailfire-benchmark-MF300-0229-boundary--

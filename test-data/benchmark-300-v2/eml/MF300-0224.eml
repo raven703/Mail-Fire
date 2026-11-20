@@ -1,0 +1,35 @@
+From: office16@meridian-trade.example.test
+To: department3@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:45:39 GMT
+Subject: =?UTF-8?B?0KHRgNC+0YfQvdC+0LUg0L/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/0LjRgdC4?=
+Message-ID: <mf300-0224@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0224
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0224-boundary"
+
+--mailfire-benchmark-MF300-0224-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Для сохранения доступа нужно срочно подтвердить аккаунт по ссылке https://security-check.example.test/verify и ввести пароль. Иначе учетная запись будет заблокирована.
+
+С уважением,
+Екатерина Соколова
+Отдел финансов
+--mailfire-benchmark-MF300-0224-boundary
+Content-Type: text/csv; name="MF300-0224-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0224-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KHRgNC+0YfQvdC+
+0LUg0L/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/0LjRgdC4
+IgoyOyLQlNC70Y8g0YHQvtGF0YDQsNC90LXQvdC40Y8g0LTQvtGB0YLRg9C/0LAg0L3Rg9C20L3Q
+viDRgdGA0L7Rh9C90L4g0L/QvtC00YLQstC10YDQtNC40YLRjCDQsNC60LrQsNGD0L3RgiDQv9C+
+INGB0YHRi9C70LrQtSBodHRwczovL3NlY3VyaXR5LWNoZWNrLmV4YW1wbGUudGVzdC92ZXJpZnkg
+0Lgg0LLQstC10YHRgtC4INC/0LDRgNC+0LvRjC4g0JjQvdCw0YfQtSDRg9GH0LXRgtC90LDRjyDQ
+t9Cw0L/QuNGB0Ywg0LHRg9C00LXRgiDQt9Cw0LHQu9C+0LrQuNGA0L7QstCw0L3QsC4iCjM7ItCa
+0L7QvdGC0YDQsNCz0LXQvdGCOiDQk9C+0YDQuNC30L7QvdGCLdCf0YDQvtC10LrRgiIKNDsi0J7Q
+sdGK0LXQvDogMSA5MTUgOTM3INGA0YPQsS4iCjU7ItCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5
+OiDQldC60LDRgtC10YDQuNC90LAg0KHQvtC60L7Qu9C+0LLQsCI=
+--mailfire-benchmark-MF300-0224-boundary--

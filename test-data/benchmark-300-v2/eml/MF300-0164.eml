@@ -1,0 +1,36 @@
+From: office2@meridian-trade.example.test
+To: department9@mailfire.example.test
+Date: Fri, 20 Nov 2026 10:12:39 GMT
+Subject: =?UTF-8?B?0JLQvdGD0YLRgNC10L3QvdGP0Y8g0YHQtdCx0LXRgdGC0L7QuNC80L7RgdGC0Ywg0L/RgNC+0LXQutGC0LA=?=
+Message-ID: <mf300-0164@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0164
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0164-boundary"
+
+--mailfire-benchmark-MF300-0164-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Себестоимость этапа 1 440 797 рублей, наценка 21%, расчетная маржа 14%. Финансовая модель предназначена для руководства проекта, пересылка заказчику до согласования запрещена.
+
+С уважением,
+Мария Лебедева
+Отдел финансов
+--mailfire-benchmark-MF300-0164-boundary
+Content-Type: text/csv; name="MF300-0164-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0164-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JLQvdGD0YLRgNC1
+0L3QvdGP0Y8g0YHQtdCx0LXRgdGC0L7QuNC80L7RgdGC0Ywg0L/RgNC+0LXQutGC0LAiCjI7ItCh
+0LXQsdC10YHRgtC+0LjQvNC+0YHRgtGMINGN0YLQsNC/0LAgMSA0NDAgNzk3INGA0YPQsdC70LXQ
+uSwg0L3QsNGG0LXQvdC60LAgMjElLCDRgNCw0YHRh9C10YLQvdCw0Y8g0LzQsNGA0LbQsCAxNCUu
+INCk0LjQvdCw0L3RgdC+0LLQsNGPINC80L7QtNC10LvRjCDQv9GA0LXQtNC90LDQt9C90LDRh9C1
+0L3QsCDQtNC70Y8g0YDRg9C60L7QstC+0LTRgdGC0LLQsCDQv9GA0L7QtdC60YLQsCwg0L/QtdGA
+0LXRgdGL0LvQutCwINC30LDQutCw0LfRh9C40LrRgyDQtNC+INGB0L7Qs9C70LDRgdC+0LLQsNC9
+0LjRjyDQt9Cw0L/RgNC10YnQtdC90LAuIgozOyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA
+0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHRitC10Lw6IDEgNDQwIDc5NyDRgNGD0LEu
+Igo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JzQsNGA0LjRjyDQm9C10LHQtdC00LXQ
+stCwIg==
+--mailfire-benchmark-MF300-0164-boundary--

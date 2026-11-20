@@ -1,0 +1,37 @@
+From: office14@sever-logistics.example.test
+To: department8@mailfire.example.test
+Date: Fri, 20 Nov 2026 09:19:57 GMT
+Subject: =?UTF-8?B?0KHQu9GD0LbQtdCx0L3QsNGPINC30LDQv9C40YHQutCwINC+0LPRgNCw0L3QuNGH0LXQvdC90L7Qs9C+INC00L7RgdGC0YPQv9Cw?=
+Message-ID: <mf300-0130@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0130
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0130-boundary"
+
+--mailfire-benchmark-MF300-0130-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Служебная записка ограниченного доступа». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Анна Сергеева
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0130-boundary
+Content-Type: text/html; name="MF300-0130-attachment.html"
+Content-Disposition: attachment; filename="MF300-0130-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7QodC70YPQ
+ttC10LHQvdCw0Y8g0LfQsNC/0LjRgdC60LAg0L7Qs9GA0LDQvdC40YfQtdC90L3QvtCz0L4g0LTQ
+vtGB0YLRg9C/0LA8L3A+PHA+0KLQvtC70YzQutC+INC00LvRjyDQstC90YPRgtGA0LXQvdC90LXQ
+s9C+INC40YHQv9C+0LvRjNC30L7QstCw0L3QuNGPLiDQn9GA0LjQu9Cw0LPQsNC10YLRgdGPINCy
+0L3Rg9GC0YDQtdC90L3QuNC5INC00L7QutGD0LzQtdC90YIg0YEg0L/QvtC00YDQvtCx0L3QvtC5
+INC+0YbQtdC90LrQvtC5INC60L7QvdGC0YDQsNCz0LXQvdGC0LAg0JLQtdC60YLQvtGALdCh0LXR
+gNCy0LjRgS4g0JfQsNC/0YDQtdGJ0LXQvdC+INC/0LXRgNC10LTQsNCy0LDRgtGMINGC0YDQtdGC
+0YzQuNC8INC70LjRhtCw0LwuPC9wPjxwPtCa0L7QvdGC0YDQsNCz0LXQvdGCOiDQktC10LrRgtC+
+0YAt0KHQtdGA0LLQuNGBPC9wPjxwPtCe0LHRitC10Lw6IDEgMTcxIDU1MSDRgNGD0LEuPC9wPjxw
+PtCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQkNC90L3QsCDQodC10YDQs9C10LXQstCwPC9w
+PjwvYm9keT48L2h0bWw+
+--mailfire-benchmark-MF300-0130-boundary--

@@ -1,0 +1,35 @@
+From: office4@sever-logistics.example.test
+To: department3@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:02:42 GMT
+Subject: =?UTF-8?B?0J/QtdGA0LXQtNCw0YfQsCDQutC+0L3RhNC40LPRg9GA0LDRhtC40Lg=?=
+Message-ID: <mf300-0235@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0235
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0235-boundary"
+
+--mailfire-benchmark-MF300-0235-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Передача конфигурации». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Дмитрий Орлов
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0235-boundary
+Content-Type: text/html; name="MF300-0235-attachment.html"
+Content-Disposition: attachment; filename="MF300-0235-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7Qn9C10YDQ
+tdC00LDRh9CwINC60L7QvdGE0LjQs9GD0YDQsNGG0LjQuDwvcD48cD7QkiDQv9C10YDQtdC/0LjR
+gdC60YMg0L/QvtC/0LDQu9CwINGB0YLRgNC+0LrQsCBhcGlfa2V5PW1mX2RlbW9fc2VjcmV0XzIw
+MjZfN2YzZDhlMTljNGI2NWExMi4g0K3RgtC+0YIg0LrQu9GO0Ycg0LLRi9Cz0LvRj9C00LjRgiDQ
+tNC10LnRgdGC0LLRg9GO0YnQuNC8LCDRgtGA0LXQsdGD0LXRgtGB0Y8g0LjQvdGG0LjQtNC10L3R
+giDQuCDQvtGC0LfRi9CyINGB0LXQutGA0LXRgtCwLjwvcD48cD7QmtC+0L3RgtGA0LDQs9C10L3R
+gjog0JLQtdC60YLQvtGALdCh0LXRgNCy0LjRgTwvcD48cD7QntCx0YrQtdC8OiAyIDAwMyAwNDYg
+0YDRg9CxLjwvcD48cD7QntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JTQvNC40YLRgNC40Lkg
+0J7RgNC70L7QsjwvcD48L2JvZHk+PC9odG1sPg==
+--mailfire-benchmark-MF300-0235-boundary--
