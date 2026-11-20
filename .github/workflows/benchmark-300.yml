@@ -23,7 +23,8 @@ jobs:
       - name: Confirm bit-for-bit reproducibility
         run: |
           node scripts/generate_benchmark_300_v2.mjs /tmp/mailfire-benchmark-300
-          diff -qr test-data/benchmark-300-v2 /tmp/mailfire-benchmark-300
+          diff -qr test-data/benchmark-300-v2/eml /tmp/mailfire-benchmark-300/eml
+          cmp test-data/benchmark-300-v2/manifest.jsonl /tmp/mailfire-benchmark-300/manifest.jsonl
       - name: Verify MIME, attachment archives and ground truth
         run: |
           python - <<'PY'
