@@ -222,6 +222,8 @@ def reindex_reference(reference_id: str, account=Depends(analyst), session=Depen
     row = session.get(Reference, reference_id)
     if not row:
         raise HTTPException(404)
+    if "document_template" in (row.fingerprint or {}):
+        raise HTTPException(409, "Для шаблона типа документа семантический индекс не используется")
     job = Job(
         kind="semantic_reindex", payload={"items": [["reference", row.id]], "completed": 0, "progress": 0}
     )
