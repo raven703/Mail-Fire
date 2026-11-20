@@ -105,7 +105,7 @@ function messageCase(i){
    ];[subject,body]=values[k];body=body.replaceAll("${amount}",amount).replaceAll("${partner}",partner);labels=[["pack-ru2-financial-plans","pack-ru2-credential-transfer"],["pack-ru2-customer-data","pack-ru2-pricing"],["pack-ru2-internal-docs","pack-ru2-data-exfil"],["pack-ru2-financial-plans","pack-ru2-pii-handling"]][k];
  }
  const letterBody=body+suffix;
- const carry=group!=="control"&&(i%5!==0);
+ const carry=group!=="control"&&(i%5!==0 || i%10===0);
  const attachmentType=!carry?"none":(["txt","docx","xlsx","csv","html"][i%5]);
  const attachmentContent=`${subject}\n${body}\nКонтрагент: ${partner}\nОбъем: ${amount} руб.\nОтветственный: ${name}`;
  const visibleBody=carry&&i%3===0?`Добрый день, прошу рассмотреть вложенный материал по теме «${subject}». Ожидаю обратную связь до конца недели.\n${suffix}`:letterBody;
