@@ -11,10 +11,6 @@ Keep the signing **private** key outside the Git repository and release archive;
 counterpart independently on every offline machine.
 
 ```sh
-openssl genpkey -algorithm ed25519 -out release-private.pem
-openssl pkey -in release-private.pem -pubout -out release-public.pem
-# NOTE: the supplied bash scripts use openssl dgst -sha256 which requires an RSA/ECDSA key,
-# not Ed25519. For this MVP generate an RSA key instead:
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out release-private.pem
 openssl pkey -in release-private.pem -pubout -out release-public.pem
 bash scripts/airgap/build.sh 0.1.0 release-private.pem ./dist
