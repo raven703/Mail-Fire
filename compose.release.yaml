@@ -1,0 +1,109 @@
+# Offline runtime: all images are preloaded from a signed release bundle.
+# Do not use this file for development builds.
+name: mailfire
+x-backend: &backend
+  image: mice/backend:${MICE_VERSION:?MICE_VERSION is required}
+  pull_policy: never
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+    OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
+    PARSER_URL: http://parser:8090
+    CLAMAV_HOST: ${CLAMAV_HOST:-}
+  networks: [default]
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=256m,noexec,nosuid
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    pull_policy: never
+    environment:
+      POSTGRES_DB: mailfire
+      POSTGRES_USER: mailfire
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes: [postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U mailfire -d mailfire']
+      interval: 5s
+      retries: 20
+  migrate:
+    image: mice/backend:${MICE_VERSION:?MICE_VERSION is required}
+    pull_policy: never
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+    # No bootstrap on upgrades: retain custom categories, rules and settings.
+    command: [alembic, upgrade, head]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  api:
+    <<: *backend
+    networks: [default, parsing]
+    ports: ['127.0.0.1:8000:8000']
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 15s
+  worker:
+    <<: *backend
+    networks: [default, parsing]
+    command: [python, -m, app.worker]
+  maintenance:
+    <<: *backend
+    command: [python, -m, app.maintenance]
+  importer:
+    <<: *backend
+    command: [python, -m, app.importer]
+    volumes: ['./data/import/inbox:/imports:ro']
+  smtp:
+    <<: *backend
+    command: [python, -m, app.smtp]
+    ports: ['127.0.0.1:2525:2525']
+  parser:
+    image: mice/backend:${MICE_VERSION:?MICE_VERSION is required}
+    pull_policy: never
+    command: [python, -m, app.parser_service]
+    environment:
+      OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
+    networks: [parsing]
+    read_only: true
+    tmpfs: ['/tmp:size=256m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 96
+    mem_limit: 3g
+    cpus: 2
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  web:
+    image: mice/web:${MICE_VERSION:?MICE_VERSION is required}
+    pull_policy: never
+    ports: ['127.0.0.1:8080:80']
+    depends_on: [api]
+  clamav:
+    image: clamav/clamav:stable
+    pull_policy: never
+    profiles: [antivirus]
+    volumes: [clamav-signatures:/var/lib/clamav]
+    restart: unless-stopped
+    mem_limit: 3g
+
+volumes:
+  postgres:
+  clamav-signatures:
+networks:
+  parsing:
+    internal: true
