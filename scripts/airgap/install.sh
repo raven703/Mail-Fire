@@ -27,6 +27,16 @@ if [[ ! -f .env ]]; then
 fi
 exec 9>.mice-update.lock
 flock -n 9 || { echo "Another update is running" >&2; exit 1; }
+# Use the currently deployed tag for Compose operations before switching versions.
+# Never infer version from the new package while backing up the old DB.
+if [[ -f .mice-version ]]; then
+  old_version="$(cat .mice-version)"
+  [[ "$old_version" =~ ^[a-zA-Z0-9][a-zA-Z0-9._-]*$ ]] || exit 1
+  export MICE_VERSION="$old_version"
+elif [[ -f compose.release.yaml ]]; then
+  echo "Existing release compose without .mice-version: manual recovery required" >&2
+  exit 1
+fi
 backup_dir="./backups/airgap-$(date -u +%Y%m%dT%H%M%SZ)-$version"
 mkdir -m 700 -p "$backup_dir"
 cp -p .env "$backup_dir/env.backup"
@@ -34,11 +44,11 @@ cp -p .env "$backup_dir/env.backup"
 [[ ! -e .mice-version ]] || cp -p .mice-version "$backup_dir/previous-version"
 # An existing installation requires a restorable database snapshot.
 # Do not silently ignore pg_dump errors or continue with a partial backup.
-if docker compose -f compose.release.yaml ps --status running --services 2>/dev/null | grep -qx db; then
+if [[ -f .mice-version ]] && docker compose -f compose.release.yaml ps --status running --services 2>/dev/null | grep -qx db; then
   echo "Creating mandatory PostgreSQL backup..."
   docker compose -f compose.release.yaml exec -T db pg_dump -U mailfire -d mailfire -Fc > "$backup_dir/postgres.dump"
   [[ -s "$backup_dir/postgres.dump" ]] || { echo "Empty database backup" >&2; exit 1; }
-elif [[ -e .mice-version ]]; then
+elif [[ -f .mice-version ]]; then
   echo "Existing release has no running DB: start/recover it before upgrading" >&2
   exit 1
 fi
