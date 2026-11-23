@@ -1,8 +1,20 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import {EditorDialog} from './EditorDialog';
+import {Evidence} from './Evidence';
 import {type Row} from './components';
 
-const previewable = new Set(['application/pdf','image/png','image/jpeg','image/gif','image/webp']);
+function Viewer({file}:{file:Row}){
+ const [tab,setTab]=useState('Оригинал'),[meta,setMeta]=useState<Row>({}),[page,setPage]=useState(1),[scale,setScale]=useState(1),[highlight,setHighlight]=useState(false),[result,setResult]=useState<Row>({}),[error,setError]=useState(''),[loading,setLoading]=useState(false);
+ const root=`/api/attachments/${encodeURIComponent(file.id)}`;
+ useEffect(()=>{const controller=new AbortController();fetch(root+'/viewer',{signal:controller.signal,cache:'no-store'}).then(async r=>{if(!r.ok)throw new Error('Нет доступа к данным просмотра');return r.json()}).then(setMeta).catch(e=>{if(e.name!=='AbortError')setError(e.message)});return ()=>controller.abort()},[root]);
+ useEffect(()=>{if(tab!=='Оригинал'||/\.(txt|csv|json|xml|eml|msg)$/i.test(file.name||''))return;const controller=new AbortController();setLoading(true);setError('');setResult({});fetch(`${root}/page?page=${page}&scale=${scale}&highlight=${highlight}`,{signal:controller.signal,cache:'no-store'}).then(async r=>{if(!r.ok){const e=await r.json();throw new Error(e.detail||'Просмотр недоступен')}return r.json()}).then(setResult).catch(e=>{if(e.name!=='AbortError')setError(e.message)}).finally(()=>{if(!controller.signal.aborted)setLoading(false)});return ()=>controller.abort()},[root,page,scale,highlight,tab]);
+ return <div className="document-viewer"><p className="muted">{file.mime} · {result.pages?`${result.pages} стр. · `:''}{(Number(meta.size||file.size||0)/1048576).toLocaleString('ru-RU',{maximumFractionDigits:2})} МБ</p>
+ <nav className="tabs">{['Оригинал','Распознанный текст','Результаты DLP'].map(t=><button type="button" key={t} className={tab===t?'selected':''} onClick={()=>setTab(t)}>{t}</button>)}</nav>
+ {tab==='Оригинал'&&/\.(txt|csv|json|xml|eml|msg)$/i.test(file.name||'')?<><dl>{meta.mail&&<><dt>Тема</dt><dd>{meta.mail.subject}</dd><dt>Отправитель</dt><dd>{meta.mail.sender}</dd><dt>Получатели</dt><dd>{meta.mail.recipients?.join(', ')}</dd></>}</dl><pre className="mail-text">{meta.mail?.text||meta.text||'Сохранённый текст отсутствует'}</pre></>:tab==='Оригинал'&&<><div className="actions"><button type="button" disabled={page===1||loading} onClick={()=>setPage(p=>p-1)}>←</button><span>Страница {page} / {result.pages||'—'}</span><button type="button" disabled={!result.pages||page>=result.pages||loading} onClick={()=>setPage(p=>p+1)}>→</button><label>Масштаб <select value={scale} onChange={e=>setScale(Number(e.target.value))}>{[0.5,1,1.5,2].map(n=><option key={n} value={n}>{n*100}%</option>)}</select></label><label><input type="checkbox" checked={highlight} onChange={e=>setHighlight(e.target.checked)}/>Подсветить DLP в PDF</label></div>{loading&&<p role="status">Подготовка страницы…</p>}{error&&<p role="alert">{error}</p>}{result.image&&<div className="document-page"><img src={result.image} alt={`Страница ${page}: ${file.name}`}/></div>}<p className="muted">Пассивное изображение страницы. Скрипты, макросы и ссылки не исполняются. Подсветка PDF доступна для текстовых совпадений; координаты OCR старых сканов не сохранены.</p></>}
+ {tab==='Распознанный текст'&&<><p className="muted">Сохранённый результат парсера; OCR повторно не запускается.</p><pre className="mail-text">{meta.text||'Сохранённого текста нет. Для его получения требуется отдельная повторная обработка письма.'}</pre></>}
+ {tab==='Результаты DLP'&&<><p className="muted">Совпадения из сохранённого анализа, относящиеся к этому вложению.</p><Evidence rows={meta.findings||[]} allowed={true}/></>}
+ </div>;
+}
 
 export function MessageAttachments({items,allowOriginals}:{items:Row[],allowOriginals:boolean}){
  const [selected,setSelected]=useState<Row|null>(null);
@@ -18,14 +30,9 @@ export function MessageAttachments({items,allowOriginals}:{items:Row[],allowOrig
     {allowOriginals&&<a href={`/api/attachments/${encodeURIComponent(f.id)}/original`} download aria-label={`Скачать ${f.name}`} title="Скачать вложение">↓ Скачать</a>}
    </div>
   </div>)}
-  {selected&&<EditorDialog title={selected.name||'Просмотр вложения'} subtitle="Только предварительный просмотр. Активное содержимое не исполняется." wide
+  {selected&&<EditorDialog title={selected.name||'Просмотр вложения'} subtitle="Локальный просмотр документа без автоматического скачивания." wide
    onClose={()=>setSelected(null)} footerNote="Для форматов без безопасного просмотра отображается только извлечённый текст.">
-   {previewable.has(String(selected.mime||'').split(';')[0].toLowerCase())?
-    String(selected.mime).toLowerCase().startsWith('image/')?
-     <img className="attachment-preview-image" src={`/api/attachments/${encodeURIComponent(selected.id)}/preview`} alt={selected.name||'Изображение'}/>:
-     <iframe className="attachment-preview-frame" title={selected.name||'PDF'} sandbox="" referrerPolicy="no-referrer"
-       src={`/api/attachments/${encodeURIComponent(selected.id)}/preview`}/>:
-    <pre className="mail-text">{selected.text||'Предварительный просмотр для этого формата недоступен.'}</pre>}
+   <Viewer key={selected.id} file={selected}/>
    <div className="actions"><a href={`/api/attachments/${encodeURIComponent(selected.id)}/original`} download>↓ Скачать вложение</a></div>
   </EditorDialog>}
  </div>;

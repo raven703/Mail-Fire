@@ -199,6 +199,7 @@ def inference(body: InferenceBody, account=Depends(analyst), session=Depends(db)
 @router.delete("/models/{model_id}")
 def delete_model(model_id: str, account=Depends(admin), session=Depends(db)):
     """Only inactive models can be deleted, to avoid breaking live inference."""
+    session.execute(text("SELECT pg_advisory_xact_lock(hashtext('ml-publication'))"))
     model = session.get(MLModel, model_id, with_for_update=True)
     if not model:
         raise HTTPException(404)

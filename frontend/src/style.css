@@ -152,3 +152,5 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
 .attachment-preview-image{display:block;max-width:100%;max-height:65vh;object-fit:contain;margin:0 auto}
 .attachment-preview-frame{display:block;width:100%;height:65vh;border:1px solid #dbe3f0;border-radius:8px;background:#fff}
 .message-attachments .policy-row{gap:12px}
+
+.document-page{overflow:auto;max-height:65vh;background:#e7eaf0;padding:16px;text-align:center}.document-page img{max-width:none;box-shadow:0 2px 12px #0003}.document-viewer{min-height:55vh}.document-viewer .actions{margin:12px 0;flex-wrap:wrap}

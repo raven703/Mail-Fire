@@ -19,6 +19,22 @@ x-backend: &backend
     migrate:
       condition: service_completed_successfully
 services:
+  converter:
+    build: ./converter
+    networks: [conversion]
+    read_only: true
+    tmpfs: ['/tmp:size=512m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 1g
+    cpus: 1
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8091/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
   clamav:
     image: clamav/clamav:stable
     profiles: [antivirus]
@@ -72,7 +88,13 @@ services:
         condition: service_healthy
   api:
     <<: *backend
-    networks: [default, parsing]
+    networks: [default, parsing, conversion]
+    environment:
+      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
+      OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
+      PARSER_URL: http://parser:8090
+      CLAMAV_HOST: ${CLAMAV_HOST:-}
+      CONVERTER_URL: http://converter:8091
     ports: ['127.0.0.1:8000:8000']
     healthcheck:
       test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
@@ -96,5 +118,7 @@ volumes:
   clamav-signatures:
   postgres:
 networks:
+  conversion:
+    internal: true
   parsing:
     internal: true
