@@ -1,0 +1,38 @@
+From: office16@sever-logistics.example.test
+To: department9@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:47:24 GMT
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINC60L7Qv9C40Lgg0L/QsNGB0L/QvtGA0YLQsCDRgdC+0YLRgNGD0LTQvdC40LrQsCDQkNC70LXQutGB0LXQuSDQmtGD0LfQvdC10YbQvtCy?=
+Message-ID: <mf300-0109@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0109
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0109-boundary"
+
+--mailfire-benchmark-MF300-0109-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Запрос копии паспорта сотрудника Алексей Кузнецов». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Алексей Кузнецов
+Отдел финансов
+--mailfire-benchmark-MF300-0109-boundary
+Content-Type: text/csv; name="MF300-0109-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0109-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JfQsNC/0YDQvtGB
+INC60L7Qv9C40Lgg0L/QsNGB0L/QvtGA0YLQsCDRgdC+0YLRgNGD0LTQvdC40LrQsCDQkNC70LXQ
+utGB0LXQuSDQmtGD0LfQvdC10YbQvtCyIgoyOyLQn9Cw0YHQv9C+0YDRgiDQs9GA0LDQttC00LDQ
+vdC40L3QsCDQoNCkLiDQoNCe0KHQodCY0JnQodCa0JDQryDQpNCV0JTQldCg0JDQptCY0K8uINCk
+0LDQvNC40LvQuNGPINCa0YPQt9C90LXRhtC+0LIsINC40LzRjyDQkNC70LXQutGB0LXQuS4g0KHQ
+tdGA0LjRjyA0NSAwOCwg0L3QvtC80LXRgCAxMDUyOTIuINCU0LDRgtCwINCy0YvQtNCw0YfQuCAx
+Mi4wOS4yMDE2LiDQmtC+0LQg0L/QvtC00YDQsNC30LTQtdC70LXQvdC40Y8gNzcwLTAwMi4g0J3Q
+sNC/0YDQsNCy0LvRj9GOINC30LDQv9C+0LvQvdC10L3QvdGD0Y4g0LDQvdC60LXRgtGDINC00LvR
+jyDQutCw0LTRgNC+0LLQvtCz0L4g0LTQtdC70L7Qv9GA0L7QuNC30LLQvtC00YHRgtCy0LAuIgoz
+OyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7
+ItCe0LHRitC10Lw6IDEgMDA1IDI1MiDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC9
+0YvQuTog0JDQu9C10LrRgdC10Lkg0JrRg9C30L3QtdGG0L7QsiI=
+--mailfire-benchmark-MF300-0109-boundary--

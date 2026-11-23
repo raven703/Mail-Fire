@@ -1,0 +1,33 @@
+From: office1@meridian-trade.example.test
+To: department10@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:22:24 GMT
+Subject: =?UTF-8?B?0KLRgNC10LHQvtCy0LDQvdC40LUg0LLRi9C60YPQv9Cw?=
+Message-ID: <mf300-0209@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0209
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0209-boundary"
+
+--mailfire-benchmark-MF300-0209-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Требую выкуп за данные организации. Заплатите деньги, иначе опубликую внутренние документы; отсчет начинается сегодня.
+
+С уважением,
+Игорь Громов
+Отдел финансов
+--mailfire-benchmark-MF300-0209-boundary
+Content-Type: text/csv; name="MF300-0209-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0209-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KLRgNC10LHQvtCy
+0LDQvdC40LUg0LLRi9C60YPQv9CwIgoyOyLQotGA0LXQsdGD0Y4g0LLRi9C60YPQvyDQt9CwINC0
+0LDQvdC90YvQtSDQvtGA0LPQsNC90LjQt9Cw0YbQuNC4LiDQl9Cw0L/Qu9Cw0YLQuNGC0LUg0LTQ
+tdC90YzQs9C4LCDQuNC90LDRh9C1INC+0L/Rg9Cx0LvQuNC60YPRjiDQstC90YPRgtGA0LXQvdC9
+0LjQtSDQtNC+0LrRg9C80LXQvdGC0Ys7INC+0YLRgdGH0LXRgiDQvdCw0YfQuNC90LDQtdGC0YHR
+jyDRgdC10LPQvtC00L3Rjy4iCjM7ItCa0L7QvdGC0YDQsNCz0LXQvdGCOiDQk9C+0YDQuNC30L7Q
+vdGCLdCf0YDQvtC10LrRgiIKNDsi0J7QsdGK0LXQvDogMSA3OTcgMTUyINGA0YPQsS4iCjU7ItCe
+0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQmNCz0L7RgNGMINCT0YDQvtC80L7QsiI=
+--mailfire-benchmark-MF300-0209-boundary--

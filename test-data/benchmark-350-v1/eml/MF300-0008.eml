@@ -1,0 +1,16 @@
+From: office7@meridian-trade.example.test
+To: department7@mailfire.example.test
+Date: Fri, 20 Nov 2026 06:10:51 GMT
+Subject: =?UTF-8?B?0JTQtdC80L7QvdGB0YLRgNCw0YbQuNGPINGB0YLRgNGD0LrRgtGD0YDRiyDQutC+0L3RhNC40LPRg9GA0LDRhtC40Lg=?=
+Message-ID: <mf300-0008@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0008
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+В примере документации показано поле api_key=EXAMPLE_NOT_A_REAL_SECRET; это шаблон, не действующий ключ, использовать его для доступа нельзя.
+
+С уважением,
+Екатерина Соколова
+Отдел проектов

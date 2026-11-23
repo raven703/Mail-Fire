@@ -1,0 +1,36 @@
+From: office18@sever-logistics.example.test
+To: department8@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:35:42 GMT
+Subject: =?UTF-8?B?0J/QtdGA0LXQtNCw0YfQsCDQt9Cw0LrRgNGL0YLQvtCz0L4g0LTQvtC60YPQvNC10L3RgtCw?=
+Message-ID: <mf300-0295@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0295
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0295-boundary"
+
+--mailfire-benchmark-MF300-0295-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Передача закрытого документа». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Павел Никитин
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0295-boundary
+Content-Type: text/html; name="MF300-0295-attachment.html"
+Content-Disposition: attachment; filename="MF300-0295-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7Qn9C10YDQ
+tdC00LDRh9CwINC30LDQutGA0YvRgtC+0LPQviDQtNC+0LrRg9C80LXQvdGC0LA8L3A+PHA+0JLQ
+vdGD0YLRgNC10L3QvdC40Lkg0LTQvtC60YPQvNC10L3Rgjog0YHRgtGA0L7Qs9C+INC60L7QvdGE
+0LjQtNC10L3RhtC40LDQu9GM0L3Qvi4g0J/RgNC+0YjRgyDQvtGC0L/RgNCw0LLQuNGC0Ywg0LLQ
+vdGD0YLRgNC10L3QvdC40Lkg0YTQsNC50Lsg0L3QsCDQu9C40YfQvdGD0Y4g0L/QvtGH0YLRgyDQ
+v9C+0LTRgNGP0LTRh9C40LrQsCwg0YXQvtGC0Y8g0L3QtSDQv9C+0LTQu9C10LbQuNGCINGA0LDR
+gdC/0YDQvtGB0YLRgNCw0L3QtdC90LjRjiDQsdC10Lcg0YHQvtCz0LvQsNGB0L7QstCw0L3QuNGP
+LjwvcD48cD7QmtC+0L3RgtGA0LDQs9C10L3Rgjog0JLQtdC60YLQvtGALdCh0LXRgNCy0LjRgTwv
+cD48cD7QntCx0YrQtdC8OiAyIDQ3OCAxODYg0YDRg9CxLjwvcD48cD7QntGC0LLQtdGC0YHRgtCy
+0LXQvdC90YvQuTog0J/QsNCy0LXQuyDQndC40LrQuNGC0LjQvTwvcD48L2JvZHk+PC9odG1sPg==
+--mailfire-benchmark-MF300-0295-boundary--

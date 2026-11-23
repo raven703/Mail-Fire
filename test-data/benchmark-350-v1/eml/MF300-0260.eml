@@ -1,0 +1,36 @@
+From: office6@meridian-trade.example.test
+To: department6@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:41:27 GMT
+Subject: =?UTF-8?B?0JLRi9Cz0YDRg9C30LrQsCDQutC70LjQtdC90YLRgdC60L7QuSDQsdCw0LfRiyDQtNC70Y8g0YHQstC10YDQutC4?=
+Message-ID: <mf300-0260@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0260
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0260-boundary"
+
+--mailfire-benchmark-MF300-0260-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Требуется выгрузка базы клиентов в CSV: ФИО, телефоны, адреса электронной почты, история заказов. Пожалуйста, отправьте список контактов в отдел сопровождения.
+
+С уважением,
+Мария Лебедева
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0260-boundary
+Content-Type: text/html; name="MF300-0260-attachment.html"
+Content-Disposition: attachment; filename="MF300-0260-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7QktGL0LPR
+gNGD0LfQutCwINC60LvQuNC10L3RgtGB0LrQvtC5INCx0LDQt9GLINC00LvRjyDRgdCy0LXRgNC6
+0Lg8L3A+PHA+0KLRgNC10LHRg9C10YLRgdGPINCy0YvQs9GA0YPQt9C60LAg0LHQsNC30Ysg0LrQ
+u9C40LXQvdGC0L7QsiDQsiBDU1Y6INCk0JjQniwg0YLQtdC70LXRhNC+0L3Riywg0LDQtNGA0LXR
+gdCwINGN0LvQtdC60YLRgNC+0L3QvdC+0Lkg0L/QvtGH0YLRiywg0LjRgdGC0L7RgNC40Y8g0LfQ
+sNC60LDQt9C+0LIuINCf0L7QttCw0LvRg9C50YHRgtCwLCDQvtGC0L/RgNCw0LLRjNGC0LUg0YHQ
+v9C40YHQvtC6INC60L7QvdGC0LDQutGC0L7QsiDQsiDQvtGC0LTQtdC7INGB0L7Qv9GA0L7QstC+
+0LbQtNC10L3QuNGPLjwvcD48cD7QmtC+0L3RgtGA0LDQs9C10L3Rgjog0JLQtdC60YLQvtGALdCh
+0LXRgNCy0LjRgTwvcD48cD7QntCx0YrQtdC8OiAyIDIwMSAwMjEg0YDRg9CxLjwvcD48cD7QntGC
+0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JzQsNGA0LjRjyDQm9C10LHQtdC00LXQstCwPC9wPjwv
+Ym9keT48L2h0bWw+
+--mailfire-benchmark-MF300-0260-boundary--

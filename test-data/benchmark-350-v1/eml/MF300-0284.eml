@@ -1,0 +1,35 @@
+From: office7@meridian-trade.example.test
+To: department8@mailfire.example.test
+Date: Fri, 20 Nov 2026 13:18:39 GMT
+Subject: =?UTF-8?B?0J/RgNC+0LPQvdC+0Lcg0YEg0LrQsNC00YDQvtCy0YvQvNC4INC00LDQvdC90YvQvNC4?=
+Message-ID: <mf300-0284@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0284
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0284-boundary"
+
+--mailfire-benchmark-MF300-0284-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Внутренний прогноз выручки на квартал 2 391 077 рублей; персональные данные сотрудников и сведения о начислениях прошу переслать финансовому директору.
+
+С уважением,
+Мария Лебедева
+Отдел финансов
+--mailfire-benchmark-MF300-0284-boundary
+Content-Type: text/csv; name="MF300-0284-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0284-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0J/RgNC+0LPQvdC+
+0Lcg0YEg0LrQsNC00YDQvtCy0YvQvNC4INC00LDQvdC90YvQvNC4IgoyOyLQktC90YPRgtGA0LXQ
+vdC90LjQuSDQv9GA0L7Qs9C90L7QtyDQstGL0YDRg9GH0LrQuCDQvdCwINC60LLQsNGA0YLQsNC7
+IDIgMzkxIDA3NyDRgNGD0LHQu9C10Lk7INC/0LXRgNGB0L7QvdCw0LvRjNC90YvQtSDQtNCw0L3Q
+vdGL0LUg0YHQvtGC0YDRg9C00L3QuNC60L7QsiDQuCDRgdCy0LXQtNC10L3QuNGPINC+INC90LDR
+h9C40YHQu9C10L3QuNGP0YUg0L/RgNC+0YjRgyDQv9C10YDQtdGB0LvQsNGC0Ywg0YTQuNC90LDQ
+vdGB0L7QstC+0LzRgyDQtNC40YDQtdC60YLQvtGA0YMuIgozOyLQmtC+0L3RgtGA0LDQs9C10L3R
+gjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7ItCe0LHRitC10Lw6IDIgMzkxIDA3
+NyDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JzQsNGA0LjRjyDQm9C1
+0LHQtdC00LXQstCwIg==
+--mailfire-benchmark-MF300-0284-boundary--

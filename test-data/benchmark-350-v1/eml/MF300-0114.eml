@@ -1,0 +1,35 @@
+From: office21@altiar-project.example.test
+To: department3@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:55:09 GMT
+Subject: =?UTF-8?B?0JrQsNGA0YLQvtGH0LrQsCDQodCd0JjQm9ChINC00LvRjyDQvtGC0LTQtdC70LAg0LrQsNC00YDQvtCy?=
+Message-ID: <mf300-0114@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0114
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0114-boundary"
+
+--mailfire-benchmark-MF300-0114-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Страховой номер индивидуального лицевого счета (СНИЛС) сотрудника Анна Сергеева. Пожалуйста, проверьте запись: 100149951-00. В приложении карточка кадрового учета.
+
+С уважением,
+Анна Сергеева
+Отдел финансов
+--mailfire-benchmark-MF300-0114-boundary
+Content-Type: text/csv; name="MF300-0114-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0114-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JrQsNGA0YLQvtGH
+0LrQsCDQodCd0JjQm9ChINC00LvRjyDQvtGC0LTQtdC70LAg0LrQsNC00YDQvtCyIgoyOyLQodGC
+0YDQsNGF0L7QstC+0Lkg0L3QvtC80LXRgCDQuNC90LTQuNCy0LjQtNGD0LDQu9GM0L3QvtCz0L4g
+0LvQuNGG0LXQstC+0LPQviDRgdGH0LXRgtCwICjQodCd0JjQm9ChKSDRgdC+0YLRgNGD0LTQvdC4
+0LrQsCDQkNC90L3QsCDQodC10YDQs9C10LXQstCwLiDQn9C+0LbQsNC70YPQudGB0YLQsCwg0L/R
+gNC+0LLQtdGA0YzRgtC1INC30LDQv9C40YHRjDogMTAwMTQ5OTUxLTAwLiDQkiDQv9GA0LjQu9C+
+0LbQtdC90LjQuCDQutCw0YDRgtC+0YfQutCwINC60LDQtNGA0L7QstC+0LPQviDRg9GH0LXRgtCw
+LiIKMzsi0JrQvtC90YLRgNCw0LPQtdC90YI6INCT0L7RgNC40LfQvtC90YIt0J/RgNC+0LXQutGC
+Igo0OyLQntCx0YrQtdC8OiAxIDA0NCA4NDcg0YDRg9CxLiIKNTsi0J7RgtCy0LXRgtGB0YLQstC1
+0L3QvdGL0Lk6INCQ0L3QvdCwINCh0LXRgNCz0LXQtdCy0LAi
+--mailfire-benchmark-MF300-0114-boundary--

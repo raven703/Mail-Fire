@@ -1,0 +1,39 @@
+From: office15@sever-logistics.example.test
+To: department7@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:10:12 GMT
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINC60L7Qv9C40Lgg0L/QsNGB0L/QvtGA0YLQsCDRgdC+0YLRgNGD0LTQvdC40LrQsCDQkNC70LXQutGB0LXQuSDQmtGD0LfQvdC10YbQvtCy?=
+Message-ID: <mf300-0085@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0085
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0085-boundary"
+
+--mailfire-benchmark-MF300-0085-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Запрос копии паспорта сотрудника Алексей Кузнецов». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Алексей Кузнецов
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0085-boundary
+Content-Type: text/html; name="MF300-0085-attachment.html"
+Content-Disposition: attachment; filename="MF300-0085-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7Ql9Cw0L/R
+gNC+0YEg0LrQvtC/0LjQuCDQv9Cw0YHQv9C+0YDRgtCwINGB0L7RgtGA0YPQtNC90LjQutCwINCQ
+0LvQtdC60YHQtdC5INCa0YPQt9C90LXRhtC+0LI8L3A+PHA+0J/QsNGB0L/QvtGA0YIg0LPRgNCw
+0LbQtNCw0L3QuNC90LAg0KDQpC4g0KDQntCh0KHQmNCZ0KHQmtCQ0K8g0KTQldCU0JXQoNCQ0KbQ
+mNCvLiDQpNCw0LzQuNC70LjRjyDQmtGD0LfQvdC10YbQvtCyLCDQuNC80Y8g0JDQu9C10LrRgdC1
+0LkuINCh0LXRgNC40Y8gNDUgMDgsINC90L7QvNC10YAgMTA0MTE2LiDQlNCw0YLQsCDQstGL0LTQ
+sNGH0LggMTIuMDkuMjAxNi4g0JrQvtC0INC/0L7QtNGA0LDQt9C00LXQu9C10L3QuNGPIDc3MC0w
+MDIuINCd0LDQv9GA0LDQstC70Y/RjiDQt9Cw0L/QvtC70L3QtdC90L3Rg9GOINCw0L3QutC10YLR
+gyDQtNC70Y8g0LrQsNC00YDQvtCy0L7Qs9C+INC00LXQu9C+0L/RgNC+0LjQt9Cy0L7QtNGB0YLQ
+stCwLjwvcD48cD7QmtC+0L3RgtGA0LDQs9C10L3Rgjog0JLQtdC60YLQvtGALdCh0LXRgNCy0LjR
+gTwvcD48cD7QntCx0YrQtdC8OiA4MTUgMTk2INGA0YPQsS48L3A+PHA+0J7RgtCy0LXRgtGB0YLQ
+stC10L3QvdGL0Lk6INCQ0LvQtdC60YHQtdC5INCa0YPQt9C90LXRhtC+0LI8L3A+PC9ib2R5Pjwv
+aHRtbD4=
+--mailfire-benchmark-MF300-0085-boundary--
