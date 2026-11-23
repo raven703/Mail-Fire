@@ -1,4 +1,5 @@
 from app.accounts_api import router as accounts_router
+from app.preview_api import router as preview_router
 from app.admin_api import router as admin_router
 from app.api import app
 from app.catalog_api import router as catalog_router
@@ -18,6 +19,7 @@ app.include_router(llm_router)
 app.include_router(datasets_router)
 app.include_router(admin_router)
 app.include_router(accounts_router)
+app.include_router(preview_router)
 app.include_router(reference_router)
 app.include_router(retention_router)
 app.include_router(monitoring_router)

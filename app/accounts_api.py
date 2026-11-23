@@ -72,3 +72,24 @@ def create(body: AccountBody, account=Depends(admin), session=Depends(db)):
 @router.put("/{account_id}")
 def update(account_id: str, body: AccountBody, account=Depends(admin), session=Depends(db)):
     return save(body, account, session, account_id)
+
+
+@router.delete("/{account_id}")
+def revoke_account(account_id: str, account=Depends(admin), session=Depends(db)):
+    """Soft-delete access: preserve audit and investigation references."""
+    session.execute(text("SELECT pg_advisory_xact_lock(hashtext('accounts-admin'))"))
+    row = session.get(Account, account_id, with_for_update=True)
+    if not row:
+        raise HTTPException(404)
+    if row.id == account.id:
+        raise HTTPException(409, "Нельзя удалить собственную учётную запись")
+    if row.enabled and row.role == "admin":
+        another = session.scalar(select(Account.id).where(
+            Account.enabled.is_(True), Account.role == "admin", Account.id != row.id).limit(1))
+        if not another:
+            raise HTTPException(409, "Нельзя удалить последнего администратора")
+    row.enabled = False
+    session.execute(delete(LoginSession).where(LoginSession.account_id == row.id))
+    session.add(Audit(actor=account.id, action="account_revoke", target=row.id))
+    session.commit()
+    return {"deleted": True, "deactivated": True}

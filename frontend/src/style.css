@@ -145,3 +145,12 @@ main:has(>.sticky-period) .filters{top:calc(var(--toolbar-height) + var(--period
 .ml-dataset-upload input[type=file]{width:100%}
 
 .mice-dark{display:none}.mice-light{display:block}:root[data-theme=dark] .mice-light{display:none}:root[data-theme=dark] .mice-dark{display:block}.mice-sidebar-logo{display:block;flex:0 0 64px}.mice-sidebar-logo img{width:64px;height:64px;object-fit:contain;border-radius:10px}.mice-login-logo{margin:0 auto 16px;width:160px}.mice-login-logo img{width:160px;height:160px;object-fit:contain;border-radius:20px}.collapsed .mice-sidebar-logo{flex-basis:44px}.collapsed .mice-sidebar-logo img{width:44px;height:44px}
+
+/* Compact mail metadata and passive attachment preview */
+.message-meta-line{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:8px 0 14px;color:var(--text-muted,#65758e);font-size:.93rem}
+.message-meta-line b{color:var(--text,#172236);font-weight:600}
+.attachment-preview-image{display:block;max-width:100%;max-height:65vh;object-fit:contain;margin:0 auto}
+.attachment-preview-frame{display:block;width:100%;height:65vh;border:1px solid #dbe3f0;border-radius:8px;background:#fff}
+.message-attachments .policy-row{gap:12px}
+
+.document-page{overflow:auto;max-height:65vh;background:#e7eaf0;padding:16px;text-align:center}.document-page img{max-width:none;box-shadow:0 2px 12px #0003}.document-viewer{min-height:55vh}.document-viewer .actions{margin:12px 0;flex-wrap:wrap}

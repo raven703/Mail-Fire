@@ -1,6 +1,7 @@
 """Live management data for policy, detector, reference and ML workspaces."""
 
 from datetime import timedelta
+from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
@@ -21,6 +22,7 @@ from app.models import (
     now,
 )
 from app.workspace_api import PolicyBody, persist_policy
+from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS
 
 router = APIRouter(prefix="/api/catalog", tags=["Management"])
 DETECTORS = {
@@ -42,6 +44,7 @@ DETECTORS = {
     "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),
     "semantic": ("Семантическое сходство", "Multilingual MiniLM / pgvector", ["SEMANTIC_REFERENCE"]),
     "ml": ("ML-классификатор", "TF-IDF / Logistic Regression", []),
+    "normalizer": ("Нормализация текста", "Восстановление обфускаций перед LLM (оригинал сохраняется)", []),
 }
 
 
@@ -116,6 +119,9 @@ def detectors(account=Depends(user), session=Depends(db)):
     row = session.get(Setting, "detectors")
     config = row.value if row else {}
     active_model = session.scalar(select(MLModel.id).where(MLModel.active.is_(True)))
+    normalizer = session.get(Setting, "normalizer")
+    norm_options = {**NORMALIZER_DEFAULTS,
+                    **(normalizer.value if normalizer else {})}
     return {
         "items": [
             dict(
@@ -123,8 +129,10 @@ def detectors(account=Depends(user), session=Depends(db)):
                 name=value[0],
                 engine=value[1],
                 categories=value[2],
-                enabled=config.get(key, True),
+                enabled=norm_options["enabled"] if key == "normalizer" else config.get(key, True),
                 available=key != "ml" or bool(active_model),
+                **({"mode": norm_options["mode"], "sensitivity": norm_options["sensitivity"]}
+                   if key == "normalizer" else {}),
             )
             for key, value in DETECTORS.items()
         ]
@@ -135,6 +143,16 @@ def detectors(account=Depends(user), session=Depends(db)):
 def detector_settings(detector_id: str, body: Toggle, account=Depends(admin), session=Depends(db)):
     if detector_id not in DETECTORS:
         raise HTTPException(404)
+    if detector_id == "normalizer":
+        row = session.get(Setting, "normalizer", with_for_update=True)
+        from app.text_normalizer import DEFAULTS
+        if not row:
+            row = Setting(key="normalizer", value=dict(DEFAULTS))
+            session.add(row)
+        row.value = {**DEFAULTS, **row.value, "enabled": body.enabled}
+        session.add(Audit(actor=account.id, action="normalizer_config", target="normalizer", details=row.value))
+        session.commit()
+        return {"saved": True}
     row = session.get(Setting, "detectors", with_for_update=True)
     if not row:
         row = Setting(key="detectors", value={})
@@ -265,3 +283,40 @@ def examples(offset: int = Query(0, ge=0), account=Depends(analyst), session=Dep
             select(func.count()).select_from(TrainingExample).where(TrainingExample.approved.is_(True))
         ),
     }
+
+
+@router.delete("/examples/{example_id}")
+def delete_training_example(example_id: str, account=Depends(admin), session=Depends(db)):
+    """Remove one training sample; preserve the audit trail without its text."""
+    row = session.get(TrainingExample, example_id)
+    if not row:
+        raise HTTPException(404)
+    if row.dataset_id:
+        from app.models import MLDataset
+        dataset = session.get(MLDataset, row.dataset_id, with_for_update=True)
+        if dataset:
+            dataset.example_count = max(0, dataset.example_count - 1)
+            dataset.status = "REVIEW"
+    session.add(Audit(actor=account.id, action="ml_example_delete", target=row.id,
+                      details={"dataset_id": row.dataset_id, "source": row.source}))
+    session.delete(row)
+    session.commit()
+    return {"deleted": True}
+
+class NormalizerOptions(BaseModel):
+    enabled: bool
+    mode: Literal["detect", "augment"] = "detect"
+    sensitivity: Literal["low", "medium", "high"] = "medium"
+
+
+@router.put("/normalizer")
+def update_normalizer(body: NormalizerOptions, account=Depends(admin), session=Depends(db)):
+    row = session.get(Setting, "normalizer", with_for_update=True)
+    if not row:
+        row = Setting(key="normalizer", value={})
+        session.add(row)
+    row.value = body.model_dump()
+    session.add(Audit(actor=account.id, action="normalizer_config", target="normalizer",
+                      details=body.model_dump()))
+    session.commit()
+    return {"saved": True, **row.value}

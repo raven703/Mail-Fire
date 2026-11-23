@@ -169,6 +169,10 @@ def main():
             output["attachments"] = [
                 [name, mime, base64.b64encode(value).decode()] for name, mime, value in output["attachments"]
             ]
+        elif request["operation"] == "preview":
+            from app.document_preview import render
+
+            output = render(data, request["name"])
         elif request["operation"] == "extract":
             from app.extraction import extract
 

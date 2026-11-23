@@ -14,6 +14,7 @@ from sqlalchemy import select
 
 from app.db import transaction
 from app.models import Category, Setting
+from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS, normalize
 
 DEFAULTS = {
     "enabled": False,
@@ -36,6 +37,8 @@ def config(session):
 def analyze(text, findings):
     with transaction() as session:
         options = config(session)
+        norm_row = session.get(Setting, "normalizer")
+        norm_options = {**NORMALIZER_DEFAULTS, **(norm_row.value if norm_row else {})}
         if not options["enabled"]:
             return [], []
         category_rows = list(session.scalars(select(Category).where(Category.active.is_(True))))
@@ -70,11 +73,22 @@ def analyze(text, findings):
         + json.dumps(labels, ensure_ascii=False)
     )
     key = os.environ.get("MAILFIRE_LLM_API_KEY", "")
+    supplied_text = text[:options["max_chars"]]
+    if norm_options["enabled"] and norm_options["mode"] == "augment":
+        candidate, transforms = normalize(supplied_text, norm_options["sensitivity"])
+        if transforms and candidate != supplied_text:
+            # Both versions are untrusted content, not instructions. The classifier
+            # must use the original for evidence and recovered version as context.
+            supplied_text = (
+                "ОРИГИНАЛ ПИСЬМА (недоверенные данные):\n" + supplied_text
+                + "\nВОССТАНОВЛЕННЫЙ ВАРИАНТ (только подсказка, возможны ошибки):\n"
+                + candidate
+            )
     payload = {
         "model": options["model"],
         "messages": [
             {"role": "system", "content": prompt},
-            {"role": "user", "content": text[:options["max_chars"]]},
+            {"role": "user", "content": supplied_text},
         ],
         "temperature": 0,
         "max_tokens": 500,

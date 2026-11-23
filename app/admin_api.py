@@ -104,3 +104,39 @@ def attachment_original(attachment_id: str, account=Depends(user), session=Depen
             "X-Content-Type-Options": "nosniff",
         },
     )
+
+
+@router.get("/attachments/{attachment_id}/preview")
+def attachment_preview(attachment_id: str, account=Depends(user), session=Depends(db)):
+    """Display only allowlisted passive formats. Others use extracted plain text."""
+    from fastapi import Response
+
+    if not account.originals:
+        raise HTTPException(403, "Нет доступа к содержимому")
+    row = session.get(Attachment, attachment_id)
+    if not row:
+        raise HTTPException(404)
+    blob = session.get(Blob, row.blob_sha)
+    if not blob or len(blob.data) > 20 * 1024 * 1024:
+        raise HTTPException(413, "Вложение слишком большое для просмотра")
+    data = blob.data
+    if data.startswith(b"%PDF-"):
+        mime = "application/pdf"
+    elif data.startswith(b"\x89PNG\r\n\x1a\n"):
+        mime = "image/png"
+    elif data.startswith(b"\xff\xd8\xff"):
+        mime = "image/jpeg"
+    elif data.startswith((b"GIF87a", b"GIF89a")):
+        mime = "image/gif"
+    elif data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+        mime = "image/webp"
+    else:
+        raise HTTPException(415, "Нет безопасного предварительного просмотра для этого типа")
+    session.add(Audit(actor=account.id, action="attachment_preview", target=row.id))
+    session.commit()
+    return Response(blob.data, media_type=mime, headers={
+        "Content-Disposition": "inline",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "sandbox; default-src 'none'",
+        "Cache-Control": "no-store",
+    })

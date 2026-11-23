@@ -72,6 +72,13 @@ def analyze(message_id, job_id=None, owner=None):
         + b"\0".join(hashlib.sha256(data).digest() for _, _, data in parsed["attachments"])
     )
     digest = hashlib.sha256(identity).hexdigest()
+    from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS, normalize as restore_text
+    with transaction() as session:
+        norm_row = session.get(Setting, "normalizer")
+        norm_options = {**NORMALIZER_DEFAULTS, **(norm_row.value if norm_row else {})}
+    normalization = {"enabled": norm_options["enabled"], "transforms": []}
+    if norm_options["enabled"]:
+        _, normalization["transforms"] = restore_text(text, norm_options["sensitivity"])
     findings = detect(text)
     findings.extend(attachment_findings)
     # Type templates are checked per attachment, not on concatenated mail body.
@@ -193,7 +200,7 @@ def analyze(message_id, job_id=None, owner=None):
                     id=__import__("uuid").uuid4().hex,
                     normalized_sha=digest,
                     text=text,
-                    analysis={"findings": findings, "engine_errors": engine_errors},
+                    analysis={"findings": findings, "engine_errors": engine_errors, "normalization": normalization},
                     version=VERSION,
                 )
                 .on_conflict_do_nothing()
