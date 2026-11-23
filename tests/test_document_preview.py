@@ -30,7 +30,7 @@ def test_image_rasterization_and_limits():
 
 
 def test_pdf_is_rasterized_not_returned_and_can_highlight():
-    import fitz
+    import pymupdf as fitz
 
     with fitz.open() as document:
         page = document.new_page()

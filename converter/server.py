@@ -5,6 +5,7 @@ import tempfile
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
+from validation import validate_document
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -22,6 +23,10 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 20 * 1024**2:
                 raise ValueError("Size limit")
             self.connection.settimeout(75)
+            data = self.rfile.read(size)
+            if len(data) != size:
+                raise ValueError("Truncated request")
+            validate_document(data, ext)
             with tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
                 profile = root / "profile" / "user"
@@ -33,7 +38,7 @@ class Handler(BaseHTTPRequestHandler):
 <item oor:path="/org.openoffice.Office.Writer/Content/Update"><prop oor:name="Link" oor:op="fuse"><value>2</value></prop></item>
 </oor:items>''')
                 source = root / ("document." + ext)
-                source.write_bytes(self.rfile.read(size))
+                source.write_bytes(data)
                 subprocess.run(["libreoffice", "-env:UserInstallation=" + (root / "profile").as_uri(),
                                 "--headless", "--nologo", "--nodefault", "--norestore", "--convert-to",
                                 "pdf", "--outdir", directory, str(source)],

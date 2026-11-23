@@ -30,7 +30,8 @@ def test_ingest_analysis_and_event_identity():
         assert second.message_id == message_id
     analyze(message_id)
     with transaction() as db:
-        assert db.get(Message, message_id).status == "PARTIAL"  # AV is disabled in this fixture.
+        # Explicitly disabled optional checks do not make successful extraction partial.
+        assert db.get(Message, message_id).status == "ANALYZED"
         assert (
             db.scalar(
                 select(func.count())
