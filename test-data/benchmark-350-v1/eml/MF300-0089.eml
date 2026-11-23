@@ -1,0 +1,37 @@
+From: office19@meridian-trade.example.test
+To: department0@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:16:24 GMT
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINC60L7Qv9C40Lgg0L/QsNGB0L/QvtGA0YLQsCDRgdC+0YLRgNGD0LTQvdC40LrQsCDQmNCz0L7RgNGMINCT0YDQvtC80L7Qsg==?=
+Message-ID: <mf300-0089@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0089
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0089-boundary"
+
+--mailfire-benchmark-MF300-0089-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Паспорт гражданина РФ. РОССИЙСКАЯ ФЕДЕРАЦИЯ. Фамилия Громов, имя Игорь. Серия 45 08, номер 104312. Дата выдачи 12.09.2016. Код подразделения 770-002. Направляю заполненную анкету для кадрового делопроизводства.
+
+С уважением,
+Игорь Громов
+Отдел финансов
+--mailfire-benchmark-MF300-0089-boundary
+Content-Type: text/csv; name="MF300-0089-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0089-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JfQsNC/0YDQvtGB
+INC60L7Qv9C40Lgg0L/QsNGB0L/QvtGA0YLQsCDRgdC+0YLRgNGD0LTQvdC40LrQsCDQmNCz0L7R
+gNGMINCT0YDQvtC80L7QsiIKMjsi0J/QsNGB0L/QvtGA0YIg0LPRgNCw0LbQtNCw0L3QuNC90LAg
+0KDQpC4g0KDQntCh0KHQmNCZ0KHQmtCQ0K8g0KTQldCU0JXQoNCQ0KbQmNCvLiDQpNCw0LzQuNC7
+0LjRjyDQk9GA0L7QvNC+0LIsINC40LzRjyDQmNCz0L7RgNGMLiDQodC10YDQuNGPIDQ1IDA4LCDQ
+vdC+0LzQtdGAIDEwNDMxMi4g0JTQsNGC0LAg0LLRi9C00LDRh9C4IDEyLjA5LjIwMTYuINCa0L7Q
+tCDQv9C+0LTRgNCw0LfQtNC10LvQtdC90LjRjyA3NzAtMDAyLiDQndCw0L/RgNCw0LLQu9GP0Y4g
+0LfQsNC/0L7Qu9C90LXQvdC90YPRjiDQsNC90LrQtdGC0YMg0LTQu9GPINC60LDQtNGA0L7QstC+
+0LPQviDQtNC10LvQvtC/0YDQvtC40LfQstC+0LTRgdGC0LLQsC4iCjM7ItCa0L7QvdGC0YDQsNCz
+0LXQvdGCOiDQk9C+0YDQuNC30L7QvdGCLdCf0YDQvtC10LrRgiIKNDsi0J7QsdGK0LXQvDogODQ2
+IDg3MiDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC90YvQuTog0JjQs9C+0YDRjCDQ
+k9GA0L7QvNC+0LIi
+--mailfire-benchmark-MF300-0089-boundary--

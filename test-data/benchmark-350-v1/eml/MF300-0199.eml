@@ -1,0 +1,35 @@
+From: office14@sever-logistics.example.test
+To: department0@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:06:54 GMT
+Subject: =?UTF-8?B?0KPQs9GA0L7Qt9CwINCw0LTQvNC40L3QuNGB0YLRgNCw0YbQuNC4INC+0YTQuNGB0LA=?=
+Message-ID: <mf300-0199@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0199
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0199-boundary"
+
+--mailfire-benchmark-MF300-0199-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Угроза администрации офиса». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Павел Никитин
+Отдел финансов
+--mailfire-benchmark-MF300-0199-boundary
+Content-Type: text/csv; name="MF300-0199-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0199-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KPQs9GA0L7Qt9Cw
+INCw0LTQvNC40L3QuNGB0YLRgNCw0YbQuNC4INC+0YTQuNGB0LAiCjI7ItCvINGD0YHRgtGA0L7R
+jiDQstC30YDRi9CyINCyINC30LTQsNC90LjQuCDQvtGE0LjRgdCwINC30LDQstGC0YDQsC4g0K3R
+gtC+INC/0YDRj9C80L7QtSDRg9Cz0YDQvtC20LDRjtGJ0LXQtSDRgdC+0L7QsdGJ0LXQvdC40LUs
+INC/0YDQvtGI0YMg0L3QtdC80LXQtNC70LXQvdC90L4g0L/QtdGA0LXQtNCw0YLRjCDQtdCz0L4g
+0YHQu9GD0LbQsdC1INCx0LXQt9C+0L/QsNGB0L3QvtGB0YLQuC4iCjM7ItCa0L7QvdGC0YDQsNCz
+0LXQvdGCOiDQk9C+0YDQuNC30L7QvdGCLdCf0YDQvtC10LrRgiIKNDsi0J7QsdGK0LXQvDogMSA3
+MTcgOTYyINGA0YPQsS4iCjU7ItCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQn9Cw0LLQtdC7
+INCd0LjQutC40YLQuNC9Ig==
+--mailfire-benchmark-MF300-0199-boundary--

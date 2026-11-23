@@ -1,0 +1,36 @@
+From: office12@sever-logistics.example.test
+To: department10@mailfire.example.test
+Date: Fri, 20 Nov 2026 11:39:27 GMT
+Subject: =?UTF-8?B?0KHRgNC+0YfQvdC+0LUg0L/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/0LjRgdC4?=
+Message-ID: <mf300-0220@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0220
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0220-boundary"
+
+--mailfire-benchmark-MF300-0220-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Срочное подтверждение учетной записи». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Мария Лебедева
+Отдел эксплуатации
+--mailfire-benchmark-MF300-0220-boundary
+Content-Type: text/html; name="MF300-0220-attachment.html"
+Content-Disposition: attachment; filename="MF300-0220-attachment.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjwvaGVhZD48Ym9keT48cD7QodGA0L7R
+h9C90L7QtSDQv9C+0LTRgtCy0LXRgNC20LTQtdC90LjQtSDRg9GH0LXRgtC90L7QuSDQt9Cw0L/Q
+uNGB0Lg8L3A+PHA+0JTQu9GPINGB0L7RhdGA0LDQvdC10L3QuNGPINC00L7RgdGC0YPQv9CwINC9
+0YPQttC90L4g0YHRgNC+0YfQvdC+INC/0L7QtNGC0LLQtdGA0LTQuNGC0Ywg0LDQutC60LDRg9C9
+0YIg0L/QviDRgdGB0YvQu9C60LUgaHR0cHM6Ly9zZWN1cml0eS1jaGVjay5leGFtcGxlLnRlc3Qv
+dmVyaWZ5INC4INCy0LLQtdGB0YLQuCDQv9Cw0YDQvtC70YwuINCY0L3QsNGH0LUg0YPRh9C10YLQ
+vdCw0Y8g0LfQsNC/0LjRgdGMINCx0YPQtNC10YIg0LfQsNCx0LvQvtC60LjRgNC+0LLQsNC90LAu
+PC9wPjxwPtCa0L7QvdGC0YDQsNCz0LXQvdGCOiDQktC10LrRgtC+0YAt0KHQtdGA0LLQuNGBPC9w
+PjxwPtCe0LHRitC10Lw6IDEgODg0IDI2MSDRgNGD0LEuPC9wPjxwPtCe0YLQstC10YLRgdGC0LLQ
+tdC90L3Ri9C5OiDQnNCw0YDQuNGPINCb0LXQsdC10LTQtdCy0LA8L3A+PC9ib2R5PjwvaHRtbD4=
+--mailfire-benchmark-MF300-0220-boundary--

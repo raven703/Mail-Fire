@@ -1,0 +1,16 @@
+From: office2@sever-logistics.example.test
+To: department2@mailfire.example.test
+Date: Fri, 20 Nov 2026 12:35:15 GMT
+Subject: =?UTF-8?B?0JLRi9Cz0YDRg9C30LrQsCDQutC70LjQtdC90YLRgdC60L7QuSDQsdCw0LfRiyDQtNC70Y8g0YHQstC10YDQutC4?=
+Message-ID: <mf300-0256@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0256
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Требуется выгрузка базы клиентов в CSV: ФИО, телефоны, адреса электронной почты, история заказов. Пожалуйста, отправьте список контактов в отдел сопровождения.
+
+С уважением,
+Екатерина Соколова
+Отдел закупок

@@ -1,0 +1,36 @@
+From: office11@meridian-trade.example.test
+To: department4@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:39:39 GMT
+Subject: =?UTF-8?B?0J/QtdGA0LXQtNCw0YfQsCDQv9C10YDRgdC+0L3QsNC70YzQvdGL0YUg0LTQsNC90L3Ri9GFINGB0L7RgtGA0YPQtNC90LjQutC+0LI=?=
+Message-ID: <mf300-0104@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0104
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0104-boundary"
+
+--mailfire-benchmark-MF300-0104-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Для кадровой сверки требуется переслать персональные данные: ФИО, паспорт, телефон и место регистрации. Список сотрудников должен оставаться в защищенном рабочем контуре.
+
+С уважением,
+Екатерина Соколова
+Отдел финансов
+--mailfire-benchmark-MF300-0104-boundary
+Content-Type: text/csv; name="MF300-0104-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0104-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0J/QtdGA0LXQtNCw
+0YfQsCDQv9C10YDRgdC+0L3QsNC70YzQvdGL0YUg0LTQsNC90L3Ri9GFINGB0L7RgtGA0YPQtNC9
+0LjQutC+0LIiCjI7ItCU0LvRjyDQutCw0LTRgNC+0LLQvtC5INGB0LLQtdGA0LrQuCDRgtGA0LXQ
+sdGD0LXRgtGB0Y8g0L/QtdGA0LXRgdC70LDRgtGMINC/0LXRgNGB0L7QvdCw0LvRjNC90YvQtSDQ
+tNCw0L3QvdGL0LU6INCk0JjQniwg0L/QsNGB0L/QvtGA0YIsINGC0LXQu9C10YTQvtC9INC4INC8
+0LXRgdGC0L4g0YDQtdCz0LjRgdGC0YDQsNGG0LjQuC4g0KHQv9C40YHQvtC6INGB0L7RgtGA0YPQ
+tNC90LjQutC+0LIg0LTQvtC70LbQtdC9INC+0YHRgtCw0LLQsNGC0YzRgdGPINCyINC30LDRidC4
+0YnQtdC90L3QvtC8INGA0LDQsdC+0YfQtdC8INC60L7QvdGC0YPRgNC1LiIKMzsi0JrQvtC90YLR
+gNCw0LPQtdC90YI6INCT0L7RgNC40LfQvtC90YIt0J/RgNC+0LXQutGCIgo0OyLQntCx0YrQtdC8
+OiA5NjUgNjU3INGA0YPQsS4iCjU7ItCe0YLQstC10YLRgdGC0LLQtdC90L3Ri9C5OiDQldC60LDR
+gtC10YDQuNC90LAg0KHQvtC60L7Qu9C+0LLQsCI=
+--mailfire-benchmark-MF300-0104-boundary--

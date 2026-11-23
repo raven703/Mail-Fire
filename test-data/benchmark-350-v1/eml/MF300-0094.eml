@@ -1,0 +1,36 @@
+From: office1@sever-logistics.example.test
+To: department5@mailfire.example.test
+Date: Fri, 20 Nov 2026 08:24:09 GMT
+Subject: =?UTF-8?B?0JrQsNGA0YLQvtGH0LrQsCDQodCd0JjQm9ChINC00LvRjyDQvtGC0LTQtdC70LAg0LrQsNC00YDQvtCy?=
+Message-ID: <mf300-0094@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0094
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0094-boundary"
+
+--mailfire-benchmark-MF300-0094-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Карточка СНИЛС для отдела кадров». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Ольга Морозова
+Отдел финансов
+--mailfire-benchmark-MF300-0094-boundary
+Content-Type: text/csv; name="MF300-0094-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0094-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0JrQsNGA0YLQvtGH
+0LrQsCDQodCd0JjQm9ChINC00LvRjyDQvtGC0LTQtdC70LAg0LrQsNC00YDQvtCyIgoyOyLQodGC
+0YDQsNGF0L7QstC+0Lkg0L3QvtC80LXRgCDQuNC90LTQuNCy0LjQtNGD0LDQu9GM0L3QvtCz0L4g
+0LvQuNGG0LXQstC+0LPQviDRgdGH0LXRgtCwICjQodCd0JjQm9ChKSDRgdC+0YLRgNGD0LTQvdC4
+0LrQsCDQntC70YzQs9CwINCc0L7RgNC+0LfQvtCy0LAuINCf0L7QttCw0LvRg9C50YHRgtCwLCDQ
+v9GA0L7QstC10YDRjNGC0LUg0LfQsNC/0LjRgdGMOiAxMDAxMjM0MTEtMDAuINCSINC/0YDQuNC7
+0L7QttC10L3QuNC4INC60LDRgNGC0L7Rh9C60LAg0LrQsNC00YDQvtCy0L7Qs9C+INGD0YfQtdGC
+0LAuIgozOyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC6
+0YIiCjQ7ItCe0LHRitC10Lw6IDg4NiA0Njcg0YDRg9CxLiIKNTsi0J7RgtCy0LXRgtGB0YLQstC1
+0L3QvdGL0Lk6INCe0LvRjNCz0LAg0JzQvtGA0L7Qt9C+0LLQsCI=
+--mailfire-benchmark-MF300-0094-boundary--

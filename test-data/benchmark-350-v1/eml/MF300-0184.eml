@@ -1,0 +1,34 @@
+From: office22@sever-logistics.example.test
+To: department7@mailfire.example.test
+Date: Fri, 20 Nov 2026 10:43:39 GMT
+Subject: =?UTF-8?B?0KPQs9GA0L7Qt9CwINGB0L7RgtGA0YPQtNC90LjQutGD?=
+Message-ID: <mf300-0184@benchmark.mailfire.example.test>
+MIME-Version: 1.0
+X-MailFire-Benchmark: benchmark-300-v2
+X-MailFire-Benchmark-ID: MF300-0184
+Content-Type: multipart/mixed; boundary="mailfire-benchmark-MF300-0184-boundary"
+
+--mailfire-benchmark-MF300-0184-boundary
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день, прошу рассмотреть вложенный материал по теме «Угроза сотруднику». Ожидаю обратную связь до конца недели.
+
+
+С уважением,
+Екатерина Соколова
+Отдел финансов
+--mailfire-benchmark-MF300-0184-boundary
+Content-Type: text/csv; name="MF300-0184-attachment.csv"
+Content-Disposition: attachment; filename="MF300-0184-attachment.csv"
+Content-Transfer-Encoding: base64
+
+0J3QsNC40LzQtdC90L7QstCw0L3QuNC1O9CX0L3QsNGH0LXQvdC40LUKMTsi0KPQs9GA0L7Qt9Cw
+INGB0L7RgtGA0YPQtNC90LjQutGDIgoyOyLQryDRgtC10LHRjyDRg9Cx0YzRjiwg0LXRgdC70Lgg
+0LfQsNCy0YLRgNCwINGB0L3QvtCy0LAg0L/QvtGP0LLQuNGI0YzRgdGPINC90LAg0L7QsdGK0LXQ
+utGC0LUuINCf0LXRgNC10LTQsNC50YLQtSDRjdGC0YMg0L/QtdGA0LXQv9C40YHQutGDINC+0YLQ
+stC10YLRgdGC0LLQtdC90L3QvtC80YMg0LfQsCDQsdC10LfQvtC/0LDRgdC90L7RgdGC0YwuIgoz
+OyLQmtC+0L3RgtGA0LDQs9C10L3Rgjog0JPQvtGA0LjQt9C+0L3Rgi3Qn9GA0L7QtdC60YIiCjQ7
+ItCe0LHRitC10Lw6IDEgNTk5IDE3NyDRgNGD0LEuIgo1OyLQntGC0LLQtdGC0YHRgtCy0LXQvdC9
+0YvQuTog0JXQutCw0YLQtdGA0LjQvdCwINCh0L7QutC+0LvQvtCy0LAi
+--mailfire-benchmark-MF300-0184-boundary--
