@@ -121,22 +121,22 @@ def attachment_preview(attachment_id: str, account=Depends(user), session=Depend
     row = session.get(Attachment, attachment_id)
     if not row:
         raise HTTPException(404)
-    if row.mime.lower().split(";")[0].strip() not in PREVIEW_MIME:
-        raise HTTPException(415, "Предпросмотр файла недоступен, используйте извлечённый текст")
     blob = session.get(Blob, row.blob_sha)
     if not blob or len(blob.data) > 20 * 1024 * 1024:
         raise HTTPException(413, "Вложение слишком большое для просмотра")
-    mime = row.mime.lower().split(";")[0].strip()
-    # Don't trust a MIME type supplied by an email: verify file signature.
-    signatures = {
-        "application/pdf": blob.data.startswith(b"%PDF-"),
-        "image/png": blob.data.startswith(b"\x89PNG\r\n\x1a\n"),
-        "image/jpeg": blob.data.startswith(b"\xff\xd8\xff"),
-        "image/gif": blob.data.startswith((b"GIF87a", b"GIF89a")),
-        "image/webp": blob.data.startswith(b"RIFF") and blob.data[8:12] == b"WEBP",
-    }
-    if not signatures[mime]:
-        raise HTTPException(415, "Неверный формат вложения")
+    data = blob.data
+    if data.startswith(b"%PDF-"):
+        mime = "application/pdf"
+    elif data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+        mime = "image/png"
+    elif data.startswith(b"\\xff\\xd8\\xff"):
+        mime = "image/jpeg"
+    elif data.startswith((b"GIF87a", b"GIF89a")):
+        mime = "image/gif"
+    elif data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+        mime = "image/webp"
+    else:
+        raise HTTPException(415, "Нет безопасного предварительного просмотра для этого типа")
     session.add(Audit(actor=account.id, action="attachment_preview", target=row.id))
     session.commit()
     return Response(blob.data, media_type=mime, headers={
