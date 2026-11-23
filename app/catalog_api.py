@@ -265,3 +265,22 @@ def examples(offset: int = Query(0, ge=0), account=Depends(analyst), session=Dep
             select(func.count()).select_from(TrainingExample).where(TrainingExample.approved.is_(True))
         ),
     }
+
+
+@router.delete("/examples/{example_id}")
+def delete_training_example(example_id: str, account=Depends(admin), session=Depends(db)):
+    """Remove one training sample; preserve the audit trail without its text."""
+    row = session.get(TrainingExample, example_id)
+    if not row:
+        raise HTTPException(404)
+    if row.dataset_id:
+        from app.models import MLDataset
+        dataset = session.get(MLDataset, row.dataset_id, with_for_update=True)
+        if dataset:
+            dataset.example_count = max(0, dataset.example_count - 1)
+            dataset.status = "REVIEW"
+    session.add(Audit(actor=account.id, action="ml_example_delete", target=row.id,
+                      details={"dataset_id": row.dataset_id, "source": row.source}))
+    session.delete(row)
+    session.commit()
+    return {"deleted": True}
