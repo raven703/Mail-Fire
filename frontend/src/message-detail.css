@@ -31,3 +31,6 @@ a.action-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px
 .viewer-toolbar .viewer-highlight{flex-direction:row}
 .viewer-toolbar select{min-height:38px}
 @media(max-width:640px){.message-attachments .policy-row{align-items:flex-start;flex-direction:column}.evidence-list{grid-template-columns:1fr}.viewer-toolbar{flex-wrap:wrap}}
+.detector-status.detector-enabled{color:#168044;background:#e6f5ec}.detector-status.detector-error{color:var(--high);background:var(--high-bg)}
+:root[data-theme="dark"] .detector-status.detector-enabled{color:#77dba0;background:#163d2a}
+.detector-settings-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;min-height:34px;width:34px;padding:0;font-size:22px;line-height:1}
