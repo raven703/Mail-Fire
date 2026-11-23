@@ -14,15 +14,19 @@ Run this set against a fresh isolated database; record the exact Git commit, det
 
 ### New image/PDF cases
 
-- MF350-304: `fixture-304.png`, text `PUBLIC TEST`
-- MF350-308: `fixture-308.pdf`, text `PASSPORT 4510123456`
-- MF350-311: `fixture-311.png`, text `INN 7707083893`
-- MF350-316: `fixture-316.pdf`, text `PRIVATE BUDGET 2450000`
-- MF350-319: `fixture-319.png`, text `PRIVATE BUDGET`
-- MF350-324: `fixture-324.pdf`, text `INTERNAL CONTRACT`
-- MF350-327: `fixture-327.png`, text `THREAT TEST`
-- MF350-335: `fixture-335.png`, text `SECRET TOKEN`
-- MF350-340: `fixture-340.pdf`, text `PHISHING TEST`
-- MF350-348: `fixture-348.png`, text `PASSPORT 4510123456`
+- MF350-0304: `fixture-304.png`, text `PUBLIC TEST`
+- MF350-0308: `fixture-308.pdf`, text `PUBLIC OFFER`
+- MF350-0311: `fixture-311.png`, text `INN 7707083893`
+- MF350-0316: `fixture-316.pdf`, text `PASSPORT 4510123456`
+- MF350-0319: `fixture-319.png`, text `INN 7707083893`
+- MF350-0324: `fixture-324.pdf`, text `PRIVATE BUDGET 2450000`
+- MF350-0327: `fixture-327.png`, text `PRIVATE BUDGET`
+- MF350-0335: `fixture-335.png`, text `SABOTAGE TEST`
+- MF350-0340: `fixture-340.pdf`, text `CREDENTIAL TEST`
+- MF350-0348: `fixture-348.png`, text `PASSPORT 4510123456`
 
 Original 300-case generation details are in `../benchmark-300-v2/README.md`.
+
+## Pre-evaluation corrections
+
+Seven new attachments were aligned with their declared scenarios before running MICE; category labels were not tuned. Control 0308 now contains PUBLIC OFFER instead of a passport. See manifest attachment_visible_text for authoritative corrected text. Legacy 300 EML remain byte-identical. Author labels remain provisional, not independently adjudicated.
