@@ -60,7 +60,7 @@ export function Accounts({api}:{api:API}){
    <label><input type="checkbox" name="enabled" defaultChecked={editing.enabled}/>Доступ включён</label>
    <label><input type="checkbox" name="originals" defaultChecked={editing.originals}/>Просмотр содержимого и скачивание оригиналов</label>
    <p className="edit-intro">При изменении пользователя его действующие сессии отзываются. Для отзыва доступа отключите пользователя.</p>
-{editing?.id&&<div className="actions"><button disabled={busy} onClick={()=>{if(confirm(`Отозвать доступ пользователя ${editing.username}?`))void (async()=>{setBusy(true);try{await api('accounts/'+editing.id,{method:'DELETE'});setEditing(null);await load()}catch(e){setDialogError(String(e))}finally{setBusy(false)}})()}}>Удалить пользователя (отозвать доступ)</button></div>}
+{editing?.id&&<div className="actions"><button type="button" disabled={busy} onClick={()=>{if(confirm(`Отозвать доступ пользователя ${editing.username}?`))void (async()=>{setBusy(true);try{await api('accounts/'+editing.id,{method:'DELETE'});setEditing(null);await load()}catch(e){setDialogError(String(e))}finally{setBusy(false)}})()}}>Удалить пользователя (отозвать доступ)</button></div>}
    {dialogError&&<p role="alert" className="error edit-error">{dialogError}</p>}
   </EditorDialog>}
  </section>;
