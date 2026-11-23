@@ -33,7 +33,7 @@ export function Accounts({api}:{api:API}){
    <button className="primary" onClick={()=>open({role:'analyst',enabled:true,originals:true})}>＋ Добавить пользователя</button>
   </header>
   {error&&<p role="alert" className="error">{error}</p>}
-  <p className="muted">Администратор управляет доступом. Удаление закрывает сеансы и сохраняет историю расследований. Подключение Active Directory предусмотрено отдельным провайдером аутентификации.</p>
+  <p className="muted">Администратор управляет доступом. Удаление закрывает сеансы и сохраняет историю расследований. Интеграция с Active Directory запланирована; пока используется локальный вход.</p>
   <Table rows={rows} columns={[
    ['username','Имя'],['role','Роль'],['enabled','Доступ'],
    ['originals','Оригиналы и содержимое']
