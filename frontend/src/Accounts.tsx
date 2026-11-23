@@ -30,13 +30,15 @@ export function Accounts({api}:{api:API}){
  };
  return <section>
   <header><h2>Пользователи и права</h2>
-   <button className="primary" onClick={()=>open({role:'observer',enabled:true,originals:false})}>＋ Добавить пользователя</button>
+   <button className="primary" onClick={()=>open({role:'analyst',enabled:true,originals:true})}>＋ Добавить пользователя</button>
   </header>
   {error&&<p role="alert" className="error">{error}</p>}
+  <p className="muted">Администратор управляет доступом. Удаление закрывает сеансы и сохраняет историю расследований. Подключение Active Directory предусмотрено отдельным провайдером аутентификации.</p>
   <Table rows={rows} columns={[
    ['username','Имя'],['role','Роль'],['enabled','Доступ'],
    ['originals','Оригиналы и содержимое']
   ]} onOpen={open}/>
+  {editing?.id&&<div className="actions"><button disabled={busy} onClick={()=>{if(confirm(`Отозвать доступ пользователя ${editing.username}?`))void (async()=>{setBusy(true);try{await api('accounts/'+editing.id,{method:'DELETE'});setEditing(null);await load()}catch(e){setDialogError(String(e))}finally{setBusy(false)}})()}}>Удалить пользователя (отозвать доступ)</button></div>}
   {editing&&<EditorDialog title={editing.id?'Редактировать пользователя':'Новый пользователь'}
    subtitle="Учётная запись, роль и доступ к чувствительным данным"
    busy={busy} onClose={()=>setEditing(null)} onSubmit={save} submitLabel="Сохранить пользователя">
