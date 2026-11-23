@@ -2,12 +2,14 @@
 # docker compose -f compose.yaml -f compose.ml.yaml up --build -d
 services:
   api:
+    image: mailfire-neural:local
     build:
       context: .
       target: neural
     tmpfs:
       - /tmp:size=1g,noexec,nosuid
   worker:
+    image: mailfire-neural:local
     build:
       context: .
       target: neural
@@ -16,6 +18,7 @@ services:
     tmpfs:
       - /tmp:size=1g,noexec,nosuid
   neural-worker:
+    image: mailfire-neural:local
     build:
       context: .
       target: neural
