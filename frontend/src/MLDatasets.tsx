@@ -72,7 +72,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     </div>
     <button disabled={busy} onClick={()=>{setSelected(d.id);setEdit(null);void act(()=>getSamples(d.id,0))}}>
      Проверить примеры
-    </button>
+    </button>{admin&&<button disabled={busy} onClick={()=>{if(confirm('Удалить весь набор и его обучающие примеры? Уже обученные модели останутся.'))void act(async()=>{await api('ml/datasets/'+d.id,{method:'DELETE'});if(selected===d.id){setSelected('');setSamples([]);setStats(null)}await reload()})}}>Удалить</button>}
    </div>)}
   </section>
   {selected&&<section className="ml-dataset-review">
@@ -85,7 +85,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     <div className="actions">
      <button type="button" disabled={busy} onClick={()=>{setEdit(sample);setLabels(sample.labels||[]);setApproved(!!sample.approved)}}>
       Изменить и проверить разметку
-     </button>
+     </button>{admin&&<button disabled={busy} onClick={()=>{if(confirm('Удалить обучающий пример?'))void act(async()=>{await api('catalog/examples/'+sample.id,{method:'DELETE'});await getSamples(selected,offset)})}}>Удалить</button>}
     </div>
    </article>)}
    <nav className="pagination">
