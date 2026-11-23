@@ -20,7 +20,7 @@ export function CategoryManagement({api,admin}:{api:API,admin:boolean}){
   {error&&<p className="error" role="alert">{error}</p>}
   {creating&&<CategoryForm api={api} onCancel={()=>setCreating(false)} onSaved={async()=>{await refresh();setCreating(false)}}/>}
   {editing&&<CategoryForm key={editing.id} api={api} initial={editing} onCancel={()=>setEditing(null)} onSaved={async()=>{await refresh();setEditing(null)}}/>}
-  <section><header className="category-catalog-heading"><h2>Категории ({items.length})</h2>
+  <section><header className="category-catalog-heading"><h2>Категории ({filtered.length})</h2>
    <div className="category-kind-filter" role="group" aria-label="Тип категорий">
     {([['all','Все'],['system','Системные'],['custom','Пользовательские']] as const).map(([value,label])=>
      <button type="button" key={value} aria-pressed={kind===value} onClick={()=>setKind(value)}>
