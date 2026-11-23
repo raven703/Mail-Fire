@@ -1,0 +1,812 @@
+[
+  {
+    "id": "MF350-0304",
+    "name": "fixture-304.png",
+    "expected": "PUBLIC TEST",
+    "text": "LEL\nTET\nIT'HTHETII\nF.\nTETT",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "LEL",
+          "confidence": 0.7690219879150391,
+          "box": [
+            [
+              10.0,
+              2.0
+            ],
+            [
+              187.0,
+              2.0
+            ],
+            [
+              187.0,
+              41.0
+            ],
+            [
+              10.0,
+              41.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "TET",
+          "confidence": 0.8631946444511414,
+          "box": [
+            [
+              218.0,
+              1.0
+            ],
+            [
+              335.0,
+              1.0
+            ],
+            [
+              335.0,
+              41.0
+            ],
+            [
+              218.0,
+              41.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "IT'HTHETII",
+          "confidence": 0.7860478162765503,
+          "box": [
+            [
+              10.0,
+              48.0
+            ],
+            [
+              275.0,
+              48.0
+            ],
+            [
+              275.0,
+              87.0
+            ],
+            [
+              10.0,
+              87.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "F.",
+          "confidence": 0.6560669541358948,
+          "box": [
+            [
+              308.0,
+              47.0
+            ],
+            [
+              396.0,
+              47.0
+            ],
+            [
+              396.0,
+              88.0
+            ],
+            [
+              308.0,
+              88.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "TETT",
+          "confidence": 0.7407292127609253,
+          "box": [
+            [
+              430.0,
+              48.0
+            ],
+            [
+              546.0,
+              48.0
+            ],
+            [
+              546.0,
+              88.0
+            ],
+            [
+              430.0,
+              88.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "MF350-0308",
+    "name": "fixture-308.pdf",
+    "expected": "PUBLIC OFFER",
+    "text": "PUBLIC OFFER\nSYNTHETIC PDF FIXTURE\n",
+    "status": "ANALYZED",
+    "details": {
+      "ocr_required": false,
+      "pages": 1,
+      "ocr": []
+    }
+  },
+  {
+    "id": "MF350-0311",
+    "name": "fixture-311.png",
+    "expected": "INN 7707083893",
+    "text": "гчгч\nITEFEHIEIIEE\nITHTHETII\nF.\nTE-T",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "гчгч",
+          "confidence": 0.6229898929595947,
+          "box": [
+            [
+              10.0,
+              3.0
+            ],
+            [
+              98.0,
+              3.0
+            ],
+            [
+              98.0,
+              41.0
+            ],
+            [
+              10.0,
+              41.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "ITEFEHIEIIEE",
+          "confidence": 0.6775863766670227,
+          "box": [
+            [
+              130.0,
+              3.0
+            ],
+            [
+              425.0,
+              6.0
+            ],
+            [
+              424.0,
+              41.0
+            ],
+            [
+              130.0,
+              39.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "ITHTHETII",
+          "confidence": 0.8420088291168213,
+          "box": [
+            [
+              11.0,
+              50.0
+            ],
+            [
+              276.0,
+              50.0
+            ],
+            [
+              276.0,
+              86.0
+            ],
+            [
+              11.0,
+              86.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "F.",
+          "confidence": 0.6838674545288086,
+          "box": [
+            [
+              308.0,
+              47.0
+            ],
+            [
+              396.0,
+              47.0
+            ],
+            [
+              396.0,
+              88.0
+            ],
+            [
+              308.0,
+              88.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "TE-T",
+          "confidence": 0.7057087421417236,
+          "box": [
+            [
+              430.0,
+              48.0
+            ],
+            [
+              546.0,
+              48.0
+            ],
+            [
+              546.0,
+              88.0
+            ],
+            [
+              430.0,
+              88.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "MF350-0316",
+    "name": "fixture-316.pdf",
+    "expected": "PASSPORT 4510123456",
+    "text": "PASSPORT 4510123456\nSYNTHETIC PDF FIXTURE\n",
+    "status": "ANALYZED",
+    "details": {
+      "ocr_required": false,
+      "pages": 1,
+      "ocr": []
+    }
+  },
+  {
+    "id": "MF350-0319",
+    "name": "fixture-319.png",
+    "expected": "INN 7707083893",
+    "text": "INN\nоо8383\nSYNTHETIC\nOСR\nFIXTURE",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "INN",
+          "confidence": 0.8778337836265564,
+          "box": [
+            [
+              26.0,
+              45.0
+            ],
+            [
+              101.0,
+              45.0
+            ],
+            [
+              101.0,
+              82.0
+            ],
+            [
+              26.0,
+              82.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "оо8383",
+          "confidence": 0.7816965579986572,
+          "box": [
+            [
+              120.0,
+              48.0
+            ],
+            [
+              377.0,
+              48.0
+            ],
+            [
+              377.0,
+              79.0
+            ],
+            [
+              120.0,
+              79.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "SYNTHETIC",
+          "confidence": 0.8678308725357056,
+          "box": [
+            [
+              28.0,
+              127.0
+            ],
+            [
+              258.0,
+              127.0
+            ],
+            [
+              258.0,
+              159.0
+            ],
+            [
+              28.0,
+              159.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "OСR",
+          "confidence": 0.9037285447120667,
+          "box": [
+            [
+              274.0,
+              125.0
+            ],
+            [
+              364.0,
+              125.0
+            ],
+            [
+              364.0,
+              163.0
+            ],
+            [
+              274.0,
+              163.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "FIXTURE",
+          "confidence": 0.8659358024597168,
+          "box": [
+            [
+              380.0,
+              126.0
+            ],
+            [
+              553.0,
+              126.0
+            ],
+            [
+              553.0,
+              162.0
+            ],
+            [
+              380.0,
+              162.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "MF350-0324",
+    "name": "fixture-324.pdf",
+    "expected": "PRIVATE BUDGET 2450000",
+    "text": "PRIVATE BUDGET 2450000\nSYNTHETIC PDF FIXTURE\n",
+    "status": "ANALYZED",
+    "details": {
+      "ocr_required": false,
+      "pages": 1,
+      "ocr": []
+    }
+  },
+  {
+    "id": "MF350-0327",
+    "name": "fixture-327.png",
+    "expected": "PRIVATE BUDGET",
+    "text": "PRIVАTЕ\nBUDGET\nSYNTHETIO\nOСR\nFIXTURE",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "PRIVАTЕ",
+          "confidence": 0.8451385498046875,
+          "box": [
+            [
+              29.0,
+              47.0
+            ],
+            [
+              192.0,
+              47.0
+            ],
+            [
+              192.0,
+              79.0
+            ],
+            [
+              29.0,
+              79.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "BUDGET",
+          "confidence": 0.9827754497528076,
+          "box": [
+            [
+              214.0,
+              48.0
+            ],
+            [
+              384.0,
+              48.0
+            ],
+            [
+              384.0,
+              79.0
+            ],
+            [
+              214.0,
+              79.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "SYNTHETIO",
+          "confidence": 0.9003998637199402,
+          "box": [
+            [
+              28.0,
+              127.0
+            ],
+            [
+              258.0,
+              127.0
+            ],
+            [
+              258.0,
+              159.0
+            ],
+            [
+              28.0,
+              159.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "OСR",
+          "confidence": 0.8457137942314148,
+          "box": [
+            [
+              274.0,
+              125.0
+            ],
+            [
+              364.0,
+              125.0
+            ],
+            [
+              364.0,
+              163.0
+            ],
+            [
+              274.0,
+              163.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "FIXTURE",
+          "confidence": 0.915740430355072,
+          "box": [
+            [
+              380.0,
+              126.0
+            ],
+            [
+              553.0,
+              126.0
+            ],
+            [
+              553.0,
+              162.0
+            ],
+            [
+              380.0,
+              162.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "MF350-0335",
+    "name": "fixture-335.png",
+    "expected": "SABOTAGE TEST",
+    "text": "SABOTAGE\nTEST\nSYNTHETIO\nOСR\nFIXTURE",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "SABOTAGE",
+          "confidence": 0.9861382246017456,
+          "box": [
+            [
+              28.0,
+              48.0
+            ],
+            [
+              249.0,
+              48.0
+            ],
+            [
+              249.0,
+              79.0
+            ],
+            [
+              28.0,
+              79.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "TEST",
+          "confidence": 0.8980687856674194,
+          "box": [
+            [
+              267.0,
+              47.0
+            ],
+            [
+              370.0,
+              47.0
+            ],
+            [
+              370.0,
+              80.0
+            ],
+            [
+              267.0,
+              80.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "SYNTHETIO",
+          "confidence": 0.9003998637199402,
+          "box": [
+            [
+              28.0,
+              127.0
+            ],
+            [
+              258.0,
+              127.0
+            ],
+            [
+              258.0,
+              159.0
+            ],
+            [
+              28.0,
+              159.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "OСR",
+          "confidence": 0.8457137942314148,
+          "box": [
+            [
+              274.0,
+              125.0
+            ],
+            [
+              364.0,
+              125.0
+            ],
+            [
+              364.0,
+              163.0
+            ],
+            [
+              274.0,
+              163.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "FIXTURE",
+          "confidence": 0.915740430355072,
+          "box": [
+            [
+              380.0,
+              126.0
+            ],
+            [
+              553.0,
+              126.0
+            ],
+            [
+              553.0,
+              162.0
+            ],
+            [
+              380.0,
+              162.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "MF350-0340",
+    "name": "fixture-340.pdf",
+    "expected": "CREDENTIAL TEST",
+    "text": "CREDENTIAL TEST\nSYNTHETIC PDF FIXTURE\n",
+    "status": "ANALYZED",
+    "details": {
+      "ocr_required": false,
+      "pages": 1,
+      "ocr": []
+    }
+  },
+  {
+    "id": "MF350-0348",
+    "name": "fixture-348.png",
+    "expected": "PASSPORT 4510123456",
+    "text": "HEIFТ\n1E1F1E\nITHTHETI\nF\nТEтТ",
+    "status": "ANALYZED",
+    "details": {
+      "backend": "paddleocr",
+      "blocks": [
+        {
+          "text": "HEIFТ",
+          "confidence": 0.6015285849571228,
+          "box": [
+            [
+              10.0,
+              3.0
+            ],
+            [
+              245.0,
+              6.0
+            ],
+            [
+              245.0,
+              41.0
+            ],
+            [
+              10.0,
+              39.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "1E1F1E",
+          "confidence": 0.66020268201828,
+          "box": [
+            [
+              281.0,
+              5.0
+            ],
+            [
+              572.0,
+              5.0
+            ],
+            [
+              572.0,
+              40.0
+            ],
+            [
+              281.0,
+              40.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "ITHTHETI",
+          "confidence": 0.8066127300262451,
+          "box": [
+            [
+              10.0,
+              50.0
+            ],
+            [
+              273.0,
+              50.0
+            ],
+            [
+              273.0,
+              86.0
+            ],
+            [
+              10.0,
+              86.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "F",
+          "confidence": 0.7683268785476685,
+          "box": [
+            [
+              309.0,
+              48.0
+            ],
+            [
+              396.0,
+              48.0
+            ],
+            [
+              396.0,
+              89.0
+            ],
+            [
+              309.0,
+              89.0
+            ]
+          ],
+          "page": 1
+        },
+        {
+          "text": "ТEтТ",
+          "confidence": 0.6207762360572815,
+          "box": [
+            [
+              431.0,
+              47.0
+            ],
+            [
+              548.0,
+              47.0
+            ],
+            [
+              548.0,
+              87.0
+            ],
+            [
+              431.0,
+              87.0
+            ]
+          ],
+          "page": 1
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,516 @@
+{
+  "messages": 350,
+  "statuses": {
+    "ANALYZED": 350
+  },
+  "processing_exceptions": 0,
+  "strict_all_categories": {
+    "TP": 235,
+    "FP": 50,
+    "FN": 71,
+    "precision": 0.8245614035087719,
+    "recall": 0.7679738562091504,
+    "F1": 0.7952622673434856
+  },
+  "semantic_scope_micro": {
+    "TP": 235,
+    "FP": 30,
+    "FN": 71,
+    "precision": 0.8867924528301887,
+    "recall": 0.7679738562091504,
+    "F1": 0.8231173380035026
+  },
+  "strict_exact": 246,
+  "semantic_scope_exact": 258,
+  "per_category": {
+    "CODE": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "CONFIDENTIAL": {
+      "TP": 0,
+      "FP": 5,
+      "FN": 0,
+      "TN": 345,
+      "precision": 0.0,
+      "recall": null,
+      "F1": 0.0
+    },
+    "EMAIL": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "INN": {
+      "TP": 0,
+      "FP": 15,
+      "FN": 0,
+      "TN": 335,
+      "precision": 0.0,
+      "recall": null,
+      "F1": 0.0
+    },
+    "MALWARE": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "NORMAL": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "OFFICE_MACRO": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "PHONE": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "PRIVATE_KEY": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "PROMPT_INJECTION": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "REFERENCE_DOCUMENT": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "RU_INN": {
+      "TP": 8,
+      "FP": 7,
+      "FN": 10,
+      "TN": 325,
+      "precision": 0.5333333333333333,
+      "recall": 0.4444444444444444,
+      "F1": 0.48484848484848486
+    },
+    "RU_PASSPORT": {
+      "TP": 17,
+      "FP": 0,
+      "FN": 0,
+      "TN": 333,
+      "precision": 1.0,
+      "recall": 1.0,
+      "F1": 1.0
+    },
+    "RU_PHONE": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "RU_SNILS": {
+      "TP": 16,
+      "FP": 0,
+      "FN": 0,
+      "TN": 334,
+      "precision": 1.0,
+      "recall": 1.0,
+      "F1": 1.0
+    },
+    "SECRET": {
+      "TP": 10,
+      "FP": 7,
+      "FN": 3,
+      "TN": 330,
+      "precision": 0.5882352941176471,
+      "recall": 0.7692307692307693,
+      "F1": 0.6666666666666666
+    },
+    "SEMANTIC_REFERENCE": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "SUSPICIOUS_COMMAND": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "YARA": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 350,
+      "precision": null,
+      "recall": null,
+      "F1": null
+    },
+    "pack-ru2-credential-transfer": {
+      "TP": 15,
+      "FP": 0,
+      "FN": 1,
+      "TN": 334,
+      "precision": 1.0,
+      "recall": 0.9375,
+      "F1": 0.967741935483871
+    },
+    "pack-ru2-customer-data": {
+      "TP": 10,
+      "FP": 0,
+      "FN": 10,
+      "TN": 330,
+      "precision": 1.0,
+      "recall": 0.5,
+      "F1": 0.6666666666666666
+    },
+    "pack-ru2-data-exfil": {
+      "TP": 17,
+      "FP": 0,
+      "FN": 2,
+      "TN": 331,
+      "precision": 1.0,
+      "recall": 0.8947368421052632,
+      "F1": 0.9444444444444444
+    },
+    "pack-ru2-explosive-threat": {
+      "TP": 12,
+      "FP": 8,
+      "FN": 3,
+      "TN": 327,
+      "precision": 0.6,
+      "recall": 0.8,
+      "F1": 0.6857142857142857
+    },
+    "pack-ru2-extortion": {
+      "TP": 11,
+      "FP": 0,
+      "FN": 3,
+      "TN": 336,
+      "precision": 1.0,
+      "recall": 0.7857142857142857,
+      "F1": 0.88
+    },
+    "pack-ru2-financial-plans": {
+      "TP": 34,
+      "FP": 0,
+      "FN": 2,
+      "TN": 314,
+      "precision": 1.0,
+      "recall": 0.9444444444444444,
+      "F1": 0.9714285714285714
+    },
+    "pack-ru2-internal-docs": {
+      "TP": 16,
+      "FP": 0,
+      "FN": 5,
+      "TN": 329,
+      "precision": 1.0,
+      "recall": 0.7619047619047619,
+      "F1": 0.8648648648648649
+    },
+    "pack-ru2-phishing": {
+      "TP": 20,
+      "FP": 8,
+      "FN": 3,
+      "TN": 319,
+      "precision": 0.7142857142857143,
+      "recall": 0.8695652173913043,
+      "F1": 0.7843137254901961
+    },
+    "pack-ru2-pii-handling": {
+      "TP": 18,
+      "FP": 0,
+      "FN": 4,
+      "TN": 328,
+      "precision": 1.0,
+      "recall": 0.8181818181818182,
+      "F1": 0.9
+    },
+    "pack-ru2-pricing": {
+      "TP": 11,
+      "FP": 0,
+      "FN": 19,
+      "TN": 320,
+      "precision": 1.0,
+      "recall": 0.36666666666666664,
+      "F1": 0.5365853658536586
+    },
+    "pack-ru2-sabotage": {
+      "TP": 9,
+      "FP": 0,
+      "FN": 3,
+      "TN": 338,
+      "precision": 1.0,
+      "recall": 0.75,
+      "F1": 0.8571428571428571
+    },
+    "pack-ru2-violence-threat": {
+      "TP": 11,
+      "FP": 0,
+      "FN": 3,
+      "TN": 336,
+      "precision": 1.0,
+      "recall": 0.7857142857142857,
+      "F1": 0.88
+    }
+  },
+  "dimensions": {
+    "cohort": {
+      "MF300": {
+        "TP": 225,
+        "FP": 47,
+        "FN": 35,
+        "messages": 300,
+        "precision": 0.8272058823529411,
+        "recall": 0.8653846153846154,
+        "F1": 0.8458646616541353
+      },
+      "MF350": {
+        "TP": 10,
+        "FP": 3,
+        "FN": 36,
+        "messages": 50,
+        "precision": 0.7692307692307693,
+        "recall": 0.21739130434782608,
+        "F1": 0.3389830508474576
+      }
+    },
+    "group": {
+      "control": {
+        "TP": 0,
+        "FP": 37,
+        "FN": 0,
+        "messages": 70,
+        "precision": 0.0,
+        "recall": null,
+        "F1": 0.0
+      },
+      "pii": {
+        "TP": 52,
+        "FP": 7,
+        "FN": 13,
+        "messages": 65,
+        "precision": 0.8813559322033898,
+        "recall": 0.8,
+        "F1": 0.8387096774193549
+      },
+      "commercial": {
+        "TP": 46,
+        "FP": 0,
+        "FN": 19,
+        "messages": 65,
+        "precision": 1.0,
+        "recall": 0.7076923076923077,
+        "F1": 0.8288288288288288
+      },
+      "safety": {
+        "TP": 43,
+        "FP": 0,
+        "FN": 10,
+        "messages": 53,
+        "precision": 1.0,
+        "recall": 0.8113207547169812,
+        "F1": 0.8958333333333334
+      },
+      "secrets": {
+        "TP": 40,
+        "FP": 0,
+        "FN": 6,
+        "messages": 46,
+        "precision": 1.0,
+        "recall": 0.8695652173913043,
+        "F1": 0.9302325581395349
+      },
+      "documents": {
+        "TP": 22,
+        "FP": 0,
+        "FN": 3,
+        "messages": 25,
+        "precision": 1.0,
+        "recall": 0.88,
+        "F1": 0.9361702127659575
+      },
+      "mixed": {
+        "TP": 32,
+        "FP": 6,
+        "FN": 20,
+        "messages": 26,
+        "precision": 0.8421052631578947,
+        "recall": 0.6153846153846154,
+        "F1": 0.7111111111111111
+      }
+    },
+    "attachment_type": {
+      "none": {
+        "TP": 24,
+        "FP": 38,
+        "FN": 39,
+        "messages": 124,
+        "precision": 0.3870967741935484,
+        "recall": 0.38095238095238093,
+        "F1": 0.384
+      },
+      "txt": {
+        "TP": 25,
+        "FP": 3,
+        "FN": 1,
+        "messages": 24,
+        "precision": 0.8928571428571429,
+        "recall": 0.9615384615384616,
+        "F1": 0.9259259259259259
+      },
+      "docx": {
+        "TP": 48,
+        "FP": 2,
+        "FN": 4,
+        "messages": 48,
+        "precision": 0.96,
+        "recall": 0.9230769230769231,
+        "F1": 0.9411764705882353
+      },
+      "xlsx": {
+        "TP": 37,
+        "FP": 2,
+        "FN": 15,
+        "messages": 48,
+        "precision": 0.9487179487179487,
+        "recall": 0.7115384615384616,
+        "F1": 0.8131868131868132
+      },
+      "csv": {
+        "TP": 48,
+        "FP": 1,
+        "FN": 4,
+        "messages": 48,
+        "precision": 0.9795918367346939,
+        "recall": 0.9230769230769231,
+        "F1": 0.9504950495049505
+      },
+      "html": {
+        "TP": 48,
+        "FP": 2,
+        "FN": 4,
+        "messages": 48,
+        "precision": 0.96,
+        "recall": 0.9230769230769231,
+        "F1": 0.9411764705882353
+      },
+      "png": {
+        "TP": 3,
+        "FP": 2,
+        "FN": 3,
+        "messages": 6,
+        "precision": 0.6,
+        "recall": 0.5,
+        "F1": 0.5454545454545454
+      },
+      "pdf": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 1,
+        "messages": 4,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "F1": 0.8
+      }
+    },
+    "difficulty": {
+      "easy": {
+        "TP": 72,
+        "FP": 14,
+        "FN": 39,
+        "messages": 126,
+        "precision": 0.8372093023255814,
+        "recall": 0.6486486486486487,
+        "F1": 0.7309644670050761
+      },
+      "medium": {
+        "TP": 76,
+        "FP": 17,
+        "FN": 11,
+        "messages": 101,
+        "precision": 0.8172043010752689,
+        "recall": 0.8735632183908046,
+        "F1": 0.8444444444444444
+      },
+      "hard": {
+        "TP": 87,
+        "FP": 19,
+        "FN": 21,
+        "messages": 123,
+        "precision": 0.8207547169811321,
+        "recall": 0.8055555555555556,
+        "F1": 0.8130841121495327
+      }
+    }
+  },
+  "attachment_statuses": {
+    "ANALYZED": 226
+  },
+  "attachment_count": 226,
+  "new_attachment_quality": {
+    "png": {
+      "total": 6,
+      "visible_text_exact": 1
+    },
+    "pdf": {
+      "total": 4,
+      "visible_text_exact": 4
+    }
+  },
+  "caveats": [
+    "Author-defined provisional semantic labels, not expert-adjudicated.",
+    "Strict auxiliary-category FP are not all confirmed semantic false alarms.",
+    "All 350 inputs included, including pipeline exceptions (no success-only filtering).",
+    "No active ML models; no training or detector tuning performed."
+  ]
+}
