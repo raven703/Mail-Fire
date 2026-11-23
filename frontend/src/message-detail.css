@@ -1,0 +1,33 @@
+/* Shared visual contract for message actions, attachments and DLP evidence. */
+a.action-button {
+ display:inline-flex;align-items:center;justify-content:center;gap:6px;
+ box-sizing:border-box;min-height:38px;padding:9px 14px;
+ border:1px solid var(--border);border-radius:var(--mf-control-radius);
+ background:var(--card);color:var(--text);font:inherit;font-size:13px;
+ font-weight:550;line-height:1.25;text-decoration:none;white-space:nowrap;
+ transition:background-color .15s ease,border-color .15s ease;
+}
+a.action-button:hover{background:var(--selected);color:var(--text);text-decoration:none}
+a.action-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.detail>.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.message-attachments .policy-row{padding:14px 0;align-items:center;gap:16px}
+.message-attachments .policy-info{min-width:0}
+.message-attachments .policy-info strong{overflow-wrap:anywhere;font-size:14px}
+.message-attachments .policy-info p{margin:5px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.message-attachments .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.detail .mail-text,.document-viewer .mail-text{padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:13px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.evidence-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:start;gap:10px;margin:14px 0}
+.evidence-list .evidence-card{min-width:0;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--medium);border-radius:10px;background:var(--card);box-shadow:none}
+.evidence-list .evidence-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:0 0 8px;padding:0;border:0}
+.evidence-list .evidence-card h3{font-size:13px;line-height:1.4;margin:0 0 3px;overflow-wrap:anywhere}
+.evidence-list .evidence-card small{font-size:11px;line-height:1.4;color:var(--muted)}
+.evidence-list .evidence-card p{font-size:12px;line-height:1.5;margin:6px 0;overflow-wrap:anywhere}
+.evidence-list .evidence-card blockquote{margin:8px 0;padding:9px 11px;font-size:12px;line-height:1.5;max-height:140px;overflow:auto;border-radius:6px}
+.evidence-list .evidence-card details{margin-top:8px;font-size:11px}
+.evidence-list .evidence-card summary{cursor:pointer;color:var(--muted)}
+.evidence-list .evidence-card .facts{margin:8px 0 0;gap:8px;font-size:11px}
+.viewer-toolbar{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.viewer-toolbar label{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.viewer-toolbar .viewer-highlight{flex-direction:row}
+.viewer-toolbar select{min-height:38px}
+@media(max-width:640px){.message-attachments .policy-row{align-items:flex-start;flex-direction:column}.evidence-list{grid-template-columns:1fr}.viewer-toolbar{flex-wrap:wrap}}
