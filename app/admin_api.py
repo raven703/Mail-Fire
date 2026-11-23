@@ -106,11 +106,6 @@ def attachment_original(attachment_id: str, account=Depends(user), session=Depen
     )
 
 
-PREVIEW_MIME = {
-    "application/pdf", "image/png", "image/jpeg", "image/gif", "image/webp",
-}
-
-
 @router.get("/attachments/{attachment_id}/preview")
 def attachment_preview(attachment_id: str, account=Depends(user), session=Depends(db)):
     """Display only allowlisted passive formats. Others use extracted plain text."""
@@ -127,9 +122,9 @@ def attachment_preview(attachment_id: str, account=Depends(user), session=Depend
     data = blob.data
     if data.startswith(b"%PDF-"):
         mime = "application/pdf"
-    elif data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+    elif data.startswith(b"\x89PNG\r\n\x1a\n"):
         mime = "image/png"
-    elif data.startswith(b"\\xff\\xd8\\xff"):
+    elif data.startswith(b"\xff\xd8\xff"):
         mime = "image/jpeg"
     elif data.startswith((b"GIF87a", b"GIF89a")):
         mime = "image/gif"
