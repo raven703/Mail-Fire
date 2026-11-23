@@ -235,3 +235,20 @@ def stats(dataset_id: str, account=Depends(analyst), session=Depends(db)):
         "approved": sum(bool(x[1]) for x in values),
         "labels": labels,
     }
+
+
+@router.delete("/{dataset_id}")
+def delete_dataset(dataset_id: str, account=Depends(admin), session=Depends(db)):
+    permitted(account)
+    dataset = session.get(MLDataset, dataset_id, with_for_update=True)
+    if not dataset:
+        raise HTTPException(404)
+    # Existing trained model artifacts are immutable; future training will no
+    # longer draw from these examples. Keep model historical metadata.
+    from sqlalchemy import delete
+    count = session.execute(delete(TrainingExample).where(TrainingExample.dataset_id == dataset_id)).rowcount
+    session.add(Audit(actor=account.id, action="ml_dataset_delete", target=dataset.id,
+                      details={"name": dataset.name, "examples_deleted": count}))
+    session.delete(dataset)
+    session.commit()
+    return {"deleted": True, "examples_deleted": count}
