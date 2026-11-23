@@ -130,8 +130,8 @@ def attachment_preview(attachment_id: str, account=Depends(user), session=Depend
     # Don't trust a MIME type supplied by an email: verify file signature.
     signatures = {
         "application/pdf": blob.data.startswith(b"%PDF-"),
-        "image/png": blob.data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"),
-        "image/jpeg": blob.data.startswith(b"\\xff\\xd8\\xff"),
+        "image/png": blob.data.startswith(b"\x89PNG\r\n\x1a\n"),
+        "image/jpeg": blob.data.startswith(b"\xff\xd8\xff"),
         "image/gif": blob.data.startswith((b"GIF87a", b"GIF89a")),
         "image/webp": blob.data.startswith(b"RIFF") and blob.data[8:12] == b"WEBP",
     }
