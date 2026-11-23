@@ -80,7 +80,7 @@ export function MLDatasets({api,admin}:{api:API,admin:boolean}){
     <button onClick={()=>{setSelected('');setSamples([]);setStats(null)}}>Закрыть</button>
    </header>
    {samples.map(sample=><article key={sample.id} className="ml-example">
-    <p className="ml-example-text">{sample.text}</p>
+    <p className="ml-example-text">{String(sample.text||'').slice(0,300)}{String(sample.text||'').length>300?'…':''}</p>
     <p className="muted">Метки: {(sample.labels||[]).join(', ')} · {sample.approved?'Подтверждено':'Требует проверки'}</p>
     <div className="actions">
      <button type="button" disabled={busy} onClick={()=>{setEdit(sample);setLabels(sample.labels||[]);setApproved(!!sample.approved)}}>
