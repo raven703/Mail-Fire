@@ -6,7 +6,7 @@ import {json,type API,type Row} from './components';
 export function CategoryManagement({api,admin}:{api:API,admin:boolean}){
  const [items,setItems]=useState<Row[]>([]),[creating,setCreating]=useState(false),[editing,setEditing]=useState<Row|null>(null);
  const [error,setError]=useState(''),[search,setSearch]=useState('');
- const [kind,setKind]=useState<'all'|'system'|'custom'>('all');
+ const [kind,setKind]=useState<'all'|'system'|'custom'>('custom');
  const refresh=()=>api('categories').then(d=>setItems(d.items||[])).catch(e=>setError(String(e)));
  useEffect(()=>{void refresh()},[]);
  const isSystem=(c:Row)=>c.system||c.mode==='builtin'||c.mode==='label';
