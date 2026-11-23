@@ -1,6 +1,7 @@
 """Live management data for policy, detector, reference and ML workspaces."""
 
 from datetime import timedelta
+from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
@@ -21,6 +22,7 @@ from app.models import (
     now,
 )
 from app.workspace_api import PolicyBody, persist_policy
+from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS
 
 router = APIRouter(prefix="/api/catalog", tags=["Management"])
 DETECTORS = {
@@ -118,7 +120,7 @@ def detectors(account=Depends(user), session=Depends(db)):
     config = row.value if row else {}
     active_model = session.scalar(select(MLModel.id).where(MLModel.active.is_(True)))
     normalizer = session.get(Setting, "normalizer")
-    norm_options = {**__import__("app.text_normalizer", fromlist=["DEFAULTS"]).DEFAULTS,
+    norm_options = {**NORMALIZER_DEFAULTS,
                     **(normalizer.value if normalizer else {})}
     return {
         "items": [
