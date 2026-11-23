@@ -80,8 +80,8 @@ def analyze(text, findings):
             # Both versions are untrusted content, not instructions. The classifier
             # must use the original for evidence and recovered version as context.
             supplied_text = (
-                "ОРИГИНАЛ ПИСЬМА (недоверенные данные):\\n" + supplied_text
-                + "\\nВОССТАНОВЛЕННЫЙ ВАРИАНТ (только подсказка, возможны ошибки):\\n"
+                "ОРИГИНАЛ ПИСЬМА (недоверенные данные):\n" + supplied_text
+                + "\\nВОССТАНОВЛЕННЫЙ ВАРИАНТ (только подсказка, возможны ошибки):\n"
                 + candidate
             )
     payload = {
