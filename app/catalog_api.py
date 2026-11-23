@@ -42,6 +42,7 @@ DETECTORS = {
     "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),
     "semantic": ("Семантическое сходство", "Multilingual MiniLM / pgvector", ["SEMANTIC_REFERENCE"]),
     "ml": ("ML-классификатор", "TF-IDF / Logistic Regression", []),
+    "normalizer": ("Нормализация текста", "Восстановление обфускаций перед LLM (оригинал сохраняется)", []),
 }
 
 
@@ -116,6 +117,9 @@ def detectors(account=Depends(user), session=Depends(db)):
     row = session.get(Setting, "detectors")
     config = row.value if row else {}
     active_model = session.scalar(select(MLModel.id).where(MLModel.active.is_(True)))
+    normalizer = session.get(Setting, "normalizer")
+    norm_options = {**__import__("app.text_normalizer", fromlist=["DEFAULTS"]).DEFAULTS,
+                    **(normalizer.value if normalizer else {})}
     return {
         "items": [
             dict(
@@ -123,8 +127,10 @@ def detectors(account=Depends(user), session=Depends(db)):
                 name=value[0],
                 engine=value[1],
                 categories=value[2],
-                enabled=config.get(key, True),
+                enabled=norm_options["enabled"] if key == "normalizer" else config.get(key, True),
                 available=key != "ml" or bool(active_model),
+                **({"mode": norm_options["mode"], "sensitivity": norm_options["sensitivity"]}
+                   if key == "normalizer" else {}),
             )
             for key, value in DETECTORS.items()
         ]
@@ -135,6 +141,16 @@ def detectors(account=Depends(user), session=Depends(db)):
 def detector_settings(detector_id: str, body: Toggle, account=Depends(admin), session=Depends(db)):
     if detector_id not in DETECTORS:
         raise HTTPException(404)
+    if detector_id == "normalizer":
+        row = session.get(Setting, "normalizer", with_for_update=True)
+        from app.text_normalizer import DEFAULTS
+        if not row:
+            row = Setting(key="normalizer", value=dict(DEFAULTS))
+            session.add(row)
+        row.value = {**DEFAULTS, **row.value, "enabled": body.enabled}
+        session.add(Audit(actor=account.id, action="normalizer_config", target="normalizer", details=row.value))
+        session.commit()
+        return {"saved": True}
     row = session.get(Setting, "detectors", with_for_update=True)
     if not row:
         row = Setting(key="detectors", value={})
@@ -284,3 +300,21 @@ def delete_training_example(example_id: str, account=Depends(admin), session=Dep
     session.delete(row)
     session.commit()
     return {"deleted": True}
+
+class NormalizerOptions(BaseModel):
+    enabled: bool
+    mode: Literal["detect", "augment"] = "detect"
+    sensitivity: Literal["low", "medium", "high"] = "medium"
+
+
+@router.put("/normalizer")
+def update_normalizer(body: NormalizerOptions, account=Depends(admin), session=Depends(db)):
+    row = session.get(Setting, "normalizer", with_for_update=True)
+    if not row:
+        row = Setting(key="normalizer", value={})
+        session.add(row)
+    row.value = body.model_dump()
+    session.add(Audit(actor=account.id, action="normalizer_config", target="normalizer",
+                      details=body.model_dump()))
+    session.commit()
+    return {"saved": True, **row.value}
