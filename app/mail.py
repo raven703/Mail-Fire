@@ -14,14 +14,6 @@ def sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def put_blob(session, data):
-    from sqlalchemy.dialects.postgresql import insert
-
-    from app.models import Blob
-
-    digest = sha(data)
-    session.execute(insert(Blob).values(sha=digest, data=data, size=len(data)).on_conflict_do_nothing())
-    return digest
 
 
 def format_of(data):
@@ -120,42 +112,3 @@ def classify_direction(sender, recipients, internal_domains):
     if src and dst == {True}:
         return "INTERNAL"
     return "UNKNOWN"
-
-
-def ingest(session, data, source, source_key, name, envelope=None):
-    from sqlalchemy import select
-
-    from app.models import ImportRecord, Job, MailEvent, Message
-
-    if len(data) > settings().max_message_bytes:
-        raise ValueError("Превышен размер письма")
-    session.execute(
-        __import__("sqlalchemy").text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key": source_key}
-    )
-    existing = session.scalar(select(ImportRecord).where(ImportRecord.source_key == source_key))
-    if existing:
-        return existing
-    kind = format_of(data)
-    digest = put_blob(session, data)
-    message = session.scalar(select(Message).where(Message.original_sha == digest))
-    duplicate = message is not None
-    if not message:
-        session.execute(
-            __import__("sqlalchemy").text("SELECT pg_advisory_xact_lock(hashtext(:key))"), {"key": digest}
-        )
-        message = session.scalar(select(Message).where(Message.original_sha == digest))
-        if not message:
-            message = Message(original_sha=digest, format=kind)
-            session.add(message)
-            session.flush()
-            session.add(Job(kind="analyze", payload={"message_id": message.id}))
-    event = MailEvent(message_id=message.id, source=source, source_key=source_key, envelope=envelope or {})
-    session.add(event)
-    record = ImportRecord(
-        source_key=source_key, name=name, status="SAVED", message_id=message.id, duplicate=duplicate
-    )
-    session.add(record)
-    session.flush()
-    # New delivery context must be evaluated even if content was analyzed earlier.
-    session.add(Job(kind="evaluate", payload={"event_id": event.id}))
-    return record

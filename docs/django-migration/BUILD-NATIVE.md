@@ -1,6 +1,6 @@
 # Experimental native build
 
-The target stack is defined in `compose.django.yaml`. It uses Django, HTMX,
+The target stack is defined in `compose.yaml`. It uses Django, HTMX,
 Celery, RabbitMQ, PostgreSQL/pgvector, Nginx and isolated analysis services.
 Use dedicated experimental configuration for deployment.
 

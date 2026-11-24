@@ -45,7 +45,7 @@ Use a dedicated `DJANGO_SECRET_KEY`, `MICE_DB_PASSWORD`, URL-safe
 `MICE_RABBIT_PASSWORD`. Runtime commands:
 
 ```
-docker compose -f /home/user/Mail-Fire-django-htmx/compose.django.yaml up -d --build
+docker compose -f /home/user/Mail-Fire-django-htmx/compose.yaml up -d --build
 ```
 
 Management uses loopback 15673, AMQP loopback 15674, experimental DB loopback

@@ -1,52 +1,61 @@
-name: mailfire
-x-backend: &backend
-  image: mailfire-backend:local
-  build: .
-  env_file: .env
-  environment:
-    DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
-    OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
-    PARSER_URL: http://parser:8090
-    CLAMAV_HOST: ${CLAMAV_HOST:-}
-  networks: [default]
-  restart: unless-stopped
+name: mice
+x-resource-config: &resource-config
+  - source: resource-probe
+    target: /run/mice-resource-probe.sh
+x-resource-volume: &resource-volume
+  - resources:/mice-metrics
+x-resource-check: &resource-check
+  interval: 30s
+  timeout: 5s
+  retries: 3
+x-worker: &worker
+  image: mice-runtime:latest
+  build:
+    context: .
+    dockerfile: Dockerfile.django
+  environment: &runtime-env
+    DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?set dedicated secret}
+    MICE_DB_NAME: mice
+    MICE_DB_USER: mice
+    MICE_DB_PASSWORD: ${MICE_DB_PASSWORD:?set dedicated password}
+    MICE_DB_HOST: db
+    MICE_DB_PORT: 5432
+    ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set administrator password}
+    MICE_PARSER_URL: http://parser:8090
+    MICE_OCR_PARSER_URL: http://ocr-parser:8090
+    MICE_OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
+    MICE_CLAMAV_HOST: ${MICE_CLAMAV_HOST:-}
+    MICE_CLAMAV_PORT: ${MICE_CLAMAV_PORT:-3310}
+    MICE_ML_INFERENCE_ENABLED: ${MICE_ML_INFERENCE_ENABLED:-false}
+    MICE_LLM_INFERENCE_ENABLED: ${MICE_LLM_INFERENCE_ENABLED:-false}
+    MICE_IMPORT_MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
+    MICE_IMPORT_MAX_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
+    MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe broker password}@rabbitmq:5672/mice
+  command: [python, -m, pipeline.worker]
+  configs: *resource-config
+  volumes: *resource-volume
   read_only: true
-  tmpfs:
-    - /tmp:size=256m,noexec,nosuid
+  tmpfs: ["/tmp:size=64m,noexec,nosuid"]
   cap_drop: [ALL]
   security_opt: [no-new-privileges:true]
+  restart: unless-stopped
   depends_on:
     migrate:
       condition: service_completed_successfully
+    rabbitmq:
+      condition: service_healthy
 services:
-  converter:
-    build: ./converter
-    networks: [conversion]
-    read_only: true
-    tmpfs: ['/tmp:size=512m,noexec,nosuid']
-    cap_drop: [ALL]
-    security_opt: [no-new-privileges:true]
-    pids_limit: 128
-    mem_limit: 1g
-    cpus: 1
-    restart: unless-stopped
-    healthcheck:
-      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8091/health')"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-  clamav:
-    image: clamav/clamav:stable
-    profiles: [antivirus]
-    volumes: [clamav-signatures:/var/lib/clamav]
-    restart: unless-stopped
-    mem_limit: 3g
-  parser:
-    image: mailfire-backend:local
-    build: .
+  parser: &parser
+    image: mice-parser:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-parser
     command: [python, -m, app.parser_service]
     environment:
-      OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
+      OCR_BACKEND: disabled
+      MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
+      MAX_EXPANDED_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
+    configs: *resource-config
     networks: [parsing]
     read_only: true
     tmpfs: ['/tmp:size=256m,noexec,nosuid']
@@ -58,67 +67,421 @@ services:
     restart: unless-stopped
     healthcheck:
       test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-  web:
-    build: ./frontend
-    ports: ['127.0.0.1:8080:80']
-    depends_on: [api]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  ocr-parser:
+    <<: *parser
+    image: mice-ocr:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-ocr
+      additional_contexts:
+        parser_image: service:parser
+    environment:
+      OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
+    networks: [ocr-parsing]
+  converter:
+    image: mice-converter:latest
+    build: ./converter
+    configs: *resource-config
+    networks: [conversion]
+    read_only: true
+    tmpfs: ['/tmp:size=512m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 1g
+    cpus: 1
+    restart: unless-stopped
   db:
     image: pgvector/pgvector:pg17
     environment:
-      POSTGRES_DB: mailfire
-      POSTGRES_USER: mailfire
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
-    volumes: [postgres:/var/lib/postgresql/data]
+      POSTGRES_DB: mice
+      POSTGRES_USER: mice
+      POSTGRES_PASSWORD: ${MICE_DB_PASSWORD:?set dedicated password}
+    ports: ["127.0.0.1:15433:5432"]
+    volumes: [postgres:/var/lib/postgresql/data, resources:/mice-metrics]
+    configs: *resource-config
     healthcheck:
-      test: [CMD-SHELL, 'pg_isready -U mailfire -d mailfire']
-      interval: 5s
+      test:
+        - CMD-SHELL
+        - >-
+          pg_isready -U mice -d mice && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store db "$$state" /var/lib/postgresql/data 2>/dev/null;
+          test "$$state" = ready
+      interval: 2s
+      timeout: 3s
       retries: 20
-  migrate:
-    image: mailfire-backend:local
-    build: .
-    env_file: .env
+  rabbitmq:
+    image: rabbitmq:4.2-management
     environment:
-      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD}@db:5432/mailfire
-    command: [sh, -c, 'alembic upgrade head && python -m app.bootstrap']
+      RABBITMQ_DEFAULT_USER: mice
+      RABBITMQ_DEFAULT_PASS: ${MICE_RABBIT_PASSWORD:?set dedicated broker password}
+      RABBITMQ_DEFAULT_VHOST: mice
+    ports: ["127.0.0.1:15673:15672", "127.0.0.1:15674:5672"]
+    volumes: [rabbitmq:/var/lib/rabbitmq, resources:/mice-metrics]
+    configs: *resource-config
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          rabbitmq-diagnostics -q ping && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store rabbitmq "$$state" /var/lib/rabbitmq 2>/dev/null;
+          test "$$state" = ready
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+    mem_limit: ${MICE_RABBIT_MEMORY:-1g}
+    cpus: ${MICE_RABBIT_CPUS:-1}
+  migrate:
+    image: mice-runtime:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    environment: *runtime-env
+    configs: *resource-config
+    volumes: *resource-volume
+    command:
+      - sh
+      - -c
+      - >-
+        sh /run/mice-resource-probe.sh store migrate running;
+        python manage.py migrate --noinput;
+        result=$$?;
+        test "$$result" = 0 && state=completed || state=degraded;
+        sh /run/mice-resource-probe.sh store migrate "$$state";
+        exit "$$result"
     depends_on:
       db:
         condition: service_healthy
-  api:
-    <<: *backend
-    networks: [default, parsing, conversion]
-    environment:
-      DATABASE_URL: postgresql+psycopg://mailfire:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/mailfire
-      OCR_BACKEND: ${OCR_BACKEND:-paddleocr}
-      PARSER_URL: http://parser:8090
-      CLAMAV_HOST: ${CLAMAV_HOST:-}
-      CONVERTER_URL: http://converter:8091
-    ports: ['127.0.0.1:8000:8000']
+  publisher:
+    <<: *worker
     healthcheck:
-      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
-      interval: 15s
-  worker:
-    <<: *backend
-    networks: [default, parsing]
-    command: [python, -m, app.worker]
-  maintenance:
-    <<: *backend
-    command: [python, -m, app.maintenance]
-  importer:
-    <<: *backend
-    command: [python, -m, app.importer]
-    volumes: ['./data/import/inbox:/imports:ro']
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, publisher]
+    command: [python, manage.py, publish_outbox]
+    mem_limit: 256m
+    cpus: 0.5
   smtp:
-    <<: *backend
-    command: [python, -m, app.smtp]
-    ports: ['127.0.0.1:2525:2525']
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, smtp]
+    command: [python, manage.py, collect_smtp, --host, 0.0.0.0, --port, '2525']
+    profiles: [smtp]
+    ports: ['127.0.0.1:12525:2525']
+    environment:
+      <<: *runtime-env
+      MICE_SMTP_NETWORKS: ${MICE_SMTP_NETWORKS:-127.0.0.0/8,::1/128}
+    mem_limit: 256m
+    cpus: 0.5
+  directory-import:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, directory-import]
+    profiles: [directory-import]
+    command: [python, manage.py, import_mail, /imports, --namespace, '${MICE_IMPORT_NAMESPACE:-directory}', --watch]
+    volumes:
+      - resources:/mice-metrics
+      - type: bind
+        source: ${MICE_IMPORT_DIRECTORY:-./data/import/inbox}
+        target: /imports
+        read_only: true
+        bind:
+          create_host_path: false
+    mem_limit: 256m
+    cpus: 0.5
+  web:
+    <<: *worker
+    networks: [default, parsing, ocr-parsing, conversion]
+    command: [uvicorn, mice.asgi:application, --host, 0.0.0.0, --port, '8000', --workers, '2', --no-proxy-headers]
+    environment:
+      <<: *runtime-env
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      MICE_COOKIE_SECURE: ${MICE_COOKIE_SECURE:-true}
+      MICE_CONVERTER_URL: http://converter:8091
+      MICE_SEMANTIC_AUTO_INDEX: ${MICE_SEMANTIC_AUTO_INDEX:-false}
+      MICE_RABBIT_API_URL: http://rabbitmq:15672
+      MICE_RABBIT_USER: mice
+      MICE_RABBIT_PASSWORD: ${MICE_RABBIT_PASSWORD:?set dedicated broker password}
+    mem_limit: ${MICE_WEB_MEMORY:-512m}
+    cpus: ${MICE_WEB_CPUS:-1}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')" && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store web "$$state" / 2>/dev/null;
+          test "$$state" = ready
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  frontend:
+    configs: *resource-config
+    volumes: *resource-volume
+    healthcheck:
+      <<: *resource-check
+      test:
+        - CMD-SHELL
+        - >-
+          wget -q -O /dev/null http://127.0.0.1:8080/static/mice/style.css && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store frontend "$$state";
+          test "$$state" = ready
+    image: mice-web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-web
+    ports: ['127.0.0.1:8080:8080']
+    read_only: true
+    tmpfs: ["/tmp:size=32m,noexec,nosuid"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
+  beat:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, beat]
+    command: [celery, -A, mice.celery:app, beat, --loglevel=INFO, --schedule=/state/beat]
+    volumes: [beat:/state, resources:/mice-metrics]
+    mem_limit: 256m
+    cpus: 0.5
+  ingestion:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ingestion]
+    networks: [default, parsing]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ingestion
+      MICE_INGESTION_CONCURRENCY: ${MICE_INGESTION_CONCURRENCY:-1}
+      MICE_INGESTION_PREFETCH: ${MICE_INGESTION_PREFETCH:-1}
+      MICE_INGESTION_TIMEOUT: ${MICE_INGESTION_TIMEOUT:-300}
+    mem_limit: ${MICE_INGESTION_MEMORY:-512m}
+    cpus: ${MICE_INGESTION_CPUS:-1}
+  extraction:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, extraction]
+    networks: [default, parsing]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: extraction
+      MICE_EXTRACTION_CONCURRENCY: ${MICE_EXTRACTION_CONCURRENCY:-1}
+      MICE_EXTRACTION_PREFETCH: ${MICE_EXTRACTION_PREFETCH:-1}
+      MICE_EXTRACTION_TIMEOUT: ${MICE_EXTRACTION_TIMEOUT:-300}
+    mem_limit: ${MICE_EXTRACTION_MEMORY:-1g}
+    cpus: ${MICE_EXTRACTION_CPUS:-1}
+  ocr:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ocr]
+    networks: [default, ocr-parsing]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ocr
+      MICE_OCR_CONCURRENCY: ${MICE_OCR_CONCURRENCY:-1}
+      MICE_OCR_PREFETCH: ${MICE_OCR_PREFETCH:-1}
+      MICE_OCR_TIMEOUT: ${MICE_OCR_TIMEOUT:-300}
+    mem_limit: ${MICE_OCR_MEMORY:-3g}
+    cpus: ${MICE_OCR_CPUS:-2}
+  detection:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, detection]
+    networks: [default, parsing]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: detection
+      MICE_DETECTION_CONCURRENCY: ${MICE_DETECTION_CONCURRENCY:-1}
+      MICE_DETECTION_PREFETCH: ${MICE_DETECTION_PREFETCH:-1}
+      MICE_DETECTION_TIMEOUT: ${MICE_DETECTION_TIMEOUT:-300}
+    mem_limit: ${MICE_DETECTION_MEMORY:-1g}
+    cpus: ${MICE_DETECTION_CPUS:-1}
+  ml:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ml]
+    image: mice-training:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-training
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [ml-inference]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ml
+      MICE_ML_CONCURRENCY: ${MICE_ML_CONCURRENCY:-1}
+      MICE_ML_PREFETCH: ${MICE_ML_PREFETCH:-1}
+      MICE_ML_TIMEOUT: ${MICE_ML_TIMEOUT:-300}
+    mem_limit: ${MICE_ML_MEMORY:-2g}
+    cpus: ${MICE_ML_CPUS:-1}
+  llm:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, llm]
+    profiles: [llm-inference]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: llm
+      MAILFIRE_LLM_API_KEY: ${MAILFIRE_LLM_API_KEY:-}
+      MICE_LLM_CONCURRENCY: ${MICE_LLM_CONCURRENCY:-1}
+      MICE_LLM_PREFETCH: ${MICE_LLM_PREFETCH:-1}
+      MICE_LLM_TIMEOUT: ${MICE_LLM_TIMEOUT:-300}
+    mem_limit: ${MICE_LLM_MEMORY:-512m}
+    cpus: ${MICE_LLM_CPUS:-1}
+  policy:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, policy]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: policy
+      MICE_POLICY_CONCURRENCY: ${MICE_POLICY_CONCURRENCY:-1}
+      MICE_POLICY_PREFETCH: ${MICE_POLICY_PREFETCH:-1}
+      MICE_POLICY_TIMEOUT: ${MICE_POLICY_TIMEOUT:-300}
+    mem_limit: ${MICE_POLICY_MEMORY:-512m}
+    cpus: ${MICE_POLICY_CPUS:-1}
+  notifications:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, notifications]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: notifications
+      MICE_NOTIFICATIONS_CONCURRENCY: ${MICE_NOTIFICATIONS_CONCURRENCY:-1}
+      MICE_NOTIFICATIONS_PREFETCH: ${MICE_NOTIFICATIONS_PREFETCH:-1}
+      MICE_NOTIFICATIONS_TIMEOUT: ${MICE_NOTIFICATIONS_TIMEOUT:-300}
+    mem_limit: ${MICE_NOTIFICATIONS_MEMORY:-512m}
+    cpus: ${MICE_NOTIFICATIONS_CPUS:-1}
+  training:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, training]
+    image: mice-training:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-training
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [training, neural-inference, neural-training]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: training
+      MICE_TRAINING_CONCURRENCY: ${MICE_TRAINING_CONCURRENCY:-1}
+      MICE_TRAINING_PREFETCH: ${MICE_TRAINING_PREFETCH:-1}
+      MICE_TRAINING_TIMEOUT: ${MICE_TRAINING_TIMEOUT:-7200}
+    mem_limit: ${MICE_TRAINING_MEMORY:-4g}
+    cpus: ${MICE_TRAINING_CPUS:-1}
+  semantic:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, semantic]
+    image: mice-semantic:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-semantic
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [semantic]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: semantic
+      MICE_SEMANTIC_TIMEOUT: 3600
+    mem_limit: ${MICE_SEMANTIC_MEMORY:-2g}
+    cpus: ${MICE_SEMANTIC_CPUS:-2}
+  neural-training:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, neural-training]
+    image: mice-neural:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-neural
+      additional_contexts:
+        training_image: service:training
+    profiles: [neural-training]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: neural_training
+      MICE_TRAINING_TIMEOUT: 7200
+      MICE_NEURAL_TRAINING_TIMEOUT: 7200
+      ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
+      ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
+    volumes:
+      - resources:/mice-metrics
+      - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
+    tmpfs: ['/tmp:size=4g,noexec,nosuid']
+    mem_limit: ${MICE_NEURAL_MEMORY:-8g}
+    cpus: ${MICE_NEURAL_CPUS:-4}
+  neural:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, neural]
+    image: mice-neural:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.django-neural
+      additional_contexts:
+        training_image: service:training
+    profiles: [neural-inference]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: neural
+      ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
+      ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
+    volumes:
+      - resources:/mice-metrics
+      - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
+    tmpfs: ['/tmp:size=4g,noexec,nosuid']
+    mem_limit: ${MICE_NEURAL_MEMORY:-8g}
+    cpus: ${MICE_NEURAL_CPUS:-4}
+  maintenance:
+    <<: *worker
+    networks: [default, parsing, ocr-parsing, conversion]
+    volumes: [resources:/mice-metrics:ro]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: maintenance
+      MICE_CONVERTER_URL: http://converter:8091
+      MICE_MAINTENANCE_CONCURRENCY: ${MICE_MAINTENANCE_CONCURRENCY:-1}
+      MICE_MAINTENANCE_PREFETCH: ${MICE_MAINTENANCE_PREFETCH:-1}
+      MICE_MAINTENANCE_TIMEOUT: ${MICE_MAINTENANCE_TIMEOUT:-300}
+    mem_limit: ${MICE_MAINTENANCE_MEMORY:-512m}
+    cpus: ${MICE_MAINTENANCE_CPUS:-1}
+configs:
+  resource-probe:
+    file: ./scripts/native_resource_probe.sh
 volumes:
-  clamav-signatures:
+  resources:
   postgres:
+  rabbitmq:
+  beat:
 networks:
-  conversion:
-    internal: true
   parsing:
+    internal: true
+  ocr-parsing:
+    internal: true
+  conversion:
     internal: true

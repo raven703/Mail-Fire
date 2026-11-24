@@ -27,28 +27,8 @@ DEFAULTS = {
 }
 
 
-def config(session):
-    from app.models import Setting
-
-    row = session.get(Setting, "llm_analyzer")
-    return {**DEFAULTS, **(row.value if row else {})}
 
 
-def analyze(text, findings):
-    from sqlalchemy import select
-
-    from app.db import transaction
-    from app.models import Category, Setting
-
-    with transaction() as session:
-        options = config(session)
-        norm_row = session.get(Setting, "normalizer")
-        norm_options = {**NORMALIZER_DEFAULTS, **(norm_row.value if norm_row else {})}
-        if not options["enabled"]:
-            return [], []
-        category_rows = list(session.scalars(select(Category).where(Category.active.is_(True))))
-        names = {c.id: c.name for c in category_rows}
-    return analyze_configured(text, findings, options, norm_options, names)
 
 
 def analyze_configured(text, findings, options, norm_options, names):

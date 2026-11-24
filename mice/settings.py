@@ -1,4 +1,4 @@
-"""Experimental deployment: deliberately never inherits the legacy DATABASE_URL."""
+"""MICE Django deployment configuration."""
 
 import os
 from pathlib import Path
@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
 if not SECRET_KEY:
-    raise ImproperlyConfigured("Set a dedicated DJANGO_SECRET_KEY for the experiment")
+    raise ImproperlyConfigured("Set a dedicated DJANGO_SECRET_KEY for MICE")
 DEBUG = False
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 INSTALLED_APPS = [
@@ -49,8 +49,8 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("MICE_DB_NAME", "mice_django_experiment"),
-        "USER": os.environ.get("MICE_DB_USER", "mice_django"),
+        "NAME": os.environ.get("MICE_DB_NAME", "mice"),
+        "USER": os.environ.get("MICE_DB_USER", "mice"),
         "PASSWORD": os.environ.get("MICE_DB_PASSWORD", ""),
         "HOST": os.environ.get("MICE_DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("MICE_DB_PORT", "15433"),
@@ -81,12 +81,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-SESSION_COOKIE_NAME = "mice_django_session"
+SESSION_COOKIE_NAME = "mice_session"
 SESSION_COOKIE_SECURE = os.environ.get("MICE_COOKIE_SECURE", "true").lower() == "true"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Strict"
 SESSION_COOKIE_AGE = 8 * 3600
-CSRF_COOKIE_NAME = "mice_django_csrf"
+CSRF_COOKIE_NAME = "mice_csrf"
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 CSRF_COOKIE_SAMESITE = "Strict"
 SECURE_CONTENT_TYPE_NOSNIFF = True

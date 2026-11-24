@@ -156,7 +156,7 @@ but attachment distribution and OCR duration determine capacity.
 
 ## Isolation contract for future Compose deployment
 
-Use a separate `compose.django.yaml`, explicit project `mice-django-htmx`, unique
+Use a separate `compose.yaml`, explicit project `mice`, unique
 image tags and project-scoped named volumes/networks (no external volumes, fixed
 container names or original bind-mounted data). Proposed loopback ports: web
 18080, SMTP 12525, RabbitMQ management 15673; check availability before launch.

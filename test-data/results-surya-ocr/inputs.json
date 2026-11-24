@@ -1,0 +1,86 @@
+[
+  {
+    "id": "MF350-0304",
+    "filename": "fixture-304.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0304.eml",
+    "sha256": "b197588975722117cc42a05900292c72774b40236210d887b4d971290260f9ec",
+    "bytes": 9198,
+    "size": [
+      650,
+      110
+    ],
+    "mode": "1",
+    "expected": "PUBLIC TEST\nSYNTHETIC OCR TEST",
+    "identifier": null
+  },
+  {
+    "id": "MF350-0311",
+    "filename": "fixture-311.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0311.eml",
+    "sha256": "e4eccc4d75b955287cb7056765441f1e6a406dc91fe6f809dce64769f932eca4",
+    "bytes": 9198,
+    "size": [
+      650,
+      110
+    ],
+    "mode": "1",
+    "expected": "INN 7707083893\nSYNTHETIC OCR TEST",
+    "identifier": "7707083893"
+  },
+  {
+    "id": "MF350-0319",
+    "filename": "fixture-319.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0319.eml",
+    "sha256": "277b4e5e4df5028d97f599bf4bedafd2448e43764e2681aac1905eb1a7985be6",
+    "bytes": 11907,
+    "size": [
+      1100,
+      220
+    ],
+    "mode": "RGB",
+    "expected": "INN 7707083893\nSYNTHETIC OCR FIXTURE",
+    "identifier": "7707083893"
+  },
+  {
+    "id": "MF350-0327",
+    "filename": "fixture-327.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0327.eml",
+    "sha256": "d258c5d35305e9ea333dd2925ecf94a157d088ced65012ff12e98b531b26d05f",
+    "bytes": 12018,
+    "size": [
+      1100,
+      220
+    ],
+    "mode": "RGB",
+    "expected": "PRIVATE BUDGET\nSYNTHETIC OCR FIXTURE",
+    "identifier": null
+  },
+  {
+    "id": "MF350-0335",
+    "filename": "fixture-335.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0335.eml",
+    "sha256": "0ce85b28c9f8f0cad909b8a46b89275388385b6e535fcce3d448de9e4c3a8587",
+    "bytes": 11521,
+    "size": [
+      1100,
+      220
+    ],
+    "mode": "RGB",
+    "expected": "SABOTAGE TEST\nSYNTHETIC OCR FIXTURE",
+    "identifier": null
+  },
+  {
+    "id": "MF350-0348",
+    "filename": "fixture-348.png",
+    "source": "/home/user/Mail-Fire/test-data/benchmark-350-v1/eml/MF350-0348.eml",
+    "sha256": "dc7d4b445604c23ebf639a3b6e23fdf6e2b3839d27ea9da1224e6ca52fe0bb8b",
+    "bytes": 9198,
+    "size": [
+      650,
+      110
+    ],
+    "mode": "1",
+    "expected": "PASSPORT 4510123456\nSYNTHETIC OCR TEST",
+    "identifier": "4510123456"
+  }
+]

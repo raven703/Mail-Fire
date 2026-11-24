@@ -19,7 +19,7 @@ account references before allowing new users to author investigation records.
 
 Install `requirements.django.lock` in the experimental worktree's own venv.
 Set a dedicated `DJANGO_SECRET_KEY` and `MICE_DB_PASSWORD`. Do not copy the live
-`.env`. `compose.django.yaml` currently provides only the isolated PostgreSQL
+`.env`. `compose.yaml` currently provides only the isolated PostgreSQL
 service, published on loopback 15433; it is not the finished application stack.
 The experimental database uses the project-scoped `django-postgres` volume.
 

@@ -27,9 +27,9 @@ def digest(path):
 
 def export(destination, neural_models=None):
     destination.mkdir(parents=True, exist_ok=False)
-    names = [f"mice-django-{name}:experiment" for name in IMAGES]
+    names = [f"mice-{name}:latest" for name in IMAGES]
     if neural_models:
-        names.append("mice-django-neural:experiment")
+        names.append("mice-neural:latest")
     names += ["pgvector/pgvector:pg17", "rabbitmq:4.2-management"]
     manifest = {"schema_version": 1, "images": [], "files": {}}
     for index, name in enumerate(names):
@@ -38,7 +38,7 @@ def export(destination, neural_models=None):
         subprocess.run(["docker", "image", "save", "--output", str(destination / filename), name], check=True)
         manifest["images"].append({"name": name, "id": identity, "file": filename})
         manifest["files"][filename] = digest(destination / filename)
-    filename = "compose.django.yaml"
+    filename = "compose.yaml"
     compose = (ROOT / filename).read_text()
     probe = "native_resource_probe.sh"
     shutil.copyfile(ROOT / "scripts" / probe, destination / probe)

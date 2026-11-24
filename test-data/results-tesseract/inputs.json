@@ -1,0 +1,74 @@
+[
+  {
+    "id": "MF350-0304",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0304.eml",
+    "sha256": "b197588975722117cc42a05900292c72774b40236210d887b4d971290260f9ec",
+    "bytes": 9198,
+    "same_as_initial_pr": true,
+    "expected_line": "PUBLIC TEST",
+    "expected_full": "PUBLIC TEST\nSYNTHETIC OCR TEST",
+    "initial_pr_sha256": "b197588975722117cc42a05900292c72774b40236210d887b4d971290260f9ec",
+    "initial_pr_expected_line": "PUBLIC TEST",
+    "initial_pr_expected_full": "PUBLIC TEST\nSYNTHETIC OCR TEST"
+  },
+  {
+    "id": "MF350-0311",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0311.eml",
+    "sha256": "e4eccc4d75b955287cb7056765441f1e6a406dc91fe6f809dce64769f932eca4",
+    "bytes": 9198,
+    "same_as_initial_pr": true,
+    "expected_line": "INN 7707083893",
+    "expected_full": "INN 7707083893\nSYNTHETIC OCR TEST",
+    "initial_pr_sha256": "e4eccc4d75b955287cb7056765441f1e6a406dc91fe6f809dce64769f932eca4",
+    "initial_pr_expected_line": "INN 7707083893",
+    "initial_pr_expected_full": "INN 7707083893\nSYNTHETIC OCR TEST"
+  },
+  {
+    "id": "MF350-0319",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0319.eml",
+    "sha256": "277b4e5e4df5028d97f599bf4bedafd2448e43764e2681aac1905eb1a7985be6",
+    "bytes": 11907,
+    "same_as_initial_pr": false,
+    "expected_line": "INN 7707083893",
+    "expected_full": "INN 7707083893\nSYNTHETIC OCR FIXTURE",
+    "initial_pr_sha256": "42a461383ba2440dd30a5cacd6a21534ff0e50fd02cd20d22f8ab0727d53584e",
+    "initial_pr_expected_line": "PRIVATE BUDGET",
+    "initial_pr_expected_full": "PRIVATE BUDGET\nSYNTHETIC OCR TEST"
+  },
+  {
+    "id": "MF350-0327",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0327.eml",
+    "sha256": "d258c5d35305e9ea333dd2925ecf94a157d088ced65012ff12e98b531b26d05f",
+    "bytes": 12018,
+    "same_as_initial_pr": false,
+    "expected_line": "PRIVATE BUDGET",
+    "expected_full": "PRIVATE BUDGET\nSYNTHETIC OCR FIXTURE",
+    "initial_pr_sha256": "b2f1fb4ff22d660670e1a030dbac07e7f7abffd7e394fc40dbbd14bb3f5bcfc4",
+    "initial_pr_expected_line": "THREAT TEST",
+    "initial_pr_expected_full": "THREAT TEST\nSYNTHETIC OCR TEST"
+  },
+  {
+    "id": "MF350-0335",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0335.eml",
+    "sha256": "0ce85b28c9f8f0cad909b8a46b89275388385b6e535fcce3d448de9e4c3a8587",
+    "bytes": 11521,
+    "same_as_initial_pr": false,
+    "expected_line": "SABOTAGE TEST",
+    "expected_full": "SABOTAGE TEST\nSYNTHETIC OCR FIXTURE",
+    "initial_pr_sha256": "5716352da24c283a4c177ef5dae49a713900a63b861887c86b3a9709e87a2094",
+    "initial_pr_expected_line": "SECRET TOKEN",
+    "initial_pr_expected_full": "SECRET TOKEN\nSYNTHETIC OCR TEST"
+  },
+  {
+    "id": "MF350-0348",
+    "source_eml": "test-data/benchmark-350-v1/eml/MF350-0348.eml",
+    "sha256": "dc7d4b445604c23ebf639a3b6e23fdf6e2b3839d27ea9da1224e6ca52fe0bb8b",
+    "bytes": 9198,
+    "same_as_initial_pr": true,
+    "expected_line": "PASSPORT 4510123456",
+    "expected_full": "PASSPORT 4510123456\nSYNTHETIC OCR TEST",
+    "initial_pr_sha256": "dc7d4b445604c23ebf639a3b6e23fdf6e2b3839d27ea9da1224e6ca52fe0bb8b",
+    "initial_pr_expected_line": "PASSPORT 4510123456",
+    "initial_pr_expected_full": "PASSPORT 4510123456\nSYNTHETIC OCR TEST"
+  }
+]

@@ -11,17 +11,6 @@ MAX_FINDINGS = 200
 MAX_REGEX_TEXT = 100_000
 
 
-def available_categories(session, ids, *, allow_label=True):
-    from sqlalchemy import select
-
-    from app.models import Category
-
-    values = set(ids)
-    if not values:
-        return True
-    rows = session.scalars(select(Category).where(Category.id.in_(values), Category.active.is_(True)))
-    found = {r.id for r in rows if allow_label or r.mode != "label"}
-    return found == values
 
 
 def safe_regex(pattern):
@@ -61,21 +50,6 @@ def safe_regex(pattern):
         raise ValueError("Некорректное регулярное выражение") from exc
 
 
-def rules_for(session):
-    from sqlalchemy import select
-
-    from app.models import Category, CategoryRule
-
-    rows = session.execute(
-        select(CategoryRule, Category)
-        .join(Category, Category.id == CategoryRule.category_id)
-        .where(Category.active.is_(True), CategoryRule.enabled.is_(True))
-        .order_by(CategoryRule.priority, CategoryRule.created_at, CategoryRule.id)
-    )
-    groups = {}
-    for rule, category in rows:
-        groups.setdefault(category.id, {"category": category, "rules": []})["rules"].append(rule)
-    return groups
 
 
 def _make_finding(category, rule, text, source, *, confidence=None):

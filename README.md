@@ -1,56 +1,36 @@
 # MICE
 
-Пассивная платформа мониторинга копий электронной почты. **В разработке:
-не готова к промышленной эксплуатации или анализу враждебных файлов.**
-Текущее состояние и непроверенные возможности — в `docs/PROGRESS.md`.
+Пассивный анализ копий почты: Django + HTMX, Celery, RabbitMQ,
+PostgreSQL/pgvector, Nginx, изолированные Parser, OCR и LibreOffice Converter.
+React, FastAPI, SQLAlchemy и Alembic не используются.
 
 ## Локальный запуск
 
-Требуются Docker Compose и доступ к registry. Из корня репозитория:
-
 ```sh
 cp .env.example .env
-# Заменить POSTGRES_PASSWORD и ADMIN_PASSWORD на случайные значения.
-# ADMIN_PASSWORD: минимум 16 символов. Не использовать значения из примера.
-docker compose up --build -d
+# Заменить секреты; ADMIN_PASSWORD — минимум 16 случайных символов.
+docker compose up -d --build
+docker compose exec -T web python manage.py initialize_mice
 ```
 
-Интерфейс: localhost:8080, пользователь `admin`, пароль из локального `.env`.
-HTTP и COOKIE_SECURE=false допустимы только для локального стенда. Для
-развёртывания необходим TLS reverse proxy и COOKIE_SECURE=true.
+Интерфейс: http://localhost:8080. Пользователь admin, пароль из .env.
+Инициализация не меняет существующий пароль. Системные категории создаются миграциями.
+HTTP и MICE_COOKIE_SECURE=false допустимы только локально. Для удалённого
+доступа необходимы TLS и MICE_COOKIE_SECURE=true.
 
-Положить синтетические `.eml`/`.msg` в `data/import/inbox/`; сканер ждёт
-стабильности размера и mtime. По умолчанию файлы остаются у пользователя.
-Или загрузить EML/MSG через страницу «Импорт почты».
+Основной pipeline запускается по умолчанию. ML/LLM inference выключены.
+SMTP, импорт каталога, обучение и semantic включаются только явными profiles.
+Модели data/models и тестовые наборы необходимо сохранять отдельно от БД.
+Не применять глобальный Docker prune.
+
+## Проверки
 
 ```sh
-uv run python scripts/generate_samples.py --count 10
-uv run pytest -q
+docker compose exec -T web python manage.py check
+docker compose exec -T web python manage.py test identity records pipeline policy_engine --noinput
+docker compose ps
 ```
 
-Все постоянные прикладные данные хранятся в PostgreSQL. Импортная папка —
-пользовательский источник, не внутреннее файловое хранилище.
-
-SMTP collector слушает локальный порт 2525, не пересылает письма и не меняет
-существующий шлюз. Не подключать реальный BCC-поток до исправления ограничений
-безопасности и выполнения интеграционных/нагрузочных проверок.
-
-## Реализованный срез
-
-БД/миграции, EML ingestion, extract-msg adapter, очередь, базовое извлечение
-документов, статические детекторы, политики/инциденты, авторизация/CSRF/RBAC,
-аудит, базовый русский React UI. OCR/ML/SIEM и многие требования ещё не готовы.
-
-Подробный план: `docs/IMPLEMENTATION_PLAN.md`; продолжение: `docs/CONTINUATION.md`.
-## Файловые DLP-правила (опционально)
-
-Русскоязычный базовый пакет категорий и политик находится в
-`config/rulepacks/base_ru.json`. Сначала предпросмотр без изменения БД:
-
-```bash
-docker compose exec -T api python -m app.rulepacks_cli preview - < config/rulepacks/base_ru.json
-```
-
-Применение только по явной команде администратора. По умолчанию политики из
-пакета выключены. Команды `apply`, `export` и правила безопасного обновления
-описаны в [docs/RULEPACKS_RU.md](docs/RULEPACKS_RU.md).
+EML/MSG загружаются на странице «Импорт почты». Прикладные данные хранятся
+в PostgreSQL. Не подключать реальные враждебные файлы без отдельной
+оценки безопасности и нагрузочного тестирования.

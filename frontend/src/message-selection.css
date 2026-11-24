@@ -1,8 +1,0 @@
-.message-bulk-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 16px;margin:12px 0 16px;background:var(--selected);border:1px solid var(--border);border-radius:12px;font-size:13px}
-.message-bulk-bar .message-select-all{display:inline-flex;align-items:center;gap:9px;margin:0;color:var(--text);font-weight:500}
-.message-selection-count{display:inline-flex;align-items:center;gap:8px;color:var(--muted)}
-.message-selection-count strong{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:8px;background:var(--card);color:var(--accent)}
-.message-bulk-buttons{display:flex;align-items:center;gap:8px;margin-left:auto}
-.message-bulk-notice{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--selected);font-size:13px}
-.message-row-selected{background:var(--selected)}
-@media(max-width:640px){.message-bulk-buttons{margin-left:0;width:100%;flex-wrap:wrap}}
