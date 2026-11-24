@@ -2,6 +2,12 @@
 
 ## Continuation beyond cf4bbcb
 
+Post-64ccee6 continuation adds the original seven-day delivery-flow aggregation
+(hour/source/direction, events, distinct messages, mean/median/p95 bytes) and its
+native monitoring table. Two provider-free LLM checks verify selected-category
+filtering/confidence and explicit transfer authorization; nine focused inference,
+offline and LLM checks pass. PostgreSQL aggregation execution remains unverified.
+
 Inference now captures category names/modes, active model metadata and artifact
 hashes, LLM/normalizer settings at dispatch; detection retains full deterministic
 configuration. Workers use pinned model IDs/metadata and refuse missing/changed

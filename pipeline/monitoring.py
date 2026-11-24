@@ -28,6 +28,19 @@ def database_snapshot():
     return {"bytes": size, "locks_waiting": waiting, "tables": tables, "connections": connections}
 
 
+def flow_snapshot():
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT date_trunc('hour', e.created_at), e.source, e.direction,
+                       count(*), count(DISTINCT e.message_id), avg(b.size),
+                       percentile_cont(.5) WITHIN GROUP (ORDER BY b.size),
+                       percentile_cont(.95) WITHIN GROUP (ORDER BY b.size)
+                       FROM mail_events e JOIN messages m ON m.id=e.message_id
+                       JOIN blobs b ON b.sha=m.original_sha
+                       WHERE e.created_at > now()-interval '7 days'
+                       GROUP BY 1,2,3 ORDER BY 1 DESC LIMIT 1000""")
+        return [dict(zip(("hour", "source", "direction", "events", "messages", "average", "median", "p95"), row, strict=True)) for row in cursor.fetchall()]
+
+
 def service_snapshot():
     """Probe only fixed configured Parser endpoints, never request-supplied URLs."""
     rows = []
