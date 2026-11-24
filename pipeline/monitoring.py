@@ -4,7 +4,8 @@ from urllib.parse import quote
 import httpx
 from django.conf import settings
 from django.db import connection
-from django.db.models import Avg, Count, DurationField, ExpressionWrapper, F, Min
+from django.db.models import Count, Min, Q
+from django.db.models.fields.json import KeyTextTransform
 from django.utils import timezone
 
 from mice.celery import app
@@ -25,7 +26,9 @@ def database_snapshot():
         cursor.execute("""SELECT state, wait_event_type, wait_event, count(*)
                        FROM pg_stat_activity WHERE datname=current_database() GROUP BY 1,2,3""")
         connections = [dict(zip(("state", "wait_type", "wait_event", "count"), row, strict=True)) for row in cursor.fetchall()]
-    return {"bytes": size, "locks_waiting": waiting, "tables": tables, "connections": connections}
+    return {"bytes": size, "locks_waiting": waiting, "tables": tables, "connections": connections,
+            "connection_count": sum(row["count"] for row in connections),
+            "active_count": sum(row["count"] for row in connections if row["state"] == "active")}
 
 
 def flow_snapshot():
@@ -37,7 +40,7 @@ def flow_snapshot():
                        FROM mail_events e JOIN messages m ON m.id=e.message_id
                        JOIN blobs b ON b.sha=m.original_sha
                        WHERE e.created_at > now()-interval '7 days'
-                       GROUP BY 1,2,3 ORDER BY 1 DESC LIMIT 1000""")
+                       GROUP BY 1,2,3 ORDER BY 1 DESC, 2, 3 LIMIT 24""")
         return [dict(zip(("hour", "source", "direction", "events", "messages", "average", "median", "p95"), row, strict=True)) for row in cursor.fetchall()]
 
 
@@ -91,14 +94,13 @@ def snapshot():
         .values("queue")
         .annotate(total=Count("id"))
     }
-    duration = ExpressionWrapper(F("finished_at") - F("started_at"), output_field=DurationField())
-    durations = {
-        row["job__queue"]: row["average"].total_seconds()
-        for row in Attempt.objects.filter(finished_at__gte=now - timedelta(hours=1), error="")
-        .values("job__queue")
-        .annotate(average=Avg(duration))
-        if row["average"] is not None
-    }
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT work.queue, avg(extract(epoch FROM a.finished_at-a.started_at)),
+                       percentile_cont(.95) WITHIN GROUP (ORDER BY a.finished_at-a.started_at)
+                       FROM mice_job_attempts a JOIN mice_work_items work ON work.id=a.job_id
+                       WHERE a.finished_at >= %s AND a.error='' AND a.started_at IS NOT NULL GROUP BY work.queue""",
+                       [now - timedelta(hours=1)])
+        durations = {queue: (average, p95.total_seconds()) for queue, average, p95 in cursor.fetchall()}
     broker, workers = {"available": False, "queues": {}}, {"available": False, "items": {}}
     if settings.MICE_RABBIT_API_URL:
         try:
@@ -154,7 +156,8 @@ def snapshot():
                 "dead": counts.get((group, "DEAD"), 0),
                 "oldest_seconds": round((now - oldest[group]).total_seconds()) if group in oldest else None,
                 "completed_hour": completed.get(group, 0),
-                "average_seconds": durations.get(group),
+                "average_seconds": durations.get(group, (None, None))[0],
+                "p95_seconds": durations.get(group, (None, None))[1],
                 "failed_attempts_hour": failures.get(group, 0),
                 "broker": broker["queues"].get(group),
             }
@@ -168,6 +171,41 @@ def snapshot():
         "unpublished": Dispatch.objects.filter(published_at__isnull=True).count(),
         "publish_errors": Dispatch.objects.filter(published_at__isnull=True).exclude(error="").count(),
         "generated_at": now.isoformat(),
+        "mail_queue": mail_queue(now),
+        "job_counts": {status.lower(): sum(count for (_, state), count in counts.items() if status == state)
+                       for status in ("PENDING", "RUNNING", "DONE", "DEAD")},
         "expired_leases": WorkItem.objects.filter(status="RUNNING", deadline__lt=now).count(),
         "delayed_retries": WorkItem.objects.filter(status="PENDING", available_at__gt=now).count(),
+    }
+
+
+def mail_queue(now):
+    processing = WorkItem.objects.filter(
+        queue__in=["ingestion", "extraction", "ocr", "detection", "policy", "ml", "llm", "neural"],
+        status=WorkItem.Status.RUNNING, payload__has_key="message_id",
+    ).annotate(message_id=KeyTextTransform("message_id", "payload")).exclude(message_id__isnull=True).values("message_id")
+    running = Q(pk__in=processing)
+    return Message.objects.aggregate(
+        pending=Count("pk", filter=Q(status="PENDING") & ~running),
+        processing=Count("pk", filter=running),
+        analyzed=Count("pk", filter=Q(status="ANALYZED")),
+        partial=Count("pk", filter=Q(status="PARTIAL")),
+        errors=Count("pk", filter=Q(status="FAILED")),
+        received=Count("pk", filter=Q(created_at__gte=now - timedelta(hours=24))),
+    )
+
+
+def flow_summary():
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT e.source, e.direction, count(*), avg(b.size), max(date_trunc('hour', e.created_at))
+                       FROM mail_events e JOIN messages m ON m.id=e.message_id
+                       JOIN blobs b ON b.sha=m.original_sha
+                       WHERE e.created_at > now()-interval '7 days' GROUP BY 1,2 ORDER BY 1,2""")
+        groups = [dict(zip(("source", "direction", "events", "average", "last"), row, strict=True))
+                  for row in cursor.fetchall()]
+    return {
+        "total": sum(row["events"] for row in groups),
+        "sources": len({row["source"] for row in groups}),
+        "last": max((row["last"] for row in groups), default=None),
+        "groups": groups,
     }

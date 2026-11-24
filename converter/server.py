@@ -5,11 +5,27 @@ import tempfile
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
+
 from validation import validate_document
 
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
+        if self.path == "/resources":
+            try:
+                result = subprocess.run(
+                    ["sh", "/run/mice-resource-probe.sh", "print"],
+                    capture_output=True, timeout=3, check=True,
+                )
+            except (OSError, subprocess.SubprocessError):
+                self.send_error(503)
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Length", str(len(result.stdout)))
+            self.end_headers()
+            self.wfile.write(result.stdout)
+            return
         self.send_response(200 if self.path == "/health" else 404)
         self.end_headers()
 

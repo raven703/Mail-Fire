@@ -1,0 +1,14 @@
+<div class="system-kpis">
+  <article><span>Доставок за 7 дней</span><strong>{{ flow_summary.total }}</strong><small>Повторные доставки считаются отдельно</small></article>
+  <article><span>Источников</span><strong>{{ flow_summary.sources }}</strong></article>
+  <article><span>Последняя доставка</span><strong>{{ flow_summary.last|date:'d.m.Y H:i'|default:'Пока нет' }}</strong><small>Время округлено до часа</small></article>
+</div>
+<section>
+  <h2>Откуда поступает почта</h2>
+  <table><thead><tr><th>Источник</th><th>Направление</th><th>Доставок</th><th>Средний размер письма, байт</th></tr></thead><tbody>
+    {% for group in flow_summary.groups %}<tr><td>{{ group.source }}</td><td>{{ group.direction }}</td><td>{{ group.events }}</td><td>{{ group.average|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий доставки</td></tr>{% endfor %}
+  </tbody></table>
+  <details><summary>Почасовая статистика · последние 24 записи</summary>
+    <table><thead><tr><th>Час</th><th>Источник / направление</th><th>События / уникальные письма</th><th>Размер: среднее / медиана / p95, байт</th></tr></thead><tbody>{% for row in flow %}<tr><td>{{ row.hour }}</td><td>{{ row.source }} / {{ row.direction }}</td><td>{{ row.events }} / {{ row.messages }}</td><td>{{ row.average|floatformat:0 }} / {{ row.median|floatformat:0 }} / {{ row.p95|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий доставки</td></tr>{% endfor %}</tbody></table>
+  </details>
+</section>

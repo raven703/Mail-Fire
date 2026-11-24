@@ -119,6 +119,7 @@ class Metric(models.Model):
 
     class Meta:
         db_table = "metrics"
+        indexes = [models.Index(fields=["service", "-created_at"], name="metrics_service_created_idx")]
 
 
 class MLDataset(models.Model):

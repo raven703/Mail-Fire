@@ -1,45 +1,138 @@
-"""Bounded local resource probes without Docker socket or additional dependencies."""
+"""Read bounded Compose probes and derive per-container resource usage."""
+
 import csv
 import io
+import math
+import os
+import re
+import stat
 import subprocess
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-import psutil
+import httpx
+from django.conf import settings
+
+FILE_SERVICES = (
+    "db", "rabbitmq", "migrate", "publisher", "smtp", "directory-import", "web", "frontend",
+    "beat", "ingestion", "extraction", "ocr", "detection", "ml", "llm", "policy", "notifications",
+    "training", "semantic", "neural-training", "neural",
+)
+REMOTE_SERVICES = (
+    ("parser", "MICE_PARSER_URL"), ("ocr-parser", "MICE_OCR_PARSER_URL"), ("converter", "MICE_CONVERTER_URL"),
+)
+SERVICES = (*FILE_SERVICES, *(name for name, _ in REMOTE_SERVICES), "maintenance")
+PROBE_LIMIT = 8192
+FRESH_FOR = timedelta(seconds=90)
+HISTORY_FOR = timedelta(days=7)
+SAMPLE_ROOT = Path("/mice-metrics/samples")
+PROBE_PATH = "/run/mice-resource-probe.sh"
+
+COUNTERS = {
+    "cpu_usec": "cpu_usec", "cpu_quota": "cpu_quota", "cpu_period": "cpu_period",
+    "memory.current": "ram_used", "memory.max": "ram_total", "memory.swap.current": "swap_used",
+    "disk_total": "disk_total", "disk_used": "disk_used", "disk_free": "disk_free",
+    "pids.current": "pids_used", "pids.max": "pids_limit",
+}
 
 
-def gpu_snapshot():
+def gpu_values(output):
+    items = []
+    for row in csv.reader(io.StringIO(output)):
+        if len(row) != 6:
+            raise ValueError("Invalid GPU sample")
+        index, name, utilization, used, total, temperature = (value.strip() for value in row)
+        utilization, temperature = float(utilization), float(temperature)
+        if not math.isfinite(utilization) or not math.isfinite(temperature):
+            raise ValueError("Invalid GPU numeric value")
+        items.append({"index": int(index), "name": name[:160], "utilization": utilization,
+                      "used_mib": int(used), "total_mib": int(total), "temperature": temperature})
+    return items
+
+
+def decode_probe(payload, now):
+    if len(payload) > PROBE_LIMIT:
+        raise ValueError("Resource probe exceeds size limit")
+    pairs = [line.split(" ", 1) for line in payload.decode().splitlines()]
+    fields = dict(pair for pair in pairs if len(pair) == 2 and pair[0] != "gpu")
+    instance = fields.get("instance", "")
+    state = fields.get("state", "")
+    if not re.fullmatch(r"[a-zA-Z0-9_.-]{1,100}", instance) or state not in {"ready", "running", "degraded", "completed"}:
+        raise ValueError("Invalid resource probe identity")
+    recorded = datetime.fromtimestamp(int(fields.get("at", "0")), tz=timezone.utc)
+    if recorded > now + timedelta(seconds=5) or (recorded < now - FRESH_FOR and state != "completed"):
+        raise ValueError("Stale resource probe")
+    values = {"scope": "service-cgroup", "instance": instance, "state": state,
+              "sample_at": int(recorded.timestamp()), "cpu_percent": None}
+    for src, dst in COUNTERS.items():
+        number = fields.get(src, "")
+        values[dst] = int(number) if re.fullmatch(r"[0-9]{1,20}", number) else None
+    quota, period = values["cpu_quota"], values["cpu_period"]
+    values["cpu_cores"] = quota / period if quota and period else None
     try:
-        result = subprocess.run([
-            "nvidia-smi", "--query-gpu=index,name,utilization.gpu,memory.used,memory.total,temperature.gpu",
-            "--format=csv,noheader,nounits",
-        ], capture_output=True, text=True, timeout=2, check=True)
-        items = []
-        for row in csv.reader(io.StringIO(result.stdout)):
-            if len(row) != 6:
-                raise ValueError("Invalid GPU sample")
-            index, name, utilization, used, total, temperature = (value.strip() for value in row)
-            items.append({"index": int(index), "name": name[:160], "utilization": float(utilization),
-                          "used_mib": int(used), "total_mib": int(total), "temperature": float(temperature)})
-        return {"available": bool(items), "items": items}
-    except (OSError, subprocess.SubprocessError, ValueError):
-        return {"available": False, "items": [], "reason": "GPU not exposed or probe unavailable"}
+        gpus = gpu_values("\n".join(pair[1] for pair in pairs if len(pair) == 2 and pair[0] == "gpu"))
+    except ValueError:
+        gpus = []
+    values["gpu"] = gpus[:16]
+    return recorded, values
 
 
-def cgroup_snapshot(root=Path("/sys/fs/cgroup")):
-    values = {}
-    for name in ("memory.current", "memory.max", "cpu.max", "cpu.stat", "pids.current", "pids.max"):
+def cpu_usage(values, previous):
+    if not previous or previous.get("instance") != values["instance"]:
+        return None
+    usage, old_usage = values["cpu_usec"], previous.get("cpu_usec")
+    seconds = values["sample_at"] - previous["sample_at"]
+    if usage is None or old_usage is None or usage < old_usage or not 0 < seconds <= FRESH_FOR.total_seconds():
+        return None
+    return round((usage - old_usage) / (seconds * 10_000 * (values["cpu_cores"] or 1)), 1)
+
+
+def read_probe(name):
+    with os.fdopen(os.open(SAMPLE_ROOT / name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), "rb") as file:
+        if not stat.S_ISREG(os.fstat(file.fileno()).st_mode):
+            raise ValueError("Resource probe is not a regular file")
+        return file.read(PROBE_LIMIT + 1)
+
+
+def remote_probe(client, url):
+    with client.stream("GET", url.rstrip("/") + "/resources") as response:
+        response.raise_for_status()
+        payload = bytearray()
+        for chunk in response.iter_bytes(chunk_size=1024):
+            payload.extend(chunk)
+            if len(payload) > PROBE_LIMIT:
+                raise ValueError("Resource probe exceeds size limit")
+    return bytes(payload)
+
+
+def collect_probes(now):
+    rows = {}
+    for name in FILE_SERVICES:
         try:
-            values[name.replace(".", "_")] = (root / name).read_text()[:1000].strip()
-        except OSError:
-            values[name.replace(".", "_")] = None
-    return values
+            rows[name] = decode_probe(read_probe(name), now)
+        except (OSError, ValueError, OverflowError):
+            continue
+    with httpx.Client(timeout=3, trust_env=False, follow_redirects=False) as client:
+        for name, setting in REMOTE_SERVICES:
+            url = getattr(settings, setting)
+            if url:
+                try:
+                    rows[name] = decode_probe(remote_probe(client, url), datetime.now(timezone.utc))
+                except (httpx.HTTPError, ValueError, OSError, OverflowError):
+                    continue
+    try:
+        local = subprocess.run(["sh", PROBE_PATH, "print"], capture_output=True, timeout=3, check=True)
+        rows["maintenance"] = decode_probe(local.stdout, datetime.now(timezone.utc))
+    except (OSError, ValueError, OverflowError, subprocess.SubprocessError):
+        pass
+    return rows
 
 
-def local_resources():
-    memory = psutil.virtual_memory()
-    disk = psutil.disk_usage("/")
-    return {"cpu_percent": psutil.cpu_percent(interval=0.1), "ram_used": memory.used, "ram_total": memory.total,
-            "disk_used": disk.used, "disk_total": disk.total, "disk_free": disk.free,
-            "swap_used": psutil.swap_memory().used, "process_rss": psutil.Process().memory_info().rss,
-            "scope": "current-service; system counters may be host-visible",
-            "cgroup": cgroup_snapshot(), "gpu": gpu_snapshot()}
+def service_state(row, now):
+    if row is None:
+        return "missing"
+    if row.values.get("state") == "completed":
+        return "completed"
+    if now - row.created_at > FRESH_FOR:
+        return "stale"
+    return row.values.get("state", "running")

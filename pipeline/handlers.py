@@ -1,36 +1,33 @@
 """Explicit runnable handlers. Unported analysis stages are never fake-success tasks."""
 
-import os
-import socket
+from django.db import connection, transaction
+from django.utils import timezone
 
-import psutil
-from django.db import transaction
-
+from pipeline.resource_history import latest_resource_samples
+from pipeline.resources import HISTORY_FOR, SERVICES, collect_probes, cpu_usage
 from pipeline.services import finish, locked_current, recover
 from records.models import Metric
 
 
 def sample_resources(job):
-    from pipeline.resources import local_resources
-
-    memory = psutil.virtual_memory()
-    values = {
-        "hostname": socket.gethostname(),
-        "pid": os.getpid(),
-        "cpu_percent": psutil.cpu_percent(interval=0.1),
-        "ram_used": memory.used,
-        "ram_total": memory.total,
-        "swap_used": psutil.swap_memory().used,
-        "disk_free": psutil.disk_usage("/").free,
-        "process_rss": psutil.Process().memory_info().rss,
-        "scope": "worker-visible-system",
-        "gpu": None,
-    }
-    values.update(local_resources())
+    now = timezone.now()
+    probes = collect_probes(now)
     with transaction.atomic():
         locked_current(job.pk, job.token)
-        Metric.objects.create(service="celery:" + socket.gethostname(), values=values)
-        finish(job.pk, job.token, {"sampled": True})
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT pg_advisory_xact_lock(hashtext('mice-resource-sampler'))")
+        previous = {row.service: row for row in latest_resource_samples()}
+        samples = []
+        for service, (recorded, values) in probes.items():
+            last = previous.get(service)
+            if last and last.values["sample_at"] >= values["sample_at"]:
+                continue
+            values["cpu_percent"] = cpu_usage(values, last.values if last else None)
+            samples.append(Metric(service=service, created_at=recorded, values=values))
+        Metric.objects.bulk_create(samples)
+        expired = Metric.objects.filter(service__in=SERVICES, created_at__lt=now - HISTORY_FOR)
+        expired.filter(pk__in=list(expired.order_by("created_at").values_list("pk", flat=True)[:1000])).delete()
+        finish(job.pk, job.token, {"sampled": len(samples), "available": sorted(probes)})
 
 
 def recover_deliveries(job):

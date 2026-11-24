@@ -1,4 +1,13 @@
 name: mice-django-htmx
+x-resource-config: &resource-config
+  - source: resource-probe
+    target: /run/mice-resource-probe.sh
+x-resource-volume: &resource-volume
+  - django-resources:/mice-metrics
+x-resource-check: &resource-check
+  interval: 30s
+  timeout: 5s
+  retries: 3
 x-worker: &worker
   image: mice-django-runtime:experiment
   build:
@@ -22,6 +31,8 @@ x-worker: &worker
     MICE_IMPORT_MAX_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
     MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
   command: [python, -m, pipeline.worker]
+  configs: *resource-config
+  volumes: *resource-volume
   read_only: true
   tmpfs: ["/tmp:size=64m,noexec,nosuid"]
   cap_drop: [ALL]
@@ -43,6 +54,7 @@ services:
       OCR_BACKEND: disabled
       MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
       MAX_EXPANDED_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
+    configs: *resource-config
     networks: [parsing]
     read_only: true
     tmpfs: ['/tmp:size=256m,noexec,nosuid']
@@ -71,6 +83,7 @@ services:
   converter:
     image: mice-django-converter:experiment
     build: ./converter
+    configs: *resource-config
     networks: [conversion]
     read_only: true
     tmpfs: ['/tmp:size=512m,noexec,nosuid']
@@ -87,9 +100,15 @@ services:
       POSTGRES_USER: mice_django
       POSTGRES_PASSWORD: ${MICE_DB_PASSWORD:?set dedicated experiment password}
     ports: ["127.0.0.1:15433:5432"]
-    volumes: [django-postgres:/var/lib/postgresql/data]
+    volumes: [django-postgres:/var/lib/postgresql/data, django-resources:/mice-metrics]
+    configs: *resource-config
     healthcheck:
-      test: [CMD-SHELL, "pg_isready -U mice_django -d mice_django_experiment"]
+      test:
+        - CMD-SHELL
+        - >-
+          pg_isready -U mice_django -d mice_django_experiment && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store db "$$state" /var/lib/postgresql/data 2>/dev/null;
+          test "$$state" = ready
       interval: 2s
       timeout: 3s
       retries: 20
@@ -100,9 +119,15 @@ services:
       RABBITMQ_DEFAULT_PASS: ${MICE_RABBIT_PASSWORD:?set dedicated experiment broker password}
       RABBITMQ_DEFAULT_VHOST: mice
     ports: ["127.0.0.1:15673:15672", "127.0.0.1:15674:5672"]
-    volumes: [django-rabbitmq:/var/lib/rabbitmq]
+    volumes: [django-rabbitmq:/var/lib/rabbitmq, django-resources:/mice-metrics]
+    configs: *resource-config
     healthcheck:
-      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      test:
+        - CMD-SHELL
+        - >-
+          rabbitmq-diagnostics -q ping && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store rabbitmq "$$state" /var/lib/rabbitmq 2>/dev/null;
+          test "$$state" = ready
       interval: 5s
       timeout: 5s
       retries: 30
@@ -115,17 +140,34 @@ services:
       context: .
       dockerfile: Dockerfile.django
     environment: *runtime-env
-    command: [python, manage.py, migrate, --noinput]
+    configs: *resource-config
+    volumes: *resource-volume
+    command:
+      - sh
+      - -c
+      - >-
+        sh /run/mice-resource-probe.sh store migrate running;
+        python manage.py migrate --noinput;
+        result=$$?;
+        test "$$result" = 0 && state=completed || state=degraded;
+        sh /run/mice-resource-probe.sh store migrate "$$state";
+        exit "$$result"
     depends_on:
       db:
         condition: service_healthy
   publisher:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, publisher]
     command: [python, manage.py, publish_outbox]
     mem_limit: 256m
     cpus: 0.5
   smtp:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, smtp]
     command: [python, manage.py, collect_smtp, --host, 0.0.0.0, --port, '2525']
     profiles: [smtp]
     ports: ['127.0.0.1:12525:2525']
@@ -136,9 +178,13 @@ services:
     cpus: 0.5
   directory-import:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, directory-import]
     profiles: [directory-import]
     command: [python, manage.py, import_mail, /imports, --namespace, '${MICE_IMPORT_NAMESPACE:-directory}', --watch]
     volumes:
+      - django-resources:/mice-metrics
       - type: bind
         source: ${MICE_IMPORT_DIRECTORY:-./experiment-imports}
         target: /imports
@@ -162,11 +208,26 @@ services:
     mem_limit: ${MICE_WEB_MEMORY:-512m}
     cpus: ${MICE_WEB_CPUS:-1}
     healthcheck:
-      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')" && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store web "$$state" / 2>/dev/null;
+          test "$$state" = ready
       interval: 10s
       timeout: 5s
       retries: 6
   frontend:
+    configs: *resource-config
+    volumes: *resource-volume
+    healthcheck:
+      <<: *resource-check
+      test:
+        - CMD-SHELL
+        - >-
+          wget -q -O /dev/null http://127.0.0.1:8080/static/mice/style.css && state=ready || state=degraded;
+          sh /run/mice-resource-probe.sh store frontend "$$state";
+          test "$$state" = ready
     image: mice-django-web:experiment
     build:
       context: .
@@ -184,12 +245,18 @@ services:
     cpus: 0.5
   beat:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, beat]
     command: [celery, -A, mice.celery:app, beat, --loglevel=INFO, --schedule=/state/beat]
-    volumes: [django-beat:/state]
+    volumes: [django-beat:/state, django-resources:/mice-metrics]
     mem_limit: 256m
     cpus: 0.5
   ingestion:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ingestion]
     networks: [default, parsing]
     profiles: [pipeline]
     environment:
@@ -202,6 +269,9 @@ services:
     cpus: ${MICE_INGESTION_CPUS:-1}
   extraction:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, extraction]
     networks: [default, parsing]
     profiles: [pipeline]
     environment:
@@ -214,6 +284,9 @@ services:
     cpus: ${MICE_EXTRACTION_CPUS:-1}
   ocr:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ocr]
     networks: [default, ocr-parsing]
     profiles: [pipeline]
     environment:
@@ -226,6 +299,9 @@ services:
     cpus: ${MICE_OCR_CPUS:-2}
   detection:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, detection]
     networks: [default, parsing]
     profiles: [pipeline]
     environment:
@@ -238,6 +314,9 @@ services:
     cpus: ${MICE_DETECTION_CPUS:-1}
   ml:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, ml]
     image: mice-django-training:experiment
     build:
       context: .
@@ -255,6 +334,9 @@ services:
     cpus: ${MICE_ML_CPUS:-1}
   llm:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, llm]
     profiles: [llm-inference]
     environment:
       <<: *runtime-env
@@ -267,6 +349,9 @@ services:
     cpus: ${MICE_LLM_CPUS:-1}
   policy:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, policy]
     profiles: [pipeline]
     environment:
       <<: *runtime-env
@@ -278,6 +363,9 @@ services:
     cpus: ${MICE_POLICY_CPUS:-1}
   notifications:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, notifications]
     profiles: [pipeline]
     environment:
       <<: *runtime-env
@@ -289,6 +377,9 @@ services:
     cpus: ${MICE_NOTIFICATIONS_CPUS:-1}
   training:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, training]
     image: mice-django-training:experiment
     build:
       context: .
@@ -306,6 +397,9 @@ services:
     cpus: ${MICE_TRAINING_CPUS:-1}
   semantic:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, semantic]
     image: mice-django-semantic:experiment
     build:
       context: .
@@ -321,6 +415,9 @@ services:
     cpus: ${MICE_SEMANTIC_CPUS:-2}
   neural-training:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, neural-training]
     image: mice-django-neural:experiment
     build:
       context: .
@@ -336,12 +433,16 @@ services:
       ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
       ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
     volumes:
+      - django-resources:/mice-metrics
       - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
     tmpfs: ['/tmp:size=4g,noexec,nosuid']
     mem_limit: ${MICE_NEURAL_MEMORY:-8g}
     cpus: ${MICE_NEURAL_CPUS:-4}
   neural:
     <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, neural]
     image: mice-django-neural:experiment
     build:
       context: .
@@ -355,21 +456,29 @@ services:
       ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
       ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
     volumes:
+      - django-resources:/mice-metrics
       - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
     tmpfs: ['/tmp:size=4g,noexec,nosuid']
     mem_limit: ${MICE_NEURAL_MEMORY:-8g}
     cpus: ${MICE_NEURAL_CPUS:-4}
   maintenance:
     <<: *worker
+    networks: [default, parsing, ocr-parsing, conversion]
+    volumes: [django-resources:/mice-metrics:ro]
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: maintenance
+      MICE_CONVERTER_URL: http://converter:8091
       MICE_MAINTENANCE_CONCURRENCY: ${MICE_MAINTENANCE_CONCURRENCY:-1}
       MICE_MAINTENANCE_PREFETCH: ${MICE_MAINTENANCE_PREFETCH:-1}
       MICE_MAINTENANCE_TIMEOUT: ${MICE_MAINTENANCE_TIMEOUT:-300}
     mem_limit: ${MICE_MAINTENANCE_MEMORY:-512m}
     cpus: ${MICE_MAINTENANCE_CPUS:-1}
+configs:
+  resource-probe:
+    file: ./scripts/native_resource_probe.sh
 volumes:
+  django-resources:
   django-postgres:
   django-rabbitmq:
   django-beat:

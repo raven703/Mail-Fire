@@ -4,11 +4,15 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
 from pipeline.models import WorkItem
-from pipeline.monitoring import database_snapshot, flow_snapshot, snapshot, stage_snapshot
-from pipeline.resource_history import resource_history
-from pipeline.resources import local_resources
+from pipeline.monitoring import database_snapshot, flow_snapshot, flow_summary, snapshot, stage_snapshot
+from pipeline.resource_history import service_series
 from pipeline.services import cancel, retry
-from records.models import Audit, Diagnostic, Metric
+from records.models import Audit, Diagnostic
+
+TABS = (
+    ("queues", "Очереди"), ("flow", "Почтовый поток"), ("resources", "История ресурсов"),
+    ("database", "PostgreSQL"), ("jobs", "Задания"),
+)
 
 
 def denied(request, admin=False):
@@ -32,28 +36,32 @@ def operations(request):
     error = denied(request)
     if error is not None:
         return error
-    jobs = WorkItem.objects.order_by("-created_at")
     status, queue = request.GET.get("status", ""), request.GET.get("queue", "")
-    if status:
-        jobs = jobs.filter(status=status)
-    if queue:
-        jobs = jobs.filter(queue=queue)
-    return render(
-        request,
-        "pipeline/operations.html",
-        {
-            "monitor": snapshot(),
-            "stages": stage_snapshot(),
-            "resource_history": resource_history(Metric.objects.order_by("-created_at")[:1000]),
-            "local_resources": local_resources(),
-            "flow": flow_snapshot(),
-            "database": database_snapshot() if request.user.has_perm("identity.administer") else None,
-            "jobs": jobs[:100],
-            "metrics": Metric.objects.filter(service__startswith="celery:").order_by("-created_at")[:10],
-            "can_administer": request.user.has_perm("identity.administer"),
-            "diagnostics": Diagnostic.objects.order_by("-created_at").values("created_at", "service", "level", "event")[:30],
-        },
-    )
+    tab = request.GET.get("tab", "jobs" if status or queue else "queues")
+    if tab not in dict(TABS):
+        tab = "queues"
+    admin = request.user.has_perm("identity.administer")
+    context = {"tab": tab, "tabs": TABS, "can_administer": admin}
+    if tab == "queues":
+        context.update(monitor=snapshot(), stages=stage_snapshot())
+    elif tab == "flow":
+        context.update(flow=flow_snapshot(), flow_summary=flow_summary())
+    elif tab == "resources":
+        context["resource_history"] = service_series()
+    elif tab == "database" and admin:
+        context["database"] = database_snapshot()
+    elif tab == "jobs":
+        jobs = WorkItem.objects.order_by("-created_at")
+        if status == "active":
+            jobs = jobs.filter(status__in=[WorkItem.Status.PENDING, WorkItem.Status.RUNNING])
+        elif status:
+            jobs = jobs.filter(status=status)
+        if queue:
+            jobs = jobs.filter(queue=queue)
+        context.update(jobs=jobs[:100], diagnostics=Diagnostic.objects.order_by("-created_at").values(
+            "created_at", "service", "level", "event",
+        )[:30])
+    return render(request, "pipeline/operations.html", context)
 
 
 @require_POST
@@ -72,5 +80,7 @@ def control(request, job_id, action):
         return JsonResponse({"detail": str(exc)}, status=409)
     Audit.objects.create(actor=request.user.pk, action="job_" + action, target=str(job.pk))
     if request.POST.get("return") == "operations":
-        return redirect("operations")
+        response = redirect("operations")
+        response["Location"] += "?tab=jobs"
+        return response
     return JsonResponse({"id": str(job.pk), "status": job.status})

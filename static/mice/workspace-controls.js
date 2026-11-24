@@ -189,3 +189,9 @@
   document.addEventListener('DOMContentLoaded', initialize);
   document.addEventListener('htmx:afterSettle', initialize);
 })();
+document.addEventListener('click', event => {
+  const link = event.target.closest('[data-resource-link]');
+  if (!link) return;
+  const details = document.getElementById(link.hash.slice(1));
+  if (details) details.open = true;
+});

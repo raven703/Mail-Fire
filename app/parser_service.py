@@ -2,6 +2,7 @@
 
 import base64
 import json
+import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
@@ -14,6 +15,21 @@ slots = threading.BoundedSemaphore(1)
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
+        if self.path == "/resources":
+            try:
+                result = subprocess.run(
+                    ["sh", "/run/mice-resource-probe.sh", "print"],
+                    capture_output=True, timeout=3, check=True,
+                )
+            except (OSError, subprocess.SubprocessError):
+                self.send_error(503)
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Length", str(len(result.stdout)))
+            self.end_headers()
+            self.wfile.write(result.stdout)
+            return
         self.send_response(200 if self.path == "/health" else 404)
         self.end_headers()
 

@@ -1,1 +1,29 @@
-<section class="system-status"><h2>История ресурсов</h2>{% for group in resource_history %}<article><h3>{{ group.service }}</h3><div class="system-kpis"><article><span>Загрузка CPU</span><strong>{{ group.latest.cpu|default_if_none:'—' }} %</strong></article><article><span>Использование памяти</span><strong>{{ group.latest.ram_percent|default_if_none:'—' }} %</strong><small>{{ group.latest.ram_used }} из {{ group.latest.ram_total }} байт</small></article><article><span>Свободно на диске</span><strong>{{ group.latest.disk_free|default_if_none:'—' }} байт</strong></article><article><span>Используется swap</span><strong>{{ group.latest.swap_used|default_if_none:'—' }} байт</strong></article></div><p class="muted">Последний замер: {{ group.latest.created_at }} · Область измерения: {{ group.latest.scope }}</p><h4>Последние 20 замеров</h4><table><thead><tr><th>Время</th><th>CPU</th><th>Память занята</th><th>Диск свободен</th></tr></thead><tbody>{% for row in group.rows %}<tr><td>{{ row.created_at }}</td><td>{{ row.cpu|default_if_none:'—' }} %</td><td>{{ row.ram_used|default_if_none:'—' }} байт</td><td>{{ row.disk_free|default_if_none:'—' }} байт</td></tr>{% endfor %}</tbody></table></article>{% empty %}<p class="empty">Показатели ресурсов ещё не поступили. Сбор выполняется примерно каждые 30 секунд.</p>{% endfor %}</section>
+<section>
+  <h2>История ресурсов</h2>
+  <p class="muted">CPU рассчитан относительно квоты контейнера. Без квоты 100% соответствует одному ядру. Для диска показана файловая система сервиса.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Сервис</th><th>Статус</th><th>CPU</th><th>Память</th><th>Свободно на диске</th><th>Последний замер</th></tr></thead>
+    <tbody>{% for group in resource_history %}<tr>
+      <td>{% if group.latest %}<a href="#resource-{{ group.service }}" data-resource-link>{{ group.service }}</a>{% else %}{{ group.service }}{% endif %}</td>
+      <td>{{ group.label }}</td>
+      <td>{% if group.latest.cpu is not None %}{{ group.latest.cpu }}%{% else %}—{% endif %}</td>
+      <td>{% if group.latest.ram_used is not None %}{{ group.latest.ram_used|filesizeformat }}{% else %}—{% endif %}</td>
+      <td>{% if group.latest.disk_free is not None %}{{ group.latest.disk_free|filesizeformat }}{% else %}—{% endif %}</td>
+      <td>{{ group.latest.created_at|date:'d.m.Y H:i:s'|default:'—' }}</td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  {% for group in resource_history %}{% if group.latest %}
+  <details id="resource-{{ group.service }}" data-resource-details>
+    <summary>{{ group.service }} · история замеров</summary>
+    <div class="system-kpis">
+      <article><span>Загрузка CPU</span><strong>{{ group.latest.cpu|default_if_none:'—' }}{% if group.latest.cpu is not None %}%{% endif %}</strong></article>
+      <article><span>Память</span><strong>{% if group.latest.ram_used is not None %}{{ group.latest.ram_used|filesizeformat }}{% else %}—{% endif %}</strong>{% if group.latest.ram_total %}<small>из {{ group.latest.ram_total|filesizeformat }} · {{ group.latest.ram_percent }}%</small>{% endif %}</article>
+      <article><span>Свободно на диске</span><strong>{% if group.latest.disk_free is not None %}{{ group.latest.disk_free|filesizeformat }}{% else %}—{% endif %}</strong></article>
+      <article><span>Используется swap</span><strong>{% if group.latest.swap_used is not None %}{{ group.latest.swap_used|filesizeformat }}{% else %}—{% endif %}</strong></article>
+    </div>
+    <p>Процессы и потоки {{ group.latest.pids_used|default_if_none:'—' }} / {{ group.latest.pids_limit|default_if_none:'—' }}</p>
+    {% for gpu in group.latest.gpu %}<p>{{ gpu.name }} · {{ gpu.utilization }}% · VRAM {{ gpu.used_mib }} / {{ gpu.total_mib }} МиБ · {{ gpu.temperature }} °C</p>{% empty %}<p class="muted">Замеры GPU отсутствуют</p>{% endfor %}
+    <table><caption>Последние 20 замеров</caption><thead><tr><th>Время</th><th>CPU</th><th>Память занята</th><th>Диск свободен</th></tr></thead><tbody>{% for row in group.rows %}<tr><td>{{ row.created_at|date:'d.m.Y H:i:s' }}</td><td>{% if row.cpu is not None %}{{ row.cpu }}%{% else %}—{% endif %}</td><td>{% if row.ram_used is not None %}{{ row.ram_used|filesizeformat }}{% else %}—{% endif %}</td><td>{% if row.disk_free is not None %}{{ row.disk_free|filesizeformat }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table>
+  </details>
+  {% endif %}{% endfor %}
+</section>

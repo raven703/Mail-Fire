@@ -1,0 +1,32 @@
+<div class="system-summary{% if monitor.job_counts.dead or monitor.expired_leases %} warning{% endif %}">
+  <strong>{% if monitor.job_counts.dead or monitor.expired_leases %}Есть задания, требующие внимания{% elif monitor.job_counts.running %}Обработка выполняется{% elif monitor.job_counts.pending %}Есть задания в очереди{% else %}Очередь свободна{% endif %}</strong>
+  <p>RabbitMQ {{ monitor.broker.available|yesno:'доступен,недоступен' }} · Celery {{ monitor.workers.available|yesno:'отвечает,нет ответа' }} · Просрочено {{ monitor.expired_leases }} · Отложенные повторы {{ monitor.delayed_retries }} · Ошибки публикации {{ monitor.publish_errors }} из {{ monitor.unpublished }}</p>
+</div>
+<h2>Очередь писем</h2>
+<div class="system-kpis">
+  <article><span>Ожидают анализа</span><strong>{{ monitor.mail_queue.pending }}</strong></article>
+  <article><span>В обработке</span><strong>{{ monitor.mail_queue.processing }}</strong></article>
+  <article><span>Проанализированы</span><strong>{{ monitor.mail_queue.analyzed }}</strong></article>
+  <article><span>Частичный анализ</span><strong>{{ monitor.mail_queue.partial }}</strong></article>
+  <article><span>Ошибки</span><strong>{{ monitor.mail_queue.errors }}</strong></article>
+  <article><span>Поступили за 24 часа</span><strong>{{ monitor.mail_queue.received }}</strong></article>
+</div>
+{% include 'pipeline/_stages.html' %}
+<section>
+  <header><h2>Доставка заданий</h2><a class="system-detail-link" href="?tab=jobs">Открыть задания →</a></header>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Очередь</th><th>Ожидает</th><th>В работе</th><th>Ошибки</th><th>Старейшее, с</th><th>Завершено за час</th><th>Попытки с ошибкой за час</th><th>Время попытки, среднее / p95, с</th><th>RabbitMQ ready / unacked / consumers</th></tr></thead>
+    <tbody>{% for queue in monitor.queues %}<tr><td><a href="?tab=jobs&amp;queue={{ queue.name|urlencode }}">{{ queue.name }}</a></td><td>{{ queue.pending }}</td><td>{{ queue.running }}</td><td>{{ queue.dead }}</td><td>{{ queue.oldest_seconds|default_if_none:'—' }}</td><td>{{ queue.completed_hour }}</td><td>{{ queue.failed_attempts_hour }}</td><td>{{ queue.average_seconds|floatformat:2|default:'—' }} / {{ queue.p95_seconds|floatformat:2|default:'—' }}</td><td>{% if queue.broker %}{{ queue.broker.ready }} / {{ queue.broker.unacknowledged }} / {{ queue.broker.consumers }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+<section>
+  <h2>Сервисы</h2>
+  {% for service in monitor.services %}<p>{{ service.name }} · {{ service.state }}</p>{% endfor %}
+  <a href="?tab=resources">История ресурсов →</a>
+  <details><summary>Воркеры Celery</summary>
+    {% for name, stat in monitor.workers.stats.items %}
+    <details><summary>{{ name }} · PID {{ stat.pid }} · Время работы {{ stat.uptime }} с</summary><p>Параллелизм {{ stat.pool.max_concurrency }} · Процессы {{ stat.pool.processes|join:', ' }}</p>
+    <dl>{% for key, value in stat.rusage.items %}<dt>{{ key }}</dt><dd>{{ value }}</dd>{% endfor %}</dl></details>
+    {% empty %}{% for name in monitor.workers.items %}<p>{{ name }}</p>{% empty %}<p class="muted">Нет ответов</p>{% endfor %}{% endfor %}
+  </details>
+</section>

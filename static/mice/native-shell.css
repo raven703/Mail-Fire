@@ -10,3 +10,4 @@
 .attachment-dialog #attachment-viewer { min-height: 0; }
 .viewer-toolbar .document-page { flex-basis: 100%; }
 .viewer-toolbar [data-viewer-submit] { flex-shrink: 0; }
+.system-tabs a[aria-current="page"] { background: var(--selected); border-color: var(--border); color: var(--text); }
