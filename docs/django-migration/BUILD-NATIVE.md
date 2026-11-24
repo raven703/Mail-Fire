@@ -1,5 +1,30 @@
 # Experimental native build
 
+## Optional inference and offline restore
+
+Inference remains disabled by default. TF-IDF uses `ml-inference` (training image);
+snapshots containing SetFit/RuBERT use `neural-inference` (separate neural queue).
+Deploy both profiles if either engine can be published. Explicitly set
+`MICE_ML_INFERENCE_ENABLED=true` only after validating images and models.
+Model activation alone does not enable inference.
+
+LLM requires `llm-inference`, `MICE_LLM_INFERENCE_ENABLED=true`, its configuration
+checkbox and approved external transfer. `MAILFIRE_LLM_API_KEY` is passed only to
+the LLM worker. Provider routing and normalization reuse the original algorithms.
+
+Restore verified local base models without starting containers:
+
+```sh
+python scripts/native_offline.py verify /absolute/bundle --restore-models /absolute/new-models
+```
+
+Destination must not exist; its parent must exist. Hash verification precedes
+restore. Links, special files, traversal and oversized archives are rejected;
+files are staged privately and published to a new directory. Point
+`MICE_NEURAL_MODELS_DIR` there. `load` additionally imports image archives and
+checks image identities. Neither command starts services or modifies databases.
+Manifest checksums provide integrity, not publisher authentication.
+
 Only use dedicated experimental secrets/data. Never reuse the source deployment.
 No services are started by dependency lock generation or Compose config validation.
 

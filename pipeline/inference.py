@@ -1,7 +1,9 @@
 """Optional sequential inference with immutable input content and fenced commits."""
 
 import hashlib
+import json
 import os
+from types import SimpleNamespace
 
 from django.db import transaction
 
@@ -17,14 +19,26 @@ def enabled(engine):
 def route(message, key):
     kind = "ml.infer" if enabled("ml") else "llm.infer" if enabled("llm") else None
     if kind:
-        return enqueue(kind, {"message_id": message.pk, "content_id": message.content_id}, "inference:" + key)
+        snapshot = {
+            "models": [{"id": row.pk, "engine": row.engine, "category_id": row.category_id,
+                        "metrics": row.metrics, "sha256": hashlib.sha256(bytes(row.artifact)).hexdigest()}
+                       for row in MLModel.objects.filter(active=True).order_by("pk")] if enabled("ml") else [],
+            "settings": {row.pk: row.value for row in Setting.objects.filter(pk__in=["llm_analyzer", "normalizer"])},
+        }
+        from records.models import Category
+
+        snapshot["categories"] = list(Category.objects.filter(active=True).values("id", "name", "mode"))
+        if any(row["engine"] in {"setfit", "rubert"} for row in snapshot["models"]):
+            kind = "neural.infer"
+        return enqueue(kind, {"message_id": message.pk, "content_id": message.content_id, "snapshot": snapshot}, "inference:" + key)
     from policy_engine.service import request_evaluation
 
     return request_evaluation(message.pk, key)
 
 
 def run(job):
-    engine = "ml" if job.kind == "ml.infer" else "llm"
+    engine = "llm" if job.kind == "llm.infer" else "ml"
+    snapshot = job.payload["snapshot"]
     source = Content.objects.get(pk=job.payload["content_id"])
     analysis = {**source.analysis}
     findings, errors, predictions = [], [], []
@@ -32,13 +46,20 @@ def run(job):
         if engine == "ml":
             from app.ml_runtime import infer_models
 
-            predictions, errors = infer_models(list(MLModel.objects.filter(active=True).order_by("pk")), source.text)
+            models = []
+            for metadata in snapshot["models"]:
+                row = MLModel.objects.filter(pk=metadata["id"]).first()
+                if row is None or hashlib.sha256(bytes(row.artifact)).hexdigest() != metadata["sha256"]:
+                    errors.append({"model_id": metadata["id"], "error": "snapshot_artifact_unavailable"})
+                    continue
+                models.append(SimpleNamespace(id=metadata["id"], engine=metadata["engine"],
+                                              category_id=metadata["category_id"], metrics=metadata["metrics"], artifact=bytes(row.artifact)))
+            predictions, failures = infer_models(models, source.text)
+            errors.extend(failures)
             # Preserve original prediction metadata; policy ML rules consume
             # predictions separately from deterministic findings.
             analysis["ml_predictions"] = predictions
-            from records.models import Category
-
-            builtin = set(Category.objects.filter(mode="builtin", active=True).values_list("pk", flat=True))
+            builtin = {row["id"] for row in snapshot["categories"] if row["mode"] == "builtin"}
             for prediction in predictions:
                 if prediction["matched"] and prediction["category"] in builtin:
                     findings.append({
@@ -47,19 +68,28 @@ def run(job):
                         "source": "supervised-ml", "version": prediction.get("model_id", ""),
                         "reason": "Вероятностная классификация; не доказательство утечки", "status": "ANALYZED",
                     })
+            from pipeline.parser_client import call
+
+            evaluated = call("detection_evidence", json.dumps({
+                "text": source.text, "configuration": analysis["configuration_snapshot"], "attachments": [],
+                "ml_scores": {p["category"]: p for p in predictions}, "ml_available": bool(models),
+            }).encode())
+            analysis["findings"] = [f for f in analysis.get("findings", []) if not f.get("source", "").startswith("custom-")]
+            findings.extend(f for f in evaluated["findings"] if f.get("source", "").startswith("custom-"))
+            if models:
+                analysis["engine_errors"] = [e for e in analysis.get("engine_errors", []) if e.get("engine") != "category_ml"]
         else:
             from app.llm_analyzer import DEFAULTS, analyze_configured
             from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS
-            from records.models import Category
-
-            values = {row.pk: row.value for row in Setting.objects.filter(pk__in=["llm_analyzer", "normalizer"])}
+            values = snapshot["settings"]
             options = DEFAULTS | values.get("llm_analyzer", {})
             findings, failures = analyze_configured(source.text, analysis.get("findings", []), options,
-                NORMALIZER_DEFAULTS | values.get("normalizer", {}), dict(Category.objects.filter(active=True).values_list("pk", "name")))
+                NORMALIZER_DEFAULTS | values.get("normalizer", {}), {row["id"]: row["name"] for row in snapshot["categories"]})
             errors = [{"engine": "llm", "error": failure} for failure in failures]
         analysis["skipped_checks"] = [value for value in analysis.get("skipped_checks", []) if value != engine]
     analysis["findings"] = analysis.get("findings", []) + findings
     analysis["engine_errors"] = analysis.get("engine_errors", []) + errors
+    analysis["inference_snapshot"] = snapshot
     with transaction.atomic():
         locked_current(job.pk, job.token)
         message = Message.objects.select_for_update().get(pk=job.payload["message_id"])
@@ -75,7 +105,7 @@ def run(job):
             message.status = "PARTIAL"
         message.save(update_fields=["content", "status"])
         if engine == "ml" and enabled("llm"):
-            following = enqueue("llm.infer", {"message_id": message.pk, "content_id": content.pk}, "llm:" + str(job.pk))
+            following = enqueue("llm.infer", {"message_id": message.pk, "content_id": content.pk, "snapshot": snapshot}, "llm:" + str(job.pk))
         else:
             from policy_engine.service import request_evaluation
 

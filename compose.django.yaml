@@ -16,6 +16,8 @@ x-worker: &worker
     MICE_OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
     MICE_CLAMAV_HOST: ${MICE_CLAMAV_HOST:-}
     MICE_CLAMAV_PORT: ${MICE_CLAMAV_PORT:-3310}
+    MICE_ML_INFERENCE_ENABLED: ${MICE_ML_INFERENCE_ENABLED:-false}
+    MICE_LLM_INFERENCE_ENABLED: ${MICE_LLM_INFERENCE_ENABLED:-false}
     MICE_IMPORT_MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
     MICE_IMPORT_MAX_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
     MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
@@ -236,7 +238,13 @@ services:
     cpus: ${MICE_DETECTION_CPUS:-1}
   ml:
     <<: *worker
-    profiles: [pipeline]
+    image: mice-django-training:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-training
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [ml-inference]
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: ml
@@ -247,10 +255,11 @@ services:
     cpus: ${MICE_ML_CPUS:-1}
   llm:
     <<: *worker
-    profiles: [pipeline]
+    profiles: [llm-inference]
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: llm
+      MAILFIRE_LLM_API_KEY: ${MAILFIRE_LLM_API_KEY:-}
       MICE_LLM_CONCURRENCY: ${MICE_LLM_CONCURRENCY:-1}
       MICE_LLM_PREFETCH: ${MICE_LLM_PREFETCH:-1}
       MICE_LLM_TIMEOUT: ${MICE_LLM_TIMEOUT:-300}
@@ -286,7 +295,7 @@ services:
       dockerfile: Dockerfile.django-training
       additional_contexts:
         runtime_image: service:migrate
-    profiles: [training]
+    profiles: [training, neural-inference, neural-training]
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: training
@@ -324,6 +333,25 @@ services:
       MICE_WORKER_GROUP: neural_training
       MICE_TRAINING_TIMEOUT: 7200
       MICE_NEURAL_TRAINING_TIMEOUT: 7200
+      ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
+      ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
+    volumes:
+      - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
+    tmpfs: ['/tmp:size=4g,noexec,nosuid']
+    mem_limit: ${MICE_NEURAL_MEMORY:-8g}
+    cpus: ${MICE_NEURAL_CPUS:-4}
+  neural:
+    <<: *worker
+    image: mice-django-neural:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-neural
+      additional_contexts:
+        training_image: service:training
+    profiles: [neural-inference]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: neural
       ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
       ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
     volumes:

@@ -116,6 +116,7 @@ def infer_optional(job):
 
 
 handlers = {
+    "neural.infer": ("neural", infer_optional),
     "ml.infer": ("ml", infer_optional),
     "llm.infer": ("llm", infer_optional),
     "maintenance.gc": ("maintenance", collect_garbage),

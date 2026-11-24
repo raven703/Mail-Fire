@@ -78,6 +78,7 @@ def detect(job):
         "findings": findings, "engine_errors": errors,
         "skipped_checks": sorted(skipped | set(status_skipped)),
         "normalization": result.get("normalization", {}),
+        "configuration_snapshot": config,
         "configuration_sha256": hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest(),
     }
     with transaction.atomic():

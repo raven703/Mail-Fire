@@ -3,6 +3,7 @@
 import os
 
 GROUPS = (
+    "neural",
     "neural_training",
     "semantic",
     "ingestion",

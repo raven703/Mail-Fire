@@ -3,12 +3,45 @@ from urllib.parse import quote
 
 import httpx
 from django.conf import settings
+from django.db import connection
 from django.db.models import Avg, Count, DurationField, ExpressionWrapper, F, Min
 from django.utils import timezone
 
 from mice.celery import app
 from pipeline.config import GROUPS
 from pipeline.models import Attempt, Dispatch, WorkItem
+from records.models import Message
+
+
+def database_snapshot():
+    """Read-only PostgreSQL statistics; deliberately never exposes query text."""
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT pg_database_size(current_database()), (SELECT count(*) FROM pg_locks WHERE NOT granted)")
+        size, waiting = cursor.fetchone()
+        cursor.execute("""SELECT relname, pg_total_relation_size(relid), pg_indexes_size(relid),
+                       n_live_tup, n_dead_tup, last_autovacuum, last_autoanalyze
+                       FROM pg_stat_user_tables ORDER BY pg_total_relation_size(relid) DESC""")
+        tables = [dict(zip(("name", "bytes", "index_bytes", "live", "dead", "autovacuum", "autoanalyze"), row, strict=True)) for row in cursor.fetchall()]
+        cursor.execute("""SELECT state, wait_event_type, wait_event, count(*)
+                       FROM pg_stat_activity WHERE datname=current_database() GROUP BY 1,2,3""")
+        connections = [dict(zip(("state", "wait_type", "wait_event", "count"), row, strict=True)) for row in cursor.fetchall()]
+    return {"bytes": size, "locks_waiting": waiting, "tables": tables, "connections": connections}
+
+
+def service_snapshot():
+    """Probe only fixed configured Parser endpoints, never request-supplied URLs."""
+    rows = []
+    with httpx.Client(timeout=1, trust_env=False, follow_redirects=False) as client:
+        for name, url in (("Parser", settings.MICE_PARSER_URL), ("OCR Parser", settings.MICE_OCR_PARSER_URL)):
+            state = "not configured"
+            if url:
+                try:
+                    response = client.get(url.rstrip("/") + "/health")
+                    state = "available" if response.status_code == 200 else "degraded"
+                except httpx.HTTPError:
+                    state = "unavailable"
+            rows.append({"name": name, "state": state})
+    return rows
 
 
 def snapshot():
@@ -90,6 +123,8 @@ def snapshot():
             }
         )
     return {
+        "services": service_snapshot(),
+        "messages": list(Message.objects.values("status").annotate(total=Count("pk")).order_by("status")),
         "queues": rows,
         "broker": broker,
         "workers": workers,

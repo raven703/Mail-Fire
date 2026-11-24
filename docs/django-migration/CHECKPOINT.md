@@ -1,5 +1,32 @@
 # Native Django checkpoint — 2026-11-24
 
+## Continuation beyond cf4bbcb
+
+Inference now captures category names/modes, active model metadata and artifact
+hashes, LLM/normalizer settings at dispatch; detection retains full deterministic
+configuration. Workers use pinned model IDs/metadata and refuse missing/changed
+artifacts. Artifact bytes remain in model rows, not copied: deleting a queued
+model yields an explicit snapshot_artifact_unavailable result (not silent fallback).
+Custom ANY/ALL is reevaluated using the original evaluate_groups via Parser with
+saved config and ML scores; previous custom findings are replaced, not appended.
+TF-IDF routes to ml/training image; neural snapshots route to neural/neural image.
+Compose profiles and gates added; all deployment gates default false.
+LLM UI supports explicit opt-in, still independently blocked by deployment gate;
+provider algorithm unchanged. Offline restore checks hashes and safely stages
+regular local-model files to a new directory without starting containers.
+Monitoring adds Parser/OCR health, unique message status totals and admin-only
+read-only PostgreSQL size/table/index/vacuum/lock/connection statistics.
+
+17 focused no-DB tests passed; Ruff and template compilation passed. Compose
+profile validation emitted no error after fixing training build-context profile.
+No image builds, provider calls, source DB changes or live container changes.
+
+Still NOT full completion: visual/interactive parity, full resource/GPU telemetry,
+flow/p95 monitoring, live PostgreSQL inference/fencing acceptance, neural image
+builds and offline image installation acceptance remain open. Model artifact
+copies and retention during queued jobs need acceptance/design completion.
+Historical TODO/PARITY entries must not be treated as checked by this increment.
+
 ## Inference continuation after b4a7393
 
 Added deployment-gated optional detection→ML→LLM→Policy routing (both gates default

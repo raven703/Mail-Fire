@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
 from pipeline.models import WorkItem
-from pipeline.monitoring import snapshot
+from pipeline.monitoring import database_snapshot, snapshot
 from pipeline.services import cancel, retry
 from records.models import Audit, Diagnostic, Metric
 
@@ -41,6 +41,7 @@ def operations(request):
         "pipeline/operations.html",
         {
             "monitor": snapshot(),
+            "database": database_snapshot() if request.user.has_perm("identity.administer") else None,
             "jobs": jobs[:100],
             "metrics": Metric.objects.filter(service__startswith="celery:").order_by("-created_at")[:10],
             "can_administer": request.user.has_perm("identity.administer"),

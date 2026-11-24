@@ -48,9 +48,10 @@ def analyze(payload):
     ]
     findings.extend(evaluate_groups(
         groups, text, references=reference_matches,
-        available_engines={"keywords", "regex", "reference"},
+        ml_scores=payload.get("ml_scores", {}),
+        available_engines={"keywords", "regex", "reference"} | ({"ml"} if payload.get("ml_available") else set()),
     ))
-    unavailable = any(rule.kind == "ml" for bucket in groups for rule in bucket["rules"])
+    unavailable = not payload.get("ml_available") and any(rule.kind == "ml" for bucket in groups for rule in bucket["rules"])
     return {
         "findings": findings, "version": VERSION, "normalization": normalization,
         "engine_errors": [{"engine": "category_ml", "error": "disabled"}] if unavailable else [],

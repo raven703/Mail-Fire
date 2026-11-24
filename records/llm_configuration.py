@@ -12,6 +12,7 @@ from records.operations import admin_access
 
 
 class LLMForm(forms.Form):
+    enabled = forms.BooleanField(required=False)
     base_url = forms.CharField(max_length=2048, required=False)
     model = forms.CharField(max_length=160, required=False)
     routing = forms.ChoiceField(choices=[(value, value) for value in ("uncertain", "selected", "both")])
@@ -47,10 +48,10 @@ def configuration(request):
     values = {"routing": "uncertain", "min_confidence": 0.75, "timeout_seconds": 30, "max_chars": 8000, **(row.value if row else {})}
     form = LLMForm(request.POST if request.method == "POST" else None, initial=values)
     if request.method == "POST" and form.is_valid():
-        data = {**form.cleaned_data, "categories": [cat.pk for cat in form.cleaned_data["categories"]], "enabled": False}
+        data = {**form.cleaned_data, "categories": [cat.pk for cat in form.cleaned_data["categories"]]}
         with transaction.atomic():
             Setting.objects.update_or_create(pk="llm_analyzer", defaults={"value": data})
             Audit.objects.create(actor=request.user.pk, action="llm_configuration", target="llm_analyzer",
-                                 details={"enabled": False, "routing": data["routing"], "categories": data["categories"]})
+                                 details={"enabled": data["enabled"], "routing": data["routing"], "categories": data["categories"]})
         return redirect("llm-page")
     return render(request, "records/llm.html", {"form": form}, status=400 if form.is_bound else 200)
