@@ -310,6 +310,26 @@ services:
       MICE_SEMANTIC_TIMEOUT: 3600
     mem_limit: ${MICE_SEMANTIC_MEMORY:-2g}
     cpus: ${MICE_SEMANTIC_CPUS:-2}
+  neural-training:
+    <<: *worker
+    image: mice-django-neural:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-neural
+      additional_contexts:
+        training_image: service:training
+    profiles: [neural-training]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: training
+      MICE_TRAINING_TIMEOUT: 7200
+      ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
+      ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
+    volumes:
+      - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
+    tmpfs: ['/tmp:size=4g,noexec,nosuid']
+    mem_limit: ${MICE_NEURAL_MEMORY:-8g}
+    cpus: ${MICE_NEURAL_CPUS:-4}
   maintenance:
     <<: *worker
     environment:

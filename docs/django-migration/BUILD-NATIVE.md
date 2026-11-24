@@ -33,6 +33,24 @@ in this checkpoint. Lock compatibility must be established by those future build
 
 ## Safety
 
+## Optional neural and offline packaging increment
+
+`Dockerfile.django-neural` and `neural-training` profile add the existing locked
+Torch/Transformers/SetFit dependency closure on top of the training image. Build
+with both `training` and `neural-training` profiles. Use only the neural worker
+when submitting neural jobs: both currently consume the training queue; running
+the TF-IDF-only worker alongside it can route neural work to an incompatible image.
+The neural closure includes CUDA libraries and has NOT been image-build validated.
+Local model snapshots must be supplied read-only under `MICE_NEURAL_MODELS_DIR`,
+with `rubert/config.json` and `setfit/modules.json`; no runtime downloads allowed.
+
+`python scripts/native_offline.py export /absolute/new/bundle` exports built image
+archives and checksums without starting services. `verify` checks bytes; `load`
+loads images and verifies image IDs. Trusted distribution/signing of manifest is
+an operator responsibility. The current bundle covers standard images, NOT neural
+image/local snapshots; neural offline delivery is still incomplete. Never include
+production secrets, database dumps or `.env` in the image bundle.
+
 Training/publishing a version never enables detection inference. LLM configuration
 is forced disabled. Semantic jobs only run when the semantic worker is started.
 GC defaults to preview, refuses other active jobs and retains all durable JSON

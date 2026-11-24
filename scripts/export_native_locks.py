@@ -14,6 +14,7 @@ SEEDS = {
     "ocr": "rapidocr paddleocr paddlepaddle",
     "training": "scikit-learn",
     "semantic": "fastembed",
+    "neural": "torch transformers setfit datasets accelerate sentence-transformers pydantic-settings",
 }
 
 

@@ -1,0 +1,6 @@
+FROM training_image
+USER root
+COPY requirements.neural.lock /tmp/requirements.neural.lock
+RUN uv pip install --python /app/.venv/bin/python -r /tmp/requirements.neural.lock
+USER mice
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_DATASETS_OFFLINE=1 WANDB_DISABLED=true

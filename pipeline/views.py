@@ -6,7 +6,7 @@ from django.views.decorators.http import require_GET, require_POST
 from pipeline.models import WorkItem
 from pipeline.monitoring import snapshot
 from pipeline.services import cancel, retry
-from records.models import Audit, Metric
+from records.models import Audit, Diagnostic, Metric
 
 
 def denied(request, admin=False):
@@ -44,6 +44,7 @@ def operations(request):
             "jobs": jobs[:100],
             "metrics": Metric.objects.filter(service__startswith="celery:").order_by("-created_at")[:10],
             "can_administer": request.user.has_perm("identity.administer"),
+            "diagnostics": Diagnostic.objects.order_by("-created_at").values("created_at", "service", "level", "event")[:30],
         },
     )
 

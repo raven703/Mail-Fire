@@ -70,6 +70,11 @@ def snapshot():
     except Exception:
         workers["error"] = "Celery workers unavailable"
     rows = []
+    failures = {
+        row["job__queue"]: row["count"]
+        for row in Attempt.objects.filter(finished_at__gte=now - timedelta(hours=1)).exclude(error="")
+        .values("job__queue").annotate(count=Count("id"))
+    }
     for group in GROUPS:
         rows.append(
             {
@@ -80,6 +85,7 @@ def snapshot():
                 "oldest_seconds": round((now - oldest[group]).total_seconds()) if group in oldest else None,
                 "completed_hour": completed.get(group, 0),
                 "average_seconds": durations.get(group),
+                "failed_attempts_hour": failures.get(group, 0),
                 "broker": broker["queues"].get(group),
             }
         )
@@ -90,4 +96,6 @@ def snapshot():
         "unpublished": Dispatch.objects.filter(published_at__isnull=True).count(),
         "publish_errors": Dispatch.objects.filter(published_at__isnull=True).exclude(error="").count(),
         "generated_at": now.isoformat(),
+        "expired_leases": WorkItem.objects.filter(status="RUNNING", deadline__lt=now).count(),
+        "delayed_retries": WorkItem.objects.filter(status="PENDING", available_at__gt=now).count(),
     }

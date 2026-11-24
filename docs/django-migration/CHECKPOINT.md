@@ -1,5 +1,21 @@
 # Native Django checkpoint — 2026-11-24
 
+## Monitoring/offline continuation after 8dc7640
+
+Read master SystemStatus/Operations sources without modifications. Added 30-second
+HTMX refresh for broker/queue/worker panel, expired lease/delayed retry counters,
+per-queue failed-attempt counts in snapshot and metadata-only diagnostic listing.
+Added offline image export/checksum verification/load tool (never starts services).
+Added optional neural Dockerfile/profile and exact neural dependency closure from
+existing uv.lock. Local read-only model directories and offline environment flags.
+Neural image is not built/validated and shares training queue with TF-IDF worker;
+use only compatible neural worker for neural jobs. Offline bundle does not yet
+include neural image/models. See BUILD-NATIVE.md for honest scope and limitations.
+
+Full UI/visual parity, complete service/resource monitoring, ML/LLM inference
+orchestration and final standalone/offline acceptance remain OPEN. No comprehensive
+testing/audit or existing-container changes. Detection algorithms untouched.
+
 ## HTMX shell continuation after b51a2e6
 
 Vendored HTMX 2.0.11 with license and SHA-384 integrity, no runtime CDN. Native
