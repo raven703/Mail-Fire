@@ -1,16 +1,17 @@
 from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods, require_POST
 
 from identity.accounts import AccountError, save_account
 from identity.models import User
-from records.models import Audit
+from records.models import Audit, Setting
 
 
 @require_http_methods(["GET", "POST"])
 def login_page(request):
     if request.user.is_authenticated:
-        return redirect("operations")
+        return redirect("overview-page")
     error = ""
     if request.method == "POST":
         username, password = request.POST.get("username", ""), request.POST.get("password", "")
@@ -23,7 +24,7 @@ def login_page(request):
             login(request, user)
             request.session["mice_access_version"] = user.access_version
             Audit.objects.create(actor=user.pk, action="login", target=user.pk)
-            return redirect("operations")
+            return redirect("overview-page")
         error = "Неверные учётные данные"
     return render(request, "identity/login.html", {"error": error})
 
@@ -79,3 +80,19 @@ def users_page(request):
             "error": error,
         },
     )
+
+
+@require_http_methods(["GET", "POST"])
+def preferences(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "Требуется вход"}, status=401)
+    key = "ui:" + request.user.pk
+    if request.method == "POST":
+        theme = request.POST.get("theme")
+        if theme not in {"light", "dark", "system"}:
+            return JsonResponse({"detail": "Неизвестная тема"}, status=400)
+        Setting.objects.update_or_create(pk=key, defaults={"value": {"theme": theme}})
+    else:
+        row = Setting.objects.filter(pk=key).first()
+        theme = row.value.get("theme", "system") if row else "system"
+    return JsonResponse({"theme": theme})

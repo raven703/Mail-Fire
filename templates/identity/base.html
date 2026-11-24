@@ -13,24 +13,52 @@
 </head><body>
 <div class="{% if request.user.is_authenticated %}layout{% endif %}">
 {% if request.user.is_authenticated %}
-<aside class="mice-navigation"><div class="logo"><span class="brand">M</span><strong>MICE<small>Контроль безопасности почты</small></strong><button type="button" data-navigation-toggle aria-expanded="true" aria-label="Свернуть навигацию">☰</button></div>
-<nav aria-label="Основная навигация" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML" hx-push-url="true">
-  <h3>Мониторинг и расследования</h3><a href="{% url 'overview-page' %}">Обзор безопасности</a> <a href="{% url 'incidents-page' %}">Инциденты</a> <a href="{% url 'messages-page' %}">Почтовые сообщения</a> <a href="{% url 'operations' %}">Состояние системы и очереди</a>
-  <a href="{% url 'analytics-page' %}">Аналитика и отчёты</a>
-  {% if perms.identity.view_originals %} · <a href="{% url 'references-page' %}">Эталоны</a>{% endif %}
-  {% if perms.identity.investigate %} · <a href="{% url 'message-upload' %}">Загрузка</a> · <a href="{% url 'imports-page' %}">Импорт</a>{% endif %}
-  {% if perms.identity.investigate and perms.identity.view_originals %}<a href="{% url 'datasets-page' %}">Датасеты</a>{% endif %}
-  {% if perms.identity.administer %}
+<aside class="mice-navigation">
+  <div class="logo"><span class="mice-sidebar-logo"><img class="mice-light" src="{% static 'mice/mice-light.webp' %}" alt="MICE"><img class="mice-dark" src="{% static 'mice/mice-dark.webp' %}" alt="MICE"></span><strong>MICE<small>Почтовая безопасность</small></strong></div>
+  <button type="button" data-navigation-toggle aria-controls="workspace-navigation" aria-expanded="true" aria-label="Свернуть меню">← <span>Свернуть меню</span></button>
+  <nav id="workspace-navigation" aria-label="Основная навигация" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML">
+    <h3>Мониторинг и расследования</h3>
+    {% include 'identity/_nav_item.html' with route='overview-page' icon='dashboard' title='Обзор безопасности' %}
+    {% include 'identity/_nav_item.html' with route='incidents-page' icon='incidents' title='Инциденты' %}
+    {% include 'identity/_nav_item.html' with route='messages-page' icon='messages' title='Почтовые сообщения' %}
+    {% include 'identity/_nav_item.html' with route='analytics-page' icon='analytics' title='Аналитика и отчёты' %}
     <h3>Анализ и политики</h3>
-    · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Категории</a> · <a href="{% url 'rulepacks-page' %}">Rulepacks</a>
-    · <a href="{% url 'employees-page' %}">Сотрудники</a> · <a href="{% url 'addresses-page' %}">Адреса</a> · <a href="{% url 'retention-page' %}">Хранение</a>
-    · <a href="{% url 'models-page' %}">Модели</a> · <a href="{% url 'llm-page' %}">LLM</a>
-    · <a href="{% url 'semantic-page' %}">Semantic</a>
-    <h3>Администрирование</h3><a href="{% url 'configuration-page' %}">Настройки</a> <a href="{% url 'audit-page' %}">Журналы и аудит</a> <a href="{% url 'users-page' %}">Пользователи</a>
-  {% endif %}
-  <label>Тема<select id="theme-preference"><option value="system">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></label>
-</nav>
+    {% include 'identity/_nav_item.html' with route='policies-page' icon='policies' title='DLP-политики' %}
+    {% include 'identity/_nav_item.html' with route='detectors-page' icon='detectors' title='Детекторы' %}
+    {% include 'identity/_nav_item.html' with route='categories-page' icon='categories' title='Категории данных' %}
+    {% if perms.identity.view_originals %}{% include 'identity/_nav_item.html' with route='references-page' icon='references' title='Эталонные документы' %}{% endif %}
+    {% include 'identity/_nav_item.html' with route='models-page' icon='ml' title='ML-модели и обучение' %}
+    {% if perms.identity.administer %}{% include 'identity/_nav_item.html' with route='addresses-page' icon='users' title='Адреса и сотрудники' %}{% endif %}
+    <h3>Администрирование</h3>
+    {% if perms.identity.investigate %}{% include 'identity/_nav_item.html' with route='imports-page' icon='imports' title='Импорт писем' %}{% endif %}
+    {% include 'identity/_nav_item.html' with route='operations' query='?tab=jobs' icon='jobs' title='Очереди обработки' %}
+    {% include 'identity/_nav_item.html' with route='operations' icon='system' title='Состояние системы' %}
+    {% if perms.identity.administer %}
+      {% include 'identity/_nav_item.html' with route='audit-page' icon='audit' title='Журналы и аудит' %}
+      {% include 'identity/_nav_item.html' with route='users-page' icon='users' title='Пользователи' %}
+      {% include 'identity/_nav_item.html' with route='configuration-page' icon='settings' title='Настройки' %}
+    {% endif %}
+  </nav>
 </aside>
 {% endif %}
-<div class="workspace">{% if request.user.is_authenticated %}<header class="topbar native-topbar"><div class="breadcrumbs">MICE <span>/</span> Рабочее место аналитика</div><form class="global-search" method="get" action="{% url 'messages-page' %}"><input aria-label="Глобальный поиск" name="q" placeholder="Поиск писем, адресов…"><button>Найти</button></form><a class="system-indicator icon-control" href="{% url 'operations' %}" aria-label="Состояние системы">◉</a><a class="icon-control" href="{% url 'incidents-page' %}" aria-label="Инциденты, требующие проверки">♧</a><span>{{ request.user.username }}</span><span id="workspace-status" role="status" aria-live="polite"></span><form method="post" action="{% url 'logout-page' %}">{% csrf_token %}<button>Выйти</button></form></header>{% endif %}
+<div class="workspace">
+{% if request.user.is_authenticated %}
+<header class="topbar native-topbar" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML">
+  <div class="breadcrumbs">MICE <span>/</span> <b data-workspace-title>Рабочее место аналитика</b></div>
+  <form class="global-search" method="get" action="{% url 'messages-page' %}"><input aria-label="Глобальный поиск" name="q" placeholder="Поиск писем, адресов, содержимого…"><button>Найти</button></form>
+  <a class="system-indicator icon-control" href="{% url 'operations' %}" aria-label="Состояние системы" data-system-health="{% url 'health' %}"><span class="health-dot"></span></a>
+  <button type="button" class="theme-toggle" data-theme-toggle aria-label="Переключить тему">
+    <svg class="mice-light" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></svg>
+    <svg class="mice-dark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+  </button>
+  <a class="icon-control" href="{% url 'incidents-page' %}?status=open" aria-label="Инциденты, требующие проверки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 6-3 7-3 9h18c0-2-3-3-3-9M10 21h4"/></svg></a>
+  <details class="user-menu"><summary class="user-avatar" aria-label="Меню пользователя" title="{{ request.user.username }}">{{ request.user.username|slice:':2'|upper }}</summary>
+    <div class="user-menu-panel">
+      <label>Тема<select id="theme-preference" data-url="{% url 'preferences' %}"><option value="system">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></label>
+      <form method="post" action="{% url 'logout-page' %}" hx-boost="false">{% csrf_token %}<button>Выйти</button></form>
+    </div>
+  </details>
+  <span id="workspace-status" role="status" aria-live="polite"></span>
+</header>
+{% endif %}
 <div id="mice-content" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML" hx-history="false">{% block body %}{% endblock %}</div></div></div></body></html>

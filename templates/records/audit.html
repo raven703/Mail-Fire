@@ -1,1 +1,17 @@
-{% extends 'identity/base.html' %}{% block body %}<main><header><h1>MICE · Аудит</h1></header><section><form method="get"><label>Действие<input name="action" value="{{ request.GET.action }}"></label><label>Пользователь<input name="actor" value="{{ request.GET.actor }}"></label><label>Объект<input name="target" value="{{ request.GET.target }}"></label><button>Фильтровать</button></form><table><thead><tr><th>Дата</th><th>Пользователь</th><th>Действие</th><th>Объект</th></tr></thead><tbody>{% for event in page %}<tr><td>{{ event.created_at }}</td><td>{{ event.actor }}</td><td>{{ event.action }}</td><td>{{ event.target }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий</td></tr>{% endfor %}</tbody></table><nav>{% if page.has_previous %}<a href="?action={{ request.GET.action|urlencode }}&amp;actor={{ request.GET.actor|urlencode }}&amp;target={{ request.GET.target|urlencode }}&amp;page={{ page.previous_page_number }}">Назад</a>{% endif %} {{ page.number }} / {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?action={{ request.GET.action|urlencode }}&amp;actor={{ request.GET.actor|urlencode }}&amp;target={{ request.GET.target|urlencode }}&amp;page={{ page.next_page_number }}">Далее</a>{% endif %}</nav></section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main>
+  <header><h1>Журналы и аудит</h1></header>
+  <nav class="tabs"><a href="?tab=logs"{% if diagnostics %} aria-current="page"{% endif %}>Диагностические события</a><a href="?tab=audit"{% if not diagnostics %} aria-current="page"{% endif %}>Аудит действий</a></nav>
+  <section>
+    <form method="get" class="filters"><input type="hidden" name="tab" value="{% if diagnostics %}logs{% else %}audit{% endif %}">
+      {% for field, value in fields %}<label>{% if field == 'service' %}Сервис{% elif field == 'level' %}Уровень{% elif field == 'event' %}Событие{% elif field == 'actor' %}Пользователь{% elif field == 'action' %}Действие{% else %}Объект{% endif %}<input name="{{ field }}" value="{{ value }}"></label>{% endfor %}<button>Фильтровать</button>
+    </form>
+    <div class="table"><table>
+      <thead><tr><th>Время</th>{% if diagnostics %}<th>Сервис</th><th>Уровень</th><th>Событие</th>{% else %}<th>Пользователь</th><th>Действие</th><th>Объект</th>{% endif %}<th>Подробности</th></tr></thead>
+      <tbody>{% for row in page %}<tr><td>{{ row.created_at }}</td>{% if diagnostics %}<td>{{ row.service }}</td><td>{{ row.level }}</td><td>{{ row.event }}</td>{% else %}<td>{{ row.actor }}</td><td>{{ row.action }}</td><td>{{ row.target }}</td>{% endif %}<td>{% if perms.identity.view_originals and row.details %}<details><summary>Показать</summary><pre>{{ row.details }}</pre></details>{% else %}—{% endif %}</td></tr>{% empty %}<tr><td colspan="5">Нет событий</td></tr>{% endfor %}</tbody>
+    </table></div>
+    {% include 'records/_pagination.html' %}
+  </section>
+</main>
+{% endblock %}

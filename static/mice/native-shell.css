@@ -19,3 +19,17 @@
 .native-category-option { display: flex; align-items: center; gap: 8px; }
 .native-category-option > label { flex: 1; }
 .policy-category-search input { width: 100%; }
+
+.mice-navigation nav a { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.navigation-collapsed .mice-navigation nav { display: block; }
+.navigation-collapsed .mice-navigation :is(h3, .nav-label, [data-navigation-toggle] span) { display: none; }
+.navigation-collapsed .mice-navigation nav a { justify-content: center; }
+.navigation-collapsed .mice-sidebar-logo { flex-basis: 44px; }
+.navigation-collapsed .mice-sidebar-logo img { width: 44px; height: 44px; }
+.native-topbar .global-search { margin-left: 0; }
+.user-menu-panel { position: absolute; right: 0; top: 44px; padding: 12px; z-index: 11; min-width: 170px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+.tabs a[aria-current="page"] { border-bottom: 2px solid var(--accent); color: var(--accent); padding: 6px 0; }
+#workspace-status:not(:empty) { position: fixed; bottom: 16px; right: 16px; padding: 8px; border-radius: 6px; background: var(--card); }
+@media (max-width: 850px) {
+ .navigation-collapsed .layout { grid-template-columns: 72px minmax(0, 1fr); }
+}

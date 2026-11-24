@@ -80,5 +80,6 @@ urlpatterns = [
     path("api/login", views.login_view, name="login"),
     path("api/logout", views.logout_view, name="logout"),
     path("api/me", views.me, name="me"),
+    path("api/workspace/preferences", pages.preferences, name="preferences"),
     path("api/csrf", views.csrf, name="csrf"),
 ]

@@ -39,7 +39,11 @@ def export(destination, neural_models=None):
         manifest["images"].append({"name": name, "id": identity, "file": filename})
         manifest["files"][filename] = digest(destination / filename)
     filename = "compose.django.yaml"
-    (destination / filename).write_bytes((ROOT / filename).read_bytes())
+    compose = (ROOT / filename).read_text()
+    probe = "native_resource_probe.sh"
+    shutil.copyfile(ROOT / "scripts" / probe, destination / probe)
+    manifest["files"][probe] = digest(destination / probe)
+    (destination / filename).write_text(compose.replace("./scripts/" + probe, "./" + probe))
     manifest["files"][filename] = digest(destination / filename)
     if neural_models:
         for relative in ["rubert/config.json", "setfit/modules.json"]:

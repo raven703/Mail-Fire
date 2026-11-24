@@ -1,0 +1,1 @@
+<a href="{% url route %}{{ query|default:'' }}" title="{{ title }}"{% if request.resolver_match.url_name == route and not query %} aria-current="page"{% endif %}>{% include 'identity/_nav_icon.html' %}<span class="nav-label">{{ title }}</span></a>

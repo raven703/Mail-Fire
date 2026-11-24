@@ -9,7 +9,8 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods
 
-from records.models import Audit, Outbox, Setting
+from records.models import Audit, Diagnostic, Outbox, Setting
+from records.ui_filters import pagination_query
 
 
 class ConfigurationForm(forms.Form):
@@ -85,8 +86,16 @@ def audit(request):
     error = admin_access(request)
     if error is not None:
         return error
-    rows = Audit.objects.order_by("-created_at", "-pk")
-    for field in ("actor", "action", "target"):
+    diagnostics = request.GET.get("tab") != "audit" and not any(
+        request.GET.get(key) for key in ("actor", "action", "target")
+    )
+    fields = ("service", "level", "event") if diagnostics else ("actor", "action", "target")
+    model = Diagnostic if diagnostics else Audit
+    rows = model.objects.order_by("-created_at", "-pk")
+    for field in fields:
         if request.GET.get(field):
             rows = rows.filter(**{field: request.GET[field]})
-    return render(request, "records/audit.html", {"page": Paginator(rows, 100).get_page(request.GET.get("page"))})
+    return render(request, "records/audit.html", {
+        "diagnostics": diagnostics, "fields": [(field, request.GET.get(field, "")) for field in fields],
+        "page": Paginator(rows, 100).get_page(request.GET.get("page")), "pagination_query": pagination_query(request.GET),
+    })

@@ -2,6 +2,7 @@
 {% block body %}
 <main class="management">
   <header><h1>Эталонные документы</h1>{% if can_edit %}<a class="action-button primary" href="{% url 'references-page' %}?new=1">＋ Добавить документ</a>{% endif %}</header>
+  <div class="actions"><a href="{% url 'semantic-page' %}">Семантический поиск и индексация</a></div>
   <div class="cards management-stats">
     <article><span>Документов в базе</span><strong>{{ stats.total }}</strong><small>По текущему поиску</small></article>
     <article><span>Проиндексировано</span><strong>{{ stats.indexed }}</strong><small>Семантический индекс</small></article>

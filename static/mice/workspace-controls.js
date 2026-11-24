@@ -137,6 +137,7 @@
       button.addEventListener('click', () => {
         const collapsed = document.body.classList.toggle('navigation-collapsed');
         button.setAttribute('aria-expanded', String(!collapsed));
+        button.setAttribute('aria-label', collapsed ? 'Развернуть меню' : 'Свернуть меню');
       });
     });
     document.querySelectorAll('[data-select-page]').forEach(toggle => {
