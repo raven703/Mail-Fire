@@ -1,5 +1,31 @@
 # Native Django checkpoint — 2026-11-24
 
+## Current continuation from 841be5c
+
+Target branch: `experiment/django-htmx`. Master and the live stack were left untouched.
+
+- `da494e0` dataset source/label mapping, review status and example/dataset deletion.
+- `4aa41cc` attachment modal, bounded nested EML/MSG metadata and passive viewer.
+- `8832799` per-service resource probes, persistence/history and diagnostics panels.
+- `70efb30` separate overview and analytics, hourly/daily risk segmentation and CSV.
+- `4d2bc8b` grouped picker, native system-category seed, nested rules and bulk policy evaluation.
+- `b7f0c3c` manual examples, training options and model quality views.
+- `682a9e2` reference library actions, matches, indexing and detector configuration.
+- `eed21ee` message and investigation actions, evidence/history tabs and search/filters.
+- `466f668` multiple-file upload with separate durable outcomes.
+- `a81918a` original shell icons/navigation, theme profile, diagnostic/audit tabs
+  and offline packaging of the service probe.
+- `6ab5512` retention TTL for audit/diagnostics/metrics and optional automatic reference indexing.
+- `37105dc` durable directory failure history and employee/address dialogs.
+- `2153b0a` category creation in training dialogs with draft preservation.
+
+Intermediate checks covered changed forms, templates and helpers without database setup.
+The runtime images were not built, migrations were not applied, ML/LLM were not
+activated and existing audit remediation remains deferred. Current gaps and next-stage
+acceptance are listed in [TODO.md](TODO.md), [PARITY.md](PARITY.md) and [UI-PARITY.md](UI-PARITY.md).
+The following sections are historical development notes.
+
+
 Post-8ae82ae continuation adds saved-incident timeline grouped by day and risk
 bands with original Timeline chart/bar structure. DB execution is deferred.
 

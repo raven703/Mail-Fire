@@ -1,92 +1,60 @@
 # Experimental native build
 
-## Optional inference and offline restore
+The target stack is defined in `compose.django.yaml`. It uses Django, HTMX,
+Celery, RabbitMQ, PostgreSQL/pgvector, Nginx and isolated analysis services.
+Use dedicated experimental configuration for deployment.
 
-Inference remains disabled by default. TF-IDF uses `ml-inference` (training image);
-snapshots containing SetFit/RuBERT use `neural-inference` (separate neural queue).
-Deploy both profiles if either engine can be published. Explicitly set
-`MICE_ML_INFERENCE_ENABLED=true` only after validating images and models.
-Model activation alone does not enable inference.
+## Images and profiles
 
-LLM requires `llm-inference`, `MICE_LLM_INFERENCE_ENABLED=true`, its configuration
-checkbox and approved external transfer. `MAILFIRE_LLM_API_KEY` is passed only to
-the LLM worker. Provider routing and normalization reuse the original algorithms.
+| Dockerfile | Content and profile |
+|---|---|
+| `Dockerfile.django` | Django and Celery coordinators, separate from OCR/model dependencies |
+| `Dockerfile.django-web` | Nginx and vendored static assets |
+| `Dockerfile.django-parser` | Standalone bounded parsing and deterministic analysis |
+| `Dockerfile.django-ocr` | Parser plus CPU OCR dependencies and local weights |
+| `converter/Dockerfile` | Isolated Office converter |
+| `Dockerfile.django-training` | Optional TF-IDF trainer, `training` queue |
+| `Dockerfile.django-neural` | Optional SetFit/RuBERT trainer, `neural_training` queue |
+| `Dockerfile.django-semantic` | Optional MiniLM embeddings and semantic worker |
 
-Restore verified local base models without starting containers:
+Build contexts refer to the native images. The target build definitions do not
+require React, Node.js, FastAPI, SQLAlchemy or Alembic. Frozen dependencies come
+from the existing lockfiles. For the next stage, build the base, pipeline and
+needed optional profiles independently. Neural training uses local snapshots in
+`MICE_NEURAL_MODELS_DIR` and can be deployed with the separate TF-IDF worker.
 
-```sh
-python scripts/native_offline.py verify /absolute/bundle --restore-models /absolute/new-models
-```
+ML and LLM inference gates default to false. The optional inference workers use
+their own profiles. The LLM worker additionally requires an enabled stored
+configuration and explicit transfer authorization. A model publication selects
+an artifact and leaves inference off. Enable `MICE_SEMANTIC_AUTO_INDEX=true`
+only in deployments running the optional semantic worker to enqueue non-template
+references at upload.
 
-Destination must not exist; its parent must exist. Hash verification precedes
-restore. Links, special files, traversal and oversized archives are rejected;
-files are staged privately and published to a new directory. Point
-`MICE_NEURAL_MODELS_DIR` there. `load` additionally imports image archives and
-checks image identities. Neither command starts services or modifies databases.
-Manifest checksums provide integrity, not publisher authentication.
+## Offline bundle
 
-Only use dedicated experimental secrets/data. Never reuse the source deployment.
-No services are started by dependency lock generation or Compose config validation.
+`python scripts/native_offline.py export /absolute/new/bundle` exports the built
+images, Compose file and probe script with checksums. Add
+`--neural-models /absolute/materialized/snapshots` to include the neural image
+and local snapshots. `verify` checks archive hashes and `load` additionally
+imports images and verifies identities. Neither starts containers. On the target,
+use the bundled Compose file and probe script together and start Compose with
+local images and builds disabled.
 
-## Images
+`verify /absolute/bundle --restore-models /absolute/new-models` restores verified
+regular model files into a new directory. Manifest checksums cover integrity.
+Publisher authentication and upgrade/rollback procedures are separate.
 
-- `Dockerfile.django`: Django/ORM/Celery coordinators and web; no sklearn, torch,
-  transformers, fastembed, OCR libraries or model weights.
-- `Dockerfile.django-parser`: standalone bounded parsing/deterministic algorithms,
-  no FastAPI/SQLAlchemy/Alembic/Redis dependency closure and no OCR weights.
-- `Dockerfile.django-ocr`: Parser plus RapidOCR/Paddle CPU dependencies and weights.
-  This secret-free service is separate from the light OCR coordinator worker.
-- `Dockerfile.django-training`: optional `training` profile, original TF-IDF trainer.
-  Neural SetFit/RuBERT training still requires a separate offline neural dependency
-  lock/image and local model provisioning; do not claim neural build support yet.
-- `Dockerfile.django-semantic`: optional `semantic` profile, original multilingual
-  MiniLM FastEmbed model materialized at build; runtime local-files-only.
+## Resource collection
 
-Compose additional build contexts explicitly connect images; no legacy/local backend
-image is required. Generate dependency closures with:
+Compose samples CPU, memory, process limits, disk and exposed GPU locally.
+Trusted services publish bounded measurements to a project volume. Parser/OCR
+and Converter answer inside their existing isolated networks. The maintenance
+worker reads the volume read-only, polls those endpoints and stores the history.
+CPU is derived from cgroup counter deltas and quota. The view labels stale/missing
+samples. No Docker socket is required.
 
-```sh
-python scripts/export_native_locks.py
-docker compose -f compose.django.yaml --profile pipeline build
-docker compose -f compose.django.yaml --profile training --profile semantic build
-```
-
-Build-time package/model downloads require network access. Airgap wheel/model/image
-export and restore acceptance remains open. Closures use exact existing uv.lock
-versions, not freshly resolved dependencies. Full image builds have not been run
-in this checkpoint. Lock compatibility must be established by those future builds.
-
-## Safety
-
-## Optional neural and offline packaging increment
-
-Latest routing supersedes the shared-queue warning below: neural submissions now
-use `training.neural` on `neural_training`; TF-IDF uses `training.model` on
-`training`. Both workers can coexist without consuming each other's jobs.
-`native_offline.py export ... --neural-models /absolute/materialized/snapshots`
-also includes the neural image and checksum-protected `neural-models.tar`.
-Model archive deployment/extraction is manual after trusted manifest verification.
-
-`Dockerfile.django-neural` and `neural-training` profile add the existing locked
-Torch/Transformers/SetFit dependency closure on top of the training image. Build
-with both `training` and `neural-training` profiles. Use only the neural worker
-when submitting neural jobs: both currently consume the training queue; running
-the TF-IDF-only worker alongside it can route neural work to an incompatible image.
-The neural closure includes CUDA libraries and has NOT been image-build validated.
-Local model snapshots must be supplied read-only under `MICE_NEURAL_MODELS_DIR`,
-with `rubert/config.json` and `setfit/modules.json`; no runtime downloads allowed.
-
-`python scripts/native_offline.py export /absolute/new/bundle` exports built image
-archives and checksums without starting services. `verify` checks bytes; `load`
-loads images and verifies image IDs. Trusted distribution/signing of manifest is
-an operator responsibility. The current bundle covers standard images, NOT neural
-image/local snapshots; neural offline delivery is still incomplete. Never include
-production secrets, database dumps or `.env` in the image bundle.
-
-Training/publishing a version never enables detection inference. LLM configuration
-is forced disabled. Semantic jobs only run when the semantic worker is started.
-GC defaults to preview, refuses other active jobs and retains all durable JSON
-references including terminal-job outputs. This favors retention over accidental
-loss; terminal job expiry/release is intentionally not automatic. GC currently
-uses bounded maintenance table locks and requires PostgreSQL concurrency acceptance
-before production use. Legal-held messages keep their FK-linked content/blobs.
+Only Compose configuration, Python/Django and static checks were performed in
+this continuation. Image installation, dependency closure during real builds,
+offline restore, GPU device exposure and deployed resource probes remain for
+acceptance. The resource index and system-category migrations are supplied and
+were not applied.

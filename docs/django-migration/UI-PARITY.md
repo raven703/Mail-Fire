@@ -1,89 +1,22 @@
-# Native UI scenario inventory (continuation from cc190a8)
+# Native UI scenario inventory
 
-Reference is read-only `master:frontend/src`; no React runtime is introduced.
-Implemented does not mean browser/screenshot acceptance. Full testing is deferred.
+Reference components are in `master:frontend/src`. Native templates use the
+original theme assets, icons and CSS where applicable and HTMX for server-rendered
+updates. No browser acceptance was performed in this continuation.
 
-| Original components | Native counterpart | Remaining functional/visual work |
+| Reference | Implemented | Known outstanding implementation or comparison |
 |---|---|---|
-| main, NavIcon, components | identity/base, native shell, local HTMX | icons and global search (grouped navigation/collapse and original 24h/7d/30d/custom date controls implemented) |
-| SecurityOverview | records/overview, _overview_panels, original CSS | original trend segmentation and service summaries (risk distribution and priority list implemented) |
-| IncidentTable, IncidentCategoryFilter | records/incidents, workspace; multi-category/severity/date/assignee filters | compact sender layout, remaining original filters and picker styling |
-| IncidentActions, IncidentTraining | records/incident, datasets | original action layout (explicit incident-training modal implemented) |
-| MessageSelection | records/messages; source/direction/date filters, attachment/incident counts | delivery metadata columns (page selection, bounded bulk full reanalysis, per-item results and retry implemented) |
-| Evidence, MessageAttachments | records/message, _message_tabs, attachment | full evidence summaries/highlights, matching original viewer layout |
-| PolicyEditor, CategoryPicker | policy_engine/catalog, categories | picker styling (structured keyword/flexible-term/regex/reference/ML fields now shared by standalone and nested editors; nested edit/create and summaries implemented) |
-| CategoryManagement | policy_engine/categories | editor visual parity and all original inline interactions |
-| Accounts, EditorDialog | identity/users, dialogs.js | browser acceptance |
-| Management, RulepackTransfer | records/catalog/references/imports, rulepacks | per-catalog comparison and dialogs |
-| MLDatasets, LLMSettings | records/datasets/models/llm | training panel/workflow comparison |
-| Operations, Queues, SystemStatus | pipeline/operations | queue p95/graphs, complete service telemetry and original multi-panel layout |
+| main, NavIcon, components | Grouped sidebar with collapse and original icons/logos, topbar health, notification drill-down, global search, per-account theme and menu | Compare active states, mobile/sidebar layout and routing behavior |
+| SecurityOverview and analytics | Separate overview and reports, period-aware KPIs, severity segmentation, priority list, policy bars, health links and CSV | Verify units, zero/missing states, live refresh and screenshots |
+| IncidentTable / IncidentCategoryFilter | Compact sender layout, policy autocomplete, category/severity/status/source/direction/assignment filters and date/sort | Original keyboard combobox behavior is approximated by native datalist |
+| IncidentActions / IncidentTraining | Assignment and decision dialogs, history/comments, incident labels and approval, nested category creation | Verify modal focus, validation and draft preservation |
+| MessageSelection / MessageAttachments / Evidence | Page selection and bulk full reanalysis, six detail tabs, searchable recipients, attachment rows and modal, PNG/Office preview, nested mail metadata and DLP cards | Compare keyboard, focus restoration, preview fallback and presentation |
+| CategoryPicker / PolicyEditor / CategoryManagement | Grouped search/chips/reset, category rules and nested creation/editing, policy draft preservation, catalog history and archive | Compare editor spacing, ordering and interactions |
+| Management / RulepackTransfer | Policy statistics, switch and reevaluation, detector options, reference catalog with matches and indexing, rulepack preview/apply/export | Finish visual comparison for reference/detector/rulepack/settings flows |
+| MLDatasets / MLTrainingOptions | Import dialog with source/mapping, review and deletion, manual-label picker, engine-specific options, jobs and model metrics/actions | Compare tabs, nested category creation and draft preservation. |
+| Accounts / employee and address catalogs | Account dialogs and permission checks, linked employee/address pages and shared create/edit dialogs | Compare catalog navigation and modal presentation |
+| Operations / Queues / SystemStatus | Queue, flow, resource, PostgreSQL and job views, worker and service health, history, refresh and filters | Verify all statuses and browser presentation with actual data |
 
-Original security-overview, message-detail, message-selection,
-incident-category-filter and system-status styles copied verbatim and loaded.
-Date filters/pagination preserve query parameters. Message tabs progressively
-enhance visible server sections and support keyboard navigation. Resource probes
-report unavailable GPU honestly; nvidia-smi must be exposed by the deployment.
-No Docker socket, host mounts or live container changes added.
-
-Inference artifacts are now independent content-addressed binary copies in
-`inference_artifacts`, created in the caller's dispatch transaction. A migration
-is supplied but NOT applied. Retention deliberately keeps these copies; no new
-artifact GC policy is introduced. Existing queued pre-migration snapshots need
-re-dispatch to populate copies; no unsafe model-row fallback is used.
-
-## Continuation after 91c3b44
-
-Implemented: fixed configured Converter health alongside Parser/OCR; persisted
-job-stage counts, attempts, wall-time average/p95, oldest pending age and expired
-leases; corrected Celery concurrency key. Added message attachment/incident/MIME
-filters, date/sender sort and delivery source/direction/time columns. Incident
-list adds source/direction, permission-gated sender/recipient, sorting and default
-open statuses. Global search and topbar diagnostic/investigation links restored
-from master main.tsx. Master Queues/SystemStatus/main read directly.
-
-Implementation still missing: full per-service resource collection/history and
-original resource graphs; original component DOM/visual parity throughout;
-evidence highlights/viewer details; remaining picker/catalog/training interaction
-comparison and analytics panels/service summaries. These are code gaps, not merely
-browser acceptance. Existing historical NOT PORTED rows are not proof of current
-absence and have not been bulk-closed without inspection.
-
-Implemented but awaiting verification: PostgreSQL percentile query and list
-filter execution, browser layout/interactions, runtime service health and delivery
-metadata rendering. No DB/container changes, builds, migration application,
-comprehensive testing or ML/LLM activation performed.
-
-Audit remediation remains deferred; no audit items were claimed fixed here.
-
-
-## Continuation after 4e3b2e3
-
-4e3b2e3 published. Direct master comparisons: Evidence.tsx, MessageAttachments.tsx,
-SystemStatus.tsx and analytics branch of main.tsx. Shared escaped evidence cards
-now include reason/excerpt/rule/version/risk/confidence on message, incident and
-attachment pages. Viewer adds original/text/DLP tabs, passive text fallback,
-async page loading, page count/previous/next, scale/highlight and error status.
-Existing rasterization/authorization contracts are unchanged. Browser acceptance
-and safe original mail metadata/modal parity remain outstanding.
-
-Resource history now separates persisted service series, bounds last 20 samples
-and renders original SystemStatus CPU/RAM/disk/swap KPI and history-table structure.
-Master SystemStatus has a history table, not per-container graphs. Complete
-service collectors remain unimplemented; no local metric is called global.
-Analytics adds original KPI links, severity/category panels, processing-health
-links and CSV timeline export. Runtime SQL/probe acceptance remains deferred.
-
-Remaining implementation: complete service collectors, remaining viewer original
-metadata/modal behavior, picker/catalog/training comparison and scenarios, exact
-component/style parity. No claim that all functional parity work is finished.
-Focused checks: 15 no-DB tests, Ruff, JavaScript syntax, whitespace. No builds,
-migrations, container/source DB edits, comprehensive tests or ML/LLM activation.
-Audit remediation remains deferred.
-
-
-Post-8afafce: continued with master MLDatasets.tsx. Added dataset sample label
-editing, approval checkbox, NORMAL exclusivity/active-category validation,
-review count and close/cancel navigation. Existing dataset lock/reviewer/audit
-used; no training/inference activation. 17 focused no-DB checks pass. Remaining
-dataset import mapping/source/delete scenarios and picker/dialog parity are
-implementation gaps, not acceptance-only gaps.
+Visual fidelity in light/dark modes, responsive widths and browser interactions
+must be checked on the experimental stack. Code presence and runtime
+verification are tracked independently.
