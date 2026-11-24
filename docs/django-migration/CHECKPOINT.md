@@ -1,5 +1,16 @@
 # Native Django checkpoint — 2026-11-24
 
+## Rulepack continuation after e2bc395
+
+e2bc395 committed and pushed to origin/experiment/django-htmx. Native rulepack
+JSON import/export and audit history added at /rulepacks/: bounded 1 MiB schema,
+original flattened rule contract, shared native rule validators, built-in category
+protection, pack ownership checks, signed user-bound 15-minute preview and explicit
+atomic apply. Imported policies remain disabled. Policy revisions preserved.
+Four focused no-DB rulepack tests pass; Ruff passes. Live PostgreSQL locking,
+roundtrip/persistence acceptance and browser workflows not yet verified.
+Semantic pgvector, safe GC, complete analytics/UI and dependency split remain open.
+
 ## Continuation after 4ec39fa
 
 Implemented native passive attachment pages/downloads, sandbox PNG rasterization,

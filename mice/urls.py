@@ -8,6 +8,7 @@ from pipeline.uploads import upload_message
 from policy_engine.catalog_views import policies
 from policy_engine.category_pages import categories
 from policy_engine.pages import catalog
+from policy_engine.rulepacks import page as rulepacks_page
 from policy_engine.views import reevaluate
 from records import workspace
 from records.attachments import attachment
@@ -19,6 +20,7 @@ from records.references import references
 from records.retention import legal_hold, retention
 
 urlpatterns = [
+    path("rulepacks/", rulepacks_page, name="rulepacks-page"),
     path("overview/", overview, name="overview-page"),
     path("messages/", messages, name="messages-page"),
     path("imports/", imports, name="imports-page"),
