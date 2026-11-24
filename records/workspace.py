@@ -105,11 +105,28 @@ def incident_detail(request, incident_id):
     if error is not None:
         return error
     row = get_object_or_404(Incident.objects.select_related("message", "assignee_ref"), pk=incident_id)
+    from records.incident_training import IncidentTrainingForm, save_incident_example
+
+    training_action = request.method == "POST" and request.POST.get("action") == "training_example"
+    training_form = None
+    if request.user.has_perm("identity.investigate") and request.user.has_perm("identity.view_originals"):
+        training_form = IncidentTrainingForm(request.POST if training_action else None,
+                                            initial={"labels": ["NORMAL"] if row.status == "FALSE_POSITIVE" else row.categories[:20]})
     form = InvestigationForm(
-        request.POST if request.method == "POST" else None,
+        request.POST if request.method == "POST" and not training_action else None,
         initial={"status": row.status, "assignee": row.assignee_ref_id},
     )
-    if request.method == "POST" and form.is_valid():
+    if training_action:
+        if training_form is None:
+            return HttpResponseForbidden("Нет доступа к содержимому письма")
+        if training_form.is_valid():
+            try:
+                save_incident_example(request.user, row.pk, **training_form.cleaned_data)
+            except (ValueError, PermissionError) as exc:
+                training_form.add_error(None, str(exc))
+            else:
+                return redirect("incident-detail", incident_id=row.pk)
+    elif request.method == "POST" and form.is_valid():
         try:
             update_investigation(request.user, row.pk, **form.cleaned_data)
         except PermissionError:
@@ -120,6 +137,7 @@ def incident_detail(request, incident_id):
             return redirect("incident-detail", incident_id=row.pk)
     return render(request, "records/incident.html", {
         "incident": row, "form": form,
+        "training_form": training_form, "show_training": training_action or request.GET.get("training") == "1",
         "comments": Comment.objects.filter(incident=row).select_related("account").order_by("created_at"),
         "history": Audit.objects.filter(target=row.pk).order_by("-created_at")[:100],
     }, status=400 if form.is_bound else 200)

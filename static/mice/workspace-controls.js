@@ -1,6 +1,14 @@
 /* Accessible progressive tabs: every section remains visible without JavaScript. */
 (() => {
   function initialize() {
+    document.querySelectorAll('[data-navigation-toggle]').forEach(button => {
+      if (button.dataset.ready) return;
+      button.dataset.ready = 'true';
+      button.addEventListener('click', () => {
+        const collapsed = document.body.classList.toggle('navigation-collapsed');
+        button.setAttribute('aria-expanded', String(!collapsed));
+      });
+    });
     document.querySelectorAll('[data-select-page]').forEach(toggle => {
       if (toggle.dataset.ready) return;
       toggle.dataset.ready = 'true';

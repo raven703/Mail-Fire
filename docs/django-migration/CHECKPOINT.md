@@ -1,5 +1,18 @@
 # Native Django checkpoint — 2026-11-24
 
+## Continuation from e572a2f
+
+Direct master CategoryPicker/PolicyEditor/IncidentTraining comparison used.
+Existing categories and rules now editable inside policy form, preserving policy
+draft; save/cancel and rule deletion/addition supported with original validators.
+Incident training opt-in modal persists extracted text, labels, approval and audit,
+refuses duplicates and respects originals permission; no training/inference
+activation. Added grouped navigation and collapse. Fourteen focused no-DB tests,
+Ruff and JS syntax checks pass. No migration/build/live-container/DB operations.
+Structured rule widgets, exact visual parity and full service telemetry remain
+open; no blanket completion claim.
+
+
 ## Continuation from f97ca7a
 
 Added bounded, idempotent analyst bulk full reanalysis, page selection/reset,

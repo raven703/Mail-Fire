@@ -1,11 +1,12 @@
 from uuid import uuid4
 
+from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from policy_engine.catalog_service import PolicyError, mutate, public
-from policy_engine.category_pages import CategoryForm
-from records.models import Audit, Category, Policy
+from policy_engine.category_pages import CategoryForm, RuleForm
+from records.models import Audit, Category, CategoryRule, Policy
 
 
 @require_http_methods(["GET", "POST"])
@@ -20,6 +21,9 @@ def catalog(request):
     # Nested fields are validated only by the create-category action, not by
     # browser validation of the surrounding policy form.
     category_form.use_required_attribute = False
+    nested_category = None
+    nested_form = None
+    nested_rules = None
     if request.method == "POST":
         body = {
             "name": request.POST.get("name", ""),
@@ -32,14 +36,48 @@ def catalog(request):
         }
         try:
             action = request.POST.get("action", "save")
-            if action not in {"save", "archive", "restore", "delete", "create_category"}:
+            nested_id = request.POST.get("nested_id")
+            if action.startswith("edit_category:"):
+                nested_id = action.partition(":")[2]
+                action = "edit_category"
+            nested_actions = {"edit_category", "save_category", "cancel_category"}
+            if action not in {"save", "archive", "restore", "delete", "create_category"} | nested_actions:
                 raise PolicyError("Неизвестное действие")
-            if action not in {"save", "create_category"} and not request.POST.get("id"):
+            if action not in {"save", "create_category"} | nested_actions and not request.POST.get("id"):
                 raise PolicyError("Политика не найдена", 404)
             if action == "save":
                 for key in ("priority", "min_risk", "min_count"):
                     body[key] = int(request.POST.get(key, ""))
-            if action == "create_category":
+            if action in nested_actions:
+                editing = {**body, "id": request.POST.get("id", "")}
+                for key in ("priority", "min_risk", "min_count"):
+                    editing[key] = request.POST.get(key, "")
+                if action != "cancel_category":
+                    from django.shortcuts import get_object_or_404
+
+                    nested_category = get_object_or_404(Category, pk=nested_id)
+                    bound = request.POST if action == "save_category" else None
+                    nested_form = CategoryForm(bound, instance=nested_category, prefix="existing_category")
+                    nested_form.use_required_attribute = False
+                    RuleSet = modelformset_factory(CategoryRule, form=RuleForm, extra=1, can_delete=True, max_num=100, validate_max=True)
+                    nested_rules = RuleSet(bound, queryset=CategoryRule.objects.filter(category=nested_category).order_by("priority", "pk"), prefix="nested_rules")
+                    editable_rules = nested_category.mode not in {"builtin", "label"}
+                    if action == "save_category" and nested_form.is_valid() and (not editable_rules or nested_rules.is_valid()):
+                        from django.db import transaction
+
+                        with transaction.atomic():
+                            Category.objects.select_for_update().get(pk=nested_category.pk)
+                            nested_form.save()
+                            if nested_category.mode not in {"builtin", "label"}:
+                                instances = nested_rules.save(commit=False)
+                                for deleted in nested_rules.deleted_objects:
+                                    deleted.delete()
+                                for rule in instances:
+                                    rule.category = nested_category
+                                    rule.save()
+                            Audit.objects.create(actor=request.user.pk, action="category_update", target=nested_category.pk)
+                        nested_category = nested_form = nested_rules = None
+            elif action == "create_category":
                 category_form = CategoryForm(request.POST, prefix="nested_category")
                 category_form.use_required_attribute = False
                 if category_form.is_valid():
@@ -94,6 +132,7 @@ def catalog(request):
             "policies": rows,
             "editing": editing,
             "category_form": category_form,
+            "nested_category": nested_category, "nested_form": nested_form, "nested_rules": nested_rules,
             "show_editor": editing is not None,
             "error": error,
             "can_administer": admin,

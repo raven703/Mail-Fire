@@ -13,17 +13,18 @@
 </head><body>
 <div class="{% if request.user.is_authenticated %}layout{% endif %}">
 {% if request.user.is_authenticated %}
-<aside class="mice-navigation"><div class="logo"><span class="brand">M</span><strong>MICE<small>Контроль безопасности почты</small></strong></div>
+<aside class="mice-navigation"><div class="logo"><span class="brand">M</span><strong>MICE<small>Контроль безопасности почты</small></strong><button type="button" data-navigation-toggle aria-expanded="true" aria-label="Свернуть навигацию">☰</button></div>
 <nav aria-label="Основная навигация" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML" hx-push-url="true">
-  <a href="{% url 'overview-page' %}">Обзор</a> · <a href="{% url 'incidents-page' %}">Инциденты</a> · <a href="{% url 'messages-page' %}">Письма</a> · <a href="{% url 'operations' %}">Мониторинг</a>
+  <h3>Мониторинг и расследования</h3><a href="{% url 'overview-page' %}">Обзор безопасности</a> <a href="{% url 'incidents-page' %}">Инциденты</a> <a href="{% url 'messages-page' %}">Почтовые сообщения</a> <a href="{% url 'operations' %}">Состояние системы и очереди</a>
   {% if perms.identity.view_originals %} · <a href="{% url 'references-page' %}">Эталоны</a>{% endif %}
   {% if perms.identity.investigate %} · <a href="{% url 'message-upload' %}">Загрузка</a> · <a href="{% url 'imports-page' %}">Импорт</a>{% endif %}
   {% if perms.identity.administer %}
+    <h3>Анализ и политики</h3>
     · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Категории</a> · <a href="{% url 'rulepacks-page' %}">Rulepacks</a> · <a href="{% url 'datasets-page' %}">Датасеты</a>
     · <a href="{% url 'employees-page' %}">Сотрудники</a> · <a href="{% url 'addresses-page' %}">Адреса</a> · <a href="{% url 'retention-page' %}">Хранение</a>
     · <a href="{% url 'models-page' %}">Модели</a> · <a href="{% url 'llm-page' %}">LLM</a>
     · <a href="{% url 'semantic-page' %}">Semantic</a>
-    · <a href="{% url 'configuration-page' %}">Настройки</a> · <a href="{% url 'audit-page' %}">Аудит</a> · <a href="{% url 'users-page' %}">Пользователи</a>
+    <h3>Администрирование</h3><a href="{% url 'configuration-page' %}">Настройки</a> <a href="{% url 'audit-page' %}">Журналы и аудит</a> <a href="{% url 'users-page' %}">Пользователи</a>
   {% endif %}
   <label>Тема<select id="theme-preference"><option value="system">Системная</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></label>
 </nav>
