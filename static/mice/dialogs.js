@@ -69,3 +69,30 @@
     if (root.matches && root.matches('#attachment-viewer-host[open]')) root.close();
   });
 })();
+
+(() => {
+  let trigger;
+  document.addEventListener('htmx:beforeRequest', event => {
+    if (event.detail.elt.hasAttribute('data-picker-create')) trigger = event.detail.elt;
+  });
+  document.addEventListener('htmx:afterSwap', event => {
+    const slot = event.detail.target;
+    if (slot.id !== 'picker-create-slot') return;
+    const dialog = slot.querySelector('[data-picker-create-dialog]');
+    if (!dialog) return;
+    const close = () => dialog.close();
+    dialog.querySelectorAll('[data-picker-create-close]').forEach(button => button.addEventListener('click', close));
+    dialog.addEventListener('close', () => {
+      dialog.remove();
+      if (trigger && trigger.isConnected) trigger.focus();
+    }, {once: true});
+    dialog.showModal();
+  });
+  document.addEventListener('mice:category-created', event => {
+    if (!trigger || !trigger.isConnected) return;
+    const picker = trigger.form.querySelector('[data-category-picker]');
+    const dialog = document.querySelector('[data-picker-create-dialog]');
+    if (picker) picker.dispatchEvent(new CustomEvent('mice:add-picker-option', {detail: event.detail}));
+    if (dialog) dialog.close();
+  });
+})();

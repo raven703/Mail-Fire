@@ -1,12 +1,13 @@
 """Native category/rule editing, sharing the original rule validators."""
 
+import json
 from uuid import uuid4
 
 from django import forms
 from django.db import transaction
 from django.db.models import Q
 from django.forms import modelformset_factory
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -134,3 +135,24 @@ def categories(request, category_id=None, rule_id=None):
         "rules": CategoryRule.objects.filter(category=category).order_by("priority", "created_at") if category else [],
         "form": form, "rules_form": rules_form, "editing_rule": editing_rule,
     }, status=400 if data is not None else 200)
+
+
+@require_http_methods(["GET", "POST"])
+def category_picker_add(request):
+    if not request.user.is_authenticated or not request.user.has_perm("identity.administer"):
+        return HttpResponseForbidden("Недостаточно прав")
+    if request.headers.get("HX-Request") != "true":
+        return redirect("/categories/?new=1")
+    data = request.POST if request.method == "POST" else None
+    form = CategoryForm(data)
+    rules = category_rules(data)
+    if data is not None and form.is_valid():
+        needs_rules = form.cleaned_data["mode"] in {"custom", "rules"}
+        if not needs_rules or rules.is_valid():
+            row = save_category(request.user, form, rules if needs_rules else None)
+            response = HttpResponse(status=204)
+            response["HX-Trigger"] = json.dumps({"mice:category-created": {"id": row.pk, "name": row.name,
+                                                                         "group": row.group_name}})
+            return response
+    return render(request, "policy_engine/_picker_create_dialog.html", {"form": form, "rules_form": rules},
+                  status=400 if data is not None else 200)

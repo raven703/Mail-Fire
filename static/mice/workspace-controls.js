@@ -220,6 +220,43 @@
         }
         picker.querySelector('[data-picker-empty]').hidden = groups.some(group => !group.hidden);
       });
+      picker.addEventListener('mice:add-picker-option', event => {
+        const category = event.detail;
+        let group = groups.find(node => node.querySelector('[data-picker-group-name]').textContent.trim() === category.group);
+        if (!group) {
+          group = document.createElement('div');
+          group.className = 'policy-category-group';
+          group.setAttribute('data-picker-group', '');
+          const heading = document.createElement('div');
+          heading.className = 'policy-category-group-name';
+          heading.setAttribute('data-picker-group-name', '');
+          heading.textContent = category.group;
+          group.append(heading);
+          picker.querySelector('[data-picker-empty]').before(group);
+          groups.push(group);
+        }
+        const node = document.createElement('div');
+        node.className = 'native-category-option';
+        const label = document.createElement('label');
+        label.className = 'policy-category-option';
+        const box = document.createElement('input');
+        box.type = 'checkbox';
+        box.name = 'labels';
+        box.value = category.id;
+        const title = document.createElement('span');
+        title.className = 'policy-category-option-title';
+        title.textContent = category.name;
+        const code = document.createElement('code');
+        code.className = 'policy-category-code';
+        code.textContent = category.id;
+        label.append(box, title, code);
+        node.append(label);
+        group.append(node);
+        options.push({node, box, name: category.name});
+        input.value = '';
+        input.dispatchEvent(new Event('input'));
+        choose(box, true);
+      });
       selection.hidden = search.hidden = false;
       reset.addEventListener('click', () => {
         options.forEach(option => option.box.checked = false);

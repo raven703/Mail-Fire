@@ -6,7 +6,7 @@ from mice.health import health
 from pipeline import views as pipeline_views
 from pipeline.uploads import upload_message
 from policy_engine.catalog_views import policies
-from policy_engine.category_pages import categories
+from policy_engine.category_pages import categories, category_picker_add
 from policy_engine.pages import catalog
 from policy_engine.rulepacks import page as rulepacks_page
 from policy_engine.views import reevaluate
@@ -52,6 +52,7 @@ urlpatterns = [
     path("datasets/", datasets, name="datasets-page"),
     path("datasets/<str:dataset_id>/", datasets, name="dataset-detail"),
     path("categories/", categories, name="categories-page"),
+    path("categories/picker-add/", category_picker_add, name="category-picker-add"),
     path("categories/<str:category_id>/", categories, name="category-detail"),
     path("categories/<str:category_id>/rules/<str:rule_id>/", categories, name="category-rule"),
     path("incidents/", workspace.incidents, name="incidents-page"),
