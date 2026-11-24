@@ -60,7 +60,18 @@ class StructuredRuleForm(forms.ModelForm):
         elif kind == "ml":
             config["min_confidence"] = values.get("min_confidence") if values.get("min_confidence") is not None else .7
         try:
-            self.instance.config = validate_config(kind, config)
+            validated = validate_config(kind, config)
+            original = self.instance.config or {}
+            if self.instance.pk and self.instance.kind == kind:
+                previous = validate_config(kind, original)
+                # Editing one weight must not sort phrases or materialize absent
+                # defaults in an imported original configuration.
+                self.instance.config = {
+                    **original,
+                    **{key: value for key, value in validated.items() if value != previous.get(key)},
+                }
+            else:
+                self.instance.config = validated
         except (ValueError, TypeError, KeyError) as exc:
             raise forms.ValidationError(str(exc)) from exc
         if not 0 <= values.get("risk", -1) <= 100 or not 0 <= values.get("priority", -1) <= 10000:

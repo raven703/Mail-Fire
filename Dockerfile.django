@@ -4,6 +4,8 @@ COPY requirements.django.lock ./
 RUN uv venv /app/.venv && uv pip install --python /app/.venv/bin/python -r requirements.django.lock
 COPY manage.py ./
 COPY scripts ./scripts
+COPY config/rulepacks ./config/rulepacks
+COPY test-data/results-benchmark350-20261123/config.json ./test-data/results-benchmark350-20261123/config.json
 COPY mice ./mice
 COPY identity ./identity
 COPY records ./records
