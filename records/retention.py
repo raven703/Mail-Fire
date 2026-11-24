@@ -134,19 +134,21 @@ def retention(request):
                 Setting.objects.update_or_create(pk="retention", defaults={"value": form.cleaned_data})
                 Audit.objects.create(actor=request.user.pk, action="retention_config", target="retention", details=form.cleaned_data)
             return redirect("retention-page")
-        if action in {"preview", "cleanup"}:
-            if action == "cleanup" and request.POST.get("confirm") != "DELETE_EXPIRED":
+        if action in {"preview", "cleanup", "gc-preview", "gc-delete"}:
+            if action in {"cleanup", "gc-delete"} and request.POST.get("confirm") != "DELETE_EXPIRED":
                 message = "Требуется подтверждение DELETE_EXPIRED"
             else:
                 from uuid import uuid4
 
                 with transaction.atomic():
-                    job = enqueue("maintenance.retention", {"dry_run": action != "cleanup"}, "retention:" + uuid4().hex)
-                    Audit.objects.create(actor=request.user.pk, action="retention_request", target=str(job.pk), details={"dry_run": action != "cleanup"})
+                    kind = "maintenance.gc" if action.startswith("gc-") else "maintenance.retention"
+                    dry_run = action not in {"cleanup", "gc-delete"}
+                    job = enqueue(kind, {"dry_run": dry_run}, "retention:" + uuid4().hex)
+                    Audit.objects.create(actor=request.user.pk, action="retention_request", target=str(job.pk), details={"dry_run": dry_run, "kind": kind})
                 return redirect("retention-page")
     return render(request, "records/retention.html", {
         "form": form, "error": message,
-        "jobs": WorkItem.objects.filter(kind="maintenance.retention").order_by("-created_at")[:20],
+        "jobs": WorkItem.objects.filter(kind__in=["maintenance.retention", "maintenance.gc"]).order_by("-created_at")[:20],
     }, status=400 if message or form.is_bound else 200)
 
 

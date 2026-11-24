@@ -1,8 +1,12 @@
 """Message and delivery-import workspace, with content gated independently."""
 
+from datetime import timedelta
+
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
+from django.db.models import Avg, Count, Q
+from django.db.models.functions import TruncDay
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.decorators.http import require_GET
 
 from records.models import ImportRecord, Incident, Message
@@ -42,9 +46,23 @@ def overview(request):
     error = access(request)
     if error is not None:
         return error
+    try:
+        days = int(request.GET.get("days", 30))
+    except (TypeError, ValueError):
+        days = 30
+    days = max(1, min(days, 365))
+    since = timezone.now() - timedelta(days=days)
+    messages = Message.objects.filter(created_at__gte=since)
+    incidents = Incident.objects.filter(created_at__gte=since)
     return render(request, "records/overview.html", {
-        "message_statuses": Message.objects.values("status").annotate(count=Count("pk")).order_by("status"),
-        "incident_statuses": Incident.objects.values("status").annotate(count=Count("pk")).order_by("status"),
+        "days": days,
+        "message_statuses": messages.values("status").annotate(count=Count("pk")).order_by("status"),
+        "incident_statuses": incidents.values("status").annotate(count=Count("pk")).order_by("status"),
+        "daily": messages.annotate(day=TruncDay("created_at")).values("day").annotate(count=Count("pk")).order_by("day"),
+        "risk": incidents.aggregate(average=Avg("risk")),
+        "high_risk": incidents.filter(risk__gte=75).count(),
+        "policies": incidents.values("policy__name").annotate(count=Count("pk")).order_by("-count")[:20],
+        "analysts": incidents.values("assignee_ref__username").annotate(count=Count("pk")).order_by("-count")[:20],
         "unassigned": Incident.objects.filter(assignee_ref__isnull=True).exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).count(),
         "held": Message.objects.filter(legal_hold=True).count(),
         "pending": Message.objects.filter(status="PENDING").count(),

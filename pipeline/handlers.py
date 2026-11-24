@@ -91,7 +91,28 @@ def train_model(job):
     train_job(job)
 
 
+def reindex_semantic(job):
+    from records.semantic import reindex
+
+    reindex(job)
+
+
+def search_semantic(job):
+    from records.semantic import search_job
+
+    search_job(job)
+
+
+def collect_garbage(job):
+    from records.garbage_collection import collect
+
+    collect(job)
+
+
 handlers = {
+    "maintenance.gc": ("maintenance", collect_garbage),
+    "semantic.reindex": ("semantic", reindex_semantic),
+    "semantic.search": ("semantic", search_semantic),
     "training.model": ("training", train_model),
     "maintenance.retention": ("maintenance", cleanup_retention),
     "ingestion.bundle": ("ingestion", expand_bundle),

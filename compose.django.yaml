@@ -57,6 +57,12 @@ services:
       retries: 12
   ocr-parser:
     <<: *parser
+    image: mice-django-ocr:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-ocr
+      additional_contexts:
+        parser_image: service:parser
     environment:
       OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
     networks: [ocr-parsing]
@@ -274,7 +280,13 @@ services:
     cpus: ${MICE_NOTIFICATIONS_CPUS:-1}
   training:
     <<: *worker
-    profiles: [pipeline]
+    image: mice-django-training:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-training
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [training]
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: training
@@ -283,6 +295,21 @@ services:
       MICE_TRAINING_TIMEOUT: ${MICE_TRAINING_TIMEOUT:-7200}
     mem_limit: ${MICE_TRAINING_MEMORY:-4g}
     cpus: ${MICE_TRAINING_CPUS:-1}
+  semantic:
+    <<: *worker
+    image: mice-django-semantic:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-semantic
+      additional_contexts:
+        runtime_image: service:migrate
+    profiles: [semantic]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: semantic
+      MICE_SEMANTIC_TIMEOUT: 3600
+    mem_limit: ${MICE_SEMANTIC_MEMORY:-2g}
+    cpus: ${MICE_SEMANTIC_CPUS:-2}
   maintenance:
     <<: *worker
     environment:

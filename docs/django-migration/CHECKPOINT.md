@@ -1,5 +1,27 @@
 # Native Django checkpoint — 2026-11-24
 
+## Semantic/build/GC continuation after 3716d84
+
+Native pgvector indexing/search added with original 180-word/40-overlap chunks,
+same MiniLM model, dedicated semantic queue, per-document fenced atomic replacement,
+progress and user-scoped search job results. Embeddings loaded only in optional
+semantic image. Native conservative blob/content GC checks message/attachment/
+reference FKs plus nested durable payload/output references, refuses competing
+active jobs and locks writers during bounded collection. Preview and explicit
+confirmed GC actions added to retention UI. Legal-held FK references preserved.
+
+Standalone Parser exact dependency closure replaces full legacy lock. OCR and
+training/semantic use separate Dockerfiles and explicit Compose build contexts;
+training profile no longer enabled by pipeline. TF-IDF dependencies isolated from
+main runtime. Neural training image/weights still open. Added rolling-range daily
+message counts, risk summary and policy/analyst breakdown to overview.
+
+23 focused no-DB tests pass; Ruff/system checks pass. Compose configuration with
+training/semantic profiles validates. No images built or containers changed; lock
+installation compatibility, PostgreSQL GC/index persistence and concurrency not
+verified. Full HTMX/visual parity, complete analytics/monitoring, neural/offline
+build support and remaining TODO are NOT complete. See BUILD-NATIVE.md.
+
 ## Model-management continuation after 29ff4d2
 
 Added native /models/ training requests and dedicated fenced training.model worker

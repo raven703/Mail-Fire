@@ -1,0 +1,6 @@
+FROM runtime_image
+USER root
+COPY requirements.training.lock /tmp/requirements.training.lock
+RUN uv pip install --python /app/.venv/bin/python -r /tmp/requirements.training.lock
+USER mice
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1

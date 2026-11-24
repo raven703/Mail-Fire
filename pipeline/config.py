@@ -3,6 +3,7 @@
 import os
 
 GROUPS = (
+    "semantic",
     "ingestion",
     "extraction",
     "ocr",

@@ -1,0 +1,8 @@
+FROM runtime_image
+USER root
+COPY requirements.semantic.lock /tmp/requirements.semantic.lock
+RUN uv pip install --python /app/.venv/bin/python -r /tmp/requirements.semantic.lock
+COPY scripts/prepare_embeddings.py /tmp/prepare_embeddings.py
+RUN /app/.venv/bin/python /tmp/prepare_embeddings.py && chmod -R a+rX /opt/embedding-models
+USER mice
+ENV EMBEDDING_CACHE_DIR=/opt/embedding-models EMBEDDING_OFFLINE=true HF_HUB_OFFLINE=1
