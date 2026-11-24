@@ -77,6 +77,13 @@ def overview(request):
     messages = Message.objects.filter(created_at__gte=since)
     incidents = Incident.objects.filter(created_at__gte=since)
     daily = list(messages.annotate(day=TruncDay("created_at")).values("day").annotate(count=Count("pk")).order_by("day"))
+    timeline = list(incidents.annotate(day=TruncDay("created_at")).values("day").annotate(
+        high=Count("pk", filter=Q(risk__gte=75)), medium=Count("pk", filter=Q(risk__gte=40, risk__lt=75)),
+        low=Count("pk", filter=Q(risk__lt=40))).order_by("day"))
+    timeline_max = max((row["high"] + row["medium"] + row["low"] for row in timeline), default=1)
+    for row in timeline:
+        row["segments"] = [{"level": level.upper(), "count": row[level], "height": round(row[level] / timeline_max * 150)}
+                           for level in ("low", "medium", "high")]
     risk_bands = [
         {"label": "Высокий", "key": "high", "count": incidents.filter(risk__gte=75).count()},
         {"label": "Средний", "key": "medium", "count": incidents.filter(risk__gte=40, risk__lt=75).count()},
@@ -84,6 +91,7 @@ def overview(request):
     ]
     return render(request, "records/overview.html", {
         "days": days,
+        "timeline": timeline,
         "risk_bands": risk_bands,
         "priority_incidents": incidents.select_related("message", "assignee_ref").exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).order_by("-risk", "-created_at")[:8],
         "message_statuses": messages.values("status").annotate(count=Count("pk")).order_by("status"),

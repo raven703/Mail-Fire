@@ -1,5 +1,8 @@
 # Native Django checkpoint — 2026-11-24
 
+Post-8ae82ae continuation adds saved-incident timeline grouped by day and risk
+bands with original Timeline chart/bar structure. DB execution is deferred.
+
 ## Continuation from 6342275
 
 Replaced manual rule JSON with shared structured keyword/word/morphology/flexible
