@@ -11,11 +11,12 @@ from policy_engine.pages import catalog
 from policy_engine.rulepacks import page as rulepacks_page
 from policy_engine.views import reevaluate
 from records import workspace
+from records.analytics import overview
 from records.attachments import attachment
 from records.catalogs import catalog as identity_catalog
 from records.datasets import datasets
 from records.llm_configuration import configuration as llm_page
-from records.messages import imports, messages, overview
+from records.messages import imports, messages
 from records.model_management import models as models_page
 from records.operations import audit, configuration
 from records.reanalysis import bulk_reanalyze
@@ -30,6 +31,7 @@ urlpatterns = [
     path("llm/", llm_page, name="llm-page"),
     path("rulepacks/", rulepacks_page, name="rulepacks-page"),
     path("overview/", overview, name="overview-page"),
+    path("analytics/", overview, {"analytics": True}, name="analytics-page"),
     path("messages/", messages, name="messages-page"),
     path("imports/", imports, name="imports-page"),
     path("retention/", retention, name="retention-page"),

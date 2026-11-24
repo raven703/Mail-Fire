@@ -16,6 +16,7 @@
 <aside class="mice-navigation"><div class="logo"><span class="brand">M</span><strong>MICE<small>Контроль безопасности почты</small></strong><button type="button" data-navigation-toggle aria-expanded="true" aria-label="Свернуть навигацию">☰</button></div>
 <nav aria-label="Основная навигация" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML" hx-push-url="true">
   <h3>Мониторинг и расследования</h3><a href="{% url 'overview-page' %}">Обзор безопасности</a> <a href="{% url 'incidents-page' %}">Инциденты</a> <a href="{% url 'messages-page' %}">Почтовые сообщения</a> <a href="{% url 'operations' %}">Состояние системы и очереди</a>
+  <a href="{% url 'analytics-page' %}">Аналитика и отчёты</a>
   {% if perms.identity.view_originals %} · <a href="{% url 'references-page' %}">Эталоны</a>{% endif %}
   {% if perms.identity.investigate %} · <a href="{% url 'message-upload' %}">Загрузка</a> · <a href="{% url 'imports-page' %}">Импорт</a>{% endif %}
   {% if perms.identity.investigate and perms.identity.view_originals %}<a href="{% url 'datasets-page' %}">Датасеты</a>{% endif %}

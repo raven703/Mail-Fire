@@ -1,0 +1,143 @@
+"""Period-aware security overview and incident analytics."""
+
+import csv
+from datetime import timedelta
+
+from django.db import connection
+from django.db.models import Count, Q
+from django.db.models.functions import TruncDay, TruncHour
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.decorators.http import require_GET
+
+from pipeline.models import WorkItem
+from pipeline.resource_history import latest_resource_samples
+from pipeline.resources import service_state
+from records.models import Incident, Message, Outbox
+from records.ui_filters import DATE_PARAMETERS, period_bounds
+from records.workspace import HIGH_RISK, MEDIUM_RISK, OPEN_STATUSES, access
+
+
+def risk_bands():
+    return {
+        "high": Q(risk__gte=HIGH_RISK),
+        "medium": Q(risk__gte=MEDIUM_RISK, risk__lt=HIGH_RISK),
+        "low": Q(risk__lt=MEDIUM_RISK),
+    }
+
+
+def incident_timeline(incidents, hourly):
+    bucket = TruncHour if hourly else TruncDay
+    series = list(incidents.annotate(bucket=bucket("created_at")).values("bucket").annotate(
+        **{key: Count("pk", filter=criteria) for key, criteria in risk_bands().items()},
+    ).order_by("bucket"))
+    for row in series:
+        row["total"] = row["high"] + row["medium"] + row["low"]
+        row["segments"] = [{"level": level, "count": row[level]} for level in ("low", "medium", "high")]
+    return series
+
+
+def policy_counts(start, end):
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT hit->>'name', count(*)
+                       FROM incidents i CROSS JOIN LATERAL jsonb_array_elements(
+                           CASE jsonb_typeof(i.policy_hits) WHEN 'array' THEN i.policy_hits ELSE '[]'::jsonb END
+                       ) AS hit
+                       WHERE i.created_at >= %s AND i.created_at < %s AND hit->>'name' IS NOT NULL
+                       GROUP BY hit->>'name' ORDER BY count(*) DESC, hit->>'name'""", [start, end])
+        return [{"name": name, "count": count} for name, count in cursor.fetchall()]
+
+
+def status_cards(queues, now):
+    rows = {row.service: service_state(row, now) for row in latest_resource_samples()}
+
+    def recent_state(*names):
+        states = {rows.get(name, "missing") for name in names}
+        if "degraded" in states:
+            return "ERROR"
+        return "OK" if states & {"ready", "running"} else "UNKNOWN"
+
+    return [
+        {"name": "PostgreSQL", "state": "OK", "tab": "database"},
+        {"name": "Очереди", "state": "ERROR" if queues.get("DEAD") else recent_state("rabbitmq"), "tab": "queues"},
+        {"name": "BCC / импорт", "state": recent_state("smtp", "directory-import"), "tab": "flow"},
+        {"name": "OCR", "state": recent_state("ocr-parser"), "tab": "resources"},
+        {"name": "SIEM", "state": "ERROR" if WorkItem.objects.filter(kind="notifications.deliver", status=WorkItem.Status.DEAD).exists() else
+         "OK" if Outbox.objects.filter(status="SENT", available_at__gte=now - timedelta(days=1)).exists() else "UNKNOWN",
+         "tab": "queues"},
+    ]
+
+
+def export_timeline(timeline):
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = 'attachment; filename="mailfire-incidents.csv"'
+    response.write("\ufeff")
+    writer = csv.writer(response)
+    writer.writerow(["Время", "HIGH", "MEDIUM", "LOW"])
+    for row in timeline:
+        writer.writerow([row["bucket"].isoformat(), row["high"], row["medium"], row["low"]])
+    return response
+
+
+@require_GET
+def overview(request, analytics=False):
+    forbidden = access(request)
+    if forbidden is not None:
+        return forbidden
+    now = timezone.now()
+    dates = request.GET.copy()
+    for key in list(dates):
+        if key not in DATE_PARAMETERS:
+            dates.pop(key)
+    start, end = period_bounds(dates, now)
+    end = end or now
+    if not dates.get("range") and start is None and not dates.get("end"):
+        try:
+            hours = max(1, min(int(request.GET["days"]), 365)) * 24
+        except (KeyError, ValueError):
+            hours = 24
+        if hours == 24:
+            dates["range"] = "24"
+        else:
+            dates.update({"range": "custom", "start": (end - timedelta(hours=hours)).isoformat(), "end": end.isoformat()})
+        start = end - timedelta(hours=hours)
+    start = start or end - timedelta(hours=24)
+    error = None
+    if start >= end or any(dates.get(key) and not bound for key, bound in zip(
+            ("start", "end"), period_bounds(dates, now), strict=True)):
+        error = "Укажите корректный период с началом раньше окончания"
+        return render(request, "records/overview.html", {"analytics": analytics, "error": error}, status=400)
+
+    incidents = Incident.objects.filter(created_at__gte=start, created_at__lt=end)
+    hourly = end - start <= timedelta(days=2)
+    timeline = incident_timeline(incidents, hourly)
+    if request.GET.get("export") == "timeline":
+        return export_timeline(timeline)
+    series = timeline if analytics else timeline[-18:]
+    levels = [{"label": label, "key": key, "count": sum(row[key] for row in timeline)}
+              for key, label in (("high", "Высокая"), ("medium", "Средняя"), ("low", "Низкая"))]
+    queues = dict(WorkItem.objects.values("status").annotate(total=Count("pk")).values_list("status", "total"))
+    recent = list(incidents.select_related("message", "policy").defer(
+        "message__headers", "message__recipients", "message__error",
+    ).order_by("-risk", "-created_at", "-pk")[:8 if analytics else 6])
+    for row in recent:
+        row.severity = "HIGH" if row.risk >= HIGH_RISK else "MEDIUM" if row.risk >= MEDIUM_RISK else "LOW"
+        row.policy_label = ", ".join(hit["name"] for hit in row.policy_hits or [] if hit.get("name") and hit.get("active"))
+        if not row.policy_label:
+            row.policy_label = row.policy.name if row.policy else "Исторические политики"
+    policies = policy_counts(start, end)
+    total = sum(row["total"] for row in timeline)
+    return render(request, "records/overview.html", {
+        "analytics": analytics, "date_query": dates.urlencode(),
+        "timeline": series, "timeline_max": max((row["total"] for row in series), default=1),
+        "hourly": hourly, "risk_bands": levels, "analytics_total": total, "risk_max": max(total, 1),
+        "analytics_review": incidents.filter(status__in=OPEN_STATUSES).count(),
+        "analytics_analyzed": Message.objects.filter(
+            created_at__gte=start, created_at__lt=end, status="ANALYZED",
+        ).count(),
+        "analytics_jobs": queues.get("PENDING", 0) + queues.get("RUNNING", 0),
+        "analytics_services": status_cards(queues, now), "dead_jobs": queues.get("DEAD", 0),
+        "policies": policies if analytics else policies[:6], "policy_max": policies[0]["count"] if policies else 1,
+        "priority_incidents": recent,
+    })

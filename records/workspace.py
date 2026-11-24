@@ -15,6 +15,9 @@ from policy_engine.service import EvidenceUnavailable, request_evaluation
 from records.models import Attachment, Audit, Category, Comment, Incident, MailEvent, Message
 from records.ui_filters import filter_dates, pagination_query
 
+OPEN_STATUSES = ("NEW", "ASSIGNED", "REVIEW", "REOPENED")
+HIGH_RISK = 70
+MEDIUM_RISK = 40
 STATUSES = ("NEW", "ASSIGNED", "REVIEW", "CONFIRMED", "FALSE_POSITIVE", "CLOSED", "REOPENED")
 
 
@@ -69,26 +72,29 @@ def incidents(request):
     rows = filter_dates(Incident.objects.select_related("message", "assignee_ref"), request.GET).order_by("-created_at", "-pk")
     query, status, assignee = (request.GET.get(key, "").strip() for key in ("q", "status", "assignee"))
     if request.GET.get("severity") == "high":
-        rows = rows.filter(risk__gte=75)
+        rows = rows.filter(risk__gte=HIGH_RISK)
     elif request.GET.get("severity") == "medium":
-        rows = rows.filter(risk__gte=40, risk__lt=75)
+        rows = rows.filter(risk__gte=MEDIUM_RISK, risk__lt=HIGH_RISK)
     elif request.GET.get("severity") == "low":
-        rows = rows.filter(risk__lt=40)
+        rows = rows.filter(risk__lt=MEDIUM_RISK)
     selected_categories = request.GET.getlist("category")[:100]
     if selected_categories:
         criteria = Q()
         for category in selected_categories:
             criteria |= Q(categories__contains=[category])
         rows = rows.filter(criteria)
+    policy = request.GET.get("policy", "").strip()
+    if policy:
+        rows = rows.filter(policy_hits__contains=[{"name": policy}])
     if query:
         criteria = Q(pk=query) | Q(message_id=query)
         if request.user.has_perm("identity.view_originals"):
             criteria |= Q(message__subject__icontains=query) | Q(message__sender__icontains=query)
         rows = rows.filter(criteria)
-    if status:
+    if status == "open" or "status" not in request.GET:
+        rows = rows.filter(status__in=OPEN_STATUSES)
+    elif status:
         rows = rows.filter(status=status)
-    elif "status" not in request.GET:
-        rows = rows.exclude(status__in=["CLOSED", "FALSE_POSITIVE"])
     events = MailEvent.objects.all()
     for key in ("direction", "source"):
         if request.GET.get(key):

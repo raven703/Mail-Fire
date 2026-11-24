@@ -11,3 +11,8 @@
 .viewer-toolbar .document-page { flex-basis: 100%; }
 .viewer-toolbar [data-viewer-submit] { flex-shrink: 0; }
 .system-tabs a[aria-current="page"] { background: var(--selected); border-color: var(--border); color: var(--text); }
+.category-row .bar-track span { background: #df5965; }
+.category-row:nth-child(4n+2) .bar-track span { background: #eba340; }
+.category-row:nth-child(4n+3) .bar-track span { background: #647af2; }
+.category-row:nth-child(4n+4) .bar-track span { background: #a180e7; }
+.security-overview a, .kpis a, .severity-cards a, .category-list a { text-decoration: none; }

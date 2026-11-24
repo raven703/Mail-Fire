@@ -63,16 +63,27 @@
     document.querySelectorAll('[data-date-range]').forEach(group => {
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';
-      const start = group.querySelector('[name="start"]'), end = group.querySelector('[name="end"]');
-      const local = date => new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      const start = group.querySelector('[name="start"]');
+      const end = group.querySelector('[name="end"]');
+      const period = group.querySelector('[data-period]');
+      const form = period.form;
       group.querySelector('[data-timezone]').textContent = 'Часовой пояс: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
-      group.querySelector('[data-period]').addEventListener('change', event => {
-        if (event.target.value === 'custom') return;
-        const now = new Date();
-        start.value = local(new Date(now.getTime() - Number(event.target.value) * 3600000)); end.value = local(now);
+      const update = () => {
+        const custom = period.value === 'custom';
+        group.querySelectorAll('[data-custom-date]').forEach(label => label.hidden = !custom);
+        start.disabled = end.disabled = !custom;
+        form.elements.start_offset.disabled = form.elements.end_offset.disabled = !custom;
+        form.elements.start_offset.value = start.value ? -new Date(start.value).getTimezoneOffset() : '';
+        form.elements.end_offset.value = end.value ? -new Date(end.value).getTimezoneOffset() : '';
+        end.setCustomValidity(start.value && end.value && start.value >= end.value ? 'Начало должно предшествовать окончанию' : '');
+      };
+      period.addEventListener('change', () => {
+        update();
+        if (period.value !== 'custom' && group.dataset.autoPeriod === 'true') form.requestSubmit();
       });
-      const validate = () => end.setCustomValidity(start.value && end.value && start.value >= end.value ? 'Начало должно предшествовать окончанию' : '');
-      start.addEventListener('input', validate); end.addEventListener('input', validate);
+      start.addEventListener('input', update);
+      end.addEventListener('input', update);
+      update();
     });
     document.querySelectorAll('[data-structured-rule]').forEach(editor => {
       if (editor.dataset.ready) return;

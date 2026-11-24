@@ -1,1 +1,20 @@
-{% extends 'identity/base.html' %}{% block body %}<main><header><h1>MICE · Обзор безопасности</h1></header>{% include 'records/_analytics.html' %}{% include 'records/_overview_panels.html' %}{% include 'records/_risk_panels.html' %}{% include 'records/_incident_timeline.html' %}<section><form method="get"><label>Дней<input name="days" type="number" min="1" max="365" value="{{ days }}"></label><button>Применить</button></form><p>Средний риск: {{ risk.average|default:0 }} · Высокий риск: {{ high_risk }}</p><h2>Динамика писем</h2>{% for row in daily %}<p>{{ row.day|date:"Y-m-d" }}: {{ row.count }}</p>{% endfor %}<h2>Политики</h2>{% for row in policies %}<p>{{ row.policy__name|default:"Без политики" }}: {{ row.count }}</p>{% endfor %}<h2>Назначения</h2>{% for row in analysts %}<p>{{ row.assignee_ref__username|default:"Не назначен" }}: {{ row.count }}</p>{% endfor %}<p>Ожидают анализа: {{ pending }} · Инциденты без аналитика: {{ unassigned }} · Legal hold: {{ held }}</p><h2>Письма</h2>{% for row in message_statuses %}<p>{{ row.status }}: {{ row.count }}</p>{% empty %}<p>Писем нет</p>{% endfor %}<h2>Инциденты</h2>{% for row in incident_statuses %}<p>{{ row.status }}: {{ row.count }}</p>{% empty %}<p>Инцидентов нет</p>{% endfor %}<p>Числа отражают сохранённые статусы, а не состояние доступности движков. PARTIAL не считается полным анализом.</p></section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main>
+  <header>
+    <h1>{% if analytics %}Аналитика и отчёты{% else %}Обзор безопасности{% endif %}</h1>
+    <form method="get" class="sticky-period">
+      {% include 'records/_date_filters.html' with default_range='24' auto_period=True %}
+      <button>Применить</button>
+    </form>
+  </header>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>
+  {% elif analytics %}
+  {% include 'records/_analytics.html' %}
+  {% else %}
+  <div id="overview-live" hx-get="?{{ date_query }}" hx-trigger="every 10s" hx-target="this" hx-select="#overview-live" hx-swap="outerHTML">
+    {% include 'records/_overview_panels.html' %}
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

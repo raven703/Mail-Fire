@@ -1,0 +1,8 @@
+<section class="so-panel so-services">
+  <header class="so-section-heading"><h2>Состояние обработки</h2><a class="so-subtle-link" href="{% url 'operations' %}">Диагностика →</a></header>
+  <div class="so-status-grid">
+    {% for service in analytics_services %}<a class="so-status" href="{% url 'operations' %}?tab={{ service.tab }}"><span>{{ service.name }}</span><span class="badge {{ service.state }}">{{ service.state }}</span></a>{% endfor %}
+    <a class="so-status so-status-queue" href="{% url 'operations' %}?tab=jobs&amp;status=DEAD"><span>Ошибки заданий</span><strong>{{ dead_jobs }}</strong></a>
+  </div>
+  <p class="so-panel-footnote">UNKNOWN — телеметрия не подтверждена.</p>
+</section>

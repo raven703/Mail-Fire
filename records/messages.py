@@ -1,16 +1,10 @@
 """Message and delivery-import workspace, with content gated independently."""
 
-import csv
-from collections import Counter
-from datetime import timedelta
 from uuid import uuid4
 
 from django.core.paginator import Paginator
-from django.db.models import Avg, Count, Q
-from django.db.models.functions import TruncDay
-from django.http import HttpResponse
+from django.db.models import Count, Q
 from django.shortcuts import render
-from django.utils import timezone
 from django.views.decorators.http import require_GET
 
 from records.models import Attachment, ImportRecord, Incident, MailEvent, Message
@@ -82,71 +76,3 @@ def imports(request):
         return error
     rows = ImportRecord.objects.select_related("message").order_by("-created_at", "-pk")
     return render(request, "records/imports.html", {"page": Paginator(rows, 50).get_page(request.GET.get("page"))})
-
-
-@require_GET
-def overview(request):
-    error = access(request)
-    if error is not None:
-        return error
-    try:
-        days = int(request.GET.get("days", 30))
-    except (TypeError, ValueError):
-        days = 30
-    days = max(1, min(days, 365))
-    since = timezone.now() - timedelta(days=days)
-    messages = Message.objects.filter(created_at__gte=since)
-    incidents = Incident.objects.filter(created_at__gte=since)
-    daily = list(messages.annotate(day=TruncDay("created_at")).values("day").annotate(count=Count("pk")).order_by("day"))
-    timeline = list(incidents.annotate(day=TruncDay("created_at")).values("day").annotate(
-        high=Count("pk", filter=Q(risk__gte=75)), medium=Count("pk", filter=Q(risk__gte=40, risk__lt=75)),
-        low=Count("pk", filter=Q(risk__lt=40))).order_by("day"))
-    timeline_max = max(1, max((row["high"] + row["medium"] + row["low"] for row in timeline), default=0))
-    for row in timeline:
-        row["segments"] = [{"level": level.upper(), "count": row[level], "height": round(row[level] / timeline_max * 150)}
-                           for level in ("low", "medium", "high")]
-    if request.GET.get("export") == "timeline":
-        response = HttpResponse(content_type="text/csv; charset=utf-8")
-        response["Content-Disposition"] = 'attachment; filename="mailfire-incidents.csv"'
-        response["Cache-Control"] = "no-store"
-        response.write("\ufeff")
-        writer = csv.writer(response)
-        writer.writerow(["Время", "HIGH", "MEDIUM", "LOW"])
-        for row in timeline:
-            writer.writerow([row["day"].isoformat(), row["high"], row["medium"], row["low"]])
-        return response
-    category_counts = Counter()
-    for group in incidents.values("categories").annotate(total=Count("pk")):
-        for category in set(group["categories"] or []):
-            category_counts[category] += group["total"]
-    category_max = max(category_counts.values(), default=1)
-    from pipeline.models import WorkItem
-    from pipeline.monitoring import service_snapshot
-    risk_bands = [
-        {"label": "Высокий", "key": "high", "count": incidents.filter(risk__gte=75).count()},
-        {"label": "Средний", "key": "medium", "count": incidents.filter(risk__gte=40, risk__lt=75).count()},
-        {"label": "Низкий", "key": "low", "count": incidents.filter(risk__lt=40).count()},
-    ]
-    return render(request, "records/overview.html", {
-        "days": days,
-        "timeline": timeline,
-        "analytics_categories": [{"name": name, "count": count, "percent": round(count / category_max * 100)}
-                                 for name, count in category_counts.most_common()],
-        "analytics_total": incidents.count(),
-        "analytics_review": incidents.exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).count(),
-        "analytics_analyzed": messages.filter(status="ANALYZED").count(),
-        "analytics_jobs": WorkItem.objects.filter(status="RUNNING").count(),
-        "analytics_services": service_snapshot(),
-        "risk_bands": risk_bands,
-        "priority_incidents": incidents.select_related("message", "assignee_ref").exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).order_by("-risk", "-created_at")[:8],
-        "message_statuses": messages.values("status").annotate(count=Count("pk")).order_by("status"),
-        "incident_statuses": incidents.values("status").annotate(count=Count("pk")).order_by("status"),
-        "daily": daily, "daily_max": max((row["count"] for row in daily), default=1),
-        "risk": incidents.aggregate(average=Avg("risk")),
-        "high_risk": incidents.filter(risk__gte=75).count(),
-        "policies": incidents.values("policy__name").annotate(count=Count("pk")).order_by("-count")[:20],
-        "analysts": incidents.values("assignee_ref__username").annotate(count=Count("pk")).order_by("-count")[:20],
-        "unassigned": Incident.objects.filter(assignee_ref__isnull=True).exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).count(),
-        "held": Message.objects.filter(legal_hold=True).count(),
-        "pending": Message.objects.filter(status="PENDING").count(),
-    })

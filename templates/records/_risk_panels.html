@@ -1,1 +1,10 @@
-<div class="security-overview"><div class="so-detail-grid"><section class="so-panel so-priority"><div class="so-section-heading"><h2>Приоритетные инциденты</h2><a href="{% url 'incidents-page' %}">Все инциденты</a></div><div class="so-priority-list">{% for incident in priority_incidents %}<a class="so-incident-line" href="{% url 'incident-detail' incident.pk %}"><div class="so-incident-main"><strong class="so-incident-title">{% if perms.identity.view_originals %}{{ incident.message.subject|default:'Без темы' }}{% else %}{{ incident.pk }}{% endif %}</strong><span class="so-incident-meta">{{ incident.created_at }} · {{ incident.assignee_ref.username|default:'Без аналитика' }}</span></div><div class="so-incident-side"><strong>{{ incident.risk }}</strong><span class="so-incident-state">{{ incident.status }}</span></div></a>{% empty %}<p>Нет открытых инцидентов</p>{% endfor %}</div></section><section class="so-panel so-risk"><h2>Распределение риска</h2><div class="so-risk-list">{% for band in risk_bands %}<a class="so-risk-line" href="{% url 'incidents-page' %}?severity={{ band.key }}"><span>{{ band.label }}</span><span class="so-risk-track"></span><strong>{{ band.count }}</strong></a>{% endfor %}</div></section></div></div>
+<section class="so-panel so-risk">
+  <header class="so-section-heading"><div><h2>Уровни риска</h2><p>Распределение инцидентов за период</p></div><a class="so-subtle-link" href="{% url 'incidents-page' %}?{{ date_query }}&amp;status=">Все инциденты →</a></header>
+  <div class="so-risk-list">
+    {% for band in risk_bands %}
+    <a class="so-risk-line so-level-{{ band.key|upper }}" href="{% url 'incidents-page' %}?{{ date_query }}&amp;severity={{ band.key }}&amp;status=">
+      <span class="so-risk-label"><i aria-hidden="true"></i>{{ band.label }}</span><span class="so-risk-track"><span style="width:{% widthratio band.count risk_max 100 %}%"></span></span><strong>{{ band.count }}</strong>
+    </a>
+    {% endfor %}
+  </div>
+</section>
