@@ -173,10 +173,12 @@ def main():
             from app.document_preview import render
 
             output = render(data, request["name"])
-        elif request["operation"] == "extract":
+        elif request["operation"] in {"extract", "extract_native"}:
             from app.extraction import extract
 
-            text, status, details = extract(data, request["name"])
+            text, status, details = extract(
+                data, request["name"], use_ocr=request["operation"] != "extract_native"
+            )
             output = {"text": text, "status": status, "details": details}
         else:
             raise ValueError("Unknown sandbox operation")

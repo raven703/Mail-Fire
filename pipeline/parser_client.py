@@ -7,10 +7,11 @@ import httpx
 from django.conf import settings
 
 
-def call(operation, data, name=""):
-    if operation not in {"mail", "extract", "probe", "scan", "preview"}:
+def call(operation, data, name="", *, ocr=False):
+    if operation not in {"mail", "extract", "extract_native", "probe", "scan", "preview"}:
         raise ValueError("Unsupported parser operation")
-    if not settings.MICE_PARSER_URL:
+    url = settings.MICE_OCR_PARSER_URL if ocr else settings.MICE_PARSER_URL
+    if not url:
         raise RuntimeError("Isolated parser is not configured; local fallback forbidden")
     if len(data) > settings.MICE_MAX_MESSAGE_BYTES:
         raise ValueError("Parser input limit")
@@ -19,7 +20,7 @@ def call(operation, data, name=""):
     ) as client:
         with client.stream(
             "POST",
-            settings.MICE_PARSER_URL.rstrip("/") + "/parse",
+            url.rstrip("/") + "/parse",
             json={
                 "operation": operation,
                 "data": base64.b64encode(data).decode(),

@@ -39,6 +39,12 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- OCR separation checkpoint: new extract_native operation suppresses OCR through
+  recursive extraction; OCR coordinator uses a distinct required remote endpoint
+  and queue, commits results with fencing, preserves attachment order and partial
+  states. Eight existing pipeline checks pass; no live OCR execution yet. Parser
+  endpoints/images/networks and detection handoff still unconnected. Full-cycle
+  acceptance NOT achieved. TODO.md records remaining autonomous work.
 - Extraction hand-off checkpoint: ingestion completion and extraction dispatch
   commit atomically; extraction consumes persisted parse output, calls only the
   remote isolated Parser, validates result shape and commits attachment evidence

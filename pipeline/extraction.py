@@ -4,7 +4,7 @@ from django.db import transaction
 
 from pipeline.models import WorkItem
 from pipeline.parser_client import call
-from pipeline.services import finish, locked_current
+from pipeline.services import enqueue, finish, locked_current
 from records.models import Attachment, Blob, Message
 
 
@@ -16,7 +16,7 @@ def extract(job):
     results = []
     for attachment in output["attachments"]:
         blob = Blob.objects.get(pk=attachment["blob_sha"])
-        result = call("extract", bytes(blob.data), attachment["name"])
+        result = call("extract_native", bytes(blob.data), attachment["name"])
         if (
             not isinstance(result.get("text"), str)
             or result.get("status") not in {"ANALYZED", "PARTIAL", "ENCRYPTED", "UNSUPPORTED", "FAILED"}
@@ -53,4 +53,7 @@ def extract(job):
                 "partial": any(result["status"] != "ANALYZED" for _, result in results),
                 "next_stage": "detection-not-yet-connected",
             },
+        )
+        enqueue(
+            "ocr.complete", {"message_id": message.pk, "extraction_job_id": str(job.pk)}, "ocr:" + str(job.pk)
         )

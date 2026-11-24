@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from app.config import settings
 
 
-def extract(data, name, depth=0, budget=None):
+def extract(data, name, depth=0, budget=None, *, use_ocr=True):
     budget = budget if budget is not None else [0, 0]
     budget[0] += 1
     budget[1] += len(data)
@@ -27,7 +27,7 @@ def extract(data, name, depth=0, budget=None):
                 ocr_pages = []
                 for index, page in enumerate(doc):
                     text = page.get_text()
-                    if len(text.strip()) < 20 and settings().ocr_backend != "disabled":
+                    if len(text.strip()) < 20 and use_ocr and settings().ocr_backend != "disabled":
                         from app.ocr import recognize
 
                         text, metadata = recognize(
@@ -45,7 +45,7 @@ def extract(data, name, depth=0, budget=None):
                     },
                 )
         if suffix in {".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp", ".webp"}:
-            if settings().ocr_backend == "disabled":
+            if not use_ocr or settings().ocr_backend == "disabled":
                 return "", "PARTIAL", {"ocr_required": True}
             from app.ocr import recognize
 
@@ -121,14 +121,20 @@ def extract(data, name, depth=0, budget=None):
                     from app.advanced_detectors import static_scan
 
                     findings.extend(static_scan(child, member.filename)["findings"])
-                    child_text, state, child_details = extract(child, member.filename, depth + 1, budget)
+                    child_text, state, child_details = extract(
+                        child, member.filename, depth + 1, budget, use_ocr=use_ocr
+                    )
                     findings.extend(child_details.get("findings", []))
                     texts.append(child_text)
                     states.append(state)
             return (
                 "\n".join(texts),
                 "ANALYZED" if all(s == "ANALYZED" for s in states) else "PARTIAL",
-                {"children": states, "findings": findings},
+                {
+                    "children": states,
+                    "findings": findings,
+                    **({"ocr_required": any(s == "PARTIAL" for s in states)} if not use_ocr else {}),
+                },
             )
         if suffix in {
             ".txt",

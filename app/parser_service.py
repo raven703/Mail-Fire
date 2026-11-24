@@ -36,7 +36,14 @@ class Handler(BaseHTTPRequestHandler):
             self.connection.settimeout(130)
             body = self.rfile.read(size)
             request = json.loads(body)
-            if request.get("operation") not in {"mail", "extract", "probe", "scan", "preview"}:
+            if request.get("operation") not in {
+                "mail",
+                "extract",
+                "extract_native",
+                "probe",
+                "scan",
+                "preview",
+            }:
                 raise ValueError("Unsupported operation")
             data = base64.b64decode(request["data"], validate=True)
             result = local_call(request["operation"], data, request.get("name", "")[:1024])
