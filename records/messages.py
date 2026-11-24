@@ -37,15 +37,33 @@ def messages(request):
         if request.user.has_perm("identity.view_originals"):
             criteria |= Q(subject__icontains=query) | Q(sender__icontains=query)
         rows = rows.filter(criteria)
+    for parameter, model in (("attachments", Attachment), ("incidents", Incident)):
+        value = request.GET.get(parameter)
+        identifiers = model.objects.values("message_id")
+        if value == "yes":
+            rows = rows.filter(pk__in=identifiers)
+        elif value == "no":
+            rows = rows.exclude(pk__in=identifiers)
+    mime = request.GET.get("mime", "").strip()
+    if mime:
+        rows = rows.filter(pk__in=Attachment.objects.filter(mime__icontains=mime).values("message_id"))
+    sort = {"date": "created_at", "sender": "sender"}.get(request.GET.get("sort"), "created_at")
+    if sort == "sender" and not request.user.has_perm("identity.view_originals"):
+        sort = "created_at"
+    rows = rows.order_by(("" if request.GET.get("order") == "asc" else "-") + sort, "pk")
     page = Paginator(rows, 50).get_page(request.GET.get("page"))
     identifiers = [row.pk for row in page]
     counts = {}
+    deliveries = {}
+    for event in MailEvent.objects.filter(message_id__in=identifiers).order_by("created_at", "pk"):
+        deliveries[event.message_id] = event
     for model, key in ((Attachment, "attachment_count"), (Incident, "incident_count")):
         for row in model.objects.filter(message_id__in=identifiers).values("message_id").annotate(total=Count("pk")):
             counts.setdefault(row["message_id"], {})[key] = row["total"]
     for row in page:
         row.attachment_count = counts.get(row.pk, {}).get("attachment_count", 0)
         row.incident_count = counts.get(row.pk, {}).get("incident_count", 0)
+        row.delivery = deliveries.get(row.pk)
     return render(request, "records/messages.html", {
         "page": page, "query": query, "status": status,
         "request_token": uuid4().hex,
@@ -80,7 +98,7 @@ def overview(request):
     timeline = list(incidents.annotate(day=TruncDay("created_at")).values("day").annotate(
         high=Count("pk", filter=Q(risk__gte=75)), medium=Count("pk", filter=Q(risk__gte=40, risk__lt=75)),
         low=Count("pk", filter=Q(risk__lt=40))).order_by("day"))
-    timeline_max = max((row["high"] + row["medium"] + row["low"] for row in timeline), default=1)
+    timeline_max = max(1, max((row["high"] + row["medium"] + row["low"] for row in timeline), default=0))
     for row in timeline:
         row["segments"] = [{"level": level.upper(), "count": row[level], "height": round(row[level] / timeline_max * 150)}
                            for level in ("low", "medium", "high")]

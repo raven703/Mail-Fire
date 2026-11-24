@@ -87,15 +87,35 @@ def incidents(request):
         rows = rows.filter(criteria)
     if status:
         rows = rows.filter(status=status)
+    elif "status" not in request.GET:
+        rows = rows.exclude(status__in=["CLOSED", "FALSE_POSITIVE"])
+    events = MailEvent.objects.all()
+    for key in ("direction", "source"):
+        if request.GET.get(key):
+            events = events.filter(**{key: request.GET[key]})
+    if request.GET.get("direction") or request.GET.get("source"):
+        rows = rows.filter(message_id__in=events.values("message_id"))
+    if request.user.has_perm("identity.view_originals"):
+        if request.GET.get("sender"):
+            rows = rows.filter(message__sender__icontains=request.GET["sender"])
+        if request.GET.get("recipient"):
+            rows = rows.filter(message__recipients__contains=[request.GET["recipient"]])
     if assignee == "me":
         rows = rows.filter(assignee_ref_id=request.user.pk)
     elif assignee == "unassigned":
         rows = rows.filter(assignee_ref__isnull=True)
+    elif assignee:
+        rows = rows.filter(assignee_ref__username__icontains=assignee)
+    sort = {"date": "created_at", "risk": "risk"}.get(request.GET.get("sort"), "created_at")
+    if request.GET.get("sort") == "sender" and request.user.has_perm("identity.view_originals"):
+        sort = "message__sender"
+    rows = rows.order_by(("" if request.GET.get("order") == "asc" else "-") + sort, "pk")
     return render(request, "records/incidents.html", {
         "page": Paginator(rows, 50).get_page(request.GET.get("page")), "statuses": STATUSES,
         "query": query, "selected_status": status, "selected_assignee": assignee,
         "pagination_query": pagination_query(request.GET),
         "categories": Category.objects.filter(active=True).order_by("name"), "selected_categories": selected_categories,
+        "sources": MailEvent.objects.values_list("source", flat=True).distinct().order_by("source"),
     })
 
 

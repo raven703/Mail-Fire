@@ -30,5 +30,5 @@
 </nav>
 </aside>
 {% endif %}
-<div class="workspace">{% if request.user.is_authenticated %}<header class="topbar native-topbar"><span>{{ request.user.username }}</span><span id="workspace-status" role="status" aria-live="polite"></span><form method="post" action="{% url 'logout-page' %}">{% csrf_token %}<button>Выйти</button></form></header>{% endif %}
+<div class="workspace">{% if request.user.is_authenticated %}<header class="topbar native-topbar"><div class="breadcrumbs">MICE <span>/</span> Рабочее место аналитика</div><form class="global-search" method="get" action="{% url 'messages-page' %}"><input aria-label="Глобальный поиск" name="q" placeholder="Поиск писем, адресов…"><button>Найти</button></form><a class="system-indicator icon-control" href="{% url 'operations' %}" aria-label="Состояние системы">◉</a><a class="icon-control" href="{% url 'incidents-page' %}" aria-label="Инциденты, требующие проверки">♧</a><span>{{ request.user.username }}</span><span id="workspace-status" role="status" aria-live="polite"></span><form method="post" action="{% url 'logout-page' %}">{% csrf_token %}<button>Выйти</button></form></header>{% endif %}
 <div id="mice-content" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML" hx-history="false">{% block body %}{% endblock %}</div></div></div></body></html>

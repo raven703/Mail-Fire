@@ -45,7 +45,8 @@ def service_snapshot():
     """Probe only fixed configured Parser endpoints, never request-supplied URLs."""
     rows = []
     with httpx.Client(timeout=1, trust_env=False, follow_redirects=False) as client:
-        for name, url in (("Parser", settings.MICE_PARSER_URL), ("OCR Parser", settings.MICE_OCR_PARSER_URL)):
+        for name, url in (("Parser", settings.MICE_PARSER_URL), ("OCR Parser", settings.MICE_OCR_PARSER_URL),
+                          ("Converter", settings.MICE_CONVERTER_URL)):
             state = "not configured"
             if url:
                 try:
@@ -55,6 +56,21 @@ def service_snapshot():
                     state = "unavailable"
             rows.append({"name": name, "state": state})
     return rows
+
+
+def stage_snapshot():
+    """Aggregate persisted jobs, including total wall time rather than only attempts."""
+    with connection.cursor() as cursor:
+        cursor.execute("""SELECT kind, status, count(*), max(attempts),
+                       avg(extract(epoch FROM finished_at-created_at)),
+                       percentile_cont(.95) WITHIN GROUP
+                           (ORDER BY extract(epoch FROM finished_at-created_at)),
+                       max(extract(epoch FROM now()-created_at)) FILTER
+                           (WHERE status IN ('PENDING', 'RUNNING')),
+                       count(*) FILTER (WHERE status='RUNNING' AND deadline < now())
+                       FROM mice_work_items GROUP BY kind, status ORDER BY kind, status""")
+        keys = ("kind", "status", "count", "max_attempts", "average_seconds", "p95_seconds", "oldest_seconds", "expired")
+        return [dict(zip(keys, row, strict=True)) for row in cursor.fetchall()]
 
 
 def snapshot():
@@ -117,7 +133,8 @@ def snapshot():
         workers = {"available": bool(replies), "items": replies, "stats": {
             name: {"pid": row.get("pid"), "uptime": row.get("uptime"),
                    "rusage": row.get("rusage", {}), "pool": {
-                       key: row.get("pool", {}).get(key) for key in ("max-concurrency", "processes")
+                       "max_concurrency": row.get("pool", {}).get("max-concurrency"),
+                       "processes": row.get("pool", {}).get("processes"),
                    }} for name, row in stats.items()
         }}
     except Exception:

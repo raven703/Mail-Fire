@@ -75,3 +75,27 @@ downloading embeddings; do not mistake its output for current build acceptance.
 Converter build `/tmp/mice-converter-build.log` is downloading LibreOffice packages.
 Runtime rebuilt successfully, 12 pipeline/policy checks passed (2.433 s).
 Neither new detection sandbox operation nor full Celery chain is live verified yet.
+
+## Continuation after 91c3b44
+
+Implemented: fixed configured Converter health alongside Parser/OCR; persisted
+job-stage counts, attempts, wall-time average/p95, oldest pending age and expired
+leases; corrected Celery concurrency key. Added message attachment/incident/MIME
+filters, date/sender sort and delivery source/direction/time columns. Incident
+list adds source/direction, permission-gated sender/recipient, sorting and default
+open statuses. Global search and topbar diagnostic/investigation links restored
+from master main.tsx. Master Queues/SystemStatus/main read directly.
+
+Implementation still missing: full per-service resource collection/history and
+original resource graphs; original component DOM/visual parity throughout;
+evidence highlights/viewer details; remaining picker/catalog/training interaction
+comparison and analytics panels/service summaries. These are code gaps, not merely
+browser acceptance. Existing historical NOT PORTED rows are not proof of current
+absence and have not been bulk-closed without inspection.
+
+Implemented but awaiting verification: PostgreSQL percentile query and list
+filter execution, browser layout/interactions, runtime service health and delivery
+metadata rendering. No DB/container changes, builds, migration application,
+comprehensive testing or ML/LLM activation performed.
+
+Audit remediation remains deferred; no audit items were claimed fixed here.
