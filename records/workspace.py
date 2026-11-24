@@ -145,6 +145,7 @@ def message_detail(request, message_id):
     return render(request, "records/message.html", {
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
         "error": error_text,
+        "reanalysis_token": uuid4().hex,
         "attachments": Attachment.objects.filter(message=row).order_by("created_at", "pk") if request.user.has_perm("identity.view_originals") else [],
     }, status=409 if error_text else 200)
 

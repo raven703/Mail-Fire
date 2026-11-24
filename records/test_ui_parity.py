@@ -11,7 +11,8 @@ from records.ui_filters import filter_dates, pagination_query
 class NativeUIParityTests(SimpleTestCase):
     def test_changed_templates_compile(self):
         for name in ("records/message.html", "records/messages.html", "records/incidents.html",
-                     "records/overview.html", "pipeline/operations.html", "records/_message_tabs.html"):
+                     "records/overview.html", "pipeline/operations.html", "records/_message_tabs.html",
+                     "policy_engine/catalog.html", "records/reanalysis.html", "records/_risk_panels.html"):
             get_template(name)
 
     def test_pagination_preserves_all_filter_values(self):
