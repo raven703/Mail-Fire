@@ -39,6 +39,14 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Real isolated Parser/OCR deployment: distinct experiment image and internal
+  networks, no DB/broker secrets or host mounts supplied. Sandbox probe returned
+  network_denied=true, uid=10001, database_secret=null, all sensitive paths false.
+  Real generated PNG OCR returned ANALYZED, RapidOCR blocks CONFIDENTIAL and
+  1234567890 with confidences 0.99881/0.99915. This is NOT a full EML/Celery cycle.
+  Converter image build/health remains unverified (registry build pending).
+  Transitional parser dependency image still references legacy backend base;
+  standalone dependency build remains required. Detection remains unconnected.
 - OCR separation checkpoint: new extract_native operation suppresses OCR through
   recursive extraction; OCR coordinator uses a distinct required remote endpoint
   and queue, commits results with fencing, preserves attachment order and partial

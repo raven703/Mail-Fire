@@ -9,6 +9,12 @@ Newest user instruction permits isolated email integration/regression/load tests
   archive verification remain required. OCR currently re-extracts the original
   attachment in the OCR service, preserving the original combined algorithm.
 - [ ] Deploy dedicated secret-free Parser/OCR/Converter in internal networks.
+  Parser and OCR now running on distinct internal networks. Real sandbox probe
+  confirmed network_denied=true, uid=10001, no DB secret/sensitive mounts. Real
+  generated PNG recognized by RapidOCR. Converter build/start was attempted;
+  registry metadata retrieval delayed it; inspect build/container before retrying.
+  Dockerfile.django-parser currently uses mailfire-backend:local dependency base;
+  replace with standalone pinned dependencies before final independence acceptance.
 - [ ] Connect detection, normalization, AV/secrets, category/reference/template rules.
 - [ ] Connect optional ML/LLM workers with explicit unavailable/disabled states.
 - [ ] Persist final analysis and enqueue policy/incident evaluation atomically.

@@ -1,0 +1,7 @@
+# Transitional dependency layer only; no legacy service/database process runs.
+# Override with an immutable digest in reproducible acceptance deployments.
+ARG PARSER_DEPENDENCY_IMAGE=mailfire-backend:local
+FROM ${PARSER_DEPENDENCY_IMAGE}
+COPY app /app/app
+ENV PYTHONDONTWRITEBYTECODE=1
+CMD ["python", "-m", "app.parser_service"]

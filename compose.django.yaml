@@ -11,6 +11,8 @@ x-worker: &worker
     MICE_DB_PASSWORD: ${MICE_DB_PASSWORD:?set dedicated experiment password}
     MICE_DB_HOST: db
     MICE_DB_PORT: 5432
+    MICE_PARSER_URL: http://parser:8090
+    MICE_OCR_PARSER_URL: http://ocr-parser:8090
     MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
   command: [python, -m, pipeline.worker]
   read_only: true
@@ -24,6 +26,45 @@ x-worker: &worker
     rabbitmq:
       condition: service_healthy
 services:
+  parser: &parser
+    image: mice-django-parser:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-parser
+    command: [python, -m, app.parser_service]
+    environment:
+      OCR_BACKEND: disabled
+    networks: [parsing]
+    read_only: true
+    tmpfs: ['/tmp:size=256m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 96
+    mem_limit: 3g
+    cpus: 2
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  ocr-parser:
+    <<: *parser
+    environment:
+      OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
+    networks: [ocr-parsing]
+  converter:
+    image: mice-django-converter:experiment
+    build: ./converter
+    networks: [conversion]
+    read_only: true
+    tmpfs: ['/tmp:size=512m,noexec,nosuid']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 1g
+    cpus: 1
+    restart: unless-stopped
   db:
     image: pgvector/pgvector:pg17
     environment:
@@ -109,6 +150,7 @@ services:
     cpus: 0.5
   ingestion:
     <<: *worker
+    networks: [default, parsing]
     profiles: [pipeline]
     environment:
       <<: *runtime-env
@@ -120,6 +162,7 @@ services:
     cpus: ${MICE_INGESTION_CPUS:-1}
   extraction:
     <<: *worker
+    networks: [default, parsing]
     profiles: [pipeline]
     environment:
       <<: *runtime-env
@@ -131,6 +174,7 @@ services:
     cpus: ${MICE_EXTRACTION_CPUS:-1}
   ocr:
     <<: *worker
+    networks: [default, ocr-parsing]
     profiles: [pipeline]
     environment:
       <<: *runtime-env
@@ -220,3 +264,10 @@ volumes:
   django-postgres:
   django-rabbitmq:
   django-beat:
+networks:
+  parsing:
+    internal: true
+  ocr-parsing:
+    internal: true
+  conversion:
+    internal: true
