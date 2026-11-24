@@ -38,6 +38,9 @@ class Handler(BaseHTTPRequestHandler):
             request = json.loads(body)
             if request.get("operation") not in {
                 "detect",
+                "detection_evidence",
+                "dataset_import",
+                "upload_members",
                 "mail",
                 "extract",
                 "extract_native",

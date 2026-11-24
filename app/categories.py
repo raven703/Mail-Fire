@@ -7,15 +7,15 @@ or missing engine does not silently count as a negative match.
 import re
 import subprocess
 
-from sqlalchemy import select
-
-from app.models import Category, CategoryRule
-
 MAX_FINDINGS = 200
 MAX_REGEX_TEXT = 100_000
 
 
 def available_categories(session, ids, *, allow_label=True):
+    from sqlalchemy import select
+
+    from app.models import Category
+
     values = set(ids)
     if not values:
         return True
@@ -62,6 +62,10 @@ def safe_regex(pattern):
 
 
 def rules_for(session):
+    from sqlalchemy import select
+
+    from app.models import Category, CategoryRule
+
     rows = session.execute(
         select(CategoryRule, Category)
         .join(Category, Category.id == CategoryRule.category_id)
@@ -164,11 +168,19 @@ def custom_findings(session, text, *, references=(), ml_scores=None, available_e
     An unknown/unavailable engine suppresses ALL-mode categories (fail-closed
     for detecting, not proof that text is safe).
     """
+    return evaluate_groups(
+        rules_for(session).values(), text, references=references,
+        ml_scores=ml_scores, available_engines=available_engines,
+    )
+
+
+def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None):
+    """Persistence-independent rule evaluation shared by native Django and reference app."""
     result = []
     ml_scores = ml_scores or {}
     if available_engines is None:
         available_engines = {"keywords", "regex", "reference", "ml"}
-    for bucket in rules_for(session).values():
+    for bucket in groups:
         category, rules = bucket["category"], bucket["rules"]
         if category.mode in {"builtin", "label"}:
             continue

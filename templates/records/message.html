@@ -1,0 +1,7 @@
+{% extends 'identity/base.html' %}{% block body %}
+<main><header><h1>Письмо {{ message.pk }}</h1><a href="{% url 'incidents-page' %}">Инциденты</a></header>
+<section><p>Статус: {{ message.status }}</p>{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+{% if perms.identity.view_originals %}<h2>{{ message.subject }}</h2><p>{{ message.sender }} → {{ message.recipients|join:', ' }}</p><a href="{% url 'message-original' message.pk %}">Скачать оригинал</a>{% if message.content %}<h3>Содержимое</h3><pre>{{ message.content.text }}</pre><h3>Результаты</h3>{% for finding in message.content.analysis.findings %}<p>{{ finding.category }} · {{ finding.risk }} · {{ finding.reason }}</p><pre>{{ finding.excerpt }}</pre>{% endfor %}{% endif %}{% endif %}
+{% if message.content %}<h3>Полнота анализа</h3>{% for issue in message.content.analysis.engine_errors %}<p>{{ issue.engine }}: {{ issue.error }}</p>{% empty %}<p>Ошибок движков не зарегистрировано</p>{% endfor %}<p>Пропущенные проверки: {{ message.content.analysis.skipped_checks|join:', ' }}</p>{% endif %}
+{% if perms.identity.investigate %}<form method="post">{% csrf_token %}<button>Переоценить политики по сохранённым результатам</button></form>{% endif %}</section>
+<section><h2>События доставки</h2>{% for event in events %}<p>{{ event.created_at }} · {{ event.source }} · {{ event.direction }}</p>{% endfor %}</section></main>{% endblock %}

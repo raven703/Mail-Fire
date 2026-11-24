@@ -1,5 +1,6 @@
 """Native HTML upload: durable acceptance only, no parsing in the web process."""
 
+from pathlib import PurePosixPath
 from uuid import uuid4
 
 from django.conf import settings
@@ -8,6 +9,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
+from pipeline.bundles import accept_bundle
 from pipeline.forms import MessageUploadForm
 from pipeline.ingestion import accept
 from records.models import Audit
@@ -30,6 +32,10 @@ def upload_message(request):
         data = upload.read(settings.MICE_MAX_MESSAGE_BYTES + 1)
         try:
             with transaction.atomic():
+                if PurePosixPath(upload.name).suffix.lower() == ".zip":
+                    job = accept_bundle(data, form.source_key(request.user.pk), upload.name)
+                    Audit.objects.create(actor=request.user.pk, action="bundle_upload", target=str(job.pk))
+                    return render(request, "pipeline/upload.html", {"bundle_job": job}, status=202)
                 record = accept(data, "upload", form.source_key(request.user.pk), upload.name)
                 Audit.objects.create(actor=request.user.pk, action="message_upload", target=record.message_id)
         except ValueError:

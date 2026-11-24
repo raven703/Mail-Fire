@@ -26,6 +26,13 @@ is not required. Comprehensive acceptance is deferred until implementation compl
 
 ## Historical backlog
 
+Continuation after 7a9e88a adds all intake adapters (ZIP sandbox jobs, SMTP,
+read-only stable directory watcher), deterministic evidence orchestration,
+native analyst/category/dataset/config/audit pages. See CHECKPOINT.md: these are
+implemented increments with focused checks, not full parity acceptance. ML/LLM
+remain inactive; training/publish/rollback, viewer, rulepacks, retention, semantic
+indexing, full HTMX/visual parity and standalone dependency split remain open.
+
 Work only in experiment/django-htmx. Master/live containers/data are forbidden.
 Newest user instruction permits isolated email integration/regression/load tests.
 

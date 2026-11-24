@@ -158,10 +158,26 @@ def main():
                 output.append([match.start(), match.end()])
                 if len(output) >= 10:
                     break
+        elif request["operation"] == "dataset_import":
+            from app.datasets import parse_dataset
+
+            payload = json.loads(data)
+            output = {"rows": parse_dataset(payload["text"].encode(), payload["name"], payload["category_map"])}
+        elif request["operation"] == "upload_members":
+            from app.uploads import upload_members
+
+            output = {"members": [
+                [name, base64.b64encode(value).decode()]
+                for name, value in upload_members(data, request["name"])
+            ]}
         elif request["operation"] == "scan":
             from app.advanced_detectors import static_scan
 
             output = static_scan(data, request["name"])
+        elif request["operation"] == "detection_evidence":
+            from app.detection_evidence import analyze
+
+            output = analyze(json.loads(data))
         elif request["operation"] == "detect":
             from app.advanced_detectors import pii
             from app.detectors import VERSION, detect

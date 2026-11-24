@@ -40,7 +40,7 @@ def complete(job):
         parse_job = WorkItem.objects.get(pk=upstream.payload["parse_job_id"], status="DONE")
         ordered = {row.pk: row for row in Attachment.objects.filter(message=message)}
         attachments = [ordered[identifier] for identifier in upstream.output["attachment_ids"]]
-        message.error = "Detection stage not yet connected"
+        message.error = None
         message.save(update_fields=["error"])
         finish(
             job.pk,
@@ -49,7 +49,7 @@ def complete(job):
                 "text": "\n".join([parse_job.output["text"]] + [row.text for row in attachments]),
                 "attachment_ids": upstream.output["attachment_ids"],
                 "partial": any(row.status != "ANALYZED" for row in attachments),
-                "next_stage": "detection-not-yet-connected",
+                "next_stage": "detection",
             },
         )
         enqueue(

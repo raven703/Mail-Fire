@@ -7,12 +7,12 @@ from django.conf import settings
 
 class MessageUploadForm(forms.Form):
     delivery_id = forms.UUIDField(widget=forms.HiddenInput)
-    message = forms.FileField(label="Письмо EML/MSG")
+    message = forms.FileField(label="Письмо EML/MSG или ZIP с письмами")
 
     def clean_message(self):
         upload = self.cleaned_data["message"]
-        if PurePosixPath(upload.name).suffix.lower() not in {".eml", ".msg"}:
-            raise forms.ValidationError("Разрешены только EML и MSG.")
+        if PurePosixPath(upload.name).suffix.lower() not in {".eml", ".msg", ".zip"}:
+            raise forms.ValidationError("Разрешены только EML, MSG и ZIP.")
         if not 0 < upload.size <= settings.MICE_MAX_MESSAGE_BYTES:
             raise forms.ValidationError("Превышен размер письма или файл пуст.")
         return upload

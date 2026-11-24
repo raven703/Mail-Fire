@@ -5,18 +5,20 @@ import stat
 import zipfile
 from pathlib import PurePosixPath
 
-from app.config import settings
 
+def upload_members(data, name, *, limits=None):
+    if limits is None:
+        from app.config import settings
 
-def upload_members(data, name):
-    if len(data) > settings().max_message_bytes:
+        limits = settings()
+    if len(data) > limits.max_message_bytes:
         raise ValueError("Upload size limit")
     if not zipfile.is_zipfile(io.BytesIO(data)):
         return [(name, data)]
     result, total = [], 0
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
         members = archive.infolist()
-        if len(members) > settings().max_objects:
+        if len(members) > limits.max_objects:
             raise ValueError("Archive member count limit")
         for info in members:
             path = PurePosixPath(info.filename)
@@ -36,14 +38,18 @@ def upload_members(data, name):
                 raise ValueError("ZIP must contain only EML/MSG files")
             total += info.file_size
             if (
-                total > settings().max_expanded_bytes
-                or info.file_size > settings().max_message_bytes
+                total > limits.max_expanded_bytes
+                or info.file_size > limits.max_message_bytes
                 or info.file_size > max(info.compress_size, 1) * 200
             ):
                 raise ValueError("Archive expansion limit")
             with archive.open(info) as stream:
-                payload = stream.read(settings().max_message_bytes + 1)
+                payload = stream.read(limits.max_message_bytes + 1)
             if len(payload) != info.file_size:
                 raise ValueError("Invalid archive size")
             result.append((info.filename, payload))
+    if not result:
+        raise ValueError("Empty archive")
+    if len({name for name, _ in result}) != len(result):
+        raise ValueError("Duplicate archive member")
     return result

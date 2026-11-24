@@ -3,4 +3,4 @@
 <link rel="icon" href="{% static 'mice/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'mice/style.css' %}"><link rel="stylesheet" href="{% static 'mice/controls.css' %}"><link rel="stylesheet" href="{% static 'mice/editor-dialog.css' %}">
 <script defer src="{% static 'mice/dialogs.js' %}"></script>
-</head><body>{% block body %}{% endblock %}</body></html>
+</head><body>{% if request.user.is_authenticated %}<nav aria-label="Основная навигация"><a href="{% url 'incidents-page' %}">Инциденты</a> · <a href="{% url 'operations' %}">Мониторинг</a>{% if perms.identity.investigate %} · <a href="{% url 'message-upload' %}">Загрузка</a>{% endif %}{% if perms.identity.administer %} · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Категории</a> · <a href="{% url 'datasets-page' %}">Датасеты</a> · <a href="{% url 'configuration-page' %}">Настройки</a> · <a href="{% url 'audit-page' %}">Аудит</a> · <a href="{% url 'users-page' %}">Пользователи</a>{% endif %}</nav>{% endif %}{% block body %}{% endblock %}</body></html>

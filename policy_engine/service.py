@@ -125,6 +125,11 @@ def evaluate(job):
     payload = job.payload
     analysis = AnalysisRevision.objects.get(pk=payload["analysis_id"], message_id=payload["message_id"])
     message = Message.objects.select_for_update().get(pk=payload["message_id"])
+    # Serialized message lock prevents an older queued snapshot from replacing
+    # newer incident decisions after out-of-order worker completion.
+    if Evaluation.objects.filter(analysis__message=message, job__created_at__gt=job.created_at).exists():
+        finish(job.pk, job.token, {"evaluation_complete": False, "superseded": True})
+        return
     config = payload["settings"]
     evidence = analysis.results
     direction = classify_direction(evidence["sender"], evidence["recipients"], config["internal_domains"])

@@ -13,6 +13,11 @@ x-worker: &worker
     MICE_DB_PORT: 5432
     MICE_PARSER_URL: http://parser:8090
     MICE_OCR_PARSER_URL: http://ocr-parser:8090
+    MICE_OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
+    MICE_CLAMAV_HOST: ${MICE_CLAMAV_HOST:-}
+    MICE_CLAMAV_PORT: ${MICE_CLAMAV_PORT:-3310}
+    MICE_IMPORT_MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
+    MICE_IMPORT_MAX_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
     MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
   command: [python, -m, pipeline.worker]
   read_only: true
@@ -34,6 +39,8 @@ services:
     command: [python, -m, app.parser_service]
     environment:
       OCR_BACKEND: disabled
+      MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
+      MAX_EXPANDED_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
     networks: [parsing]
     read_only: true
     tmpfs: ['/tmp:size=256m,noexec,nosuid']
@@ -107,6 +114,29 @@ services:
   publisher:
     <<: *worker
     command: [python, manage.py, publish_outbox]
+    mem_limit: 256m
+    cpus: 0.5
+  smtp:
+    <<: *worker
+    command: [python, manage.py, collect_smtp, --host, 0.0.0.0, --port, '2525']
+    profiles: [smtp]
+    ports: ['127.0.0.1:12525:2525']
+    environment:
+      <<: *runtime-env
+      MICE_SMTP_NETWORKS: ${MICE_SMTP_NETWORKS:-127.0.0.0/8,::1/128}
+    mem_limit: 256m
+    cpus: 0.5
+  directory-import:
+    <<: *worker
+    profiles: [directory-import]
+    command: [python, manage.py, import_mail, /imports, --namespace, '${MICE_IMPORT_NAMESPACE:-directory}', --watch]
+    volumes:
+      - type: bind
+        source: ${MICE_IMPORT_DIRECTORY:-./experiment-imports}
+        target: /imports
+        read_only: true
+        bind:
+          create_host_path: false
     mem_limit: 256m
     cpus: 0.5
   web:

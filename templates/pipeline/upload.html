@@ -3,12 +3,15 @@
 <main>
   <header><h1>MICE · Загрузка письма</h1><nav><a href="{% url 'operations' %}">Очереди обработки</a> · <a href="{% url 'message-upload' %}">Загрузить письмо</a></nav></header>
   <section>
-    {% if record %}
+    {% if bundle_job %}
+      <h2>ZIP принят в очередь</h2>
+      <p>Задание: {{ bundle_job.pk }}. Состав архива будет проверен в изолированном обработчике. Приём не означает успешный импорт всех писем.</p>
+    {% elif record %}
       <h2>Письмо принято</h2>
       <p>Идентификатор: {{ record.message_id }}. {% if record.duplicate %}Содержимое уже известно; сохранено отдельное событие доставки.{% else %}Обработка поставлена в очередь.{% endif %}</p>
       <p>Приём не означает завершение анализа. Состояние обработки доступно в очередях.</p>
     {% else %}
-      <p>Загрузите EML или MSG. Вложения обрабатываются асинхронно в изолированных workers.</p>
+      <p>Загрузите EML, MSG или ZIP с письмами. Архив и вложения обрабатываются асинхронно в изолированных workers.</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}{{ form.delivery_id }}{{ form.non_field_errors }}{{ form.delivery_id.errors }}
         <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>

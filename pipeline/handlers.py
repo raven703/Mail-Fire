@@ -49,6 +49,12 @@ def parse_message(job):
     parse(job)
 
 
+def expand_bundle(job):
+    from pipeline.bundles import expand_bundle as expand
+
+    expand(job)
+
+
 def extract_message(job):
     from pipeline.extraction import extract
 
@@ -74,6 +80,7 @@ def deliver_notification(job):
 
 
 handlers = {
+    "ingestion.bundle": ("ingestion", expand_bundle),
     "detection.detect": ("detection", detect_message),
     "ocr.complete": ("ocr", complete_ocr),
     "extraction.extract": ("extraction", extract_message),

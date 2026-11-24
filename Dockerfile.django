@@ -7,6 +7,7 @@ COPY mice ./mice
 COPY identity ./identity
 COPY records ./records
 COPY pipeline ./pipeline
+COPY app ./app
 COPY policy_engine ./policy_engine
 COPY templates ./templates
 COPY static ./static

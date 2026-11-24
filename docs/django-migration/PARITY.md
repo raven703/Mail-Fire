@@ -54,6 +54,13 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Continuation after 7a9e88a: ZIP/SMTP/directory adapters, deterministic engine
+  orchestration, native investigations/categories/dataset review/config/audit
+  delivered. 33 focused no-DB checks pass (0.199s), 11 source checks pass / 2
+  skipped; Ruff/Compose config pass. DB suite blocked by absent dedicated
+  credentials. Persistence mocked; no live full-cycle, visual or capacity claim.
+  Detailed scope and remaining work: CHECKPOINT.md.
+
 - Native architecture/upload checkpoint, 2026-11-24: nine isolated upload checks
   pass (0.033s), no database setup; system checks, focused Ruff and whitespace
   checks pass. Acceptance service/audit mocked in view tests; real DB/broker and

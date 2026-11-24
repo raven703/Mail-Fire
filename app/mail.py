@@ -6,11 +6,8 @@ from email.parser import BytesParser
 from email.utils import getaddresses
 
 from bs4 import BeautifulSoup
-from sqlalchemy import select
-from sqlalchemy.dialects.postgresql import insert
 
 from app.config import settings
-from app.models import Blob, ImportRecord, Job, MailEvent, Message
 
 
 def sha(data: bytes) -> str:
@@ -18,6 +15,10 @@ def sha(data: bytes) -> str:
 
 
 def put_blob(session, data):
+    from sqlalchemy.dialects.postgresql import insert
+
+    from app.models import Blob
+
     digest = sha(data)
     session.execute(insert(Blob).values(sha=digest, data=data, size=len(data)).on_conflict_do_nothing())
     return digest
@@ -122,6 +123,10 @@ def classify_direction(sender, recipients, internal_domains):
 
 
 def ingest(session, data, source, source_key, name, envelope=None):
+    from sqlalchemy import select
+
+    from app.models import ImportRecord, Job, MailEvent, Message
+
     if len(data) > settings().max_message_bytes:
         raise ValueError("Превышен размер письма")
     session.execute(

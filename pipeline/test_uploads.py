@@ -26,7 +26,7 @@ class UploadTests(SimpleTestCase):
 
     @override_settings(MICE_MAX_MESSAGE_BYTES=10)
     def test_rejects_empty_oversized_and_unsupported_files(self):
-        for name, data in [("x.eml", b""), ("x.msg", b"x" * 11), ("x.zip", b"zip")]:
+        for name, data in [("x.eml", b""), ("x.msg", b"x" * 11), ("x.exe", b"exe")]:
             with self.subTest(name=name, length=len(data)):
                 self.assertFalse(self.form(name, data).is_valid())
 

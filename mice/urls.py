@@ -6,11 +6,26 @@ from mice.health import health
 from pipeline import views as pipeline_views
 from pipeline.uploads import upload_message
 from policy_engine.catalog_views import policies
+from policy_engine.category_pages import categories
 from policy_engine.pages import catalog
 from policy_engine.views import reevaluate
+from records import workspace
+from records.datasets import datasets
+from records.operations import audit, configuration
 
 urlpatterns = [
+    path("settings/", configuration, name="configuration-page"),
+    path("audit/", audit, name="audit-page"),
+    path("datasets/", datasets, name="datasets-page"),
+    path("datasets/<str:dataset_id>/", datasets, name="dataset-detail"),
+    path("categories/", categories, name="categories-page"),
+    path("categories/<str:category_id>/", categories, name="category-detail"),
+    path("categories/<str:category_id>/rules/<str:rule_id>/", categories, name="category-rule"),
+    path("incidents/", workspace.incidents, name="incidents-page"),
+    path("incidents/<str:incident_id>/", workspace.incident_detail, name="incident-detail"),
+    path("messages/<str:message_id>/original/", workspace.original_message, name="message-original"),
     path("messages/upload/", upload_message, name="message-upload"),
+    path("messages/<str:message_id>/", workspace.message_detail, name="message-detail"),
     path("policies/", catalog, name="policies-page"),
     path("api/catalog/policies", policies, name="policy-list"),
     path("api/workspace/policies", policies, name="policy-create"),
