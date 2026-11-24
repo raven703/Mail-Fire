@@ -56,6 +56,9 @@ def corpus(dataset_id):
 
 
 def train_job(job):
+    expected = "training.model" if job.payload["engine"] == "tfidf" else "training.neural"
+    if job.kind != expected:
+        raise ValueError("Training engine/queue mismatch")
     # Heavy libraries are loaded only by the dedicated training worker.
     rows = corpus(job.payload.get("dataset_id"))
     snapshot = snapshot_hash(rows)
@@ -125,7 +128,8 @@ def models(request):
                 dataset_id = values["dataset"].pk if values["dataset"] else None
                 rows = corpus(dataset_id)
                 with transaction.atomic():
-                    job = enqueue("training.model", {
+                    kind = "training.model" if values["engine"] == "tfidf" else "training.neural"
+                    job = enqueue(kind, {
                         "name": values["name"], "engine": values["engine"], "dataset_id": dataset_id,
                         "category_id": values["category"].pk if values["category"] else None,
                         "min_f1": values["min_f1"], "snapshot_sha": snapshot_hash(rows),
@@ -140,5 +144,5 @@ def models(request):
     return render(request, "records/models.html", {
         "form": form, "error": message,
         "models": MLModel.objects.defer("artifact").order_by("-created_at")[:100],
-        "jobs": WorkItem.objects.filter(kind="training.model").order_by("-created_at")[:30],
+        "jobs": WorkItem.objects.filter(kind__in=["training.model", "training.neural"]).order_by("-created_at")[:30],
     }, status=400 if message or form.is_bound else 200)

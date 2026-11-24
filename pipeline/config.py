@@ -3,6 +3,7 @@
 import os
 
 GROUPS = (
+    "neural_training",
     "semantic",
     "ingestion",
     "extraction",
@@ -21,7 +22,7 @@ def limits(group):
     if group not in GROUPS:
         raise ValueError(f"Unknown worker group: {group}")
     prefix = "MICE_" + group.upper() + "_"
-    hard = int(os.environ.get(prefix + "TIMEOUT", "7200" if group == "training" else "300"))
+    hard = int(os.environ.get(prefix + "TIMEOUT", "7200" if group in {"training", "neural_training"} else "300"))
     soft = int(os.environ.get(prefix + "SOFT_TIMEOUT", str(max(1, hard - 15))))
     concurrency = int(os.environ.get(prefix + "CONCURRENCY", "1"))
     prefetch = int(os.environ.get(prefix + "PREFETCH", "1"))

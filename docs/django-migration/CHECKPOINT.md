@@ -1,5 +1,17 @@
 # Native Django checkpoint — 2026-11-24
 
+## Training-routing continuation after d51477c
+
+TF-IDF jobs remain training.model/training; neural jobs now use
+training.neural/neural_training and separate worker group/time limits. Handler
+rejects incompatible engine/kind before DB/heavy imports. Models page lists both.
+Optional offline export --neural-models includes neural image and local snapshot
+archive with checksums; requires materialized non-symlink rubert/setfit directories.
+Import tool verifies archive but does not extract models automatically.
+Four focused routing/offline tests pass; Ruff/Compose config/whitespace pass.
+No images built, inference enabled, source algorithm changed or services touched.
+Remaining full inference/UI/monitoring/offline acceptance is still OPEN.
+
 ## Monitoring/offline continuation after 8dc7640
 
 Read master SystemStatus/Operations sources without modifications. Added 30-second

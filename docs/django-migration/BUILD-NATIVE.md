@@ -35,6 +35,13 @@ in this checkpoint. Lock compatibility must be established by those future build
 
 ## Optional neural and offline packaging increment
 
+Latest routing supersedes the shared-queue warning below: neural submissions now
+use `training.neural` on `neural_training`; TF-IDF uses `training.model` on
+`training`. Both workers can coexist without consuming each other's jobs.
+`native_offline.py export ... --neural-models /absolute/materialized/snapshots`
+also includes the neural image and checksum-protected `neural-models.tar`.
+Model archive deployment/extraction is manual after trusted manifest verification.
+
 `Dockerfile.django-neural` and `neural-training` profile add the existing locked
 Torch/Transformers/SetFit dependency closure on top of the training image. Build
 with both `training` and `neural-training` profiles. Use only the neural worker

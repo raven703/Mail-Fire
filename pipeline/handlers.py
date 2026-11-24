@@ -114,6 +114,7 @@ handlers = {
     "semantic.reindex": ("semantic", reindex_semantic),
     "semantic.search": ("semantic", search_semantic),
     "training.model": ("training", train_model),
+    "training.neural": ("neural_training", train_model),
     "maintenance.retention": ("maintenance", cleanup_retention),
     "ingestion.bundle": ("ingestion", expand_bundle),
     "detection.detect": ("detection", detect_message),

@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import subprocess
+import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,9 +22,11 @@ def digest(path):
     return result.hexdigest()
 
 
-def export(destination):
+def export(destination, neural_models=None):
     destination.mkdir(parents=True, exist_ok=False)
     names = [f"mice-django-{name}:experiment" for name in IMAGES]
+    if neural_models:
+        names.append("mice-django-neural:experiment")
     names += ["pgvector/pgvector:pg17", "rabbitmq:4.2-management"]
     manifest = {"schema_version": 1, "images": [], "files": {}}
     for index, name in enumerate(names):
@@ -35,6 +38,18 @@ def export(destination):
     filename = "compose.django.yaml"
     (destination / filename).write_bytes((ROOT / filename).read_bytes())
     manifest["files"][filename] = digest(destination / filename)
+    if neural_models:
+        for relative in ["rubert/config.json", "setfit/modules.json"]:
+            if not (neural_models / relative).is_file():
+                raise ValueError("Missing local model metadata: " + relative)
+        archive = destination / "neural-models.tar"
+        with tarfile.open(archive, "w") as output:
+            for path in sorted(neural_models.rglob("*")):
+                if path.is_symlink():
+                    raise ValueError("Model symlinks must be materialized before export")
+                if path.is_file():
+                    output.add(path, arcname=str(path.relative_to(neural_models)), recursive=False)
+        manifest["files"][archive.name] = digest(archive)
     (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
 
@@ -62,8 +77,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=["export", "verify", "load"])
     parser.add_argument("directory", type=Path)
+    parser.add_argument("--neural-models", type=Path, help="Include neural image and materialized local model snapshots")
     args = parser.parse_args()
     if args.action == "export":
-        export(args.directory)
+        export(args.directory, args.neural_models)
     else:
         verify(args.directory, args.action == "load")
