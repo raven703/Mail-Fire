@@ -10,11 +10,9 @@ import os
 from urllib.parse import urlsplit
 
 import httpx
-from sqlalchemy import select
 
-from app.db import transaction
-from app.models import Category, Setting
-from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS, normalize
+from app.text_normalizer import DEFAULTS as NORMALIZER_DEFAULTS
+from app.text_normalizer import normalize
 
 DEFAULTS = {
     "enabled": False,
@@ -30,11 +28,18 @@ DEFAULTS = {
 
 
 def config(session):
+    from app.models import Setting
+
     row = session.get(Setting, "llm_analyzer")
     return {**DEFAULTS, **(row.value if row else {})}
 
 
 def analyze(text, findings):
+    from sqlalchemy import select
+
+    from app.db import transaction
+    from app.models import Category, Setting
+
     with transaction() as session:
         options = config(session)
         norm_row = session.get(Setting, "normalizer")
@@ -43,6 +48,12 @@ def analyze(text, findings):
             return [], []
         category_rows = list(session.scalars(select(Category).where(Category.active.is_(True))))
         names = {c.id: c.name for c in category_rows}
+    return analyze_configured(text, findings, options, norm_options, names)
+
+
+def analyze_configured(text, findings, options, norm_options, names):
+    if not options.get("enabled", False):
+        return [], []
     selected = [c for c in options["categories"] if c in names]
     uncertain = [f["category"] for f in findings
                  if f.get("confidence") is not None

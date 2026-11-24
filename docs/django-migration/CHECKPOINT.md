@@ -1,5 +1,21 @@
 # Native Django checkpoint — 2026-11-24
 
+## Inference continuation after b4a7393
+
+Added deployment-gated optional detection→ML→LLM→Policy routing (both gates default
+false), ID-only durable inputs, immutable inference content revisions, stale-content
+refusal, fenced result/next-dispatch commit. Reused original ML prediction and LLM
+request/response algorithms through persistence-free adapter entry points; legacy
+adapters preserved. Built-in ML findings retain original probabilistic provenance.
+Four focused routing/detection checks pass; Ruff/system/whitespace checks pass.
+
+NOT complete inference acceptance: custom category ML ANY/ALL reevaluation still
+needs original group evaluator integration; runtime Compose ML image/gate wiring
+and captured config/model snapshots remain open. No inference activated. Current
+Compose ML worker is still light and unsuitable for enabled inference. Do not set
+gates before finishing runtime integration. Full UI/monitoring/offline remaining
+work is unchanged. This checkpoint does not close TODO or parity matrix.
+
 ## Training-routing continuation after d51477c
 
 TF-IDF jobs remain training.model/training; neural jobs now use

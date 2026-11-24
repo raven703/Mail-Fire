@@ -11,7 +11,6 @@ from pipeline.evidence import configuration
 from pipeline.models import WorkItem
 from pipeline.parser_client import call
 from pipeline.services import finish, locked_current
-from policy_engine.service import request_evaluation
 from records.models import Address, Attachment, Content, Message
 
 
@@ -95,7 +94,9 @@ def detect(job):
         for address in set([message.sender] + message.recipients):
             if address:
                 Address.objects.get_or_create(email=address.lower())
-        evaluation = request_evaluation(message.pk, "analysis:" + str(job.pk))
+        from pipeline.inference import route
+
+        evaluation = route(message, "analysis:" + str(job.pk))
         finish(
             job.pk,
             job.token,

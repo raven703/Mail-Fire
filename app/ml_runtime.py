@@ -1,15 +1,17 @@
 """Predict with active global TF-IDF and independent per-category classifiers."""
 
-from sqlalchemy import select
-
-from app.models import MLModel
-
-
 def infer_active(session, text):
+    from sqlalchemy import select
+
+    from app.models import MLModel
+
+    return infer_models(list(session.scalars(select(MLModel).where(MLModel.active.is_(True)))), text)
+
+
+def infer_models(active, text):
     from app.ml import infer
     from app.ml_engines import infer_binary
 
-    active = list(session.scalars(select(MLModel).where(MLModel.active.is_(True))))
     global_predictions, custom_predictions, errors = {}, {}, []
     for model in active:
         try:

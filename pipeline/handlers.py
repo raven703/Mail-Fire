@@ -109,7 +109,15 @@ def collect_garbage(job):
     collect(job)
 
 
+def infer_optional(job):
+    from pipeline.inference import run
+
+    run(job)
+
+
 handlers = {
+    "ml.infer": ("ml", infer_optional),
+    "llm.infer": ("llm", infer_optional),
     "maintenance.gc": ("maintenance", collect_garbage),
     "semantic.reindex": ("semantic", reindex_semantic),
     "semantic.search": ("semantic", search_semantic),

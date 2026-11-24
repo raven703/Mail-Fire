@@ -33,7 +33,7 @@ class DetectionCoordinatorTests(SimpleTestCase):
             patch("pipeline.detection.transaction.atomic"),
             patch("pipeline.detection.locked_current"),
             patch("pipeline.detection.Content.objects.get_or_create", return_value=(SimpleNamespace(pk="content"), True)) as content,
-            patch("pipeline.detection.request_evaluation", return_value=SimpleNamespace(pk="policy")),
+            patch("pipeline.inference.route", return_value=SimpleNamespace(pk="policy")),
             patch("pipeline.detection.finish") as finish,
         ):
             messages.return_value.get.return_value = message
