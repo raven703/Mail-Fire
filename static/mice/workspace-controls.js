@@ -155,6 +155,21 @@
       form.addEventListener('reset', () => setTimeout(() => { boxes().forEach(box => box.checked = false); update(); }, 0));
       update();
     });
+    document.querySelectorAll('[data-training-options]').forEach(form => {
+      if (form.dataset.ready) return;
+      form.dataset.ready = 'true';
+      const category = form.elements.category;
+      const panel = form.querySelector('[data-training-category]');
+      const hint = form.querySelector('[data-training-hint]');
+      const update = () => {
+        const neural = form.elements.engine.value !== 'tfidf';
+        panel.hidden = category.disabled = !neural;
+        category.required = neural;
+        hint.textContent = neural ? 'Обучение одной категории на положительных и отрицательных примерах. Базовая модель хранится локально.' : 'Общая многометочная модель.';
+      };
+      form.elements.engine.addEventListener('change', update);
+      update();
+    });
     document.querySelectorAll('[data-category-picker]').forEach(picker => {
       if (picker.dataset.ready) return;
       picker.dataset.ready = 'true';

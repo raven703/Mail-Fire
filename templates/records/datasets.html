@@ -2,6 +2,7 @@
 {% block body %}
 <div class="ml-datasets">
   <h1>Наборы данных для ML</h1>
+  <nav class="tabs"><a href="{% url 'models-page' %}">Модели</a><a href="{% url 'datasets-page' %}" aria-current="page">Наборы данных</a><a href="{% url 'models-page' %}?tab=examples">Обучающие примеры</a><a href="{% url 'models-page' %}?tab=label">Разметка</a><a href="{% url 'models-page' %}?tab=training">Обучение</a><a href="{% url 'models-page' %}?tab=quality">Метрики качества</a></nav>
   <p class="muted">Загрузите CSV или JSONL с колонками text и labels. Для обучения используются примеры с подтверждёнными метками.</p>
   {% if admin %}<div class="ml-dataset-toolbar"><a class="button primary" href="{% url 'datasets-page' %}?import=1">＋ Импортировать датасет</a></div>{% endif %}
   <section>

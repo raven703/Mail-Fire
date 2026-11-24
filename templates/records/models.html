@@ -1,1 +1,80 @@
-{% extends 'identity/base.html' %}{% block body %}<main><header><h1>Модели и обучение</h1></header><section><p>Inference выключен. Публикация выбирает версию модели, но не включает обнаружение ML.</p><p role="alert">{{ error }}</p><form method="post">{% csrf_token %}{{ form.as_p }}<button name="action" value="train">Обучить</button></form></section><section><h2>Версии</h2>{% for row in models %}<article><h3>{{ row.name }} · {{ row.engine }}</h3><p>{{ row.pk }} · {{ row.created_at }} · eligible={{ row.eligible }} · active={{ row.active }}</p><details><summary>Метрики и происхождение</summary><pre>{{ row.metrics }}</pre></details><form method="post">{% csrf_token %}<input type="hidden" name="model_id" value="{{ row.pk }}"><button name="action" value="publish">Опубликовать</button><button name="action" value="rollback">Откатить на эту версию</button><button name="action" value="deactivate">Деактивировать</button><button name="action" value="delete">Удалить неактивную</button></form></article>{% empty %}<p>Моделей нет</p>{% endfor %}</section><section><h2>Задания</h2>{% for job in jobs %}<p>{{ job.pk }} · {{ job.status }} · {{ job.error }} · {{ job.output }}</p>{% endfor %}</section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  <header><h1>ML-модели и обучение</h1></header>
+  <div class="model-banner"><h2>{% if active_count %}Опубликовано моделей · {{ active_count }}{% else %}Активные модели отсутствуют{% endif %}</h2><p>TF-IDF / SetFit / RuBERT-tiny2 · ML-анализ писем выключен</p></div>
+  <nav class="tabs" aria-label="Модели и обучение">
+    <a href="?tab=models"{% if tab == 'models' %} aria-current="page"{% endif %}>Модели</a>
+    {% if can_label %}<a href="{% url 'datasets-page' %}">Наборы данных</a><a href="?tab=examples"{% if tab == 'examples' %} aria-current="page"{% endif %}>Обучающие примеры</a><a href="?tab=label"{% if tab == 'label' %} aria-current="page"{% endif %}>Разметка</a>{% endif %}
+    <a href="?tab=training"{% if tab == 'training' %} aria-current="page"{% endif %}>Обучение</a><a href="?tab=quality"{% if tab == 'quality' %} aria-current="page"{% endif %}>Метрики качества</a>
+  </nav>
+  {% if error %}<p role="alert" class="error">{{ error }}</p>{% endif %}
+  {% if tab == 'examples' %}
+  <section>
+    <header><h2>Обучающие примеры</h2><a class="action-button primary" href="?tab=label&amp;new=1">＋ Добавить пример</a></header>
+    {% for sample in examples %}<div class="policy-row"><div class="policy-info"><strong>{{ sample.label_names|join:', ' }}</strong><p>{{ sample.preview|truncatechars:280 }}</p><small>{{ sample.approved|yesno:'Подтверждён,Не проверен' }} · {% if sample.source == 'manual' %}Добавлен вручную{% elif sample.source == 'incident' %}Из инцидента{% else %}Импортирован{% endif %}</small></div>
+    {% if admin %}<form method="post" hx-confirm="Удалить обучающий пример? Действующие модели сохранятся.">{% csrf_token %}<input type="hidden" name="example_id" value="{{ sample.pk }}"><button name="action" value="delete_example">Удалить</button></form>{% endif %}
+    </div>{% empty %}<p class="empty">Обучающих примеров нет</p>{% endfor %}
+    {% include 'records/_pagination.html' with page=examples %}
+  </section>
+  {% elif tab == 'label' %}
+  <section><header><div><h2>Разметка обучающих примеров</h2><p class="muted">Выберите категории и подтвердите проверенную разметку.</p></div><a class="action-button primary" href="?tab=label&amp;new=1">＋ Добавить пример</a></header></section>
+  {% elif tab == 'training' %}
+  <section>
+    <header><div><h2>Контролируемое обучение</h2><p class="muted">Раздельные train, validation и test. Публикация модели выполняется отдельно.</p></div>
+    {% if admin and perms.identity.view_originals %}<a class="action-button primary" href="?tab=training&amp;new=1">＋ Запустить обучение</a>{% endif %}</header>
+    <table><thead><tr><th>Задание</th><th>Движок</th><th>Статус</th><th>Попытки</th><th>Ошибка</th></tr></thead><tbody>
+      {% for job in jobs %}<tr><td>{{ job.created_at }} · {{ job.pk }}</td><td>{{ job.payload.engine }}</td><td>{{ job.status }}</td><td>{{ job.attempts }} / {{ job.max_attempts }}</td><td>{{ job.error|default:'—' }}</td></tr>
+      {% empty %}<tr><td colspan="5">Заданий обучения нет</td></tr>{% endfor %}
+    </tbody></table><a href="{% url 'operations' %}?tab=jobs">Очереди обработки →</a>
+  </section>
+  {% elif tab == 'quality' %}
+  <section><h2>Метрики опубликованных моделей на test</h2>
+  {% for row in active_models %}<h3>{{ row.name }}</h3>{% include 'records/_model_scores.html' with scores=row.metrics.test %}{% empty %}<p>Нет опубликованной модели</p>{% endfor %}
+  </section>
+  {% else %}
+  <section><h2>История версий</h2>
+    {% for row in models %}
+    <div class="policy-row">
+      <span class="policy-icon" aria-hidden="true">◎</span>
+      <div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.created_at }} · {{ row.engine }} · {{ row.category.name|default:'Общая модель' }}{% if row.metrics.labels %} · {{ row.metrics.labels|join:', ' }}{% endif %}</p></div>
+      <span class="badge {% if row.active %}OK{% endif %}">{% if row.active %}Опубликована{% elif row.eligible %}Прошла контроль{% else %}Не прошла контроль{% endif %}</span>
+      <a class="action-button" href="?metrics={{ row.pk|urlencode }}">Метрики</a>
+      {% if admin %}<div class="actions">
+        {% if row.eligible and not row.active %}<form method="post" hx-confirm="Опубликовать эту версию вместо текущей?">{% csrf_token %}<input type="hidden" name="model_id" value="{{ row.pk }}"><button name="action" value="publish">Опубликовать / откатить</button></form>{% endif %}
+        {% if row.active %}<form method="post">{% csrf_token %}<input type="hidden" name="model_id" value="{{ row.pk }}"><button name="action" value="deactivate">Деактивировать</button></form>
+        {% else %}<form method="post" hx-confirm="Удалить неактивную модель?">{% csrf_token %}<input type="hidden" name="model_id" value="{{ row.pk }}"><button name="action" value="delete">Удалить</button></form>{% endif %}
+      </div>{% endif %}
+    </div>
+    {% empty %}<p class="empty">Обученных моделей нет</p>{% endfor %}
+  </section>
+  {% if metric_model %}<section><header><h2>Метрики · {{ metric_model.name }}</h2><a href="{% url 'models-page' %}">Закрыть</a></header>
+    <p>Размер выборок: train {{ metric_model.metrics.split_sizes.train|default_if_none:'—' }}, validation {{ metric_model.metrics.split_sizes.validation|default_if_none:'—' }}, test {{ metric_model.metrics.split_sizes.test|default_if_none:'—' }}</p>
+    <h3>Validation</h3>{% include 'records/_model_scores.html' with scores=metric_model.metrics.validation %}
+    <h3>Test</h3>{% include 'records/_model_scores.html' with scores=metric_model.metrics.test %}
+  </section>{% endif %}
+  {% endif %}
+
+  {% if train_form %}
+  <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'models-page' %}?tab=training" aria-labelledby="training-title">
+    <form method="post" data-training-options class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="action" value="train">
+      <header class="editor-dialog-header"><h2 id="training-title">Запустить обучение модели</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body ml-training-options">
+        {{ train_form.non_field_errors }}{{ train_form.name.as_field_group }}{{ train_form.engine.as_field_group }}{{ train_form.dataset.as_field_group }}<div data-training-category>{{ train_form.category.as_field_group }}</div>{{ train_form.min_f1.as_field_group }}
+        <p class="muted" data-training-hint>TF-IDF обучается как общая многометочная модель. SetFit и RuBERT обучаются для одной категории.</p>
+      </div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Запустить обучение</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+  {% if example_form %}
+  <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'models-page' %}?tab=label" aria-labelledby="example-title">
+    <form method="post" class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="action" value="example">
+      <header class="editor-dialog-header"><h2 id="example-title">Добавить обучающий пример</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">{{ example_form.as_p }}</div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить пример</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+</main>
+{% endblock %}

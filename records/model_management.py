@@ -5,12 +5,17 @@ import re
 from uuid import uuid4
 
 from django import forms
+from django.core.paginator import Paginator
 from django.db import connection, transaction
+from django.db.models.functions import Left
+from django.http import HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from pipeline.models import WorkItem
 from pipeline.services import enqueue, finish, locked_current
+from records.category_picker import LabelForm
+from records.datasets import update_dataset
 from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
 from records.operations import admin_access
 from records.workspace import access
@@ -25,16 +30,23 @@ def snapshot_hash(rows):
 
 
 class TrainingForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    dataset = forms.ModelChoiceField(queryset=MLDataset.objects.none(), required=False)
-    engine = forms.ChoiceField(choices=[("tfidf", "TF-IDF"), ("setfit", "SetFit"), ("rubert", "RuBERT")])
-    category = forms.ModelChoiceField(queryset=Category.objects.none(), required=False)
-    min_f1 = forms.FloatField(min_value=0.5, max_value=1, initial=0.7)
+    name = forms.CharField(max_length=100, label="Название версии")
+    dataset = forms.ModelChoiceField(queryset=MLDataset.objects.none(), required=False, label="Датасет",
+                                     empty_label="Все подтверждённые примеры")
+    engine = forms.ChoiceField(label="Движок обучения", choices=[
+        ("tfidf", "TF-IDF — лёгкий классификатор"), ("setfit", "SetFit"), ("rubert", "RuBERT-tiny2"),
+    ])
+    category = forms.ModelChoiceField(queryset=Category.objects.none(), required=False, label="Категория для модели",
+                                      empty_label="Выберите категорию")
+    min_f1 = forms.FloatField(min_value=0.5, max_value=1, initial=0.7, label="Минимальный F1",
+                              widget=forms.NumberInput(attrs={"step": "0.01"}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["dataset"].queryset = MLDataset.objects.order_by("name")
+        self.fields["dataset"].queryset = MLDataset.objects.order_by("name", "-version")
+        self.fields["dataset"].label_from_instance = lambda row: f"{row.name} (v{row.version})"
         self.fields["category"].queryset = Category.objects.filter(active=True).exclude(mode="label").order_by("name")
+        self.fields["category"].label_from_instance = lambda row: row.name
 
     def clean(self):
         values = super().clean()
@@ -77,9 +89,11 @@ def train_job(job):
                "dataset_id": job.payload.get("dataset_id"), "training_job": str(job.pk)}
     with transaction.atomic():
         locked_current(job.pk, job.token)
+        dataset_id = job.payload.get("dataset_id")
+        dataset = MLDataset.objects.select_for_update().filter(pk=dataset_id).first() if dataset_id else None
         model = MLModel.objects.create(
             name=job.payload["name"], engine=engine, category_id=job.payload.get("category_id"),
-            dataset_id=job.payload.get("dataset_id"), artifact=artifact, metrics=metrics, eligible=eligible, active=False,
+            dataset=dataset, artifact=artifact, metrics=metrics, eligible=eligible, active=False,
         )
         Audit.objects.create(actor="training", action="model_trained", target=model.pk,
                              details={"job": str(job.pk), "snapshot": snapshot, "eligible": eligible})
@@ -111,38 +125,129 @@ def model_action(actor, model_id, action):
                          details={"previous_active": before, "inference_enabled": False})
 
 
+class ManualExampleForm(LabelForm):
+    text = forms.CharField(min_length=10, max_length=100000, label="Текст примера", widget=forms.Textarea)
+    field_order = ("text", "labels", "approved")
+
+
+@transaction.atomic
+def add_example(actor, values):
+    text = values["text"]
+    digest = hashlib.sha256(re.sub(r"\s+", " ", text).strip().lower().encode()).hexdigest()
+    example = TrainingExample.objects.create(
+        text=text, source="manual", labels=values["labels"], group_sha=digest, approved=values["approved"],
+        reviewed_by_ref_id=actor.pk if values["approved"] else None,
+    )
+    Audit.objects.create(actor=actor.pk, action="ml_label", target=example.pk, details={"sha256": digest})
+
+
+@transaction.atomic
+def remove_example(actor, identifier):
+    example = get_object_or_404(TrainingExample.objects.only("id", "dataset_id", "source"), pk=identifier)
+    if example.dataset_id:
+        update_dataset(actor, example.dataset_id, "delete_example", identifier)
+    else:
+        example = get_object_or_404(TrainingExample.objects.select_for_update(), pk=identifier)
+        example.delete()
+        Audit.objects.create(actor=actor.pk, action="ml_example_delete", target=identifier,
+                             details={"source": example.source})
+
+
+def queue_training(actor, values):
+    dataset_id = values["dataset"].pk if values["dataset"] else None
+    rows = corpus(dataset_id)
+    with transaction.atomic():
+        kind = "training.model" if values["engine"] == "tfidf" else "training.neural"
+        job = enqueue(kind, {
+            "name": values["name"], "engine": values["engine"], "dataset_id": dataset_id,
+            "category_id": values["category"].pk if values["category"] else None,
+            "min_f1": values["min_f1"], "snapshot_sha": snapshot_hash(rows),
+        }, "training:" + uuid4().hex)
+        Audit.objects.create(actor=actor.pk, action="model_training_requested", target=str(job.pk))
+
+
+def tab_redirect(tab):
+    response = redirect("models-page")
+    response["Location"] += "?tab=" + tab
+    return response
+
+
 @require_http_methods(["GET", "POST"])
 def models(request):
-    error = admin_access(request)
-    if error is not None:
-        return error
-    error = access(request, originals=True)
-    if error is not None:
-        return error
-    form = TrainingForm(request.POST if request.method == "POST" and request.POST.get("action") == "train" else None)
-    message = ""
+    denied = access(request)
+    if denied is not None:
+        return denied
+    admin = request.user.has_perm("identity.administer")
+    can_label = request.user.has_perm("identity.investigate") and request.user.has_perm("identity.view_originals")
+    tab = request.GET.get("tab", "models")
+    if tab in {"examples", "label"} and not can_label:
+        return HttpResponseForbidden("Требуется доступ к обучающим примерам")
+    action = request.POST.get("action", "")
+    train_form = example_form = None
+    error = ""
     if request.method == "POST":
-        try:
-            if request.POST.get("action") == "train" and form.is_valid():
-                values = form.cleaned_data
-                dataset_id = values["dataset"].pk if values["dataset"] else None
-                rows = corpus(dataset_id)
-                with transaction.atomic():
-                    kind = "training.model" if values["engine"] == "tfidf" else "training.neural"
-                    job = enqueue(kind, {
-                        "name": values["name"], "engine": values["engine"], "dataset_id": dataset_id,
-                        "category_id": values["category"].pk if values["category"] else None,
-                        "min_f1": values["min_f1"], "snapshot_sha": snapshot_hash(rows),
-                    }, "training:" + uuid4().hex)
-                    Audit.objects.create(actor=request.user.pk, action="model_training_requested", target=str(job.pk))
-                return redirect("models-page")
-            elif request.POST.get("action") != "train":
-                model_action(request.user, request.POST.get("model_id"), request.POST.get("action"))
-                return redirect("models-page")
-        except ValueError as exc:
-            message = str(exc)
-    return render(request, "records/models.html", {
-        "form": form, "error": message,
-        "models": MLModel.objects.defer("artifact").order_by("-created_at")[:100],
-        "jobs": WorkItem.objects.filter(kind__in=["training.model", "training.neural"]).order_by("-created_at")[:30],
-    }, status=400 if message or form.is_bound else 200)
+        if action == "example":
+            if not can_label:
+                return HttpResponseForbidden("Требуется доступ к обучающим примерам")
+            tab = "label"
+            example_form = ManualExampleForm(request.POST)
+            if example_form.is_valid():
+                add_example(request.user, example_form.cleaned_data)
+                return tab_redirect("examples")
+        else:
+            denied = admin_access(request)
+            if denied is not None:
+                return denied
+            if action == "train":
+                denied = access(request, originals=True)
+                if denied is not None:
+                    return denied
+                tab = "training"
+                train_form = TrainingForm(request.POST)
+                if train_form.is_valid():
+                    try:
+                        queue_training(request.user, train_form.cleaned_data)
+                    except ValueError as exc:
+                        train_form.add_error(None, str(exc))
+                    else:
+                        return tab_redirect(tab)
+            elif action == "delete_example":
+                denied = access(request, originals=True)
+                if denied is not None:
+                    return denied
+                remove_example(request.user, request.POST.get("example_id"))
+                return tab_redirect("examples")
+            elif action in {"publish", "rollback", "deactivate", "delete"}:
+                try:
+                    model_action(request.user, request.POST.get("model_id"), action)
+                except ValueError as exc:
+                    error = str(exc)
+                else:
+                    return tab_redirect("models")
+            else:
+                return HttpResponseBadRequest("Неизвестное действие")
+    if tab == "training" and admin and request.user.has_perm("identity.view_originals") and request.GET.get("new"):
+        train_form = train_form or TrainingForm()
+    if tab == "label" and request.GET.get("new"):
+        example_form = example_form or ManualExampleForm()
+    active = MLModel.objects.filter(active=True)
+    rows = MLModel.objects.select_related("category").defer("artifact").order_by("-created_at", "-pk")
+    context = {"tab": tab, "admin": admin, "can_label": can_label, "train_form": train_form,
+               "example_form": example_form, "error": error, "active_count": active.count()}
+    if tab == "examples":
+        names = dict(Category.objects.values_list("pk", "name"))
+        samples = TrainingExample.objects.defer("text").annotate(preview=Left("text", 281)).order_by("-created_at", "-pk")
+        page = Paginator(samples, 50).get_page(request.GET.get("page"))
+        for sample in page:
+            sample.label_names = [names.get(label, label) for label in sample.labels]
+        context["examples"] = page
+        context["pagination_query"] = "tab=examples"
+    elif tab == "training":
+        context["jobs"] = WorkItem.objects.filter(kind__in=["training.model", "training.neural"]).order_by("-created_at")[:30]
+    elif tab == "quality":
+        context["active_models"] = rows.filter(active=True)[:100]
+    else:
+        context["models"] = rows[:100]
+        if request.GET.get("metrics"):
+            context["metric_model"] = get_object_or_404(rows, pk=request.GET["metrics"])
+    return render(request, "records/models.html", context, status=400 if request.method == "POST" else 200)
