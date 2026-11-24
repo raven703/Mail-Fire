@@ -2,14 +2,16 @@
 
 from uuid import uuid4
 
+from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
+from django.db.models import CharField, Count, F, OuterRef, Q, Subquery
+from django.db.models.functions import Cast
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
 
-from records.models import Attachment, ImportRecord, Incident, MailEvent, Message
-from records.ui_filters import filter_dates, pagination_query
-from records.workspace import access
+from records.models import Attachment, Content, ImportRecord, Incident, MailEvent, Message
+from records.ui_filters import filter_dates, list_period, pagination_query
+from records.workspace import HIGH_RISK, MEDIUM_RISK, access, severity
 
 
 @require_GET
@@ -17,22 +19,32 @@ def messages(request):
     error = access(request)
     if error is not None:
         return error
-    rows = filter_dates(Message.objects.all(), request.GET).order_by("-created_at", "-pk")
+    rows = filter_dates(Message.objects.defer("headers", "error"), list_period(request.GET))
+    risks = Incident.objects.filter(message_id=OuterRef("pk")).values("risk")
+    rows = rows.annotate(incident_risk=Subquery(risks[:1]))
     events = MailEvent.objects.all()
     direction, source = request.GET.get("direction", ""), request.GET.get("source", "")
     if direction:
         events = events.filter(direction=direction)
-    if source:
+    if source in {"eml", "msg"}:
+        rows = rows.filter(format=source)
+    elif source:
         events = events.filter(source=source)
-    if direction or source:
+    if direction or source and source not in {"eml", "msg"}:
         rows = rows.filter(pk__in=events.values("message_id"))
-    query, status = request.GET.get("q", "").strip(), request.GET.get("status", "")
+    query, status = request.GET.get("q", "").strip()[:500], request.GET.get("status", "")
     if status in {"PENDING", "ANALYZED", "PARTIAL", "FAILED"}:
         rows = rows.filter(status=status)
     if query:
         criteria = Q(pk=query)
         if request.user.has_perm("identity.view_originals"):
-            criteria |= Q(subject__icontains=query) | Q(sender__icontains=query)
+            rows = rows.alias(recipient_search=Cast("recipients", CharField()), header_search=Cast("headers", CharField()))
+            content = Content.objects.alias(fts=SearchVector("text", config="simple")).filter(
+                Q(text__icontains=query) | Q(fts=SearchQuery(query, config="simple")),
+            )
+            criteria |= (Q(subject__icontains=query) | Q(sender__icontains=query) | Q(recipient_search__icontains=query)
+                         | Q(header_search__icontains=query) | Q(content_id__in=content.values("pk"))
+                         | Q(pk__in=Attachment.objects.filter(name__icontains=query).values("message_id")))
         rows = rows.filter(criteria)
     for parameter, model in (("attachments", Attachment), ("incidents", Incident)):
         value = request.GET.get(parameter)
@@ -44,16 +56,24 @@ def messages(request):
     mime = request.GET.get("mime", "").strip()
     if mime:
         rows = rows.filter(pk__in=Attachment.objects.filter(mime__icontains=mime).values("message_id"))
-    sort = {"date": "created_at", "sender": "sender"}.get(request.GET.get("sort"), "created_at")
-    if sort == "sender" and not request.user.has_perm("identity.view_originals"):
+    levels = {"high": Q(incident_risk__gte=HIGH_RISK),
+              "medium": Q(incident_risk__gte=MEDIUM_RISK, incident_risk__lt=HIGH_RISK),
+              "low": Q(incident_risk__lt=MEDIUM_RISK)}
+    if request.GET.get("severity") in levels:
+        rows = rows.filter(levels[request.GET["severity"]])
+    sort = {"date": "created_at", "sender": "sender", "subject": "subject",
+            "risk": "incident_risk"}.get(request.GET.get("sort"), "created_at")
+    if sort in {"sender", "subject"} and not request.user.has_perm("identity.view_originals"):
         sort = "created_at"
-    rows = rows.order_by(("" if request.GET.get("order") == "asc" else "-") + sort, "pk")
+    column = F(sort)
+    order = column.asc(nulls_last=True) if request.GET.get("order") == "asc" else column.desc(nulls_last=True)
+    rows = rows.order_by(order, "pk")
     page = Paginator(rows, 50).get_page(request.GET.get("page"))
     identifiers = [row.pk for row in page]
     counts = {}
     deliveries = {}
     for event in MailEvent.objects.filter(message_id__in=identifiers).order_by("created_at", "pk"):
-        deliveries[event.message_id] = event
+        deliveries.setdefault(event.message_id, event)
     for model, key in ((Attachment, "attachment_count"), (Incident, "incident_count")):
         for row in model.objects.filter(message_id__in=identifiers).values("message_id").annotate(total=Count("pk")):
             counts.setdefault(row["message_id"], {})[key] = row["total"]
@@ -61,6 +81,7 @@ def messages(request):
         row.attachment_count = counts.get(row.pk, {}).get("attachment_count", 0)
         row.incident_count = counts.get(row.pk, {}).get("incident_count", 0)
         row.delivery = deliveries.get(row.pk)
+        row.severity = severity(row.incident_risk) if row.incident_risk is not None else ""
     return render(request, "records/messages.html", {
         "page": page, "query": query, "status": status,
         "request_token": uuid4().hex,

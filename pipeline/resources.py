@@ -7,11 +7,12 @@ import os
 import re
 import stat
 import subprocess
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import httpx
 from django.conf import settings
+from django.utils import timezone
 
 FILE_SERVICES = (
     "db", "rabbitmq", "migrate", "publisher", "smtp", "directory-import", "web", "frontend",
@@ -59,11 +60,14 @@ def decode_probe(payload, now):
     state = fields.get("state", "")
     if not re.fullmatch(r"[a-zA-Z0-9_.-]{1,100}", instance) or state not in {"ready", "running", "degraded", "completed"}:
         raise ValueError("Invalid resource probe identity")
-    recorded = datetime.fromtimestamp(int(fields.get("at", "0")), tz=timezone.utc)
+    timestamp = int(fields.get("at", "0"))
+    recorded = datetime.fromtimestamp(timestamp, UTC)
+    if timezone.is_naive(now):
+        recorded = recorded.replace(tzinfo=None)
     if recorded > now + timedelta(seconds=5) or (recorded < now - FRESH_FOR and state != "completed"):
         raise ValueError("Stale resource probe")
     values = {"scope": "service-cgroup", "instance": instance, "state": state,
-              "sample_at": int(recorded.timestamp()), "cpu_percent": None}
+              "sample_at": timestamp, "cpu_percent": None}
     for src, dst in COUNTERS.items():
         number = fields.get(src, "")
         values[dst] = int(number) if re.fullmatch(r"[0-9]{1,20}", number) else None
@@ -117,12 +121,12 @@ def collect_probes(now):
             url = getattr(settings, setting)
             if url:
                 try:
-                    rows[name] = decode_probe(remote_probe(client, url), datetime.now(timezone.utc))
+                    rows[name] = decode_probe(remote_probe(client, url), timezone.now())
                 except (httpx.HTTPError, ValueError, OSError, OverflowError):
                     continue
     try:
         local = subprocess.run(["sh", PROBE_PATH, "print"], capture_output=True, timeout=3, check=True)
-        rows["maintenance"] = decode_probe(local.stdout, datetime.now(timezone.utc))
+        rows["maintenance"] = decode_probe(local.stdout, timezone.now())
     except (OSError, ValueError, OverflowError, subprocess.SubprocessError):
         pass
     return rows

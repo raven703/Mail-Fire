@@ -1,8 +1,28 @@
-{% extends 'identity/base.html' %}{% block body %}
-<main><header><h1>Письмо {{ message.pk }}</h1><a href="{% url 'incidents-page' %}">Инциденты</a></header>
-<section><p>Статус: {{ message.status }}</p>{% if error %}<p role="alert">{{ error }}</p>{% endif %}
-{% if perms.identity.view_originals %}<h2>{{ message.subject }}</h2><p>{{ message.sender }} → {{ message.recipients|join:', ' }}</p><a href="{% url 'message-original' message.pk %}">Скачать оригинал</a>{% include 'records/_message_tabs.html' %}{% endif %}
-{% if message.content %}<h3>Полнота анализа</h3>{% for issue in message.content.analysis.engine_errors %}<p>{{ issue.engine }}: {{ issue.error }}</p>{% empty %}<p>Ошибок движков не зарегистрировано</p>{% endfor %}<p>Пропущенные проверки: {{ message.content.analysis.skipped_checks|join:', ' }}</p>{% endif %}
-{% if perms.identity.investigate %}<form method="post">{% csrf_token %}<button>Переоценить политики по сохранённым результатам</button></form><form method="post" action="{% url 'messages-reanalyze' %}">{% csrf_token %}<input type="hidden" name="message_ids" value="{{ message.pk }}"><input type="hidden" name="request_token" value="{{ reanalysis_token }}"><button>Полный переанализ письма и вложений</button></form>{% endif %}</section>
-{% if perms.identity.administer %}<section><h2>Legal hold</h2><p>{{ message.legal_hold|yesno:'Установлен,Не установлен' }}</p><form method="post" action="{% url 'message-hold' message.pk %}">{% csrf_token %}<label>Причина<input name="reason" minlength="3" maxlength="1000" required></label><button name="enabled" value="true">Установить</button><button name="enabled" value="false">Снять</button></form></section>{% endif %}
-<section><h2>События доставки</h2>{% for event in events %}<p>{{ event.created_at }} · {{ event.source }} · {{ event.direction }}</p>{% endfor %}</section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main>
+  <section class="detail">
+    <header><div><h1>{% if perms.identity.view_originals %}{{ message.subject|default:'Без темы' }}{% else %}Письмо {{ message.pk }}{% endif %}</h1><p class="muted">Копия получена · {{ message.created_at|date:'d.m.Y H:i' }}</p></div><a class="action-button" href="{% url 'messages-page' %}">← К списку</a></header>
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+    <div class="message-meta-line">
+      {% if perms.identity.view_originals %}<span>Отправитель <b>{{ message.sender|default:'—' }}</b></span><span>Получателей <b>{{ message.recipients|length }}</b></span><span>Вложений <b>{{ attachments|length }}</b></span>{% endif %}
+      <span>Инцидентов <b>{{ incidents|length }}</b></span><span class="badge {{ message.status }}">{{ message.status }}</span>
+    </div>
+    {% include 'records/_message_tabs.html' %}
+    <div class="actions message-actions">
+      {% if perms.identity.investigate %}
+      <form method="post">{% csrf_token %}<button>Переоценить политики</button></form>
+      <form method="post" action="{% url 'messages-reanalyze' %}">{% csrf_token %}<input type="hidden" name="message_ids" value="{{ message.pk }}"><input type="hidden" name="request_token" value="{{ reanalysis_token }}"><button>Полный переанализ</button></form>
+      {% endif %}
+      {% if perms.identity.view_originals %}<a class="action-button" href="{% url 'message-original' message.pk %}" hx-boost="false" download>Скачать оригинал</a>{% endif %}
+    </div>
+  </section>
+  {% if perms.identity.administer %}
+  <section><header><h2>Legal hold</h2><span class="badge">{{ message.legal_hold|yesno:'Установлен,Не установлен' }}</span></header>
+    <form method="post" action="{% url 'message-hold' message.pk %}" class="inline">{% csrf_token %}<label>Причина<input name="reason" minlength="3" maxlength="1000" required></label>
+      {% if message.legal_hold %}<button name="enabled" value="false">Снять</button>{% else %}<button name="enabled" value="true">Установить</button>{% endif %}
+    </form>
+  </section>
+  {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,4 @@
+<div class="recipient-list" data-recipient-list>
+  {% if recipients|length > 5 %}<label hidden>Поиск среди {{ recipients|length }} адресатов<input type="search" data-recipient-search></label>{% endif %}
+  {% for address in recipients %}<p class="email" data-recipient>{{ address }}</p>{% empty %}<p>Адресаты не указаны</p>{% endfor %}
+</div>

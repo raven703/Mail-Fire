@@ -248,6 +248,17 @@
       };
       form.addEventListener('input', update); form.addEventListener('change', update); update();
     });
+    document.querySelectorAll('[data-recipient-list]').forEach(list => {
+      if (list.dataset.ready) return;
+      list.dataset.ready = 'true';
+      const search = list.querySelector('[data-recipient-search]');
+      if (!search) return;
+      search.closest('label').hidden = false;
+      search.addEventListener('input', () => {
+        const text = search.value.toLowerCase();
+        list.querySelectorAll('[data-recipient]').forEach(row => row.hidden = !row.textContent.toLowerCase().includes(text));
+      });
+    });
     document.querySelectorAll('[data-tabs]').forEach(group => {
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';

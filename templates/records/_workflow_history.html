@@ -1,0 +1,2 @@
+<div class="table"><table><thead><tr><th>Время</th><th>Действие</th><th>Пользователь</th></tr></thead>
+<tbody>{% for event in history %}<tr><td>{{ event.created_at|date:'d.m.Y H:i' }}</td><td>{{ event.action }}</td><td>{{ event.actor }}</td></tr>{% empty %}<tr><td colspan="3">История отсутствует</td></tr>{% endfor %}</tbody></table></div>

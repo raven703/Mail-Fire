@@ -47,3 +47,10 @@ class ResourceProbeTests(SimpleTestCase):
         for payload in (self.probe(now - timedelta(minutes=2)), self.probe(now, instance="../host")):
             with self.assertRaises(ValueError):
                 decode_probe(payload, now)
+
+    def test_probe_matches_naive_utc_storage(self):
+        aware = datetime.now(timezone.utc)
+        naive = aware.replace(tzinfo=None)
+        recorded, values = decode_probe(self.probe(aware), naive)
+        self.assertEqual(recorded, naive.replace(microsecond=0))
+        self.assertEqual(values["sample_at"], int(aware.timestamp()))

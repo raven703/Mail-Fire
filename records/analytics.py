@@ -1,7 +1,7 @@
 """Period-aware security overview and incident analytics."""
 
 import csv
-from datetime import timedelta
+from datetime import UTC, timedelta
 
 from django.db import connection
 from django.db.models import Count, Q
@@ -16,7 +16,7 @@ from pipeline.resource_history import latest_resource_samples
 from pipeline.resources import service_state
 from records.models import Incident, Message, Outbox
 from records.ui_filters import DATE_PARAMETERS, period_bounds
-from records.workspace import HIGH_RISK, MEDIUM_RISK, OPEN_STATUSES, access
+from records.workspace import HIGH_RISK, MEDIUM_RISK, OPEN_STATUSES, access, policy_label, severity
 
 
 def risk_bands():
@@ -76,7 +76,10 @@ def export_timeline(timeline):
     writer = csv.writer(response)
     writer.writerow(["Время", "HIGH", "MEDIUM", "LOW"])
     for row in timeline:
-        writer.writerow([row["bucket"].isoformat(), row["high"], row["medium"], row["low"]])
+        stamp = row["bucket"]
+        if timezone.is_naive(stamp):
+            stamp = stamp.replace(tzinfo=UTC)
+        writer.writerow([stamp.isoformat(), row["high"], row["medium"], row["low"]])
     return response
 
 
@@ -91,7 +94,7 @@ def overview(request, analytics=False):
         if key not in DATE_PARAMETERS:
             dates.pop(key)
     start, end = period_bounds(dates, now)
-    end = end or now
+    end = end or (now.replace(tzinfo=UTC) if timezone.is_naive(now) else now)
     if not dates.get("range") and start is None and not dates.get("end"):
         try:
             hours = max(1, min(int(request.GET["days"]), 365)) * 24
@@ -122,10 +125,8 @@ def overview(request, analytics=False):
         "message__headers", "message__recipients", "message__error",
     ).order_by("-risk", "-created_at", "-pk")[:8 if analytics else 6])
     for row in recent:
-        row.severity = "HIGH" if row.risk >= HIGH_RISK else "MEDIUM" if row.risk >= MEDIUM_RISK else "LOW"
-        row.policy_label = ", ".join(hit["name"] for hit in row.policy_hits or [] if hit.get("name") and hit.get("active"))
-        if not row.policy_label:
-            row.policy_label = row.policy.name if row.policy else "Исторические политики"
+        row.severity = severity(row.risk)
+        row.policy_label = policy_label(row)
     policies = policy_counts(start, end)
     total = sum(row["total"] for row in timeline)
     return render(request, "records/overview.html", {

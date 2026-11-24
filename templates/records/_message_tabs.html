@@ -1,7 +1,19 @@
-<div data-tabs><div role="tablist" aria-label="Разделы письма" class="native-tabs"><button type="button" role="tab" id="tab-content" data-tab="message-content" aria-controls="message-content">Содержимое</button><button type="button" role="tab" id="tab-evidence" data-tab="message-evidence" aria-controls="message-evidence">Результаты анализа</button><button type="button" role="tab" id="tab-attachments" data-tab="message-attachments" aria-controls="message-attachments">Вложения</button><button type="button" role="tab" id="tab-headers" data-tab="message-headers" aria-controls="message-headers">Заголовки</button></div>
-<section role="tabpanel" id="message-content" aria-labelledby="tab-content"><h2>Содержимое</h2><pre>{{ message.content.text|default:'Содержимое ещё не извлечено' }}</pre></section>
-<section role="tabpanel" id="message-evidence" aria-labelledby="tab-evidence"><h2>Доказательства и результаты</h2>{% include 'records/_evidence.html' with findings=message.content.analysis.findings %}</section>
-<section role="tabpanel" id="message-attachments" aria-labelledby="tab-attachments"><div class="message-attachments">
+<div data-tabs>
+  <div role="tablist" aria-label="Разделы письма" class="tabs">
+    <button type="button" role="tab" id="tab-content" data-tab="message-content" aria-controls="message-content">Содержимое</button>
+    <button type="button" role="tab" id="tab-attachments" data-tab="message-attachments" aria-controls="message-attachments">Вложения</button>
+    <button type="button" role="tab" id="tab-evidence" data-tab="message-evidence" aria-controls="message-evidence">Результаты DLP</button>
+    <button type="button" role="tab" id="tab-recipients" data-tab="message-recipients" aria-controls="message-recipients">Адресаты</button>
+    <button type="button" role="tab" id="tab-history" data-tab="message-history" aria-controls="message-history">История</button>
+    <button type="button" role="tab" id="tab-technical" data-tab="message-technical" aria-controls="message-technical">Технические данные</button>
+  </div>
+  <section role="tabpanel" id="message-content" aria-labelledby="tab-content">
+    <h2>Извлечённый текст</h2>
+    {% if perms.identity.view_originals %}<pre class="mail-text">{{ message.content.text|default:'Содержимое ещё не извлечено' }}</pre>{% else %}<p class="muted">Требуется доступ к оригиналам.</p>{% endif %}
+  </section>
+  <section role="tabpanel" id="message-attachments" aria-labelledby="tab-attachments">
+    {% if perms.identity.view_originals %}
+<div class="message-attachments">
 {% for attachment in attachments %}
 <div class="policy-row">
   <div class="policy-info"><strong>{{ attachment.name }}</strong><p>{{ attachment.mime|default:'Неизвестный формат' }} · {{ attachment.blob_sha_ref.size }} байт · {{ attachment.status }}</p></div>
@@ -12,5 +24,26 @@
 </div>
 {% empty %}<p class="muted">У письма нет вложений.</p>{% endfor %}
 <dialog id="attachment-viewer-host" class="editor-dialog editor-dialog-wide attachment-dialog" aria-labelledby="attachment-viewer-title"></dialog>
-</div></section>
-<section role="tabpanel" id="message-headers" aria-labelledby="tab-headers"><h2>Заголовки</h2><dl>{% for name, value in message.headers.items %}<dt>{{ name }}</dt><dd>{{ value }}</dd>{% empty %}<dd>Заголовки отсутствуют</dd>{% endfor %}</dl></section></div>
+</div>
+    {% else %}<p class="muted">Требуется доступ к оригиналам.</p>{% endif %}
+  </section>
+  <section role="tabpanel" id="message-evidence" aria-labelledby="tab-evidence">
+    {% if perms.identity.view_originals %}{% include 'records/_evidence.html' with findings=message.content.analysis.findings %}{% endif %}
+    <h2>Связанные инциденты</h2>
+    {% for row in incidents %}<p><a href="{% url 'incident-detail' row.pk %}">{{ row.policy.name|default:row.pk }}</a> · <span class="badge {{ row.status }}">{{ row.status }}</span> · {{ row.risk }}/100</p>{% empty %}<p>Нет связанных инцидентов</p>{% endfor %}
+  </section>
+  <section role="tabpanel" id="message-recipients" aria-labelledby="tab-recipients">
+    {% if perms.identity.view_originals %}{% include 'records/_recipients.html' with recipients=message.recipients %}{% else %}<p class="muted">Требуется доступ к оригиналам.</p>{% endif %}
+  </section>
+  <section role="tabpanel" id="message-history" aria-labelledby="tab-history">
+    <h2>Почтовые события</h2>
+    <div class="table"><table><thead><tr><th>Время события</th><th>Источник</th><th>Направление</th></tr></thead><tbody>{% for event in events %}<tr><td>{{ event.created_at|date:'d.m.Y H:i' }}</td><td>{{ event.source }}</td><td>{{ event.direction }}</td></tr>{% empty %}<tr><td colspan="3">Нет событий доставки</td></tr>{% endfor %}</tbody></table></div>
+    <h2>Аудит действий</h2>{% include 'records/_workflow_history.html' %}
+  </section>
+  <section role="tabpanel" id="message-technical" aria-labelledby="tab-technical">
+    <h2>Техническая диагностика</h2>
+    <dl><dt>Письмо</dt><dd>{{ message.pk }}</dd><dt>Формат</dt><dd>{{ message.format }}</dd>{% if perms.identity.view_originals %}<dt>SHA256</dt><dd>{{ message.original_sha_ref_id }}</dd><dt>Версия результатов</dt><dd>{{ message.content.version|default:'—' }}</dd><dt>Ошибка</dt><dd>{{ message.error|default:'—' }}</dd>{% endif %}</dl>
+    {% if message.content %}<h3>Полнота анализа</h3>{% for issue in message.content.analysis.engine_errors %}<p>{{ issue.engine }} · {{ issue.error }}</p>{% empty %}<p>Ошибок движков нет</p>{% endfor %}{% if message.content.analysis.skipped_checks %}<p>Пропущены {{ message.content.analysis.skipped_checks|join:', ' }}</p>{% endif %}{% endif %}
+    {% if perms.identity.view_originals %}<details><summary>Заголовки</summary><dl>{% for name, value in message.headers.items %}<dt>{{ name }}</dt><dd>{{ value }}</dd>{% empty %}<dd>Заголовки отсутствуют</dd>{% endfor %}</dl></details>{% endif %}
+  </section>
+</div>

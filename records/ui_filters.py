@@ -25,8 +25,14 @@ def date_parameter(params, key):
 def period_bounds(params, now=None):
     if params.get("range") in ROLLING_HOURS:
         end = now or timezone.now()
+        if timezone.is_naive(end):
+            end = end.replace(tzinfo=fixed_timezone.utc)
         return end - timedelta(hours=int(params["range"])), end
     return date_parameter(params, "start"), date_parameter(params, "end")
+
+
+def list_period(params):
+    return params if any(params.get(key) for key in ("range", "start", "end")) else {"range": "24"}
 
 
 def filter_dates(rows, params):

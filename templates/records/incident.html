@@ -1,7 +1,41 @@
-{% extends 'identity/base.html' %}{% block body %}
-<main><header><h1>Инцидент {{ incident.pk }}</h1><a href="{% url 'incidents-page' %}">Все инциденты</a></header>
-<section><p>{{ incident.status }} · Риск {{ incident.risk }} · {{ incident.created_at }}</p><a href="{% url 'message-detail' incident.message_id %}">Карточка письма</a>
-<h2>Срабатывания</h2>{% for hit in incident.policy_hits %}<article><h3>{{ hit.name }} · v{{ hit.version }}</h3><p>{% if hit.active %}Активно{% else %}Историческое{% endif %} · Риск {{ hit.risk }}</p>{% if perms.identity.view_originals %}{% include 'records/_evidence.html' with findings=hit.findings %}{% endif %}</article>{% empty %}<p>Нет данных</p>{% endfor %}</section>
-{% if perms.identity.investigate %}<section><h2>Решение аналитика</h2><form method="post">{% csrf_token %}{{ form.as_p }}<button>Сохранить решение</button></form></section>{% endif %}
-{% include 'records/_incident_training.html' %}<section><h2>Комментарии</h2>{% for comment in comments %}<article><p>{{ comment.account.username }} · {{ comment.created_at }}</p><p>{{ comment.text|linebreaksbr }}</p></article>{% empty %}<p>Нет комментариев</p>{% endfor %}</section>
-<section><h2>История</h2>{% for event in history %}<p>{{ event.created_at }} · {{ event.action }} · {{ event.actor }}</p>{% empty %}<p>История отсутствует</p>{% endfor %}</section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main>
+  <section class="detail">
+    <header><div><h1>{% if perms.identity.view_originals %}{{ incident.message.subject|default:'Без темы' }}{% else %}{{ policy_label|default:'Инцидент' }}{% endif %}</h1><p class="muted">Инцидент создан · {{ incident.created_at|date:'d.m.Y H:i' }}</p></div><a class="action-button" href="{% url 'incidents-page' %}">← К списку</a></header>
+    <div class="message-meta-line"><span class="badge {{ incident.status }}">{{ status_label|default:incident.status }}</span><span class="badge {{ severity }}">{{ severity }}</span><span>Риск <b>{{ incident.risk }}/100</b></span></div>
+    <dl class="facts secondary-facts">
+      <div><dt>Категория</dt><dd>{{ policy_label }}</dd></div>
+      <div><dt>Аналитик</dt><dd>{{ incident.assignee_ref.username|default:'Не назначен' }}</dd></div>
+      {% if perms.identity.view_originals %}<div><dt>Отправитель</dt><dd>{{ incident.message.sender|default:'—' }}</dd></div><div><dt>Получатели</dt><dd>{% include 'records/_recipients.html' with recipients=incident.message.recipients %}</dd></div>{% endif %}
+    </dl>
+    <a class="action-button" href="{% url 'message-detail' incident.message_id %}">Открыть связанное письмо</a>
+    <h2 class="section-divider">Сработавшие политики ({{ incident.policy_hits|length }})</h2>
+    <div class="cards">
+      {% for hit in incident.policy_hits %}<article><h3>{{ hit.name|default:'Историческая политика' }} · v{{ hit.version|default:'—' }}</h3><p>Риск {{ hit.risk }} · {% if hit.active %}Действующее совпадение{% else %}Историческое совпадение{% endif %}</p><small>{{ hit.findings|length }} находок</small></article>{% empty %}<p class="empty">Нет срабатываний</p>{% endfor %}
+    </div>
+    <h2 class="section-divider">Почему создан инцидент</h2>
+    {% if perms.identity.view_originals %}
+      {% if incident.findings %}{% include 'records/_evidence.html' with findings=incident.findings %}{% else %}{% for hit in incident.policy_hits %}{% include 'records/_evidence.html' with findings=hit.findings %}{% endfor %}{% endif %}
+    {% else %}<p class="muted">Для просмотра доказательств требуется доступ к оригиналам.</p>{% endif %}
+  </section>
+  {% if can_edit %}
+  <section class="incident-actions-panel">
+    <header><div><h2>Решение аналитика</h2><p class="muted">{{ status_label }} · {{ incident.assignee_ref.username|default:'Не назначен' }}</p></div>
+      <div class="actions"><a class="action-button" href="?edit=assignee">Назначить аналитика</a><a class="action-button primary" href="?edit=decision">Изменить решение</a></div></header>
+  </section>
+  {% endif %}
+  {% if form %}
+  <dialog class="editor-dialog" data-editor data-close-url="{% url 'incident-detail' incident.pk %}" aria-labelledby="incident-editor-title">
+    <form method="post" class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="action" value="{{ editing }}">
+      <header class="editor-dialog-header"><h2 id="incident-editor-title">{% if editing == 'assignee' %}Назначить аналитика{% else %}Изменить решение по инциденту{% endif %}</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">{{ form.as_p }}</div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+  {% include 'records/_incident_training.html' %}
+  <section><h2>Комментарии</h2>{% for comment in comments %}<article><strong>{{ comment.account.username }}</strong> · {{ comment.created_at|date:'d.m.Y H:i' }}<p>{{ comment.text|linebreaksbr }}</p></article>{% empty %}<p>Нет комментариев</p>{% endfor %}</section>
+  <section><h2>История расследования</h2>{% include 'records/_workflow_history.html' %}</section>
+</main>
+{% endblock %}
