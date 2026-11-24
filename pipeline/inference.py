@@ -8,7 +8,7 @@ from types import SimpleNamespace
 from django.db import transaction
 
 from pipeline.services import enqueue, finish, locked_current
-from records.models import Content, Message, MLModel, Setting
+from records.models import Content, InferenceArtifact, Message, MLModel, Setting
 
 
 def enabled(engine):
@@ -19,10 +19,16 @@ def enabled(engine):
 def route(message, key):
     kind = "ml.infer" if enabled("ml") else "llm.infer" if enabled("llm") else None
     if kind:
+        model_snapshots = []
+        if enabled("ml"):
+            for row in MLModel.objects.filter(active=True).order_by("pk"):
+                data = bytes(row.artifact)
+                sha = hashlib.sha256(data).hexdigest()
+                InferenceArtifact.objects.get_or_create(pk=sha, defaults={"data": data})
+                model_snapshots.append({"id": row.pk, "engine": row.engine, "category_id": row.category_id,
+                                        "metrics": row.metrics, "sha256": sha})
         snapshot = {
-            "models": [{"id": row.pk, "engine": row.engine, "category_id": row.category_id,
-                        "metrics": row.metrics, "sha256": hashlib.sha256(bytes(row.artifact)).hexdigest()}
-                       for row in MLModel.objects.filter(active=True).order_by("pk")] if enabled("ml") else [],
+            "models": model_snapshots,
             "settings": {row.pk: row.value for row in Setting.objects.filter(pk__in=["llm_analyzer", "normalizer"])},
         }
         from records.models import Category
@@ -48,12 +54,12 @@ def run(job):
 
             models = []
             for metadata in snapshot["models"]:
-                row = MLModel.objects.filter(pk=metadata["id"]).first()
-                if row is None or hashlib.sha256(bytes(row.artifact)).hexdigest() != metadata["sha256"]:
+                row = InferenceArtifact.objects.filter(pk=metadata["sha256"]).first()
+                if row is None or hashlib.sha256(bytes(row.data)).hexdigest() != metadata["sha256"]:
                     errors.append({"model_id": metadata["id"], "error": "snapshot_artifact_unavailable"})
                     continue
                 models.append(SimpleNamespace(id=metadata["id"], engine=metadata["engine"],
-                                              category_id=metadata["category_id"], metrics=metadata["metrics"], artifact=bytes(row.artifact)))
+                                              category_id=metadata["category_id"], metrics=metadata["metrics"], artifact=bytes(row.data)))
             predictions, failures = infer_models(models, source.text)
             errors.extend(failures)
             # Preserve original prediction metadata; policy ML rules consume

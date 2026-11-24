@@ -11,6 +11,8 @@ from records.models import Metric
 
 
 def sample_resources(job):
+    from pipeline.resources import local_resources
+
     memory = psutil.virtual_memory()
     values = {
         "hostname": socket.gethostname(),
@@ -24,6 +26,7 @@ def sample_resources(job):
         "scope": "worker-visible-system",
         "gpu": None,
     }
+    values.update(local_resources())
     with transaction.atomic():
         locked_current(job.pk, job.token)
         Metric.objects.create(service="celery:" + socket.gethostname(), values=values)

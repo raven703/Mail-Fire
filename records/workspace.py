@@ -13,6 +13,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 from identity.models import User
 from policy_engine.service import EvidenceUnavailable, request_evaluation
 from records.models import Attachment, Audit, Comment, Incident, MailEvent, Message
+from records.ui_filters import filter_dates, pagination_query
 
 STATUSES = ("NEW", "ASSIGNED", "REVIEW", "CONFIRMED", "FALSE_POSITIVE", "CLOSED", "REOPENED")
 
@@ -65,8 +66,10 @@ def incidents(request):
     error = access(request)
     if error is not None:
         return error
-    rows = Incident.objects.select_related("message", "assignee_ref").order_by("-created_at", "-pk")
+    rows = filter_dates(Incident.objects.select_related("message", "assignee_ref"), request.GET).order_by("-created_at", "-pk")
     query, status, assignee = (request.GET.get(key, "").strip() for key in ("q", "status", "assignee"))
+    if request.GET.get("severity") == "high":
+        rows = rows.filter(risk__gte=75)
     if query:
         criteria = Q(pk=query) | Q(message_id=query)
         if request.user.has_perm("identity.view_originals"):
@@ -81,6 +84,7 @@ def incidents(request):
     return render(request, "records/incidents.html", {
         "page": Paginator(rows, 50).get_page(request.GET.get("page")), "statuses": STATUSES,
         "query": query, "selected_status": status, "selected_assignee": assignee,
+        "pagination_query": pagination_query(request.GET),
     })
 
 

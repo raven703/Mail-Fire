@@ -5,6 +5,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from pipeline.models import WorkItem
 from pipeline.monitoring import database_snapshot, flow_snapshot, snapshot
+from pipeline.resources import local_resources
 from pipeline.services import cancel, retry
 from records.models import Audit, Diagnostic, Metric
 
@@ -41,6 +42,7 @@ def operations(request):
         "pipeline/operations.html",
         {
             "monitor": snapshot(),
+            "local_resources": local_resources(),
             "flow": flow_snapshot(),
             "database": database_snapshot() if request.user.has_perm("identity.administer") else None,
             "jobs": jobs[:100],

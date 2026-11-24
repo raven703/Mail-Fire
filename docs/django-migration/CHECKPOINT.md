@@ -1,5 +1,18 @@
 # Native Django checkpoint — 2026-11-24
 
+## UI-first continuation from cc190a8
+
+See UI-PARITY.md for explicit master-component mapping and remaining scenarios.
+Added original five missing CSS assets, overview KPI/trend/policy panels,
+progressive accessible message content/evidence/attachment/header tabs, shared
+date filters and query-preserving pagination. Added bounded GPU/cgroup probes
+and web resource display; maintenance samples also record these probes.
+Independent content-addressed inference artifact copies and migration added;
+model-row deletion no longer breaks newly dispatched snapshots. Migration NOT
+applied to any DB. Twelve focused UI/workspace/resource/inference tests pass;
+Ruff passes. No live containers, master or source DB changed. No full visual or
+functional completion claim; outstanding scenarios remain in UI-PARITY.md.
+
 ## Continuation beyond cf4bbcb
 
 Post-64ccee6 continuation adds the original seven-day delivery-flow aggregation

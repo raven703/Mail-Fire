@@ -319,6 +319,17 @@ class Incident(models.Model):
         db_table = "incidents"
 
 
+class InferenceArtifact(models.Model):
+    """Content-addressed immutable copies, independent of model publication rows."""
+
+    sha256 = models.CharField(max_length=64, primary_key=True)
+    data = models.BinaryField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = "inference_artifacts"
+
+
 class MLModel(models.Model):
     engine = models.CharField(max_length=24, default="tfidf")
     category = models.ForeignKey(
