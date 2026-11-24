@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 def call(operation, data, name="", *, ocr=False):
-    if operation not in {"mail", "extract", "extract_native", "probe", "scan", "preview"}:
+    if operation not in {"mail", "extract", "extract_native", "detect", "probe", "scan", "preview"}:
         raise ValueError("Unsupported parser operation")
     url = settings.MICE_OCR_PARSER_URL if ocr else settings.MICE_PARSER_URL
     if not url:

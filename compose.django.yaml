@@ -186,6 +186,7 @@ services:
     cpus: ${MICE_OCR_CPUS:-2}
   detection:
     <<: *worker
+    networks: [default, parsing]
     profiles: [pipeline]
     environment:
       <<: *runtime-env

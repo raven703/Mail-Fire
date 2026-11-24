@@ -55,6 +55,12 @@ def extract_message(job):
     extract(job)
 
 
+def detect_message(job):
+    from pipeline.detection import detect
+
+    detect(job)
+
+
 def complete_ocr(job):
     from pipeline.ocr import complete
 
@@ -68,6 +74,7 @@ def deliver_notification(job):
 
 
 handlers = {
+    "detection.detect": ("detection", detect_message),
     "ocr.complete": ("ocr", complete_ocr),
     "extraction.extract": ("extraction", extract_message),
     "ingestion.parse": ("ingestion", parse_message),

@@ -39,6 +39,12 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Detection wiring checkpoint: unchanged deterministic detect/pii algorithms
+  invoked through sandbox, OCR completion dispatches detection, fenced detection
+  saves PARTIAL evidence and requests existing policy/incident evaluation atomically.
+  Unported engines explicitly listed, ML/LLM skipped. Twelve pipeline/policy checks
+  pass (2.433 s); NOT a real EML acceptance. Independent Parser Dockerfile removes
+  local backend image dependency; clean build still pending model/tool downloads.
 - Real isolated Parser/OCR deployment: distinct experiment image and internal
   networks, no DB/broker secrets or host mounts supplied. Sandbox probe returned
   network_denied=true, uid=10001, database_secret=null, all sensitive paths false.

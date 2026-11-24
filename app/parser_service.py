@@ -37,6 +37,7 @@ class Handler(BaseHTTPRequestHandler):
             body = self.rfile.read(size)
             request = json.loads(body)
             if request.get("operation") not in {
+                "detect",
                 "mail",
                 "extract",
                 "extract_native",

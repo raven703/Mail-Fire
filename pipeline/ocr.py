@@ -4,7 +4,7 @@ from django.db import transaction
 
 from pipeline.models import WorkItem
 from pipeline.parser_client import call
-from pipeline.services import finish, locked_current
+from pipeline.services import enqueue, finish, locked_current
 from records.models import Attachment, Message
 
 
@@ -51,4 +51,7 @@ def complete(job):
                 "partial": any(row.status != "ANALYZED" for row in attachments),
                 "next_stage": "detection-not-yet-connected",
             },
+        )
+        enqueue(
+            "detection.detect", {"message_id": message.pk, "ocr_job_id": str(job.pk)}, "detect:" + str(job.pk)
         )

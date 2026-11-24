@@ -162,6 +162,12 @@ def main():
             from app.advanced_detectors import static_scan
 
             output = static_scan(data, request["name"])
+        elif request["operation"] == "detect":
+            from app.advanced_detectors import pii
+            from app.detectors import VERSION, detect
+
+            text = data.decode("utf-8")
+            output = {"findings": detect(text) + pii(text), "version": VERSION}
         elif request["operation"] == "mail":
             from app.mail import parse_mail
 

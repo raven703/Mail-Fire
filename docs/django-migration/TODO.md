@@ -18,6 +18,10 @@ Newest user instruction permits isolated email integration/regression/load tests
 - [ ] Connect detection, normalization, AV/secrets, category/reference/template rules.
 - [ ] Connect optional ML/LLM workers with explicit unavailable/disabled states.
 - [ ] Persist final analysis and enqueue policy/incident evaluation atomically.
+  Deterministic detection adapter now wired OCR→detection→policy using unchanged
+  detect()/pii() through sandbox. Missing AV/secrets/normalization/custom/reference/
+  template checks are explicit engine_errors and force PARTIAL. ML/LLM skipped.
+  Real full-cycle acceptance still pending updated Parser image build.
 - [ ] Add upload/SMTP/import adapters and delivery-context deduplication tests.
 - [ ] Exercise real RabbitMQ/Celery full cycle; crash recovery/idempotency tests.
 - [ ] Port remaining APIs/services enumerated in PARITY.md and inventory.json.
@@ -27,3 +31,14 @@ Newest user instruction permits isolated email integration/regression/load tests
 - [ ] Remove legacy runtime/ORM/API/frontend dependencies only after parity.
 
 Checkpoints are not completion. Never infer full-cycle success from unit tests.
+
+## Current build continuation
+
+Independent Dockerfile.django-parser now starts from the public uv Python base,
+installs frozen dependencies/models/tools and copies source; no local legacy image
+reference. Build log `/tmp/mice-parser-no-ml-build.log` (no embeddings preparation).
+Earlier `/tmp/mice-standalone-parser-build.log` may still have an older build
+downloading embeddings; do not mistake its output for current build acceptance.
+Converter build `/tmp/mice-converter-build.log` is downloading LibreOffice packages.
+Runtime rebuilt successfully, 12 pipeline/policy checks passed (2.433 s).
+Neither new detection sandbox operation nor full Celery chain is live verified yet.
