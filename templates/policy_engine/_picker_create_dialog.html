@@ -1,5 +1,5 @@
 <dialog class="editor-dialog editor-dialog-wide" data-picker-create-dialog aria-labelledby="picker-create-title">
-  <form class="editor-dialog-layout" hx-post="{% url 'category-picker-add' %}" hx-target="#picker-create-slot" hx-swap="innerHTML">
+  <form class="editor-dialog-layout" hx-post="{% url 'category-picker-add' %}" hx-target="#picker-create-slot" hx-select="unset" hx-swap="innerHTML">
     {% csrf_token %}
     <header class="editor-dialog-header"><h2 id="picker-create-title">Новая категория</h2><button type="button" class="editor-dialog-close" data-picker-create-close aria-label="Закрыть">×</button></header>
     <div class="editor-dialog-body"><div class="category-create">{{ form.as_p }}{% include 'policy_engine/_category_rules.html' %}</div></div>

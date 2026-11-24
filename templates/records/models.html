@@ -71,7 +71,7 @@
   <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'models-page' %}?tab=label" aria-labelledby="example-title">
     <form method="post" class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="action" value="example">
       <header class="editor-dialog-header"><h2 id="example-title">Добавить обучающий пример</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
-      <div class="editor-dialog-body">{{ example_form.as_p }}{% if perms.identity.administer %}<button type="button" data-picker-create hx-get="{% url 'category-picker-add' %}" hx-target="#picker-create-slot" hx-swap="innerHTML" hx-push-url="false">＋ Новая категория</button>{% endif %}</div>
+      <div class="editor-dialog-body">{{ example_form.as_p }}{% if perms.identity.administer %}<button type="button" data-picker-create hx-get="{% url 'category-picker-add' %}" hx-target="#picker-create-slot" hx-select="unset" hx-swap="innerHTML" hx-push-url="false">＋ Новая категория</button>{% endif %}</div>
       <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить пример</button></footer>
     </form>
   </dialog>

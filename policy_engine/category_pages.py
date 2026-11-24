@@ -148,7 +148,9 @@ def category_picker_add(request):
     rules = category_rules(data)
     if data is not None and form.is_valid():
         needs_rules = form.cleaned_data["mode"] in {"custom", "rules"}
-        if not needs_rules or rules.is_valid():
+        if not form.cleaned_data["active"]:
+            form.add_error("active", "Для выбора в разметке категория должна быть активной")
+        elif not needs_rules or rules.is_valid():
             row = save_category(request.user, form, rules if needs_rules else None)
             response = HttpResponse(status=204)
             response["HX-Trigger"] = json.dumps({"mice:category-created": {"id": row.pk, "name": row.name,
