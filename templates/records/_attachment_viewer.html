@@ -1,0 +1,33 @@
+<div class="document-viewer" data-tabs>
+  <p class="muted">{{ attachment.mime|default:'Неизвестный формат' }} · {{ attachment.blob_sha_ref.size|filesizeformat }} · {{ attachment.status }}</p>
+  <nav class="tabs" role="tablist" aria-label="Просмотр документа">
+    <button id="viewer-tab-original" type="button" role="tab" data-tab="viewer-original" aria-controls="viewer-original">Оригинал</button>
+    <button id="viewer-tab-text" type="button" role="tab" data-tab="viewer-text" aria-controls="viewer-text">Распознанный текст</button>
+    <button id="viewer-tab-evidence" type="button" role="tab" data-tab="viewer-evidence" aria-controls="viewer-evidence">Результаты DLP</button>
+  </nav>
+  <section id="viewer-original" role="tabpanel" aria-labelledby="viewer-tab-original">
+    {% if text_preview %}
+    <p class="muted">Безопасное текстовое представление. HTML, скрипты и внешние ресурсы не исполняются.</p>
+    {% if mail %}<dl><dt>Тема</dt><dd>{{ mail.subject|default:'—' }}</dd><dt>Отправитель</dt><dd>{{ mail.sender|default:'—' }}</dd><dt>Получатели</dt><dd>{{ mail.recipients|join:', '|default:'—' }}</dd></dl>{% endif %}
+    <pre class="mail-text">{% firstof mail.text attachment.text 'Сохранённый текст отсутствует' %}</pre>
+    {% else %}
+    <form method="get" class="actions viewer-toolbar" hx-boost="false" data-document-viewer data-page-url="{% url 'attachment-page' attachment.pk %}">
+      <button type="button" data-viewer-prev aria-label="Предыдущая страница" disabled>←</button>
+      <label>Страница<input name="page" type="number" min="1" max="1000" value="{{ request.GET.page|default:'1' }}"></label>
+      <span data-viewer-pages>/ —</span><button type="button" data-viewer-next aria-label="Следующая страница" disabled>→</button>
+      <label>Масштаб<select name="scale"><option value="0.5">50%</option><option value="1" selected>100%</option><option value="1.5">150%</option><option value="2">200%</option></select></label>
+      <label class="viewer-highlight"><input type="checkbox" name="highlight" value="1"{% if request.GET.highlight %} checked{% endif %}>Подсветить DLP в PDF</label>
+      <button data-viewer-submit>Показать страницу</button>
+      <p role="status" data-viewer-status></p>
+      <div class="document-page"><img data-viewer-image alt="Безопасное изображение страницы документа"{% if request.GET.page %} src="{% url 'attachment-page' attachment.pk %}?page={{ request.GET.page|urlencode }}&amp;scale={{ request.GET.scale|default:'1'|urlencode }}&amp;highlight={{ request.GET.highlight|urlencode }}"{% else %} hidden{% endif %}></div>
+    </form>
+    <p class="muted">Пассивное изображение страницы. Подсветка PDF доступна для текстовых совпадений.</p>
+    {% endif %}
+  </section>
+  <section id="viewer-text" role="tabpanel" aria-labelledby="viewer-tab-text">
+    <p class="muted">Сохранённый результат парсера.</p><pre class="mail-text">{{ attachment.text|default:'Сохранённого текста нет. Для его получения требуется отдельная повторная обработка письма.' }}</pre>
+  </section>
+  <section id="viewer-evidence" role="tabpanel" aria-labelledby="viewer-tab-evidence">
+    <p class="muted">Совпадения из сохранённого анализа, относящиеся к этому вложению.</p>{% include 'records/_evidence.html' %}
+  </section>
+</div>

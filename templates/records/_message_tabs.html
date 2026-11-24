@@ -1,5 +1,16 @@
 <div data-tabs><div role="tablist" aria-label="Разделы письма" class="native-tabs"><button type="button" role="tab" id="tab-content" data-tab="message-content" aria-controls="message-content">Содержимое</button><button type="button" role="tab" id="tab-evidence" data-tab="message-evidence" aria-controls="message-evidence">Результаты анализа</button><button type="button" role="tab" id="tab-attachments" data-tab="message-attachments" aria-controls="message-attachments">Вложения</button><button type="button" role="tab" id="tab-headers" data-tab="message-headers" aria-controls="message-headers">Заголовки</button></div>
 <section role="tabpanel" id="message-content" aria-labelledby="tab-content"><h2>Содержимое</h2><pre>{{ message.content.text|default:'Содержимое ещё не извлечено' }}</pre></section>
 <section role="tabpanel" id="message-evidence" aria-labelledby="tab-evidence"><h2>Доказательства и результаты</h2>{% include 'records/_evidence.html' with findings=message.content.analysis.findings %}</section>
-<section role="tabpanel" id="message-attachments" aria-labelledby="tab-attachments"><h2>Вложения</h2><table><thead><tr><th>Имя</th><th>Тип</th><th>Анализ</th><th>Действия</th></tr></thead><tbody>{% for attachment in attachments %}<tr><td>{{ attachment.name }}</td><td>{{ attachment.mime }}</td><td>{{ attachment.status }}</td><td><a href="{% url 'attachment-detail' attachment.pk %}">Просмотр</a> · <a href="{% url 'attachment-download' attachment.pk %}" hx-boost="false">Скачать</a></td></tr>{% empty %}<tr><td colspan="4">Нет вложений</td></tr>{% endfor %}</tbody></table></section>
+<section role="tabpanel" id="message-attachments" aria-labelledby="tab-attachments"><div class="message-attachments">
+{% for attachment in attachments %}
+<div class="policy-row">
+  <div class="policy-info"><strong>{{ attachment.name }}</strong><p>{{ attachment.mime|default:'Неизвестный формат' }} · {{ attachment.blob_sha_ref.size }} байт · {{ attachment.status }}</p></div>
+  <div class="actions">
+    <a class="action-button" data-viewer-trigger href="{% url 'attachment-detail' attachment.pk %}" hx-get="{% url 'attachment-detail' attachment.pk %}" hx-target="#attachment-viewer-host" hx-select="#attachment-viewer" hx-swap="innerHTML" hx-sync="#attachment-viewer-host:replace" hx-push-url="false">Просмотр</a>
+    <a class="action-button" href="{% url 'attachment-download' attachment.pk %}" hx-boost="false" download aria-label="Скачать {{ attachment.name }}">↓ Скачать</a>
+  </div>
+</div>
+{% empty %}<p class="muted">У письма нет вложений.</p>{% endfor %}
+<dialog id="attachment-viewer-host" class="editor-dialog editor-dialog-wide attachment-dialog" aria-labelledby="attachment-viewer-title"></dialog>
+</div></section>
 <section role="tabpanel" id="message-headers" aria-labelledby="tab-headers"><h2>Заголовки</h2><dl>{% for name, value in message.headers.items %}<dt>{{ name }}</dt><dd>{{ value }}</dd>{% empty %}<dd>Заголовки отсутствуют</dd>{% endfor %}</dl></section></div>

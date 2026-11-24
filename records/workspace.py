@@ -184,7 +184,9 @@ def message_detail(request, message_id):
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
         "error": error_text,
         "reanalysis_token": uuid4().hex,
-        "attachments": Attachment.objects.filter(message=row).order_by("created_at", "pk") if request.user.has_perm("identity.view_originals") else [],
+        "attachments": Attachment.objects.filter(message=row).select_related("blob_sha_ref").only(
+            "id", "name", "mime", "status", "blob_sha_ref__size",
+        ).order_by("created_at", "pk") if request.user.has_perm("identity.view_originals") else [],
     }, status=409 if error_text else 200)
 
 

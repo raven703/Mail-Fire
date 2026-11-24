@@ -8,40 +8,57 @@
       const status = form.querySelector('[data-viewer-status]');
       const previous = form.querySelector('[data-viewer-prev]');
       const next = form.querySelector('[data-viewer-next]');
-      let pages = 1, controller;
-      const load = async () => {
-        if (!form.reportValidity()) return;
+      const page = form.elements.page;
+      const panel = form.closest('[role="tabpanel"]');
+      let pages = Number(page.max), controller, objectUrl;
+      const cancel = () => {
         if (controller) controller.abort();
-        controller = new AbortController();
+        controller = null;
+      };
+      const dispose = () => {
+        cancel();
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+      };
+      const load = async () => {
+        if (panel.hidden || !form.reportValidity()) return;
+        cancel();
+        const request = new AbortController();
+        controller = request;
         previous.disabled = next.disabled = true;
+        image.hidden = true;
         status.textContent = 'Подготовка страницы…';
         try {
-          const response = await fetch(form.dataset.pageUrl + '?' + new URLSearchParams(new FormData(form)), {signal: controller.signal});
-          if (!response.ok) throw new Error(await response.text());
+          const url = form.dataset.pageUrl + '?' + new URLSearchParams(new FormData(form));
+          const response = await fetch(url, {signal: request.signal, cache: 'no-store'});
+          if (!response.ok || response.headers.get('Content-Type') !== 'image/png') {
+            throw new Error('Безопасный просмотр недоступен. Откройте распознанный текст.');
+          }
           const blob = await response.blob();
-          if (!form.isConnected) return;
-          const old = image.dataset.objectUrl;
-          image.src = image.dataset.objectUrl = URL.createObjectURL(blob);
-          image.onload = () => { URL.revokeObjectURL(image.dataset.objectUrl); delete image.dataset.objectUrl; };
-          if (old) URL.revokeObjectURL(old);
-          pages = Math.min(1000, Number(response.headers.get('X-Document-Pages')) || 1);
-          form.elements.page.max = pages;
+          if (request.signal.aborted || !form.isConnected) return;
+          if (objectUrl) URL.revokeObjectURL(objectUrl);
+          objectUrl = URL.createObjectURL(blob);
+          image.src = objectUrl;
+          image.hidden = false;
+          pages = Number(response.headers.get('X-Document-Pages')) || 1;
+          page.max = Math.min(1000, pages);
           form.querySelector('[data-viewer-pages]').textContent = '/ ' + pages;
           status.textContent = '';
         } catch (error) {
-          if (error.name === 'AbortError') return;
-          status.textContent = error.message;
+          if (!request.signal.aborted && form.isConnected) status.textContent = error.message;
         } finally {
-          previous.disabled = Number(form.elements.page.value) <= 1;
-          next.disabled = Number(form.elements.page.value) >= pages;
+          if (controller === request) {
+            previous.disabled = Number(page.value) <= 1;
+            next.disabled = Number(page.value) >= Number(page.max) || image.hidden;
+          }
         }
       };
       form.addEventListener('submit', event => { event.preventDefault(); load(); });
-      previous.addEventListener('click', () => { form.elements.page.stepDown(); load(); });
-      next.addEventListener('click', () => { form.elements.page.stepUp(); load(); });
+      previous.addEventListener('click', () => { page.stepDown(); load(); });
+      next.addEventListener('click', () => { page.stepUp(); load(); });
       form.elements.scale.addEventListener('change', load);
       form.elements.highlight.addEventListener('change', load);
-      load();
+      panel.addEventListener('mice:tab', () => panel.hidden ? cancel() : load());
+      form.addEventListener('mice:dispose', dispose);
     });
     document.querySelectorAll('[data-date-range]').forEach(group => {
       if (group.dataset.ready) return;
@@ -142,14 +159,18 @@
     document.querySelectorAll('[data-tabs]').forEach(group => {
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';
-      const buttons = [...group.querySelectorAll('[data-tab]')];
+      const buttons = [...group.querySelectorAll('[data-tab]')].filter(button => button.closest('[data-tabs]') === group);
       const activate = button => {
         buttons.forEach(item => {
           const selected = item === button;
           item.setAttribute('aria-selected', String(selected));
           item.tabIndex = selected ? 0 : -1;
+          item.classList.toggle('selected', selected);
           const panel = document.getElementById(item.dataset.tab);
-          if (panel) panel.hidden = !selected;
+          if (panel) {
+            panel.hidden = !selected;
+            panel.dispatchEvent(new Event('mice:tab'));
+          }
         });
       };
       buttons.forEach((button, index) => {

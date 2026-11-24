@@ -1,8 +1,11 @@
-{% extends 'identity/base.html' %}{% block body %}
-<main><header><h1>{{ attachment.name }}</h1><a href="{% url 'message-detail' attachment.message_id %}">Письмо</a> · <a href="{% url 'attachment-download' attachment.pk %}">Скачать оригинал</a></header>
-<div class="document-viewer" data-tabs><p>{{ attachment.mime }} · {{ attachment.blob_sha_ref.size }} байт · {{ attachment.status }}</p>
-<nav class="tabs" role="tablist" aria-label="Просмотр документа"><button type="button" role="tab" data-tab="viewer-original" aria-controls="viewer-original">Оригинал</button><button type="button" role="tab" data-tab="viewer-text" aria-controls="viewer-text">Распознанный текст</button><button type="button" role="tab" data-tab="viewer-evidence" aria-controls="viewer-evidence">Результаты DLP</button></nav>
-<section id="viewer-original" role="tabpanel">{% if text_preview %}<p>Безопасное текстовое представление. HTML, скрипты и внешние ресурсы не исполняются.</p><pre class="mail-text">{{ attachment.text|default:'Сохранённый текст отсутствует' }}</pre>{% else %}
-<form method="get" class="actions viewer-toolbar" data-document-viewer data-page-url="{% url 'attachment-page' attachment.pk %}"><button type="button" data-viewer-prev aria-label="Предыдущая страница">←</button><label>Страница<input name="page" type="number" min="1" max="1000" value="{{ request.GET.page|default:'1' }}"></label><span data-viewer-pages>/ —</span><button type="button" data-viewer-next aria-label="Следующая страница">→</button><label>Масштаб<input name="scale" type="number" min="0.5" max="2" step="0.5" value="{{ request.GET.scale|default:'1' }}"></label><label><input type="checkbox" name="highlight" value="1"{% if request.GET.highlight %} checked{% endif %}>Подсветить DLP в PDF</label><button>Показать страницу</button><p role="status" data-viewer-status></p><div class="document-page"><img data-viewer-image alt="Безопасное изображение страницы документа"{% if request.GET.page %} src="{% url 'attachment-page' attachment.pk %}?page={{ request.GET.page|urlencode }}&amp;scale={{ request.GET.scale|default:'1'|urlencode }}&amp;highlight={{ request.GET.highlight|urlencode }}"{% endif %}></div></form><p class="muted">Пассивное изображение страницы. Скрипты, макросы и ссылки не исполняются. Подсветка PDF доступна для текстовых совпадений; координаты OCR старых сканов не сохранены.</p>{% endif %}</section>
-<section id="viewer-text" role="tabpanel"><p>Сохранённый результат парсера; OCR повторно не запускается.</p><pre class="mail-text">{{ attachment.text|default:'Сохранённого текста нет. Требуется отдельная повторная обработка письма.' }}</pre></section>
-<section id="viewer-evidence" role="tabpanel"><p>Совпадения из сохранённого анализа, относящиеся к этому вложению.</p>{% include 'records/_evidence.html' %}</section></div></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main data-standalone-viewer>
+  <header><h1>{{ attachment.name }}</h1><div class="actions"><a href="{% url 'message-detail' attachment.message_id %}">Карточка письма</a><a class="action-button" href="{% url 'attachment-download' attachment.pk %}" hx-boost="false" download>↓ Скачать вложение</a></div></header>
+  <div id="attachment-viewer" class="editor-dialog-layout">
+    <header class="editor-dialog-header"><div class="editor-dialog-title"><h2 id="attachment-viewer-title">{{ attachment.name }}</h2><p>Локальный просмотр документа</p></div><button class="editor-dialog-close" type="button" data-viewer-close aria-label="Закрыть">×</button></header>
+    <div class="editor-dialog-body">{% include 'records/_attachment_viewer.html' %}</div>
+    <footer class="editor-dialog-footer"><a class="action-button" href="{% url 'attachment-download' attachment.pk %}" hx-boost="false" download>↓ Скачать вложение</a><button type="button" data-viewer-close>Закрыть</button></footer>
+  </div>
+</main>
+{% endblock %}

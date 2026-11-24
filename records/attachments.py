@@ -35,6 +35,26 @@ def findings_for(row):
             or (finding.get("excerpt") and finding["excerpt"] in row.text)]
 
 
+def mail_metadata(row):
+    if PurePosixPath(row.name).suffix.lower() not in {".eml", ".msg"} or row.blob_sha_ref.size > PREVIEW_LIMIT:
+        return None
+    data = bytes(row.blob_sha_ref.data)
+    if len(data) > PREVIEW_LIMIT:
+        return None
+    try:
+        parsed = call("mail", data)
+        recipients = parsed.get("recipients")
+        return {
+            "subject": str(parsed.get("subject") or "")[:8192],
+            "sender": str(parsed.get("sender") or "")[:8192],
+            "recipients": [value[:1024] for value in recipients[:200] if isinstance(value, str)]
+            if isinstance(recipients, list) else [],
+            "text": str(parsed.get("text") or "")[:100000],
+        }
+    except (ValueError, KeyError, TypeError, RuntimeError, httpx.HTTPError):
+        return None
+
+
 def convert_office(data, suffix):
     if not settings.MICE_CONVERTER_URL:
         raise ValueError("Office converter is not configured")
@@ -77,7 +97,8 @@ def attachment(request, attachment_id, action=None):
     error = access(request, originals=True)
     if error is not None:
         return error
-    row = get_object_or_404(Attachment.objects.select_related("blob_sha_ref", "message__content"), pk=attachment_id)
+    row = get_object_or_404(Attachment.objects.select_related("blob_sha_ref", "message__content")
+                            .defer("blob_sha_ref__data", "message__content__text"), pk=attachment_id)
     if action == "download":
         Audit.objects.create(actor=request.user.pk, action="attachment_download", target=row.pk)
         response = FileResponse(BytesIO(bytes(row.blob_sha_ref.data)), as_attachment=True,
@@ -99,7 +120,7 @@ def attachment(request, attachment_id, action=None):
     else:
         Audit.objects.create(actor=request.user.pk, action="attachment_preview", target=row.pk)
         response = render(request, "records/attachment.html", {
-            "attachment": row, "findings": findings_for(row),
+            "attachment": row, "findings": findings_for(row), "mail": mail_metadata(row),
             "text_preview": bool(re.search(r"\.(txt|csv|json|xml|eml|msg|html?|svg)$", row.name, re.I)
                                  or re.match(r"^(text/|application/(json|xml)|image/svg)", row.mime, re.I)),
         })

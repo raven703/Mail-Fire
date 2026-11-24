@@ -2,3 +2,11 @@
 .native-tabs{display:flex;gap:.5rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding:.5rem 0}.native-tabs [aria-selected=true]{background:var(--selected);color:var(--accent)}[hidden]{display:none!important}.pagination{display:flex;gap:1rem;align-items:center;padding:1rem 0}.evidence-item{padding:.8rem;border-bottom:1px solid var(--border)}.so-spark meter{writing-mode:vertical-lr;direction:rtl;height:100px;width:18px}.so-spark-column{display:flex;flex-direction:column;align-items:center}.so-metric{text-decoration:none}dl{overflow-wrap:anywhere}
 
 .mice-navigation h3{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1.2rem .8rem .4rem}.navigation-collapsed .mice-navigation nav{display:none}.navigation-collapsed .layout{grid-template-columns:90px 1fr}.navigation-collapsed .mice-navigation .logo strong{display:none}
+
+[data-standalone-viewer] #attachment-viewer { max-height: none; }
+[data-standalone-viewer] #attachment-viewer > .editor-dialog-header,
+[data-standalone-viewer] #attachment-viewer > .editor-dialog-footer { display: none; }
+[data-standalone-viewer] #attachment-viewer > .editor-dialog-body { padding: 0; }
+.attachment-dialog #attachment-viewer { min-height: 0; }
+.viewer-toolbar .document-page { flex-basis: 100%; }
+.viewer-toolbar [data-viewer-submit] { flex-shrink: 0; }
