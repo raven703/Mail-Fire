@@ -79,3 +79,11 @@ component/style parity. No claim that all functional parity work is finished.
 Focused checks: 15 no-DB tests, Ruff, JavaScript syntax, whitespace. No builds,
 migrations, container/source DB edits, comprehensive tests or ML/LLM activation.
 Audit remediation remains deferred.
+
+
+Post-8afafce: continued with master MLDatasets.tsx. Added dataset sample label
+editing, approval checkbox, NORMAL exclusivity/active-category validation,
+review count and close/cancel navigation. Existing dataset lock/reviewer/audit
+used; no training/inference activation. 17 focused no-DB checks pass. Remaining
+dataset import mapping/source/delete scenarios and picker/dialog parity are
+implementation gaps, not acceptance-only gaps.

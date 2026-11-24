@@ -27,6 +27,21 @@ class DatasetImportForm(forms.Form):
         return value
 
 
+class ExampleReviewForm(forms.Form):
+    labels = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Категории")
+    approved = forms.BooleanField(required=False, label="Метки проверены аналитиком")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["labels"].choices = [("NORMAL", "Безопасный текст (NORMAL)"), *Category.objects.filter(active=True).order_by("name").values_list("pk", "name")]
+
+    def clean_labels(self):
+        labels = self.cleaned_data["labels"]
+        if len(labels) > 20 or ("NORMAL" in labels and len(labels) != 1):
+            raise forms.ValidationError("NORMAL нельзя совмещать с категориями; не более 20 меток")
+        return labels
+
+
 @transaction.atomic
 def save_import(actor, name, description, rows):
     fingerprint = hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -56,19 +71,32 @@ def datasets(request, dataset_id=None):
     form = DatasetImportForm(request.POST if request.method == "POST" and not dataset else None,
                              request.FILES if request.method == "POST" and not dataset else None)
     error = None
+    review_example = None
+    review_form = None
+    if dataset and (request.GET.get("edit") or request.POST.get("action") == "review"):
+        review_example = get_object_or_404(TrainingExample, dataset=dataset,
+                                          pk=request.POST.get("example_id") or request.GET.get("edit"))
+        review_form = ExampleReviewForm(request.POST if request.method == "POST" else None,
+                                        initial={"labels": review_example.labels, "approved": review_example.approved})
     if request.method == "POST":
         if dataset:
             action = request.POST.get("action")
-            if action not in {"approve", "reject"}:
+            if action not in {"approve", "reject", "review"}:
                 return HttpResponseForbidden("Неизвестное действие")
+            if action == "review" and not review_form.is_valid():
+                action = None
             with transaction.atomic():
                 MLDataset.objects.select_for_update().get(pk=dataset.pk)
                 example = get_object_or_404(TrainingExample.objects.select_for_update(), pk=request.POST.get("example_id"), dataset=dataset)
-                example.approved = action == "approve"
-                example.reviewed_by_ref_id = request.user.pk
-                example.save(update_fields=["approved", "reviewed_by_ref"])
-                Audit.objects.create(actor=request.user.pk, action="dataset_" + action, target=example.pk)
-            return redirect("dataset-detail", dataset_id=dataset.pk)
+                if action:
+                    example.approved = review_form.cleaned_data["approved"] if action == "review" else action == "approve"
+                    if action == "review":
+                        example.labels = review_form.cleaned_data["labels"]
+                    example.reviewed_by_ref_id = request.user.pk
+                    example.save(update_fields=["labels", "approved", "reviewed_by_ref"])
+                    Audit.objects.create(actor=request.user.pk, action="dataset_" + action, target=example.pk)
+            if action:
+                return redirect("dataset-detail", dataset_id=dataset.pk)
         if form.is_valid():
             upload = form.cleaned_data["file"]
             raw = upload.read(10 * 1024**2 + 1)
@@ -101,6 +129,8 @@ def datasets(request, dataset_id=None):
                 return redirect("dataset-detail", dataset_id=dataset.pk)
     return render(request, "records/datasets.html", {
         "datasets": MLDataset.objects.order_by("-created_at"), "dataset": dataset, "form": form, "error": error,
+        "review_form": review_form, "review_example": review_example,
+        "approved_count": TrainingExample.objects.filter(dataset=dataset, approved=True).count() if dataset else 0,
         "examples": Paginator(TrainingExample.objects.filter(dataset=dataset).order_by("created_at"), 25).get_page(request.GET.get("page")) if dataset else [],
         "models": MLModel.objects.order_by("-created_at")[:50],
-    }, status=400 if form.is_bound else 200)
+    }, status=400 if form.is_bound or (review_form is not None and review_form.is_bound) else 200)
