@@ -62,6 +62,9 @@ def save_reference(actor, prepared):
     )
     Audit.objects.create(actor=actor.pk, action="reference_upload", target=row.pk,
                          details={"template": "document_template" in row.fingerprint})
+    if settings.MICE_SEMANTIC_AUTO_INDEX and "document_template" not in row.fingerprint:
+        enqueue("semantic.reindex", {"items": [["reference", row.pk]], "actor": actor.pk},
+                "reference-upload:" + row.pk)
     return row
 
 

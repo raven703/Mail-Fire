@@ -16,10 +16,12 @@ from records.models import (
     Attachment,
     Audit,
     Comment,
+    Diagnostic,
     ImportRecord,
     Incident,
     MailEvent,
     Message,
+    Metric,
     Outbox,
     SemanticChunk,
     Setting,
@@ -27,13 +29,18 @@ from records.models import (
 )
 from records.operations import admin_access
 
-DEFAULTS = {"ordinary_days": 30, "unconfirmed_days": 365, "confirmed_days": 365, "paused": True}
+DEFAULTS = {"ordinary_days": 30, "unconfirmed_days": 365, "confirmed_days": 365,
+            "audit_days": 365, "logs_days": 30, "metrics_days": 30, "paused": True}
+LOG_MODELS = (("audit_days", Audit), ("logs_days", Diagnostic), ("metrics_days", Metric))
 
 
 class RetentionForm(forms.Form):
     ordinary_days = forms.IntegerField(min_value=1, max_value=36500, label="Обычные письма, дней")
     unconfirmed_days = forms.IntegerField(min_value=1, max_value=36500, label="Неподтверждённые инциденты, дней")
     confirmed_days = forms.IntegerField(min_value=1, max_value=36500, label="Подтверждённые инциденты, дней")
+    audit_days = forms.IntegerField(min_value=1, max_value=36500, label="Аудит, дней")
+    logs_days = forms.IntegerField(min_value=1, max_value=36500, label="Диагностика, дней")
+    metrics_days = forms.IntegerField(min_value=1, max_value=36500, label="Метрики, дней")
     paused = forms.BooleanField(required=False, label="Очистка приостановлена")
 
 
@@ -56,6 +63,23 @@ def message_jobs(message, events, revisions):
         Q(payload__message_id=message.pk) | Q(payload__event_id__in=events)
         | Q(payload__analysis_id__in=[str(value) for value in revisions])
     )
+
+
+def expire_logs(current, values, now, dry_run):
+    output = current.output
+    totals = {**output.get("expired_logs", {})}
+    for key, model in LOG_MODELS:
+        if key in totals:
+            continue
+        rows = model.objects.filter(created_at__lt=now - timedelta(days=values[key]))
+        identifiers = list(rows.order_by("created_at", "pk").values_list("pk", flat=True)[:1000])
+        deleted = 0
+        if not dry_run:
+            deleted, _ = rows.filter(pk__in=identifiers).delete()
+        totals[key] = {"candidates": len(identifiers), "deleted": deleted}
+    current.output = {**output, "expired_logs": totals}
+    current.save(update_fields=["output"])
+    return totals
 
 
 def cleanup(job):
@@ -116,7 +140,9 @@ def cleanup(job):
     with transaction.atomic():
         current = locked_current(job.pk, job.token)
         deleted = list(dict.fromkeys(current.output.get("deleted", []) + deleted))
-        finish(job.pk, job.token, {"paused": values["paused"], "candidates": candidates, "deleted": deleted, "skipped": skipped})
+        logs = {} if values["paused"] else expire_logs(current, values, now, job.payload.get("dry_run", True))
+        finish(job.pk, job.token, {"paused": values["paused"], "candidates": candidates, "deleted": deleted,
+                                   "skipped": skipped, "expired_logs": logs})
 
 
 @require_http_methods(["GET", "POST"])

@@ -98,6 +98,7 @@ MICE_RABBIT_API_URL = os.environ.get("MICE_RABBIT_API_URL", "")
 MICE_RABBIT_USER = os.environ.get("MICE_RABBIT_USER", "mice")
 MICE_RABBIT_PASSWORD = os.environ.get("MICE_RABBIT_PASSWORD", "")
 MICE_RABBIT_VHOST = os.environ.get("MICE_RABBIT_VHOST", "mice")
+MICE_SEMANTIC_AUTO_INDEX = os.environ.get("MICE_SEMANTIC_AUTO_INDEX", "false").lower() == "true"
 MICE_PARSER_URL = os.environ.get("MICE_PARSER_URL", "")
 MICE_OCR_PARSER_URL = os.environ.get("MICE_OCR_PARSER_URL", "")
 MICE_CONVERTER_URL = os.environ.get("MICE_CONVERTER_URL", "")
