@@ -31,7 +31,7 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Reliable queues and controls | worker.py, jobs APIs, Queues.tsx, monitoring.py | 10 queues, ID-only tasks, outbox, retry/cancel, fencing/DLQ/recovery | Delivery/state/outbox implemented; real maintenance job smoke passes; analysis producer/handler and UI cutover pending |
 | Notifications/SIEM | integrations.py, admin_api.py, models.Outbox | Preserve delivery contract, backoff, dedup semantics | Dedicated notification handler + atomic intents implemented; old outbox UI/config CRUD and E2E pending |
 | Retention/legal hold | retention.py, retention_api.py | Dry-run, hold protection, references/blob safety, Beat scheduling | NOT PORTED |
-| Monitoring/audit/resources | monitoring.py, maintenance.py, SystemStatus.tsx, Operations.tsx | Broker/workers/queues/age/duration/errors, CPU/RAM/GPU, degraded states | NOT PORTED |
+| Monitoring/audit/resources | monitoring.py, maintenance.py, SystemStatus.tsx, Operations.tsx | Broker/workers/queues/age/duration/errors, CPU/RAM/GPU, degraded states | Django operations page/API, DB metrics, Rabbit management and Celery ping implemented; per-container/GPU telemetry, full UI/refresh parity pending |
 | Airgap/update/release | update/, Dockerfile, docs | Offline assets/models, compatible backup/upgrade/rollback | NOT PORTED |
 | UI visual parity | All TSX/CSS in inventory.json | Same DOM/CSS/layout, themes, responsive views, dialogs, screenshots | NOT PORTED |
 | Data preservation | models.py, migrations/versions/, raw semantic DDL | Backup restore, table/hash/FK/index comparison, rollback rehearsal | 26 ORM models, frozen DDL, migration/adoption commands implemented; fresh DB verified; real backup validation pending |
@@ -39,6 +39,9 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Operations checkpoint: four pipeline checks pass (1.075 s), template rendering,
+  observer denial and no payload disclosure checked. Web Compose config and
+  Django checks pass; Docker build validation tracked in WEB.md/MONITORING.md.
 - Accounts checkpoint: 3 Auth/account tests pass (1.342 s), templates compile,
   migration applied/no drift, Ruff passes. No message tests; see ACCOUNTS.md.
 - Policy checkpoint: isolated schema migration + no drift, 2 pure rule/source-AST

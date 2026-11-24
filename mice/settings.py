@@ -93,3 +93,7 @@ X_FRAME_OPTIONS = "DENY"
 
 MICE_BROKER_URL = os.environ.get("MICE_BROKER_URL", "amqp://mice:invalid@127.0.0.1:15674/mice")
 MICE_INTERNAL_DOMAINS = os.environ.get("MICE_INTERNAL_DOMAINS", "")
+MICE_RABBIT_API_URL = os.environ.get("MICE_RABBIT_API_URL", "")
+MICE_RABBIT_USER = os.environ.get("MICE_RABBIT_USER", "mice")
+MICE_RABBIT_PASSWORD = os.environ.get("MICE_RABBIT_PASSWORD", "")
+MICE_RABBIT_VHOST = os.environ.get("MICE_RABBIT_VHOST", "mice")

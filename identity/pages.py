@@ -10,7 +10,7 @@ from records.models import Audit
 @require_http_methods(["GET", "POST"])
 def login_page(request):
     if request.user.is_authenticated:
-        return redirect("users-page")
+        return redirect("operations")
     error = ""
     if request.method == "POST":
         username, password = request.POST.get("username", ""), request.POST.get("password", "")
@@ -23,7 +23,7 @@ def login_page(request):
             login(request, user)
             request.session["mice_access_version"] = user.access_version
             Audit.objects.create(actor=user.pk, action="login", target=user.pk)
-            return redirect("users-page")
+            return redirect("operations")
         error = "Неверные учётные данные"
     return render(request, "identity/login.html", {"error": error})
 

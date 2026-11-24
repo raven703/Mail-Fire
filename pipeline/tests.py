@@ -11,6 +11,24 @@ from pipeline.services import StaleAttempt, claim, enqueue, finish, recover
 
 
 class DeliveryTests(TestCase):
+    def test_monitor_page_renders_without_exposing_job_payload(self):
+        from identity.models import User
+
+        user = User.objects.create_user("monitor-user", "monitor-password", role="observer")
+        self.client.force_login(user)
+        session = self.client.session
+        session["mice_access_version"] = user.access_version
+        session.save()
+        enqueue("maintenance.resources", {"sensitive": "not-for-the-page"}, "monitor-test")
+        with patch("pipeline.monitoring.app.control.inspect") as inspect:
+            inspect.return_value.ping.return_value = {"maintenance@test": {"ok": "pong"}}
+            response = self.client.get("/operations/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "maintenance@test")
+        self.assertNotContains(response, "not-for-the-page")
+        job = WorkItem.objects.get(deduplication_key="monitor-test")
+        self.assertEqual(self.client.post(f"/api/jobs/{job.pk}/cancel").status_code, 403)
+
     def test_atomic_enqueue_and_idempotent_completion(self):
         with self.assertRaises(RuntimeError), transaction.atomic():
             enqueue("maintenance.resources", {}, "rolled-back")
