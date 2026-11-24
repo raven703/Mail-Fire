@@ -94,3 +94,17 @@ class UploadTests(SimpleTestCase):
             response = Client(enforce_csrf_checks=True).post("/messages/upload/", {})
         self.assertEqual(response.status_code, 403)
         accept.assert_not_called()
+
+    def test_batch_keeps_valid_items_and_reports_invalid_files(self):
+        token = uuid4()
+        request = RequestFactory().post("/messages/upload/", {
+            "delivery_id": str(token),
+            "message": [SimpleUploadedFile("valid.eml", b"mail"), SimpleUploadedFile("invalid.bin", b"invalid")],
+        })
+        request.user = SimpleNamespace(pk="analyst", is_authenticated=True, has_perm=lambda permission: True)
+        record = SimpleNamespace(message_id="message-one", duplicate=False)
+        with patch("pipeline.uploads.accept_file", return_value={"record": record}) as accept:
+            response = upload_message(request)
+        self.assertEqual(accept.call_args.args[2], f"upload:analyst:{token}:0")
+        self.assertContains(response, "message-one", status_code=202)
+        self.assertContains(response, "invalid.bin", status_code=202)

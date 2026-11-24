@@ -1,22 +1,24 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main>
-  <header><h1>MICE · Загрузка письма</h1><nav><a href="{% url 'operations' %}">Очереди обработки</a> · <a href="{% url 'message-upload' %}">Загрузить письмо</a></nav></header>
+  <header><h1>Загрузка почты</h1><a href="{% url 'imports-page' %}">История импорта</a></header>
   <section>
-    {% if bundle_job %}
-      <h2>ZIP принят в очередь</h2>
-      <p>Задание: {{ bundle_job.pk }}. Состав архива будет проверен в изолированном обработчике. Приём не означает успешный импорт всех писем.</p>
-    {% elif record %}
-      <h2>Письмо принято</h2>
-      <p>Идентификатор: {{ record.message_id }}. {% if record.duplicate %}Содержимое уже известно; сохранено отдельное событие доставки.{% else %}Обработка поставлена в очередь.{% endif %}</p>
-      <p>Приём не означает завершение анализа. Состояние обработки доступно в очередях.</p>
+    {% if results %}
+      <header><h2>Результат приёма</h2><p role="status">Файлов {{ results|length }} · Ошибок {{ failures }}</p></header>
+      <div class="table"><table><thead><tr><th>Файл</th><th>Результат</th></tr></thead><tbody>
+      {% for result in results %}<tr><td>{{ result.name }}</td><td>
+        {% if result.error %}{{ result.error }}
+        {% elif result.bundle_job %}ZIP принят в очередь · <a href="{% url 'operations' %}?tab=jobs&amp;queue=ingestion">{{ result.bundle_job.pk }}</a>
+        {% else %}<a href="{% url 'message-detail' result.record.message_id %}">{{ result.record.message_id }}</a> · {% if result.record.duplicate %}Сохранено новое событие доставки{% else %}Поставлено в очередь{% endif %}{% endif %}
+      </td></tr>{% endfor %}
+      </tbody></table></div>
+      <a class="action-button" href="{% url 'message-upload' %}">Загрузить ещё</a>
     {% else %}
-      <p>Загрузите EML, MSG или ZIP с письмами. Архив и вложения обрабатываются асинхронно в изолированных workers.</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}{{ form.delivery_id }}{{ form.non_field_errors }}{{ form.delivery_id.errors }}
         <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
         {{ form.message }}{{ form.message.errors }}
-        <button type="submit">Загрузить</button>
+        <button type="submit" class="primary">Загрузить</button>
       </form>
     {% endif %}
   </section>

@@ -15,6 +15,20 @@ from pipeline.ingestion import accept
 from records.models import Audit
 
 
+def accept_file(actor, upload, source_key):
+    data = upload.read(settings.MICE_MAX_MESSAGE_BYTES + 1)
+    if not 0 < len(data) <= settings.MICE_MAX_MESSAGE_BYTES:
+        raise ValueError("Upload size")
+    with transaction.atomic():
+        if PurePosixPath(upload.name).suffix.lower() == ".zip":
+            job = accept_bundle(data, source_key, upload.name)
+            Audit.objects.create(actor=actor.pk, action="bundle_upload", target=str(job.pk))
+            return {"bundle_job": job}
+        record = accept(data, "upload", source_key, upload.name)
+        Audit.objects.create(actor=actor.pk, action="message_upload", target=record.message_id)
+        return {"record": record}
+
+
 @require_http_methods(["GET", "POST"])
 def upload_message(request):
     if not request.user.is_authenticated:
@@ -27,19 +41,18 @@ def upload_message(request):
         initial={"delivery_id": uuid4()},
     )
     if request.method == "POST" and form.is_valid():
-        upload = form.cleaned_data["message"]
-        # Do not trust the uploaded-file size metadata alone.
-        data = upload.read(settings.MICE_MAX_MESSAGE_BYTES + 1)
-        try:
-            with transaction.atomic():
-                if PurePosixPath(upload.name).suffix.lower() == ".zip":
-                    job = accept_bundle(data, form.source_key(request.user.pk), upload.name)
-                    Audit.objects.create(actor=request.user.pk, action="bundle_upload", target=str(job.pk))
-                    return render(request, "pipeline/upload.html", {"bundle_job": job}, status=202)
-                record = accept(data, "upload", form.source_key(request.user.pk), upload.name)
-                Audit.objects.create(actor=request.user.pk, action="message_upload", target=record.message_id)
-        except ValueError:
-            form.add_error(None, "Письмо не принято: неверный размер или конфликт идентификатора доставки.")
-        else:
-            return render(request, "pipeline/upload.html", {"record": record}, status=202)
+        uploads = form.cleaned_data["message"]
+        results = []
+        for index, (upload, error) in enumerate(uploads):
+            result = {"name": upload.name}
+            if not error:
+                source_key = form.source_key(request.user.pk, index if len(uploads) > 1 else None)
+                try:
+                    result.update(accept_file(request.user, upload, source_key))
+                except ValueError:
+                    error = "Файл не принят. Проверьте размер и идентификатор доставки."
+            results.append({**result, "error": error})
+        failures = sum(bool(result["error"]) for result in results)
+        return render(request, "pipeline/upload.html", {"results": results, "failures": failures},
+                      status=400 if failures == len(results) else 202)
     return render(request, "pipeline/upload.html", {"form": form}, status=400 if form.is_bound else 200)
