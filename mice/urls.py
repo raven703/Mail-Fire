@@ -15,6 +15,7 @@ from records.analytics import overview
 from records.attachments import attachment
 from records.catalogs import catalog as identity_catalog
 from records.datasets import datasets
+from records.detectors import detectors
 from records.llm_configuration import configuration as llm_page
 from records.messages import imports, messages
 from records.model_management import models as models_page
@@ -41,10 +42,12 @@ urlpatterns = [
     path("addresses/", identity_catalog, {"kind": "addresses"}, name="addresses-page"),
     path("addresses/<str:object_id>/", identity_catalog, {"kind": "addresses"}, name="address-edit"),
     path("references/", references, name="references-page"),
+    path("references/<str:reference_id>/", references, name="reference-detail"),
     path("attachments/<str:attachment_id>/", attachment, name="attachment-detail"),
     path("attachments/<str:attachment_id>/page/", attachment, {"action": "page"}, name="attachment-page"),
     path("attachments/<str:attachment_id>/download/", attachment, {"action": "download"}, name="attachment-download"),
     path("settings/", configuration, name="configuration-page"),
+    path("detectors/", detectors, name="detectors-page"),
     path("audit/", audit, name="audit-page"),
     path("datasets/", datasets, name="datasets-page"),
     path("datasets/<str:dataset_id>/", datasets, name="dataset-detail"),

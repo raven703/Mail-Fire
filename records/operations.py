@@ -14,6 +14,9 @@ from records.models import Audit, Outbox, Setting
 
 class ConfigurationForm(forms.Form):
     normalizer_enabled = forms.BooleanField(required=False, label="Диагностика обфускации")
+    normalizer_mode = forms.ChoiceField(required=False, label="Режим нормализации", choices=[
+        ("detect", "Отмечать искажения"), ("augment", "Добавлять восстановленный текст в разрешённые запросы LLM"),
+    ])
     sensitivity = forms.ChoiceField(choices=[(value, value) for value in ("low", "medium", "high")])
     antivirus = forms.BooleanField(required=False, label="Антивирус")
     destinations = forms.CharField(required=False, widget=forms.Textarea, label="SIEM: один URL на строку")
@@ -53,7 +56,7 @@ def configuration(request):
     values = {row.pk: row.value for row in Setting.objects.filter(pk__in=["normalizer", "detectors", "integrations"])}
     normalizer, detectors = values.get("normalizer", {}), values.get("detectors", {})
     form = ConfigurationForm(request.POST if request.method == "POST" else None, initial={
-        "normalizer_enabled": normalizer.get("enabled", False), "sensitivity": normalizer.get("sensitivity", "medium"),
+        "normalizer_enabled": normalizer.get("enabled", False), "normalizer_mode": normalizer.get("mode", "detect"), "sensitivity": normalizer.get("sensitivity", "medium"),
         "antivirus": detectors.get("antivirus", True),
         "destinations": "\n".join(row["url"] for row in values.get("integrations", {}).get("destinations", []) if row.get("enabled", True)),
     })
@@ -68,7 +71,8 @@ def configuration(request):
             row.value = {**row.value, "antivirus": form.cleaned_data["antivirus"], "ml": False, "llm": False}
             row.save(update_fields=["value"])
             Setting.objects.update_or_create(pk="normalizer", defaults={"value": {
-                "enabled": form.cleaned_data["normalizer_enabled"], "sensitivity": form.cleaned_data["sensitivity"], "mode": "detect",
+                "enabled": form.cleaned_data["normalizer_enabled"], "sensitivity": form.cleaned_data["sensitivity"],
+                "mode": form.cleaned_data["normalizer_mode"] or normalizer.get("mode", "detect"),
             }})
             Setting.objects.update_or_create(pk="integrations", defaults={"value": {"destinations": form.cleaned_data["destinations"]}})
             Audit.objects.create(actor=request.user.pk, action="configuration_update", target="analysis/integrations")

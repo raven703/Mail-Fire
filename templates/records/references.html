@@ -1,3 +1,56 @@
-{% extends 'identity/base.html' %}{% block body %}<main><header><h1>MICE · Эталонные документы</h1></header>
-{% if perms.identity.investigate %}<section><h2>Добавить эталон</h2><p>Для шаблона сохраняются только постоянные реквизиты бланка. Персональные значения образца не включаются в шаблон.</p><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button>Добавить</button></form></section>{% endif %}
-<section><table><thead><tr><th>Название</th><th>ID</th><th>Создано</th><th>Тип</th></tr></thead><tbody>{% for row in page %}<tr><td>{{ row.name }}</td><td>{{ row.pk }}</td><td>{{ row.created_at }}</td><td>{% if row.fingerprint.document_template %}Шаблон документа{% else %}Fingerprint{% endif %}</td></tr>{% empty %}<tr><td colspan="4">Нет эталонов</td></tr>{% endfor %}</tbody></table><nav>{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Назад</a>{% endif %} {{ page.number }} / {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?page={{ page.next_page_number }}">Далее</a>{% endif %}</nav></section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  <header><h1>Эталонные документы</h1>{% if can_edit %}<a class="action-button primary" href="{% url 'references-page' %}?new=1">＋ Добавить документ</a>{% endif %}</header>
+  <div class="cards management-stats">
+    <article><span>Документов в базе</span><strong>{{ stats.total }}</strong><small>По текущему поиску</small></article>
+    <article><span>Проиндексировано</span><strong>{{ stats.indexed }}</strong><small>Семантический индекс</small></article>
+    <article><span>Объём библиотеки</span><strong>{{ stats.bytes|filesizeformat }}</strong><small>Хранение PostgreSQL</small></article>
+  </div>
+  <section>
+    <header><h2>Библиотека эталонов</h2><form method="get" action="{% url 'references-page' %}" class="inline"><label>Поиск по эталонам<input name="q" maxlength="200" value="{{ query }}" placeholder="Название документа"></label><button>Найти</button></form></header>
+    {% for row in page %}
+    <div class="policy-row"><span class="policy-icon" aria-hidden="true">▤</span>
+      <div class="policy-info"><strong>{{ row.name }}</strong><p>{% if row.fingerprint.document_template %}Шаблон типа документа{% else %}{{ row.blob_sha_ref.size|filesizeformat }} · {{ row.chunk_count|default:0 }} фрагментов{% endif %} · {{ row.created_at }}</p></div>
+      <span class="badge">{% if row.fingerprint.document_template %}Шаблон документа{% elif row.chunk_count %}Проиндексирован{% else %}Текст извлечён{% endif %}</span>
+      <div class="actions"><a class="action-button" href="{% url 'reference-detail' row.pk %}?{{ pagination_query }}">Просмотр и совпадения</a><a class="action-button" href="{% url 'reference-detail' row.pk %}?settings=1">Настройки</a></div>
+    </div>
+    {% empty %}<p class="empty">{% if query %}Документы не найдены{% else %}Пока нет эталонных документов{% endif %}</p>{% endfor %}
+    {% include 'records/_pagination.html' %}
+  </section>
+  {% if view_row %}<section>
+    <header><h2>{{ view_row.name }}</h2><a href="{% url 'references-page' %}?{{ pagination_query }}">Скрыть</a></header>
+    <pre class="mail-text">{{ view_row.text }}</pre>
+    <h3>Совпадения в инцидентах</h3>
+    <div class="table-scroll"><table><thead><tr><th>Письмо</th><th>Дата</th><th>Сходство</th><th>Фрагмент</th></tr></thead><tbody>
+      {% for row in matches %}<tr><td><a href="{% url 'incident-detail' row.id %}">{{ row.subject|default:'Без темы' }}</a></td><td>{{ row.at }}</td><td>{{ row.confidence|default_if_none:'—' }}</td><td title="{{ row.excerpt }}">{{ row.excerpt }}</td></tr>{% empty %}<tr><td colspan="4">Совпадений нет</td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>{% endif %}
+  {% if settings_row %}
+  <dialog class="editor-dialog" data-editor data-close-url="{% url 'references-page' %}" aria-labelledby="reference-settings-title">
+    <form class="editor-dialog-layout" method="post">{% csrf_token %}
+      <header class="editor-dialog-header"><h2 id="reference-settings-title">Настройки эталонного документа</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">
+        {% if error %}<p role="alert" class="error">{{ error }}</p>{% endif %}
+        <dl><dt>Название</dt><dd>{{ settings_row.name }}</dd><dt>Добавлен</dt><dd>{{ settings_row.created_at }}</dd><dt>Режим обработки</dt><dd>{% if settings_row.fingerprint.document_template %}Распознавание типа документа{% else %}Поиск копий и фрагментов{% endif %}</dd></dl>
+        {% if settings_row.fingerprint.document_template %}<h3>Постоянные признаки бланка</h3><p>{{ settings_row.fingerprint.document_template.anchors|join:' · ' }}</p>{% else %}<p>Фрагментов в индексе · {{ settings_row.chunk_count|default:0 }}</p>{% endif %}
+      </div>
+      <footer class="editor-dialog-footer">
+        <button type="button" data-dialog-close>Закрыть</button>
+        {% if can_edit and not settings_row.fingerprint.document_template %}<button name="action" value="reindex">Обновить индекс</button>{% endif %}
+        {% if admin %}<button name="action" value="delete" data-confirm="Удалить эталон и его индекс? История инцидентов сохранится.">Удалить эталон</button>{% endif %}
+      </footer>
+    </form>
+  </dialog>
+  {% endif %}
+  {% if form %}
+  <dialog class="editor-dialog" data-editor data-close-url="{% url 'references-page' %}" aria-labelledby="reference-upload-title">
+    <form class="editor-dialog-layout" method="post" enctype="multipart/form-data" action="{% url 'references-page' %}">{% csrf_token %}
+      <header class="editor-dialog-header"><h2 id="reference-upload-title">Добавить эталонный документ</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">{{ form.as_p }}<p class="muted">Для шаблона сохраняются постоянные реквизиты бланка.</p></div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary" name="action" value="upload">Загрузить документ</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+</main>
+{% endblock %}

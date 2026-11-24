@@ -1,0 +1,33 @@
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  <header><h1>Детекторы</h1></header>
+  <section><h2>Модули анализа содержимого</h2>
+    {% for row in rows %}
+    <div class="policy-row">
+      <span class="policy-icon" aria-hidden="true">◇</span>
+      <div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.engine }}</p>{% if row.categories %}<small>{{ row.categories|join:', ' }}</small>{% endif %}</div>
+      <span class="badge{% if row.enabled %} OK{% endif %}">{% if not row.available %}Недоступен{% elif row.enabled %}Включён{% else %}Отключён{% endif %}</span>
+      <a class="action-button" href="?edit={{ row.id }}" aria-label="Настройки {{ row.name }}">⋯</a>
+      {% if admin and row.id != 'ml' %}
+      <form method="post">{% csrf_token %}<input type="hidden" name="detector" value="{{ row.id }}"><input type="hidden" name="action" value="toggle">{% if not row.enabled %}<input type="hidden" name="enabled" value="1">{% endif %}
+        <button class="toggle{% if row.enabled %} on{% endif %}" role="switch" aria-checked="{{ row.enabled|yesno:'true,false' }}" aria-label="Включить {{ row.name }}"{% if not row.available %} disabled{% endif %}></button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% if selected %}
+  <dialog class="editor-dialog" data-editor data-close-url="{% url 'detectors-page' %}" aria-labelledby="detector-title">
+    <form method="post" class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="detector" value="{{ selected.id }}">
+      <header class="editor-dialog-header"><div class="editor-dialog-title"><h2 id="detector-title">Настройки · {{ selected.name }}</h2><p>{{ selected.engine }}</p></div><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">
+        {% if admin and selected.id != 'ml' %}{{ form.as_p }}{% else %}<p>{% if not selected.available %}Детектор недоступен{% elif selected.enabled %}Детектор включён{% else %}Детектор отключён{% endif %}</p>{% endif %}
+        {% if selected.categories %}<p>Категории · {{ selected.categories|join:', ' }}</p>{% endif %}
+      </div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Закрыть</button>{% if admin and selected.id != 'ml' %}<button class="primary">Сохранить</button>{% endif %}</footer>
+    </form>
+  </dialog>
+  {% endif %}
+</main>
+{% endblock %}
