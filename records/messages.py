@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_GET
 
-from records.models import ImportRecord, Incident, Message
+from records.models import Attachment, ImportRecord, Incident, MailEvent, Message
 from records.ui_filters import filter_dates, pagination_query
 from records.workspace import access
 
@@ -20,6 +20,14 @@ def messages(request):
     if error is not None:
         return error
     rows = filter_dates(Message.objects.all(), request.GET).order_by("-created_at", "-pk")
+    events = MailEvent.objects.all()
+    direction, source = request.GET.get("direction", ""), request.GET.get("source", "")
+    if direction:
+        events = events.filter(direction=direction)
+    if source:
+        events = events.filter(source=source)
+    if direction or source:
+        rows = rows.filter(pk__in=events.values("message_id"))
     query, status = request.GET.get("q", "").strip(), request.GET.get("status", "")
     if status in {"PENDING", "ANALYZED", "PARTIAL", "FAILED"}:
         rows = rows.filter(status=status)
@@ -28,9 +36,19 @@ def messages(request):
         if request.user.has_perm("identity.view_originals"):
             criteria |= Q(subject__icontains=query) | Q(sender__icontains=query)
         rows = rows.filter(criteria)
+    page = Paginator(rows, 50).get_page(request.GET.get("page"))
+    identifiers = [row.pk for row in page]
+    counts = {}
+    for model, key in ((Attachment, "attachment_count"), (Incident, "incident_count")):
+        for row in model.objects.filter(message_id__in=identifiers).values("message_id").annotate(total=Count("pk")):
+            counts.setdefault(row["message_id"], {})[key] = row["total"]
+    for row in page:
+        row.attachment_count = counts.get(row.pk, {}).get("attachment_count", 0)
+        row.incident_count = counts.get(row.pk, {}).get("incident_count", 0)
     return render(request, "records/messages.html", {
-        "page": Paginator(rows, 50).get_page(request.GET.get("page")), "query": query, "status": status,
+        "page": page, "query": query, "status": status,
         "pagination_query": pagination_query(request.GET),
+        "sources": MailEvent.objects.values_list("source", flat=True).distinct().order_by("source"),
     })
 
 

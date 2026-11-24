@@ -2,6 +2,11 @@
 
 ## UI-first continuation from cc190a8
 
+Continued after c80faac: category multi-select and all severity bands now filter
+incident lists; message source/direction filters and page-batched attachment and
+incident counts added. Recipient display remains originals-capability gated.
+Twelve focused checks rerun successfully. Full UI parity remains open.
+
 See UI-PARITY.md for explicit master-component mapping and remaining scenarios.
 Added original five missing CSS assets, overview KPI/trend/policy panels,
 progressive accessible message content/evidence/attachment/header tabs, shared

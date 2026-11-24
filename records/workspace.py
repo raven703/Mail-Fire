@@ -12,7 +12,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from identity.models import User
 from policy_engine.service import EvidenceUnavailable, request_evaluation
-from records.models import Attachment, Audit, Comment, Incident, MailEvent, Message
+from records.models import Attachment, Audit, Category, Comment, Incident, MailEvent, Message
 from records.ui_filters import filter_dates, pagination_query
 
 STATUSES = ("NEW", "ASSIGNED", "REVIEW", "CONFIRMED", "FALSE_POSITIVE", "CLOSED", "REOPENED")
@@ -70,6 +70,16 @@ def incidents(request):
     query, status, assignee = (request.GET.get(key, "").strip() for key in ("q", "status", "assignee"))
     if request.GET.get("severity") == "high":
         rows = rows.filter(risk__gte=75)
+    elif request.GET.get("severity") == "medium":
+        rows = rows.filter(risk__gte=40, risk__lt=75)
+    elif request.GET.get("severity") == "low":
+        rows = rows.filter(risk__lt=40)
+    selected_categories = request.GET.getlist("category")[:100]
+    if selected_categories:
+        criteria = Q()
+        for category in selected_categories:
+            criteria |= Q(categories__contains=[category])
+        rows = rows.filter(criteria)
     if query:
         criteria = Q(pk=query) | Q(message_id=query)
         if request.user.has_perm("identity.view_originals"):
@@ -85,6 +95,7 @@ def incidents(request):
         "page": Paginator(rows, 50).get_page(request.GET.get("page")), "statuses": STATUSES,
         "query": query, "selected_status": status, "selected_assignee": assignee,
         "pagination_query": pagination_query(request.GET),
+        "categories": Category.objects.filter(active=True).order_by("name"), "selected_categories": selected_categories,
     })
 
 
