@@ -1,1 +1,24 @@
-{% extends 'identity/base.html' %}{% block body %}<main><header><h1>MICE · {% if kind == 'employees' %}Сотрудники{% else %}Адреса{% endif %}</h1><nav><a href="{% url 'employees-page' %}">Сотрудники</a> · <a href="{% url 'addresses-page' %}">Адреса</a></nav></header><section><form method="get"><label>Поиск<input name="q" value="{{ query }}"></label><button>Найти</button></form><table><thead><tr><th>Запись</th><th>Связь / подразделение</th><th>Тип</th></tr></thead><tbody>{% for row in page %}<tr>{% if kind == 'employees' %}<td><a href="{% url 'employee-edit' row.pk %}">{{ row.name }}</a></td><td>{{ row.department }}</td><td>Сотрудник</td>{% else %}<td><a href="{% url 'address-edit' row.pk %}">{{ row.email }}</a></td><td>{{ row.identity.name|default:'—' }}</td><td>{{ row.kind }}</td>{% endif %}</tr>{% empty %}<tr><td colspan="3">Нет записей</td></tr>{% endfor %}</tbody></table><nav>{% if page.has_previous %}<a href="?q={{ query|urlencode }}&amp;page={{ page.previous_page_number }}">Назад</a>{% endif %} {{ page.number }} / {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?q={{ query|urlencode }}&amp;page={{ page.next_page_number }}">Далее</a>{% endif %}</nav></section><section><h2>Создать / изменить запись</h2><form method="post">{% csrf_token %}{{ form.as_p }}<button>Сохранить</button></form></section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main>
+  <header><h1>Адреса и сотрудники</h1><a class="action-button primary" href="{% url page_name %}?new=1">＋ {% if kind == 'employees' %}Добавить сотрудника{% else %}Добавить адрес{% endif %}</a></header>
+  <nav class="tabs"><a href="{% url 'addresses-page' %}"{% if kind == 'addresses' %} aria-current="page"{% endif %}>Адреса</a><a href="{% url 'employees-page' %}"{% if kind == 'employees' %} aria-current="page"{% endif %}>Сотрудники</a></nav>
+  <section>
+    <form method="get" action="{% url page_name %}" class="filters"><label>Поиск<input name="q" value="{{ query }}"></label><button>Найти</button></form>
+    <div class="table"><table>
+      <thead>{% if kind == 'employees' %}<tr><th>ФИО</th><th>Подразделение</th><th>Добавлен</th></tr>{% else %}<tr><th>Email</th><th>Сотрудник</th><th>Тип адреса</th><th>Обнаружен</th></tr>{% endif %}</thead>
+      <tbody>{% for row in page %}<tr>{% if kind == 'employees' %}<td><a href="{% url 'employee-edit' row.pk %}">{{ row.name }}</a></td><td>{{ row.department }}</td>{% else %}<td><a href="{% url 'address-edit' row.pk %}">{{ row.email }}</a></td><td>{{ row.identity.name|default:'—' }}</td><td>{{ row.kind }}</td>{% endif %}<td>{{ row.created_at }}</td></tr>{% empty %}<tr><td colspan="4">Нет записей</td></tr>{% endfor %}</tbody>
+    </table></div>
+    {% include 'records/_pagination.html' %}
+  </section>
+  {% if form %}
+  <dialog class="editor-dialog" data-editor data-close-url="{% url page_name %}" aria-labelledby="catalog-title">
+    <form method="post" class="editor-dialog-layout">{% csrf_token %}
+      <header class="editor-dialog-header"><h2 id="catalog-title">{% if editing_row %}Изменить запись{% else %}Новая запись{% endif %}</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">{{ form.as_p }}</div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+</main>
+{% endblock %}

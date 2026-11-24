@@ -2,12 +2,13 @@
 
 from django import forms
 from django.core.paginator import Paginator
-from django.db import transaction
+from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from records.models import Address, Audit, Identity
 from records.operations import admin_access
+from records.ui_filters import pagination_query
 
 
 class EmployeeForm(forms.ModelForm):
@@ -45,14 +46,20 @@ def catalog(request, kind, object_id=None):
         return error
     model, form_class = (Identity, EmployeeForm) if kind == "employees" else (Address, AddressForm)
     row = get_object_or_404(model, pk=object_id) if object_id else None
-    form = form_class(request.POST if request.method == "POST" else None, instance=row)
+    page_name = "employees-page" if kind == "employees" else "addresses-page"
+    editing = bool(row or request.GET.get("new") or request.method == "POST")
+    form = form_class(request.POST if request.method == "POST" else None, instance=row) if editing else None
     if request.method == "POST" and form.is_valid():
-        with transaction.atomic():
-            if row:
-                model.objects.select_for_update().get(pk=row.pk)
-            row = form.save()
-            Audit.objects.create(actor=request.user.pk, action=kind + "_update", target=row.pk)
-        return redirect("employees-page" if kind == "employees" else "addresses-page")
+        try:
+            with transaction.atomic():
+                if row:
+                    model.objects.select_for_update().get(pk=row.pk)
+                row = form.save()
+                Audit.objects.create(actor=request.user.pk, action=kind + "_update", target=row.pk)
+        except IntegrityError:
+            form.add_error(None, "Запись конфликтует с существующей.")
+        else:
+            return redirect(page_name)
     query = request.GET.get("q", "").strip()
     rows = model.objects.order_by("name" if kind == "employees" else "email")
     if query:
@@ -60,5 +67,6 @@ def catalog(request, kind, object_id=None):
     if kind != "employees":
         rows = rows.select_related("identity")
     return render(request, "records/catalog.html", {
-        "kind": kind, "form": form, "query": query, "page": Paginator(rows, 50).get_page(request.GET.get("page")),
-    }, status=400 if form.is_bound else 200)
+        "kind": kind, "form": form, "query": query, "page_name": page_name, "editing_row": row,
+        "pagination_query": pagination_query(request.GET), "page": Paginator(rows, 50).get_page(request.GET.get("page")),
+    }, status=400 if request.method == "POST" else 200)

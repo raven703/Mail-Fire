@@ -9,6 +9,7 @@ from pathlib import Path
 from django.conf import settings
 
 from pipeline.ingestion import accept
+from records.models import ImportRecord
 
 
 def signature(info):
@@ -59,6 +60,7 @@ def scan(root, observed, *, namespace, recursive=True, stability_seconds=5, now=
                 relative = path.relative_to(root)
                 key = relative.as_posix()
                 seen.add(key)
+                current = None
                 try:
                     info = path.lstat()
                     if not stat.S_ISREG(info.st_mode):
@@ -85,8 +87,15 @@ def scan(root, observed, *, namespace, recursive=True, stability_seconds=5, now=
                     accept(data, "folder", "file:" + identity, key)
                     observed[key] = (current, previous[1], True)
                     counts["accepted"] += 1
-                except (OSError, ValueError):
+                except (OSError, ValueError) as exc:
                     counts["failed"] += 1
+                    fingerprint = hashlib.sha256(
+                        f"{namespace}\0{key}\0{current}".encode(),
+                    ).hexdigest()
+                    ImportRecord.objects.get_or_create(
+                        source_key="file-failed:" + fingerprint,
+                        defaults={"name": key, "status": "FAILED", "error": type(exc).__name__},
+                    )
         for key in set(observed) - seen:
             del observed[key]
     finally:
