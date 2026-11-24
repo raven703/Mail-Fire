@@ -1,5 +1,31 @@
 # Autonomous migration backlog
 
+## Superseding native Django backlog — 2026-11-24
+
+The historical backlog below is evidence only when it conflicts with this section.
+Master is a behavior/design/algorithm reference; old architecture/schema/API parity
+is not required. Comprehensive acceptance is deferred until implementation completes.
+
+- [x] Review existing experimental worktree; retain ORM/auth/Celery/Outbox/fencing,
+  Parser/OCR/detection and standalone policy domain.
+- [x] Update architectural contract and parity interpretation.
+- [x] Native single EML/MSG HTML upload using shared durable acceptance, capability
+  check, CSRF, bounded read, delivery token and transactional audit (intermediate).
+- [ ] ZIP/directory import and SMTP durable acceptance.
+- [ ] Finish normalization, AV/secrets, categories, references/templates, OCR/archive contracts.
+- [ ] Native incidents/investigations/audit, safe previews/originals, analytics.
+- [ ] Policies/categories/rulepacks, saved-evidence sufficiency and reevaluation.
+- [ ] Datasets/training/publish/rollback, semantic pgvector; port ML/LLM but keep inactive.
+- [ ] Integrations/notifications, retention/legal hold and maintenance.
+- [ ] Templates/HTMX visual and workflow parity, original CSS/themes/dialogs.
+- [ ] Remove forbidden target runtime/build dependencies; standalone sandbox builds.
+- [ ] Simplify compatibility-driven schema/code where useful; separate historical importer.
+- [ ] Intermediate isolated unit/security checks; then complete acceptance matrix,
+  integration/visual/regression/load/chaos and ground truth after implementation.
+- [ ] Checkpoint and publish experimental branch only, never merge master.
+
+## Historical backlog
+
 Work only in experiment/django-htmx. Master/live containers/data are forbidden.
 Newest user instruction permits isolated email integration/regression/load tests.
 

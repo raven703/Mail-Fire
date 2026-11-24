@@ -1,4 +1,40 @@
-# MICE: Django/HTMX migration — execution ledger
+# MICE: native Django/HTMX — execution ledger
+
+## Current architecture contract — 2026-11-24
+
+This section supersedes conflicting historical requirements below. Master is
+the functional/algorithmic/visual reference, NOT the architecture template.
+Build a standalone Django LTS + ORM + Migrations + Templates/HTMX/Vanilla JS
+application with PostgreSQL/pgvector, Celery/RabbitMQ/Beat and Docker Compose.
+No React, FastAPI, SQLAlchemy, Alembic, Node/npm/Vite, Redis or Supervisor in
+the target build/runtime. Do not reproduce React-only internal JSON endpoints;
+preserve necessary external integration APIs and share domain services.
+
+Retain useful identity/ORM, Outbox, retries/fencing/recovery, isolated Parser/OCR,
+stage workers and policy snapshots. Native schema redesign is allowed; legacy
+schema adoption is NOT a gate. Historical import is a separate optional tool.
+Avoid compatibility layers and duplicate business logic. Policy is a domain
+module with dedicated workers and saved-evidence reevaluation, not a microservice.
+Keep ten independently scalable queues: ingestion, extraction, ocr, detection,
+ml, llm, policy, notifications, training, maintenance. Preserve transactional
+dispatch, durable delivery and incident uniqueness. ML/LLM must be ported but
+remain inactive. 20,000 messages/day plus bursts is a target, not a measured claim.
+
+Priority: simplicity, security/reliability, functional parity, performance,
+visual parity, operational simplicity. Preserve CSS/navigation/dialogs/scenarios,
+proven detectors, EML/MSG/documents/OCR, policy semantics, datasets/training,
+investigations/audit/integrations, ground truth and attachment isolation.
+
+Audit: current worktree is clean at entry; ingestion→extraction→OCR→detection→policy
+is wired but detection explicitly remains PARTIAL. Keep this foundation, complete
+missing engines and native user workflows rather than starting again.
+Next: native upload/SMTP/import; full deterministic engines; incidents and UI;
+datasets/training and inactive ML/LLM; retention/integrations; standalone builds.
+Run intermediate isolated checks now. Comprehensive integration, visual,
+regression and load acceptance follows implementation. Never modify master,
+existing containers or source DB. Publish/checkpoint experimental branch only.
+
+## Historical ledger (not current architectural constraints)
 
 ## Status, 2026-11-24
 

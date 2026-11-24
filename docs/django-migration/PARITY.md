@@ -1,5 +1,20 @@
 # Functional parity matrix
 
+## Current interpretation — 2026-11-24
+
+Parity means capabilities, algorithms, scenarios and UI, not old schema/internal
+React JSON routes/service topology. Prefer native Django domain services/forms/
+templates. Preserve external integration APIs. Historical data import is separate,
+not a fresh-schema development gate. ML/LLM remain inactive while being ported.
+PLAN.md's current contract supersedes historical conflicting instructions below.
+Full integration/visual/regression/load acceptance follows implementation.
+
+| Current increment | Implementation | Remaining acceptance |
+|---|---|---|
+| Native single EML/MSG upload | pipeline/forms.py, pipeline/uploads.py, templates/pipeline/upload.html; bounded input, investigator capability, CSRF, stable delivery token, shared transactional accept + audit | ZIP/SMTP/directory, database acceptance and visual parity pending |
+| Schema independence | Existing ORM retained, native redesign allowed | Historical importer separate if needed |
+| Web contract | Native HTML workflows preferred | React-only JSON routes not mandatory |
+
 Target features remain **NOT PORTED** until implemented and verified. Existing
 baseline tests do not prove Django parity. Add test paths, reports and commit IDs
 per row as stages land; never replace NOT PORTED with an unsupported percentage.
@@ -38,6 +53,11 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Performance and fault recovery | benchmark-350-v1, evaluation scripts | Independent realistic load, scale matrix, kill/restart checks | NOT PORTED |
 
 ## Evidence ledger
+
+- Native architecture/upload checkpoint, 2026-11-24: nine isolated upload checks
+  pass (0.033s), no database setup; system checks, focused Ruff and whitespace
+  checks pass. Acceptance service/audit mocked in view tests; real DB/broker and
+  visual acceptance not claimed. See CHECKPOINT.md for continuation.
 
 - Detection wiring checkpoint: unchanged deterministic detect/pii algorithms
   invoked through sandbox, OCR completion dispatches detection, fenced detection

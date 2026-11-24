@@ -4,11 +4,13 @@ from identity import pages, views
 from identity.accounts import accounts
 from mice.health import health
 from pipeline import views as pipeline_views
+from pipeline.uploads import upload_message
 from policy_engine.catalog_views import policies
 from policy_engine.pages import catalog
 from policy_engine.views import reevaluate
 
 urlpatterns = [
+    path("messages/upload/", upload_message, name="message-upload"),
     path("policies/", catalog, name="policies-page"),
     path("api/catalog/policies", policies, name="policy-list"),
     path("api/workspace/policies", policies, name="policy-create"),
