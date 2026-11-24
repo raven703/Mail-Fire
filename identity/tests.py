@@ -9,6 +9,29 @@ from records.models import Account
 
 
 class AuthCutoverTests(TestCase):
+    def test_account_editor_is_modal_and_errors_preserve_values_not_password(self):
+        admin = User.objects.create_user("modal-admin", "admin-test-password", role="admin")
+        self.client.force_login(admin)
+        session = self.client.session
+        session["mice_access_version"] = admin.access_version
+        session.save()
+        response = self.client.get("/users/?new=1")
+        self.assertContains(response, '<dialog class="editor-dialog"')
+        self.assertContains(response, 'aria-labelledby="account-dialog-title"')
+        self.assertContains(response, "data-dialog-close")
+        response = self.client.post(
+            "/users/",
+            {
+                "username": "bad",
+                "role": "invalid",
+                "password": "never-echo-this-secret",
+                "action": "save",
+            },
+        )
+        self.assertContains(response, '<dialog class="editor-dialog"')
+        self.assertContains(response, 'value="bad"')
+        self.assertNotContains(response, "never-echo-this-secret")
+
     def test_account_management_sync_revocation_and_self_protection(self):
         admin = User.objects.create_user("administrator", "admin-test-password", role="admin")
         self.assertTrue(Account.objects.filter(pk=admin.pk, role="admin").exists())

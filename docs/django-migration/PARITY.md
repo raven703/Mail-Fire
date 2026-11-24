@@ -39,6 +39,11 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Account editor inline simplification removed: native modal with original
+  editor-dialog CSS, pinned footer, Escape/Cancel/X, first-input focus, scroll
+  locking and revoke confirmation. Four identity tests pass (2.536 s), including
+  modal rendering/error preservation/password non-disclosure. Browser screenshot
+  and interaction parity remain unverified; this is not full visual acceptance.
 - Policy catalog CRUD/version/archive/restore/delete APIs ported, 3 focused
   policy checks pass; policy UI still pending. WEB.md records live isolated
   nginx/ASGI health/login/static smoke (200); no mail processing.
