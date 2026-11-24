@@ -32,9 +32,50 @@ class PolicyRulesTests(SimpleTestCase):
 
 
 class PolicyCatalogTests(TestCase):
+    def test_catalog_page_uses_shared_lifecycle_and_role_enforcement(self):
+        from identity.models import User
+        from records.models import Policy
+
+        admin = User.objects.create_user("catalog-admin", "admin-test-password", role="admin")
+        self.client.force_login(admin)
+        session = self.client.session
+        session["mice_access_version"] = admin.access_version
+        session.save()
+        self.assertContains(self.client.get("/policies/?new=1"), 'class="editor-dialog editor-dialog-wide"')
+        response = self.client.post(
+            "/policies/",
+            {
+                "name": "Catalog policy",
+                "priority": "10",
+                "min_risk": "40",
+                "min_count": "1",
+                "category_match": "any",
+                "enabled": "on",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        policy = Policy.objects.get(name="Catalog policy")
+        self.assertEqual(policy.version, 1)
+        self.assertEqual(
+            self.client.post("/policies/", {"id": policy.pk, "action": "archive"}).status_code, 302
+        )
+        policy.refresh_from_db()
+        self.assertTrue(policy.archived)
+        self.assertNotContains(self.client.get("/policies/"), "Catalog policy")
+        self.assertContains(self.client.get("/policies/?archived=1"), "Catalog policy")
+        observer = User.objects.create_user("catalog-observer", "observer-password", role="observer")
+        self.client.force_login(observer)
+        session = self.client.session
+        session["mice_access_version"] = observer.access_version
+        session.save()
+        self.assertEqual(self.client.get("/policies/").status_code, 200)
+        self.assertEqual(
+            self.client.post("/policies/", {"id": policy.pk, "action": "delete"}).status_code, 403
+        )
+
     def test_lifecycle_versions_and_category_validation_without_messages(self):
         from identity.models import User
-        from policy_engine.catalog_views import PolicyError, mutate
+        from policy_engine.catalog_service import PolicyError, mutate
         from policy_engine.models import PolicyRevision
         from records.models import Category, Policy
 

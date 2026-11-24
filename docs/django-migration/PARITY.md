@@ -39,6 +39,11 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Policy HTML catalog: list, modal editor, history, archive visibility, restore
+  and deletion connected to one catalog_service shared with JSON API. Twelve
+  focused auth/pipeline/policy checks pass (2.226 s). No message processing.
+  Remaining UI gaps: nested category picker/create, dynamic condition summary,
+  shared navigation/theme, HTMX enhancement and screenshot-based acceptance.
 - Account editor inline simplification removed: native modal with original
   editor-dialog CSS, pinned footer, Escape/Cancel/X, first-input focus, scroll
   locking and revoke confirmation. Four identity tests pass (2.536 s), including
