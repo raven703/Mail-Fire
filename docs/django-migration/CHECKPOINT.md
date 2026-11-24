@@ -1,5 +1,22 @@
 # Native Django checkpoint — 2026-11-24
 
+## Model-management continuation after 29ff4d2
+
+Added native /models/ training requests and dedicated fenced training.model worker
+handler, reusing unchanged app.ml/train_binary algorithms. Reviewed corpus hash is
+checked before training; model artifact digest, dataset snapshot, job provenance,
+quality eligibility and inactive version are stored atomically. Publication/rollback
+serialize via PostgreSQL advisory lock; inactive deletion and deactivation audited.
+Added admin /llm/ configuration with HTTPS validation, environment-only API key and
+forced enabled=False. No provider calls or detection inference enabled.
+
+IMPORTANT: dedicated heavy training dependency image is not implemented yet;
+current minimal runtime lacks sklearn/transformer libraries. Training UI/handler
+is implemented but must not be advertised as deployment-ready. Semantic indexing,
+GC, comprehensive analytics/HTMX/visual parity and dependency/build split remain
+open. This checkpoint is not full TODO/parity completion. No containers or source
+database touched. Focused Django checks and no-DB tests only.
+
 ## Rulepack continuation after e2bc395
 
 e2bc395 committed and pushed to origin/experiment/django-htmx. Native rulepack

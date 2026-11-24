@@ -14,12 +14,16 @@ from records import workspace
 from records.attachments import attachment
 from records.catalogs import catalog as identity_catalog
 from records.datasets import datasets
+from records.llm_configuration import configuration as llm_page
 from records.messages import imports, messages, overview
+from records.model_management import models as models_page
 from records.operations import audit, configuration
 from records.references import references
 from records.retention import legal_hold, retention
 
 urlpatterns = [
+    path("models/", models_page, name="models-page"),
+    path("llm/", llm_page, name="llm-page"),
     path("rulepacks/", rulepacks_page, name="rulepacks-page"),
     path("overview/", overview, name="overview-page"),
     path("messages/", messages, name="messages-page"),

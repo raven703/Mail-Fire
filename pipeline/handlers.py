@@ -85,7 +85,14 @@ def deliver_notification(job):
     deliver(job)
 
 
+def train_model(job):
+    from records.model_management import train_job
+
+    train_job(job)
+
+
 handlers = {
+    "training.model": ("training", train_model),
     "maintenance.retention": ("maintenance", cleanup_retention),
     "ingestion.bundle": ("ingestion", expand_bundle),
     "detection.detect": ("detection", detect_message),
