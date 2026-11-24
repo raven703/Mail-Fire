@@ -1,30 +1,49 @@
-"""Dataset import/review without enabling ML/LLM inference or training."""
+"""Import and review datasets independently of inference."""
 
 import hashlib
 import json
+from collections import defaultdict
 
 import httpx
 from django import forms
 from django.core.paginator import Paginator
-from django.db import transaction
-from django.http import HttpResponseForbidden
+from django.db import connection, transaction
+from django.db.models import Max
+from django.db.models.functions import Left
+from django.http import HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from pipeline.parser_client import call
-from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
+from records.models import Audit, Category, MLDataset, TrainingExample
+from records.workspace import access
+
+MAX_IMPORT_BYTES = 12 * 1024**2
 
 
 class DatasetImportForm(forms.Form):
-    name = forms.CharField(max_length=160, label="Название")
-    description = forms.CharField(max_length=2000, required=False, widget=forms.Textarea, label="Описание")
-    file = forms.FileField(label="CSV / JSONL (UTF-8)")
+    name = forms.CharField(min_length=2, max_length=160, label="Название")
+    source = forms.CharField(max_length=120, initial="external-llm", required=False, label="Источник")
+    description = forms.CharField(max_length=2000, required=False, label="Описание")
+    file = forms.FileField(label="CSV / JSONL (UTF-8, до 12 МиБ)",
+                           widget=forms.ClearableFileInput(attrs={"accept": ".csv,.jsonl"}))
+    label_mapping = forms.JSONField(required=False, initial={}, label="Внешняя метка → код категории",
+                                    widget=forms.Textarea(attrs={"rows": 3}))
 
     def clean_file(self):
         value = self.cleaned_data["file"]
-        if not value.name.lower().endswith((".csv", ".jsonl")) or not 0 < value.size <= 10 * 1024**2:
-            raise forms.ValidationError("CSV/JSONL до 10 МБ")
+        if not value.name.lower().endswith((".csv", ".jsonl")) or not 0 < value.size <= MAX_IMPORT_BYTES:
+            raise forms.ValidationError("Выберите CSV/JSONL до 12 МиБ")
         return value
+
+    def clean_label_mapping(self):
+        mapping = self.cleaned_data["label_mapping"]
+        if mapping is None:
+            return {}
+        if (not isinstance(mapping, dict) or len(mapping) > 100
+                or any(not isinstance(value, str) for value in mapping.values())):
+            raise forms.ValidationError("Укажите JSON-объект, содержащий до 100 пар строк")
+        return mapping
 
 
 class ExampleReviewForm(forms.Form):
@@ -33,104 +52,163 @@ class ExampleReviewForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["labels"].choices = [("NORMAL", "Безопасный текст (NORMAL)"), *Category.objects.filter(active=True).order_by("name").values_list("pk", "name")]
+        self.fields["labels"].choices = [
+            ("NORMAL", "Безопасный текст (NORMAL)"),
+            *Category.objects.filter(active=True).order_by("name").values_list("pk", "name"),
+        ]
 
     def clean_labels(self):
-        labels = self.cleaned_data["labels"]
+        labels = sorted(set(self.cleaned_data["labels"]))
         if len(labels) > 20 or ("NORMAL" in labels and len(labels) != 1):
             raise forms.ValidationError("NORMAL нельзя совмещать с категориями; не более 20 меток")
         return labels
 
 
+def import_rows(upload, mapping):
+    raw = upload.read(MAX_IMPORT_BYTES + 1)
+    if len(raw) > MAX_IMPORT_BYTES:
+        raise ValueError("Файл превышает 12 МиБ")
+    categories = list(Category.objects.filter(active=True).values_list("pk", "name"))
+    valid = {"NORMAL", *(pk for pk, _ in categories)}
+    if not set(mapping.values()) <= valid:
+        raise ValueError("В сопоставлении есть неизвестные или архивированные категории")
+    category_map = {name: pk for pk, name in categories}
+    category_map.update({pk: pk for pk in valid})
+    category_map.update(mapping)
+    try:
+        result = call("dataset_import", json.dumps({
+            "text": raw.decode("utf-8-sig"), "name": upload.name, "category_map": category_map,
+        }, ensure_ascii=False).encode())
+        rows = result["rows"]
+        if not isinstance(rows, list) or not 0 < len(rows) <= 5000:
+            raise ValueError
+        for row in rows:
+            if not isinstance(row, dict) or not isinstance(row.get("text"), str) or not 10 <= len(row["text"]) <= 100000:
+                raise ValueError
+            labels = row.get("labels")
+            if (not isinstance(labels, list) or not 1 <= len(labels) <= 20
+                    or any(not isinstance(label, str) or label not in valid for label in labels)
+                    or ("NORMAL" in labels and len(labels) != 1)):
+                raise ValueError
+    except (ValueError, KeyError, RuntimeError, httpx.HTTPError) as exc:
+        raise ValueError("Импорт отклонён. Проверьте CSV/JSONL и доступность Parser.") from exc
+    return rows, hashlib.sha256(raw).hexdigest()
+
+
 @transaction.atomic
-def save_import(actor, name, description, rows):
-    fingerprint = hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+def save_import(actor, name, description, source, rows, fingerprint):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT pg_advisory_xact_lock(hashtext('ml-dataset-import'))")
+    existing = MLDataset.objects.filter(fingerprint=fingerprint).first()
+    if existing:
+        raise ValueError(f"Этот файл уже загружен как «{existing.name}»")
+    version = (MLDataset.objects.filter(name=name).aggregate(latest=Max("version"))["latest"] or 0) + 1
     dataset = MLDataset.objects.create(
-        name=name, description=description, source="external", fingerprint=fingerprint, example_count=len(rows),
+        name=name, description=description, source=source, version=version, status="REVIEW",
+        fingerprint=fingerprint, example_count=len(rows),
     )
     TrainingExample.objects.bulk_create([
         TrainingExample(
-            dataset=dataset, source="external", text=row["text"], labels=row["labels"], approved=False,
+            dataset=dataset, source="external-llm" if source == "external-llm" else "import",
+            text=row["text"], labels=row["labels"], approved=False,
             group_sha=hashlib.sha256(" ".join(row["text"].lower().split()).encode()).hexdigest(),
         ) for row in rows
     ])
-    Audit.objects.create(actor=actor.pk, action="dataset_import", target=dataset.pk, details={"rows": len(rows), "sha256": fingerprint})
+    Audit.objects.create(actor=actor.pk, action="dataset_import", target=dataset.pk,
+                         details={"rows": len(rows), "sha256": fingerprint, "source": source})
     return dataset
+
+
+@transaction.atomic
+def update_dataset(actor, dataset_id, action, example_id=None, review=None):
+    dataset = get_object_or_404(MLDataset.objects.select_for_update(), pk=dataset_id)
+    examples = TrainingExample.objects.filter(dataset=dataset)
+    if action == "delete":
+        count, _ = examples.delete()
+        dataset.delete()
+        Audit.objects.create(actor=actor.pk, action="dataset_delete", target=dataset_id,
+                             details={"name": dataset.name, "examples_deleted": count})
+        return
+    example = get_object_or_404(examples.select_for_update(), pk=example_id)
+    before = {"labels": example.labels, "approved": example.approved}
+    if action == "delete_example":
+        example.delete()
+    else:
+        example.labels = review["labels"]
+        example.approved = review["approved"]
+        example.reviewed_by_ref_id = actor.pk
+        example.save(update_fields=["labels", "approved", "reviewed_by_ref"])
+    dataset.example_count = examples.count()
+    dataset.status = "REVIEW" if not dataset.example_count or examples.filter(approved=False).exists() else "READY"
+    dataset.save(update_fields=["example_count", "status"])
+    Audit.objects.create(actor=actor.pk, action="dataset_" + action, target=example_id,
+                         details={"dataset": dataset_id, "before": before, **(review or {})})
+
+
+def dataset_stats(examples):
+    labels = defaultdict(lambda: {"total": 0, "approved": 0})
+    total = approved_count = 0
+    for example_labels, approved in examples.values_list("labels", "approved").iterator():
+        total += 1
+        approved_count += int(approved)
+        for label in example_labels:
+            labels[label]["total"] += 1
+            labels[label]["approved"] += int(approved)
+    return total, approved_count, sorted(labels.items())
 
 
 @require_http_methods(["GET", "POST"])
 def datasets(request, dataset_id=None):
-    if not request.user.is_authenticated:
-        return redirect("login-page")
-    if not request.user.has_perm("identity.administer"):
-        return HttpResponseForbidden("Недостаточно прав")
-    # Dataset text is sensitive content just like message evidence.
-    if not request.user.has_perm("identity.view_originals"):
-        return HttpResponseForbidden("Требуется доступ к исходным данным")
+    for permission in ({"write": True}, {"originals": True}):
+        denied = access(request, **permission)
+        if denied is not None:
+            return denied
+    admin = request.user.has_perm("identity.administer")
     dataset = get_object_or_404(MLDataset, pk=dataset_id) if dataset_id else None
-    form = DatasetImportForm(request.POST if request.method == "POST" and not dataset else None,
-                             request.FILES if request.method == "POST" and not dataset else None)
-    error = None
-    review_example = None
-    review_form = None
-    if dataset and (request.GET.get("edit") or request.POST.get("action") == "review"):
-        review_example = get_object_or_404(TrainingExample, dataset=dataset,
-                                          pk=request.POST.get("example_id") or request.GET.get("edit"))
-        review_form = ExampleReviewForm(request.POST if request.method == "POST" else None,
-                                        initial={"labels": review_example.labels, "approved": review_example.approved})
+    url = ("dataset-detail", dataset_id) if dataset else ("datasets-page",)
+    action = request.POST.get("action")
+    import_form = review_form = example = None
     if request.method == "POST":
-        if dataset:
-            action = request.POST.get("action")
-            if action not in {"approve", "reject", "review"}:
-                return HttpResponseForbidden("Неизвестное действие")
-            if action == "review" and not review_form.is_valid():
-                action = None
-            with transaction.atomic():
-                MLDataset.objects.select_for_update().get(pk=dataset.pk)
-                example = get_object_or_404(TrainingExample.objects.select_for_update(), pk=request.POST.get("example_id"), dataset=dataset)
-                if action:
-                    example.approved = review_form.cleaned_data["approved"] if action == "review" else action == "approve"
-                    if action == "review":
-                        example.labels = review_form.cleaned_data["labels"]
-                    example.reviewed_by_ref_id = request.user.pk
-                    example.save(update_fields=["labels", "approved", "reviewed_by_ref"])
-                    Audit.objects.create(actor=request.user.pk, action="dataset_" + action, target=example.pk)
-            if action:
-                return redirect("dataset-detail", dataset_id=dataset.pk)
-        if form.is_valid():
-            upload = form.cleaned_data["file"]
-            raw = upload.read(10 * 1024**2 + 1)
-            category_map = {"NORMAL": "NORMAL"}
-            for category in Category.objects.filter(active=True):
-                category_map[category.pk] = category.pk
-                category_map[category.name] = category.pk
-            try:
-                if len(raw) > 10 * 1024**2:
-                    raise ValueError("Dataset size limit")
-                result = call("dataset_import", json.dumps({
-                    "text": raw.decode("utf-8-sig"), "name": upload.name, "category_map": category_map,
-                }).encode())
-                rows = result["rows"]
-                if not isinstance(rows, list) or not 0 < len(rows) <= 5000:
-                    raise ValueError("Invalid dataset response")
-                # Validate sandbox response before database writes, including labels.
-                for row in rows:
-                    if not isinstance(row, dict) or not isinstance(row.get("text"), str) or not 10 <= len(row["text"]) <= 100000:
-                        raise ValueError("Invalid example")
-                    labels = row.get("labels")
-                    if not isinstance(labels, list) or not 1 <= len(labels) <= 20 or any(not isinstance(label, str) or label not in category_map.values() for label in labels):
-                        raise ValueError("Invalid labels")
-                    if "NORMAL" in labels and len(labels) != 1:
-                        raise ValueError("Contradictory labels")
-                dataset = save_import(request.user, form.cleaned_data["name"], form.cleaned_data["description"], rows)
-            except (ValueError, KeyError, RuntimeError, httpx.HTTPError):
-                form.add_error(None, "Импорт отклонён. Проверьте CSV/JSONL и доступность изолированного Parser.")
-            else:
-                return redirect("dataset-detail", dataset_id=dataset.pk)
-    return render(request, "records/datasets.html", {
-        "datasets": MLDataset.objects.order_by("-created_at"), "dataset": dataset, "form": form, "error": error,
-        "review_form": review_form, "review_example": review_example,
-        "approved_count": TrainingExample.objects.filter(dataset=dataset, approved=True).count() if dataset else 0,
-        "examples": Paginator(TrainingExample.objects.filter(dataset=dataset).order_by("created_at"), 25).get_page(request.GET.get("page")) if dataset else [],
-        "models": MLModel.objects.order_by("-created_at")[:50],
-    }, status=400 if form.is_bound or (review_form is not None and review_form.is_bound) else 200)
+        if not dataset and action == "import":
+            if not admin:
+                return HttpResponseForbidden("Недостаточно прав")
+            import_form = DatasetImportForm(request.POST, request.FILES)
+            if import_form.is_valid():
+                values = import_form.cleaned_data
+                try:
+                    rows, fingerprint = import_rows(values["file"], values["label_mapping"])
+                    imported = save_import(request.user, values["name"], values["description"],
+                                           values["source"], rows, fingerprint)
+                except ValueError as exc:
+                    import_form.add_error(None, str(exc))
+                else:
+                    return redirect("dataset-detail", imported.pk)
+        elif dataset and action in {"delete", "delete_example"}:
+            if not admin:
+                return HttpResponseForbidden("Недостаточно прав")
+            update_dataset(request.user, dataset_id, action, request.POST.get("example_id"))
+            return redirect(*url) if action == "delete_example" else redirect("datasets-page")
+        elif not dataset or action != "review":
+            return HttpResponseBadRequest("Неизвестное действие")
+    if admin and not dataset and request.GET.get("import") and import_form is None:
+        import_form = DatasetImportForm()
+    if dataset and (request.GET.get("edit") or action == "review"):
+        example = get_object_or_404(TrainingExample, dataset=dataset,
+                                    pk=request.POST.get("example_id") or request.GET.get("edit"))
+        review_form = ExampleReviewForm(request.POST if action == "review" else None,
+                                        initial={"labels": example.labels, "approved": example.approved})
+        if action == "review" and review_form.is_valid():
+            update_dataset(request.user, dataset_id, action, example.pk, review_form.cleaned_data)
+            location = redirect(*url)
+            page = request.GET.get("page", "")
+            if page.isdecimal():
+                location["Location"] += "?page=" + page
+            return location
+    context = {"datasets": MLDataset.objects.order_by("-created_at")[:100], "dataset": dataset,
+               "import_form": import_form, "admin": admin, "review_form": review_form, "review_example": example}
+    if dataset:
+        examples = TrainingExample.objects.filter(dataset=dataset).defer("text").order_by("created_at", "pk")
+        total, approved, labels = dataset_stats(examples)
+        page = Paginator(examples.annotate(preview=Left("text", 301)), 20).get_page(request.GET.get("page"))
+        context.update(examples=page, total=total, approved_count=approved, stats=labels)
+    return render(request, "records/datasets.html", context, status=400 if request.method == "POST" else 200)

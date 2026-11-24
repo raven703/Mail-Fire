@@ -1,4 +1,64 @@
-{% extends 'identity/base.html' %}{% block body %}
-<main><header><h1>MICE · Датасеты и модели</h1></header><section><p>ML и LLM не активированы. Импортированная разметка требует проверки; импорт не запускает обучение.</p><a href="{% url 'datasets-page' %}">Импорт CSV/JSONL</a><ul>{% for row in datasets %}<li><a href="{% url 'dataset-detail' row.pk %}">{{ row.name }}</a> · {{ row.example_count }} · {{ row.status }}</li>{% endfor %}</ul></section>
-{% if review_form %}<section class="ml-dataset-review"><h2>Проверить разметку</h2><pre class="ml-example-text">{{ review_example.text }}</pre><form method="post">{% csrf_token %}<input type="hidden" name="action" value="review"><input type="hidden" name="example_id" value="{{ review_example.pk }}">{{ review_form.as_p }}<button>Сохранить разметку</button><a href="{% url 'dataset-detail' dataset.pk %}">Отмена</a></form></section>{% endif %}{% if dataset %}<section><h2>{{ dataset.name }}</h2><p>{{ approved_count }} подтверждено из {{ dataset.example_count }}</p><a href="{% url 'datasets-page' %}">Закрыть проверку</a><p>{{ dataset.description }}</p><p>SHA256: {{ dataset.fingerprint }}</p>{% for example in examples %}<article><pre>{{ example.text }}</pre><p>{{ example.labels|join:', ' }} · {{ example.approved|yesno:'Одобрено,Не одобрено' }}</p><form method="post">{% csrf_token %}<input type="hidden" name="example_id" value="{{ example.pk }}"><a href="?edit={{ example.pk|urlencode }}">Изменить метки</a><button name="action" value="approve">Одобрить</button><button name="action" value="reject">Отклонить</button></form></article>{% empty %}<p>Нет примеров</p>{% endfor %}<nav>{% if examples.has_previous %}<a href="?page={{ examples.previous_page_number }}">Назад</a>{% endif %} {{ examples.number }} / {{ examples.paginator.num_pages }} {% if examples.has_next %}<a href="?page={{ examples.next_page_number }}">Далее</a>{% endif %}</nav></section>{% else %}<section><h2>Импорт</h2><p>Столбцы text, labels. Метки разделяются ;. Внешние метки не считаются ground truth автоматически.</p><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button>Импортировать</button></form></section>{% endif %}
-<section><h2>Модели</h2>{% for model in models %}<p>{{ model.name }} · {{ model.engine }} · Доступна к публикации: {{ model.eligible|yesno:'Да,Нет' }}</p>{% empty %}<p>Моделей нет</p>{% endfor %}<p>Inference отключён в конвейере независимо от старых флагов моделей.</p></section></main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<div class="ml-datasets">
+  <h1>Наборы данных для ML</h1>
+  <p class="muted">Загрузите CSV или JSONL с колонками text и labels. Для обучения используются примеры с подтверждёнными метками.</p>
+  {% if admin %}<div class="ml-dataset-toolbar"><a class="button primary" href="{% url 'datasets-page' %}?import=1">＋ Импортировать датасет</a></div>{% endif %}
+  <section>
+    <header><h2>Датасеты</h2><a class="button" href="{% if dataset %}{% url 'dataset-detail' dataset.pk %}{% else %}{% url 'datasets-page' %}{% endif %}">Обновить</a></header>
+    {% for row in datasets %}
+    <div class="policy-row">
+      <div class="policy-info"><strong>{{ row.name }} · v{{ row.version }}</strong><p>{{ row.example_count }} примеров · {{ row.source }} · {{ row.status }}</p></div>
+      <a class="button" href="{% url 'dataset-detail' row.pk %}">Проверить примеры</a>
+      {% if admin %}<form method="post" action="{% url 'dataset-detail' row.pk %}" hx-confirm="Удалить весь набор и его обучающие примеры? Обученные модели останутся.">{% csrf_token %}<button name="action" value="delete">Удалить</button></form>{% endif %}
+    </div>
+    {% empty %}<p class="muted">Импортированных датасетов пока нет</p>{% endfor %}
+  </section>
+  {% if dataset %}
+  <section class="ml-dataset-review">
+    <header><div><h2>Проверка разметки</h2><strong>{{ dataset.name }}</strong> · {{ approved_count }} подтверждено из {{ total }}</div><a class="button" href="{% url 'datasets-page' %}">Закрыть</a></header>
+    {% if dataset.description %}<p>{{ dataset.description }}</p>{% endif %}
+    {% if stats %}<details><summary>Статистика по меткам</summary><table><thead><tr><th>Метка</th><th>Всего</th><th>Подтверждено</th></tr></thead><tbody>{% for label, counts in stats %}<tr><td>{{ label }}</td><td>{{ counts.total }}</td><td>{{ counts.approved }}</td></tr>{% endfor %}</tbody></table></details>{% endif %}
+    {% for sample in examples %}
+    <article class="ml-example">
+      <p class="ml-example-text">{{ sample.preview|truncatechars:300 }}</p>
+      <p class="muted">Метки: {{ sample.labels|join:', ' }} · {{ sample.approved|yesno:'Подтверждено,Требует проверки' }}</p>
+      <div class="actions"><a class="button" href="?page={{ examples.number }}&amp;edit={{ sample.pk|urlencode }}">Изменить и проверить разметку</a>
+      {% if admin %}<form method="post" hx-confirm="Удалить обучающий пример?">{% csrf_token %}<input type="hidden" name="example_id" value="{{ sample.pk }}"><button name="action" value="delete_example">Удалить</button></form>{% endif %}</div>
+    </article>
+    {% empty %}<p>Нет примеров</p>{% endfor %}
+    {% if examples.paginator.count %}
+    <nav class="pagination">{% if examples.has_previous %}<a href="?page={{ examples.previous_page_number }}">Назад</a>{% endif %}<span>Примеры {{ examples.start_index }}–{{ examples.end_index }}</span>{% if examples.has_next %}<a href="?page={{ examples.next_page_number }}">Далее</a>{% endif %}</nav>
+    {% endif %}
+  </section>
+  {% endif %}
+  {% if import_form %}
+  <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'datasets-page' %}" aria-labelledby="dataset-import-title">
+    <form method="post" enctype="multipart/form-data" class="editor-dialog-layout">{% csrf_token %}
+      <input type="hidden" name="action" value="import">
+      <header class="editor-dialog-header"><h2 id="dataset-import-title">Импортировать набор данных</h2><button type="button" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">
+        {{ import_form.non_field_errors }}
+        <div class="filters">{{ import_form.name.as_field_group }}{{ import_form.source.as_field_group }}</div>
+        {{ import_form.file.as_field_group }}{{ import_form.description.as_field_group }}
+        <details{% if import_form.label_mapping.errors %} open{% endif %}><summary>Сопоставление меток</summary>
+          {{ import_form.label_mapping.as_field_group }}
+          <p class="muted">Оставьте поле пустым, если названия или коды категорий совпадают. Для безопасных текстов укажите NORMAL или пустой список меток.</p>
+        </details>
+      </div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Загрузить на проверку</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+  {% if review_form %}
+  <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'dataset-detail' dataset.pk %}?page={{ examples.number }}" aria-labelledby="dataset-review-title">
+    <form method="post" class="editor-dialog-layout">{% csrf_token %}
+      <input type="hidden" name="action" value="review"><input type="hidden" name="example_id" value="{{ review_example.pk }}">
+      <header class="editor-dialog-header"><h2 id="dataset-review-title">Проверить разметку</h2><button type="button" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body"><pre class="ml-example-text">{{ review_example.text }}</pre>{{ review_form.as_p }}</div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить разметку</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+</div>
+{% endblock %}

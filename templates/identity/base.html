@@ -18,9 +18,10 @@
   <h3>Мониторинг и расследования</h3><a href="{% url 'overview-page' %}">Обзор безопасности</a> <a href="{% url 'incidents-page' %}">Инциденты</a> <a href="{% url 'messages-page' %}">Почтовые сообщения</a> <a href="{% url 'operations' %}">Состояние системы и очереди</a>
   {% if perms.identity.view_originals %} · <a href="{% url 'references-page' %}">Эталоны</a>{% endif %}
   {% if perms.identity.investigate %} · <a href="{% url 'message-upload' %}">Загрузка</a> · <a href="{% url 'imports-page' %}">Импорт</a>{% endif %}
+  {% if perms.identity.investigate and perms.identity.view_originals %}<a href="{% url 'datasets-page' %}">Датасеты</a>{% endif %}
   {% if perms.identity.administer %}
     <h3>Анализ и политики</h3>
-    · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Категории</a> · <a href="{% url 'rulepacks-page' %}">Rulepacks</a> · <a href="{% url 'datasets-page' %}">Датасеты</a>
+    · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Категории</a> · <a href="{% url 'rulepacks-page' %}">Rulepacks</a>
     · <a href="{% url 'employees-page' %}">Сотрудники</a> · <a href="{% url 'addresses-page' %}">Адреса</a> · <a href="{% url 'retention-page' %}">Хранение</a>
     · <a href="{% url 'models-page' %}">Модели</a> · <a href="{% url 'llm-page' %}">LLM</a>
     · <a href="{% url 'semantic-page' %}">Semantic</a>
