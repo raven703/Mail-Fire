@@ -39,6 +39,16 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Extraction hand-off checkpoint: ingestion completion and extraction dispatch
+  commit atomically; extraction consumes persisted parse output, calls only the
+  remote isolated Parser, validates result shape and commits attachment evidence
+  with fenced completion. No existing attachment evidence is overwritten. Eight
+  pipeline checks pass (0.527 s), including mocked extraction contract and stale
+  redelivery refusal; no email parsing/OCR regression was run. Detection remains
+  unconnected, message remains PENDING with explicit error. IMPORTANT: existing
+  Parser extract contract performs inline OCR (also recursively in archives);
+  independent OCR queue requires splitting that contract before scale/parity
+  acceptance. No live Parser/Converter deployment or full cycle verified.
 - Ingestion foundation: transactional ORM acceptance with source/blob advisory
   locks, distinct delivery events, dispatch outbox and registered ingestion.parse
   handler. Remote-only bounded parser client refuses local fallback. Parse output

@@ -57,20 +57,24 @@ def parse(job):
         for key in ("subject", "sender", "recipients", "headers"):
             setattr(message, key, parsed[key])
         message.status = "PENDING"
-        message.error = "Extraction stage not yet connected"
+        message.error = None
         message.save()
         attachments = []
         for name, mime, data in parsed["attachments"]:
             digest = hashlib.sha256(data).hexdigest()
             Blob.objects.get_or_create(sha=digest, defaults={"data": data, "size": len(data)})
             attachments.append({"name": name, "mime": mime, "blob_sha": digest})
-        # Durable hand-off is explicit. No unimplemented extraction job is emitted.
         finish(
             job.pk,
             job.token,
             {
                 "text": parsed["text"],
                 "attachments": attachments,
-                "next_stage": "extraction-not-yet-connected",
+                "next_stage": "extraction",
             },
+        )
+        enqueue(
+            "extraction.extract",
+            {"message_id": message.pk, "parse_job_id": str(job.pk)},
+            "extract:" + str(job.pk),
         )

@@ -49,6 +49,12 @@ def parse_message(job):
     parse(job)
 
 
+def extract_message(job):
+    from pipeline.extraction import extract
+
+    extract(job)
+
+
 def deliver_notification(job):
     from pipeline.notifications import deliver
 
@@ -56,6 +62,7 @@ def deliver_notification(job):
 
 
 handlers = {
+    "extraction.extract": ("extraction", extract_message),
     "ingestion.parse": ("ingestion", parse_message),
     "policy.evaluate": ("policy", evaluate_policy),
     "notifications.deliver": ("notifications", deliver_notification),
