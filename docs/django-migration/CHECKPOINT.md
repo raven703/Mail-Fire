@@ -1,5 +1,30 @@
 # Native Django checkpoint — 2026-11-24
 
+## Continuation after 4ec39fa
+
+Implemented native passive attachment pages/downloads, sandbox PNG rasterization,
+bounded Office conversion, linked findings, and originals-gated message attachments.
+Added reference upload/catalog with original fingerprints and document-type sample
+validation; type templates retain only built-in anchors, not sample personal fields.
+Added admin employee/address catalogs, messages/import history and aggregate overview.
+Authenticated responses now carry private/no-store headers; local theme preference
+stores no message content. Compose web can reach isolated parsing/conversion services.
+
+Retention: admin configuration, explicit DELETE_EXPIRED confirmation, legal-hold
+reason/audit and fenced maintenance jobs, per-incident retention, active-job/outbox
+guards, per-message transactions and deletion checkpoints. Defaults paused. Daily
+schedule performs **dry-run only**; destructive runs require explicit UI confirmation.
+Blob/content GC, audit/log/metric expiry, durable intake identity tombstones and
+full concurrency validation remain open. Do not enable destructive cleanup in a
+real deployment before isolated PostgreSQL integration review. Existing source
+directories are never modified. Retained content means this is NOT secure erasure.
+
+Verification: 45 focused no-DB tests pass; Ruff and 21-template compilation pass.
+PostgreSQL/RabbitMQ persistence, converter/Parser live requests and visual acceptance
+remain unverified. No services started. ML/LLM inference remains inactive. Rulepacks,
+training/model lifecycle, semantic indexing and standalone Parser lock split remain
+open. Reference parsing is bounded but synchronous, like current dataset import.
+
 ## Continuation after 7a9e88a
 
 Implemented in this continuation (not full product acceptance):

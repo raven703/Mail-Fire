@@ -37,6 +37,12 @@ def recover_deliveries(job):
         finish(job.pk, job.token, {"recovered": count})
 
 
+def cleanup_retention(job):
+    from records.retention import cleanup
+
+    cleanup(job)
+
+
 def evaluate_policy(job):
     from policy_engine.service import evaluate
 
@@ -80,6 +86,7 @@ def deliver_notification(job):
 
 
 handlers = {
+    "maintenance.retention": ("maintenance", cleanup_retention),
     "ingestion.bundle": ("ingestion", expand_bundle),
     "detection.detect": ("detection", detect_message),
     "ocr.complete": ("ocr", complete_ocr),

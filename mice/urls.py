@@ -10,10 +10,28 @@ from policy_engine.category_pages import categories
 from policy_engine.pages import catalog
 from policy_engine.views import reevaluate
 from records import workspace
+from records.attachments import attachment
+from records.catalogs import catalog as identity_catalog
 from records.datasets import datasets
+from records.messages import imports, messages, overview
 from records.operations import audit, configuration
+from records.references import references
+from records.retention import legal_hold, retention
 
 urlpatterns = [
+    path("overview/", overview, name="overview-page"),
+    path("messages/", messages, name="messages-page"),
+    path("imports/", imports, name="imports-page"),
+    path("retention/", retention, name="retention-page"),
+    path("messages/<str:message_id>/hold/", legal_hold, name="message-hold"),
+    path("employees/", identity_catalog, {"kind": "employees"}, name="employees-page"),
+    path("employees/<str:object_id>/", identity_catalog, {"kind": "employees"}, name="employee-edit"),
+    path("addresses/", identity_catalog, {"kind": "addresses"}, name="addresses-page"),
+    path("addresses/<str:object_id>/", identity_catalog, {"kind": "addresses"}, name="address-edit"),
+    path("references/", references, name="references-page"),
+    path("attachments/<str:attachment_id>/", attachment, name="attachment-detail"),
+    path("attachments/<str:attachment_id>/page/", attachment, {"action": "page"}, name="attachment-page"),
+    path("attachments/<str:attachment_id>/download/", attachment, {"action": "download"}, name="attachment-download"),
     path("settings/", configuration, name="configuration-page"),
     path("audit/", audit, name="audit-page"),
     path("datasets/", datasets, name="datasets-page"),

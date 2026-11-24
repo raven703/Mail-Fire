@@ -65,6 +65,12 @@ app.conf.update(
     enable_utc=True,
     timezone="UTC",
     beat_schedule={
+        "retention-cleanup": {
+            "task": "pipeline.periodic",
+            "schedule": 3600.0,
+            "args": ["9f644100-0000-4000-8000-000000000003"],
+            "options": {"queue": "maintenance", "routing_key": "maintenance"},
+        },
         "resource-samples": {
             "task": "pipeline.periodic",
             "schedule": 30.0,

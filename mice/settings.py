@@ -27,6 +27,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "records.middleware.PrivateResponseMiddleware",
     "identity.middleware.AccessVersionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -99,6 +100,7 @@ MICE_RABBIT_PASSWORD = os.environ.get("MICE_RABBIT_PASSWORD", "")
 MICE_RABBIT_VHOST = os.environ.get("MICE_RABBIT_VHOST", "mice")
 MICE_PARSER_URL = os.environ.get("MICE_PARSER_URL", "")
 MICE_OCR_PARSER_URL = os.environ.get("MICE_OCR_PARSER_URL", "")
+MICE_CONVERTER_URL = os.environ.get("MICE_CONVERTER_URL", "")
 MICE_MAX_MESSAGE_BYTES = int(os.environ.get("MICE_MAX_MESSAGE_BYTES", str(50 * 1024**2)))
 MICE_PARSER_RESPONSE_BYTES = int(os.environ.get("MICE_PARSER_RESPONSE_BYTES", str(128 * 1024**2)))
 MICE_PARSER_TIMEOUT = int(os.environ.get("MICE_PARSER_TIMEOUT", "130"))

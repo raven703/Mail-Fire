@@ -141,11 +141,13 @@ services:
     cpus: 0.5
   web:
     <<: *worker
+    networks: [default, parsing, ocr-parsing, conversion]
     command: [uvicorn, mice.asgi:application, --host, 0.0.0.0, --port, '8000', --workers, '2', --no-proxy-headers]
     environment:
       <<: *runtime-env
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
       MICE_COOKIE_SECURE: ${MICE_COOKIE_SECURE:-true}
+      MICE_CONVERTER_URL: http://converter:8091
       MICE_RABBIT_API_URL: http://rabbitmq:15672
       MICE_RABBIT_USER: mice
       MICE_RABBIT_PASSWORD: ${MICE_RABBIT_PASSWORD:?set dedicated experiment broker password}

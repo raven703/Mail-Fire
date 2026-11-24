@@ -12,7 +12,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 
 from identity.models import User
 from policy_engine.service import EvidenceUnavailable, request_evaluation
-from records.models import Audit, Comment, Incident, MailEvent, Message
+from records.models import Attachment, Audit, Comment, Incident, MailEvent, Message
 
 STATUSES = ("NEW", "ASSIGNED", "REVIEW", "CONFIRMED", "FALSE_POSITIVE", "CLOSED", "REOPENED")
 
@@ -130,6 +130,7 @@ def message_detail(request, message_id):
     return render(request, "records/message.html", {
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
         "error": error_text,
+        "attachments": Attachment.objects.filter(message=row).order_by("created_at", "pk") if request.user.has_perm("identity.view_originals") else [],
     }, status=409 if error_text else 200)
 
 
