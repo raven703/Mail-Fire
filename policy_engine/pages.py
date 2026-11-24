@@ -1,7 +1,10 @@
+from uuid import uuid4
+
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from policy_engine.catalog_service import PolicyError, mutate, public
+from policy_engine.category_pages import CategoryForm
 from records.models import Audit, Category, Policy
 
 
@@ -13,6 +16,10 @@ def catalog(request):
     if not request.user.has_perm("identity.access_mice") or (request.method == "POST" and not admin):
         return render(request, "identity/access.html", status=403)
     editing, error = None, ""
+    category_form = CategoryForm(prefix="nested_category")
+    # Nested fields are validated only by the create-category action, not by
+    # browser validation of the surrounding policy form.
+    category_form.use_required_attribute = False
     if request.method == "POST":
         body = {
             "name": request.POST.get("name", ""),
@@ -25,15 +32,33 @@ def catalog(request):
         }
         try:
             action = request.POST.get("action", "save")
-            if action not in {"save", "archive", "restore", "delete"}:
+            if action not in {"save", "archive", "restore", "delete", "create_category"}:
                 raise PolicyError("Неизвестное действие")
-            if action != "save" and not request.POST.get("id"):
+            if action not in {"save", "create_category"} and not request.POST.get("id"):
                 raise PolicyError("Политика не найдена", 404)
             if action == "save":
                 for key in ("priority", "min_risk", "min_count"):
                     body[key] = int(request.POST.get(key, ""))
-            mutate(request.user, body, request.POST.get("id") or None, None if action == "save" else action)
-            return redirect("policies-page")
+            if action == "create_category":
+                category_form = CategoryForm(request.POST, prefix="nested_category")
+                category_form.use_required_attribute = False
+                if category_form.is_valid():
+                    from django.db import transaction
+
+                    with transaction.atomic():
+                        category = category_form.save(commit=False)
+                        category.pk = "CUSTOM_" + uuid4().hex
+                        category.save()
+                        Audit.objects.create(actor=request.user.pk, action="category_update", target=category.pk)
+                    body["categories"].append(category.pk)
+                    category_form = CategoryForm(prefix="nested_category")
+                    category_form.use_required_attribute = False
+                editing = {**body, "id": request.POST.get("id", "")}
+                for key in ("priority", "min_risk", "min_count"):
+                    editing[key] = request.POST.get(key, "")
+            else:
+                mutate(request.user, body, request.POST.get("id") or None, None if action == "save" else action)
+                return redirect("policies-page")
         except (PolicyError, ValueError) as exc:
             error = str(exc)
             editing = {**body, "id": request.POST.get("id", ""), "senders": body["senders"]}
@@ -68,6 +93,7 @@ def catalog(request):
         {
             "policies": rows,
             "editing": editing,
+            "category_form": category_form,
             "show_editor": editing is not None,
             "error": error,
             "can_administer": admin,

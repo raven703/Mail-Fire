@@ -18,11 +18,13 @@ from records.llm_configuration import configuration as llm_page
 from records.messages import imports, messages, overview
 from records.model_management import models as models_page
 from records.operations import audit, configuration
+from records.reanalysis import bulk_reanalyze
 from records.references import references
 from records.retention import legal_hold, retention
 from records.semantic import page as semantic_page
 
 urlpatterns = [
+    path("messages/reanalyze/", bulk_reanalyze, name="messages-reanalyze"),
     path("semantic/", semantic_page, name="semantic-page"),
     path("models/", models_page, name="models-page"),
     path("llm/", llm_page, name="llm-page"),

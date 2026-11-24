@@ -111,8 +111,15 @@ def snapshot():
     else:
         broker["error"] = "RabbitMQ management not configured"
     try:
-        replies = app.control.inspect(timeout=1).ping() or {}
-        workers = {"available": bool(replies), "items": replies}
+        inspector = app.control.inspect(timeout=1)
+        replies = inspector.ping() or {}
+        stats = inspector.stats() or {}
+        workers = {"available": bool(replies), "items": replies, "stats": {
+            name: {"pid": row.get("pid"), "uptime": row.get("uptime"),
+                   "rusage": row.get("rusage", {}), "pool": {
+                       key: row.get("pool", {}).get(key) for key in ("max-concurrency", "processes")
+                   }} for name, row in stats.items()
+        }}
     except Exception:
         workers["error"] = "Celery workers unavailable"
     rows = []

@@ -1,5 +1,18 @@
 # Native Django checkpoint — 2026-11-24
 
+## Continuation from f97ca7a
+
+Added bounded, idempotent analyst bulk full reanalysis, page selection/reset,
+per-item enqueue errors/retry and monitoring handoff. Active message jobs block
+reanalysis; attachment replacement is fenced with parse completion. Added inline
+category creation inside policy editor preserving unsaved policy fields, dynamic
+condition summary and removed duplicate policy navigation shell. Added overview
+risk distribution/priority incidents and filtered Celery worker stats (uptime,
+processes/concurrency/rusage). Eleven focused no-DB checks pass; Ruff passes.
+No migration/application/build/live DB or container operations. Outstanding UI
+and service telemetry scenarios remain in UI-PARITY; not full parity acceptance.
+
+
 ## UI-first continuation from cc190a8
 
 Continued after c80faac: category multi-select and all severity bands now filter

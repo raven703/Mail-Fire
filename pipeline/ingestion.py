@@ -54,6 +54,11 @@ def parse(job):
     with transaction.atomic():
         locked_current(job.pk, job.token)
         message = Message.objects.select_for_update().get(pk=message.pk)
+        if job.payload.get("reanalysis"):
+            from records.models import Attachment
+
+            # Replacement and parse completion share the ownership-fenced commit.
+            Attachment.objects.filter(message=message).delete()
         for key in ("subject", "sender", "recipients", "headers"):
             setattr(message, key, parsed[key])
         message.status = "PENDING"

@@ -26,6 +26,7 @@
           event.preventDefault();
           return;
         }
+        if (event.submitter && event.submitter.value === 'create_category') return;
         dialog.dataset.busy = 'true';
         // Preserve submitter name/value: disabling it here would omit the action.
         dialog.querySelectorAll('[data-dialog-close]').forEach(button => button.disabled = true);

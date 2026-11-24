@@ -1,6 +1,7 @@
 """Message and delivery-import workspace, with content gated independently."""
 
 from datetime import timedelta
+from uuid import uuid4
 
 from django.core.paginator import Paginator
 from django.db.models import Avg, Count, Q
@@ -47,6 +48,7 @@ def messages(request):
         row.incident_count = counts.get(row.pk, {}).get("incident_count", 0)
     return render(request, "records/messages.html", {
         "page": page, "query": query, "status": status,
+        "request_token": uuid4().hex,
         "pagination_query": pagination_query(request.GET),
         "sources": MailEvent.objects.values_list("source", flat=True).distinct().order_by("source"),
     })
@@ -75,8 +77,15 @@ def overview(request):
     messages = Message.objects.filter(created_at__gte=since)
     incidents = Incident.objects.filter(created_at__gte=since)
     daily = list(messages.annotate(day=TruncDay("created_at")).values("day").annotate(count=Count("pk")).order_by("day"))
+    risk_bands = [
+        {"label": "Высокий", "key": "high", "count": incidents.filter(risk__gte=75).count()},
+        {"label": "Средний", "key": "medium", "count": incidents.filter(risk__gte=40, risk__lt=75).count()},
+        {"label": "Низкий", "key": "low", "count": incidents.filter(risk__lt=40).count()},
+    ]
     return render(request, "records/overview.html", {
         "days": days,
+        "risk_bands": risk_bands,
+        "priority_incidents": incidents.select_related("message", "assignee_ref").exclude(status__in=["CLOSED", "FALSE_POSITIVE"]).order_by("-risk", "-created_at")[:8],
         "message_statuses": messages.values("status").annotate(count=Count("pk")).order_by("status"),
         "incident_statuses": incidents.values("status").annotate(count=Count("pk")).order_by("status"),
         "daily": daily, "daily_max": max((row["count"] for row in daily), default=1),
