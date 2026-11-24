@@ -1,0 +1,23 @@
+"""Legacy detector catalog without importing HTTP, ORM or inference engines."""
+
+DETECTORS = {
+    "pii": (
+        "Персональные данные",
+        "Presidio: российские ПДн, контрольные суммы ИНН/СНИЛС",
+        ["EMAIL", "PHONE", "INN", "RU_INN", "RU_SNILS", "RU_PASSPORT", "RU_PHONE"],
+    ),
+    "static_files": (
+        "Статический анализ вложений",
+        "YARA и oletools; без исполнения кода",
+        ["YARA", "OFFICE_MACRO"],
+    ),
+    "antivirus": ("Антивирус", "ClamAV INSTREAM; требует включённого сервиса", ["MALWARE"]),
+    "secrets": ("Секреты и ключи", "Статические сигнатуры", ["SECRET", "PRIVATE_KEY"]),
+    "confidential": ("Коммерческая тайна", "Контекстные словари", ["CONFIDENTIAL"]),
+    "code": ("Исходный код и команды", "Статические эвристики", ["CODE", "SUSPICIOUS_COMMAND"]),
+    "prompt": ("Prompt injection", "Контекстные эвристики", ["PROMPT_INJECTION"]),
+    "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),
+    "semantic": ("Семантическое сходство", "Multilingual MiniLM / pgvector", ["SEMANTIC_REFERENCE"]),
+    "ml": ("ML-классификатор", "TF-IDF / Logistic Regression", []),
+    "normalizer": ("Нормализация текста", "Восстановление обфускаций перед LLM (оригинал сохраняется)", []),
+}

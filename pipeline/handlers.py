@@ -37,7 +37,21 @@ def recover_deliveries(job):
         finish(job.pk, job.token, {"recovered": count})
 
 
+def evaluate_policy(job):
+    from policy_engine.service import evaluate
+
+    evaluate(job)
+
+
+def deliver_notification(job):
+    from pipeline.notifications import deliver
+
+    deliver(job)
+
+
 handlers = {
+    "policy.evaluate": ("policy", evaluate_policy),
+    "notifications.deliver": ("notifications", deliver_notification),
     "maintenance.resources": ("maintenance", sample_resources),
     "maintenance.recover": ("maintenance", recover_deliveries),
 }

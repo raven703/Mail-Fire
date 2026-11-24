@@ -21,7 +21,7 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | ML inference and optional disable | ml.py, ml_runtime.py, ml_engines.py | Predictions unchanged, lazy bounded loading, failures visible | NOT PORTED |
 | Datasets, train, publish/rollback | datasets.py, ml_datasets_api.py, ml_api.py, background.py | Snapshot hashes, eligibility gates, holdout isolation, progress | NOT PORTED |
 | LLM settings and optional disable | llm_analyzer.py, llm_api.py | API timeouts, redaction/payload behavior, outputs unchanged | NOT PORTED |
-| Policy lifecycle and versions | workspace_api.py, catalog_api.py, processing.evaluate | CRUD, archive/delete/restore, shadow, history, reeval saved evidence | NOT PORTED |
+| Policy lifecycle and versions | workspace_api.py, catalog_api.py, processing.evaluate | CRUD, archive/delete/restore, shadow, history, reeval saved evidence | Policy-only worker, snapshot revisions and permission-checked request endpoint implemented; lifecycle CRUD/UI and message-based acceptance pending |
 | Rulepack import/export | rulepacks.py, rulepacks_api.py, rulepacks_cli.py | Versioning, validation, inactive policies, atomic import | NOT PORTED |
 | Unified incidents and investigations | workspace_api.py, processing.py, Incident*.tsx | One incident/message, assignments/comments/status/history preserved | NOT PORTED |
 | Message detail/attachment viewer | api.py, preview_api.py, document_preview.py, MessageAttachments.tsx | Safe preview, originals permission, all tabs, viewer isolation | NOT PORTED |
@@ -29,7 +29,7 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Security overview/analytics | SecurityOverview.tsx, workspace_api.py | Existing semantics, live refresh, charts, counts, empty/error states | NOT PORTED |
 | Accounts/addresses/employees | accounts_api.py, catalog_api.py, Accounts.tsx | CRUD, last-admin protection, disable, identity mapping | NOT PORTED |
 | Reliable queues and controls | worker.py, jobs APIs, Queues.tsx, monitoring.py | 10 queues, ID-only tasks, outbox, retry/cancel, fencing/DLQ/recovery | Delivery/state/outbox implemented; real maintenance job smoke passes; analysis producer/handler and UI cutover pending |
-| Notifications/SIEM | integrations.py, admin_api.py, models.Outbox | Preserve delivery contract, backoff, dedup semantics | NOT PORTED |
+| Notifications/SIEM | integrations.py, admin_api.py, models.Outbox | Preserve delivery contract, backoff, dedup semantics | Dedicated notification handler + atomic intents implemented; old outbox UI/config CRUD and E2E pending |
 | Retention/legal hold | retention.py, retention_api.py | Dry-run, hold protection, references/blob safety, Beat scheduling | NOT PORTED |
 | Monitoring/audit/resources | monitoring.py, maintenance.py, SystemStatus.tsx, Operations.tsx | Broker/workers/queues/age/duration/errors, CPU/RAM/GPU, degraded states | NOT PORTED |
 | Airgap/update/release | update/, Dockerfile, docs | Offline assets/models, compatible backup/upgrade/rollback | NOT PORTED |
@@ -39,6 +39,8 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Policy checkpoint: isolated schema migration + no drift, 2 pure rule/source-AST
+  checks and 3 delivery tests pass (5 total, 0.206 s). No message tests; see POLICY.md.
 - Queue checkpoint: 3 focused PostgreSQL tests pass; real RabbitMQ topology and
   Celery prefork resource-sampling job verified. See QUEUES.md for scope/limits.
 - Data/Auth checkpoint: fresh isolated PostgreSQL migration successful; 2 Auth

@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "records",
     "identity",
     "pipeline",
+    "policy_engine",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -89,3 +90,4 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 
 MICE_BROKER_URL = os.environ.get("MICE_BROKER_URL", "amqp://mice:invalid@127.0.0.1:15674/mice")
+MICE_INTERNAL_DOMAINS = os.environ.get("MICE_INTERNAL_DOMAINS", "")
