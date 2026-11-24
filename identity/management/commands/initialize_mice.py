@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from identity.models import User
+from records.models import Setting
 
 
 class Command(BaseCommand):
@@ -12,6 +13,14 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         username = os.environ.get("ADMIN_USERNAME", "admin")
+        from app.text_normalizer import DEFAULTS
+
+        for key, value in {
+            "normalizer": DEFAULTS,
+            "detectors": {},
+            "integrations": {"destinations": []},
+        }.items():
+            Setting.objects.get_or_create(pk=key, defaults={"value": value})
         if User.objects.filter(username=username).exists():
             self.stdout.write("Administrator already exists; credentials unchanged")
             return

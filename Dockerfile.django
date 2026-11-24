@@ -3,6 +3,7 @@ WORKDIR /app
 COPY requirements.django.lock ./
 RUN uv venv /app/.venv && uv pip install --python /app/.venv/bin/python -r requirements.django.lock
 COPY manage.py ./
+COPY scripts ./scripts
 COPY mice ./mice
 COPY identity ./identity
 COPY records ./records
