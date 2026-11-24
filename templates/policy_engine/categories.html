@@ -1,5 +1,40 @@
-{% extends 'identity/base.html' %}{% block body %}
-<main><header><h1>MICE · Категории и правила</h1><nav><a href="{% url 'incidents-page' %}">Инциденты</a> · <a href="{% url 'policies-page' %}">Политики</a> · <a href="{% url 'categories-page' %}">Новая категория</a></nav></header>
-<section><table><thead><tr><th>Категория</th><th>Группа</th><th>Режим</th><th>Активна</th></tr></thead><tbody>{% for row in categories %}<tr><td><a href="{% url 'category-detail' row.pk %}">{{ row.name }}</a></td><td>{{ row.group_name }}</td><td>{{ row.mode }} / {{ row.match_mode }}</td><td>{{ row.active|yesno:'Да,Нет' }}</td></tr>{% empty %}<tr><td colspan="4">Нет категорий</td></tr>{% endfor %}</tbody></table></section>
-<section><h2>{% if editing_rule %}Правило{% elif category %}{{ category.name }}{% else %}Новая категория{% endif %}</h2><form method="post">{% csrf_token %}{% if editing_rule %}<input type="hidden" name="entity" value="rule">{% endif %}{% if editing_rule %}{% include 'policy_engine/_rule_editor.html' with rule=form %}{% else %}{{ form.as_p }}{% endif %}<button>Сохранить</button></form></section>
-{% if category %}<section><h2>Правила</h2>{% if category.mode != 'builtin' and category.mode != 'label' %}<a href="{% url 'category-detail' category.pk %}?rule=new">Добавить правило</a>{% endif %}{% for rule in rules %}<p><a href="{% url 'category-rule' category.pk rule.pk %}">{{ rule.title|default:rule.kind }}</a> · {{ rule.kind }} · {{ rule.risk }} · {{ rule.enabled|yesno:'Активно,Отключено' }}</p>{% empty %}<p>Нет правил</p>{% endfor %}</section>{% endif %}</main>{% endblock %}
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1">＋ Категория</a>{% endif %}</header>
+  <form class="filters" method="get" action="{% url 'categories-page' %}">
+    <label>Поиск категории<input name="q" value="{{ query }}" placeholder="Название или группа"></label>
+    <label>Каталог<select name="kind"><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Пользовательские</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Системные</option><option value="all"{% if kind == 'all' %} selected{% endif %}>Все</option></select></label>
+    <button>Найти</button>
+  </form>
+  <section>
+    {% regroup categories by group_name as groups %}
+    {% for group in groups %}
+    <h2>{{ group.grouper }}</h2>
+    {% for row in group.list %}
+    <div class="policy-row"><div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.description|default:row.pk }}</p></div>
+      <span class="badge">{% if row.active %}Активна{% else %}Архив{% endif %}</span>
+      <a class="action-button" href="{% url 'category-detail' row.pk %}{% if admin and row.mode != 'builtin' and row.mode != 'label' %}?edit=1{% endif %}">Правила и настройки</a>
+      {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button name="action" value="archive">Архивировать</button></form>{% endif %}
+    </div>
+    {% endfor %}
+    {% empty %}<p class="empty">Нет подходящих категорий</p>{% endfor %}
+  </section>
+  {% if category and not form %}
+    <section><header><div><h2>{{ category.name }}</h2><p class="muted">{{ category.group_name }} · {{ category.pk }}</p></div><a href="{% url 'categories-page' %}">Закрыть</a></header>
+    <p>{{ category.description }}</p>
+    {% for rule in rules %}<p>{{ rule.title|default:rule.kind }} · {{ rule.kind }} · {{ rule.risk }} · {{ rule.enabled|yesno:'Активно,Отключено' }}</p>{% empty %}{% if not system %}<p>Нет правил</p>{% endif %}{% endfor %}
+    </section>
+  {% endif %}
+  {% if form %}
+  <dialog class="editor-dialog editor-dialog-wide" data-editor data-close-url="{% url 'categories-page' %}" aria-labelledby="category-title">
+    <form method="post" class="editor-dialog-layout">
+      {% csrf_token %}{% if editing_rule %}<input type="hidden" name="entity" value="rule">{% endif %}
+      <header class="editor-dialog-header"><h2 id="category-title">{% if editing_rule %}Правило{% elif category %}Правила и настройки · {{ category.name }}{% else %}Новая категория{% endif %}</h2><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
+      <div class="editor-dialog-body">{% if editing_rule %}{% include 'policy_engine/_rule_editor.html' with rule=form %}{% else %}<div class="category-create">{{ form.as_p }}{% include 'policy_engine/_category_rules.html' %}</div>{% endif %}</div>
+      <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить</button></footer>
+    </form>
+  </dialog>
+  {% endif %}
+</main>
+{% endblock %}

@@ -49,6 +49,12 @@ def evaluate_policy(job):
     evaluate(job)
 
 
+def reevaluate_batch(job):
+    from policy_engine.service import reevaluate_batch as run
+
+    run(job)
+
+
 def parse_message(job):
     from pipeline.ingestion import parse
 
@@ -131,6 +137,7 @@ handlers = {
     "extraction.extract": ("extraction", extract_message),
     "ingestion.parse": ("ingestion", parse_message),
     "policy.evaluate": ("policy", evaluate_policy),
+    "policy.reevaluate_batch": ("policy", reevaluate_batch),
     "notifications.deliver": ("notifications", deliver_notification),
     "maintenance.resources": ("maintenance", sample_resources),
     "maintenance.recover": ("maintenance", recover_deliveries),

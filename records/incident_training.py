@@ -1,32 +1,16 @@
 """Explicit incident labeling, preserving the original opt-in training contract."""
 import hashlib
 
-from django import forms
 from django.db import transaction
 
 from records.models import Audit, Category, Incident, TrainingExample
-
-
-class IncidentTrainingForm(forms.Form):
-    labels = forms.MultipleChoiceField(label="Категории", widget=forms.CheckboxSelectMultiple)
-    approved = forms.BooleanField(required=False, label="Разметка проверена аналитиком")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["labels"].choices = list(Category.objects.filter(active=True).order_by("group_name", "name").values_list("pk", "name"))
-
-    def clean_labels(self):
-        values = sorted(set(self.cleaned_data["labels"]))
-        if not 1 <= len(values) <= 20:
-            raise forms.ValidationError("Выберите от 1 до 20 категорий")
-        return values
 
 
 @transaction.atomic
 def save_incident_example(actor, incident_id, labels, approved=False):
     if not actor.has_perm("identity.investigate") or not actor.has_perm("identity.view_originals"):
         raise PermissionError("Нет доступа к содержимому письма")
-    incident = Incident.objects.select_for_update().select_related("message__content").get(pk=incident_id)
+    incident = Incident.objects.select_for_update(of=("self",)).select_related("message__content").get(pk=incident_id)
     if TrainingExample.objects.filter(source_incident=incident).exists():
         raise ValueError("Инцидент уже связан с обучающим примером")
     content = incident.message.content

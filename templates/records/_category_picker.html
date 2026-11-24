@@ -1,0 +1,28 @@
+<div class="policy-category-card" data-category-picker{% if widget.policy %} data-policy-picker{% endif %}>
+  <div class="policy-category-heading">
+    <div><strong>Категории обнаружения</strong><p>{% if widget.policy %}Выберите типы данных для контроля{% else %}Выберите категории для обучения{% endif %}</p></div>
+    <span class="policy-category-count" aria-live="polite" data-picker-count></span>
+  </div>
+  <div class="policy-category-selection" data-picker-selection hidden>
+    <div class="policy-category-selected" data-picker-chips></div>
+    <button type="button" class="policy-category-reset" data-picker-reset>Сбросить всё</button>
+  </div>
+  <label class="policy-category-search" data-picker-search hidden><span class="visually-hidden">Поиск категорий</span><input type="search" placeholder="Название, группа или код категории" autocomplete="off"></label>
+  <div class="policy-category-scroll" role="group" aria-label="Доступные категории">
+    {% for group, options, index in widget.optgroups %}
+    <div class="policy-category-group" data-picker-group>
+      <div class="policy-category-group-name" data-picker-group-name>{{ group }}</div>
+      {% for option in options %}
+      <div class="native-category-option" data-picker-option>
+        <label class="policy-category-option">
+          <input type="checkbox" name="{{ option.name }}" value="{{ option.value }}"{% if option.attrs.id %} id="{{ option.attrs.id }}"{% endif %}{% if option.selected %} checked{% endif %}{% if option.attrs.disabled %} disabled{% endif %}>
+          <span class="policy-category-option-title"><span data-picker-name>{{ option.label }}</span>{% if option.description %}<small>{{ option.description }}</small>{% endif %}</span><code class="policy-category-code">{{ option.value }}</code>
+        </label>
+        {% if widget.edit_options and option.editable %}<button type="submit" name="action" value="edit_category:{{ option.value }}" formnovalidate aria-label="Редактировать {{ option.label }}">⋯</button>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <p class="policy-category-empty" data-picker-empty{% if widget.optgroups %} hidden{% endif %}>Нет подходящих категорий</p>
+  </div>
+</div>

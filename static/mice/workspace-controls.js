@@ -118,7 +118,7 @@
       const button = group.querySelector('[data-add-rule]');
       button.addEventListener('click', () => {
         const index = Number(total.value);
-        if (index >= 100) return;
+        if (index >= Number(group.dataset.ruleLimit || 30)) return;
         const template = group.querySelector('[data-empty-rule]');
         const fragment = template.content.cloneNode(true);
         fragment.querySelectorAll('*').forEach(element => {
@@ -155,17 +155,83 @@
       form.addEventListener('reset', () => setTimeout(() => { boxes().forEach(box => box.checked = false); update(); }, 0));
       update();
     });
+    document.querySelectorAll('[data-category-picker]').forEach(picker => {
+      if (picker.dataset.ready) return;
+      picker.dataset.ready = 'true';
+      const groups = [...picker.querySelectorAll('[data-picker-group]')];
+      const options = [...picker.querySelectorAll('[data-picker-option]')].map(option => ({
+        node: option, box: option.querySelector('input[type="checkbox"]'), name: option.querySelector('[data-picker-name]').textContent.trim(),
+      }));
+      const search = picker.querySelector('[data-picker-search]');
+      const input = search.querySelector('input');
+      const selection = picker.querySelector('[data-picker-selection]');
+      const chips = picker.querySelector('[data-picker-chips]');
+      const reset = picker.querySelector('[data-picker-reset]');
+      const choose = (box, checked) => {
+        box.checked = checked;
+        box.dispatchEvent(new Event('change', {bubbles: true}));
+      };
+      const update = () => {
+        const selected = options.filter(option => option.box.checked);
+        picker.querySelector('[data-picker-count]').textContent = selected.length + ' выбрано';
+        chips.replaceChildren();
+        for (const option of selected) {
+          const chip = document.createElement('span');
+          chip.className = 'policy-category-chip';
+          chip.textContent = option.name;
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'policy-category-chip-remove';
+          remove.setAttribute('aria-label', 'Убрать категорию ' + option.name);
+          remove.textContent = '×';
+          remove.addEventListener('click', () => { choose(option.box, false); input.focus(); });
+          chip.append(remove);
+          chips.append(chip);
+        }
+        if (!selected.length) chips.textContent = picker.hasAttribute('data-policy-picker') ? 'Контроль всех категорий' : 'Категории не выбраны';
+        reset.hidden = !selected.length;
+      };
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLocaleLowerCase('ru');
+        for (const group of groups) {
+          const groupName = group.querySelector('[data-picker-group-name]').textContent.toLocaleLowerCase('ru');
+          const matching = options.filter(option => group.contains(option.node));
+          for (const option of matching) {
+            const key = (option.name + ' ' + option.box.value + ' ' + groupName).toLocaleLowerCase('ru');
+            option.node.hidden = !key.includes(query);
+          }
+          group.hidden = matching.every(option => option.node.hidden);
+        }
+        picker.querySelector('[data-picker-empty]').hidden = groups.some(group => !group.hidden);
+      });
+      selection.hidden = search.hidden = false;
+      reset.addEventListener('click', () => {
+        options.forEach(option => option.box.checked = false);
+        picker.dispatchEvent(new Event('change', {bubbles: true}));
+        input.focus();
+      });
+      picker.addEventListener('change', event => {
+        if (event.target.type === 'checkbox' && event.target.checked && !picker.hasAttribute('data-policy-picker')) {
+          options.forEach(option => {
+            if ((event.target.value === 'NORMAL' && option.box !== event.target) ||
+                (event.target.value !== 'NORMAL' && option.box.value === 'NORMAL')) option.box.checked = false;
+          });
+        }
+        update();
+      });
+      update();
+    });
     document.querySelectorAll('[data-policy-summary]').forEach(summary => {
       if (summary.dataset.ready) return;
       summary.dataset.ready = 'true';
       const form = summary.closest('form');
       const update = () => {
-        const categories = [...form.querySelectorAll('[name="categories"]:checked')].map(box => box.parentElement.textContent.trim());
+        const categories = [...form.querySelectorAll('[name="categories"]:checked')].map(box => box.parentElement.querySelector('[data-picker-name]').textContent.trim());
         const mode = form.querySelector('[name="category_match"]:checked');
         summary.textContent = (categories.length ? categories.join(mode && mode.value === 'all' ? ' И ' : ' ИЛИ ') : 'Все категории') +
           ' · Риск каждого срабатывания ≥ ' + form.elements.min_risk.value + ' · Число срабатываний ≥ ' + form.elements.min_count.value;
       };
-      form.addEventListener('input', update); update();
+      form.addEventListener('input', update); form.addEventListener('change', update); update();
     });
     document.querySelectorAll('[data-tabs]').forEach(group => {
       if (group.dataset.ready) return;

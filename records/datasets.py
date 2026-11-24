@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from pipeline.parser_client import call
+from records.category_picker import LabelForm
 from records.models import Audit, Category, MLDataset, TrainingExample
 from records.workspace import access
 
@@ -44,24 +45,6 @@ class DatasetImportForm(forms.Form):
                 or any(not isinstance(value, str) for value in mapping.values())):
             raise forms.ValidationError("Укажите JSON-объект, содержащий до 100 пар строк")
         return mapping
-
-
-class ExampleReviewForm(forms.Form):
-    labels = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Категории")
-    approved = forms.BooleanField(required=False, label="Метки проверены аналитиком")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["labels"].choices = [
-            ("NORMAL", "Безопасный текст (NORMAL)"),
-            *Category.objects.filter(active=True).order_by("name").values_list("pk", "name"),
-        ]
-
-    def clean_labels(self):
-        labels = sorted(set(self.cleaned_data["labels"]))
-        if len(labels) > 20 or ("NORMAL" in labels and len(labels) != 1):
-            raise forms.ValidationError("NORMAL нельзя совмещать с категориями; не более 20 меток")
-        return labels
 
 
 def import_rows(upload, mapping):
@@ -195,7 +178,7 @@ def datasets(request, dataset_id=None):
     if dataset and (request.GET.get("edit") or action == "review"):
         example = get_object_or_404(TrainingExample, dataset=dataset,
                                     pk=request.POST.get("example_id") or request.GET.get("edit"))
-        review_form = ExampleReviewForm(request.POST if action == "review" else None,
+        review_form = LabelForm(request.POST if action == "review" else None,
                                         initial={"labels": example.labels, "approved": example.approved})
         if action == "review" and review_form.is_valid():
             update_dataset(request.user, dataset_id, action, example.pk, review_form.cleaned_data)

@@ -18,6 +18,24 @@ class EvidenceUnavailable(ValueError):
     pass
 
 
+
+def reevaluate_batch(job):
+    identifiers = job.payload["message_ids"]
+    progress = {"completed": 0, "queued": 0, "skipped": 0, **job.output}
+    for message_id in identifiers[progress["completed"]:]:
+        with transaction.atomic():
+            current = locked_current(job.pk, job.token)
+            try:
+                request_evaluation(message_id, f"batch:{job.pk}")
+            except (EvidenceUnavailable, Message.DoesNotExist):
+                progress["skipped"] += 1
+            else:
+                progress["queued"] += 1
+            progress["completed"] += 1
+            current.output = progress
+            current.save(update_fields=["output"])
+    finish(job.pk, job.token, progress)
+
 def digest(value):
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()
@@ -26,7 +44,7 @@ def digest(value):
 
 @transaction.atomic
 def request_evaluation(message_id, request_id):
-    message = Message.objects.select_for_update().select_related("content").get(pk=message_id)
+    message = Message.objects.select_for_update(of=("self",)).select_related("content").get(pk=message_id)
     if not message.content_id or message.status not in {"ANALYZED", "PARTIAL"}:
         raise EvidenceUnavailable("Saved analysis is not available for policy-only evaluation")
     content = message.content

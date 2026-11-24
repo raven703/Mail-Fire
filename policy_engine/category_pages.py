@@ -4,6 +4,8 @@ from uuid import uuid4
 
 from django import forms
 from django.db import transaction
+from django.db.models import Q
+from django.forms import modelformset_factory
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
@@ -14,10 +16,9 @@ from records.models import Audit, Category, CategoryRule
 
 class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        if kwargs.get("instance") is None:
+            kwargs["instance"] = Category(mode="custom", group_name="Конфиденциальные данные")
         super().__init__(*args, **kwargs)
-        if self.instance.mode == "builtin":
-            self.fields["mode"].widget = forms.TextInput()
-            self.fields["mode"].disabled = True
 
     class Meta:
         model = Category
@@ -42,35 +43,94 @@ class CategoryForm(forms.ModelForm):
         return value
 
 
+CategoryRules = modelformset_factory(
+    CategoryRule, form=RuleForm, extra=1, can_delete=True, min_num=1,
+    validate_min=True, max_num=30, validate_max=True, absolute_max=35,
+)
+
+
+def category_rules(data, category=None, *, prefix="rules"):
+    rows = CategoryRule.objects.filter(category=category) if category and category.pk else CategoryRule.objects.none()
+    return CategoryRules(data, queryset=rows.order_by("priority", "pk"), prefix=prefix)
+
+
+@transaction.atomic
+def save_category(actor, form, rules):
+    row = form.save(commit=False)
+    if row.pk:
+        current = Category.objects.select_for_update().get(pk=row.pk)
+        if current.mode in {"builtin", "label"}:
+            raise ValueError("Системные категории нельзя изменять")
+    else:
+        row.pk = "CUSTOM_" + uuid4().hex
+    row.save()
+    if rules is not None:
+        instances = rules.save(commit=False)
+        for deleted in rules.deleted_objects:
+            deleted.delete()
+        for rule in instances:
+            rule.category = row
+            rule.save()
+    Audit.objects.create(actor=actor.pk, action="category_update", target=row.pk)
+    return row
+
+
 @require_http_methods(["GET", "POST"])
 def categories(request, category_id=None, rule_id=None):
     if not request.user.is_authenticated:
         return redirect("login-page")
-    if not request.user.has_perm("identity.administer"):
+    admin = request.user.has_perm("identity.administer")
+    if not request.user.has_perm("identity.access_mice") or (request.method == "POST" and not admin):
         return HttpResponseForbidden("Недостаточно прав")
     category = get_object_or_404(Category, pk=category_id) if category_id else None
     rule = get_object_or_404(CategoryRule, pk=rule_id, category=category) if rule_id else None
-    editing_rule = rule is not None or request.GET.get("rule") == "new" or request.POST.get("entity") == "rule"
-    if editing_rule and (category is None or category.mode in {"builtin", "label"}):
-        return HttpResponseForbidden("Правила недоступны для этой категории")
-    form_class = RuleForm if editing_rule else CategoryForm
-    form = form_class(request.POST if request.method == "POST" else None, instance=rule if editing_rule else category)
-    if request.method == "POST" and form.is_valid():
+    system = category and category.mode in {"builtin", "label"}
+    data = request.POST if request.method == "POST" else None
+    action = data.get("action", "save") if data is not None else ""
+    editing_rule = bool(rule or request.GET.get("rule") == "new" or (data and data.get("entity") == "rule"))
+    editing = admin and (editing_rule or action == "save" or request.GET.get("new") == "1" or request.GET.get("edit") == "1")
+    form = rules_form = None
+    if request.method == "POST" and system:
+        return HttpResponseForbidden("Системные категории нельзя изменять")
+    if action == "archive" and category:
         with transaction.atomic():
-            if category:
-                current = Category.objects.select_for_update().get(pk=category.pk)
-                if editing_rule and current.mode in {"builtin", "label"}:
-                    return HttpResponseForbidden("Правила недоступны для этой категории")
-            row = form.save(commit=False)
-            if editing_rule:
-                row.category = category
-            elif not row.pk:
-                row.pk = "CUSTOM_" + uuid4().hex
-            row.save()
-            Audit.objects.create(actor=request.user.pk, action="rule_update" if editing_rule else "category_update", target=row.pk)
-        return redirect("category-detail", category_id=category.pk if editing_rule else row.pk)
+            category = Category.objects.select_for_update().get(pk=category.pk)
+            category.active = False
+            category.save(update_fields=["active"])
+            Audit.objects.create(actor=request.user.pk, action="category_archive", target=category.pk)
+        return redirect("categories-page")
+    if editing and not system:
+        if editing_rule:
+            if not category:
+                return HttpResponseForbidden("Правила недоступны для этой категории")
+            form = RuleForm(data, instance=rule)
+            if data is not None and form.is_valid():
+                with transaction.atomic():
+                    current = Category.objects.select_for_update().get(pk=category.pk)
+                    item = form.save(commit=False)
+                    item.category = current
+                    item.save()
+                    Audit.objects.create(actor=request.user.pk, action="rule_update", target=item.pk)
+                return redirect("category-detail", category_id=category.pk)
+        else:
+            form = CategoryForm(data, instance=category)
+            rules_form = category_rules(data, category)
+            if data is not None and form.is_valid():
+                needs_rules = form.cleaned_data["mode"] in {"custom", "rules"}
+                if not needs_rules or rules_form.is_valid():
+                    row = save_category(request.user, form, rules_form if needs_rules else None)
+                    return redirect("category-detail", category_id=row.pk)
+    kind = request.GET.get("kind", "custom")
+    query = request.GET.get("q", "").strip()[:200]
+    rows = Category.objects.order_by("group_name", "name")
+    if kind == "system":
+        rows = rows.filter(mode__in=["builtin", "label"])
+    elif kind != "all":
+        rows = rows.exclude(mode__in=["builtin", "label"])
+    if query:
+        rows = rows.filter(Q(name__icontains=query) | Q(group_name__icontains=query) | Q(pk__icontains=query))
     return render(request, "policy_engine/categories.html", {
-        "categories": Category.objects.order_by("group_name", "name"), "category": category,
+        "categories": rows, "category": category, "system": system, "admin": admin, "kind": kind, "query": query,
         "rules": CategoryRule.objects.filter(category=category).order_by("priority", "created_at") if category else [],
-        "form": form, "editing_rule": editing_rule,
-    }, status=400 if form.is_bound else 200)
+        "form": form, "rules_form": rules_form, "editing_rule": editing_rule,
+    }, status=400 if data is not None else 200)

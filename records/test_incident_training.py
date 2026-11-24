@@ -1,12 +1,12 @@
 
 from django.test import SimpleTestCase
 
-from records.incident_training import IncidentTrainingForm
+from records.category_picker import LabelForm
 
 
-class IncidentTrainingFormTests(SimpleTestCase):
+class LabelFormTests(SimpleTestCase):
     def test_label_limit_and_deduplication_without_db(self):
-        form = object.__new__(IncidentTrainingForm)
+        form = object.__new__(LabelForm)
         form.cleaned_data = {"labels": ["A", "A", "B"]}
         self.assertEqual(form.clean_labels(), ["A", "B"])
         form.cleaned_data = {"labels": [str(index) for index in range(21)]}
