@@ -1,13 +1,13 @@
 # Functional parity matrix
 
-All target features are **NOT PORTED** until implemented and verified. Existing
+Target features remain **NOT PORTED** until implemented and verified. Existing
 baseline tests do not prove Django parity. Add test paths, reports and commit IDs
 per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 | Capability | Existing source / contract | Required acceptance | Target status |
 |---|---|---|---|
-| Login/logout, sessions, disabled accounts | api.py, accounts_api.py | Legacy hash login, CSRF, expiry, revoke, secure cookies | NOT PORTED |
-| Roles and originals access | user/analyst/admin dependencies, preview/admin APIs | Role × action × originals permission matrix; no content leakage | NOT PORTED |
+| Login/logout, sessions, disabled accounts | api.py, accounts_api.py | Legacy hash login, CSRF, expiry, revoke, secure cookies | Auth endpoints + import implemented; 2 focused tests pass; UI/account CRUD cutover pending |
+| Roles and originals access | user/analyst/admin dependencies, preview/admin APIs | Role × action × originals permission matrix; no content leakage | Django capability backend implemented and tested; remaining API enforcement pending |
 | EML/MSG, ZIP and directory import | uploads.py, mail.py, importer.py, smtp.py | Source events, duplicate handling, retries, malformed uploads | NOT PORTED |
 | SMTP reception | smtp.py | Allowlist, source identity, durable acceptance, failure paths | NOT PORTED |
 | Parser/Converter isolation | parser_service.py, sandbox.py, converter/, check_isolation.py | No credentials/DB access, timeout, malformed document tests | NOT PORTED |
@@ -34,11 +34,17 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Monitoring/audit/resources | monitoring.py, maintenance.py, SystemStatus.tsx, Operations.tsx | Broker/workers/queues/age/duration/errors, CPU/RAM/GPU, degraded states | NOT PORTED |
 | Airgap/update/release | update/, Dockerfile, docs | Offline assets/models, compatible backup/upgrade/rollback | NOT PORTED |
 | UI visual parity | All TSX/CSS in inventory.json | Same DOM/CSS/layout, themes, responsive views, dialogs, screenshots | NOT PORTED |
-| Data preservation | models.py, migrations/versions/, raw semantic DDL | Backup restore, table/hash/FK/index comparison, rollback rehearsal | NOT PORTED |
+| Data preservation | models.py, migrations/versions/, raw semantic DDL | Backup restore, table/hash/FK/index comparison, rollback rehearsal | 26 ORM models, frozen DDL, migration/adoption commands implemented; fresh DB verified; real backup validation pending |
 | Performance and fault recovery | benchmark-350-v1, evaluation scripts | Independent realistic load, scale matrix, kill/restart checks | NOT PORTED |
 
 ## Evidence ledger
 
+- Data/Auth checkpoint: fresh isolated PostgreSQL migration successful; 2 Auth
+  tests pass (0.659 s); migration drift check, Ruff and diff whitespace checks
+  pass. Schema-adoption validator passes against the fresh schema with a temporary
+  Alembic 0007 marker inside a rolled-back transaction (not a real backup test).
+- User revised scope: no message tests and minimal checks for subsequent stages;
+  no benchmark, OCR/ML/LLM, load or full regression run in Data/Auth checkpoint.
 - Source baseline: 142 passed / 22 skipped / 1 warning (64.77 s), 2026-11-24.
 - Audit checkpoint including two new inventory tests: 144 passed / 22 skipped /
   1 warning (48.03 s). Ruff and `git diff --check` passed. Inventory identifies

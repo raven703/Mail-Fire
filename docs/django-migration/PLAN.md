@@ -2,8 +2,8 @@
 
 ## Status, 2026-11-24
 
-**Migration is not implemented. This is the audit checkpoint, not a runnable
-Django prototype or a claim of functional parity.**
+**Data/Auth checkpoint implemented; full migration and functional parity are
+not complete.** See DATA_AUTH.md for commands, checks and cutover limitations.
 
 Source: `origin/master` = `0e303b13c2b4e026a15828d73a3d754faea202d4`, verified
 with `git fetch origin master`. Dedicated branch: `experiment/django-htmx`.
@@ -65,7 +65,7 @@ Each stage gets its own commit only after tests, with failures/skips recorded.
 Update PARITY.md with evidence and the resulting commit. Do not call a stage
 complete because files or services merely exist.
 
-1. **Audit checkpoint (current):** inventory, baseline, parity matrix, risks.
+1. **Audit checkpoint (committed):** inventory, baseline, parity matrix, risks.
 2. **Data/auth migration:** select supported Django LTS from official release
    docs; confirm Celery/Kombu/RabbitMQ compatibility; lock dependencies. Freeze
    existing DDL, map every table/index/constraint including pgvector/trgm, create
