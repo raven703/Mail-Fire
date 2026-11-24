@@ -1,0 +1,746 @@
+{
+  "note": "Paths are decorator-local; router prefixes must be resolved during porting.",
+  "endpoints": [
+    {
+      "file": "app/accounts_api.py",
+      "handler": "listing",
+      "method": "GET",
+      "local_path": ""
+    },
+    {
+      "file": "app/accounts_api.py",
+      "handler": "create",
+      "method": "POST",
+      "local_path": ""
+    },
+    {
+      "file": "app/accounts_api.py",
+      "handler": "update",
+      "method": "PUT",
+      "local_path": "/{account_id}"
+    },
+    {
+      "file": "app/accounts_api.py",
+      "handler": "revoke_account",
+      "method": "DELETE",
+      "local_path": "/{account_id}"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "integrations",
+      "method": "GET",
+      "local_path": "/integrations"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "save_integrations",
+      "method": "PUT",
+      "local_path": "/integrations"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "outbox",
+      "method": "GET",
+      "local_path": "/outbox"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "search",
+      "method": "GET",
+      "local_path": "/search"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "attachments",
+      "method": "GET",
+      "local_path": "/messages/{message_id}/attachments"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "attachment_original",
+      "method": "GET",
+      "local_path": "/attachments/{attachment_id}/original"
+    },
+    {
+      "file": "app/admin_api.py",
+      "handler": "attachment_preview",
+      "method": "GET",
+      "local_path": "/attachments/{attachment_id}/preview"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "health",
+      "method": "GET",
+      "local_path": "/api/health"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "login",
+      "method": "POST",
+      "local_path": "/api/login"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "me",
+      "method": "GET",
+      "local_path": "/api/me"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "logout",
+      "method": "POST",
+      "local_path": "/api/logout"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "listing",
+      "method": "GET",
+      "local_path": "/api/list/{resource}"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "upload",
+      "method": "POST",
+      "local_path": "/api/import"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "message",
+      "method": "GET",
+      "local_path": "/api/messages/{message_id}"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "original",
+      "method": "GET",
+      "local_path": "/api/messages/{message_id}/original"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "reanalyze",
+      "method": "POST",
+      "local_path": "/api/messages/{message_id}/reanalyze"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "decision",
+      "method": "PATCH",
+      "local_path": "/api/incidents/{incident_id}"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "monitor",
+      "method": "GET",
+      "local_path": "/api/monitor"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "retry",
+      "method": "POST",
+      "local_path": "/api/jobs/{job_id}/retry"
+    },
+    {
+      "file": "app/api.py",
+      "handler": "cancel_job",
+      "method": "POST",
+      "local_path": "/api/jobs/{job_id}/cancel"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "policies",
+      "method": "GET",
+      "local_path": "/policies"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "toggle_policy",
+      "method": "PUT",
+      "local_path": "/policies/{policy_id}/enabled"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "history",
+      "method": "GET",
+      "local_path": "/history"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "reevaluate",
+      "method": "POST",
+      "local_path": "/reevaluate"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "detectors",
+      "method": "GET",
+      "local_path": "/detectors"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "detector_settings",
+      "method": "PUT",
+      "local_path": "/detectors/{detector_id}"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "references",
+      "method": "GET",
+      "local_path": "/references"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "reference_detail",
+      "method": "GET",
+      "local_path": "/references/{reference_id}"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "reindex_reference",
+      "method": "POST",
+      "local_path": "/references/{reference_id}/reindex"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "delete_reference",
+      "method": "DELETE",
+      "local_path": "/references/{reference_id}"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "examples",
+      "method": "GET",
+      "local_path": "/examples"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "delete_training_example",
+      "method": "DELETE",
+      "local_path": "/examples/{example_id}"
+    },
+    {
+      "file": "app/catalog_api.py",
+      "handler": "update_normalizer",
+      "method": "PUT",
+      "local_path": "/normalizer"
+    },
+    {
+      "file": "app/categories_api.py",
+      "handler": "listing",
+      "method": "GET",
+      "local_path": ""
+    },
+    {
+      "file": "app/categories_api.py",
+      "handler": "create",
+      "method": "POST",
+      "local_path": ""
+    },
+    {
+      "file": "app/categories_api.py",
+      "handler": "update",
+      "method": "PUT",
+      "local_path": "/{category_id}"
+    },
+    {
+      "file": "app/categories_api.py",
+      "handler": "archive",
+      "method": "POST",
+      "local_path": "/{category_id}/archive"
+    },
+    {
+      "file": "app/llm_api.py",
+      "handler": "read_settings",
+      "method": "GET",
+      "local_path": "/settings"
+    },
+    {
+      "file": "app/llm_api.py",
+      "handler": "update_settings",
+      "method": "PUT",
+      "local_path": "/settings"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "add_example",
+      "method": "POST",
+      "local_path": "/examples"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "from_incident",
+      "method": "POST",
+      "local_path": "/incidents/{incident_id}/example"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "models",
+      "method": "GET",
+      "local_path": "/models"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "training",
+      "method": "POST",
+      "local_path": "/train"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "publish",
+      "method": "POST",
+      "local_path": "/models/{model_id}/publish"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "inference",
+      "method": "POST",
+      "local_path": "/infer"
+    },
+    {
+      "file": "app/ml_api.py",
+      "handler": "delete_model",
+      "method": "DELETE",
+      "local_path": "/models/{model_id}"
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "datasets",
+      "method": "GET",
+      "local_path": ""
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "import_dataset",
+      "method": "POST",
+      "local_path": "/import"
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "examples",
+      "method": "GET",
+      "local_path": "/{dataset_id}/examples"
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "review_example",
+      "method": "PUT",
+      "local_path": "/{dataset_id}/examples/{example_id}"
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "stats",
+      "method": "GET",
+      "local_path": "/{dataset_id}/stats"
+    },
+    {
+      "file": "app/ml_datasets_api.py",
+      "handler": "delete_dataset",
+      "method": "DELETE",
+      "local_path": "/{dataset_id}"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "job_details",
+      "method": "GET",
+      "local_path": "/jobs"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "alerts",
+      "method": "GET",
+      "local_path": "/alerts"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "queues",
+      "method": "GET",
+      "local_path": "/queues"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "mail_queue",
+      "method": "GET",
+      "local_path": "/mail-queue"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "flow",
+      "method": "GET",
+      "local_path": "/flow"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "database",
+      "method": "GET",
+      "local_path": "/database"
+    },
+    {
+      "file": "app/monitoring.py",
+      "handler": "resources",
+      "method": "GET",
+      "local_path": "/resources"
+    },
+    {
+      "file": "app/preview_api.py",
+      "handler": "metadata",
+      "method": "GET",
+      "local_path": "/{attachment_id}/viewer"
+    },
+    {
+      "file": "app/preview_api.py",
+      "handler": "page",
+      "method": "GET",
+      "local_path": "/{attachment_id}/page"
+    },
+    {
+      "file": "app/reference_api.py",
+      "handler": "references",
+      "method": "GET",
+      "local_path": ""
+    },
+    {
+      "file": "app/reference_api.py",
+      "handler": "upload_reference",
+      "method": "POST",
+      "local_path": ""
+    },
+    {
+      "file": "app/retention_api.py",
+      "handler": "config",
+      "method": "GET",
+      "local_path": ""
+    },
+    {
+      "file": "app/retention_api.py",
+      "handler": "save",
+      "method": "PUT",
+      "local_path": ""
+    },
+    {
+      "file": "app/retention_api.py",
+      "handler": "run",
+      "method": "POST",
+      "local_path": "/cleanup"
+    },
+    {
+      "file": "app/retention_api.py",
+      "handler": "hold",
+      "method": "PUT",
+      "local_path": "/messages/{message_id}/hold"
+    },
+    {
+      "file": "app/rulepacks_api.py",
+      "handler": "export",
+      "method": "GET",
+      "local_path": "/export"
+    },
+    {
+      "file": "app/rulepacks_api.py",
+      "handler": "preview",
+      "method": "POST",
+      "local_path": "/preview"
+    },
+    {
+      "file": "app/rulepacks_api.py",
+      "handler": "apply",
+      "method": "POST",
+      "local_path": "/apply"
+    },
+    {
+      "file": "app/semantic_api.py",
+      "handler": "searching",
+      "method": "POST",
+      "local_path": "/search"
+    },
+    {
+      "file": "app/semantic_api.py",
+      "handler": "reindex",
+      "method": "POST",
+      "local_path": "/reindex"
+    },
+    {
+      "file": "app/semantic_api.py",
+      "handler": "status",
+      "method": "GET",
+      "local_path": "/status"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "messages",
+      "method": "GET",
+      "local_path": "/messages"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "incidents",
+      "method": "GET",
+      "local_path": "/incidents"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "overview",
+      "method": "GET",
+      "local_path": "/overview"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "message_detail",
+      "method": "GET",
+      "local_path": "/messages/{message_id}"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "incident_detail",
+      "method": "GET",
+      "local_path": "/incidents/{incident_id}"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "analysts",
+      "method": "GET",
+      "local_path": "/analysts"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "assign",
+      "method": "PUT",
+      "local_path": "/incidents/{incident_id}/assignee"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "preferences",
+      "method": "GET",
+      "local_path": "/preferences"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "save_preferences",
+      "method": "PUT",
+      "local_path": "/preferences"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "create_policy",
+      "method": "POST",
+      "local_path": "/policies"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "update_policy",
+      "method": "PUT",
+      "local_path": "/policies/{policy_id}"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "policy_history",
+      "method": "GET",
+      "local_path": "/policies/{policy_id}/history"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "archive_policy",
+      "method": "POST",
+      "local_path": "/policies/{policy_id}/archive"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "delete_policy",
+      "method": "DELETE",
+      "local_path": "/policies/{policy_id}"
+    },
+    {
+      "file": "app/workspace_api.py",
+      "handler": "restore_policy",
+      "method": "POST",
+      "local_path": "/policies/{policy_id}/restore"
+    }
+  ],
+  "tables": [
+    {
+      "model": "Blob",
+      "table": "blobs"
+    },
+    {
+      "model": "Content",
+      "table": "contents"
+    },
+    {
+      "model": "Message",
+      "table": "messages"
+    },
+    {
+      "model": "MailEvent",
+      "table": "mail_events"
+    },
+    {
+      "model": "Address",
+      "table": "addresses"
+    },
+    {
+      "model": "Identity",
+      "table": "identities"
+    },
+    {
+      "model": "Attachment",
+      "table": "attachments"
+    },
+    {
+      "model": "Job",
+      "table": "jobs"
+    },
+    {
+      "model": "ImportRecord",
+      "table": "imports"
+    },
+    {
+      "model": "Policy",
+      "table": "policies"
+    },
+    {
+      "model": "Incident",
+      "table": "incidents"
+    },
+    {
+      "model": "Comment",
+      "table": "comments"
+    },
+    {
+      "model": "Account",
+      "table": "accounts"
+    },
+    {
+      "model": "LoginSession",
+      "table": "sessions"
+    },
+    {
+      "model": "Audit",
+      "table": "audit"
+    },
+    {
+      "model": "Setting",
+      "table": "settings"
+    },
+    {
+      "model": "Diagnostic",
+      "table": "diagnostics"
+    },
+    {
+      "model": "Metric",
+      "table": "metrics"
+    },
+    {
+      "model": "Reference",
+      "table": "references"
+    },
+    {
+      "model": "Category",
+      "table": "categories"
+    },
+    {
+      "model": "CategoryRule",
+      "table": "category_rules"
+    },
+    {
+      "model": "MLDataset",
+      "table": "ml_datasets"
+    },
+    {
+      "model": "TrainingExample",
+      "table": "training_examples"
+    },
+    {
+      "model": "MLModel",
+      "table": "ml_models"
+    },
+    {
+      "model": "Outbox",
+      "table": "outbox"
+    }
+  ],
+  "ui_components": [
+    "frontend/src/Accounts.tsx",
+    "frontend/src/CategoryManagement.tsx",
+    "frontend/src/CategoryPicker.tsx",
+    "frontend/src/EditorDialog.tsx",
+    "frontend/src/Evidence.tsx",
+    "frontend/src/IncidentActions.tsx",
+    "frontend/src/IncidentCategoryFilter.tsx",
+    "frontend/src/IncidentTable.tsx",
+    "frontend/src/IncidentTraining.tsx",
+    "frontend/src/LLMSettings.tsx",
+    "frontend/src/MLDatasets.tsx",
+    "frontend/src/Management.tsx",
+    "frontend/src/MessageAttachments.tsx",
+    "frontend/src/MessageSelection.tsx",
+    "frontend/src/NavIcon.tsx",
+    "frontend/src/Operations.tsx",
+    "frontend/src/PolicyEditor.tsx",
+    "frontend/src/Queues.tsx",
+    "frontend/src/RulepackTransfer.tsx",
+    "frontend/src/SecurityOverview.tsx",
+    "frontend/src/SystemStatus.tsx",
+    "frontend/src/components.tsx",
+    "frontend/src/main.tsx"
+  ],
+  "stylesheets": [
+    "frontend/src/controls.css",
+    "frontend/src/editor-dialog.css",
+    "frontend/src/incident-category-filter.css",
+    "frontend/src/message-detail.css",
+    "frontend/src/message-selection.css",
+    "frontend/src/security-overview.css",
+    "frontend/src/style.css",
+    "frontend/src/system-status.css"
+  ],
+  "tests": [
+    "tests/test_advanced_detectors.py",
+    "tests/test_analysis_status.py",
+    "tests/test_api.py",
+    "tests/test_audit_regressions.py",
+    "tests/test_background.py",
+    "tests/test_categories.py",
+    "tests/test_category_rules.py",
+    "tests/test_converter_validation.py",
+    "tests/test_core.py",
+    "tests/test_database.py",
+    "tests/test_document_preview.py",
+    "tests/test_document_templates.py",
+    "tests/test_fingerprints.py",
+    "tests/test_importer_database.py",
+    "tests/test_incident_reanalysis.py",
+    "tests/test_integrations.py",
+    "tests/test_llm_api_only.py",
+    "tests/test_migration_inventory.py",
+    "tests/test_ml.py",
+    "tests/test_ml_database.py",
+    "tests/test_ml_datasets.py",
+    "tests/test_ml_datasets_api.py",
+    "tests/test_ocr.py",
+    "tests/test_passport_formats.py",
+    "tests/test_passport_pipeline.py",
+    "tests/test_policy_matches.py",
+    "tests/test_queue.py",
+    "tests/test_reanalyze_request.py",
+    "tests/test_retention.py",
+    "tests/test_ru2_rulepack.py",
+    "tests/test_rulepacks.py",
+    "tests/test_sandbox.py",
+    "tests/test_semantic.py",
+    "tests/test_snils_formats.py",
+    "tests/test_snils_pipeline.py",
+    "tests/test_stage1_regression.py",
+    "tests/test_text_match.py",
+    "tests/test_text_normalizer.py",
+    "tests/test_unified_incidents.py",
+    "tests/test_uploads.py",
+    "tests/test_workspace.py"
+  ],
+  "alembic_migrations": [
+    "0001_initial.py",
+    "0002_embeddings.py",
+    "0003_workspace.py",
+    "0004_categories.py",
+    "0005_category_rules.py",
+    "0006_ml_datasets_engines.py",
+    "0007_unified_incidents.py"
+  ]
+}
