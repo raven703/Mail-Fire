@@ -43,6 +43,12 @@ def evaluate_policy(job):
     evaluate(job)
 
 
+def parse_message(job):
+    from pipeline.ingestion import parse
+
+    parse(job)
+
+
 def deliver_notification(job):
     from pipeline.notifications import deliver
 
@@ -50,6 +56,7 @@ def deliver_notification(job):
 
 
 handlers = {
+    "ingestion.parse": ("ingestion", parse_message),
     "policy.evaluate": ("policy", evaluate_policy),
     "notifications.deliver": ("notifications", deliver_notification),
     "maintenance.resources": ("maintenance", sample_resources),

@@ -39,6 +39,15 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Ingestion foundation: transactional ORM acceptance with source/blob advisory
+  locks, distinct delivery events, dispatch outbox and registered ingestion.parse
+  handler. Remote-only bounded parser client refuses local fallback. Parse output
+  persists in job output; extraction/OCR/detection hand-off NOT CONNECTED and
+  message remains PENDING with an explicit error. No upload/SMTP endpoint or
+  experiment Parser/Converter deployment added in this checkpoint. This is NOT
+  a working end-to-end pipeline. Seven pipeline/boundary tests pass (0.505 s),
+  without processing emails. Runtime dependencies on legacy analysis remain
+  unported; no full-cycle or isolation deployment acceptance claimed.
 - Policy HTML catalog: list, modal editor, history, archive visibility, restore
   and deletion connected to one catalog_service shared with JSON API. Twelve
   focused auth/pipeline/policy checks pass (2.226 s). No message processing.
