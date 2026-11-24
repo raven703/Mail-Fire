@@ -1,4 +1,28 @@
 name: mice-django-htmx
+x-worker: &worker
+  image: mice-django-runtime:experiment
+  build:
+    context: .
+    dockerfile: Dockerfile.django
+  environment: &runtime-env
+    DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?set dedicated experiment secret}
+    MICE_DB_NAME: mice_django_experiment
+    MICE_DB_USER: mice_django
+    MICE_DB_PASSWORD: ${MICE_DB_PASSWORD:?set dedicated experiment password}
+    MICE_DB_HOST: db
+    MICE_DB_PORT: 5432
+    MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
+  command: [python, -m, pipeline.worker]
+  read_only: true
+  tmpfs: [/tmp:size=64m,noexec,nosuid]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  restart: unless-stopped
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+    rabbitmq:
+      condition: service_healthy
 services:
   db:
     image: pgvector/pgvector:pg17
@@ -13,5 +37,153 @@ services:
       interval: 2s
       timeout: 3s
       retries: 20
+  rabbitmq:
+    image: rabbitmq:4.2-management
+    environment:
+      RABBITMQ_DEFAULT_USER: mice
+      RABBITMQ_DEFAULT_PASS: ${MICE_RABBIT_PASSWORD:?set dedicated experiment broker password}
+      RABBITMQ_DEFAULT_VHOST: mice
+    ports: ["127.0.0.1:15673:15672", "127.0.0.1:15674:5672"]
+    volumes: [django-rabbitmq:/var/lib/rabbitmq]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+    mem_limit: ${MICE_RABBIT_MEMORY:-1g}
+    cpus: ${MICE_RABBIT_CPUS:-1}
+  migrate:
+    image: mice-django-runtime:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    environment: *runtime-env
+    command: [python, manage.py, migrate, --noinput]
+    depends_on:
+      db:
+        condition: service_healthy
+  publisher:
+    <<: *worker
+    command: [python, manage.py, publish_outbox]
+    mem_limit: 256m
+    cpus: 0.5
+  beat:
+    <<: *worker
+    command: [celery, -A, mice.celery:app, beat, --loglevel=INFO, --schedule=/state/beat]
+    volumes: [django-beat:/state]
+    mem_limit: 256m
+    cpus: 0.5
+  ingestion:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ingestion
+      MICE_INGESTION_CONCURRENCY: ${MICE_INGESTION_CONCURRENCY:-1}
+      MICE_INGESTION_PREFETCH: ${MICE_INGESTION_PREFETCH:-1}
+      MICE_INGESTION_TIMEOUT: ${MICE_INGESTION_TIMEOUT:-300}
+    mem_limit: ${MICE_INGESTION_MEMORY:-512m}
+    cpus: ${MICE_INGESTION_CPUS:-1}
+  extraction:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: extraction
+      MICE_EXTRACTION_CONCURRENCY: ${MICE_EXTRACTION_CONCURRENCY:-1}
+      MICE_EXTRACTION_PREFETCH: ${MICE_EXTRACTION_PREFETCH:-1}
+      MICE_EXTRACTION_TIMEOUT: ${MICE_EXTRACTION_TIMEOUT:-300}
+    mem_limit: ${MICE_EXTRACTION_MEMORY:-1g}
+    cpus: ${MICE_EXTRACTION_CPUS:-1}
+  ocr:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ocr
+      MICE_OCR_CONCURRENCY: ${MICE_OCR_CONCURRENCY:-1}
+      MICE_OCR_PREFETCH: ${MICE_OCR_PREFETCH:-1}
+      MICE_OCR_TIMEOUT: ${MICE_OCR_TIMEOUT:-300}
+    mem_limit: ${MICE_OCR_MEMORY:-3g}
+    cpus: ${MICE_OCR_CPUS:-2}
+  detection:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: detection
+      MICE_DETECTION_CONCURRENCY: ${MICE_DETECTION_CONCURRENCY:-1}
+      MICE_DETECTION_PREFETCH: ${MICE_DETECTION_PREFETCH:-1}
+      MICE_DETECTION_TIMEOUT: ${MICE_DETECTION_TIMEOUT:-300}
+    mem_limit: ${MICE_DETECTION_MEMORY:-1g}
+    cpus: ${MICE_DETECTION_CPUS:-1}
+  ml:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: ml
+      MICE_ML_CONCURRENCY: ${MICE_ML_CONCURRENCY:-1}
+      MICE_ML_PREFETCH: ${MICE_ML_PREFETCH:-1}
+      MICE_ML_TIMEOUT: ${MICE_ML_TIMEOUT:-300}
+    mem_limit: ${MICE_ML_MEMORY:-2g}
+    cpus: ${MICE_ML_CPUS:-1}
+  llm:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: llm
+      MICE_LLM_CONCURRENCY: ${MICE_LLM_CONCURRENCY:-1}
+      MICE_LLM_PREFETCH: ${MICE_LLM_PREFETCH:-1}
+      MICE_LLM_TIMEOUT: ${MICE_LLM_TIMEOUT:-300}
+    mem_limit: ${MICE_LLM_MEMORY:-512m}
+    cpus: ${MICE_LLM_CPUS:-1}
+  policy:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: policy
+      MICE_POLICY_CONCURRENCY: ${MICE_POLICY_CONCURRENCY:-1}
+      MICE_POLICY_PREFETCH: ${MICE_POLICY_PREFETCH:-1}
+      MICE_POLICY_TIMEOUT: ${MICE_POLICY_TIMEOUT:-300}
+    mem_limit: ${MICE_POLICY_MEMORY:-512m}
+    cpus: ${MICE_POLICY_CPUS:-1}
+  notifications:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: notifications
+      MICE_NOTIFICATIONS_CONCURRENCY: ${MICE_NOTIFICATIONS_CONCURRENCY:-1}
+      MICE_NOTIFICATIONS_PREFETCH: ${MICE_NOTIFICATIONS_PREFETCH:-1}
+      MICE_NOTIFICATIONS_TIMEOUT: ${MICE_NOTIFICATIONS_TIMEOUT:-300}
+    mem_limit: ${MICE_NOTIFICATIONS_MEMORY:-512m}
+    cpus: ${MICE_NOTIFICATIONS_CPUS:-1}
+  training:
+    <<: *worker
+    profiles: [pipeline]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: training
+      MICE_TRAINING_CONCURRENCY: ${MICE_TRAINING_CONCURRENCY:-1}
+      MICE_TRAINING_PREFETCH: ${MICE_TRAINING_PREFETCH:-1}
+      MICE_TRAINING_TIMEOUT: ${MICE_TRAINING_TIMEOUT:-7200}
+    mem_limit: ${MICE_TRAINING_MEMORY:-4g}
+    cpus: ${MICE_TRAINING_CPUS:-1}
+  maintenance:
+    <<: *worker
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: maintenance
+      MICE_MAINTENANCE_CONCURRENCY: ${MICE_MAINTENANCE_CONCURRENCY:-1}
+      MICE_MAINTENANCE_PREFETCH: ${MICE_MAINTENANCE_PREFETCH:-1}
+      MICE_MAINTENANCE_TIMEOUT: ${MICE_MAINTENANCE_TIMEOUT:-300}
+    mem_limit: ${MICE_MAINTENANCE_MEMORY:-512m}
+    cpus: ${MICE_MAINTENANCE_CPUS:-1}
 volumes:
   django-postgres:
+  django-rabbitmq:
+  django-beat:

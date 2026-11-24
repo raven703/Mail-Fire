@@ -8,6 +8,7 @@ dependencies = [
     "argon2-cffi>=25.1.0",
     "beautifulsoup4>=4.15.0",
     "clamd>=1.0.2",
+    "celery==5.7.0",
     "Django==5.2.19",
     "extract-msg>=0.58.2",
     "fastapi>=0.163.2",

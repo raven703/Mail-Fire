@@ -28,7 +28,7 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Search/filters/ranges/preferences | workspace_api.py, admin_api.py, main.tsx | URL state, pagination, sorting, rolling range, theme, saved settings | NOT PORTED |
 | Security overview/analytics | SecurityOverview.tsx, workspace_api.py | Existing semantics, live refresh, charts, counts, empty/error states | NOT PORTED |
 | Accounts/addresses/employees | accounts_api.py, catalog_api.py, Accounts.tsx | CRUD, last-admin protection, disable, identity mapping | NOT PORTED |
-| Reliable queues and controls | worker.py, jobs APIs, Queues.tsx, monitoring.py | 10 queues, ID-only tasks, outbox, retry/cancel, fencing/DLQ/recovery | NOT PORTED |
+| Reliable queues and controls | worker.py, jobs APIs, Queues.tsx, monitoring.py | 10 queues, ID-only tasks, outbox, retry/cancel, fencing/DLQ/recovery | Delivery/state/outbox implemented; real maintenance job smoke passes; analysis producer/handler and UI cutover pending |
 | Notifications/SIEM | integrations.py, admin_api.py, models.Outbox | Preserve delivery contract, backoff, dedup semantics | NOT PORTED |
 | Retention/legal hold | retention.py, retention_api.py | Dry-run, hold protection, references/blob safety, Beat scheduling | NOT PORTED |
 | Monitoring/audit/resources | monitoring.py, maintenance.py, SystemStatus.tsx, Operations.tsx | Broker/workers/queues/age/duration/errors, CPU/RAM/GPU, degraded states | NOT PORTED |
@@ -39,6 +39,8 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Queue checkpoint: 3 focused PostgreSQL tests pass; real RabbitMQ topology and
+  Celery prefork resource-sampling job verified. See QUEUES.md for scope/limits.
 - Data/Auth checkpoint: fresh isolated PostgreSQL migration successful; 2 Auth
   tests pass (0.659 s); migration drift check, Ruff and diff whitespace checks
   pass. Schema-adoption validator passes against the fresh schema with a temporary

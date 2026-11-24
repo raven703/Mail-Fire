@@ -1,0 +1,13 @@
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+WORKDIR /app
+COPY requirements.django.lock ./
+RUN uv venv /app/.venv && uv pip install --python /app/.venv/bin/python -r requirements.django.lock
+COPY manage.py ./
+COPY mice ./mice
+COPY identity ./identity
+COPY records ./records
+COPY pipeline ./pipeline
+RUN useradd --uid 10001 --create-home mice && mkdir /state && chown mice:mice /state
+USER mice
+ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+CMD ["python", "-m", "pipeline.worker"]

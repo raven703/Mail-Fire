@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "records",
     "identity",
+    "pipeline",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,3 +87,5 @@ CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 CSRF_COOKIE_SAMESITE = "Strict"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
+
+MICE_BROKER_URL = os.environ.get("MICE_BROKER_URL", "amqp://mice:invalid@127.0.0.1:15674/mice")
