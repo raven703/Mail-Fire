@@ -1,6 +1,48 @@
 /* Accessible progressive tabs: every section remains visible without JavaScript. */
 (() => {
   function initialize() {
+    document.querySelectorAll('[data-document-viewer]').forEach(form => {
+      if (form.dataset.ready) return;
+      form.dataset.ready = 'true';
+      const image = form.querySelector('[data-viewer-image]');
+      const status = form.querySelector('[data-viewer-status]');
+      const previous = form.querySelector('[data-viewer-prev]');
+      const next = form.querySelector('[data-viewer-next]');
+      let pages = 1, controller;
+      const load = async () => {
+        if (!form.reportValidity()) return;
+        if (controller) controller.abort();
+        controller = new AbortController();
+        previous.disabled = next.disabled = true;
+        status.textContent = 'Подготовка страницы…';
+        try {
+          const response = await fetch(form.dataset.pageUrl + '?' + new URLSearchParams(new FormData(form)), {signal: controller.signal});
+          if (!response.ok) throw new Error(await response.text());
+          const blob = await response.blob();
+          if (!form.isConnected) return;
+          const old = image.dataset.objectUrl;
+          image.src = image.dataset.objectUrl = URL.createObjectURL(blob);
+          image.onload = () => { URL.revokeObjectURL(image.dataset.objectUrl); delete image.dataset.objectUrl; };
+          if (old) URL.revokeObjectURL(old);
+          pages = Math.min(1000, Number(response.headers.get('X-Document-Pages')) || 1);
+          form.elements.page.max = pages;
+          form.querySelector('[data-viewer-pages]').textContent = '/ ' + pages;
+          status.textContent = '';
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+          status.textContent = error.message;
+        } finally {
+          previous.disabled = Number(form.elements.page.value) <= 1;
+          next.disabled = Number(form.elements.page.value) >= pages;
+        }
+      };
+      form.addEventListener('submit', event => { event.preventDefault(); load(); });
+      previous.addEventListener('click', () => { form.elements.page.stepDown(); load(); });
+      next.addEventListener('click', () => { form.elements.page.stepUp(); load(); });
+      form.elements.scale.addEventListener('change', load);
+      form.elements.highlight.addEventListener('change', load);
+      load();
+    });
     document.querySelectorAll('[data-date-range]').forEach(group => {
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';

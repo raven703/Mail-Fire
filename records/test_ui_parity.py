@@ -12,8 +12,28 @@ class NativeUIParityTests(SimpleTestCase):
     def test_changed_templates_compile(self):
         for name in ("records/message.html", "records/messages.html", "records/incidents.html",
                      "records/overview.html", "pipeline/operations.html", "records/_message_tabs.html",
-                     "policy_engine/catalog.html", "records/reanalysis.html", "records/_risk_panels.html"):
+                     "policy_engine/catalog.html", "records/reanalysis.html", "records/_risk_panels.html",
+                     "records/_analytics.html", "pipeline/_resource_history.html", "records/attachment.html"):
             get_template(name)
+
+    def test_evidence_cards_escape_saved_content(self):
+        html = render_to_string("records/_evidence.html", {"findings": [{
+            "category": "SECRET", "risk": 80, "excerpt": "<script>secret</script>",
+            "rule_id": "rule-1", "version": "v1", "confidence": 0,
+        }]})
+        self.assertIn("evidence-card", html)
+        self.assertIn("&lt;script&gt;", html)
+        self.assertNotIn("<script>", html)
+        self.assertIn("rule-1", html)
+
+    def test_viewer_has_original_tabs_and_passive_fallback(self):
+        attachment = SimpleNamespace(pk="attachment", message_id="message", name="file.pdf", mime="application/pdf",
+                                     status="ANALYZED", text="saved-text", blob_sha_ref=SimpleNamespace(size=12))
+        html = render_to_string("records/attachment.html", {"attachment": attachment, "findings": []})
+        for value in ("viewer-original", "viewer-text", "viewer-evidence", "data-document-viewer", "saved-text"):
+            self.assertIn(value, html)
+        html = render_to_string("records/attachment.html", {"attachment": attachment, "text_preview": True})
+        self.assertNotIn("data-document-viewer", html)
 
     def test_pagination_preserves_all_filter_values(self):
         query = pagination_query(QueryDict("category=A&category=B&start=2026-11-01T12%3A00&page=2"))

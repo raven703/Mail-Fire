@@ -5,6 +5,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from pipeline.models import WorkItem
 from pipeline.monitoring import database_snapshot, flow_snapshot, snapshot, stage_snapshot
+from pipeline.resource_history import resource_history
 from pipeline.resources import local_resources
 from pipeline.services import cancel, retry
 from records.models import Audit, Diagnostic, Metric
@@ -43,6 +44,7 @@ def operations(request):
         {
             "monitor": snapshot(),
             "stages": stage_snapshot(),
+            "resource_history": resource_history(Metric.objects.order_by("-created_at")[:1000]),
             "local_resources": local_resources(),
             "flow": flow_snapshot(),
             "database": database_snapshot() if request.user.has_perm("identity.administer") else None,

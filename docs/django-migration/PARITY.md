@@ -167,3 +167,28 @@ metadata rendering. No DB/container changes, builds, migration application,
 comprehensive testing or ML/LLM activation performed.
 
 Audit remediation remains deferred; no audit items were claimed fixed here.
+
+
+## Continuation after 4e3b2e3
+
+4e3b2e3 published. Direct master comparisons: Evidence.tsx, MessageAttachments.tsx,
+SystemStatus.tsx and analytics branch of main.tsx. Shared escaped evidence cards
+now include reason/excerpt/rule/version/risk/confidence on message, incident and
+attachment pages. Viewer adds original/text/DLP tabs, passive text fallback,
+async page loading, page count/previous/next, scale/highlight and error status.
+Existing rasterization/authorization contracts are unchanged. Browser acceptance
+and safe original mail metadata/modal parity remain outstanding.
+
+Resource history now separates persisted service series, bounds last 20 samples
+and renders original SystemStatus CPU/RAM/disk/swap KPI and history-table structure.
+Master SystemStatus has a history table, not per-container graphs. Complete
+service collectors remain unimplemented; no local metric is called global.
+Analytics adds original KPI links, severity/category panels, processing-health
+links and CSV timeline export. Runtime SQL/probe acceptance remains deferred.
+
+Remaining implementation: complete service collectors, remaining viewer original
+metadata/modal behavior, picker/catalog/training comparison and scenarios, exact
+component/style parity. No claim that all functional parity work is finished.
+Focused checks: 15 no-DB tests, Ruff, JavaScript syntax, whitespace. No builds,
+migrations, container/source DB edits, comprehensive tests or ML/LLM activation.
+Audit remediation remains deferred.

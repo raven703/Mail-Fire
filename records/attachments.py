@@ -2,6 +2,7 @@
 
 import base64
 import json
+import re
 from io import BytesIO
 from pathlib import PurePosixPath
 
@@ -97,7 +98,11 @@ def attachment(request, attachment_id, action=None):
         response["X-Document-Pages"] = str(pages)
     else:
         Audit.objects.create(actor=request.user.pk, action="attachment_preview", target=row.pk)
-        response = render(request, "records/attachment.html", {"attachment": row, "findings": findings_for(row)})
+        response = render(request, "records/attachment.html", {
+            "attachment": row, "findings": findings_for(row),
+            "text_preview": bool(re.search(r"\.(txt|csv|json|xml|eml|msg|html?|svg)$", row.name, re.I)
+                                 or re.match(r"^(text/|application/(json|xml)|image/svg)", row.mime, re.I)),
+        })
     response["Cache-Control"] = "no-store"
-    response["Content-Security-Policy"] = "default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'"
+    response["Content-Security-Policy"] = "default-src 'self'; img-src 'self' blob:; style-src 'self'; script-src 'self'; frame-ancestors 'none'"
     return response
