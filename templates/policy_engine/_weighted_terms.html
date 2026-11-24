@@ -1,0 +1,33 @@
+<div class="weighted-terms" data-flexible-terms>
+  <div class="weighted-terms-settings">
+    <label>Минимальная сумма весов{{ rule.min_score }}{{ rule.min_score.errors }}</label>
+    <label>Окно близости (слов){{ rule.window }}{{ rule.window.errors }}</label>
+  </div>
+  <label class="weighted-terms-order">{{ rule.ordered }} Учитывать порядок терминов{{ rule.ordered.errors }}</label>
+  <div class="weighted-terms-heading">
+    <h4>Взвешенные термины</h4>
+    <span class="muted" data-term-count>Не более 30 терминов</span>
+  </div>
+  <div class="weighted-terms-scroll" role="region" aria-label="Редактирование взвешенных терминов" tabindex="0">
+    <table class="weighted-terms-table">
+      <caption class="visually-hidden">Термины, индивидуальные веса и обязательность</caption>
+      <colgroup><col><col class="term-weight-column"><col class="term-required-column"><col class="term-remove-column"></colgroup>
+      <thead><tr><th scope="col">Термин / фраза</th><th scope="col">Вес</th><th scope="col"><abbr title="Обязательный термин">Обяз.</abbr></th><th scope="col"><span class="visually-hidden">Удаление</span></th></tr></thead>
+      <tbody data-term-rows>
+        {% for text, weight, required in rule.term_rows %}
+        <tr data-term-row>
+          <td><label class="visually-hidden" for="{{ text.id_for_label }}">Термин / фраза {{ forloop.counter }}</label>{{ text }}{{ text.errors }}</td>
+          <td><label class="visually-hidden" for="{{ weight.id_for_label }}">Вес термина {{ forloop.counter }}</label>{{ weight }}{{ weight.errors }}</td>
+          <td class="term-required"><label class="visually-hidden" for="{{ required.id_for_label }}">Обязательный термин {{ forloop.counter }}</label>{{ required }}{{ required.errors }}</td>
+          <td><button type="button" class="icon-control term-remove" data-remove-term aria-label="Удалить термин {{ forloop.counter }}" title="Удалить термин"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/></svg></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted weighted-terms-empty" data-terms-empty hidden>Добавьте первый термин или фразу.</p>
+  <div class="weighted-terms-footer">
+    <button type="button" data-add-term>＋ Добавить термин</button>
+    <span class="muted weighted-terms-summary" data-term-summary role="status" aria-live="polite" aria-atomic="true"></span>
+  </div>
+</div>

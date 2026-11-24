@@ -92,19 +92,51 @@
       const mode = editor.querySelector('[name$="match_type"]');
       const rows = [...editor.querySelectorAll('[data-term-row]')];
       const textInput = row => row.querySelector('input[name$="_text"]');
+      const weightInput = row => row.querySelector('input[name$="_weight"]');
+      const requiredInput = row => row.querySelector('input[type="checkbox"]');
+      const addButton = editor.querySelector('[data-add-term]');
+      const summary = () => {
+        const active = rows.filter(row => textInput(row).value.trim());
+        const weight = active.reduce((sum, row) => sum + (Number(weightInput(row).value) || 0), 0);
+        const required = active.filter(row => requiredInput(row).checked).length;
+        editor.querySelector('[data-term-count]').textContent = active.length + ' из ' + rows.length;
+        editor.querySelector('[data-term-summary]').textContent = 'Суммарный вес: ' + weight + ' · Обязательных: ' + required;
+        editor.querySelector('[data-terms-empty]').hidden = rows.some(row => !row.hidden);
+        addButton.disabled = rows.every(row => !row.hidden);
+      };
       rows.forEach(row => {
-        row.hidden = !textInput(row).value;
+        row.hidden = !textInput(row).value && !row.querySelector('.errorlist');
         row.querySelector('[data-remove-term]').addEventListener('click', () => {
+          // Move the cleared slot to the end: a subsequently added term must
+          // append, not silently precede existing terms in ordered rules.
           textInput(row).value = '';
-          row.querySelector('input[name$="_weight"]').value = 1;
-          row.querySelector('input[type="checkbox"]').checked = false;
+          weightInput(row).value = 1;
+          requiredInput(row).checked = false;
           row.hidden = true;
+          const index = rows.indexOf(row);
+          rows.splice(index, 1);
+          rows.push(row);
+          row.parentElement.append(row);
+          // Keep the server's fixed field indices in visual order on submit.
+          rows.forEach((item, i) => item.querySelectorAll('input').forEach(input => {
+            const oldId = input.id;
+            input.name = input.name.replace(/term_\d+_/, 'term_' + i + '_');
+            input.id = input.id.replace(/term_\d+_/, 'term_' + i + '_');
+            const label = [...item.querySelectorAll('label')].find(label => label.htmlFor === oldId);
+            if (label) label.htmlFor = input.id;
+          }));
+          summary();
+          const next = rows.slice(index).find(item => !item.hidden) || [...rows].reverse().find(item => !item.hidden);
+          (next ? textInput(next) : addButton).focus();
         });
       });
-      editor.querySelector('[data-add-term]').addEventListener('click', () => {
+      addButton.addEventListener('click', () => {
         const row = rows.find(item => item.hidden);
-        if (row) { row.hidden = false; textInput(row).focus(); }
+        if (row) { row.hidden = false; textInput(row).focus(); summary(); }
       });
+      editor.addEventListener('input', summary);
+      editor.addEventListener('change', summary);
+      summary();
       const update = () => {
         editor.querySelectorAll('[data-rule-kind]').forEach(panel => panel.hidden = panel.dataset.ruleKind !== kind.value);
         editor.querySelector('[data-flexible-terms]').hidden = mode.value !== 'flexible';

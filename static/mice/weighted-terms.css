@@ -1,0 +1,35 @@
+/* Shared rule editor: use the MICE control/theme tokens, never a separate palette. */
+.weighted-terms { margin-top: 16px; }
+.weighted-terms-settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.weighted-terms-settings label { margin: 0; font-size: 13px; }
+.weighted-terms-settings input { width: 100%; box-sizing: border-box; }
+.weighted-terms-order { margin: 12px 0 18px; }
+.weighted-terms-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border); padding-top: 18px; margin-bottom: 10px; }
+.weighted-terms-heading h4 { margin: 0; font-size: 14px; }
+.weighted-terms-heading > span, .weighted-terms-summary { font-size: 12px; }
+.weighted-terms-scroll { overflow-x: auto; }
+#mice-content .weighted-terms-table { width: 100%; table-layout: fixed; border-collapse: collapse; min-width: 340px; }
+.weighted-terms-table .term-weight-column { width: 92px; }
+.weighted-terms-table .term-required-column { width: 76px; }
+.weighted-terms-table .term-remove-column { width: 40px; }
+#mice-content .weighted-terms-table thead { background: transparent; }
+#mice-content .weighted-terms-table th { color: var(--muted); font-size: 12px; font-weight: 400; padding: 8px 8px; }
+#mice-content .weighted-terms-table td { padding: 6px 8px; vertical-align: middle; }
+#mice-content .weighted-terms-table :is(th, td):first-child { padding-left: 0; }
+#mice-content .weighted-terms-table :is(th, td):last-child { padding-right: 0; }
+#mice-content .weighted-terms-table th:nth-child(3), #mice-content .weighted-terms-table td.term-required { text-align: center; }
+.weighted-terms-table abbr { text-decoration: none; }
+.weighted-terms .weighted-terms-table input:not([type="checkbox"]) { width: 100%; min-height: 32px; height: 32px; padding: 5px 11px; border-radius: var(--mf-control-pill); box-sizing: border-box; }
+.weighted-terms-table input[type="checkbox"] { vertical-align: middle; }
+.weighted-terms-table button.term-remove { display: inline-grid; place-items: center; width: 32px; height: 32px; min-height: 32px; padding: 6px; color: var(--muted); }
+.weighted-terms-table button.term-remove:hover { color: var(--text); background: var(--selected); }
+.weighted-terms-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.weighted-terms-empty { margin: 12px 0; font-size: 13px; }
+.weighted-terms [hidden] { display: none !important; }
+.weighted-terms .errorlist { margin: 4px 0 0; padding-left: 16px; font-size: 12px; color: var(--high); }
+.weighted-terms .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 480px) {
+  .weighted-terms-table .term-weight-column { width: 70px; }
+  .weighted-terms-table .term-required-column { width: 58px; }
+  .weighted-terms-heading { align-items: baseline; }
+}
