@@ -68,6 +68,36 @@ services:
     command: [python, manage.py, publish_outbox]
     mem_limit: 256m
     cpus: 0.5
+  web:
+    <<: *worker
+    command: [uvicorn, mice.asgi:application, --host, 0.0.0.0, --port, '8000', --workers, '2', --no-proxy-headers]
+    environment:
+      <<: *runtime-env
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      MICE_COOKIE_SECURE: ${MICE_COOKIE_SECURE:-true}
+    mem_limit: ${MICE_WEB_MEMORY:-512m}
+    cpus: ${MICE_WEB_CPUS:-1}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  frontend:
+    image: mice-django-web:experiment
+    build:
+      context: .
+      dockerfile: Dockerfile.django-web
+    ports: ['127.0.0.1:18080:8080']
+    read_only: true
+    tmpfs: [/tmp:size=32m,noexec,nosuid]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
   beat:
     <<: *worker
     command: [celery, -A, mice.celery:app, beat, --loglevel=INFO, --schedule=/state/beat]

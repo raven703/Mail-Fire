@@ -2,9 +2,11 @@ from django.urls import path
 
 from identity import pages, views
 from identity.accounts import accounts
+from mice.health import health
 from policy_engine.views import reevaluate
 
 urlpatterns = [
+    path("api/health", health, name="health"),
     path("", pages.login_page, name="login-page"),
     path("users/", pages.users_page, name="users-page"),
     path("logout/", pages.logout_page, name="logout-page"),
