@@ -1,6 +1,25 @@
 /* Accessible progressive tabs: every section remains visible without JavaScript. */
 (() => {
   function initialize() {
+    document.querySelectorAll('[data-rule-formset]').forEach(group => {
+      if (group.dataset.ready) return;
+      group.dataset.ready = 'true';
+      const total = group.querySelector('[name$="-TOTAL_FORMS"]');
+      const button = group.querySelector('[data-add-rule]');
+      button.addEventListener('click', () => {
+        const index = Number(total.value);
+        if (index >= 100) return;
+        const template = group.querySelector('[data-empty-rule]');
+        const fragment = template.content.cloneNode(true);
+        fragment.querySelectorAll('*').forEach(element => {
+          [...element.attributes].forEach(attribute => {
+            if (attribute.value.includes('__prefix__')) element.setAttribute(attribute.name, attribute.value.replaceAll('__prefix__', index));
+          });
+        });
+        group.insertBefore(fragment, template);
+        total.value = index + 1;
+      });
+    });
     document.querySelectorAll('[data-navigation-toggle]').forEach(button => {
       if (button.dataset.ready) return;
       button.dataset.ready = 'true';
