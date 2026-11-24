@@ -4,9 +4,17 @@ from identity import pages, views
 from identity.accounts import accounts
 from mice.health import health
 from pipeline import views as pipeline_views
+from policy_engine.catalog_views import policies
 from policy_engine.views import reevaluate
 
 urlpatterns = [
+    path("api/catalog/policies", policies, name="policy-list"),
+    path("api/workspace/policies", policies, name="policy-create"),
+    path("api/workspace/policies/<str:policy_id>", policies, name="policy-update"),
+    path("api/workspace/policies/<str:policy_id>/<str:action>", policies, name="policy-action"),
+    path(
+        "api/catalog/policies/<str:policy_id>/enabled", policies, {"action": "enabled"}, name="policy-toggle"
+    ),
     path("operations/", pipeline_views.operations, name="operations"),
     path("api/monitor/queues", pipeline_views.monitor_api, name="queue-monitor"),
     path("api/jobs/<uuid:job_id>/<str:action>", pipeline_views.control, name="job-control"),

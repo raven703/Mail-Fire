@@ -15,3 +15,11 @@ not yet validated. Image builds need registry access for the nginx base image.
 
 No mail or benchmark validation is included. This checkpoint wires deployment,
 not completion of the rest of the web migration.
+
+Live validation: both images built; isolated web became healthy and nginx served
+`/api/health` 200 with database probe, `/` login 200 and static CSS 200. The login
+route is `/`, not `/login/` (404 is expected there). Corrected YAML flow-list tmpfs
+quoting after Docker rejected comma-separated options as separate mount entries.
+The image build predates the subsequent policy CRUD checkpoint; rebuild web for
+that code. Local HTTP smoke used secure cookies disabled and disposable secrets;
+these are not deployment credentials.

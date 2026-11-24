@@ -14,7 +14,7 @@ x-worker: &worker
     MICE_BROKER_URL: amqp://mice:${MICE_RABBIT_PASSWORD:?set URL-safe experiment broker password}@rabbitmq:5672/mice
   command: [python, -m, pipeline.worker]
   read_only: true
-  tmpfs: [/tmp:size=64m,noexec,nosuid]
+  tmpfs: ["/tmp:size=64m,noexec,nosuid"]
   cap_drop: [ALL]
   security_opt: [no-new-privileges:true]
   restart: unless-stopped
@@ -92,7 +92,7 @@ services:
       dockerfile: Dockerfile.django-web
     ports: ['127.0.0.1:18080:8080']
     read_only: true
-    tmpfs: [/tmp:size=32m,noexec,nosuid]
+    tmpfs: ["/tmp:size=32m,noexec,nosuid"]
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     depends_on:

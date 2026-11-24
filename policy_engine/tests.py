@@ -3,7 +3,7 @@
 import ast
 from pathlib import Path
 
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
 from policy_engine.rules import policy_matches
 
@@ -29,3 +29,28 @@ class PolicyRulesTests(SimpleTestCase):
                 node for node in source.body if isinstance(node, ast.FunctionDef) and node.name == name
             )
             self.assertEqual(functions[name], ast.dump(original, include_attributes=False))
+
+
+class PolicyCatalogTests(TestCase):
+    def test_lifecycle_versions_and_category_validation_without_messages(self):
+        from identity.models import User
+        from policy_engine.catalog_views import PolicyError, mutate
+        from policy_engine.models import PolicyRevision
+        from records.models import Category, Policy
+
+        actor = User.objects.create_user("policy-admin", "policy-password", role="admin")
+        Category.objects.create(id="A", name="Category A", mode="builtin")
+        body = {"name": "Test policy", "categories": ["A"], "category_match": "all"}
+        created = mutate(actor, body)
+        self.assertEqual(created["version"], 1)
+        updated = mutate(actor, {**body, "name": "Updated policy"}, created["id"])
+        self.assertEqual(updated["version"], 2)
+        mutate(actor, {}, created["id"], "archive")
+        self.assertTrue(Policy.objects.get(pk=created["id"]).archived)
+        mutate(actor, {}, created["id"], "restore")
+        self.assertFalse(Policy.objects.get(pk=created["id"]).enabled)
+        with self.assertRaises(PolicyError):
+            mutate(actor, {"name": "Invalid", "category_match": "all"})
+        mutate(actor, {}, created["id"], "delete")
+        self.assertFalse(Policy.objects.exists())
+        self.assertTrue(PolicyRevision.objects.filter(policy_id=created["id"]).exists())

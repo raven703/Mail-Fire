@@ -39,6 +39,9 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Policy catalog CRUD/version/archive/restore/delete APIs ported, 3 focused
+  policy checks pass; policy UI still pending. WEB.md records live isolated
+  nginx/ASGI health/login/static smoke (200); no mail processing.
 - Operations checkpoint: four pipeline checks pass (1.075 s), template rendering,
   observer denial and no payload disclosure checked. Web Compose config and
   Django checks pass; Docker build validation tracked in WEB.md/MONITORING.md.
