@@ -1,5 +1,17 @@
 # Native Django checkpoint — 2026-11-24
 
+## Continuation from 6342275
+
+Replaced manual rule JSON with shared structured keyword/word/morphology/flexible
+term, Regex, reference and ML controls in standalone and nested editors. Weighted
+terms have bounded add/remove, weight/required controls; exclusions and thresholds
+preserve original validator contract. Master CategoryPicker and DateTimeRangeFilter
+read directly; added 24h/7d/30d/custom date controls and timezone display. Eight
+focused tests pass including all engine configs and unsafe Regex rejection.
+No migration, image build, browser/comprehensive tests or inference activation.
+Remaining UI/telemetry entries are not closed by this increment.
+
+
 ## Continuation from e572a2f
 
 Direct master CategoryPicker/PolicyEditor/IncidentTraining comparison used.

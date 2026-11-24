@@ -1,6 +1,46 @@
 /* Accessible progressive tabs: every section remains visible without JavaScript. */
 (() => {
   function initialize() {
+    document.querySelectorAll('[data-date-range]').forEach(group => {
+      if (group.dataset.ready) return;
+      group.dataset.ready = 'true';
+      const start = group.querySelector('[name="start"]'), end = group.querySelector('[name="end"]');
+      const local = date => new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      group.querySelector('[data-timezone]').textContent = 'Часовой пояс: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+      group.querySelector('[data-period]').addEventListener('change', event => {
+        if (event.target.value === 'custom') return;
+        const now = new Date();
+        start.value = local(new Date(now.getTime() - Number(event.target.value) * 3600000)); end.value = local(now);
+      });
+      const validate = () => end.setCustomValidity(start.value && end.value && start.value >= end.value ? 'Начало должно предшествовать окончанию' : '');
+      start.addEventListener('input', validate); end.addEventListener('input', validate);
+    });
+    document.querySelectorAll('[data-structured-rule]').forEach(editor => {
+      if (editor.dataset.ready) return;
+      editor.dataset.ready = 'true';
+      const kind = editor.querySelector('[name$="kind"]');
+      const mode = editor.querySelector('[name$="match_type"]');
+      const rows = [...editor.querySelectorAll('[data-term-row]')];
+      const textInput = row => row.querySelector('input[name$="_text"]');
+      rows.forEach(row => {
+        row.hidden = !textInput(row).value;
+        row.querySelector('[data-remove-term]').addEventListener('click', () => {
+          textInput(row).value = '';
+          row.querySelector('input[name$="_weight"]').value = 1;
+          row.querySelector('input[type="checkbox"]').checked = false;
+          row.hidden = true;
+        });
+      });
+      editor.querySelector('[data-add-term]').addEventListener('click', () => {
+        const row = rows.find(item => item.hidden);
+        if (row) { row.hidden = false; textInput(row).focus(); }
+      });
+      const update = () => {
+        editor.querySelectorAll('[data-rule-kind]').forEach(panel => panel.hidden = panel.dataset.ruleKind !== kind.value);
+        editor.querySelector('[data-flexible-terms]').hidden = mode.value !== 'flexible';
+      };
+      kind.addEventListener('change', update); mode.addEventListener('change', update); update();
+    });
     document.querySelectorAll('[data-rule-formset]').forEach(group => {
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';
@@ -18,6 +58,7 @@
         });
         group.insertBefore(fragment, template);
         total.value = index + 1;
+        initialize();
       });
     });
     document.querySelectorAll('[data-navigation-toggle]').forEach(button => {

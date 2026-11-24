@@ -1,6 +1,5 @@
 """Native category/rule editing, sharing the original rule validators."""
 
-import json
 from uuid import uuid4
 
 from django import forms
@@ -9,7 +8,8 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
-from records.models import Audit, Category, CategoryRule, Reference
+from policy_engine.rule_forms import StructuredRuleForm as RuleForm
+from records.models import Audit, Category, CategoryRule
 
 
 class CategoryForm(forms.ModelForm):
@@ -40,49 +40,6 @@ class CategoryForm(forms.ModelForm):
         if value not in {"any", "all"}:
             raise forms.ValidationError("Неизвестная логика")
         return value
-
-
-class RuleForm(forms.ModelForm):
-    class Meta:
-        model = CategoryRule
-        fields = ["title", "kind", "risk", "priority", "enabled", "config"]
-        widgets = {"kind": forms.Select(choices=[
-            ("keywords", "Ключевые слова"), ("regex", "Regex"),
-            ("reference", "Эталонные документы"), ("ml", "ML (выключен)"),
-        ])}
-
-    def clean_risk(self):
-        value = self.cleaned_data["risk"]
-        if not 0 <= value <= 100:
-            raise forms.ValidationError("Риск: 0–100")
-        return value
-
-    def clean_priority(self):
-        value = self.cleaned_data["priority"]
-        if not 0 <= value <= 10000:
-            raise forms.ValidationError("Приоритет: 0–10000")
-        return value
-
-    def clean(self):
-        values = super().clean()
-        config, kind = values.get("config"), values.get("kind")
-        if not isinstance(config, dict) or len(json.dumps(config)) > 64000:
-            self.add_error("config", "Ожидается JSON-объект до 64 КБ")
-            return values
-        if kind not in {"keywords", "regex", "reference", "ml"}:
-            self.add_error("kind", "Неизвестный движок")
-            return values
-        try:
-            from policy_engine.rule_config import validate_config
-
-            values["config"] = validate_config(kind, config)
-        except (ValueError, TypeError, KeyError) as exc:
-            self.add_error("config", str(exc))
-        if kind == "reference" and "config" in values and "config" not in self.errors:
-            ids = values["config"].get("reference_ids", [])
-            if Reference.objects.filter(pk__in=ids).count() != len(set(ids)):
-                self.add_error("config", "Неизвестный эталон")
-        return values
 
 
 @require_http_methods(["GET", "POST"])

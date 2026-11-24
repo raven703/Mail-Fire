@@ -5,13 +5,13 @@ Implemented does not mean browser/screenshot acceptance. Full testing is deferre
 
 | Original components | Native counterpart | Remaining functional/visual work |
 |---|---|---|
-| main, NavIcon, components | identity/base, native shell, local HTMX | icons, global search and complete date presets (grouped navigation/collapse implemented) |
+| main, NavIcon, components | identity/base, native shell, local HTMX | icons and global search (grouped navigation/collapse and original 24h/7d/30d/custom date controls implemented) |
 | SecurityOverview | records/overview, _overview_panels, original CSS | original trend segmentation and service summaries (risk distribution and priority list implemented) |
 | IncidentTable, IncidentCategoryFilter | records/incidents, workspace; multi-category/severity/date/assignee filters | compact sender layout, remaining original filters and picker styling |
 | IncidentActions, IncidentTraining | records/incident, datasets | original action layout (explicit incident-training modal implemented) |
 | MessageSelection | records/messages; source/direction/date filters, attachment/incident counts | delivery metadata columns (page selection, bounded bulk full reanalysis, per-item results and retry implemented) |
 | Evidence, MessageAttachments | records/message, _message_tabs, attachment | full evidence summaries/highlights, matching original viewer layout |
-| PolicyEditor, CategoryPicker | policy_engine/catalog, categories | picker styling and structured rule fields (nested existing-category/rule edit, creation/selection and dynamic summaries implemented) |
+| PolicyEditor, CategoryPicker | policy_engine/catalog, categories | picker styling (structured keyword/flexible-term/regex/reference/ML fields now shared by standalone and nested editors; nested edit/create and summaries implemented) |
 | CategoryManagement | policy_engine/categories | editor visual parity and all original inline interactions |
 | Accounts, EditorDialog | identity/users, dialogs.js | browser acceptance |
 | Management, RulepackTransfer | records/catalog/references/imports, rulepacks | per-catalog comparison and dialogs |
