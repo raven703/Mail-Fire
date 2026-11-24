@@ -34,6 +34,7 @@ def login_view(request):
         return JsonResponse({"detail": "Неверные учётные данные"}, status=401)
     with transaction.atomic():
         login(request, user)
+        request.session["mice_access_version"] = user.access_version
         Audit.objects.create(actor=user.pk, action="login", target=user.pk)
     return JsonResponse({**identity_response(user), "csrf": get_token(request)})
 

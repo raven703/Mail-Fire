@@ -27,7 +27,7 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 | Message detail/attachment viewer | api.py, preview_api.py, document_preview.py, MessageAttachments.tsx | Safe preview, originals permission, all tabs, viewer isolation | NOT PORTED |
 | Search/filters/ranges/preferences | workspace_api.py, admin_api.py, main.tsx | URL state, pagination, sorting, rolling range, theme, saved settings | NOT PORTED |
 | Security overview/analytics | SecurityOverview.tsx, workspace_api.py | Existing semantics, live refresh, charts, counts, empty/error states | NOT PORTED |
-| Accounts/addresses/employees | accounts_api.py, catalog_api.py, Accounts.tsx | CRUD, last-admin protection, disable, identity mapping | NOT PORTED |
+| Accounts/addresses/employees | accounts_api.py, catalog_api.py, Accounts.tsx | CRUD, last-admin protection, disable, identity mapping | Account CRUD, historical ID sync and session revocation ported; first templates added; modal/visual parity and addresses/employees pending |
 | Reliable queues and controls | worker.py, jobs APIs, Queues.tsx, monitoring.py | 10 queues, ID-only tasks, outbox, retry/cancel, fencing/DLQ/recovery | Delivery/state/outbox implemented; real maintenance job smoke passes; analysis producer/handler and UI cutover pending |
 | Notifications/SIEM | integrations.py, admin_api.py, models.Outbox | Preserve delivery contract, backoff, dedup semantics | Dedicated notification handler + atomic intents implemented; old outbox UI/config CRUD and E2E pending |
 | Retention/legal hold | retention.py, retention_api.py | Dry-run, hold protection, references/blob safety, Beat scheduling | NOT PORTED |
@@ -39,6 +39,8 @@ per row as stages land; never replace NOT PORTED with an unsupported percentage.
 
 ## Evidence ledger
 
+- Accounts checkpoint: 3 Auth/account tests pass (1.342 s), templates compile,
+  migration applied/no drift, Ruff passes. No message tests; see ACCOUNTS.md.
 - Policy checkpoint: isolated schema migration + no drift, 2 pure rule/source-AST
   checks and 3 delivery tests pass (5 total, 0.206 s). No message tests; see POLICY.md.
 - Queue checkpoint: 3 focused PostgreSQL tests pass; real RabbitMQ topology and

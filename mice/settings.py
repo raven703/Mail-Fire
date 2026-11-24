@@ -27,6 +27,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "identity.middleware.AccessVersionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 ROOT_URLCONF = "mice.urls"
@@ -78,6 +79,7 @@ USE_TZ = False
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 SESSION_COOKIE_NAME = "mice_django_session"
 SESSION_COOKIE_SECURE = os.environ.get("MICE_COOKIE_SECURE", "true").lower() == "true"
 SESSION_COOKIE_HTTPONLY = True

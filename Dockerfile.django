@@ -8,6 +8,8 @@ COPY identity ./identity
 COPY records ./records
 COPY pipeline ./pipeline
 COPY policy_engine ./policy_engine
+COPY templates ./templates
+COPY static ./static
 RUN useradd --uid 10001 --create-home mice && mkdir /state && chown mice:mice /state
 USER mice
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1

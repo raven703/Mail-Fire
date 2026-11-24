@@ -1,0 +1,5 @@
+{% extends 'identity/base.html' %}{% load static %}{% block body %}
+<main class="login"><div class="mice-login-logo"><img class="mice-light" src="{% static 'mice/mice-light.webp' %}" alt="MICE"><img class="mice-dark" src="{% static 'mice/mice-dark.webp' %}" alt="MICE"></div>
+<h1>MICE</h1><p>Рабочее место аналитика безопасности</p>
+<form method="post">{% csrf_token %}<label>Имя пользователя<input name="username" required maxlength="128" autocomplete="username"></label><label>Пароль<input name="password" type="password" required maxlength="1024" autocomplete="current-password"></label><button>Войти</button></form>
+{% if error %}<p role="alert" class="error">{{ error }}</p>{% endif %}</main>{% endblock %}

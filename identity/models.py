@@ -35,9 +35,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     originals = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    access_version = models.PositiveIntegerField(default=1)
     date_joined = models.DateTimeField(default=timezone.now)
     objects = UserManager()
     USERNAME_FIELD = "username"
+
+    def save(self, *args, **kwargs):
+        from django.db import transaction
+
+        from records.models import Account
+
+        with transaction.atomic():
+            super().save(*args, **kwargs)
+            # Historical investigator/comment FKs continue to reference accounts.
+            password_hash = self.password.removeprefix("legacy_argon2$")
+            if password_hash.startswith("argon2$"):
+                password_hash = "$" + password_hash.removeprefix("argon2$")
+            Account.objects.update_or_create(
+                pk=self.pk,
+                defaults={
+                    "username": self.username,
+                    "password_hash": password_hash,
+                    "role": self.role,
+                    "originals": self.originals,
+                    "enabled": self.is_active,
+                },
+            )
 
     def has_perm(self, perm, obj=None):
         # PermissionsMixin otherwise grants every permission to superusers,

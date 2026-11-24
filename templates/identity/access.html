@@ -1,0 +1,1 @@
+{% extends 'identity/base.html' %}{% block body %}<main><h1>MICE</h1><p>Недостаточно прав для управления пользователями.</p><form method="post" action="{% url 'logout-page' %}">{% csrf_token %}<button>Выйти</button></form></main>{% endblock %}
