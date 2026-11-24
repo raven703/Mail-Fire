@@ -36,4 +36,5 @@
     });
   }
   document.addEventListener('DOMContentLoaded', initialize);
+  document.addEventListener('htmx:afterSettle', initialize);
 })();

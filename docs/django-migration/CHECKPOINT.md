@@ -1,5 +1,19 @@
 # Native Django checkpoint — 2026-11-24
 
+## HTMX shell continuation after b51a2e6
+
+Vendored HTMX 2.0.11 with license and SHA-384 integrity, no runtime CDN. Native
+shell now uses existing MICE layout/sidebar/topbar classes and responsive tables.
+Boosted same-origin navigation/forms target the content region; multipart encoding,
+validation 400/422 rendering, CSRF header, loading/error announcements, download/
+export bypass and modal reinitialization added. Sensitive DOM history caching and
+script/eval execution disabled. Login redirects reload shell to discard stale nav.
+
+This is progressive shell integration, NOT complete visual/scenario parity.
+Monitoring polling, all modal/filter interactions, neural/offline delivery and
+optional ML/LLM inference orchestration still remain open. No comprehensive or
+browser acceptance performed. Do not mark TODO/matrix complete from this increment.
+
 ## Semantic/build/GC continuation after 3716d84
 
 Native pgvector indexing/search added with original 180-word/40-overlap chunks,
