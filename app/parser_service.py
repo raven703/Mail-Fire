@@ -2,6 +2,7 @@
 
 import base64
 import json
+import os
 import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -10,7 +11,21 @@ from socketserver import ThreadingMixIn
 from app.sandbox import local_call
 
 LIMIT = 70 * 1024**2
-slots = threading.BoundedSemaphore(1)
+UNIFIED = os.environ.get("MICE_UNIFIED_ANALYSIS_ENABLED", "false").lower() == "true"
+CONCURRENCY = int(os.environ.get("MICE_PARSER_CONCURRENCY", "2")) if UNIFIED else 1
+WAITING = int(os.environ.get("MICE_PARSER_QUEUE_SIZE", "3"))
+WAIT = float(os.environ.get("MICE_PARSER_SLOT_WAIT_SECONDS", "5"))
+if not 1 <= CONCURRENCY <= 32 or not 0 <= WAITING <= 32 or not 0 <= WAIT <= 30:
+    raise ValueError("Invalid parser admission limits")
+slots = threading.BoundedSemaphore(CONCURRENCY)
+admission = threading.BoundedSemaphore(CONCURRENCY + WAITING)
+broker = None
+
+def busy(handler):
+    handler.send_response(503)
+    handler.send_header("Retry-After", "5")
+    handler.send_header("Content-Length", "0")
+    handler.end_headers()
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -42,16 +57,45 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             self.send_error(400)
             return
-        if not 0 < size <= LIMIT:
+        if not 0 < size <= (128 * 1024**2 if UNIFIED else LIMIT):
             self.send_error(413)
             return
-        if not slots.acquire(blocking=False):
-            self.send_error(503)
+        if not admission.acquire(blocking=False):
+            busy(self)
+            return
+        if not slots.acquire(timeout=WAIT):
+            admission.release()
+            busy(self)
             return
         try:
             self.connection.settimeout(130)
             body = self.rfile.read(size)
             request = json.loads(body)
+            if request.get("operation") == "analyze_message":
+                if not UNIFIED or broker is None:
+                    self.send_error(422, "Unified analysis disabled")
+                    return
+                from app.analysis_broker import AnalysisUnavailable
+                try:
+                    data = base64.b64decode(request["data"], validate=True)
+                    if len(data) > 96 * 1024**2:
+                        raise ValueError("Analysis input limit")
+                    payload = json.dumps(broker.analyze(json.loads(data)), ensure_ascii=False).encode()
+                except AnalysisUnavailable:
+                    busy(self)
+                    return
+                from app.config import settings
+                if len(payload) > settings().parser_response_bytes:
+                    raise ValueError("Parser response limit")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(payload)))
+                self.end_headers()
+                self.wfile.write(payload)
+                return
+            if size > LIMIT:
+                self.send_error(413)
+                return
             if request.get("operation") not in {
                 "detect",
                 "detection_evidence",
@@ -86,6 +130,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(422, "Parser rejected input")
         finally:
             slots.release()
+            admission.release()
 
     def log_message(self, *args):
         pass  # Do not log filenames, message bodies or raw request content.
@@ -97,4 +142,7 @@ class Server(ThreadingMixIn, HTTPServer):
 
 
 if __name__ == "__main__":
+    if UNIFIED:
+        from app.analysis_broker import AnalysisBroker
+        broker = AnalysisBroker()
     Server(("0.0.0.0", 8090), Handler).serve_forever()
