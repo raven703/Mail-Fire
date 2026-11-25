@@ -7,6 +7,7 @@ GROUPS = (
     "neural_training",
     "semantic",
     "ingestion",
+    "analysis",
     "extraction",
     "ocr",
     "detection",
