@@ -128,7 +128,7 @@ def local_call(operation, data, name=""):
 
 def main():
     request = json.loads(sys.stdin.buffer.read(70 * 1024**2))
-    restrict(scan=request.get("operation") in {"scan", "extract"})
+    restrict(scan=request.get("operation") in {"scan", "scan_configured", "extract"})
     data = base64.b64decode(request["data"], validate=True)
     try:
         if request["operation"] == "probe":
@@ -170,10 +170,17 @@ def main():
                 [name, base64.b64encode(value).decode()]
                 for name, value in upload_members(data, request["name"])
             ]}
-        elif request["operation"] == "scan":
+        elif request["operation"] in {"scan", "scan_configured"}:
             from app.advanced_detectors import static_scan
 
-            output = static_scan(data, request["name"])
+            if request["operation"] == "scan_configured":
+                configured = json.loads(data)
+                engines = configured["engines"]
+                if set(engines) != {"static_files", "secrets"} or any(type(v) is not bool for v in engines.values()):
+                    raise ValueError("Invalid scan engines")
+                output = static_scan(base64.b64decode(configured["data"], validate=True), configured["name"], engines=engines)
+            else:
+                output = static_scan(data, request["name"])
         elif request["operation"] == "detection_evidence":
             from app.detection_evidence import analyze
 

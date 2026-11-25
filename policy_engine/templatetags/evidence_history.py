@@ -2,7 +2,7 @@
 from django import template
 
 from policy_engine.models import AnalysisRevision
-from records.models import CategoryRule
+from records.models import CategoryRule, Setting
 
 register = template.Library()
 
@@ -27,7 +27,7 @@ def historical_findings(context, findings):
     result = []
     for finding in findings or []:
         row = dict(finding)
-        for key in ("category", "rule_id", "source"):
+        for key in ("category", "rule_id", "source", "rule_version"):
             row.setdefault(key, "")
         row["rule_deleted"] = row.get("rule_id") in deleted
         for analysis in snapshots:
@@ -44,5 +44,12 @@ def historical_findings(context, findings):
                         row["historical_category"] = group["category"].get("name", group["category"]["id"])
             if row.get("historical_rule"):
                 break
+        if message is not None and not row.get("historical_rule"):
+            archive = Setting.objects.filter(pk="dlp_ru2_history").first()
+            if archive:
+                rule = archive.value.get("rules", {}).get(row.get("rule_id"))
+                if rule:
+                    row["historical_rule"] = rule
+                    row["historical_category"] = archive.value.get("categories", {}).get(row.get("category"), row.get("category"))
         result.append(row)
     return result

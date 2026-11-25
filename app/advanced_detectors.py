@@ -46,9 +46,11 @@ def finding(category, source, excerpt="", risk=80, reason="Требуется п
     )
 
 
-def pii(text):
+def pii(text, *, disabled=()):
     output = []
     for match in snils_matches(text):
+        if "RU_SNILS" in disabled:
+            break
         output.append(finding(
             "RU_SNILS", "presidio", text[match["start"]:match["end"]],
             60 if match["checksum_valid"] else 40, match["reason"],
@@ -56,22 +58,13 @@ def pii(text):
     from app.passport import passport_spans
 
     for start, end in passport_spans(text):
+        if "RU_PASSPORT" in disabled:
+            break
         output.append(finding(
             "RU_PASSPORT", "presidio", text[start:end], 60,
             "Серия и номер паспорта в контексте паспортных реквизитов",
         ) | {"start": start, "end": end, "confidence": 0.8})
-    for recognizer in recognizers():
-        for match in recognizer.analyze(text, recognizer.supported_entities):
-            if match.score:
-                result = finding(
-                    match.entity_type,
-                    "presidio",
-                    text[match.start : match.end],
-                    60,
-                    "Российский распознаватель Presidio; ИНН/СНИЛС проверены контрольной суммой",
-                )
-                result.update(confidence=match.score, start=match.start, end=match.end)
-                output.append(result)
+    # INN (same checksum algorithm) and PHONE are emitted once by detect().
     return output
 
 
@@ -91,15 +84,16 @@ rule EICAR_Test_File { strings: $a = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" condit
     )
 
 
-def static_scan(data, name):
+def static_scan(data, name, *, engines=None):
     from app.secret_scan import scan
 
-    secrets = scan(data)
+    engines = engines or {"static_files": True, "secrets": True}
+    secrets = scan(data) if engines.get("secrets", True) else {"findings": [], "status": "DISABLED"}
     results = [
         finding("YARA", "yara", risk=85, reason="Статическое правило: " + match.rule, filename=name)
-        for match in yara_rules().match(data=data, timeout=10)
+        for match in (yara_rules().match(data=data, timeout=10) if engines.get("static_files", True) else [])
     ]
-    if name.lower().endswith((".doc", ".docm", ".xls", ".xlsm", ".ppt", ".pptm", ".rtf")):
+    if engines.get("static_files", True) and name.lower().endswith((".doc", ".docm", ".xls", ".xlsm", ".ppt", ".pptm", ".rtf")):
         from oletools.olevba import VBA_Parser
 
         parser = VBA_Parser(name or "attachment", data=data)
@@ -114,5 +108,6 @@ def static_scan(data, name):
             parser.close()
     return {
         "findings": results + secrets["findings"],
-        "engines": {"yara": "OK", "oletools": "OK", "gitleaks": secrets["status"]},
+        "engines": {"yara": "OK" if engines.get("static_files", True) else "DISABLED",
+                    "oletools": "OK" if engines.get("static_files", True) else "DISABLED", "gitleaks": secrets["status"]},
     }

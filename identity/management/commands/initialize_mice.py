@@ -21,6 +21,12 @@ class Command(BaseCommand):
             "integrations": {"destinations": []},
         }.items():
             Setting.objects.get_or_create(pk=key, defaults={"value": value})
+        # Initialize only a genuinely empty custom catalog. Existing deployments
+        # require the explicit backed-up upgrade command, never an implicit reset.
+        from records.models import CategoryRule, Policy
+        if not CategoryRule.all_objects.exists() and not Policy.objects.exists() and not Setting.objects.filter(pk="dlp_rulepack").exists():
+            from policy_engine.ru3 import upgrade
+            upgrade(backup_dir=os.environ.get("MICE_DLP_BACKUP_DIR", "/state/dlp-backups"), apply=True)
         if User.objects.filter(username=username).exists():
             self.stdout.write("Administrator already exists; credentials unchanged")
             return

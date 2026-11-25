@@ -10,7 +10,9 @@ class DetectionCoordinatorTests(SimpleTestCase):
     @override_settings(MICE_CLAMAV_HOST="", MICE_OCR_ENABLED=True)
     def run_detection(self, scan_error=False):
         job = SimpleNamespace(pk="job", token="token", payload={"message_id": "message", "ocr_job_id": "ocr"})
-        upstream = SimpleNamespace(kind="ocr.complete", payload={"message_id": "message"}, output={"text": "body", "attachment_ids": []})
+        upstream = SimpleNamespace(kind="ocr.complete", payload={"message_id": "message", "extraction_job_id": "extraction"}, output={"text": "body", "attachment_ids": []})
+        extraction = SimpleNamespace(payload={"parse_job_id": "parse"})
+        parsed = SimpleNamespace(output={"text": "body"})
         message = SimpleNamespace(
             pk="message", original_sha_ref=SimpleNamespace(data=b"original"), sender="", recipients=[],
             save=lambda **kwargs: None,
@@ -24,7 +26,7 @@ class DetectionCoordinatorTests(SimpleTestCase):
             return {"findings": [], "engines": {"gitleaks": "OK", "yara": "OK"}}
 
         with (
-            patch("pipeline.detection.WorkItem.objects.get", return_value=upstream),
+            patch("pipeline.detection.WorkItem.objects.get", side_effect=[upstream, extraction, parsed]),
             patch("pipeline.detection.Message.objects.select_related") as messages,
             patch("pipeline.detection.Message.objects.select_for_update") as locked,
             patch("pipeline.detection.Attachment.objects.filter") as attachments,

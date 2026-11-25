@@ -1,6 +1,6 @@
 """Snapshot ORM configuration; evaluate proven algorithms in secret-free sandbox."""
 
-from records.models import CategoryRule, Reference, Setting
+from records.models import Category, CategoryRule, Reference, Setting
 
 
 def configuration():
@@ -16,8 +16,10 @@ def configuration():
         })
         bucket["rules"].append({
             "id": rule.pk, "kind": rule.kind, "title": rule.title, "risk": rule.risk, "config": rule.config,
+            "version": str(rule.created_at.isoformat()),
         })
     return {
+        "inactive_categories": list(Category.objects.filter(active=False).values_list("pk", flat=True)),
         "settings": settings,
         "groups": list(groups.values()),
         "references": list(Reference.objects.values("id", "text", "fingerprint")),

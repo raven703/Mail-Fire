@@ -1,9 +1,11 @@
 import re
 
-VERSION = "rules-1"
+VERSION = "rules-ru3-1"
 
 
 def inn_valid(value):
+    if not value.isascii() or not value.isdigit() or len(set(value)) == 1:
+        return False
     digits = list(map(int, value))
 
     def check(weights):
@@ -18,12 +20,12 @@ def inn_valid(value):
     )
 
 
-def detect(text):
+def detect(text, *, disabled=()):
     findings = []
     rules = [
         ("EMAIL", r"\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b", 20),
-        ("PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 30),
-        ("INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 40),
+        ("PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 60),
+        ("INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 60),
         (
             "SECRET",
             r'(?i)(?:password|passwd|api[_-]?key|access[_-]?token)\s*[:=]\s*["\x27]?[^\s"\x27]{8,}',
@@ -40,21 +42,32 @@ def detect(text):
         ("SUSPICIOUS_COMMAND", r"(?i)powershell\s+.*-(?:enc|encodedcommand)|curl\s+[^\n]+\|\s*(?:ba)?sh", 80),
     ]
     for category, pattern, risk in rules:
+        if category in disabled:
+            continue
         for match in re.finditer(pattern, text):
             if category == "INN" and not inn_valid(match.group()):
                 continue
+            hit_risk = risk
+            reason = "Совпадение статического правила; требуется проверка контекста"
+            if category == "CODE":
+                context = text[max(0, match.start()-400):match.end()+400]
+                confidential = re.search(r"(?i)конфиденциал\w*|коммерческ\w*\s+тайн\w*|proprietary|internal\s+only|trade\s+secret", context)
+                transfer = re.search(r"(?i)переда\w*|высыла\w*|отправ\w*|исходн\w*\s+код|source\s+code|репозитор\w*", context)
+                if confidential and transfer:
+                    hit_risk = 65
+                    reason = "Исходный код с локальными признаками конфиденциальности и передачи"
             findings.append(
                 dict(
                     category=category,
                     rule_id=category.lower(),
-                    risk=risk,
+                    risk=hit_risk,
                     confidence=None,
                     start=match.start(),
                     end=match.end(),
                     excerpt=match.group()[:160],
                     source="text",
                     version=VERSION,
-                    reason="Совпадение статического правила; требуется проверка контекста",
+                    reason=reason,
                     status="ANALYZED",
                 )
             )

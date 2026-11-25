@@ -139,6 +139,7 @@ def categories(request, category_id=None, rule_id=None):
     kind = request.GET.get("kind", "custom")
     query = request.GET.get("q", "").strip()[:200]
     rows = Category.objects.order_by("group_name", "name")
+    rows = rows.exclude(pk__in=["RU_INN", "RU_PHONE"])
     if kind == "system":
         rows = rows.filter(mode__in=["builtin", "label"])
     elif kind != "all":

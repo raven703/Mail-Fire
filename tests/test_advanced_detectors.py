@@ -4,8 +4,10 @@ from app.advanced_detectors import pii, snils_valid, static_scan
 def test_real_presidio_russian_recognizers():
     assert snils_valid("112-233-445 95")
     assert not snils_valid("112-233-445 96")
-    findings = pii("ИНН 7707083893; СНИЛС 112-233-445 95; паспорт 45 01 123456")
-    assert {"RU_INN", "RU_SNILS", "RU_PASSPORT"} <= {r["category"] for r in findings}
+    from app.detectors import detect
+    text = "ИНН 7707083893; СНИЛС 112-233-445 95; паспорт 45 01 123456"
+    findings = pii(text) + detect(text)
+    assert {"INN", "RU_SNILS", "RU_PASSPORT"} <= {r["category"] for r in findings}
     assert not any(r["category"] == "RU_SNILS" for r in pii("112-233-445 96"))
 
 

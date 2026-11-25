@@ -62,6 +62,7 @@ class Handler(BaseHTTPRequestHandler):
                 "extract_native",
                 "probe",
                 "scan",
+                "scan_configured",
                 "preview",
             }:
                 raise ValueError("Unsupported operation")

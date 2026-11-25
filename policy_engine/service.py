@@ -11,7 +11,7 @@ from pipeline.services import enqueue, finish, locked_current
 from policy_engine.catalog import DETECTORS
 from policy_engine.models import AnalysisRevision, Evaluation, PolicyRevision
 from policy_engine.rules import classify_direction, policy_matches
-from records.models import Category, Incident, MailEvent, Message, Outbox, Policy, Setting
+from records.models import Category, CategoryRule, Incident, MailEvent, Message, Outbox, Policy, Setting
 
 
 class EvidenceUnavailable(ValueError):
@@ -89,6 +89,8 @@ def request_evaluation(message_id, request_id):
         "active_categories": sorted(Category.objects.filter(active=True).values_list("id", flat=True)),
         "internal_domains": settings.MICE_INTERNAL_DOMAINS,
         "event_ids": sorted(MailEvent.objects.filter(message=message).values_list("id", flat=True)),
+        "active_rule_ids": list(CategoryRule.objects.filter(
+            enabled=True, category__active=True).values_list("pk", flat=True)),
     }
     if not config["event_ids"]:
         raise EvidenceUnavailable("No delivery events available")
@@ -150,6 +152,7 @@ def evaluate(job):
         return
     config = payload["settings"]
     evidence = analysis.results
+    from app.evidence import ALIASES
     direction = classify_direction(evidence["sender"], evidence["recipients"], config["internal_domains"])
     events = list(MailEvent.objects.filter(message=message, pk__in=config["event_ids"]).order_by("id"))
     if not events:
@@ -163,9 +166,12 @@ def evaluate(job):
     }
     findings = [
         finding
-        for finding in evidence["analysis"]["findings"]
+        for original in evidence["analysis"]["findings"]
+        for finding in [{**original, "category": ALIASES.get(original["category"], original["category"])}]
         if finding["category"] in config["active_categories"]
         and finding["category"] not in disabled
+        and (finding.get("source") not in {"custom-keywords", "custom-regex", "custom-reference", "custom-ml"}
+             or "active_rule_ids" not in config or finding.get("rule_id") in config["active_rule_ids"])
         and not (
             not config["detectors"].get("ml", True)
             and finding.get("source") in {"supervised-ml", "custom-ml"}

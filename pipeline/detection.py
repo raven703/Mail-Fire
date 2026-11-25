@@ -26,9 +26,15 @@ def detect(job):
     if len(attachments) != len(upstream.output["attachment_ids"]):
         raise ValueError("Missing detection attachment evidence")
     config = configuration()
+    extraction = WorkItem.objects.get(pk=upstream.payload["extraction_job_id"], status="DONE")
+    parsed = WorkItem.objects.get(pk=extraction.payload["parse_job_id"], status="DONE")
+    documents = [{"id": "body", "text": parsed.output["text"]}] + [
+        {"id": row.pk, "text": row.text} for row in attachments
+    ]
     result = call("detection_evidence", json.dumps({
         "text": text, "configuration": config,
-        "attachments": [{"name": row.name, "text": row.text, "status": row.status} for row in attachments],
+        "documents": documents,
+        "attachments": [{"id": row.pk, "name": row.name, "text": row.text, "status": row.status} for row in attachments],
     }).encode())
     if not isinstance(result.get("findings"), list) or not isinstance(result.get("version"), str):
         raise ValueError("Invalid detection response")
@@ -60,17 +66,32 @@ def detect(job):
                 errors.append({"engine": "antivirus", "error": type(exc).__name__})
     else:
         skipped.add("antivirus")
-    for name, data in [("body.txt", text.encode())] + objects[1:]:
+    for document_id, name, data in [("body", "body.txt", parsed.output["text"].encode())] + [
+        (row.pk, row.name, bytes(row.blob_sha_ref.data)) for row in attachments
+    ]:
+        if not enabled.get("static_files", True) and not enabled.get("secrets", True):
+            skipped.update({"static_files", "secrets"})
+            continue
         try:
-            scanned = call("scan", data, name)
-            findings.extend(scanned["findings"])
+            import base64
+            scanned = call("scan_configured", json.dumps({
+                "data": base64.b64encode(data).decode(), "name": name,
+                "engines": {key: enabled.get(key, True) for key in ("static_files", "secrets")},
+            }).encode())
+            findings.extend({**hit, "document_id": document_id} for hit in scanned["findings"])
             for engine, state in scanned["engines"].items():
-                if state != "OK":
+                if state not in {"OK", "DISABLED"}:
                     errors.append({"engine": engine, "error": state})
         except Exception as exc:
             errors.append({"engine": "static_scan", "error": type(exc).__name__})
     for row in attachments:
         findings.extend(row.details.get("findings", []))
+    from app.evidence import unique_findings
+    from policy_engine.catalog import DETECTORS
+
+    disabled = {category for key, value in DETECTORS.items() if not enabled.get(key, True) for category in value[2]}
+    disabled.update(config.get("inactive_categories", []))
+    findings = unique_findings(hit for hit in findings if hit["category"] not in disabled)
     from app.analysis_status import classify_analysis
 
     status, status_skipped = classify_analysis(

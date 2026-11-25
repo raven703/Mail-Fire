@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods
 
 from policy_engine.catalog_service import revision
 from policy_engine.rule_config import validate_config
-from records.models import Audit, Category, CategoryRule, Policy, Reference
+from records.models import Audit, Category, CategoryRule, Policy, Reference, Setting
 from records.operations import admin_access
 
 LIMIT = 1024 * 1024
@@ -155,6 +155,10 @@ def inspect(pack, update=False):
 def apply(pack, actor, update=False):
     with connection.cursor() as cursor:
         cursor.execute("LOCK TABLE categories, category_rules, policies IN SHARE ROW EXCLUSIVE MODE")
+    if Setting.objects.filter(pk="dlp_rulepack").exists() and any(
+        c["id"].startswith("pack-ru2-") for c in pack["categories"]
+    ):
+        raise ValueError("Категории RU3 управляются штатным обновлением; импорт RU2 поверх RU3 запрещён")
     changes = inspect(pack, update)
     for spec, change in zip(pack["categories"], changes):
         if change["action"] == "skip":

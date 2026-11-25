@@ -63,15 +63,17 @@ def _make_finding(category, rule, text, source, *, confidence=None):
         reason="Совпадение с пользовательским правилом: " + (rule.title or rule.kind),
     )
     found["rule_id"] = rule.id
+    found["rule_version"] = getattr(rule, "version", "unspecified")
+    found["historical_rule"] = {"id": rule.id, "kind": rule.kind, "title": rule.title,
+                                "risk": rule.risk, "config": rule.config,
+                                "version": found["rule_version"]}
+    found["historical_category"] = getattr(category, "name", category.id)
     found["confidence"] = confidence
     return found
 
 
 def _hits(rule, category, text, matches, ml_scores):
     config = rule.config or {}
-    lower = text.lower()
-    if any(phrase.lower() in lower for phrase in config.get("exclude_phrases", [])):
-        return []
     if rule.kind == "keywords":
         from app.text_match import search
 
@@ -91,7 +93,7 @@ def _hits(rule, category, text, matches, ml_scores):
                 category, rule, text[max(0, start-40):min(len(text),end+40)], "custom-keywords",
                 confidence=confidence if config.get("match_type") == "flexible" else None
             )
-            found["match_score"] = score
+            found.update(start=start, end=end, original_excerpt=text[start:end], match_score=score)
             output.append(found)
         return output
     if rule.kind == "regex":
@@ -103,11 +105,15 @@ def _hits(rule, category, text, matches, ml_scores):
         except (RuntimeError, ValueError, subprocess.TimeoutExpired):
             return []
         for start, end in spans:
+            from app.text_match import excluded
+            if excluded(text, start, end, config.get("exclude_phrases", [])):
+                continue
             output.append(
                 _make_finding(
                     category, rule, text[max(0, start - 40) : end + 40], "custom-regex"
                 )
             )
+            output[-1].update(start=start, end=end, original_excerpt=text[start:end])
             if len(output) >= 10:
                 break
         return output
@@ -148,7 +154,7 @@ def custom_findings(session, text, *, references=(), ml_scores=None, available_e
     )
 
 
-def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None):
+def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None, normalized=None):
     """Persistence-independent rule evaluation shared by native Django and reference app."""
     result = []
     ml_scores = ml_scores or {}
@@ -156,15 +162,26 @@ def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_en
         available_engines = {"keywords", "regex", "reference", "ml"}
     for bucket in groups:
         category, rules = bucket["category"], bucket["rules"]
-        if category.mode in {"builtin", "label"}:
+        if not getattr(category, "active", True) or category.mode in {"builtin", "label"}:
             continue
         hits = []
         all_good = True
         for rule in rules:
+            if not getattr(rule, "enabled", True) or getattr(rule, "deleted_at", None):
+                continue
             if rule.kind not in available_engines:
                 all_good = False
                 continue
             rule_hits = _hits(rule, category, text, references, ml_scores)
+            if normalized and rule.kind in {"keywords", "regex"}:
+                from app.evidence import map_finding, normalization_safe_regex
+                variant, spans, transforms = normalized
+                if rule.kind == "keywords" or normalization_safe_regex(rule.config.get("pattern", "")):
+                    for hit in _hits(rule, category, variant, references, ml_scores):
+                        mapped = map_finding(hit, text, spans, transforms)
+                        from app.text_match import excluded
+                        if not excluded(text, mapped["start"], mapped["end"], rule.config.get("exclude_phrases", [])):
+                            rule_hits.append(mapped)
             if not rule_hits:
                 all_good = False
             hits.extend(rule_hits)

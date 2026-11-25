@@ -85,6 +85,8 @@ def compare(expected):
 def restore(expected):
     with connection.cursor() as cursor:
         cursor.execute("LOCK TABLE categories, category_rules, policies, settings IN SHARE ROW EXCLUSIVE MODE")
+    if Setting.objects.filter(pk="dlp_rulepack").exists():
+        raise ValueError("Managed RU3 is installed; historical RU2 restoration is forbidden")
     for key, model in (("categories", Category), ("rules", CategoryRule), ("policies", Policy)):
         for spec in expected[key]:
             model.objects.update_or_create(pk=spec["id"], defaults={k: v for k, v in spec.items() if k != "id"})

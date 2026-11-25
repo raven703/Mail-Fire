@@ -1,20 +1,22 @@
-"""Unchanged pure policy/direction functions extracted from source master."""
+"""Pure policy evaluation with unique evidence counting and legacy aliases."""
 
 
 def policy_matches(findings, conditions):
-    """Findings are counted individually; any/all applies to category coverage.
+    """Unique source occurrences count; any/all applies to category coverage.
 
     min_risk is a per-finding threshold, min_count is a total finding count,
     and 'all' additionally needs one qualifying finding from every category.
     Existing policies default to 'any' for backward compatibility.
     """
-    requested = set(conditions.get("categories") or [])
+    from app.evidence import ALIASES, evidence_count, unique_findings
+
+    requested = {ALIASES.get(c, c) for c in conditions.get("categories") or []}
     result = [
         f
-        for f in findings
+        for f in unique_findings(findings)
         if f["risk"] >= conditions.get("min_risk", 0) and (not requested or f["category"] in requested)
     ]
-    if len(result) < conditions.get("min_count", 1):
+    if evidence_count(result) < conditions.get("min_count", 1):
         return []
     if conditions.get("category_match", "any") == "all":
         if not requested or not requested.issubset({f["category"] for f in result}):

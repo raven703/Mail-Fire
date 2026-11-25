@@ -9,7 +9,7 @@ from django.conf import settings
 
 def call(operation, data, name="", *, ocr=False):
     if operation not in {
-        "mail", "extract", "extract_native", "detect", "probe", "scan", "preview",
+        "mail", "extract", "extract_native", "detect", "probe", "scan", "scan_configured", "preview",
         "upload_members", "detection_evidence", "dataset_import",
     }:
         raise ValueError("Unsupported parser operation")
