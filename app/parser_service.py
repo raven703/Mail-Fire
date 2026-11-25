@@ -9,7 +9,10 @@ import logging
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-from app.sandbox import local_call
+def local_call(*args, **kwargs):
+    # Keep HTTP admission tests and the coordinator free of parser-only imports.
+    from app.sandbox import local_call as sandbox_call
+    return sandbox_call(*args, **kwargs)
 
 LIMIT = 70 * 1024**2
 UNIFIED = os.environ.get("MICE_UNIFIED_ANALYSIS_ENABLED", "false").lower() == "true"
