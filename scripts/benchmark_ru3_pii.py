@@ -51,10 +51,11 @@ def metric(tp, fp, fn):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--category", choices=["pii", "internal"], default="pii")
+    parser.add_argument("--category", choices=["pii", "internal", "financial"], default="pii")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    category_id = CATEGORY if args.category == "pii" else "pack-ru2-internal-docs"
+    category_id = {"pii": CATEGORY, "internal": "pack-ru2-internal-docs",
+                   "financial": "pack-ru2-financial-plans"}[args.category]
     prior = json.loads((ROOT / f"config/rulepacks/history/ru3_{args.category}_before_calibration.json").read_text())
     pack = json.loads((ROOT / "config/rulepacks/ru3_candidate.json").read_text())
     current = next(c for c in pack["categories"] if c["id"] == category_id)
