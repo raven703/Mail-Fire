@@ -10,16 +10,17 @@ from django.conf import settings
 def call(operation, data, name="", *, ocr=False):
     if operation not in {
         "mail", "extract", "extract_native", "detect", "probe", "scan", "scan_configured", "preview",
-        "upload_members", "detection_evidence", "dataset_import",
+        "upload_members", "detection_evidence", "dataset_import", "analyze_message",
     }:
         raise ValueError("Unsupported parser operation")
     url = settings.MICE_OCR_PARSER_URL if ocr else settings.MICE_PARSER_URL
     if not url:
         raise RuntimeError("Isolated parser is not configured; local fallback forbidden")
-    if len(data) > settings.MICE_MAX_MESSAGE_BYTES:
+    limit = 96 * 1024**2 if operation == "analyze_message" else settings.MICE_MAX_MESSAGE_BYTES
+    if len(data) > limit:
         raise ValueError("Parser input limit")
     with httpx.Client(
-        timeout=settings.MICE_PARSER_TIMEOUT, trust_env=False, follow_redirects=False
+        timeout=(settings.MICE_ANALYSIS_WALL_TIMEOUT + 30 if operation == "analyze_message" else settings.MICE_PARSER_TIMEOUT), trust_env=False, follow_redirects=False
     ) as client:
         with client.stream(
             "POST",
