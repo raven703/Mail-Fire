@@ -38,7 +38,10 @@ def accept(data, source, source_key, name, envelope=None):
         source_key=source_key, name=name, status="SAVED", message=message, duplicate=not created
     )
     if created:
-        enqueue("ingestion.parse", {"message_id": message.pk}, "parse:" + message.pk)
+        if getattr(settings, "MICE_UNIFIED_ANALYSIS_ENABLED", False):
+            enqueue("analysis.analyze", {"message_id": message.pk}, "analysis:" + message.pk)
+        else:
+            enqueue("ingestion.parse", {"message_id": message.pk}, "parse:" + message.pk)
     elif message.status in {"ANALYZED", "PARTIAL"}:
         from policy_engine.service import request_evaluation
 
