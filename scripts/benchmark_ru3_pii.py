@@ -51,11 +51,13 @@ def metric(tp, fp, fn):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--category", choices=["pii", "internal"], default="pii")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    prior = json.loads((ROOT / "config/rulepacks/history/ru3_pii_before_calibration.json").read_text())
+    category_id = CATEGORY if args.category == "pii" else "pack-ru2-internal-docs"
+    prior = json.loads((ROOT / f"config/rulepacks/history/ru3_{args.category}_before_calibration.json").read_text())
     pack = json.loads((ROOT / "config/rulepacks/ru3_candidate.json").read_text())
-    current = next(c for c in pack["categories"] if c["id"] == CATEGORY)
+    current = next(c for c in pack["categories"] if c["id"] == category_id)
     manifest = [json.loads(x) for x in (ROOT / "test-data/benchmark-350-v1/manifest.jsonl").read_text().splitlines()]
     observations = {x["id"]: x for x in map(json.loads, (ROOT / "test-data/results-benchmark350-20261123/observations.jsonl").read_text().splitlines())}
     result = {}
@@ -63,7 +65,7 @@ def main():
         rows, counts = [], collections.Counter()
         per = {r["title"]: collections.Counter() for r in cat["rules"]}
         for case in manifest:
-            expected = CATEGORY in case["expected_semantic_categories"]
+            expected = category_id in case["expected_semantic_categories"]
             hits = evaluate(cat, documents(observations[case["id"]]))
             actual = bool(hits)
             outcome = "TP" if expected and actual else "FP" if actual else "FN" if expected else "TN"

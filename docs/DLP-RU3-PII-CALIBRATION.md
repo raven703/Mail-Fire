@@ -13,3 +13,5 @@
 После подтверждения результатов: `python manage.py apply_ru3_pii_calibration` (preview), затем `python manage.py apply_ru3_pii_calibration --apply --backup-dir /durable/backup/path`. Команда обновляет только эту категорию: сохраняет первый rule ID, архивирует два изменённых правила и создаёт четыре новых. Сохраняет историю, политики и настройки. При расхождении локальной конфигурации останавливается. Новые установки получают обновлённый RU3 (38 правил, 239 взвешенных записей). Не применять общий restore/import поверх установленного RU3.
 
 Другие 11 категорий и политики, OCR, ML/LLM не менялись.
+
+Update: subsequent internal-documents calibration extends the same command to both categories; see DLP-RU3-INTERNAL-CALIBRATION.md. Current totals: 38 rules, 237 weighted entries.
