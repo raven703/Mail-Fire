@@ -1,0 +1,106 @@
+"""Single-threaded fork supervisor; the parent never parses an email."""
+import ctypes
+import os
+import shutil
+import signal
+import socket
+import sys
+import tempfile
+import time
+
+from app.analysis_ipc import receive, send, request_ocr
+
+
+def nondumpable():
+    if ctypes.CDLL(None, use_errno=True).prctl(4, 0, 0, 0, 0) != 0:
+        raise RuntimeError("Cannot protect launcher process")
+
+
+def child(connection, listener, directory):
+    listener.close()
+    os.setsid()
+    nondumpable()
+    os.chdir(directory)
+    os.environ["HOME"] = directory
+    os.environ["TMPDIR"] = directory
+    tempfile.tempdir = directory
+    from app.sandbox import restrict
+    restrict(scan=True)
+    try:
+        from app.unified_analysis import analyze_message
+        request = receive(connection)
+        result = analyze_message(request, lambda data, name: request_ocr(connection, data, name))
+        send(connection, {"type": "result", "result": result})
+    except Exception as exc:
+        try:
+            send(connection, {"type": "error", "error": type(exc).__name__})
+        except Exception:
+            pass
+    finally:
+        connection.close()
+
+
+def reap(children, timeout):
+    for pid, (started, directory) in list(children.items()):
+        info = os.waitid(os.P_PID, pid, os.WEXITED | os.WNOHANG | os.WNOWAIT)
+        if info is None and time.monotonic() - started < timeout:
+            continue
+        try:
+            os.killpg(pid, signal.SIGKILL)
+        except ProcessLookupError:
+            if info is None:
+                try:
+                    os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+        os.waitpid(pid, 0)
+        shutil.rmtree(directory, ignore_errors=True)
+        del children[pid]
+
+
+def main():
+    nondumpable()
+    from app.text_match import _morph
+    from app import mail, categories, detection_evidence, unified_analysis
+    _morph()
+    if len(os.listdir("/proc/self/task")) != 1:
+        raise RuntimeError("Fork supervisor must remain single-threaded")
+    listener = socket.socket(fileno=int(sys.argv[1]))
+    listener.settimeout(0.2)
+    maximum = int(os.environ.get("MICE_PARSER_CONCURRENCY", "2"))
+    timeout = int(os.environ.get("MICE_ANALYSIS_WALL_TIMEOUT", "600"))
+    if not 1 <= maximum <= 32 or not 1 <= timeout <= 3600:
+        raise ValueError("Invalid analysis supervisor limits")
+    children = {}
+    try:
+        while True:
+            reap(children, timeout)
+            if len(children) >= maximum:
+                time.sleep(0.05)
+                continue
+            try:
+                connection, _ = listener.accept()
+            except TimeoutError:
+                continue
+            connection.settimeout(timeout)
+            directory = tempfile.mkdtemp(prefix="mice-mail-")
+            try:
+                pid = os.fork()
+            except OSError:
+                connection.close()
+                shutil.rmtree(directory, ignore_errors=True)
+                continue
+            if pid == 0:
+                try:
+                    child(connection, listener, directory)
+                finally:
+                    os._exit(0)
+            connection.close()
+            children[pid] = (time.monotonic(), directory)
+    finally:
+        listener.close()
+        reap(children, 0)
+
+
+if __name__ == "__main__":
+    main()
