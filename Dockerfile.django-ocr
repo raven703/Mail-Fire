@@ -1,5 +1,6 @@
 FROM parser_image
 USER root
+ENV UV_HTTP_TIMEOUT=300 UV_HTTP_RETRIES=5
 COPY requirements.ocr.lock /tmp/requirements.ocr.lock
 RUN uv pip install --python /app/.venv/bin/python -r /tmp/requirements.ocr.lock
 COPY scripts/prepare_ocr.py scripts/prepare_paddle.py /tmp/

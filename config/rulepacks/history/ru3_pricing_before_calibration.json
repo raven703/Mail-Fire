@@ -1,0 +1,190 @@
+{
+  "id": "pack-ru2-pricing",
+  "name": "[RU2] Специальные цены и коммерческие условия",
+  "group_name": "Коммерческая информация",
+  "description": "Индивидуальные коммерческие условия и скидки в рабочем контексте.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Персональное предложение с тарифом",
+      "enabled": true,
+      "risk": 67,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "клиент",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "индивидуальный",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "скидка",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "согласовать",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "цена",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "покупатель",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "контрагент",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "тариф",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "договор",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 7,
+      "window": 17,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Закрытая себестоимость и наценка",
+      "enabled": true,
+      "risk": 70,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "себестоимость",
+          "weight": 5,
+          "required": true
+        },
+        {
+          "text": "наценка",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "маржа",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "внутренний",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "проект",
+          "weight": 1,
+          "required": false
+        },
+        {
+          "text": "закупочный",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "калькуляция",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "конфиденциальный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "закрытый",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 8,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Явные коммерческие пометки",
+      "enabled": true,
+      "risk": 65,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "индивидуальные условия поставки",
+        "закрытый прайс лист",
+        "коммерческое предложение конфиденциально",
+        "индивидуальная скидка",
+        "персональная скидка",
+        "специальная цена для клиента",
+        "закрытые коммерческие условия",
+        "конфиденциальный прайс",
+        "закупочная цена для внутреннего использования",
+        "внутренняя калькуляция себестоимости",
+        "индивидуальный тариф клиента",
+        "непубличная ценовая политика"
+      ],
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Скидка и ограничение доступа",
+      "enabled": true,
+      "risk": 72,
+      "priority": 60,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "скидка",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "конфиденциальный",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "закрытый",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "непубличный",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "внутренний",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 8,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    }
+  ]
+}

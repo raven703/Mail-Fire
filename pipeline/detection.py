@@ -97,7 +97,7 @@ def detect(job):
     status, status_skipped = classify_analysis(
         [(row.status, row.details) for row in attachments], av_states, [], [],
         antivirus_enabled=enabled.get("antivirus", True), ml_enabled=False,
-        ocr_enabled=settings.MICE_OCR_ENABLED,
+        ocr_enabled=upstream.output.get("ocr_configuration", {}).get("enabled", settings.MICE_OCR_ENABLED),
     )
     if errors:
         status = "PARTIAL"

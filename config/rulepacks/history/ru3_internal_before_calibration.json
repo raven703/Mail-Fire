@@ -1,0 +1,97 @@
+{
+  "id": "pack-ru2-internal-docs",
+  "name": "[RU2] Ограничение распространения документов",
+  "group_name": "Коммерческая информация",
+  "description": "Явные текстовые пометки доступа. Не является доказательством нарушения: учитывайте направление доставки и разрешённость отправителя.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Метки внутреннего обращения",
+      "enabled": true,
+      "risk": 65,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "только для внутреннего использования",
+        "не подлежит распространению",
+        "запрещено передавать третьим лицам",
+        "строго конфиденциально",
+        "для служебного пользования",
+        "не пересылать третьим лицам",
+        "не для распространения",
+        "не для публикации",
+        "внутреннее использование",
+        "конфиденциальный документ",
+        "распространение ограничено",
+        "не передавать за пределы организации"
+      ],
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Передача внутреннего документа вовне",
+      "enabled": true,
+      "risk": 70,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "внутренний",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "документ",
+          "weight": 2,
+          "required": true
+        },
+        {
+          "text": "отправить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "переслать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "внешний",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "подрядчик",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "личный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "сторонний",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "получатель",
+          "weight": 1,
+          "required": false
+        }
+      ],
+      "min_score": 8,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    }
+  ]
+}

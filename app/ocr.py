@@ -1,6 +1,8 @@
 """Real CPU OCR adapters. No model download is allowed during parsing."""
 
 from functools import lru_cache
+from importlib.metadata import version
+from time import perf_counter
 
 from app.config import settings
 
@@ -8,6 +10,10 @@ from app.config import settings
 @lru_cache(maxsize=1)
 def engine():
     backend = settings().ocr_backend
+    if backend == "surya":
+        from surya.detection import DetectionPredictor
+        from surya.recognition import RecognitionPredictor
+        return RecognitionPredictor(), DetectionPredictor()
     if backend == "rapidocr":
         from pathlib import Path
 
@@ -45,6 +51,7 @@ def engine():
 
 
 def recognize(data, page=1):
+    started = perf_counter()
     if settings().ocr_backend == "rapidocr":
         result = engine()(data)
         blocks = [
@@ -53,6 +60,14 @@ def recognize(data, page=1):
                 result.txts or [], result.scores or [], result.boxes if result.boxes is not None else []
             )
         ]
+    elif settings().ocr_backend == "surya":
+        import io
+        from PIL import Image
+        predictor, detector = engine()
+        with Image.open(io.BytesIO(data)) as image:
+            result = predictor([image.convert("RGB")], det_predictor=detector, math_mode=False)[0]
+        blocks = [{"text": line.text, "confidence": line.confidence,
+                   "box": line.polygon, "page": page} for line in result.text_lines]
     else:
         import io
 
@@ -71,4 +86,10 @@ def recognize(data, page=1):
                         "page": page,
                     }
                 )
-    return "\n".join(b["text"] for b in blocks), {"backend": settings().ocr_backend, "blocks": blocks}
+    backend = settings().ocr_backend
+    return "\n".join(b["text"] for b in blocks), {
+        "backend": backend, "engine": backend, "version": version("surya-ocr" if backend == "surya" else backend),
+        "model": {"surya": "detection-2025_05_07/recognition-2025_05_16",
+                  "rapidocr": "cyrillic_PP-OCRv5_rec_mobile", "paddleocr": "ru_PP-OCRv3"}[backend],
+        "page": page, "seconds": perf_counter() - started, "blocks": blocks,
+    }

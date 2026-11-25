@@ -22,6 +22,7 @@ class WorkItem(models.Model):
     payload = models.JSONField(default=dict)
     status = models.CharField(max_length=16, choices=Status.choices, default=Status.PENDING)
     attempts = models.PositiveIntegerField(default=0)
+    deferrals = models.PositiveIntegerField(default=0)
     max_attempts = models.PositiveIntegerField(default=5)
     generation = models.PositiveIntegerField(default=0)
     token = models.UUIDField(null=True)

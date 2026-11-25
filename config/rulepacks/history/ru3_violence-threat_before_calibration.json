@@ -1,0 +1,83 @@
+{
+  "id": "pack-ru2-violence-threat",
+  "name": "[RU2] Прямые угрозы физической расправы",
+  "group_name": "Угрозы и безопасность",
+  "description": "Прямые угрозы нанесения вреда, не любой разговор о насилии.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Прямые угрозы адресату",
+      "enabled": true,
+      "risk": 90,
+      "priority": 30,
+      "match_type": "word",
+      "phrases": [
+        "я тебя убью",
+        "я вас убью",
+        "я тебя зарежу",
+        "тебя застрелю",
+        "убью вас всех"
+      ],
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Выраженное намерение расправы",
+      "enabled": true,
+      "risk": 84,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "убить",
+          "weight": 6,
+          "required": true
+        },
+        {
+          "text": "тебя",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "вас",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "найти",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "завтра",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "сегодня",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 10,
+      "window": 12,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Явная угроза расправы",
+      "enabled": true,
+      "risk": 86,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "угрожаю физической расправой",
+        "причиню тебе физический вред"
+      ],
+      "exclude_phrases": []
+    }
+  ]
+}

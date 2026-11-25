@@ -1,0 +1,257 @@
+{
+  "id": "pack-ru2-customer-data",
+  "name": "[RU2] Выгрузки клиентов и контактных баз",
+  "group_name": "Персональные данные и базы",
+  "description": "Речь о передаче массивов клиентских записей, без попытки обнаруживать конкретные ПДн вместо встроенных детекторов.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Экспорт клиентской базы",
+      "enabled": true,
+      "risk": 76,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "клиент",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "база",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "выгрузка",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "экспорт",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "скачать",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "csv",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "экспортировать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "реестр",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "xlsx",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "crm",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 8,
+      "window": 17,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Отправка списка контактов",
+      "enabled": true,
+      "risk": 72,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "контакт",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "список",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "переслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "рассылка",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "отправить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "таблица",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "телефон",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "адрес",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 8,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Прямая формулировка выгрузки",
+      "enabled": true,
+      "risk": 75,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "выгрузка персональных данных",
+        "реестр клиентов с телефонами",
+        "список клиентов с адресами",
+        "выгрузка клиентской базы",
+        "экспорт базы клиентов",
+        "реестр контактных данных",
+        "список клиентов с номерами телефонов",
+        "база покупателей с контактами",
+        "выгрузка контактов из crm",
+        "таблица клиентов с электронной почтой"
+      ],
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Передача реестра клиентов",
+      "enabled": true,
+      "risk": 75,
+      "priority": 60,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "реестр",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "клиент",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "передать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "отправить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "телефон",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "адрес",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 10,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Выгрузка CRM",
+      "enabled": true,
+      "risk": 75,
+      "priority": 60,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "crm",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "выгрузка",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "экспорт",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "клиент",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "контакт",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 11,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    }
+  ]
+}

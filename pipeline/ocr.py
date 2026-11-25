@@ -9,6 +9,14 @@ from records.models import Attachment, Message
 
 
 def complete(job):
+    from records.ocr_settings import configuration
+    with transaction.atomic():
+        current = locked_current(job.pk, job.token)
+        values = current.payload.get("ocr_configuration")
+        if values is None:
+            values = configuration()
+            current.payload = {**current.payload, "ocr_configuration": values}
+            current.save(update_fields=["payload"])
     upstream = WorkItem.objects.get(pk=job.payload["extraction_job_id"], status="DONE")
     if upstream.kind != "extraction.extract" or upstream.payload["message_id"] != job.payload["message_id"]:
         raise ValueError("Invalid OCR dependency")
@@ -21,8 +29,8 @@ def complete(job):
         raise ValueError("Missing attachment evidence")
     results = []
     for row in rows:
-        if row.details.get("ocr_required"):
-            result = call("extract", bytes(row.blob_sha_ref.data), row.name, ocr=True)
+        if row.details.get("ocr_required") and values["enabled"]:
+            result = call("extract", bytes(row.blob_sha_ref.data), row.name, ocr=True, provider=values["provider"])
             if (
                 not isinstance(result.get("text"), str)
                 or not isinstance(result.get("details"), dict)
@@ -50,6 +58,7 @@ def complete(job):
                 "attachment_ids": upstream.output["attachment_ids"],
                 "partial": any(row.status != "ANALYZED" for row in attachments),
                 "next_stage": "detection",
+                "ocr_configuration": values,
             },
         )
         enqueue(

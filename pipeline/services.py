@@ -3,6 +3,8 @@ import uuid
 from datetime import timedelta
 
 from django.db import transaction
+from django.conf import settings
+from django.db.models import Max
 from django.utils import timezone
 
 from pipeline.config import limits
@@ -72,7 +74,8 @@ def claim(job_id, worker):
     # Hard task timeout is enforced by prefork; grace covers process termination.
     job.deadline = now + timedelta(seconds=limits(job.queue)["hard"] + 30)
     job.save()
-    Attempt.objects.create(job=job, number=job.attempts, token=job.token, worker=worker)
+    number = (job.runs.aggregate(n=Max("number"))["n"] or 0) + 1
+    Attempt.objects.create(job=job, number=number, token=job.token, worker=worker)
     return job
 
 
@@ -104,6 +107,43 @@ def fail(job_id, token, error):
     except StaleAttempt:
         return
     failed(job, error)
+
+
+@transaction.atomic
+def defer(job_id, token, error, retry_after=0):
+    """Release ownership and durably delay dependency failures without burning budget."""
+    try:
+        job = locked_current(job_id, token)
+    except StaleAttempt:
+        return
+    now = timezone.now()
+    Attempt.objects.filter(job=job, token=token).update(finished_at=now, error=error[:160])
+    job.attempts = max(0, job.attempts - 1)
+    job.deferrals += 1
+    ceiling = min(120, 5 * 2 ** min(job.deferrals, 5))
+    delay = max(min(300, retry_after), random.uniform(ceiling / 2, ceiling))
+    job.status, job.token, job.deadline = WorkItem.Status.PENDING, None, None
+    job.error = error[:160]
+    if (now - job.created_at).total_seconds() >= getattr(settings, 'MICE_PARSER_MAX_WAIT_SECONDS', 86400):
+        # Dependency outage is not malformed mail. Stop automatic retries and
+        # retain a manually retryable job without exhausting processing attempts.
+        job.status = WorkItem.Status.CANCELLED
+        job.finished_at = now
+        job.error = (error[:130] + ' wait_budget_exceeded')[:160]
+        job.save()
+        return
+    job.available_at = now + timedelta(seconds=delay)
+    dispatch(job)
+
+
+@transaction.atomic
+def reject(job_id, token, error):
+    try:
+        job = locked_current(job_id, token)
+    except StaleAttempt:
+        return
+    job.max_attempts = max(1, job.attempts)
+    failed(job, error[:160])
 
 
 @transaction.atomic

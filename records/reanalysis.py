@@ -1,6 +1,7 @@
 """Analyst-requested full reanalysis, serialized against the existing pipeline."""
 from uuid import uuid4
 
+from django.conf import settings
 from django.db import transaction
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
@@ -21,7 +22,8 @@ def request_reanalysis(actor, message_id, token):
         return existing
     if WorkItem.objects.filter(payload__message_id=message.pk, status__in=["PENDING", "RUNNING"]).exists():
         raise ValueError("Письмо уже обрабатывается")
-    job = enqueue("ingestion.parse", {"message_id": message.pk, "reanalysis": True}, key)
+    kind = "analysis.analyze" if getattr(settings, "MICE_UNIFIED_ANALYSIS_ENABLED", False) else "ingestion.parse"
+    job = enqueue(kind, {"message_id": message.pk, "reanalysis": True}, key)
     message.status, message.error = "PENDING", None
     message.save(update_fields=["status", "error"])
     Audit.objects.create(actor=actor.pk, action="reanalyze", target=message.pk, details={"job_id": str(job.pk)})

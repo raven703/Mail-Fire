@@ -7,7 +7,14 @@ from django.utils import timezone
 from mice.celery import app
 from pipeline.handlers import handlers
 from pipeline.models import PeriodicSchedule, WorkItem
-from pipeline.services import StaleAttempt, claim, enqueue, fail
+from pipeline.services import StaleAttempt, claim, enqueue, fail, defer, reject
+from pipeline.parser_errors import ParserUnavailable, ParserRejected
+
+
+@app.task(name="pipeline.purge_ocr_tests", ignore_result=True, soft_time_limit=15, time_limit=20)
+def purge_ocr_tests():
+    from records.ocr_settings import purge
+    purge()
 
 
 @app.task(bind=True, name="pipeline.execute", ignore_result=True)
@@ -31,6 +38,16 @@ def execute(self, job_id):
         raise Reject("Unknown job identifier", requeue=False) from None
     except OperationalError as exc:
         raise Reject(type(exc).__name__, requeue=True) from exc
+    except (ParserUnavailable, ParserRejected) as exc:
+        if job is None:
+            raise Reject("Parser failure without ownership", requeue=False) from None
+        try:
+            if isinstance(exc, ParserUnavailable):
+                defer(job.pk, job.token, str(exc), exc.retry_after)
+            else:
+                reject(job.pk, job.token, str(exc))
+        except OperationalError as db_error:
+            raise Reject(type(db_error).__name__, requeue=True) from db_error
     except Exception as exc:
         if job is None:
             raise Reject(type(exc).__name__, requeue=False) from exc

@@ -9,6 +9,9 @@ from pathlib import Path
 
 
 def scan(data):
+    from app.analysis_ipc import helper_gateway
+    if helper_gateway is not None:
+        return helper_gateway('gitleaks', data)
     binary = shutil.which("gitleaks")
     if not binary:
         return {"status": "UNAVAILABLE", "findings": []}
@@ -29,9 +32,11 @@ def scan(data):
             input=data,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
-            timeout=30,
+            # Isolated helpers cannot signal other processes. Their trusted
+            # owner enforces the entire group's deadline instead.
+            timeout=None if os.environ.get('MICE_ISOLATED_HELPER') == 'true' else 30,
             cwd=directory,
-            env={"PATH": os.path.dirname(binary), "HOME": directory, "GOMAXPROCS": "1"},
+            env={"PATH": os.path.dirname(binary), "HOME": directory, "TMPDIR": directory, "GOMAXPROCS": "1"},
         )
         if result.returncode not in (0, 1):
             raise RuntimeError("Gitleaks scan failed")

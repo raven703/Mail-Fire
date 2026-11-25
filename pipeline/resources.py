@@ -16,7 +16,7 @@ from django.utils import timezone
 
 FILE_SERVICES = (
     "db", "rabbitmq", "migrate", "publisher", "smtp", "directory-import", "web", "frontend",
-    "beat", "ingestion", "extraction", "ocr", "detection", "ml", "llm", "policy", "notifications",
+    "beat", "ingestion", "analysis", "extraction", "ocr", "detection", "ml", "llm", "policy", "notifications",
     "training", "semantic", "neural-training", "neural",
 )
 REMOTE_SERVICES = (

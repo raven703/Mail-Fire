@@ -389,6 +389,14 @@ class Outbox(models.Model):
         db_table = "outbox"
 
 
+class OCRTestDocument(models.Model):
+    id = models.CharField(max_length=36, primary_key=True, default=record_id)
+    owner = models.CharField(max_length=36, db_index=True)
+    data = models.BinaryField()
+    name = models.CharField(max_length=40)
+    expires_at = models.DateTimeField(db_index=True)
+
+
 class TrainingExample(models.Model):
     dataset = models.ForeignKey(
         "MLDataset", on_delete=models.SET_NULL, db_column="dataset_id", related_name="+", null=True
