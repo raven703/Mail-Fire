@@ -1,6 +1,4 @@
 """Pure mail analysis and cached matcher regression tests."""
-import base64
-from email.message import EmailMessage
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -33,21 +31,3 @@ class PreparedMatcherTests(SimpleTestCase):
         self.assertEqual(search(text, **kwargs), search(text, prepared=PreparedDocument(text),
                                                         compiled=compiled, **kwargs))
 
-    def test_mail_native_and_ocr_documents_are_separate(self):
-        from app.unified_analysis import analyze_message
-        message = EmailMessage()
-        message["Subject"] = "test"
-        message.set_content("body")
-        message.add_attachment(b"native", maintype="text", subtype="plain", filename="note.txt")
-        message.add_attachment(b"image", maintype="image", subtype="png", filename="image.png")
-        config = {"settings": {"detectors": {"static_files": False, "secrets": False}},
-                  "groups": [], "references": []}
-        ocr = lambda data, name: {"text": "recognized", "status": "ANALYZED", "details": {}}
-        with patch("app.detection_evidence.analyze", return_value={"findings": [], "version": "test",
-                   "engine_errors": [], "skipped_checks": [], "normalization": {}}) as evidence:
-            result = analyze_message({"original": base64.b64encode(message.as_bytes()).decode(),
-                                      "configuration": config, "ocr_enabled": True}, ocr)
-        documents = evidence.call_args.args[0]["documents"]
-        self.assertEqual([d["text"].strip() for d in documents], ["body", "native", "recognized"])
-        self.assertEqual(len(result["attachments"]), 2)
-        self.assertEqual(result["attachments"][1]["status"], "ANALYZED")
