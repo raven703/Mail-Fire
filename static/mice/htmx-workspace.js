@@ -3,6 +3,9 @@
   htmx.config.historyCacheSize = 0;
   htmx.config.allowEval = false;
   htmx.config.allowScriptTags = false;
+  // The workspace starts below a sticky toolbar. Scrolling the swap target
+  // itself to the viewport top hides its heading/period behind that toolbar.
+  htmx.config.scrollIntoViewOnBoost = false;
   function initialize(root = document) {
     const globalPeriod = document.querySelector('[data-global-period]');
     if (globalPeriod) {
@@ -52,7 +55,10 @@
     if (title && heading) title.textContent = heading.textContent.trim();
   }
   document.addEventListener('DOMContentLoaded', () => initialize());
-  document.addEventListener('htmx:afterSettle', () => initialize());
+  document.addEventListener('htmx:afterSettle', event => {
+    initialize();
+    if (event.detail.target && event.detail.target.id === 'mice-content') window.scrollTo(0, 0);
+  });
   document.addEventListener('htmx:configRequest', event => {
     if (event.detail.elt.id === 'overview-live') event.detail.headers['X-MICE-Period-Poll'] = 'true';
     const token = document.querySelector('[name=csrfmiddlewaretoken]');

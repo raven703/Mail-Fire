@@ -1,5 +1,5 @@
 <div class="range" data-date-range{% if auto_period %} data-auto-period="true"{% endif %}>
-  <label>Период<select name="range" data-period>
+  <label><select name="range" data-period aria-label="Выбор периода">
     <option value="custom">Произвольный период</option>
     <option value="24"{% if request.GET.range == '24' or default_range == '24' and not request.GET.range and not request.GET.start and not request.GET.end and not request.GET.days %} selected{% endif %}>Последние 24 часа</option>
     <option value="168"{% if request.GET.range == '168' %} selected{% endif %}>Последние 7 дней</option>
