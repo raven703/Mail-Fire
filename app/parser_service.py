@@ -45,6 +45,9 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(result.stdout)
             return
+        if self.path == "/health" and UNIFIED and (broker is None or broker.process.poll() is not None):
+            self.send_error(503)
+            return
         self.send_response(200 if self.path == "/health" else 404)
         self.end_headers()
 
