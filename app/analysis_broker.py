@@ -35,6 +35,16 @@ class AnalysisBroker:
                 pass_fds=(listener.fileno(),), env=env,
             )
 
+    def close(self):
+        if self.process.poll() is None:
+            self.process.terminate()
+            try:
+                self.process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                self.process.kill()
+                self.process.wait()
+        self.directory.cleanup()
+
     def ocr(self, frame, timeout):
         data = base64.b64decode(frame["data"], validate=True)
         if len(data) > settings().max_message_bytes:
