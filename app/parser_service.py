@@ -150,5 +150,7 @@ class Server(ThreadingMixIn, HTTPServer):
 if __name__ == "__main__":
     if UNIFIED:
         from app.analysis_broker import AnalysisBroker
+        import atexit
         broker = AnalysisBroker()
+        atexit.register(broker.close)
     Server(("0.0.0.0", 8090), Handler).serve_forever()
