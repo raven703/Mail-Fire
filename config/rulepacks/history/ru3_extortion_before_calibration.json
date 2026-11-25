@@ -1,0 +1,144 @@
+{
+  "id": "pack-ru2-extortion",
+  "name": "[RU2] Шантаж и вымогательство",
+  "group_name": "Угрозы и безопасность",
+  "description": "Требование денег или иных действий под угрозой раскрытия или причинения ущерба; необходима оценка контекста.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Требование оплаты под угрозой",
+      "enabled": true,
+      "risk": 82,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "перевести",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "заплатить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "деньги",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "иначе",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "раскрыть",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "опубликовать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "пострадать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "оплатить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выкуп",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "шантаж",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 11,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Выкуп за данные",
+      "enabled": true,
+      "risk": 85,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "выкуп",
+          "weight": 5,
+          "required": true
+        },
+        {
+          "text": "данные",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "зашифровать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "вернуть",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "оплатить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "расшифровать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "восстановить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "требовать",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 10,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Явное требование выкупа",
+      "enabled": true,
+      "risk": 85,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "требую выкуп за данные",
+        "переведите выкуп",
+        "заплатите иначе опубликую",
+        "требование выкупа",
+        "шантаж с требованием денег"
+      ],
+      "exclude_phrases": []
+    }
+  ]
+}

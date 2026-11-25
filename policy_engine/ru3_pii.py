@@ -1,4 +1,4 @@
-"""Explicit, backed-up replacement of one managed RU3 category."""
+"""Explicit, backed-up replacement of calibrated managed RU3 rules."""
 import json
 from pathlib import Path
 from uuid import NAMESPACE_URL, uuid5
@@ -12,6 +12,13 @@ from records.models import Audit, Category, CategoryRule, Setting
 
 BASELINE_SHA = "264cf40da0d55dd34f09b627b0aa157ed44feca9a57d23a06e64ea9fe05b041d"
 BASELINES = {
+    "pack-ru2-credential-transfer": "config/rulepacks/history/ru3_credential-transfer_before_calibration.json",
+    "pack-ru2-phishing": "config/rulepacks/history/ru3_phishing_before_calibration.json",
+    "pack-ru2-data-exfil": "config/rulepacks/history/ru3_data-exfil_before_calibration.json",
+    "pack-ru2-extortion": "config/rulepacks/history/ru3_extortion_before_calibration.json",
+    "pack-ru2-explosive-threat": "config/rulepacks/history/ru3_explosive-threat_before_calibration.json",
+    "pack-ru2-violence-threat": "config/rulepacks/history/ru3_violence-threat_before_calibration.json",
+
     "pack-ru2-customer-data": "config/rulepacks/history/ru3_customer_before_calibration.json",
     "pack-ru2-pricing": "config/rulepacks/history/ru3_pricing_before_calibration.json",
     "pack-ru2-financial-plans": "config/rulepacks/history/ru3_financial_before_calibration.json",
