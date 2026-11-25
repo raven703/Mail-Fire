@@ -24,7 +24,8 @@ def limits(group):
     if group not in GROUPS:
         raise ValueError(f"Unknown worker group: {group}")
     prefix = "MICE_" + group.upper() + "_"
-    hard = int(os.environ.get(prefix + "TIMEOUT", "7200" if group in {"training", "neural_training"} else "300"))
+    default_timeout = "7200" if group in {"training", "neural_training"} else "720" if group == "analysis" else "300"
+    hard = int(os.environ.get(prefix + "TIMEOUT", default_timeout))
     soft = int(os.environ.get(prefix + "SOFT_TIMEOUT", str(max(1, hard - 15))))
     concurrency = int(os.environ.get(prefix + "CONCURRENCY", "1"))
     prefetch = int(os.environ.get(prefix + "PREFETCH", "1"))
