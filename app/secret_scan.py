@@ -31,7 +31,7 @@ def scan(data):
             stderr=subprocess.DEVNULL,
             timeout=30,
             cwd=directory,
-            env={"PATH": os.path.dirname(binary), "HOME": directory, "GOMAXPROCS": "1"},
+            env={"PATH": os.path.dirname(binary), "HOME": directory, "TMPDIR": directory, "GOMAXPROCS": "1"},
         )
         if result.returncode not in (0, 1):
             raise RuntimeError("Gitleaks scan failed")
