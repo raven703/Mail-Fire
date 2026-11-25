@@ -67,6 +67,14 @@
       const end = group.querySelector('[name="end"]');
       const period = group.querySelector('[data-period]');
       const form = period.form;
+      [start, end].forEach(input => {
+        const saved = input.dataset.dateValue;
+        if (!saved) return;
+        if (/[zZ]|[+-]\d\d:\d\d$/.test(saved)) {
+          const date = new Date(saved);
+          input.value = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        } else input.value = saved;
+      });
       group.querySelector('[data-timezone]').textContent = 'Часовой пояс: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
       const update = () => {
         const custom = period.value === 'custom';
@@ -83,6 +91,12 @@
       });
       start.addEventListener('input', update);
       end.addEventListener('input', update);
+      const submitCustom = () => {
+        update();
+        if (group.dataset.autoPeriod === 'true' && period.value === 'custom' && start.value && end.value && form.checkValidity()) form.requestSubmit();
+      };
+      start.addEventListener('change', submitCustom);
+      end.addEventListener('change', submitCustom);
       update();
     });
     document.querySelectorAll('[data-structured-rule]').forEach(editor => {

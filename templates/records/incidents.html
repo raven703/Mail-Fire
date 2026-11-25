@@ -1,7 +1,7 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main>
-  {% include 'ui/page_header.html' with title='Инциденты' count=page.paginator.count %}
+  <header class="ui-page-header"><h1>Инциденты</h1>{% include 'records/_global_period.html' %}</header>
   <section>
     {% include 'ui/filter_bar.html' with layout='ui-filter-grid' fields_template='records/_incident_filter_fields.html' %}
     <div class="incident-table">

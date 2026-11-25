@@ -48,3 +48,32 @@ def pagination_query(params):
     values = params.copy()
     values.pop("page", None)
     return values.urlencode()
+
+
+def resolve_period(request):
+    """One session-backed period contract; invalid input never replaces state."""
+    from django.http import QueryDict
+
+    def valid(params):
+        if params.get("range") in ROLLING_HOURS:
+            return {"range": params["range"]}
+        start, end = period_bounds(params)
+        if start and end and start < end:
+            return {"range": "custom", "start": start.isoformat(), "end": end.isoformat()}
+        return None
+
+    explicit = any(key in request.GET for key in DATE_PARAMETERS)
+    selected = valid(request.GET) if explicit else None
+    session = getattr(request, "session", {})
+    if selected and not request.headers.get("X-MICE-Period-Poll") and session.get("mice_period") != selected:
+        session["mice_period"] = selected
+    selected = selected or valid(session.get("mice_period", {})) or {"range": "24"}
+    params = request.GET.copy()
+    for key in DATE_PARAMETERS:
+        params.pop(key, None)
+    params.update(selected)
+    request.GET = params
+    dates = QueryDict(mutable=True)
+    dates.update(selected)
+    request.mice_period = dates
+    return dates

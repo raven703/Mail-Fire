@@ -1,0 +1,18 @@
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  {% include 'ui/page_header.html' with title='ML-модели и обучение' %}
+  <p class="muted" role="status">ML-анализ выключен · Активных моделей: {{ active_count|default:0 }}</p>
+  <nav class="tabs" aria-label="Модели и обучение">
+    <a href="{% url 'models-page' %}?tab=models"{% if request.resolver_match.url_name == 'models-page' and tab == 'models' %} aria-current="page"{% endif %}>Модели</a>
+    {% if perms.identity.investigate and perms.identity.view_originals %}
+    <a href="{% url 'datasets-page' %}"{% if request.resolver_match.url_name == 'datasets-page' or request.resolver_match.url_name == 'dataset-detail' %} aria-current="page"{% endif %}>Наборы данных</a>
+    <a href="{% url 'models-page' %}?tab=examples"{% if tab == 'examples' %} aria-current="page"{% endif %}>Обучающие примеры</a>
+    <a href="{% url 'models-page' %}?tab=label"{% if tab == 'label' %} aria-current="page"{% endif %}>Разметка</a>
+    {% endif %}
+    <a href="{% url 'models-page' %}?tab=training"{% if tab == 'training' %} aria-current="page"{% endif %}>Обучение</a>
+    <a href="{% url 'models-page' %}?tab=quality"{% if tab == 'quality' %} aria-current="page"{% endif %}>Метрики качества</a>
+  </nav>
+  {% block ml_content %}{% endblock %}
+</main>
+{% endblock %}

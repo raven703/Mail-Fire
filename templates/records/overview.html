@@ -1,18 +1,12 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main>
-  <header>
-    <h1>{% if analytics %}Аналитика и отчёты{% else %}Обзор безопасности{% endif %}</h1>
-    <form method="get" class="sticky-period">
-      {% include 'records/_date_filters.html' with default_range='24' auto_period=True %}
-      <button>Применить</button>
-    </form>
-  </header>
+  <header class="ui-page-header"><h1>{% if analytics %}Аналитика и отчёты{% else %}Обзор безопасности{% endif %}</h1>{% include 'records/_global_period.html' %}</header>
   {% if error %}<p class="error" role="alert">{{ error }}</p>
   {% elif analytics %}
   {% include 'records/_analytics.html' %}
   {% else %}
-  <div id="overview-live" hx-get="?{{ date_query }}" hx-trigger="every 10s" hx-target="this" hx-select="#overview-live" hx-swap="outerHTML">
+  <div id="overview-live" hx-get="?{{ date_query }}" hx-trigger="every 10s" hx-sync="#mice-content:drop" hx-push-url="false" hx-target="this" hx-select="#overview-live" hx-swap="outerHTML">
     {% include 'records/_overview_panels.html' %}
   </div>
   {% endif %}

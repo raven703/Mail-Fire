@@ -1,0 +1,4 @@
+{{ form.non_field_errors }}
+<div class="ui-settings-rows">
+{% for field in form %}<label for="{{ field.id_for_label }}">{{ field.label }}</label><div>{{ field }}{{ field.errors }}</div>{% endfor %}
+</div>

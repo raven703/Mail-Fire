@@ -1,12 +1,12 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main class="system-status">
-  <header class="system-status-header">
-    <div><h1>Диагностика обработки</h1><p class="muted">Очереди, нагрузка и хранение данных</p></div>
+  <header class="ui-page-header">
+    <div><h1>Состояние системы</h1><p class="muted">Очереди, нагрузка и хранение данных</p></div>
     <div class="system-refresh"><a class="action-button" href="?tab={{ tab }}&amp;queue={{ request.GET.queue|urlencode }}&amp;status={{ request.GET.status|urlencode }}">Обновить</a></div>
   </header>
-  <nav class="system-tabs" aria-label="Разделы диагностики">
-    {% for key, title in tabs %}<a class="action-button" href="?tab={{ key }}"{% if key == tab %} aria-current="page"{% endif %}>{{ title }}</a>{% endfor %}
+  <nav class="tabs" aria-label="Разделы диагностики">
+    {% for key, title in tabs %}<a href="?tab={{ key }}"{% if key == tab %} aria-current="page"{% endif %}>{{ title }}</a>{% endfor %}
   </nav>
   <div id="monitor-live"{% if tab == 'queues' %} hx-get="?tab=queues" hx-trigger="every 30s" hx-target="this" hx-select="#monitor-live" hx-swap="outerHTML"{% endif %}>
     {% if tab == 'queues' %}{% include 'pipeline/_queues.html' %}

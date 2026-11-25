@@ -1,0 +1,4 @@
+<form method="get" class="ui-period" data-global-period hx-sync="#mice-content:replace" hx-push-url="true">
+  {% for key, values in request.GET.lists %}{% if key != 'range' and key != 'start' and key != 'end' and key != 'start_offset' and key != 'end_offset' and key != 'page' and key != 'export' %}{% for value in values %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}{% endif %}{% endfor %}
+  {% include 'records/_date_filters.html' with auto_period=True %}
+</form>

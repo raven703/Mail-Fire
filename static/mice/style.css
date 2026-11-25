@@ -128,8 +128,6 @@ body{min-width:320px}
 .reference-card h3{overflow-wrap:break-word}
 .reference-card .actions{margin-top:20px}
 .reference-card .actions button{font-size:11px;padding:7px}
-.model-banner{padding:24px;border-radius:12px;background:linear-gradient(110deg,#1a2944,#263a5b);color:#fff;margin:15px 0}
-.model-banner p{color:#bdc9dd}
 .upload-button{padding:5px}
 .management>header{align-items:center}
 .management .policy-row .badge{white-space:nowrap}

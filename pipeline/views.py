@@ -10,8 +10,8 @@ from pipeline.services import cancel, retry
 from records.models import Audit, Diagnostic
 
 TABS = (
-    ("queues", "Очереди"), ("flow", "Почтовый поток"), ("resources", "История ресурсов"),
-    ("database", "PostgreSQL"), ("jobs", "Задания"),
+    ("queues", "Очереди"), ("jobs", "Задания"), ("flow", "Почтовый поток"),
+    ("resources", "Ресурсы"), ("database", "PostgreSQL"),
 )
 
 

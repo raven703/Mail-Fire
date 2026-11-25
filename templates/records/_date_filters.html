@@ -5,9 +5,9 @@
     <option value="168"{% if request.GET.range == '168' %} selected{% endif %}>Последние 7 дней</option>
     <option value="720"{% if request.GET.range == '720' %} selected{% endif %}>Последние 30 дней</option>
   </select></label>
-  <label data-custom-date>Начало<input type="datetime-local" name="start" value="{{ request.GET.start }}"></label>
-  <label data-custom-date>Окончание<input type="datetime-local" name="end" value="{{ request.GET.end }}"></label>
+  <label data-custom-date>Начало<input type="datetime-local" name="start" data-date-value="{{ request.GET.start }}"></label>
+  <label data-custom-date>Окончание<input type="datetime-local" name="end" data-date-value="{{ request.GET.end }}"></label>
   <input type="hidden" name="start_offset" value="{{ request.GET.start_offset }}">
   <input type="hidden" name="end_offset" value="{{ request.GET.end_offset }}">
-  <small data-timezone>Время без часового пояса считается UTC</small>
+  <small data-timezone data-custom-date>Время без часового пояса считается UTC</small>
 </div>

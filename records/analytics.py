@@ -15,7 +15,7 @@ from pipeline.models import WorkItem
 from pipeline.resource_history import latest_resource_samples
 from pipeline.resources import service_state
 from records.models import Incident, Message, Outbox
-from records.ui_filters import DATE_PARAMETERS, period_bounds
+from records.ui_filters import DATE_PARAMETERS, period_bounds, resolve_period
 from records.workspace import HIGH_RISK, MEDIUM_RISK, OPEN_STATUSES, access, policy_label, severity
 
 
@@ -89,29 +89,8 @@ def overview(request, analytics=False):
     if forbidden is not None:
         return forbidden
     now = timezone.now()
-    dates = request.GET.copy()
-    for key in list(dates):
-        if key not in DATE_PARAMETERS:
-            dates.pop(key)
+    dates = resolve_period(request)
     start, end = period_bounds(dates, now)
-    end = end or (now.replace(tzinfo=UTC) if timezone.is_naive(now) else now)
-    if not dates.get("range") and start is None and not dates.get("end"):
-        try:
-            hours = max(1, min(int(request.GET["days"]), 365)) * 24
-        except (KeyError, ValueError):
-            hours = 24
-        if hours == 24:
-            dates["range"] = "24"
-        else:
-            dates.update({"range": "custom", "start": (end - timedelta(hours=hours)).isoformat(), "end": end.isoformat()})
-        start = end - timedelta(hours=hours)
-    start = start or end - timedelta(hours=24)
-    error = None
-    if start >= end or any(dates.get(key) and not bound for key, bound in zip(
-            ("start", "end"), period_bounds(dates, now), strict=True)):
-        error = "Укажите корректный период с началом раньше окончания"
-        return render(request, "records/overview.html", {"analytics": analytics, "error": error}, status=400)
-
     incidents = Incident.objects.filter(created_at__gte=start, created_at__lt=end)
     hourly = end - start <= timedelta(days=2)
     timeline = incident_timeline(incidents, hourly)
@@ -129,7 +108,7 @@ def overview(request, analytics=False):
         row.policy_label = policy_label(row)
     policies = policy_counts(start, end)
     total = sum(row["total"] for row in timeline)
-    return render(request, "records/overview.html", {
+    response = render(request, "records/overview.html", {
         "analytics": analytics, "date_query": dates.urlencode(),
         "timeline": series, "timeline_max": max((row["total"] for row in series), default=1),
         "hourly": hourly, "risk_bands": levels, "analytics_total": total, "risk_max": max(total, 1),
@@ -142,3 +121,6 @@ def overview(request, analytics=False):
         "policies": policies if analytics else policies[:6], "policy_max": policies[0]["count"] if policies else 1,
         "priority_incidents": recent,
     })
+    if request.headers.get("X-MICE-Period-Poll"):
+        response["X-MICE-Period-Poll"] = "true"
+    return response

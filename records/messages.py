@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET
 
 from records.models import Attachment, Content, ImportRecord, Incident, MailEvent, Message
-from records.ui_filters import filter_dates, list_period, pagination_query
+from records.ui_filters import filter_dates, list_period, pagination_query, resolve_period
 from records.workspace import HIGH_RISK, MEDIUM_RISK, access, severity
 
 
@@ -19,6 +19,7 @@ def messages(request):
     error = access(request)
     if error is not None:
         return error
+    resolve_period(request)
     rows = filter_dates(Message.objects.defer("headers", "error"), list_period(request.GET))
     risks = Incident.objects.filter(message_id=OuterRef("pk")).values("risk")
     rows = rows.annotate(incident_risk=Subquery(risks[:1]))

@@ -1,0 +1,12 @@
+{% extends 'identity/base.html' %}
+{% block body %}
+<main class="management">
+  {% include 'ui/page_header.html' with title='Настройки' %}
+  <nav class="tabs" aria-label="Настройки">
+    <a href="{% url 'configuration-page' %}"{% if request.resolver_match.url_name == 'configuration-page' %} aria-current="page"{% endif %}>SIEM и уведомления</a>
+    <a href="{% url 'retention-page' %}"{% if request.resolver_match.url_name == 'retention-page' %} aria-current="page"{% endif %}>Хранение и очистка</a>
+    <a href="{% url 'llm-page' %}"{% if request.resolver_match.url_name == 'llm-page' %} aria-current="page"{% endif %}>LLM-анализ</a>
+  </nav>
+  {% block settings_content %}{% endblock %}
+</main>
+{% endblock %}

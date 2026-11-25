@@ -4,6 +4,31 @@
   htmx.config.allowEval = false;
   htmx.config.allowScriptTags = false;
   function initialize(root = document) {
+    const globalPeriod = document.querySelector('[data-global-period]');
+    if (globalPeriod) {
+      const dates = new URLSearchParams();
+      ['range', 'start', 'end', 'start_offset', 'end_offset'].forEach(key => {
+        const input = globalPeriod.elements[key];
+        const value = input && (input.dataset.dateValue || input.value);
+        if (input && !input.disabled && value && (globalPeriod.elements.range.value === 'custom' || key === 'range')) dates.set(key, value);
+      });
+      root.querySelectorAll('a[href]').forEach(link => {
+        const url = new URL(link.href, location.href);
+        if (!['/overview/', '/incidents/', '/messages/', '/analytics/'].includes(url.pathname)) return;
+        if (link.closest('.mice-navigation') || (!url.searchParams.has('range') && !url.searchParams.has('start'))) {
+          if (link.closest('.mice-navigation')) ['range', 'start', 'end', 'start_offset', 'end_offset'].forEach(key => url.searchParams.delete(key));
+          dates.forEach((value, key) => url.searchParams.set(key, value));
+          link.href = url.pathname + url.search;
+        }
+      });
+      document.querySelectorAll('#mice-content form[method="get"]:not([data-global-period])').forEach(form => {
+        dates.forEach((value, key) => {
+          if (form.elements[key]) return;
+          const input = document.createElement('input');
+          input.type = 'hidden'; input.name = key; input.value = value; form.append(input);
+        });
+      });
+    }
     root.querySelectorAll('form[enctype="multipart/form-data"]').forEach(form => {
       form.setAttribute('hx-encoding', 'multipart/form-data');
       htmx.process(form);
@@ -15,10 +40,10 @@
         htmx.process(link);
       }
       if (link.closest('.mice-navigation')) {
-        const jobs = new URLSearchParams(location.search).get('tab') === 'jobs';
-        const operations = url.pathname === '/operations/';
-        if ((location.pathname === url.pathname || location.pathname.startsWith(url.pathname)) &&
-            (!operations || (url.searchParams.get('tab') === 'jobs') === jobs)) link.setAttribute('aria-current', 'page');
+        const path = location.pathname;
+        const section = /^\/(datasets|models)\//.test(path) ? '/models/' :
+          /^\/(settings|retention|llm)\//.test(path) ? '/settings/' : path;
+        if (section === url.pathname || section.startsWith(url.pathname)) link.setAttribute('aria-current', 'page');
         else link.removeAttribute('aria-current');
       }
     });
@@ -29,10 +54,20 @@
   document.addEventListener('DOMContentLoaded', () => initialize());
   document.addEventListener('htmx:afterSettle', () => initialize());
   document.addEventListener('htmx:configRequest', event => {
+    if (event.detail.elt.id === 'overview-live') event.detail.headers['X-MICE-Period-Poll'] = 'true';
     const token = document.querySelector('[name=csrfmiddlewaretoken]');
     if (token) event.detail.headers['X-CSRFToken'] = token.value;
   });
+  let generation = 0;
+  document.addEventListener('htmx:beforeRequest', event => {
+    if (event.detail.elt.id !== 'overview-live') generation++;
+    event.detail.xhr.miceGeneration = generation;
+  });
   document.addEventListener('htmx:beforeSwap', event => {
+    if (event.detail.xhr.getResponseHeader('X-MICE-Period-Poll') === 'true' && event.detail.xhr.miceGeneration !== generation) {
+      event.detail.shouldSwap = false;
+      return;
+    }
     if ([400, 409, 422].includes(event.detail.xhr.status) &&
         (event.detail.xhr.getResponseHeader('Content-Type') || '').includes('text/html')) {
       event.detail.shouldSwap = true;

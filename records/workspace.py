@@ -14,7 +14,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 from identity.models import User
 from policy_engine.service import EvidenceUnavailable, request_evaluation
 from records.models import Attachment, Audit, Category, Comment, Incident, MailEvent, Message, Policy
-from records.ui_filters import filter_dates, list_period, pagination_query
+from records.ui_filters import filter_dates, list_period, pagination_query, resolve_period
 
 OPEN_STATUSES = ("NEW", "ASSIGNED", "REVIEW", "REOPENED")
 HIGH_RISK = 70
@@ -91,6 +91,7 @@ def incidents(request):
     error = access(request)
     if error is not None:
         return error
+    resolve_period(request)
     rows = filter_dates(Incident.objects.select_related("message", "assignee_ref", "policy", "event").defer(
         "message__headers", "message__error", "event__envelope", "findings",
     ), list_period(request.GET))

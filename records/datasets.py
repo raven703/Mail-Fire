@@ -16,7 +16,7 @@ from django.views.decorators.http import require_http_methods
 
 from pipeline.parser_client import call
 from records.category_picker import LabelForm
-from records.models import Audit, Category, MLDataset, TrainingExample
+from records.models import Audit, Category, MLDataset, TrainingExample, MLModel
 from records.workspace import access
 
 MAX_IMPORT_BYTES = 12 * 1024**2
@@ -187,7 +187,7 @@ def datasets(request, dataset_id=None):
             if page.isdecimal():
                 location["Location"] += "?page=" + page
             return location
-    context = {"datasets": MLDataset.objects.order_by("-created_at")[:100], "dataset": dataset,
+    context = {"active_count": MLModel.objects.filter(active=True).count(), "datasets": MLDataset.objects.order_by("-created_at")[:100], "dataset": dataset,
                "import_form": import_form, "admin": admin, "review_form": review_form, "review_example": example}
     if dataset:
         examples = TrainingExample.objects.filter(dataset=dataset).defer("text").order_by("created_at", "pk")

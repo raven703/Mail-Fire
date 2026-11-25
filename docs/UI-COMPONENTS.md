@@ -62,6 +62,23 @@ recipient and timestamp; narrower windows scroll the table horizontally.
 
 ## Quick validation
 
+## Workspace periods and section shells
+
+`records.ui_filters.resolve_period(request)` is the session-backed contract for
+overview, incidents, messages and analytics. Explicit valid URL dates win;
+invalid/incomplete custom dates leave session state unchanged. Ranges are rolling
+24/168/720 hours; custom bounds retain independent offsets for DST boundaries.
+The shared `_global_period.html` lives in the page header, submits through HTMX,
+preserves applied local parameters and omits pagination on a period change.
+Overview polls neither write period session state nor replace newer UI responses.
+Queue/service cards remain live measurements, independent of the period.
+
+`ml_base.html` and `settings_base.html` own their stable section heading and tabs.
+Monitoring uses the shared tabs and one navigation entry; existing tab URLs stay
+valid. `check_workspace_sections.py` is a read-only browser regression, including
+the four-page period journey, custom period, history, reset and CSV. It never
+submits training, inference, retention or GC actions.
+
 ## Category catalog and editor
 
 The category catalog uses shared `ui-disclosure`, `ui-data-table-compact` and

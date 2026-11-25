@@ -42,6 +42,7 @@ select {
   min-height: var(--mf-control-height);
 }
 textarea { min-height: 100px; line-height: 1.5; resize: vertical; }
+button.danger, a.action-button.danger { color:var(--high); border-color:var(--high); }
 input::placeholder, textarea::placeholder { color: var(--muted); opacity: .75; }
 input:not([type="checkbox"]):not([type="radio"]):disabled,
 select:disabled, textarea:disabled {

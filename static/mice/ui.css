@@ -27,7 +27,6 @@ label :is(input, select, textarea) { color: var(--text); }
 .range { display: flex; flex-wrap: wrap; align-items: end; gap: var(--ui-space-2); min-width: 0; }
 .range label { margin: 0; flex: 1 1 150px; }
 .range small { flex-basis: 100%; font-size: 10px; }
-.sticky-period { padding: 0; margin: 0; }
 .ui-filter-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
 .ui-filter-grid > label, .ui-filter-grid > .range { margin: 0; min-width: 0; }
 .ui-filter-grid .range > label { flex-basis: 100%; }
@@ -75,6 +74,13 @@ label :is(input, select, textarea) { color: var(--text); }
 .ui-form-grid > label { margin: 0; color: var(--text); font-size: 13px; }
 .ui-form-grid-four { grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(70px, 1fr) minmax(80px, 1fr); }
 .ui-span-full { grid-column: 1 / -1; }
+.ui-period { margin:0 0 0 auto; padding:0; border:0; max-width:100%; }
+.ui-period .range { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; align-items:end; }
+.ui-period label { margin:0; font-size:13px; }
+.ui-period [data-timezone] { flex-basis:100%; text-align:right; }
+.ui-settings-rows { display:grid; grid-template-columns:minmax(0,1fr) 120px; align-items:center; gap:8px 16px; max-width:900px; }
+.ui-settings-rows label { margin:0; font-size:14px; color:var(--text); }
+.ui-settings-rows input[type="number"] { width:100%; }
 .ui-field-description textarea { height: 72px; min-height: 64px; }
 .ui-disclosure { margin: 0 0 8px; }
 .ui-disclosure > summary { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 8px 12px; background: var(--bg); border-radius: var(--ui-radius); list-style: none; font-size: 13px; }

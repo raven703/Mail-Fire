@@ -1,13 +1,5 @@
-{% extends 'identity/base.html' %}
-{% block body %}
-<main class="management">
-  {% include 'ui/page_header.html' with title='ML-модели и обучение' %}
-  <div class="model-banner"><h2>{% if active_count %}Опубликовано моделей · {{ active_count }}{% else %}Активные модели отсутствуют{% endif %}</h2><p>TF-IDF / SetFit / RuBERT-tiny2 · ML-анализ писем выключен</p></div>
-  <nav class="tabs" aria-label="Модели и обучение">
-    <a href="?tab=models"{% if tab == 'models' %} aria-current="page"{% endif %}>Модели</a>
-    {% if can_label %}<a href="{% url 'datasets-page' %}">Наборы данных</a><a href="?tab=examples"{% if tab == 'examples' %} aria-current="page"{% endif %}>Обучающие примеры</a><a href="?tab=label"{% if tab == 'label' %} aria-current="page"{% endif %}>Разметка</a>{% endif %}
-    <a href="?tab=training"{% if tab == 'training' %} aria-current="page"{% endif %}>Обучение</a><a href="?tab=quality"{% if tab == 'quality' %} aria-current="page"{% endif %}>Метрики качества</a>
-  </nav>
+{% extends 'records/ml_base.html' %}
+{% block ml_content %}
   {% if error %}<p role="alert" class="error">{{ error }}</p>{% endif %}
   {% if tab == 'examples' %}
   <section>
@@ -76,5 +68,5 @@
     </form>
   </dialog>
   {% endif %}
-</main>
+
 {% endblock %}

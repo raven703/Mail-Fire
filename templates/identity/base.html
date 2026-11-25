@@ -32,7 +32,6 @@
     {% if perms.identity.administer %}{% include 'identity/_nav_item.html' with route='addresses-page' icon='users' title='Адреса и сотрудники' %}{% endif %}
     <h3>Администрирование</h3>
     {% if perms.identity.investigate %}{% include 'identity/_nav_item.html' with route='imports-page' icon='imports' title='Импорт писем' %}{% endif %}
-    {% include 'identity/_nav_item.html' with route='operations' query='?tab=jobs' icon='jobs' title='Очереди обработки' %}
     {% include 'identity/_nav_item.html' with route='operations' icon='system' title='Состояние системы' %}
     {% if perms.identity.administer %}
       {% include 'identity/_nav_item.html' with route='audit-page' icon='audit' title='Журналы и аудит' %}

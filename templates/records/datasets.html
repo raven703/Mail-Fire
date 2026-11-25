@@ -1,30 +1,26 @@
-{% extends 'identity/base.html' %}
-{% block body %}
-<div class="ml-datasets">
-  <h1>Наборы данных для ML</h1>
-  <nav class="tabs"><a href="{% url 'models-page' %}">Модели</a><a href="{% url 'datasets-page' %}" aria-current="page">Наборы данных</a><a href="{% url 'models-page' %}?tab=examples">Обучающие примеры</a><a href="{% url 'models-page' %}?tab=label">Разметка</a><a href="{% url 'models-page' %}?tab=training">Обучение</a><a href="{% url 'models-page' %}?tab=quality">Метрики качества</a></nav>
+{% extends 'records/ml_base.html' %}
+{% block ml_content %}
   <p class="muted">Загрузите CSV или JSONL с колонками text и labels. Для обучения используются примеры с подтверждёнными метками.</p>
-  {% if admin %}<div class="ml-dataset-toolbar"><a class="button primary" href="{% url 'datasets-page' %}?import=1">＋ Импортировать датасет</a></div>{% endif %}
   <section>
-    <header><h2>Датасеты</h2><a class="button" href="{% if dataset %}{% url 'dataset-detail' dataset.pk %}{% else %}{% url 'datasets-page' %}{% endif %}">Обновить</a></header>
+    <header><h2>Наборы данных</h2>{% if admin %}<a class="action-button primary" href="{% url 'datasets-page' %}?import=1">＋ Импортировать датасет</a>{% endif %}<a class="action-button" href="{% if dataset %}{% url 'dataset-detail' dataset.pk %}{% else %}{% url 'datasets-page' %}{% endif %}">Обновить</a></header>
     {% for row in datasets %}
     <div class="policy-row">
       <div class="policy-info"><strong>{{ row.name }} · v{{ row.version }}</strong><p>{{ row.example_count }} примеров · {{ row.source }} · {{ row.status }}</p></div>
-      <a class="button" href="{% url 'dataset-detail' row.pk %}">Проверить примеры</a>
+      <a class="action-button" href="{% url 'dataset-detail' row.pk %}">Проверить примеры</a>
       {% if admin %}<form method="post" action="{% url 'dataset-detail' row.pk %}" hx-confirm="Удалить весь набор и его обучающие примеры? Обученные модели останутся.">{% csrf_token %}<button name="action" value="delete">Удалить</button></form>{% endif %}
     </div>
-    {% empty %}<p class="muted">Импортированных датасетов пока нет</p>{% endfor %}
+    {% empty %}{% include 'ui/empty_state.html' with text='Импортированных датасетов пока нет' %}{% endfor %}
   </section>
   {% if dataset %}
   <section class="ml-dataset-review">
-    <header><div><h2>Проверка разметки</h2><strong>{{ dataset.name }}</strong> · {{ approved_count }} подтверждено из {{ total }}</div><a class="button" href="{% url 'datasets-page' %}">Закрыть</a></header>
+    <header><div><h2>Проверка разметки</h2><strong>{{ dataset.name }}</strong> · {{ approved_count }} подтверждено из {{ total }}</div><a class="action-button" href="{% url 'datasets-page' %}">Закрыть</a></header>
     {% if dataset.description %}<p>{{ dataset.description }}</p>{% endif %}
     {% if stats %}<details><summary>Статистика по меткам</summary><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Метка</th><th>Всего</th><th>Подтверждено</th></tr></thead><tbody>{% for label, counts in stats %}<tr><td>{{ label }}</td><td>{{ counts.total }}</td><td>{{ counts.approved }}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
     {% for sample in examples %}
     <article class="ml-example">
       <p class="ml-example-text">{{ sample.preview|truncatechars:300 }}</p>
       <p class="muted">Метки: {{ sample.labels|join:', ' }} · {{ sample.approved|yesno:'Подтверждено,Требует проверки' }}</p>
-      <div class="actions"><a class="button" href="?page={{ examples.number }}&amp;edit={{ sample.pk|urlencode }}">Изменить и проверить разметку</a>
+      <div class="actions"><a class="action-button" href="?page={{ examples.number }}&amp;edit={{ sample.pk|urlencode }}">Изменить и проверить разметку</a>
       {% if admin %}<form method="post" hx-confirm="Удалить обучающий пример?">{% csrf_token %}<input type="hidden" name="example_id" value="{{ sample.pk }}"><button name="action" value="delete_example">Удалить</button></form>{% endif %}</div>
     </article>
     {% empty %}<p>Нет примеров</p>{% endfor %}
@@ -56,10 +52,9 @@
     <form method="post" class="editor-dialog-layout">{% csrf_token %}
       <input type="hidden" name="action" value="review"><input type="hidden" name="example_id" value="{{ review_example.pk }}">
       <header class="editor-dialog-header"><h2 id="dataset-review-title">Проверить разметку</h2><button type="button" data-dialog-close aria-label="Закрыть">×</button></header>
-      <div class="editor-dialog-body"><pre class="ml-example-text">{{ review_example.text }}</pre>{{ review_form.as_p }}</div>
+      <div class="editor-dialog-body"><pre class="ml-example-text">{{ review_example.text }}</pre>{% include 'ui/form_fields.html' with form=review_form %}</div>
       <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Отмена</button><button class="primary">Сохранить разметку</button></footer>
     </form>
   </dialog>
   {% endif %}
-</div>
 {% endblock %}
