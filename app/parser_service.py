@@ -52,7 +52,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        if self.path != "/parse":
+        if self.path not in {"/parse", "/analyze"}:
             self.send_error(404)
             return
         try:
@@ -60,7 +60,10 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError:
             self.send_error(400)
             return
-        if not 0 < size <= (128 * 1024**2 if UNIFIED else LIMIT):
+        if self.path == "/analyze" and not UNIFIED:
+            self.send_error(404)
+            return
+        if not 0 < size <= (96 * 1024**2 if self.path == "/analyze" else LIMIT):
             self.send_error(413)
             return
         if not admission.acquire(blocking=False):
@@ -74,16 +77,16 @@ class Handler(BaseHTTPRequestHandler):
             self.connection.settimeout(130)
             body = self.rfile.read(size)
             request = json.loads(body)
-            if request.get("operation") == "analyze_message":
+            if self.path == "/analyze":
                 if not UNIFIED or broker is None:
                     self.send_error(422, "Unified analysis disabled")
                     return
                 from app.analysis_broker import AnalysisUnavailable
                 try:
-                    data = base64.b64decode(request["data"], validate=True)
-                    if len(data) > 96 * 1024**2:
-                        raise ValueError("Analysis input limit")
-                    payload = json.dumps(broker.analyze(json.loads(data)), ensure_ascii=False).encode()
+                    if (not isinstance(request.get("original"), str) or not isinstance(request.get("configuration"), dict)
+                            or type(request.get("ocr_enabled")) is not bool):
+                        raise ValueError("Invalid analysis request")
+                    payload = json.dumps(broker.analyze(request), ensure_ascii=False).encode()
                 except AnalysisUnavailable:
                     busy(self)
                     return
