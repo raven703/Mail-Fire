@@ -12,6 +12,7 @@ from records.models import Audit, Category, CategoryRule, Setting
 
 BASELINE_SHA = "264cf40da0d55dd34f09b627b0aa157ed44feca9a57d23a06e64ea9fe05b041d"
 BASELINES = {
+    "pack-ru2-pricing": "config/rulepacks/history/ru3_pricing_before_calibration.json",
     "pack-ru2-financial-plans": "config/rulepacks/history/ru3_financial_before_calibration.json",
     PII_CATEGORY: "config/rulepacks/history/ru3_pii_before_calibration.json",
     "pack-ru2-internal-docs": "config/rulepacks/history/ru3_internal_before_calibration.json",
