@@ -1,0 +1,16 @@
+{% extends 'records/settings_base.html' %}
+{% block settings_content %}
+{% if notice %}<p role="status">{{ notice }}</p>{% endif %}
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+<section class="card"><h2>OCR</h2>
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="save">
+{% include 'ui/form_fields.html' with form=form %}<button class="ui-button ui-button-primary" type="submit">Сохранить</button></form>
+<p>RapidOCR — по умолчанию. Автоматическое переключение и объединение результатов отключены.</p>
+<div class="ui-table-scroll"><table><thead><tr><th>Провайдер</th><th>Доступность</th><th>Движок</th><th>Модель</th><th>Устройство</th></tr></thead><tbody>
+{% for item in providers %}<tr><td>{{ item.provider }}</td><td>{% if item.available %}Доступен{% else %}Недоступен{% endif %}</td><td>{{ item.version|default:'—' }}</td><td>{{ item.model|default:'—' }}</td><td>{{ item.device|default:'—' }}</td></tr>{% endfor %}
+</tbody></table></div><form method="post">{% csrf_token %}<button type="submit" name="action" value="check" class="ui-button">Проверить доступность</button></form></section>
+<section class="card"><h2>Тестирование OCR</h2><p>Документ хранится не более 15 минут. Письма, инциденты и обучающие данные не создаются.</p>
+<form method="post" enctype="multipart/form-data" hx-boost="false">{% csrf_token %}<input type="hidden" name="action" value="test">{% include 'ui/form_fields.html' with form=test_form %}<button type="submit" class="ui-button ui-button-primary">Распознать</button></form>
+{% if token %}<div class="dashboard-grid"><div><label>Страница оригинала <input id="ocr-preview-page" type="number" min="1" max="200" value="1" data-preview="{% url 'ocr-preview' %}?token={{ token|urlencode }}"></label><img id="ocr-original" src="{% url 'ocr-preview' %}?token={{ token|urlencode }}" alt="Оригинал документа" style="max-width:100%"></div><div><p>Время OCR: {{ seconds|floatformat:2 }} с · Страниц: {{ pages }} · Уверенность: {{ confidence|default_if_none:'не предоставлена' }}</p><textarea id="ocr-result" readonly rows="24" style="width:100%">{{ result.text }}</textarea><button type="button" class="ui-button" id="ocr-copy">Скопировать</button><button type="button" class="ui-button" id="ocr-download">Скачать TXT</button></div></div>{% endif %}
+</section>
+{% endblock %}

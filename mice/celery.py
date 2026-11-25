@@ -65,6 +65,10 @@ app.conf.update(
     enable_utc=True,
     timezone="UTC",
     beat_schedule={
+        "purge-ocr-tests": {
+            "task": "pipeline.purge_ocr_tests", "schedule": 60.0,
+            "options": {"queue": "maintenance", "routing_key": "maintenance"},
+        },
         "retention-cleanup": {
             "task": "pipeline.periodic",
             "schedule": 3600.0,

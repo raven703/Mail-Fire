@@ -9,6 +9,16 @@
     {% for key, title in tabs %}<a href="?tab={{ key }}"{% if key == tab %} aria-current="page"{% endif %}>{{ title }}</a>{% endfor %}
   </nav>
   <div id="monitor-live"{% if tab == 'queues' %} hx-get="?tab=queues" hx-trigger="every 30s" hx-target="this" hx-select="#monitor-live" hx-swap="outerHTML"{% endif %}>
+    {% if monitor.parser_degradation.total %}
+    <section aria-label="Деградация parser">
+      <h2>Деградация parser: {{ monitor.parser_degradation.total }} заданий</h2>
+      <p>Временная недоступность сервиса, не ошибка письма. Критический возраст — от 3600 секунд.</p>
+      <table><thead><tr><th>Задание</th><th>Сервис / этап</th><th>Состояние</th><th>Возраст, с</th><th>Отсрочки</th><th>Следующий повтор</th></tr></thead><tbody>
+      {% for job in monitor.parser_degradation.jobs %}<tr><td>{{ job.id }}</td><td>{{ job.service }} / {{ job.kind }}</td><td>{{ job.severity }} / {{ job.status }}</td><td>{{ job.age_seconds }}</td><td>{{ job.deferrals }}</td><td>{{ job.next_retry|default:'—' }}</td></tr>{% endfor %}
+      </tbody></table>
+      {% if monitor.parser_degradation.truncated %}<p>Показаны первые 100 заданий.</p>{% endif %}
+    </section>
+    {% endif %}
     {% if tab == 'queues' %}{% include 'pipeline/_queues.html' %}
     {% elif tab == 'flow' %}{% include 'pipeline/_flow.html' %}
     {% elif tab == 'resources' %}{% include 'pipeline/_resource_history.html' %}

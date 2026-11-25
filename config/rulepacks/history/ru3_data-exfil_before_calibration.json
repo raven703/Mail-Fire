@@ -1,0 +1,138 @@
+{
+  "id": "pack-ru2-data-exfil",
+  "name": "[RU2] Вывод информации за пределы организации",
+  "group_name": "Коммерческая информация",
+  "description": "Комбинации действий по пересылке внутренних материалов неуполномоченным получателям.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Передача внутреннего файла внешнему получателю",
+      "enabled": true,
+      "risk": 78,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "внутренний",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "файл",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "личный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "почта",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "внешний",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "отправить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "переслать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "сторонний",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Экспорт коммерческих документов",
+      "enabled": true,
+      "risk": 80,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "коммерческий",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "документ",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "скопировать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "наружу",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "контрагент",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "экспортировать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "переслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "личный",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    }
+  ]
+}

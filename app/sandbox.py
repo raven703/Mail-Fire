@@ -15,10 +15,13 @@ from app.config import settings
 
 
 def restrict(scan=False):
-    resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
+    cpu_limit = 1200 if settings().ocr_backend == "surya" else 90
+    resource.setrlimit(resource.RLIMIT_CPU, (cpu_limit, cpu_limit))
     # Gitleaks' WASM regex runtime reserves 4GiB virtual memory; RSS remains
     # bounded by the parser container's 3GiB cgroup limit.
     address_limit = (8 if scan else 3) * 1024**3
+    if settings().ocr_backend == "surya":
+        address_limit = 24 * 1024**3
     resource.setrlimit(resource.RLIMIT_AS, (address_limit, address_limit))
     resource.setrlimit(resource.RLIMIT_FSIZE, (128 * 1024**2, 128 * 1024**2))
     resource.setrlimit(resource.RLIMIT_NOFILE, (128, 128))
@@ -85,9 +88,10 @@ def call(operation, data, name=""):
     return output
 
 
-def local_call(operation, data, name=""):
+def local_call(operation, data, name="", *, provider=None, force_ocr=False):
     payload = json.dumps(
-        {"operation": operation, "data": base64.b64encode(data).decode(), "name": name}
+        {"operation": operation, "data": base64.b64encode(data).decode(), "name": name,
+         "force_ocr": force_ocr}
     ).encode()
     with tempfile.TemporaryDirectory(prefix="mailfire-parser-") as directory:
         env = {
@@ -95,11 +99,15 @@ def local_call(operation, data, name=""):
             "HOME": directory,
             "TMPDIR": directory,
             "PYTHONPATH": str(__import__("pathlib").Path(__file__).resolve().parent.parent),
-            "OPENBLAS_NUM_THREADS": "1",
-            "OMP_NUM_THREADS": "1",
-            "OCR_BACKEND": settings().ocr_backend,
+            "OPENBLAS_NUM_THREADS": "4",
+            "OMP_NUM_THREADS": "4",
+            "OCR_BACKEND": provider or settings().ocr_backend,
             "OCR_MODEL_ROOT": settings().ocr_model_root,
         }
+        for key in ("TORCH_DEVICE", "DETECTOR_MODEL_CHECKPOINT", "RECOGNITION_MODEL_CHECKPOINT",
+                    "HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE", "DISABLE_TQDM"):
+            if key in os.environ:
+                env[key] = os.environ[key]
         with tempfile.TemporaryFile() as output_file, tempfile.TemporaryFile() as error_file:
             result = subprocess.run(
                 [sys.executable, "-m", "app.sandbox"],
@@ -206,7 +214,8 @@ def main():
             from app.extraction import extract
 
             text, status, details = extract(
-                data, request["name"], use_ocr=request["operation"] != "extract_native"
+                data, request["name"], use_ocr=request["operation"] != "extract_native",
+                force_ocr=request.get("force_ocr") is True,
             )
             output = {"text": text, "status": status, "details": details}
         else:

@@ -1,0 +1,108 @@
+{
+  "id": "pack-ru2-explosive-threat",
+  "name": "[RU2] Сообщения с угрозой взрыва",
+  "group_name": "Угрозы и безопасность",
+  "description": "Только явно выраженные угрозы, а не одно слово «бомба». Необходимо отдельно рассматривать сообщения очевидцев, учебные материалы и цитаты.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Угроза взрыва здания",
+      "enabled": true,
+      "risk": 90,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "взорвать",
+          "weight": 6,
+          "required": true
+        },
+        {
+          "text": "здание",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "офис",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "школа",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "завтра",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "сегодня",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 12,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Сообщение о заложенном устройстве",
+      "enabled": true,
+      "risk": 90,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "заложить",
+          "weight": 5,
+          "required": true
+        },
+        {
+          "text": "бомба",
+          "weight": 6,
+          "required": true
+        },
+        {
+          "text": "здание",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "офис",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "школа",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 11,
+      "window": 12,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Недвусмысленные прямые угрозы",
+      "enabled": true,
+      "risk": 92,
+      "priority": 30,
+      "match_type": "word",
+      "phrases": [
+        "я устрою взрыв",
+        "я вас взорву",
+        "я заложил бомбу",
+        "я заложила бомбу"
+      ],
+      "exclude_phrases": []
+    }
+  ]
+}

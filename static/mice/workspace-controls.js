@@ -478,8 +478,21 @@
   document.addEventListener('htmx:afterSettle', initialize);
 })();
 document.addEventListener('click', event => {
+  if (event.target.closest('#ocr-copy')) {
+    navigator.clipboard.writeText(document.getElementById('ocr-result').value);
+  }
+  if (event.target.closest('#ocr-download')) {
+    const url = URL.createObjectURL(new Blob([document.getElementById('ocr-result').value], {type:'text/plain;charset=utf-8'}));
+    const link = document.createElement('a'); link.href = url; link.download = 'ocr.txt'; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   const link = event.target.closest('[data-resource-link]');
   if (!link) return;
   const details = document.getElementById(link.hash.slice(1));
   if (details) details.open = true;
+});
+document.addEventListener('change', event => {
+  if (event.target.id === 'ocr-preview-page') {
+    document.getElementById('ocr-original').src = event.target.dataset.preview + '&page=' + encodeURIComponent(event.target.value);
+  }
 });

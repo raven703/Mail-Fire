@@ -111,3 +111,4 @@ MICE_SMTP_NETWORKS = os.environ.get("MICE_SMTP_NETWORKS", "127.0.0.0/8,::1/128")
 MICE_CLAMAV_HOST = os.environ.get("MICE_CLAMAV_HOST", "")
 MICE_CLAMAV_PORT = int(os.environ.get("MICE_CLAMAV_PORT", "3310"))
 MICE_OCR_ENABLED = os.environ.get("MICE_OCR_BACKEND", "rapidocr") != "disabled"
+MICE_SURYA_URL = os.environ.get("MICE_SURYA_URL", "http://ocr-surya:8090")

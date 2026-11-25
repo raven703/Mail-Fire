@@ -1,0 +1,15 @@
+services:
+  ocr-surya:
+    image: mice-ocr-surya:0.14.7-gpu
+    build:
+      args:
+        SURYA_REQUIREMENTS: requirements.gpu.lock
+    environment:
+      TORCH_DEVICE: cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

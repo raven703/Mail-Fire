@@ -81,6 +81,26 @@ services:
     environment:
       OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
     networks: [ocr-parsing]
+  ocr-surya:
+    <<: *parser
+    profiles: [ocr-surya]
+    image: mice-ocr-surya:0.14.7
+    build:
+      context: .
+      dockerfile: surya/Dockerfile
+    environment:
+      OCR_BACKEND: surya
+      TORCH_DEVICE: ${MICE_SURYA_DEVICE:-cpu}
+      ANALYSIS_TIMEOUT: 600
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
+      DISABLE_TQDM: 'true'
+      DETECTOR_MODEL_CHECKPOINT: /opt/surya-models/detector
+      RECOGNITION_MODEL_CHECKPOINT: /opt/surya-models/recognizer
+    networks: [ocr-parsing]
+    mem_limit: ${MICE_SURYA_MEMORY:-6g}
+    cpus: ${MICE_SURYA_CPUS:-2}
+    pids_limit: 192
   converter:
     image: mice-converter:latest
     build: ./converter

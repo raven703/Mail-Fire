@@ -1,0 +1,142 @@
+{
+  "id": "pack-ru2-financial-plans",
+  "name": "[RU2] Непубличные финансовые планы",
+  "group_name": "Коммерческая информация",
+  "description": "Контекст внутренних бюджетов, будущих финансовых показателей, плановых расходов. Не доказывает наличие коммерческой тайны.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Прогноз выручки с внутренним контекстом",
+      "enabled": true,
+      "risk": 68,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "прогноз",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "выручка",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "внутренний",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "план",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "квартал",
+          "weight": 1,
+          "required": false
+        },
+        {
+          "text": "закрытый",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "конфиденциальный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "непубличный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "бюджет",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Бюджет с непубличным контекстом",
+      "enabled": true,
+      "risk": 72,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "бюджет",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "непубличный",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "конфиденциальный",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "внутренний",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "утвердить",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "закрытый",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "согласовать",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "неразглашение",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 7,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Явные пометки финансовых прогнозов",
+      "enabled": true,
+      "risk": 66,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "непубличный финансовый прогноз",
+        "плановая маржинальность",
+        "внутренний бюджет подразделения",
+        "закрытый финансовый план",
+        "конфиденциальный бюджет",
+        "непубличные финансовые показатели",
+        "внутренний прогноз прибыли",
+        "непубличный план расходов"
+      ],
+      "exclude_phrases": []
+    }
+  ]
+}

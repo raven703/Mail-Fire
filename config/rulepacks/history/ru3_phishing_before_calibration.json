@@ -1,0 +1,197 @@
+{
+  "id": "pack-ru2-phishing",
+  "name": "[RU2] Фишинговые требования к получателю",
+  "group_name": "Социальная инженерия",
+  "description": "Требования предоставить пароль, код подтверждения или войти по ссылке. Содержимое может быть учебным примером.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Подтверждение аккаунта с паролем",
+      "enabled": true,
+      "risk": 80,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "подтвердить",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "учетный",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "аккаунт",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "пароль",
+          "weight": 5,
+          "required": true
+        },
+        {
+          "text": "ссылка",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "немедленно",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "ввести",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "авторизация",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "проверка",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "срочно",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 10,
+      "window": 16,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Запрос одноразового кода",
+      "enabled": true,
+      "risk": 82,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "код",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "подтверждение",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "одноразовый",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "сообщить",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "переслать",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "назвать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "отправить",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "прислать",
+          "weight": 5,
+          "required": false
+        },
+        {
+          "text": "sms",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "смс",
+          "weight": 2,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 12,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Ссылка для разблокировки",
+      "enabled": true,
+      "risk": 76,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "перейти",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "ссылка",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "заблокировать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "аккаунт",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "срочно",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "восстановить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "подтвердить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "доступ",
+          "weight": 2,
+          "required": false
+        },
+        {
+          "text": "войти",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 9,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    }
+  ]
+}

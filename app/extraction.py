@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from app.config import settings
 
 
-def extract(data, name, depth=0, budget=None, *, use_ocr=True):
+def extract(data, name, depth=0, budget=None, *, use_ocr=True, force_ocr=False):
     budget = budget if budget is not None else [0, 0]
     budget[0] += 1
     budget[1] += len(data)
@@ -27,9 +27,10 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True):
                 ocr_pages = []
                 for index, page in enumerate(doc):
                     text = page.get_text()
-                    if len(text.strip()) < 20 and use_ocr and settings().ocr_backend != "disabled":
+                    if (force_ocr or len(text.strip()) < 20) and use_ocr and settings().ocr_backend != "disabled":
                         from app.ocr import recognize
-
+                        if page.rect.width * page.rect.height * 4 > 25000000:
+                            raise ValueError("Pixel limit")
                         text, metadata = recognize(
                             page.get_pixmap(matrix=pymupdf.Matrix(2, 2)).tobytes("png"), index + 1
                         )
@@ -49,8 +50,22 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True):
                 return "", "PARTIAL", {"ocr_required": True}
             from app.ocr import recognize
 
-            text, details = recognize(data)
-            return text, "ANALYZED" if text.strip() else "PARTIAL", details
+            from PIL import Image
+            texts, pages = [], []
+            with Image.open(io.BytesIO(data)) as image:
+                if getattr(image, "n_frames", 1) > 200:
+                    raise ValueError("Page limit")
+                for index in range(getattr(image, "n_frames", 1)):
+                    image.seek(index)
+                    if image.width * image.height > 25000000:
+                        raise ValueError("Pixel limit")
+                    output = io.BytesIO()
+                    image.convert("RGB").save(output, format="PNG")
+                    text, details = recognize(output.getvalue(), index + 1)
+                    texts.append(text)
+                    pages.append(details)
+            text = "\n".join(texts)
+            return text, "ANALYZED" if text.strip() else "PARTIAL", {"pages": len(pages), "ocr": pages}
         if suffix == ".docx":
             from docx import Document
 
@@ -122,7 +137,7 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True):
 
                     findings.extend(static_scan(child, member.filename)["findings"])
                     child_text, state, child_details = extract(
-                        child, member.filename, depth + 1, budget, use_ocr=use_ocr
+                        child, member.filename, depth + 1, budget, use_ocr=use_ocr, force_ocr=force_ocr
                     )
                     findings.extend(child_details.get("findings", []))
                     texts.append(child_text)

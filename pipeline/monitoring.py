@@ -61,6 +61,24 @@ def service_snapshot():
     return rows
 
 
+def parser_degradation():
+    """Expose bounded, secret-free dependency backlog independently of /health."""
+    now = timezone.now()
+    jobs = WorkItem.objects.filter(deferrals__gt=0, status__in=['PENDING', 'RUNNING', 'DEAD', 'CANCELLED'],
+                                   error__startswith='parser service=').order_by('created_at')
+    total = jobs.count()
+    rows = []
+    for job in jobs[:100]:
+        age = max(0, int((now-job.created_at).total_seconds()))
+        service = 'OCR Parser' if 'service=ocr-parser ' in job.error else 'Surya' if 'service=surya ' in job.error else 'Parser'
+        rows.append({'id': str(job.pk), 'kind': job.kind, 'service': service,
+                     'status': job.status, 'age_seconds': age, 'deferrals': job.deferrals,
+                     'next_retry': job.available_at if job.status == 'PENDING' else None,
+                     'severity': 'critical' if age >= 3600 else 'degraded'})
+    return {'state': 'degraded' if total else 'available', 'total': total, 'jobs': rows,
+            'truncated': total > len(rows)}
+
+
 def stage_snapshot():
     """Aggregate persisted jobs, including total wall time rather than only attempts."""
     with connection.cursor() as cursor:
@@ -164,6 +182,7 @@ def snapshot():
         )
     return {
         "services": service_snapshot(),
+        "parser_degradation": parser_degradation(),
         "messages": list(Message.objects.values("status").annotate(total=Count("pk")).order_by("status")),
         "queues": rows,
         "broker": broker,
