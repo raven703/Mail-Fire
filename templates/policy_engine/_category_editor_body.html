@@ -1,0 +1,1 @@
+{% if editing_rule %}<input type="hidden" name="entity" value="rule">{% include 'policy_engine/_rule_editor.html' with rule=form %}{% else %}<div class="category-create">{{ form.as_p }}{% include 'policy_engine/_category_rules.html' %}</div>{% endif %}

@@ -1,7 +1,7 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main class="management">
-  <header><h1>Детекторы</h1></header>
+  {% include 'ui/page_header.html' with title='Детекторы' %}
   <section><h2>Модули анализа содержимого</h2>
     {% for row in rows %}
     <div class="policy-row">

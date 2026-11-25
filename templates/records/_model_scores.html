@@ -1,2 +1,2 @@
-<table><thead><tr><th>Категория</th><th>Precision</th><th>Recall</th><th>F1</th><th>Примеров</th></tr></thead>
-<tbody>{% for name, score in scores.items %}<tr><td>{{ name }}</td><td>{{ score.precision|floatformat:3 }}</td><td>{{ score.recall|floatformat:3 }}</td><td>{{ score.f1|floatformat:3 }}</td><td>{{ score.support }}</td></tr>{% empty %}<tr><td colspan="5">Метрики отсутствуют</td></tr>{% endfor %}</tbody></table>
+<div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Категория</th><th>Precision</th><th>Recall</th><th>F1</th><th>Примеров</th></tr></thead>
+<tbody>{% for name, score in scores.items %}<tr><td>{{ name }}</td><td>{{ score.precision|floatformat:3 }}</td><td>{{ score.recall|floatformat:3 }}</td><td>{{ score.f1|floatformat:3 }}</td><td>{{ score.support }}</td></tr>{% empty %}<tr><td colspan="5">Метрики отсутствуют</td></tr>{% endfor %}</tbody></table></div>

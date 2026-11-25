@@ -1,0 +1,1 @@
+<label class="ui-field">{{ label }}<select name="{{ name }}"{% if disabled %} disabled{% endif %}{% if multiple %} multiple{% endif %}>{% if empty_label %}<option value="">{{ empty_label }}</option>{% endif %}{% for key, title in options %}<option value="{{ key }}"{% if key == value %} selected{% endif %}>{{ title }}</option>{% endfor %}</select></label>

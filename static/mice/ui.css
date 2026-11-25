@@ -1,0 +1,75 @@
+/* MICE UI primitives. Controls live in controls.css; modal in editor-dialog.css.
+   These are the sole owners of page, filter, table, tab and pagination layout. */
+:root {
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-5: 24px;
+  --ui-radius: 10px;
+  --ui-page-width: 1740px;
+}
+main { min-width: 0; max-width: var(--ui-page-width); margin: auto; padding: 20px 24px 32px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: var(--ui-space-3); flex-wrap: wrap; }
+.ui-page-header { margin-bottom: var(--ui-space-3); }
+h1 { font-size: 22px; font-weight: 650; letter-spacing: -.4px; margin: 0; }
+h2 { font-size: 15px; font-weight: 650; }
+h3 { font-size: 14px; }
+:where(.ui-panel, main > section, main > article) { background: var(--card); border: 1px solid var(--border); border-radius: var(--ui-radius); padding: var(--ui-space-4); margin: var(--ui-space-3) 0; min-width: 0; }
+:where(.ui-panel, section, article) > header { margin-bottom: var(--ui-space-3); }
+label { display: grid; gap: var(--ui-space-1); font-size: 12px; color: var(--muted); margin: var(--ui-space-2) 0; min-width: 0; }
+label :is(input, select, textarea) { color: var(--text); }
+.ui-field > :is(input, select, textarea) { width: 100%; }
+:where(.ui-filter-bar, .filters) { display: flex; flex-wrap: wrap; align-items: end; gap: var(--ui-space-2) var(--ui-space-3); margin: 0 0 var(--ui-space-3); padding: var(--ui-space-3); background: var(--card); border: 1px solid var(--border); border-radius: var(--ui-radius); min-width: 0; }
+:where(.ui-filter-bar, .filters) > label { flex: 1 1 150px; margin: 0; }
+:where(.ui-filter-bar, .filters) > label:first-child { flex-basis: 220px; }
+:where(.ui-filter-bar, .filters) label > :is(input, select) { width: 100%; }
+.range { display: flex; flex-wrap: wrap; align-items: end; gap: var(--ui-space-2); min-width: 0; }
+.range label { margin: 0; flex: 1 1 150px; }
+.range small { flex-basis: 100%; font-size: 10px; }
+.sticky-period { padding: 0; margin: 0; }
+.ui-filter-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+.ui-filter-grid > label, .ui-filter-grid > .range { margin: 0; min-width: 0; }
+.ui-filter-grid .range > label { flex-basis: 100%; }
+.ui-filter-grid .range [data-timezone] { line-height: 1.3; }
+.ui-filter-advanced { grid-column: 1 / 3; min-width: 0; align-self: end; }
+.ui-filter-advanced[open] { grid-column: 1 / -1; }
+.ui-filter-advanced > summary { width: fit-content; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--mf-control-radius); color: var(--text); font-size: 12px; cursor: pointer; }
+.ui-filter-advanced[open] > summary { margin-bottom: var(--ui-space-3); }
+.ui-filter-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: var(--ui-space-3); }
+.ui-filter-fields > label { margin: 0; }
+.ui-filter-fields > details { grid-column: 1 / -1; }
+.ui-filter-fields > .ui-multiselect { grid-column: 1 / -1; }
+.ui-filter-actions { display: flex; justify-content: end; align-items: center; gap: var(--ui-space-2); grid-column: 3; }
+.ui-multiselect { border: 1px solid var(--border); border-radius: var(--ui-radius); padding: var(--ui-space-2) var(--ui-space-3); min-width: 0; }
+.ui-multiselect legend { color: var(--muted); font-size: 12px; padding: 0 4px; }
+.ui-multiselect-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 4px 12px; }
+.ui-multiselect-options label { margin: 0; }
+.ui-table-scroll { max-width: 100%; overflow-x: auto; border-radius: 6px; }
+.ui-data-table { border-collapse: collapse; width: 100%; font-size: 12px; text-align: left; }
+.ui-data-table :is(th, td) { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.ui-data-table th { color: var(--muted); font-size: 11px; font-weight: 550; white-space: nowrap; background: var(--card); }
+.ui-data-table td { overflow-wrap: anywhere; }
+.ui-data-table tbody tr:hover { background: var(--selected); }
+.ui-data-table .ui-nowrap { white-space: nowrap; }
+.ui-data-table--incidents { table-layout: fixed; min-width: 900px; }
+.ui-data-table--incidents th:first-child { width: 23%; }
+.ui-data-table--incidents th:last-child { width: 135px; }
+.ui-data-table--incidents :is(th:nth-last-child(2), th:nth-last-child(3)) { width: 105px; }
+.ui-data-table--incidents :is(.incident-subject, .table-secondary, .category-tag) { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.pagination { display: flex; align-items: center; justify-content: end; flex-wrap: wrap; gap: var(--ui-space-2); padding: var(--ui-space-3) 0 0; font-size: 12px; }
+.pagination-summary { margin-right: auto; color: var(--muted); }
+.badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 4px 8px; font-size: 11px; font-weight: 550; white-space: nowrap; background: var(--selected); }
+.badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.badge:is(.HIGH, .high, .ERROR, .DEAD, .FAILED) { color: var(--high); background: var(--high-bg); }
+.badge:is(.MEDIUM, .medium, .WARNING, .PARTIAL) { color: var(--medium); background: var(--medium-bg); }
+.badge:is(.LOW, .low) { color: var(--low); background: var(--low-bg); }
+.badge:is(.UNKNOWN, .CLOSED, .FALSE_POSITIVE) { color: var(--muted); background: var(--bg); }
+.badge:is(.OK, .ANALYZED) { color: var(--accent); }
+.tabs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ui-space-2); padding: var(--ui-space-2) 0; margin-bottom: var(--ui-space-3); border-bottom: 1px solid var(--border); }
+.tabs > a { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 10px; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; }
+.tabs > a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
+.empty { padding: var(--ui-space-5); text-align: center; color: var(--muted); font-size: 13px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 1100px) { main { padding: 16px; } }
+@media (max-width: 650px) { main { padding: 12px; } .ui-filter-grid { grid-template-columns: minmax(0, 1fr); } .ui-filter-advanced, .ui-filter-actions { grid-column: 1 / -1; } }

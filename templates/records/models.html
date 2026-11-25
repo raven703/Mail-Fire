@@ -1,7 +1,7 @@
 {% extends 'identity/base.html' %}
 {% block body %}
 <main class="management">
-  <header><h1>ML-модели и обучение</h1></header>
+  {% include 'ui/page_header.html' with title='ML-модели и обучение' %}
   <div class="model-banner"><h2>{% if active_count %}Опубликовано моделей · {{ active_count }}{% else %}Активные модели отсутствуют{% endif %}</h2><p>TF-IDF / SetFit / RuBERT-tiny2 · ML-анализ писем выключен</p></div>
   <nav class="tabs" aria-label="Модели и обучение">
     <a href="?tab=models"{% if tab == 'models' %} aria-current="page"{% endif %}>Модели</a>
@@ -23,10 +23,10 @@
   <section>
     <header><div><h2>Контролируемое обучение</h2><p class="muted">Раздельные train, validation и test. Публикация модели выполняется отдельно.</p></div>
     {% if admin and perms.identity.view_originals %}<a class="action-button primary" href="?tab=training&amp;new=1">＋ Запустить обучение</a>{% endif %}</header>
-    <table><thead><tr><th>Задание</th><th>Движок</th><th>Статус</th><th>Попытки</th><th>Ошибка</th></tr></thead><tbody>
+    <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Задание</th><th>Движок</th><th>Статус</th><th>Попытки</th><th>Ошибка</th></tr></thead><tbody>
       {% for job in jobs %}<tr><td>{{ job.created_at }} · {{ job.pk }}</td><td>{{ job.payload.engine }}</td><td>{{ job.status }}</td><td>{{ job.attempts }} / {{ job.max_attempts }}</td><td>{{ job.error|default:'—' }}</td></tr>
       {% empty %}<tr><td colspan="5">Заданий обучения нет</td></tr>{% endfor %}
-    </tbody></table><a href="{% url 'operations' %}?tab=jobs">Очереди обработки →</a>
+    </tbody></table></div><a href="{% url 'operations' %}?tab=jobs">Очереди обработки →</a>
   </section>
   {% elif tab == 'quality' %}
   <section><h2>Метрики опубликованных моделей на test</h2>

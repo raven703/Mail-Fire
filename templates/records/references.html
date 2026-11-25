@@ -23,9 +23,9 @@
     <header><h2>{{ view_row.name }}</h2><a href="{% url 'references-page' %}?{{ pagination_query }}">Скрыть</a></header>
     <pre class="mail-text">{{ view_row.text }}</pre>
     <h3>Совпадения в инцидентах</h3>
-    <div class="table-scroll"><table><thead><tr><th>Письмо</th><th>Дата</th><th>Сходство</th><th>Фрагмент</th></tr></thead><tbody>
+    <div class="table-scroll"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Письмо</th><th>Дата</th><th>Сходство</th><th>Фрагмент</th></tr></thead><tbody>
       {% for row in matches %}<tr><td><a href="{% url 'incident-detail' row.id %}">{{ row.subject|default:'Без темы' }}</a></td><td>{{ row.at }}</td><td>{{ row.confidence|default_if_none:'—' }}</td><td title="{{ row.excerpt }}">{{ row.excerpt }}</td></tr>{% empty %}<tr><td colspan="4">Совпадений нет</td></tr>{% endfor %}
-    </tbody></table></div>
+    </tbody></table></div></div>
   </section>{% endif %}
   {% if settings_row %}
   <dialog class="editor-dialog" data-editor data-close-url="{% url 'references-page' %}" aria-labelledby="reference-settings-title">

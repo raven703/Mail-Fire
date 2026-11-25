@@ -12,7 +12,7 @@
     <table class="weighted-terms-table">
       <caption class="visually-hidden">Термины, индивидуальные веса и обязательность</caption>
       <colgroup><col><col class="term-weight-column"><col class="term-required-column"><col class="term-remove-column"></colgroup>
-      <thead><tr><th scope="col">Термин / фраза</th><th scope="col">Вес</th><th scope="col"><abbr title="Обязательный термин">Обяз.</abbr></th><th scope="col"><span class="visually-hidden">Удаление</span></th></tr></thead>
+      <thead><tr><th scope="col">Термин / фраза</th><th scope="col">Вес</th><th scope="col"><abbr title="Обязательный термин">Обяз.</abbr></th><th scope="col"><span class="visually-hidden">Удаление</span></th></tr><tr class="weighted-terms-second-heading" aria-hidden="true"><th>Термин / фраза</th><th>Вес</th><th>Обяз.</th><th></th></tr></thead>
       <tbody data-term-rows>
         {% for text, weight, required in rule.term_rows %}
         <tr data-term-row>
@@ -27,7 +27,7 @@
   </div>
   <p class="muted weighted-terms-empty" data-terms-empty hidden>Добавьте первый термин или фразу.</p>
   <div class="weighted-terms-footer">
-    <button type="button" data-add-term>＋ Добавить термин</button>
+    <button type="button" data-add-term title="Добавить термин (Enter в поле термина или веса)">＋ Добавить термин</button>
     <span class="muted weighted-terms-summary" data-term-summary role="status" aria-live="polite" aria-atomic="true"></span>
   </div>
 </div>

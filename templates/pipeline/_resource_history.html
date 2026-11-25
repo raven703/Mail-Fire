@@ -1,7 +1,7 @@
 <section>
   <h2>История ресурсов</h2>
   <p class="muted">CPU рассчитан относительно квоты контейнера. Без квоты 100% соответствует одному ядру. Для диска показана файловая система сервиса.</p>
-  <div class="table-scroll"><table>
+  <div class="table-scroll"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table">
     <thead><tr><th>Сервис</th><th>Статус</th><th>CPU</th><th>Память</th><th>Свободно на диске</th><th>Последний замер</th></tr></thead>
     <tbody>{% for group in resource_history %}<tr>
       <td>{% if group.latest %}<a href="#resource-{{ group.service }}" data-resource-link>{{ group.service }}</a>{% else %}{{ group.service }}{% endif %}</td>
@@ -11,7 +11,7 @@
       <td>{% if group.latest.disk_free is not None %}{{ group.latest.disk_free|filesizeformat }}{% else %}—{% endif %}</td>
       <td>{{ group.latest.created_at|date:'d.m.Y H:i:s'|default:'—' }}</td>
     </tr>{% endfor %}</tbody>
-  </table></div>
+  </table></div></div>
   {% for group in resource_history %}{% if group.latest %}
   <details id="resource-{{ group.service }}" data-resource-details>
     <summary>{{ group.service }} · история замеров</summary>
@@ -23,7 +23,7 @@
     </div>
     <p>Процессы и потоки {{ group.latest.pids_used|default_if_none:'—' }} / {{ group.latest.pids_limit|default_if_none:'—' }}</p>
     {% for gpu in group.latest.gpu %}<p>{{ gpu.name }} · {{ gpu.utilization }}% · VRAM {{ gpu.used_mib }} / {{ gpu.total_mib }} МиБ · {{ gpu.temperature }} °C</p>{% empty %}<p class="muted">Замеры GPU отсутствуют</p>{% endfor %}
-    <table><caption>Последние 20 замеров</caption><thead><tr><th>Время</th><th>CPU</th><th>Память занята</th><th>Диск свободен</th></tr></thead><tbody>{% for row in group.rows %}<tr><td>{{ row.created_at|date:'d.m.Y H:i:s' }}</td><td>{% if row.cpu is not None %}{{ row.cpu }}%{% else %}—{% endif %}</td><td>{% if row.ram_used is not None %}{{ row.ram_used|filesizeformat }}{% else %}—{% endif %}</td><td>{% if row.disk_free is not None %}{{ row.disk_free|filesizeformat }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table>
+    <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><caption>Последние 20 замеров</caption><thead><tr><th>Время</th><th>CPU</th><th>Память занята</th><th>Диск свободен</th></tr></thead><tbody>{% for row in group.rows %}<tr><td>{{ row.created_at|date:'d.m.Y H:i:s' }}</td><td>{% if row.cpu is not None %}{{ row.cpu }}%{% else %}—{% endif %}</td><td>{% if row.ram_used is not None %}{{ row.ram_used|filesizeformat }}{% else %}—{% endif %}</td><td>{% if row.disk_free is not None %}{{ row.disk_free|filesizeformat }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table></div>
   </details>
   {% endif %}{% endfor %}
 </section>

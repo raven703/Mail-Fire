@@ -1,14 +1,4 @@
 /* Shared visual contract for message actions, attachments and DLP evidence. */
-a.action-button {
- display:inline-flex;align-items:center;justify-content:center;gap:6px;
- box-sizing:border-box;min-height:38px;padding:9px 14px;
- border:1px solid var(--border);border-radius:var(--mf-control-radius);
- background:var(--card);color:var(--text);font:inherit;font-size:13px;
- font-weight:550;line-height:1.25;text-decoration:none;white-space:nowrap;
- transition:background-color .15s ease,border-color .15s ease;
-}
-a.action-button:hover{background:var(--selected);color:var(--text);text-decoration:none}
-a.action-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .detail>.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
 .message-attachments .policy-row{padding:14px 0;align-items:center;gap:16px}
 .message-attachments .policy-info{min-width:0}

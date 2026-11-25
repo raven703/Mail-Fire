@@ -19,7 +19,7 @@
   <section class="ml-dataset-review">
     <header><div><h2>Проверка разметки</h2><strong>{{ dataset.name }}</strong> · {{ approved_count }} подтверждено из {{ total }}</div><a class="button" href="{% url 'datasets-page' %}">Закрыть</a></header>
     {% if dataset.description %}<p>{{ dataset.description }}</p>{% endif %}
-    {% if stats %}<details><summary>Статистика по меткам</summary><table><thead><tr><th>Метка</th><th>Всего</th><th>Подтверждено</th></tr></thead><tbody>{% for label, counts in stats %}<tr><td>{{ label }}</td><td>{{ counts.total }}</td><td>{{ counts.approved }}</td></tr>{% endfor %}</tbody></table></details>{% endif %}
+    {% if stats %}<details><summary>Статистика по меткам</summary><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Метка</th><th>Всего</th><th>Подтверждено</th></tr></thead><tbody>{% for label, counts in stats %}<tr><td>{{ label }}</td><td>{{ counts.total }}</td><td>{{ counts.approved }}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
     {% for sample in examples %}
     <article class="ml-example">
       <p class="ml-example-text">{{ sample.preview|truncatechars:300 }}</p>

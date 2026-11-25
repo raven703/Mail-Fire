@@ -5,10 +5,10 @@
 </div>
 <section>
   <h2>Откуда поступает почта</h2>
-  <table><thead><tr><th>Источник</th><th>Направление</th><th>Доставок</th><th>Средний размер письма, байт</th></tr></thead><tbody>
+  <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Источник</th><th>Направление</th><th>Доставок</th><th>Средний размер письма, байт</th></tr></thead><tbody>
     {% for group in flow_summary.groups %}<tr><td>{{ group.source }}</td><td>{{ group.direction }}</td><td>{{ group.events }}</td><td>{{ group.average|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий доставки</td></tr>{% endfor %}
-  </tbody></table>
+  </tbody></table></div>
   <details><summary>Почасовая статистика · последние 24 записи</summary>
-    <table><thead><tr><th>Час</th><th>Источник / направление</th><th>События / уникальные письма</th><th>Размер: среднее / медиана / p95, байт</th></tr></thead><tbody>{% for row in flow %}<tr><td>{{ row.hour }}</td><td>{{ row.source }} / {{ row.direction }}</td><td>{{ row.events }} / {{ row.messages }}</td><td>{{ row.average|floatformat:0 }} / {{ row.median|floatformat:0 }} / {{ row.p95|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий доставки</td></tr>{% endfor %}</tbody></table>
+    <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Час</th><th>Источник / направление</th><th>События / уникальные письма</th><th>Размер: среднее / медиана / p95, байт</th></tr></thead><tbody>{% for row in flow %}<tr><td>{{ row.hour }}</td><td>{{ row.source }} / {{ row.direction }}</td><td>{{ row.events }} / {{ row.messages }}</td><td>{{ row.average|floatformat:0 }} / {{ row.median|floatformat:0 }} / {{ row.p95|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="4">Нет событий доставки</td></tr>{% endfor %}</tbody></table></div>
   </details>
 </section>

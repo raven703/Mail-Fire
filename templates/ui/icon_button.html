@@ -1,0 +1,1 @@
+<button type="{{ type|default:'button' }}" class="icon-control" aria-label="{{ label }}" title="{{ label }}"{% if disabled %} disabled{% endif %}>{% if icon_template %}{% include icon_template %}{% else %}{{ icon }}{% endif %}</button>

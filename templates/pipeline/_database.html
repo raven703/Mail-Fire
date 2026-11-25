@@ -8,12 +8,12 @@
 </div>
 <section>
   <h2>10 крупнейших таблиц</h2>
-  <table><thead><tr><th>Таблица</th><th>Размер с индексами</th><th>Из них индексы</th><th>Примерно строк</th></tr></thead><tbody>{% for table in database.tables|slice:':10' %}<tr><td>{{ table.name }}</td><td>{{ table.bytes|filesizeformat }}</td><td>{{ table.index_bytes|filesizeformat }}</td><td>{{ table.live }}</td></tr>{% endfor %}</tbody></table>
+  <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Таблица</th><th>Размер с индексами</th><th>Из них индексы</th><th>Примерно строк</th></tr></thead><tbody>{% for table in database.tables|slice:':10' %}<tr><td>{{ table.name }}</td><td>{{ table.bytes|filesizeformat }}</td><td>{{ table.index_bytes|filesizeformat }}</td><td>{{ table.live }}</td></tr>{% endfor %}</tbody></table></div>
   <details><summary>Обслуживание базы</summary>
-    <table><thead><tr><th>Таблица</th><th>Устаревшие строки</th><th>Автоочистка</th><th>Обновление статистики</th></tr></thead><tbody>{% for table in database.tables %}<tr><td>{{ table.name }}</td><td>{{ table.dead }}</td><td>{{ table.autovacuum|default_if_none:'—' }}</td><td>{{ table.autoanalyze|default_if_none:'—' }}</td></tr>{% endfor %}</tbody></table>
+    <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Таблица</th><th>Устаревшие строки</th><th>Автоочистка</th><th>Обновление статистики</th></tr></thead><tbody>{% for table in database.tables %}<tr><td>{{ table.name }}</td><td>{{ table.dead }}</td><td>{{ table.autovacuum|default_if_none:'—' }}</td><td>{{ table.autoanalyze|default_if_none:'—' }}</td></tr>{% endfor %}</tbody></table></div>
   </details>
   <details><summary>Состояние подключений</summary>
-    <table><thead><tr><th>Состояние</th><th>Тип ожидания</th><th>Событие</th><th>Подключения</th></tr></thead><tbody>{% for row in database.connections %}<tr><td>{{ row.state|default_if_none:'—' }}</td><td>{{ row.wait_type|default_if_none:'—' }}</td><td>{{ row.wait_event|default_if_none:'—' }}</td><td>{{ row.count }}</td></tr>{% endfor %}</tbody></table>
+    <div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Состояние</th><th>Тип ожидания</th><th>Событие</th><th>Подключения</th></tr></thead><tbody>{% for row in database.connections %}<tr><td>{{ row.state|default_if_none:'—' }}</td><td>{{ row.wait_type|default_if_none:'—' }}</td><td>{{ row.wait_event|default_if_none:'—' }}</td><td>{{ row.count }}</td></tr>{% endfor %}</tbody></table></div>
   </details>
 </section>
 {% else %}<p>Статистика PostgreSQL доступна администратору.</p>{% endif %}

@@ -1,0 +1,1 @@
+<fieldset class="ui-multiselect"><legend>{{ label }}</legend><div class="ui-multiselect-options">{% for option in options %}<label><input type="checkbox" name="{{ name }}" value="{{ option.pk }}"{% if option.pk in selected %} checked{% endif %}>{{ option.name }}</label>{% endfor %}</div></fieldset>

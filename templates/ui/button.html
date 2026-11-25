@@ -1,0 +1,1 @@
+{% if href %}<a class="action-button {{ variant }}" href="{{ href }}"{% if label %} aria-label="{{ label }}"{% endif %}>{{ text }}</a>{% else %}<button type="{{ type|default:'button' }}" class="{{ variant }}"{% if disabled %} disabled{% endif %}{% if name %} name="{{ name }}" value="{{ value }}"{% endif %}>{{ text }}</button>{% endif %}

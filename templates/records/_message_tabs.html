@@ -37,7 +37,7 @@
   </section>
   <section role="tabpanel" id="message-history" aria-labelledby="tab-history">
     <h2>Почтовые события</h2>
-    <div class="table"><table><thead><tr><th>Время события</th><th>Источник</th><th>Направление</th></tr></thead><tbody>{% for event in events %}<tr><td>{{ event.created_at|date:'d.m.Y H:i' }}</td><td>{{ event.source }}</td><td>{{ event.direction }}</td></tr>{% empty %}<tr><td colspan="3">Нет событий доставки</td></tr>{% endfor %}</tbody></table></div>
+    <div class="table"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table"><thead><tr><th>Время события</th><th>Источник</th><th>Направление</th></tr></thead><tbody>{% for event in events %}<tr><td>{{ event.created_at|date:'d.m.Y H:i' }}</td><td>{{ event.source }}</td><td>{{ event.direction }}</td></tr>{% empty %}<tr><td colspan="3">Нет событий доставки</td></tr>{% endfor %}</tbody></table></div></div>
     <h2>Аудит действий</h2>{% include 'records/_workflow_history.html' %}
   </section>
   <section role="tabpanel" id="message-technical" aria-labelledby="tab-technical">

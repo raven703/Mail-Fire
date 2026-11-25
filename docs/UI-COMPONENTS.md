@@ -1,0 +1,69 @@
+# MICE UI component contract
+
+## Ownership and cascade
+
+The app uses Django partials, native controls, HTMX and the existing MICE palette.
+No framework or backend changes are needed.
+
+1. `static/mice/style.css`: palette and domain layouts (evidence, policies, charts).
+2. `static/mice/ui.css`: page spacing, headers, panels, FilterBar, DataTable,
+   Pagination, Badge, Tabs, EmptyState and spacing/radius tokens.
+3. `static/mice/controls.css`: Button/IconButton and native Input/Select/Checkbox
+   geometry, colors and hover/focus/disabled states. Links with `action-button`
+   use the same contract as buttons, including `primary`.
+4. `static/mice/editor-dialog.css`: the existing Modal shell and its single body
+   scroll area. `dialogs.js` owns focus, closing and HTMX lifecycle behavior.
+5. `static/mice/native-shell.css`: navigation, toolbar and shell breakpoints only.
+6. Specialized styles own only their feature, not generic main/section/table or
+   filter positioning. Weighted terms retain their existing shared editor.
+
+Do not add global sticky filters, broad table/section selectors to feature files,
+or higher-specificity overrides to compensate for another owner's definition.
+Only the workspace toolbar/navigation are sticky. Page panels do not scroll;
+`ui-table-scroll` is the horizontal overflow boundary for data tables. Document
+and evidence viewers retain their intentional content scrolling.
+
+## Partials (`templates/ui/`)
+
+- `page_header.html`: `title`, optional `subtitle`, `count`, `actions_template`.
+- `button.html`: `text`, optional `href`, `type` (default button), `variant`
+  (`primary`), `name`, `value`, `disabled`.
+- `icon_button.html`: accessible `label`, `icon_template` or `icon`, `disabled`.
+- `input.html`: `label`, `name`, `value`, `type`, `placeholder`, `list`.
+- `select.html`: `label`, `name`, `(value, label)` `options`, selected `value`.
+- `field.html`: Django BoundField `field`, preserving server errors/help/widgets.
+- `checkbox.html`: `label`, `name`, `value`, `checked`, `disabled`.
+- `multiselect.html`: `label`, `name`, model `options`, selected primary keys
+  `selected`; uses native checkboxes and a semantic fieldset, no second picker JS.
+- `filter_bar.html`: `fields_template`, optional `action`, `layout`.
+- `data_table.html`: `label`, `content_template` (thead/tbody), `table_class`.
+  Tables with complex existing inline markup share `ui-data-table` and
+  `ui-table-scroll` rather than duplicating their presentation.
+- `pagination.html`: existing `page`, `pagination_query`; the legacy records
+  include forwards here so all paginated pages share one implementation.
+- `badge.html`: `text`, `variant`; existing `.badge` markup shares its styling.
+- `modal.html`: `id`, `title`, `content_template`, optional `close_url`,
+  `dialog_class`, `submit_label`. Uses the established `data-editor` contract.
+- `tabs.html`: `label`, `tabs` with `href`, `title`, `active`. Existing JS tabs
+  retain `data-tabs` / `data-tab` and share `.tabs` presentation.
+- `empty_state.html`: `text`.
+
+Use `only` when including simple value-only components to avoid context leakage.
+Form/table body templates deliberately inherit permission and request context.
+Never construct trusted HTML from user-provided strings.
+
+## Incidents
+
+Six primary filters form a responsive three-column grid. Additional filters
+remain native controls within details; selected advanced filters reopen it after
+GET/HTMX navigation. Names, choices, permission checks and query handling remain
+unchanged. All seven privileged table columns are preserved, including sender,
+recipient and timestamp; narrower windows scroll the table horizontally.
+
+## Quick validation
+
+`python scripts/check_ui_system.py` uses the already available Playwright and
+requires `ADMIN_PASSWORD`. Optional environment: `MICE_UI_URL`,
+`MICE_CHROMIUM_PATH`, `MICE_UI_SCREENSHOTS`. It does not submit data-changing
+forms. It checks 1024/1280/1920 pixels in both themes, filter/reset behavior and
+HTMX navigation. Existing Django tests cover server permissions and forms.

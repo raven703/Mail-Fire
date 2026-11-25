@@ -134,6 +134,18 @@
         const row = rows.find(item => item.hidden);
         if (row) { row.hidden = false; textInput(row).focus(); summary(); }
       });
+      editor.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' || event.isComposing ||
+            !event.target.matches('[data-term-row] input:not([type="checkbox"])')) return;
+        event.preventDefault();
+        if (event.repeat) return;
+        const row = event.target.closest('[data-term-row]');
+        if (!textInput(row).value.trim()) { textInput(row).focus(); return; }
+        if (!textInput(row).reportValidity() || !weightInput(row).reportValidity()) return;
+        const next = rows.slice(rows.indexOf(row) + 1).find(item => !item.hidden);
+        if (next) textInput(next).focus();
+        else if (!addButton.disabled) addButton.click();
+      });
       editor.addEventListener('input', summary);
       editor.addEventListener('change', summary);
       summary();

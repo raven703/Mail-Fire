@@ -5,10 +5,10 @@
   <nav class="tabs"><a href="{% url 'addresses-page' %}"{% if kind == 'addresses' %} aria-current="page"{% endif %}>Адреса</a><a href="{% url 'employees-page' %}"{% if kind == 'employees' %} aria-current="page"{% endif %}>Сотрудники</a></nav>
   <section>
     <form method="get" action="{% url page_name %}" class="filters"><label>Поиск<input name="q" value="{{ query }}"></label><button>Найти</button></form>
-    <div class="table"><table>
+    <div class="table"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table">
       <thead>{% if kind == 'employees' %}<tr><th>ФИО</th><th>Подразделение</th><th>Добавлен</th></tr>{% else %}<tr><th>Email</th><th>Сотрудник</th><th>Тип адреса</th><th>Обнаружен</th></tr>{% endif %}</thead>
       <tbody>{% for row in page %}<tr>{% if kind == 'employees' %}<td><a href="{% url 'employee-edit' row.pk %}">{{ row.name }}</a></td><td>{{ row.department }}</td>{% else %}<td><a href="{% url 'address-edit' row.pk %}">{{ row.email }}</a></td><td>{{ row.identity.name|default:'—' }}</td><td>{{ row.kind }}</td>{% endif %}<td>{{ row.created_at }}</td></tr>{% empty %}<tr><td colspan="4">Нет записей</td></tr>{% endfor %}</tbody>
-    </table></div>
+    </table></div></div>
     {% include 'records/_pagination.html' %}
   </section>
   {% if form %}

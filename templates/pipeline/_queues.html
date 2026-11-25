@@ -14,10 +14,10 @@
 {% include 'pipeline/_stages.html' %}
 <section>
   <header><h2>Доставка заданий</h2><a class="system-detail-link" href="?tab=jobs">Открыть задания →</a></header>
-  <div class="table-scroll"><table>
+  <div class="table-scroll"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table">
     <thead><tr><th>Очередь</th><th>Ожидает</th><th>В работе</th><th>Ошибки</th><th>Старейшее, с</th><th>Завершено за час</th><th>Попытки с ошибкой за час</th><th>Время попытки, среднее / p95, с</th><th>RabbitMQ ready / unacked / consumers</th></tr></thead>
     <tbody>{% for queue in monitor.queues %}<tr><td><a href="?tab=jobs&amp;queue={{ queue.name|urlencode }}">{{ queue.name }}</a></td><td>{{ queue.pending }}</td><td>{{ queue.running }}</td><td>{{ queue.dead }}</td><td>{{ queue.oldest_seconds|default_if_none:'—' }}</td><td>{{ queue.completed_hour }}</td><td>{{ queue.failed_attempts_hour }}</td><td>{{ queue.average_seconds|floatformat:2|default:'—' }} / {{ queue.p95_seconds|floatformat:2|default:'—' }}</td><td>{% if queue.broker %}{{ queue.broker.ready }} / {{ queue.broker.unacknowledged }} / {{ queue.broker.consumers }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody>
-  </table></div>
+  </table></div></div>
 </section>
 <section>
   <h2>Сервисы</h2>
