@@ -20,6 +20,8 @@ class AnalysisUnavailable(RuntimeError):
 
 class AnalysisBroker:
     def __init__(self):
+        from app.analysis_launcher import nondumpable
+        nondumpable()
         self.directory = tempfile.TemporaryDirectory(prefix="mice-launcher-")
         self.path = os.path.join(self.directory.name, "control.sock")
         self.timeout = int(os.environ.get("MICE_ANALYSIS_WALL_TIMEOUT", "600"))
