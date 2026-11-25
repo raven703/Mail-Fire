@@ -24,8 +24,10 @@ def child(connection, listener, directory):
     os.environ["HOME"] = directory
     os.environ["TMPDIR"] = directory
     tempfile.tempdir = directory
+    from app.analysis_isolation import confine
     from app.sandbox import restrict
-    restrict(scan=True)
+    confine(directory)
+    restrict(scan=True, unified=True)
     try:
         from app.unified_analysis import analyze_message
         request = receive(connection)
