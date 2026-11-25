@@ -23,6 +23,10 @@ x-worker: &worker
     ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set administrator password}
     MICE_PARSER_URL: http://parser:8090
     MICE_OCR_PARSER_URL: http://ocr-parser:8090
+    MICE_UNIFIED_ANALYSIS_ENABLED: ${MICE_UNIFIED_ANALYSIS_ENABLED:-false}
+    MICE_ANALYSIS_WALL_TIMEOUT: ${MICE_ANALYSIS_WALL_TIMEOUT:-600}
+    MICE_ANALYSIS_TIMEOUT: ${MICE_ANALYSIS_TIMEOUT:-720}
+    MICE_ANALYSIS_CONCURRENCY: ${MICE_ANALYSIS_CONCURRENCY:-2}
     MICE_OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
     MICE_CLAMAV_HOST: ${MICE_CLAMAV_HOST:-}
     MICE_CLAMAV_PORT: ${MICE_CLAMAV_PORT:-3310}
@@ -53,15 +57,21 @@ services:
     command: [python, -m, app.parser_service]
     environment:
       OCR_BACKEND: disabled
+      MICE_UNIFIED_ANALYSIS_ENABLED: ${MICE_UNIFIED_ANALYSIS_ENABLED:-false}
+      MICE_PARSER_CONCURRENCY: ${MICE_PARSER_CONCURRENCY:-2}
+      MICE_PARSER_QUEUE_SIZE: ${MICE_PARSER_QUEUE_SIZE:-3}
+      MICE_PARSER_SLOT_WAIT_SECONDS: ${MICE_PARSER_SLOT_WAIT_SECONDS:-5}
+      MICE_ANALYSIS_WALL_TIMEOUT: ${MICE_ANALYSIS_WALL_TIMEOUT:-600}
       MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
       MAX_EXPANDED_BYTES: ${MICE_IMPORT_MAX_BYTES:-104857600}
     configs: *resource-config
-    networks: [parsing]
+    networks: [parsing, ocr-parsing]
     read_only: true
     tmpfs: ['/tmp:size=256m,noexec,nosuid']
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     pids_limit: 96
+    init: true
     mem_limit: 3g
     cpus: 2
     restart: unless-stopped
@@ -288,6 +298,20 @@ services:
       MICE_INGESTION_TIMEOUT: ${MICE_INGESTION_TIMEOUT:-300}
     mem_limit: ${MICE_INGESTION_MEMORY:-512m}
     cpus: ${MICE_INGESTION_CPUS:-1}
+  analysis:
+    <<: *worker
+    healthcheck:
+      <<: *resource-check
+      test: [CMD, sh, /run/mice-resource-probe.sh, store, analysis]
+    networks: [default, parsing]
+    environment:
+      <<: *runtime-env
+      MICE_WORKER_GROUP: analysis
+      MICE_ANALYSIS_CONCURRENCY: ${MICE_ANALYSIS_CONCURRENCY:-2}
+      MICE_ANALYSIS_PREFETCH: 1
+      MICE_ANALYSIS_TIMEOUT: ${MICE_ANALYSIS_TIMEOUT:-720}
+    mem_limit: ${MICE_ANALYSIS_MEMORY:-1g}
+    cpus: ${MICE_ANALYSIS_CPUS:-1}
   extraction:
     <<: *worker
     healthcheck:

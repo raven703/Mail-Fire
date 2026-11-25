@@ -12,7 +12,7 @@ from django.conf import settings
 def call(operation, data, name="", *, ocr=False, provider=None, force_ocr=False):
     if operation not in {
         "mail", "extract", "extract_native", "detect", "probe", "scan", "scan_configured", "preview",
-        "upload_members", "detection_evidence", "dataset_import",
+        "upload_members", "detection_evidence", "dataset_import", "analyze_message",
     }:
         raise ValueError("Unsupported parser operation")
     url = settings.MICE_OCR_PARSER_URL if ocr else settings.MICE_PARSER_URL
@@ -29,7 +29,8 @@ def call(operation, data, name="", *, ocr=False, provider=None, force_ocr=False)
             url = settings.MICE_SURYA_URL
     if not url:
         raise RuntimeError("Isolated parser is not configured; local fallback forbidden")
-    if len(data) > settings.MICE_MAX_MESSAGE_BYTES:
+    limit = 96 * 1024**2 if operation == "analyze_message" else settings.MICE_MAX_MESSAGE_BYTES
+    if len(data) > limit:
         raise ValueError("Parser input limit")
     service = "surya" if ocr and provider == "surya" else "ocr-parser" if ocr else "parser"
     try:
@@ -42,18 +43,21 @@ def call(operation, data, name="", *, ocr=False, provider=None, force_ocr=False)
 
 
 def _request(operation, data, name, ocr, provider, force_ocr, url, service):
+    request = json.loads(data) if operation == "analyze_message" else {
+        "operation": operation, "data": base64.b64encode(data).decode(), "name": name[:1024],
+        **({"provider": provider, "force_ocr": force_ocr} if ocr else {}),
+    }
+    if not isinstance(request, dict):
+        raise ValueError("Invalid parser request")
+    if operation == "analyze_message" and len(json.dumps(request).encode()) > 96 * 1024**2:
+        raise ValueError("Parser request limit")
     with httpx.Client(
-        timeout=650 if ocr and provider == "surya" else settings.MICE_PARSER_TIMEOUT, trust_env=False, follow_redirects=False
+        timeout=settings.MICE_ANALYSIS_WALL_TIMEOUT + 15 if operation == "analyze_message" else 650 if ocr and provider == "surya" else settings.MICE_PARSER_TIMEOUT, trust_env=False, follow_redirects=False
     ) as client:
         with client.stream(
             "POST",
-            url.rstrip("/") + "/parse",
-            json={
-                "operation": operation,
-                "data": base64.b64encode(data).decode(),
-                "name": name[:1024],
-                **({"provider": provider, "force_ocr": force_ocr} if ocr else {}),
-            },
+            url.rstrip("/") + ("/analyze" if operation == "analyze_message" else "/parse"),
+            json=request,
         ) as response:
             if response.status_code >= 300:
                 status = response.status_code

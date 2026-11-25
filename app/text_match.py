@@ -29,6 +29,77 @@ def tokens(text: str, morph: bool):
             for t in tokenize(text) if WORD.search(t.text)]
 
 
+class PreparedDocument:
+    """Lazy per-document token streams and first-token position indexes."""
+    def __init__(self, text):
+        self.text = text
+        self.lower = text.casefold().replace("ё", "е")
+        self._streams = {}
+        self._indexes = {}
+        self._words = {}
+
+    def stream(self, morph):
+        if morph not in self._streams:
+            if not self._streams:
+                self._streams[morph] = tokens(self.text, morph)
+            else:
+                other = self._streams[not morph]
+                self._streams[morph] = [(norm(self.text[a:b], morph), a, b) for _, a, b in other]
+        return self._streams[morph]
+
+    def positions(self, parts, morph):
+        if not parts:
+            return []
+        if morph not in self._indexes:
+            words = [item[0] for item in self.stream(morph)]
+            index = {}
+            for i, word in enumerate(words):
+                index.setdefault(word, []).append(i)
+            self._words[morph] = words
+            self._indexes[morph] = index
+        words = self._words[morph]
+        pattern = list(parts)
+        return [i for i in self._indexes[morph].get(pattern[0], ())
+                if words[i:i+len(pattern)] == pattern]
+
+
+class CompiledRuleSet:
+    """Request-local cache of keyword rules, reused for all MIME documents."""
+    def __init__(self):
+        self._rules = {}
+
+    def keywords(self, rule):
+        if rule.id not in self._rules:
+            config = rule.config or {}
+            mode = config.get("match_type", "substring")
+            phrases = config.get("phrases", [])
+            if mode == "substring":
+                compiled = [p.casefold().replace("ё", "е") for p in phrases[:30]]
+            elif mode in {"word", "morphology"}:
+                compiled = [[t[0] for t in tokens(p, mode == "morphology")] for p in phrases[:30]]
+            elif mode == "flexible":
+                compiled = compile_terms(config.get("terms", []))
+            else:
+                compiled = None
+            self._rules[rule.id] = compiled
+        return self._rules[rule.id]
+
+
+def compile_terms(terms):
+    distinct_groups = {}
+    for entry in terms[:30]:
+        phrase = entry.get("text", "")
+        parts = [t[0] for t in tokens(phrase, True)]
+        if parts:
+            key = tuple(parts)
+            weight, required = int(entry.get("weight", 1)), bool(entry.get("required", False))
+            if key in distinct_groups:
+                old_weight, old_required = distinct_groups[key]
+                weight, required = max(weight, old_weight), required or old_required
+            distinct_groups[key] = (weight, required)
+    return [(list(parts), weight, required) for parts, (weight, required) in distinct_groups.items()]
+
+
 def excluded(text, start, end, phrases, radius=40):
     """An exclusion belongs to an occurrence, not the entire source document."""
     context = text[max(0, start-radius):min(len(text), end+radius)].casefold().replace("ё", "е")
@@ -48,20 +119,22 @@ def _unique_hits(hits):
 
 
 def search(text, *, mode="substring", phrases=(), terms=(), window=12,
-           ordered=False, min_score=1, exclude_phrases=()):
+           ordered=False, min_score=1, exclude_phrases=(), prepared=None, compiled=None):
     """Yield bounded (start, end, score, fraction) hits; return max 10 hits.
 
     Literal, whole-word and morphology modes treat each phrase as an atomic
     pattern. Flexible mode searches weighted term groups within a word window.
     """
-    lower = text.casefold().replace("ё", "е")
+    prepared = prepared if prepared is not None else PreparedDocument(text)
+    if prepared.text != text:
+        raise ValueError("Prepared document mismatch")
+    lower = prepared.lower
     def accepted(start, end):
         return not excluded(text, start, end, exclude_phrases)
 
     if mode == "substring":
         hits = []
-        for phrase in phrases[:30]:
-            pattern = phrase.casefold().replace("ё", "е")
+        for pattern in (compiled if compiled is not None else [p.casefold().replace("ё", "е") for p in phrases[:30]]):
             if not pattern:
                 continue
             for match in re.finditer(re.escape(pattern), lower):
@@ -69,46 +142,31 @@ def search(text, *, mode="substring", phrases=(), terms=(), window=12,
                     hits.append((match.start(), match.end(), 1, 1.0))
         return _unique_hits(hits)
     morph = mode in {"morphology", "flexible"}
-    stream = tokens(text, morph)
+    stream = prepared.stream(morph)
     if not stream:
         return []
     if mode in {"word", "morphology"}:
         result = []
-        for phrase in phrases[:30]:
-            pattern = [t[0] for t in tokens(phrase, morph)]
+        for pattern in (compiled if compiled is not None else [[t[0] for t in tokens(p, morph)] for p in phrases[:30]]):
             if not pattern:
                 continue
             size = len(pattern)
-            for j in range(len(stream) - size + 1):
-                if [x[0] for x in stream[j:j+size]] == pattern:
-                    start, end = stream[j][1], stream[j+size-1][2]
-                    if accepted(start, end):
-                        result.append((start, end, 1, 1.0))
+            for j in prepared.positions(pattern, morph):
+                start, end = stream[j][1], stream[j+size-1][2]
+                if accepted(start, end):
+                    result.append((start, end, 1, 1.0))
         return _unique_hits(result)
     if mode != "flexible":
         return []
-    distinct_groups = {}
-    for entry in terms[:30]:
-        phrase = entry.get("text", "")
-        parts = [t[0] for t in tokens(phrase, True)]
-        if parts:
-            key = tuple(parts)
-            weight, required = int(entry.get("weight", 1)), bool(entry.get("required", False))
-            if key in distinct_groups:
-                old_weight, old_required = distinct_groups[key]
-                weight, required = max(weight, old_weight), required or old_required
-            distinct_groups[key] = (weight, required)
-    groups = [(list(parts), weight, required) for parts, (weight, required) in distinct_groups.items()]
+    groups = compiled if compiled is not None else compile_terms(terms)
     if not groups:
         return []
     weight_total = sum(w for _,w,_ in groups)
     # Index each term once. A term contributes its weight at most once per
     # window, even if it occurs repeatedly in that window.
     occurrences = []
-    words = [item[0] for item in stream]
     for parts, weight, required in groups:
-        occurrences.append([i for i in range(len(stream)-len(parts)+1)
-                            if words[i:i+len(parts)] == parts])
+        occurrences.append(prepared.positions(parts, morph))
     anchors = sorted({i for positions in occurrences for i in positions})
     hits = []
     for start in anchors:

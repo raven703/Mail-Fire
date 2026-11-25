@@ -72,7 +72,7 @@ def _make_finding(category, rule, text, source, *, confidence=None):
     return found
 
 
-def _hits(rule, category, text, matches, ml_scores):
+def _hits(rule, category, text, matches, ml_scores, *, prepared=None, compiled=None):
     config = rule.config or {}
     if rule.kind == "keywords":
         from app.text_match import search
@@ -86,6 +86,7 @@ def _hits(rule, category, text, matches, ml_scores):
             ordered=config.get("ordered", False),
             min_score=config.get("min_score", 1),
             exclude_phrases=config.get("exclude_phrases", []),
+            prepared=prepared, compiled=compiled.keywords(rule) if compiled is not None else None,
         )
         output = []
         for start, end, score, confidence in hits:
@@ -154,8 +155,12 @@ def custom_findings(session, text, *, references=(), ml_scores=None, available_e
     )
 
 
-def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None, normalized=None):
+def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None, normalized=None, compiled=None, prepared=None):
     """Persistence-independent rule evaluation shared by native Django and reference app."""
+    from app.text_match import PreparedDocument, CompiledRuleSet
+    prepared = prepared if prepared is not None else PreparedDocument(text)
+    variant_prepared = PreparedDocument(normalized[0]) if normalized else None
+    compiled = compiled if compiled is not None else CompiledRuleSet()
     result = []
     ml_scores = ml_scores or {}
     if available_engines is None:
@@ -172,12 +177,12 @@ def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_en
             if rule.kind not in available_engines:
                 all_good = False
                 continue
-            rule_hits = _hits(rule, category, text, references, ml_scores)
+            rule_hits = _hits(rule, category, text, references, ml_scores, prepared=prepared, compiled=compiled)
             if normalized and rule.kind in {"keywords", "regex"}:
                 from app.evidence import map_finding, normalization_safe_regex
                 variant, spans, transforms = normalized
                 if rule.kind == "keywords" or normalization_safe_regex(rule.config.get("pattern", "")):
-                    for hit in _hits(rule, category, variant, references, ml_scores):
+                    for hit in _hits(rule, category, variant, references, ml_scores, prepared=variant_prepared, compiled=compiled):
                         mapped = map_finding(hit, text, spans, transforms)
                         from app.text_match import excluded
                         if not excluded(text, mapped["start"], mapped["end"], rule.config.get("exclude_phrases", [])):

@@ -112,3 +112,7 @@ MICE_CLAMAV_HOST = os.environ.get("MICE_CLAMAV_HOST", "")
 MICE_CLAMAV_PORT = int(os.environ.get("MICE_CLAMAV_PORT", "3310"))
 MICE_OCR_ENABLED = os.environ.get("MICE_OCR_BACKEND", "rapidocr") != "disabled"
 MICE_SURYA_URL = os.environ.get("MICE_SURYA_URL", "http://ocr-surya:8090")
+
+# Unified pipeline is opt-in until the legacy queues have drained.
+MICE_UNIFIED_ANALYSIS_ENABLED = os.environ.get("MICE_UNIFIED_ANALYSIS_ENABLED", "false").lower() == "true"
+MICE_ANALYSIS_WALL_TIMEOUT = int(os.environ.get("MICE_ANALYSIS_WALL_TIMEOUT", "600"))

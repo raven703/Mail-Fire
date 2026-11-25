@@ -121,7 +121,14 @@ def infer_optional(job):
     run(job)
 
 
+def analyze_message(job):
+    from pipeline.analysis import analyze
+
+    analyze(job)
+
+
 handlers = {
+    "analysis.analyze": ("analysis", analyze_message),
     "neural.infer": ("neural", infer_optional),
     "ml.infer": ("ml", infer_optional),
     "llm.infer": ("llm", infer_optional),

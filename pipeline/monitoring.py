@@ -200,7 +200,7 @@ def snapshot():
 
 def mail_queue(now):
     processing = WorkItem.objects.filter(
-        queue__in=["ingestion", "extraction", "ocr", "detection", "policy", "ml", "llm", "neural"],
+        queue__in=["ingestion", "analysis", "extraction", "ocr", "detection", "policy", "ml", "llm", "neural"],
         status=WorkItem.Status.RUNNING, payload__has_key="message_id",
     ).annotate(message_id=KeyTextTransform("message_id", "payload")).exclude(message_id__isnull=True).values("message_id")
     running = Q(pk__in=processing)

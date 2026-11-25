@@ -30,3 +30,16 @@ jobs:
       - run: pip install -r requirements.django.lock
       - run: python manage.py check
       - run: python manage.py test identity records pipeline policy_engine --noinput
+
+  unified-parser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f Dockerfile.django-parser -t mice-unified-parser:ci .
+      - name: Real sandbox and matcher checks
+        run: |
+          docker run --rm --init --network none --read-only --tmpfs /tmp:rw,noexec,nosuid,size=256m \
+            --cap-drop ALL --security-opt no-new-privileges:true --memory 3g --cpus 2 --pids-limit 96 \
+            -v "$PWD/tests:/app/tests:ro" mice-unified-parser:ci \
+            python -c 'import runpy; runpy.run_path("/app/tests/probe_unified_signal.py",run_name="__main__"); suites=[runpy.run_path("/app/tests/"+f) for f in ("test_text_match.py","test_unified_analysis.py","test_analysis_recovery.py","test_analysis_http.py")]; [(print(name, flush=True), fn()) for suite in suites for name,fn in sorted(suite.items()) if name.startswith("test_")]'

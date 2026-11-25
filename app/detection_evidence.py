@@ -23,6 +23,9 @@ def analyze(payload):
     # Never combine context from different MIME documents. Older callers without
     # documents retain the single-source API, but the mail pipeline supplies them.
     documents = payload.get("documents", [{"id": "message", "text": text}])
+    from app.text_match import CompiledRuleSet, PreparedDocument
+    compiled = CompiledRuleSet()
+    prepared_documents = {}
     findings = []
     groups = [
         {"category": SimpleNamespace(**bucket["category"]),
@@ -37,8 +40,11 @@ def analyze(payload):
         local = detect(source_text, disabled=disabled)
         if enabled.get("pii", True):
             local.extend(pii(source_text, disabled=disabled))
+        prepared = PreparedDocument(source_text)
+        if config["references"]:
+            prepared_documents[document["id"]] = prepared
         local.extend(evaluate_groups(groups, source_text, normalized=normalized,
-                                    available_engines={"keywords", "regex"}))
+                                    available_engines={"keywords", "regex"}, compiled=compiled, prepared=prepared))
         for hit in local:
             hit["document_id"] = document["id"]
             if hit.get("end", 0) > hit.get("start", 0):
@@ -78,7 +84,8 @@ def analyze(payload):
         for document in documents:
             hits = evaluate_groups(groups, document["text"], references=[r for r in reference_matches
                                    if r["document_id"] == document["id"]],
-                                   available_engines={"keywords", "regex", "reference"})
+                                   available_engines={"keywords", "regex", "reference"}, compiled=compiled,
+                                   prepared=prepared_documents.get(document["id"]))
             for hit in hits:
                 hit["document_id"] = document["id"]
             findings.extend(hits)

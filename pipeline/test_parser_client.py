@@ -6,6 +6,22 @@ from pipeline.parser_client import call
 
 
 class ParserBoundaryTests(SimpleTestCase):
+    @override_settings(MICE_PARSER_URL='http://parser:8090')
+    def test_unified_http_envelope_is_not_base64_wrapped(self):
+        import json
+        import httpx
+        request = {'original': 'ZW1s', 'configuration': {}, 'ocr_enabled': False}
+        seen = []
+        def respond(incoming):
+            seen.append(incoming)
+            return httpx.Response(200, json={'ok': True})
+        factory = httpx.Client
+        transport = httpx.MockTransport(respond)
+        with patch('pipeline.parser_client.httpx.Client', side_effect=lambda **kw: factory(transport=transport, **kw)):
+            self.assertEqual(call('analyze_message', json.dumps(request).encode()), {'ok': True})
+        self.assertEqual(seen[0].url.path, '/analyze')
+        self.assertEqual(json.loads(seen[0].content), request)
+
     @override_settings(MICE_PARSER_URL="")
     def test_no_local_fallback(self):
         with self.assertRaisesRegex(RuntimeError, "local fallback forbidden"):
