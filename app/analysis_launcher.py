@@ -19,6 +19,11 @@ def nondumpable():
 def child(connection, listener, directory):
     listener.close()
     os.setsid()
+    parent = os.getppid()
+    if ctypes.CDLL(None, use_errno=True).prctl(1, signal.SIGKILL, 0, 0, 0) != 0:
+        raise RuntimeError("Cannot install parent death signal")
+    if os.getppid() != parent:
+        os._exit(1)
     nondumpable()
     os.chdir(directory)
     os.environ["HOME"] = directory
@@ -60,6 +65,27 @@ def reap(children, timeout):
         del children[pid]
 
 
+def preflight():
+    # Verify the actual kernel and Docker policy before admitting any mail.
+    with tempfile.TemporaryDirectory(prefix="mice-isolation-check-") as directory:
+        pid = os.fork()
+        if pid == 0:
+            try:
+                os.chdir(directory)
+                os.environ["TMPDIR"] = directory
+                tempfile.tempdir = directory
+                from app.analysis_isolation import confine
+                from app.sandbox import restrict
+                confine(directory)
+                restrict(scan=True, unified=True)
+                os._exit(0)
+            except BaseException:
+                os._exit(1)
+        _, status = os.waitpid(pid, 0)
+        if os.waitstatus_to_exitcode(status) != 0:
+            raise RuntimeError("Unified sandbox isolation preflight failed")
+
+
 def main():
     nondumpable()
     from app.text_match import _morph
@@ -67,6 +93,7 @@ def main():
     _morph()
     if len(os.listdir("/proc/self/task")) != 1:
         raise RuntimeError("Fork supervisor must remain single-threaded")
+    preflight()
     listener = socket.socket(fileno=int(sys.argv[1]))
     listener.settimeout(0.2)
     maximum = int(os.environ.get("MICE_PARSER_CONCURRENCY", "2"))
@@ -74,6 +101,9 @@ def main():
     if not 1 <= maximum <= 32 or not 1 <= timeout <= 3600:
         raise ValueError("Invalid analysis supervisor limits")
     children = {}
+    def shutdown(*_args):
+        raise SystemExit(0)
+    signal.signal(signal.SIGTERM, shutdown)
     try:
         while True:
             reap(children, timeout)
