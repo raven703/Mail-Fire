@@ -1,4 +1,5 @@
 {% extends 'identity/base.html' %}
+{% load category_ui %}
 {% block body %}
 <main class="management">
   <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1">＋ Категория</a>{% endif %}</header>
@@ -7,18 +8,33 @@
     <label>Каталог<select name="kind"><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Пользовательские</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Системные</option><option value="all"{% if kind == 'all' %} selected{% endif %}>Все</option></select></label>
     <button>Найти</button>
   </form>
+  {% category_rule_counts categories as rule_counts %}
   <section>
     {% regroup categories by group_name as groups %}
     {% for group in groups %}
-    <h2>{{ group.grouper }}</h2>
-    {% for row in group.list %}
-    <div class="policy-row"><div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.description|default:row.pk }}</p></div>
-      <span class="badge">{% if row.active %}Активна{% else %}Архив{% endif %}</span>
-      <a class="action-button" href="{% url 'category-detail' row.pk %}{% if admin and row.mode != 'builtin' and row.mode != 'label' %}?edit=1{% endif %}">Правила и настройки</a>
-      {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button name="action" value="archive">Архивировать</button></form>{% endif %}
-    </div>
-    {% endfor %}
-    {% empty %}<p class="empty">Нет подходящих категорий</p>{% endfor %}
+    <details class="ui-disclosure" open>
+      <summary><strong>{{ group.grouper|default:'Без группы' }}</strong><span class="muted">Категорий: {{ group.list|length }}</span></summary>
+      <div class="ui-table-scroll" role="region" aria-label="{{ group.grouper }}" tabindex="0">
+        <table class="ui-data-table ui-data-table-compact"><thead><tr><th>Название категории</th><th>Правила</th><th>Логика</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
+        {% for row in group.list %}
+        <tr>
+          <td><span title="{{ row.description|default:row.pk }}">{{ row.name }}</span></td>
+          <td>{{ rule_counts|lookup:row.pk }}</td>
+          <td><span title="{{ row.match_mode|upper }} — {% if row.match_mode == 'all' %}все правила{% else %}любое правило{% endif %}">{{ row.match_mode|upper }}</span></td>
+          <td>{% if row.active %}{% include 'ui/badge.html' with text='Активна' %}{% else %}{% include 'ui/badge.html' with text='Архив' variant='CLOSED' %}{% endif %}</td>
+          <td><div class="ui-row-actions">
+            {% if admin and row.mode != 'builtin' and row.mode != 'label' %}<a class="icon-control" href="{% url 'category-detail' row.pk %}?edit=1" aria-label="Правила и настройки · {{ row.name }}" title="Редактировать">{% include 'ui/icons/pencil.html' %}</a>{% endif %}
+            <details class="ui-action-menu"><summary class="icon-control" aria-label="Действия · {{ row.name }}" title="Действия">⋯</summary><div class="ui-action-menu-items">
+              <a class="action-button" href="{% url 'category-detail' row.pk %}">Просмотр и описание</a>
+              {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button name="action" value="archive">Архивировать</button></form>{% endif %}
+            </div></details>
+          </div></td>
+        </tr>
+        {% endfor %}
+        </tbody></table>
+      </div>
+    </details>
+    {% empty %}{% include 'ui/empty_state.html' with text='Нет подходящих категорий' %}{% endfor %}
   </section>
   {% if category and not form %}
     <section><header><div><h2>{{ category.name }}</h2><p class="muted">{{ category.group_name }} · {{ category.pk }}</p></div><a href="{% url 'categories-page' %}">Закрыть</a></header>

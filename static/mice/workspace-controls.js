@@ -152,6 +152,8 @@
       const update = () => {
         editor.querySelectorAll('[data-rule-kind]').forEach(panel => panel.hidden = panel.dataset.ruleKind !== kind.value);
         editor.querySelector('[data-flexible-terms]').hidden = mode.value !== 'flexible';
+        const phrases = editor.querySelector('[data-rule-phrases]');
+        phrases.hidden = mode.value === 'flexible' && !phrases.querySelector('textarea').value.trim() && !phrases.querySelector('.errorlist');
       };
       kind.addEventListener('change', update); mode.addEventListener('change', update); update();
     });
@@ -160,6 +162,33 @@
       group.dataset.ready = 'true';
       const total = group.querySelector('[name$="-TOTAL_FORMS"]');
       const button = group.querySelector('[data-add-rule]');
+      const refresh = () => {
+        const forms = [...group.querySelectorAll('.category-rule-form')];
+        let count = 0;
+        forms.forEach(details => {
+          const editor = details.querySelector('[data-structured-rule]');
+          const value = suffix => editor.querySelector('[name$="' + suffix + '"]').value;
+          const title = value('title');
+          const deleted = editor.querySelector('[name$="-DELETE"]');
+          if (title.trim() && !(deleted && deleted.checked)) count++;
+          details.querySelector('[data-rule-title]').textContent = title || 'Новое правило';
+          const kinds = {keywords: 'Ключевые слова', regex: 'Регулярное выражение', reference: 'Эталонные документы', ml: 'Модель машинного обучения'};
+          const terms = [...editor.querySelectorAll('[data-term-row] input[name$="_text"]')].filter(input => input.value.trim()).length;
+          details.querySelector('[data-rule-meta]').textContent = (kinds[value('kind')] || 'Тип не выбран') +
+            ' · Терминов: ' + terms + ' · Риск: ' + value('risk') +
+            (value('match_type') === 'flexible' ? ' · Порог: ' + value('min_score') + ' · Окно: ' + value('window') : '');
+        });
+        const tabs = group.closest('[data-category-tabs]');
+        const badge = tabs && tabs.querySelector('[data-rule-count]');
+        if (badge) badge.textContent = '(' + count + ')';
+        button.disabled = Number(total.value) >= Number(group.dataset.ruleLimit || 30);
+      };
+      group.addEventListener('input', refresh);
+      group.addEventListener('change', refresh);
+      group.addEventListener('toggle', event => {
+        if (!event.target.matches('.category-rule-form') || !event.target.open) return;
+        group.querySelectorAll('.category-rule-form[open]').forEach(item => { if (item !== event.target) item.open = false; });
+      }, true);
       button.addEventListener('click', () => {
         const index = Number(total.value);
         if (index >= Number(group.dataset.ruleLimit || 30)) return;
@@ -173,7 +202,9 @@
         group.insertBefore(fragment, template);
         total.value = index + 1;
         initialize();
+        refresh();
       });
+      refresh();
     });
     document.querySelectorAll('[data-navigation-toggle]').forEach(button => {
       if (button.dataset.ready) return;
@@ -368,7 +399,18 @@
           activate(buttons[next]); buttons[next].focus();
         });
       });
-      if (buttons.length) activate(buttons[0]);
+      group.addEventListener('invalid', event => {
+        const panel = event.target.closest('[role="tabpanel"]');
+        const button = panel && buttons.find(item => item.dataset.tab === panel.id);
+        if (button) activate(button);
+        const details = event.target.closest('details');
+        if (details) details.open = true;
+      }, true);
+      if (buttons.length) {
+        const error = group.querySelector('.errorlist');
+        const errorPanel = error && error.closest('[role="tabpanel"]');
+        activate(buttons.find(button => errorPanel && button.dataset.tab === errorPanel.id) || buttons[0]);
+      }
     });
   }
   document.addEventListener('DOMContentLoaded', initialize);

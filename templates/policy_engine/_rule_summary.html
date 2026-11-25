@@ -1,0 +1,3 @@
+<span data-rule-title>{{ rule.title.value|default:'Новое правило' }}</span>
+<span class="muted" data-rule-meta>{% if rule.kind.value == 'keywords' %}Ключевые слова{% elif rule.kind.value == 'regex' %}Регулярное выражение{% elif rule.kind.value == 'reference' %}Эталонные документы{% elif rule.kind.value == 'ml' %}Модель машинного обучения{% else %}Тип не выбран{% endif %} · Риск: {{ rule.risk.value|default:'70' }}</span>
+<span class="icon-control" aria-hidden="true">{% include 'ui/icons/pencil.html' %}</span>

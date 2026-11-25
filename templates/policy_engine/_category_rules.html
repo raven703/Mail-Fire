@@ -1,12 +1,11 @@
 <div data-rule-formset data-rule-limit="30">
-  <h3>Правила обнаружения</h3>
   {{ rules_form.management_form }}{{ rules_form.non_form_errors }}
   {% for rule in rules_form %}
-    <details class="category-rule-form"{% if rule.errors or forloop.first %} open{% endif %}>
-      <summary>{{ rule.title.value|default:'Правило' }}</summary>
+    <details class="ui-disclosure category-rule-form"{% if rule.errors %} open{% endif %}>
+      <summary>{% include 'policy_engine/_rule_summary.html' %}</summary>
       {% include 'policy_engine/_rule_editor.html' with rule=rule %}
     </details>
   {% endfor %}
-  <template data-empty-rule><details class="category-rule-form" open><summary>Новое правило</summary>{% include 'policy_engine/_rule_editor.html' with rule=rules_form.empty_form %}</details></template>
+  <template data-empty-rule><details class="ui-disclosure category-rule-form" open><summary>{% include 'policy_engine/_rule_summary.html' with rule=rules_form.empty_form %}</summary>{% include 'policy_engine/_rule_editor.html' with rule=rules_form.empty_form %}</details></template>
   <button type="button" data-add-rule>＋ Добавить правило</button>
 </div>

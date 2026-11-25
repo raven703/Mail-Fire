@@ -62,6 +62,21 @@ recipient and timestamp; narrower windows scroll the table horizontally.
 
 ## Quick validation
 
+## Category catalog and editor
+
+The category catalog uses shared `ui-disclosure`, `ui-data-table-compact` and
+`ui-action-menu` primitives. Rule counters come from the read-only `category_ui`
+template tag (one aggregate query), not from detection logic or model changes.
+Descriptions remain available as title tooltips and in the read-only detail.
+
+The category Modal uses `data-tabs` and `ui-form-grid`; both panels stay in the
+same POST form, so switching tabs never serializes or discards field values.
+Invalid native fields activate their containing tab and expand their rule.
+Rule forms retain their original management fields, DELETE flags and ordering.
+An accordion presents summaries and opens the existing structured editor inline.
+`check_category_ui.py` performs a read-only browser regression in both themes
+at 1024/1280/1920 px, including unsaved values, weighted terms and system rows.
+
 `python scripts/check_ui_system.py` uses the already available Playwright and
 requires `ADMIN_PASSWORD`. Optional environment: `MICE_UI_URL`,
 `MICE_CHROMIUM_PATH`, `MICE_UI_SCREENSHOTS`. It does not submit data-changing

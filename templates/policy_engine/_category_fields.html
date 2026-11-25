@@ -1,0 +1,9 @@
+{{ form.non_field_errors }}{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+<div class="ui-form-grid">
+  {% include 'ui/field.html' with field=form.name label='Название категории' field_class='ui-span-full' %}
+  {% include 'ui/field.html' with field=form.group_name label='Группа' %}
+  {% include 'ui/field.html' with field=form.match_mode label='Условие срабатывания (ANY / ALL)' %}
+  {% include 'ui/field.html' with field=form.description label='Описание' field_class='ui-span-full ui-field-description' %}
+  {% include 'ui/field.html' with field=form.mode label='Режим обнаружения' %}
+  <label>{{ form.active }} Категория активна{{ form.active.errors }}</label>
+</div>

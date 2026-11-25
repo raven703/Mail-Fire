@@ -1,0 +1,8 @@
+<div data-tabs data-category-tabs>
+  <div class="tabs" role="tablist" aria-label="Настройки категории">
+    <button type="button" role="tab" data-tab="{{ form.name.auto_id }}-main" aria-controls="{{ form.name.auto_id }}-main" id="{{ form.name.auto_id }}-main-tab">Основное</button>
+    <button type="button" role="tab" data-tab="{{ form.name.auto_id }}-rules" aria-controls="{{ form.name.auto_id }}-rules" id="{{ form.name.auto_id }}-rules-tab">Правила <span data-rule-count></span></button>
+  </div>
+  <div role="tabpanel" id="{{ form.name.auto_id }}-main" aria-labelledby="{{ form.name.auto_id }}-main-tab">{% include 'policy_engine/_category_fields.html' %}</div>
+  <div role="tabpanel" id="{{ form.name.auto_id }}-rules" aria-labelledby="{{ form.name.auto_id }}-rules-tab">{% include 'policy_engine/_category_rules.html' %}</div>
+</div>

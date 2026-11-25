@@ -2,7 +2,7 @@
 <section class="category-create" aria-labelledby="nested-category-title">
   <h4 id="nested-category-title">{% if creating_category %}Новая категория{% else %}Правила и настройки · {{ nested_category.name }}{% endif %}</h4>
   {% if nested_category %}<input type="hidden" name="nested_id" value="{{ nested_category.pk }}">{% endif %}
-  {{ nested_form.as_p }}
+  {% include 'policy_engine/_category_fields.html' with form=nested_form %}
   {% include 'policy_engine/_category_rules.html' with rules_form=nested_rules %}
   <button name="action" value="{% if creating_category %}create_category{% else %}save_category{% endif %}" formnovalidate>Сохранить категорию</button>
   <button name="action" value="cancel_category" formnovalidate>Отмена</button>

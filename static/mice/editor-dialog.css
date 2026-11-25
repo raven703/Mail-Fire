@@ -38,7 +38,7 @@
 }
 .editor-dialog-close:hover:not(:disabled){background:var(--selected)}
 .editor-dialog-body{
- flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+ flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:auto;
  padding:18px 24px 20px;
 }
 .editor-dialog-body>label{margin:0 0 12px}
