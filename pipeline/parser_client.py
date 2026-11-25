@@ -22,15 +22,14 @@ def call(operation, data, name="", *, ocr=False):
     with httpx.Client(
         timeout=(settings.MICE_ANALYSIS_WALL_TIMEOUT + 30 if operation == "analyze_message" else settings.MICE_PARSER_TIMEOUT), trust_env=False, follow_redirects=False
     ) as client:
-        with client.stream(
-            "POST",
-            url.rstrip("/") + "/parse",
-            json={
-                "operation": operation,
-                "data": base64.b64encode(data).decode(),
-                "name": name[:1024],
-            },
-        ) as response:
+        if operation == "analyze_message":
+            endpoint = "/analyze"
+            body = {"content": data, "headers": {"Content-Type": "application/json"}}
+        else:
+            endpoint = "/parse"
+            body = {"json": {"operation": operation, "data": base64.b64encode(data).decode(),
+                             "name": name[:1024]}}
+        with client.stream("POST", url.rstrip("/") + endpoint, **body) as response:
             response.raise_for_status()
             payload = bytearray()
             for chunk in response.iter_bytes():
