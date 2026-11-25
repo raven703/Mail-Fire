@@ -32,6 +32,8 @@ def rule_identity(category_id, index):
         suffix = ":financial-calibration-1"
     if category_id == "pack-ru2-pricing":
         suffix = ":pricing-calibration-1"
+    if category_id == "pack-ru2-customer-data" and index in {2, 5}:
+        suffix = ":customer-calibration-1"
     return f"mice:ru3:{category_id}:{index}{suffix}"
 
 
@@ -47,7 +49,7 @@ def candidate():
                           "category_id": category["id"], "config": config,
                           **{k: rule[k] for k in METADATA}})
     if (len(pack["categories"]), len(rules), sum(len(r["config"].get("terms", [])) for r in rules),
-            len(pack["policies"])) != (12, 38, 232, 8):
+            len(pack["policies"])) != (12, 39, 241, 8):
         raise ValueError("Unexpected RU3 category/rule/term/policy counts")
     if len({c["id"] for c in pack["categories"]}) != 12 or len({p["name"] for p in pack["policies"]}) != 8:
         raise ValueError("Duplicate RU3 category or policy")
@@ -103,7 +105,7 @@ def upgrade(*, backup_dir, apply=False):
     names = [p["name"] for p in pack["policies"]]
     if any(Policy.objects.filter(name=name).count() > 1 for name in names):
         raise ValueError("Ambiguous existing policy name")
-    report = {"applied": apply, "categories": 12, "rules": 38, "weighted_terms": 232,
+    report = {"applied": apply, "categories": 12, "rules": 39, "weighted_terms": 241,
               "policies": 8, "sha256": digest}
     if not apply:
         return report
@@ -158,7 +160,7 @@ def upgrade(*, backup_dir, apply=False):
             row.version += 1
             row.save(update_fields=["conditions", "version"])
             revision(row)
-    if CategoryRule.objects.filter(category_id__in=ids).count() != 38:
+    if CategoryRule.objects.filter(category_id__in=ids).count() != 39:
         raise ValueError("RU3 active rule verification failed")
     Setting.objects.create(pk="dlp_rulepack", value={"name": "RU3", "sha256": digest,
                            "backup": path, "backup_sha256": backup_sha})

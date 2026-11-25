@@ -159,7 +159,7 @@ class RU3UpgradeTests(TestCase):
         data = Path(report["backup"]).read_bytes()
         self.assertEqual(hashlib.sha256(data).hexdigest(), report["backup_sha256"])
         self.assertEqual(len(json.loads(data)["rules"]), 33)
-        self.assertEqual(CategoryRule.objects.count(), 38)
+        self.assertEqual(CategoryRule.objects.count(), 39)
         self.assertEqual(CategoryRule.all_objects.filter(deleted_at__isnull=False).count(), 33)
         for original in old:
             archived = CategoryRule.all_objects.get(pk=original["id"])
@@ -195,11 +195,11 @@ class RU3UpgradeTests(TestCase):
 
     def test_new_install_and_candidate_validation(self):
         pack, rules, _ = candidate()
-        self.assertEqual(len(rules), 38)
+        self.assertEqual(len(rules), 39)
         upgrade(backup_dir=self.directory.name, apply=True)
         self.assertEqual(Policy.objects.count(), 8)
         self.assertFalse(Policy.objects.filter(enabled=True).exists())
-        self.assertEqual(CategoryRule.objects.count(), 38)
+        self.assertEqual(CategoryRule.objects.count(), 39)
         self.assertEqual(Category.objects.filter(pk__in=[c["id"] for c in pack["categories"]]).count(), 12)
 
     def test_all_weighted_rules_reach_threshold_and_policy_risk(self):
