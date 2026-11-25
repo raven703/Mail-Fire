@@ -14,7 +14,7 @@ import tempfile
 from app.config import settings
 
 
-def restrict(scan=False):
+def restrict(scan=False, unified=False):
     resource.setrlimit(resource.RLIMIT_CPU, (90, 90))
     # Gitleaks' WASM regex runtime reserves 4GiB virtual memory; RSS remains
     # bounded by the parser container's 3GiB cgroup limit.
@@ -37,7 +37,7 @@ def restrict(scan=False):
     if not context:
         raise RuntimeError("Cannot initialize seccomp")
     try:
-        for name in (
+        blocked = (
             "socket",
             "socketpair",
             "connect",
@@ -51,7 +51,11 @@ def restrict(scan=False):
             "setns",
             "process_vm_readv",
             "process_vm_writev",
-        ):
+        )
+        if unified:
+            blocked += ("setsid", "setpgid", "pidfd_open", "pidfd_getfd", "pidfd_send_signal",
+                        "io_uring_setup", "io_uring_enter", "io_uring_register")
+        for name in blocked:
             number = lib.seccomp_syscall_resolve_name(name.encode())
             if number >= 0 and lib.seccomp_rule_add(context, 0x00050000 | errno.EPERM, number, 0) != 0:
                 raise RuntimeError("Cannot install seccomp rule")
