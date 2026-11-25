@@ -20,6 +20,15 @@ METADATA = {"kind", "title", "enabled", "risk", "priority"}
 ALIASES = {"RU_INN": "INN", "RU_PHONE": "PHONE"}
 
 
+PII_CATEGORY = "pack-ru2-pii-handling"
+
+
+def rule_identity(category_id, index):
+    # Keep untouched rule IDs; changed PII rules have new identities for history.
+    suffix = ":pii-calibration-1" if category_id == PII_CATEGORY and index >= 1 else ""
+    return f"mice:ru3:{category_id}:{index}{suffix}"
+
+
 def candidate():
     raw = (settings.BASE_DIR / PACK).read_bytes()
     pack = json.loads(raw)
@@ -28,11 +37,11 @@ def candidate():
         for index, rule in enumerate(category["rules"]):
             config = {k: v for k, v in rule.items() if k not in METADATA}
             validate_config(rule["kind"], config)
-            rules.append({"id": str(uuid5(NAMESPACE_URL, f"mice:ru3:{category['id']}:{index}")),
+            rules.append({"id": str(uuid5(NAMESPACE_URL, rule_identity(category["id"], index))),
                           "category_id": category["id"], "config": config,
                           **{k: rule[k] for k in METADATA}})
     if (len(pack["categories"]), len(rules), sum(len(r["config"].get("terms", [])) for r in rules),
-            len(pack["policies"])) != (12, 36, 223, 8):
+            len(pack["policies"])) != (12, 38, 239, 8):
         raise ValueError("Unexpected RU3 category/rule/term/policy counts")
     if len({c["id"] for c in pack["categories"]}) != 12 or len({p["name"] for p in pack["policies"]}) != 8:
         raise ValueError("Duplicate RU3 category or policy")
@@ -88,7 +97,7 @@ def upgrade(*, backup_dir, apply=False):
     names = [p["name"] for p in pack["policies"]]
     if any(Policy.objects.filter(name=name).count() > 1 for name in names):
         raise ValueError("Ambiguous existing policy name")
-    report = {"applied": apply, "categories": 12, "rules": 36, "weighted_terms": 223,
+    report = {"applied": apply, "categories": 12, "rules": 38, "weighted_terms": 239,
               "policies": 8, "sha256": digest}
     if not apply:
         return report
@@ -143,7 +152,7 @@ def upgrade(*, backup_dir, apply=False):
             row.version += 1
             row.save(update_fields=["conditions", "version"])
             revision(row)
-    if CategoryRule.objects.filter(category_id__in=ids).count() != 36:
+    if CategoryRule.objects.filter(category_id__in=ids).count() != 38:
         raise ValueError("RU3 active rule verification failed")
     Setting.objects.create(pk="dlp_rulepack", value={"name": "RU3", "sha256": digest,
                            "backup": path, "backup_sha256": backup_sha})

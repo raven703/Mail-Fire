@@ -1,0 +1,146 @@
+{
+  "id": "pack-ru2-pii-handling",
+  "name": "[RU2] Пересылка персональных данных",
+  "group_name": "Персональные данные и базы",
+  "description": "Организационный контекст пересылки ПДн; конкретные паспортные номера, ИНН и т.п. должны обнаруживаться встроенными структурными детекторами.",
+  "active": true,
+  "match_mode": "any",
+  "rules": [
+    {
+      "kind": "keywords",
+      "title": "Переслать персональные данные",
+      "enabled": true,
+      "risk": 75,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "персональный",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "данные",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "переслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "отправить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "выгрузить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "выслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "прислать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "экспортировать",
+          "weight": 4,
+          "required": false
+        }
+      ],
+      "min_score": 11,
+      "window": 15,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Передача паспортных сканов",
+      "enabled": true,
+      "risk": 78,
+      "priority": 50,
+      "match_type": "flexible",
+      "terms": [
+        {
+          "text": "паспорт",
+          "weight": 4,
+          "required": true
+        },
+        {
+          "text": "скан",
+          "weight": 3,
+          "required": true
+        },
+        {
+          "text": "отправить",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "переслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "прикрепить",
+          "weight": 3,
+          "required": false
+        },
+        {
+          "text": "выслать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "передать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "прислать",
+          "weight": 4,
+          "required": false
+        },
+        {
+          "text": "копия",
+          "weight": 3,
+          "required": false
+        }
+      ],
+      "min_score": 10,
+      "window": 14,
+      "ordered": false,
+      "exclude_phrases": []
+    },
+    {
+      "kind": "keywords",
+      "title": "Явные обозначения выгрузки ПДн",
+      "enabled": true,
+      "risk": 75,
+      "priority": 40,
+      "match_type": "morphology",
+      "phrases": [
+        "реестр персональных данных",
+        "копии паспортов клиентов",
+        "выгрузка пдн",
+        "передача паспортных данных",
+        "реестр паспортных данных",
+        "копия паспорта сотрудника",
+        "выгрузка персональных данных"
+      ],
+      "exclude_phrases": []
+    }
+  ]
+}
