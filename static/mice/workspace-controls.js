@@ -162,6 +162,45 @@
       group.dataset.ready = 'true';
       const total = group.querySelector('[name$="-TOTAL_FORMS"]');
       const button = group.querySelector('[data-add-rule]');
+      group.querySelectorAll('.category-rule-form').forEach(details => {
+        const deleted = details.querySelector('[name$="-DELETE"]');
+        if (!deleted || !deleted.checked) return;
+        details.setAttribute('data-deleted', '');
+        details.open = false;
+        details.querySelector('[data-undo-rule]').hidden = false;
+        details.querySelector('[data-delete-rule]').hidden = true;
+        details.querySelector('[data-edit-rule]').hidden = true;
+      });
+      group.addEventListener('click', event => {
+        const action = event.target.closest('[data-delete-rule], [data-undo-rule], [data-edit-rule]');
+        if (!action) return;
+        event.preventDefault(); event.stopPropagation();
+        const details = action.closest('.category-rule-form');
+        const panel = details.closest('[role="tabpanel"]');
+        const top = panel ? panel.scrollTop : 0;
+        if (action.hasAttribute('data-edit-rule')) {
+          details.open = !details.open;
+        } else {
+          const checkbox = details.querySelector('[name$="-DELETE"]');
+          const undo = action.hasAttribute('data-undo-rule');
+          const title = details.querySelector('[data-rule-title]').textContent;
+          if (!undo && !window.confirm('Удалить правило «' + title + '»? Изменение применяется при сохранении категории.')) return;
+          checkbox.checked = !undo;
+          if (!undo && details.dataset.newRule) details.hidden = true;
+          details.toggleAttribute('data-deleted', !undo);
+          if (!undo) details.open = false;
+          details.querySelector('[data-undo-rule]').hidden = undo;
+          details.querySelector('[data-delete-rule]').hidden = !undo;
+          details.querySelector('[data-edit-rule]').hidden = !undo;
+          // Keep the formset index/ID but omit native validation for a tombstone.
+          details.querySelectorAll('[data-structured-rule] input, [data-structured-rule] select, [data-structured-rule] textarea').forEach(input => {
+            if (input === checkbox || input.type === 'hidden') return;
+            input.disabled = !undo;
+          });
+          refresh();
+        }
+        if (panel) panel.scrollTop = top;
+      });
       const refresh = () => {
         const forms = [...group.querySelectorAll('.category-rule-form')];
         let count = 0;
@@ -187,7 +226,7 @@
       group.addEventListener('change', refresh);
       group.addEventListener('toggle', event => {
         if (!event.target.matches('.category-rule-form') || !event.target.open) return;
-        group.querySelectorAll('.category-rule-form[open]').forEach(item => { if (item !== event.target) item.open = false; });
+        if (event.target.hasAttribute('data-deleted')) event.target.open = false;
       }, true);
       button.addEventListener('click', () => {
         const index = Number(total.value);
@@ -199,7 +238,9 @@
             if (attribute.value.includes('__prefix__')) element.setAttribute(attribute.name, attribute.value.replaceAll('__prefix__', index));
           });
         });
+        const added = fragment.querySelector('.category-rule-form');
         group.insertBefore(fragment, template);
+        added.dataset.newRule = 'true';
         total.value = index + 1;
         initialize();
         refresh();
@@ -376,7 +417,12 @@
       if (group.dataset.ready) return;
       group.dataset.ready = 'true';
       const buttons = [...group.querySelectorAll('[data-tab]')].filter(button => button.closest('[data-tabs]') === group);
+      const scrollPositions = new Map();
       const activate = button => {
+        buttons.forEach(item => {
+          const panel = document.getElementById(item.dataset.tab);
+          if (panel && !panel.hidden) scrollPositions.set(panel.id, panel.scrollTop);
+        });
         buttons.forEach(item => {
           const selected = item === button;
           item.setAttribute('aria-selected', String(selected));
@@ -385,6 +431,7 @@
           const panel = document.getElementById(item.dataset.tab);
           if (panel) {
             panel.hidden = !selected;
+            if (selected) panel.scrollTop = scrollPositions.get(panel.id) || 0;
             panel.dispatchEvent(new Event('mice:tab'));
           }
         });
@@ -396,7 +443,7 @@
           event.preventDefault();
           const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 :
             (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
-          activate(buttons[next]); buttons[next].focus();
+          activate(buttons[next]); buttons[next].focus({preventScroll:true});
         });
       });
       group.addEventListener('invalid', event => {

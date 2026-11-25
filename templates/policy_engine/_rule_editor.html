@@ -4,4 +4,4 @@
 <div data-rule-kind="regex"><label>{{ rule.pattern.label }}{{ rule.pattern }}{{ rule.pattern.errors }}</label><p class="muted">Без групп, альтернатив и неограниченных повторов. Ограниченные повторы — до 32.</p></div>
 <div data-rule-kind="reference"><fieldset><legend>Эталонные документы</legend>{{ rule.reference_ids }}{{ rule.reference_ids.errors }}</fieldset><label>{{ rule.min_similarity.label }}{{ rule.min_similarity }}{{ rule.min_similarity.errors }}</label></div>
 <div data-rule-kind="ml"><label>{{ rule.min_confidence.label }}{{ rule.min_confidence }}{{ rule.min_confidence.errors }}</label><p class="muted">Настройка правила не включает ML inference.</p></div>
-<label>{{ rule.exclude_phrases.label }}{{ rule.exclude_phrases }}{{ rule.exclude_phrases.errors }}</label>{% if rule.DELETE %}<label>{{ rule.DELETE }} Удалить правило</label>{% endif %}</div>
+<label>{{ rule.exclude_phrases.label }}{{ rule.exclude_phrases }}{{ rule.exclude_phrases.errors }}</label>{% if rule.DELETE %}<span hidden>{{ rule.DELETE }}</span>{% endif %}</div>

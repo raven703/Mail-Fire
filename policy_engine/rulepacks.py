@@ -163,7 +163,12 @@ def apply(pack, actor, update=False):
             **{key: spec[key] for key in ("name", "group_name", "description", "active", "match_mode")},
             "mode": "custom", "keywords": [],
         })
-        CategoryRule.objects.filter(category=row).delete()
+        from django.utils import timezone
+        for previous in CategoryRule.objects.filter(category=row):
+            previous.deleted_at = timezone.now()
+            previous.save(update_fields=["deleted_at"])
+            Audit.objects.create(actor=actor.pk, action="rule_delete", target=previous.pk,
+                                 details={"category_id": row.pk, "title": previous.title, "pack": pack["name"]})
         for rule in spec["rules"]:
             CategoryRule.objects.create(category=row, **{key: rule[key] for key in ("kind", "title", "enabled", "risk", "priority", "config")})
         Audit.objects.create(actor=actor.pk, action="rulepack_category_" + change["action"], target=row.pk, details={"pack": pack["name"]})

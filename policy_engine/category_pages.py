@@ -7,6 +7,8 @@ from django import forms
 from django.db import transaction
 from django.db.models import Q
 from django.forms import modelformset_factory
+from django.forms.models import BaseModelFormSet
+from django.utils import timezone
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
@@ -44,9 +46,19 @@ class CategoryForm(forms.ModelForm):
         return value
 
 
+class CategoryRuleSet(BaseModelFormSet):
+    def clean(self):
+        super().clean()
+        if any(self.errors):
+            return
+        live = [form for form in self.forms if form.cleaned_data and not form.cleaned_data.get("DELETE")]
+        if not any(form.cleaned_data.get("enabled") for form in live):
+            raise forms.ValidationError("Добавьте хотя бы одно включённое правило или отмените удаление.")
+
+
 CategoryRules = modelformset_factory(
-    CategoryRule, form=RuleForm, extra=1, can_delete=True, min_num=1,
-    validate_min=True, max_num=30, validate_max=True, absolute_max=35,
+    CategoryRule, form=RuleForm, formset=CategoryRuleSet, extra=0, can_delete=True, min_num=0,
+    max_num=30, validate_max=True, absolute_max=35,
 )
 
 
@@ -68,7 +80,10 @@ def save_category(actor, form, rules):
     if rules is not None:
         instances = rules.save(commit=False)
         for deleted in rules.deleted_objects:
-            deleted.delete()
+            deleted.deleted_at = timezone.now()
+            deleted.save(update_fields=["deleted_at"])
+            Audit.objects.create(actor=actor.pk, action="rule_delete", target=deleted.pk,
+                                 details={"category_id": row.pk, "title": deleted.title})
         for rule in instances:
             rule.category = row
             rule.save()

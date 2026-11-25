@@ -47,19 +47,34 @@ def main():
                 page.screenshot(path=str(output / f'category-main-{width}-{theme}.png'))
                 dialog.get_by_role('tab', name='Правила').click()
                 rules = dialog.locator('.category-rule-form')
+                assert rules.count() == 3  # no implicit extra form
                 weighted = rules.filter(has=page.locator('input[name$="title"][value="Прогноз выручки с внутренним контекстом"]'))
                 weighted.locator('summary').click()
                 terms = weighted.locator('[data-term-row]:visible')
                 assert terms.count() == 5
                 weight = terms.first.locator('input[name$="_weight"]')
                 weight.fill('9')
+                panel = dialog.locator('[role="tabpanel"]:visible')
+                panel.evaluate('x => x.scrollTop = 150')
+                scroll = panel.evaluate('x => x.scrollTop')
+                tab_top = dialog.locator('[role="tablist"]').bounding_box()['y']
                 dialog.get_by_role('tab', name='Основное').click()
                 assert dialog.locator('[name="name"]').input_value() == original + ' UI test'
                 dialog.get_by_role('tab', name='Правила').click()
                 assert weight.input_value() == '9'
+                assert abs(panel.evaluate('x => x.scrollTop') - scroll) <= 2
+                assert dialog.locator('[role="tablist"]').bounding_box()['y'] == tab_top
+                page.once('dialog', lambda prompt: prompt.accept())
+                rules.first.locator('[data-delete-rule]').click()
+                assert rules.first.locator('[name$="-DELETE"]').is_checked()
+                rules.first.locator('[data-undo-rule]').click()
+                assert not rules.first.locator('[name$="-DELETE"]').is_checked()
                 page.screenshot(path=str(output / f'category-rules-{width}-{theme}.png'))
                 dialog.locator('[data-add-rule]').click()
                 assert rules.last.get_attribute('open') is not None
+                page.once('dialog', lambda prompt: prompt.accept())
+                rules.last.locator('[data-delete-rule]').click()
+                assert not rules.last.is_visible()
                 assert dialog.locator('dialog').count() == 0
                 assert not errors, errors
                 page.goto(f'{base}/categories/')  # discard unsaved edits

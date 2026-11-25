@@ -281,7 +281,15 @@ class MailEvent(models.Model):
         db_table = "mail_events"
 
 
+class LiveRuleManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted_at__isnull=True)
+
+
 class CategoryRule(models.Model):
+    objects = LiveRuleManager()
+    all_objects = models.Manager()
+    deleted_at = models.DateTimeField(null=True, blank=True, editable=False, db_index=True)
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, db_column="category_id", related_name="+"
     )

@@ -34,6 +34,12 @@ def detect(job):
         raise ValueError("Invalid detection response")
     errors = list(result.get("engine_errors", []))
     findings = list(result["findings"])
+    # Reference the existing configuration snapshot; don't duplicate rule configs.
+    config_sha = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
+    rules = {rule["id"] for group in config.get("groups", []) for rule in group["rules"]}
+    for finding in findings:
+        if finding.get("rule_id") in rules:
+            finding["configuration_sha256"] = config_sha
     enabled = config["settings"].get("detectors", {})
     skipped = set(result.get("skipped_checks", [])) | {"ml", "llm"}
     objects = [("message.eml", bytes(message.original_sha_ref.data))] + [
@@ -79,7 +85,7 @@ def detect(job):
         "skipped_checks": sorted(skipped | set(status_skipped)),
         "normalization": result.get("normalization", {}),
         "configuration_snapshot": config,
-        "configuration_sha256": hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest(),
+        "configuration_sha256": config_sha,
     }
     with transaction.atomic():
         locked_current(job.pk, job.token)

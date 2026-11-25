@@ -1,3 +1,5 @@
 <span data-rule-title>{{ rule.title.value|default:'Новое правило' }}</span>
 <span class="muted" data-rule-meta>{% if rule.kind.value == 'keywords' %}Ключевые слова{% elif rule.kind.value == 'regex' %}Регулярное выражение{% elif rule.kind.value == 'reference' %}Эталонные документы{% elif rule.kind.value == 'ml' %}Модель машинного обучения{% else %}Тип не выбран{% endif %} · Риск: {{ rule.risk.value|default:'70' }}</span>
-<span class="icon-control" aria-hidden="true">{% include 'ui/icons/pencil.html' %}</span>
+<button type="button" class="icon-control" data-edit-rule aria-label="Редактировать правило" title="Редактировать правило">{% include 'ui/icons/pencil.html' %}</button>
+<button type="button" class="icon-control" data-delete-rule aria-label="Удалить правило" title="Удалить правило"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 10v7M14 10v7"/></svg></button>
+<button type="button" data-undo-rule hidden>Отменить удаление</button>

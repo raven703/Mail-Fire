@@ -71,6 +71,15 @@ Descriptions remain available as title tooltips and in the read-only detail.
 
 The category Modal uses `data-tabs` and `ui-form-grid`; both panels stay in the
 same POST form, so switching tabs never serializes or discards field values.
+Category panels own their scroll positions; the shell, tab strip and footer do
+not scroll. The formset starts with zero extra forms. Trash actions stage DELETE
+until submission, offer undo for persisted rules and hide new discarded forms.
+Persisted rules use `deleted_at`, retaining IDs and audit events; the default
+manager excludes tombstones from editor, counters, exports and detection inputs.
+Evidence resolves original metadata from existing configuration snapshots and
+AnalysisRevision records. New findings reference the snapshot hash, without
+duplicating configurations. Missing legacy snapshots are explicitly indicated;
+current rule parameters are never substituted for missing historical data.
 Invalid native fields activate their containing tab and expand their rule.
 Rule forms retain their original management fields, DELETE flags and ordering.
 An accordion presents summaries and opens the existing structured editor inline.

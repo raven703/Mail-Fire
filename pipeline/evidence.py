@@ -11,7 +11,7 @@ def configuration():
     ):
         category = rule.category
         bucket = groups.setdefault(category.pk, {
-            "category": {"id": category.pk, "mode": category.mode, "match_mode": category.match_mode},
+            "category": {"id": category.pk, "name": category.name, "mode": category.mode, "match_mode": category.match_mode},
             "rules": [],
         })
         bucket["rules"].append({
