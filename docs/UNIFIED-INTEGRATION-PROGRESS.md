@@ -2,6 +2,39 @@
 
 Work is in progress; this tree is not production-approved or deployed.
 
+## Final durable OOM gate — PASSED
+
+Isolated internal Docker network mice-oom-gate, fresh PostgreSQL and RabbitMQ,
+dedicated runtime image, normal publish_outbox and analysis/policy Celery workers.
+No production services, databases or queues were used. One synthetic EML entered
+through pipeline.ingestion.accept (upload acceptance), with one text attachment.
+Test-only parser entrypoint held the first request at the real broker boundary
+until analysis RUNNING ownership was observed, then allocated memory without a
+limit inside the 512 MiB cgroup. No production code fault hooks were added.
+
+Observed sequence:
+- Message 8c9e7ba0-808c-4d12-96ab-5123b734470b; analysis RUNNING, attempts=1,
+  deferrals=0 before injection.
+- Docker recorded oom, die and start; RestartCount=1. The in-flight HTTP request
+  failed with transport unavailability, not a permanent rejection.
+- Normal worker automatically deferred: PENDING, attempts=0, deferrals=1.
+- Normal publisher automatically redelivered after backoff; no manual claim,
+  retry, available_at update or handler invocation was performed.
+- analysis.analyze DONE, attempts=1, deferrals=1; policy.evaluate DONE,
+  attempts=1, deferrals=0; errors empty.
+- Assertions passed: exactly one Message, Attachment, Incident, Evaluation,
+  ImportRecord and MailEvent. No legacy processing jobs were generated.
+- Parser /health=200. Process inventory contained only docker-init, broker and
+  launcher, no sandbox/helper descendants or zombies; /tmp contained only the
+  live launcher control directory, no request directories.
+
+Evidence in /home/user/mice-archives/unified-review/: e2e-ingestion.log,
+e2e-deferral.log, e2e-final.log, e2e-events.log, e2e-processes.log,
+e2e-cleanup.log and e2e-worker.log. Earlier remaining-gate statements below are
+historical and superseded by this successful end-to-end test.
+
+No benchmark, load/browser tests, production deployment, RU3/model changes.
+
 ## Security-gate follow-up
 
 - Broker periodically removes request/preflight directories after launcher death,
