@@ -103,7 +103,14 @@ class ServerBackpressureTests(SimpleTestCase):
                 self.assertEqual(response.status_code, 429)
                 self.assertEqual(response.headers['X-Parser-Reason'], 'queue_full')
                 self.assertEqual(response.headers['Retry-After'], '5')
-            with patch.object(module, 'local_call', return_value={'attachments': [], 'text': 'body'}):
+            # This is an HTTP admission test, not a parser dependency test.
+            # Django-only CI intentionally does not install pydantic-settings.
+            from types import SimpleNamespace
+            import sys
+            config = SimpleNamespace(settings=lambda: SimpleNamespace(parser_response_bytes=80 * 1024**2))
+            with patch.object(module, 'local_call', return_value={'attachments': [], 'text': 'body'}), patch.dict(
+                sys.modules, {'app.config': config}
+            ):
                 response = httpx.post(url, json={'operation': 'mail', 'data': base64.b64encode(b'x').decode()}, trust_env=False)
                 self.assertEqual(response.status_code, 200)
         finally:
