@@ -5,7 +5,7 @@ import unicodedata
 
 from app.text_normalizer import SEPARATED, TOKEN, ZERO_WIDTH, normalize
 
-ALIASES = {"RU_INN": "INN", "RU_PHONE": "PHONE"}
+from app.category_catalog import LEGACY_ALIASES as ALIASES
 
 
 def normalization_safe_regex(pattern):
@@ -108,6 +108,11 @@ def unique_findings(findings):
         detail = {k: hit[k] for k in ("rule_id", "risk", "match_score", "source", "normalization") if k in hit}
         if detail not in evidence:
             evidence.append(detail)
+        if hit.get("context_matches"):
+            contexts = prior.setdefault("context_matches", [])
+            for context in hit["context_matches"]:
+                if context not in contexts:
+                    contexts.append(context)
         prior["risk"] = max(prior["risk"], hit["risk"])
     return result
 
