@@ -5,7 +5,7 @@
 .security-overview .so-summary-bar p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}
 .security-overview .so-subtle-link{border:0;background:transparent;color:var(--accent);padding:5px 6px;min-height:28px;font-size:12px;font-weight:600;white-space:nowrap;flex-shrink:0}
 .security-overview .so-subtle-link:hover{background:var(--selected);color:var(--accent)}
-.security-overview .so-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.security-overview .so-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .security-overview .so-metric{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;min-width:0;min-height:104px;border:1px solid var(--border);border-radius:12px;background:var(--card);padding:14px 16px;box-shadow:none}
 .security-overview .so-metric:hover{border-color:var(--accent);background:var(--card)}
 .security-overview .so-metric-attention{border-left:3px solid var(--medium)}
