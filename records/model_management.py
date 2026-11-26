@@ -212,6 +212,8 @@ def models(request):
             if denied is not None:
                 return denied
             if action == "create_label":
+                if not can_label:
+                    return HttpResponseForbidden("Требуется доступ к обучающим примерам")
                 tab = "label"
                 label_form = TrainingLabelForm(request.POST)
                 if label_form.is_valid():
