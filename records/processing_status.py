@@ -29,7 +29,7 @@ REASONS = {
 
 
 def analysis_jobs():
-    return WorkItem.objects.filter(kind="analysis.analyze").annotate(
+    return WorkItem.objects.filter(kind__in=["analysis.analyze", "ingestion.parse"]).annotate(
         message_key=KeyTextTransform("message_id", "payload")
     )
 
@@ -38,7 +38,9 @@ def latest_jobs(messages):
     keys = [message.pk for message in messages]
     latest = {}
     if keys:
-        for job in analysis_jobs().filter(message_key__in=keys).order_by("-created_at", "-pk"):
+        for job in analysis_jobs().filter(message_key__in=keys).only(
+            "kind", "status", "error", "attempts", "deferrals", "available_at", "created_at"
+        ).order_by("-created_at", "-pk"):
             latest.setdefault(job.message_key, job)
     return latest
 
@@ -51,7 +53,7 @@ def describe(message, job=None):
             state = "PROCESSING"
         elif job.status == "PENDING" and (job.deferrals or job.attempts):
             state = "RETRYING"
-        elif job.status in {"DEAD", "CANCELLED"}:
+        elif job.kind == "analysis.analyze" and job.status in {"DEAD", "CANCELLED"}:
             state = "FAILED"
     if state in {"RETRYING", "FAILED"} and job:
         # Only fixed diagnostic labels; never display parser bodies or secrets.
