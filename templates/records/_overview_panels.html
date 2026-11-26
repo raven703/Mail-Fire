@@ -7,6 +7,7 @@
     <a class="so-metric so-metric-attention" href="{% url 'incidents-page' %}?{{ date_query }}&amp;status=open"><span class="so-metric-label">Требуют проверки</span><strong class="so-metric-value">{{ analytics_review }}</strong><span class="so-metric-note">Открытые инциденты за период ↗</span></a>
     <a class="so-metric" href="{% url 'incidents-page' %}?{{ date_query }}&amp;status="><span class="so-metric-label">Всего инцидентов</span><strong class="so-metric-value">{{ analytics_total }}</strong><span class="so-metric-note">За выбранный период ↗</span></a>
     <a class="so-metric" href="{% url 'messages-page' %}?{{ date_query }}&amp;status=ANALYZED"><span class="so-metric-label">Писем проанализировано</span><strong class="so-metric-value">{{ analytics_analyzed }}</strong><span class="so-metric-note">За выбранный период ↗</span></a>
+    <a class="so-metric" href="{% url 'messages-page' %}?{{ date_query }}&amp;status=INCOMPLETE"><span class="so-metric-label">Неполный анализ / ошибки</span><strong class="so-metric-value">{{ analytics_incomplete }}</strong><span class="so-metric-note">Требуют внимания ↗</span></a>
     <a class="so-metric" href="{% url 'operations' %}?tab=jobs&amp;status=active"><span class="so-metric-label">Заданий в работе</span><strong class="so-metric-value">{{ analytics_jobs }}</strong><span class="so-metric-note">Текущее состояние очереди ↗</span></a>
   </div>
   <div class="so-insights">
