@@ -18,6 +18,6 @@ DETECTORS = {
     "prompt": ("Prompt injection", "Контекстные эвристики", ["PROMPT_INJECTION"]),
     "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),
     "semantic": ("Семантическое сходство", "Multilingual MiniLM / pgvector", ["SEMANTIC_REFERENCE"]),
-    "ml": ("ML-классификатор", "TF-IDF / Logistic Regression", []),
+    "ml": ("ML-классификатор", "TF-IDF / SetFit / RuBERT", []),
     "normalizer": ("Нормализация текста", "Детерминированный поиск с координатами оригинала", []),
 }
