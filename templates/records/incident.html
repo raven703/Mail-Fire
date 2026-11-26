@@ -2,7 +2,7 @@
 {% block body %}
 <main>
   <section class="detail">
-    <header><div><h1>{% if perms.identity.view_originals %}{{ incident.message.subject|default:'Без темы' }}{% else %}{{ policy_label|default:'Инцидент' }}{% endif %}</h1><p class="muted">Инцидент создан · {{ incident.created_at|date:'d.m.Y H:i' }}</p></div><a class="action-button" href="{% url 'incidents-page' %}">← К списку</a></header>
+    <header><div><h1>{% if incident.display_number %}<span class="incident-number">{{ incident.display_number }}</span>{% endif %}{% if perms.identity.view_originals %}{{ incident.message.subject|default:'Без темы' }}{% else %}{{ policy_label|default:'Инцидент' }}{% endif %}</h1><p class="muted">Инцидент создан · {{ incident.created_at|date:'d.m.Y H:i' }}</p></div><a class="action-button" href="{% url 'incidents-page' %}">← К списку</a></header>
     <div class="message-meta-line"><span class="badge {{ incident.status }}">{{ status_label|default:incident.status }}</span><span class="badge {{ severity }}">{{ severity }}</span><span>Риск <b>{{ incident.risk }}/100</b></span></div>
     <dl class="facts secondary-facts">
       <div><dt>Категория</dt><dd>{{ policy_label }}</dd></div>
@@ -16,7 +16,7 @@
     </div>
     <h2 class="section-divider">Почему создан инцидент</h2>
     {% if perms.identity.view_originals %}
-      {% if incident.findings %}{% include 'records/_evidence.html' with findings=incident.findings %}{% else %}{% for hit in incident.policy_hits %}{% include 'records/_evidence.html' with findings=hit.findings %}{% endfor %}{% endif %}
+      {% include 'records/_evidence.html' with findings=incident.findings %}
     {% else %}<p class="muted">Для просмотра доказательств требуется доступ к оригиналам.</p>{% endif %}
   </section>
   {% if can_edit %}

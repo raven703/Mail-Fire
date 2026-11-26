@@ -1,4 +1,4 @@
-{% include 'ui/input.html' with label='Поиск' name='q' value=query placeholder='Тема, отправитель или политика' only %}
+{% include 'ui/input.html' with label='Поиск' name='q' value=query placeholder='Номер, тема, отправитель или политика' only %}
 <label>Статус<select name="status"><option value="open"{% if selected_status == 'open' or 'status' not in request.GET %} selected{% endif %}>Открытые</option><option value="">Все</option>{% for key, title in statuses %}<option value="{{ key }}"{% if key == selected_status %} selected{% endif %}>{{ title }}</option>{% endfor %}</select></label>
 {% include 'ui/input.html' with label='Аналитик' name='assignee' value=selected_assignee placeholder='Все аналитики' list='incident-assignments' only %}
 {% include 'records/_incident_filters.html' with primary_only=True %}

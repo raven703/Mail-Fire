@@ -30,7 +30,7 @@
   <section role="tabpanel" id="message-evidence" aria-labelledby="tab-evidence">
     {% if perms.identity.view_originals %}{% include 'records/_evidence.html' with findings=message.content.analysis.findings %}{% endif %}
     <h2>Связанные инциденты</h2>
-    {% for row in incidents %}<p><a href="{% url 'incident-detail' row.pk %}">{{ row.policy.name|default:row.pk }}</a> · <span class="badge {{ row.status }}">{{ row.status }}</span> · {{ row.risk }}/100</p>{% empty %}<p>Нет связанных инцидентов</p>{% endfor %}
+    {% for row in incidents %}<p><a href="{% url 'incident-detail' row.pk %}">{{ row.display_number }} · {{ row.policy.name|default:'Инцидент' }}</a> · <span class="badge {{ row.status }}">{{ row.status }}</span> · {{ row.risk }}/100</p>{% empty %}<p>Нет связанных инцидентов</p>{% endfor %}
   </section>
   <section role="tabpanel" id="message-recipients" aria-labelledby="tab-recipients">
     {% if perms.identity.view_originals %}{% include 'records/_recipients.html' with recipients=message.recipients %}{% else %}<p class="muted">Требуется доступ к оригиналам.</p>{% endif %}

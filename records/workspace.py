@@ -114,6 +114,9 @@ def incidents(request):
         rows = rows.filter(pk__in=matches.values("pk"))
     if query:
         criteria = Q(pk=query) | Q(message_id=query) | Q(policy__name__icontains=query)
+        number = query.upper().removeprefix("INC-")
+        if number.isascii() and number.isdecimal() and len(number) <= 19 and 0 < int(number) <= 2**63 - 1:
+            criteria |= Q(number=int(number))
         if request.user.has_perm("identity.view_originals"):
             criteria |= Q(message__subject__icontains=query) | Q(message__sender__icontains=query)
         rows = rows.filter(criteria)
@@ -245,7 +248,7 @@ def message_detail(request, message_id):
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
         "history": Audit.objects.filter(target=row.pk).order_by("-created_at")[:100],
         "incidents": Incident.objects.filter(message=row).select_related("policy").only(
-            "id", "risk", "status", "policy__name",
+            "id", "number", "risk", "status", "policy__name",
         ).order_by("-created_at"),
         "error": error_text,
         "reanalysis_token": uuid4().hex,

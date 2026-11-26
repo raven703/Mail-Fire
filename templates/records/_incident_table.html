@@ -1,7 +1,7 @@
 <thead><tr><th>Инцидент</th>{% if perms.identity.view_originals %}<th>Отправитель</th><th>Получатель</th>{% endif %}<th>Категория</th><th>Риск</th><th>Статус</th><th>Время</th></tr></thead>
       <tbody>{% for row in page %}
       <tr class="clickable">
-        <td><a class="incident-subject" href="{% url 'incident-detail' row.pk %}">{% if perms.identity.view_originals %}{{ row.message.subject|default:'Без темы' }}{% else %}{{ row.pk }}{% endif %}</a><span class="table-secondary">{{ row.assignee_ref.username|default:'Не назначен' }}</span></td>
+        <td><a class="incident-subject" href="{% url 'incident-detail' row.pk %}">{% if perms.identity.view_originals %}<span class="incident-number">{{ row.display_number }}</span>{{ row.message.subject|default:'Без темы' }}{% else %}{{ row.display_number }}{% endif %}</a><span class="table-secondary">{{ row.assignee_ref.username|default:'Не назначен' }}</span></td>
         {% if perms.identity.view_originals %}<td><div class="sender-cell"><span class="mini-avatar" aria-hidden="true">{{ row.sender_name|slice:':2'|upper }}</span><div class="sender-copy"><strong>{{ row.sender_name|default:'Не указан' }}</strong><span class="table-secondary">{{ row.message.sender }}</span></div></div></td>
         <td title="{{ row.message.recipients|join:', ' }}">{% if row.message.recipients|length > 1 %}{{ row.message.recipients|length }} получателей{% else %}{{ row.message.recipients.0|default:'—' }}{% endif %}</td>{% endif %}
         <td><span class="category-tag" title="{{ row.policy_label }}">{{ row.policy_label }}</span></td>
