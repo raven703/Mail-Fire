@@ -62,7 +62,7 @@ class LabelForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         field = self.fields["labels"]
-        field.widget = CategoryPicker()
+        field.widget = CategoryPicker(selected=self.initial.get("labels", ()))
         field.choices = field.widget.choices
 
     def clean_labels(self):
