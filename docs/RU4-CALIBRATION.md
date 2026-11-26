@@ -1,8 +1,75 @@
-# RU4 candidate — iteration 1
-Source: B-400 errors.json (283 category errors) and RU3 candidate. All 12 categories expanded using required anchor plus contextual alternatives, with existing production flexible matcher. Existing categories and policies retain IDs; no production changes. Phishing confirmation window tightened and credential/ phishing local negation exclusions added.
+# RU4: калибровка правил категорий
 
-Important: B-400 contains descriptions of threats and phishing rather than direct messages. Its labels are provisional. Do not silently broaden the category definitions or treat all descriptive matches as genuine threats. Review ambiguous cases separately, including synthetic/educational framing, cross-category overlaps, and sabotage outside the existing IT-only definition. The proposed sabotage expansion is experimental and requires explicit scope approval. Keep original manifest unchanged. Report metrics against original labels and separately against any reviewed label set.
+Ветка `test/ru4-category-candidate`, PR #27. Пакет `config/rulepacks/ru4_candidate.json` сохраняет 12 идентификаторов RU3. Прогон выполнен штатным `scripts/benchmark_categories.py` на замороженном тексте, без БД и без повторного извлечения. B-350 и B-400 использованы для калибровки; приведённые показатели не являются независимой оценкой качества.
 
-Run fast replay against both B-350 and B-400 using the verified PR26 tool, original frozen configuration and --rulepack config/rulepacks/ru4_candidate.json. Compare with RU3 baseline under identical settings per dataset. Also report same-normalizer comparison if needed. No import, OCR, policies, incidents or database modifications. Report TP/FP/FN, per-category and cohort metrics, regressions on B-350, and rule-level evidence. Iterate only on legitimate coverage gaps; do not optimize for synthetic template phrases. Both datasets become calibration data, not independent validation.
+## Сравнение
 
-This candidate has not been executed. No measured improvement is claimed.
+| Набор и пакет | TP | FP | FN | Precision | Recall | F1 | Точное совпадение категорий |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| B-400 RU3 | 39 | 2 | 281 | 95.12% | 12.19% | 21.61% | 36.75% |
+| B-400 RU4 | 302 | 0 | 18 | 100.00% | 94.38% | 97.11% | 95.50% |
+| B-350 RU3 | 235 | 8 | 7 | 96.71% | 97.11% | 96.91% | 95.71% |
+| B-350 RU4 | 235 | 0 | 7 | 100.00% | 97.11% | 98.53% | 98.00% |
+
+B-400 использует сохранённую конфигурацию с нормализатором detect/high; B-350 — историческую frozen конфигурацию normalizer off/medium и 8 записей PARTIAL. Поэтому сравнивать RU3 и RU4 следует внутри набора. Для B-400 исходный RU3 replay имел полную паритетность с результатами рабочего прогона (400/400).
+
+## Все 12 категорий
+
+| Категория | B-400 RU3 TP/FP/FN | B-400 RU4 TP/FP/FN | B-400 RU4 P/R/F1 | B-350 RU3 TP/FP/FN | B-350 RU4 TP/FP/FN | B-350 RU4 P/R/F1 |
+| --- | --- | --- | --- | --- | --- | --- |
+| credential-transfer | 7/0/20 | 27/0/0 | 100.00%/100.00%/100.00% | 16/0/0 | 16/0/0 | 100.00%/100.00%/100.00% |
+| customer-data | 4/0/23 | 21/0/6 | 100.00%/77.78%/87.50% | 20/0/0 | 20/0/0 | 100.00%/100.00%/100.00% |
+| data-exfil | 3/0/23 | 26/0/0 | 100.00%/100.00%/100.00% | 17/0/2 | 17/0/2 | 100.00%/89.47%/94.44% |
+| explosive-threat | 0/0/27 | 26/0/1 | 100.00%/96.30%/98.11% | 13/8/2 | 13/0/2 | 100.00%/86.67%/92.86% |
+| extortion | 0/0/26 | 26/0/0 | 100.00%/100.00%/100.00% | 13/0/1 | 13/0/1 | 100.00%/92.86%/96.30% |
+| financial-plans | 0/0/27 | 25/0/2 | 100.00%/92.59%/96.15% | 36/0/0 | 36/0/0 | 100.00%/100.00%/100.00% |
+| internal-docs | 10/0/17 | 27/0/0 | 100.00%/100.00%/100.00% | 21/0/0 | 21/0/0 | 100.00%/100.00%/100.00% |
+| phishing | 1/2/26 | 26/0/1 | 100.00%/96.30%/98.11% | 22/0/1 | 22/0/1 | 100.00%/95.65%/97.78% |
+| pii-handling | 3/0/23 | 23/0/3 | 100.00%/88.46%/93.88% | 22/0/0 | 22/0/0 | 100.00%/100.00%/100.00% |
+| pricing | 7/0/20 | 26/0/1 | 100.00%/96.30%/98.11% | 30/0/0 | 30/0/0 | 100.00%/100.00%/100.00% |
+| sabotage | 0/0/26 | 22/0/4 | 100.00%/84.62%/91.67% | 12/0/0 | 12/0/0 | 100.00%/100.00%/100.00% |
+| violence-threat | 4/0/23 | 27/0/0 | 100.00%/100.00%/100.00% | 13/0/1 | 13/0/1 | 100.00%/92.86%/96.30% |
+
+## История итераций
+
+1. RU4 iteration 1 из PR: B-400 287/24/33 (P 92.28%, R 89.69%, F1 90.97%); B-350 235/16/7 (P 93.63%, R 97.11%, F1 95.33%).
+2. Уточнены локальные исключения для учебного и исторического контекста, отрицания передачи, вымышленной CRM, открытого бюджета и описания обмана; расширены контекстные термины и окна. B-400 298/6/22; B-350 235/8/7.
+3. Устранён FP от отрицания наличия персональных сведений; добавлено правило клиентского реестра со сведениями о сделках, аккаунтах и ограничении доступа. B-400 302/0/18; B-350 235/8/7.
+4. Удалены 25 RU4 правил без уникального полезного покрытия на обоих наборах. Метрики не изменились. Локальное исключение художественного диалога убрало 8 FP B-350. Итог: B-400 302/0/18; B-350 235/0/7. Исходные правила RU3 оставлены для совместимости и потенциального покрытия вне калибровки.
+
+## Проверка разметки и спорные случаи
+
+Сверены ID, SHA-256 исходных EML и статусы замороженного извлечения встроенной проверкой benchmark; исходные manifest и наблюдения не менялись. Содержательно просмотрены все итоговые FP/FN и характерные перекрёстные примеры. Часть меток зависит от определения категории, поэтому метрики выше рассчитаны по исходной разметке без правок:
+
+- B-400 относит описания угроз, фишинга и диверсии к положительным случаям даже без прямого обращения к адресату. Особенно `MF400-0084`, `0180`, `0276` говорят о диверсии без способа; это расширяет прежнюю IT-ориентированную трактовку sabotage.
+- B-400 `MF400-0105` и B-350 `MF350-0332`, `0336` содержат вымышленные/тестовые угрозы взрыва. Автоматическое усиление под такие фразы может повысить ложные тревоги.
+- B-350 `MF350-0337` и `0344` маркированы как угрозы/фишинг по описанию вложения или учебного примера; стоит отдельно решить, требуется ли детектировать описание, когда действия нет.
+- B-400 `MF400-0272` объединяет сюжет о получении пароля обманом с ценовым фрагментом, где OCR исказил ключевое слово. Отрицание credential-transfer в этом случае согласуется с различением передачи и выманивания.
+
+## Оставшиеся ошибки
+
+FP: B-400 — 0; B-350 — 0.
+
+**B400 FN (18):**
+- `customer-data`: `MF400-0051`, `MF400-0075`, `MF400-0147`, `MF400-0171`, `MF400-0243`, `MF400-0267`
+- `explosive-threat`: `MF400-0105`
+- `financial-plans`: `MF400-0121`, `MF400-0157`
+- `phishing`: `MF400-0128`
+- `pii-handling`: `MF400-0029`, `MF400-0125`, `MF400-0221`
+- `pricing`: `MF400-0272`
+- `sabotage`: `MF400-0084`, `MF400-0180`, `MF400-0192`, `MF400-0276`
+
+**B350 FN (7):**
+- `data-exfil`: `MF350-0342`, `MF350-0349`
+- `explosive-threat`: `MF350-0332`, `MF350-0336`
+- `extortion`: `MF350-0334`
+- `phishing`: `MF350-0344`
+- `violence-threat`: `MF350-0337`
+
+## Ограничения и следующие шаги
+
+- Customer-data (B-400 Recall 77.78%), PII handling (88.46%) и sabotage (84.62%) остаются наиболее сложными. Клиентские формулировки о заказчиках, аккаунтах и сделках требуют дополнительных обобщённых словарных связок; персональные сведения с OCR/zero-width ошибками требуют проверки на новых независимых данных; sabotage требует согласовать границы категории.
+- Локальные исключения зависят от расстояния до совпадения (штатный радиус 40 символов), поэтому длинные отрицания и разнесённые контексты могут оставаться неоднозначными. Морфология не исправляет OCR-подмены символов и разорванные слова.
+- Проверить на новом слепом наборе с реальными негативными примерами для всех 12 категорий, отдельно оценить прямые угрозы и описания угроз. Перед импортом выполнить приёмочную проверку политик, версии правил и ложных тревог. RU4 не импортировался на рабочий стенд.
+
+В replay не запускались OCR, Gitleaks, YARA, Oletools, ML, LLM, очередь, политики или полный benchmark. Производственный код и системные детекторы не изменены.
