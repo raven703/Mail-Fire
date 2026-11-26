@@ -44,6 +44,10 @@ def execute(self, job_id):
         try:
             if isinstance(exc, ParserUnavailable):
                 defer(job.pk, job.token, str(exc), exc.retry_after)
+            elif job.kind == "analysis.analyze" and exc.reason in {"sandbox_timeout", "sandbox_failed"}:
+                # A per-request failure is bounded by normal attempt limits,
+                # not the dependency-outage deferral budget.
+                fail(job.pk, job.token, str(exc))
             else:
                 reject(job.pk, job.token, str(exc))
         except OperationalError as db_error:
