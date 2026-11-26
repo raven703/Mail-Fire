@@ -21,6 +21,7 @@ from records.ocr_settings import page as ocr_page, preview as ocr_preview
 from records.messages import imports, messages
 from records.model_management import models as models_page
 from records.operations import audit, configuration
+from records.performance import performance
 from records.reanalysis import bulk_reanalyze
 from records.references import references
 from records.retention import legal_hold, retention
@@ -48,6 +49,7 @@ urlpatterns = [
     path("attachments/<str:attachment_id>/page/", attachment, {"action": "page"}, name="attachment-page"),
     path("attachments/<str:attachment_id>/download/", attachment, {"action": "download"}, name="attachment-download"),
     path("settings/", configuration, name="configuration-page"),
+    path("settings/performance/", performance, name="performance-page"),
     path("settings/ocr/", ocr_page, name="ocr-page"),
     path("settings/ocr/preview/", ocr_preview, name="ocr-preview"),
     path("detectors/", detectors, name="detectors-page"),
