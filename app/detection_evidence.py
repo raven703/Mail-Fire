@@ -5,7 +5,7 @@ from types import SimpleNamespace
 
 def analyze(payload):
     from app.advanced_detectors import pii
-    from app.categories import evaluate_groups
+    from app.categories import annotate_builtin_context, evaluate_groups
     from app.detectors import VERSION, detect
     from app.document_templates import finding_for_template
     from app.fingerprints import compare
@@ -43,6 +43,7 @@ def analyze(payload):
         prepared = PreparedDocument(source_text)
         if config["references"]:
             prepared_documents[document["id"]] = prepared
+        annotate_builtin_context(groups, source_text, local, prepared=prepared, compiled=compiled, normalized=normalized)
         local.extend(evaluate_groups(groups, source_text, normalized=normalized,
                                     available_engines={"keywords", "regex"}, compiled=compiled, prepared=prepared))
         for hit in local:
