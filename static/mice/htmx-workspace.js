@@ -41,14 +41,23 @@
   document.addEventListener('input', event => {
     if (event.target.matches('.category-search-field input')) updateCategoryClear(event.target);
   });
+  function clearCategorySearch(field) {
+    field.value = '';
+    field.focus({preventScroll: true});
+    updateCategoryClear(field);
+    scheduleFilter({target: field}, 0);
+  }
   document.addEventListener('click', event => {
     const button = event.target.closest('[data-clear-category-search]');
     if (!button) return;
-    const field = button.closest('.category-search-field').querySelector('input');
-    field.value = '';
-    field.focus();
-    updateCategoryClear(field);
-    scheduleFilter({target: field}, 0);
+    clearCategorySearch(button.closest('.category-search-field').querySelector('input'));
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || event.isComposing ||
+        !event.target.matches('form[data-live-filter="categories"] .category-search-field input')) return;
+    event.preventDefault();
+    event.stopPropagation();
+    clearCategorySearch(event.target);
   });
   function prepareFilters(root) {
     root.querySelectorAll('.category-search-field input').forEach(updateCategoryClear);
