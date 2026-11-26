@@ -231,8 +231,13 @@ def message_detail(request, message_id):
         else:
             return redirect("message-detail", message_id=row.pk)
     Audit.objects.create(actor=request.user.pk, action="view_message", target=row.pk)
-    from records.processing_status import describe, latest_jobs
+    from records.processing_status import attachment_reason, describe, latest_jobs
     processing = describe(row, latest_jobs([row]).get(row.pk))
+    attachments = list(Attachment.objects.filter(message=row).select_related("blob_sha_ref").only(
+        "id", "name", "mime", "status", "details", "blob_sha_ref__size",
+    ).order_by("created_at", "pk")) if request.user.has_perm("identity.view_originals") else []
+    for attachment in attachments:
+        attachment.processing_reason = attachment_reason(attachment)
     return render(request, "records/message.html", {
         "processing": processing,
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
@@ -242,9 +247,7 @@ def message_detail(request, message_id):
         ).order_by("-created_at"),
         "error": error_text,
         "reanalysis_token": uuid4().hex,
-        "attachments": Attachment.objects.filter(message=row).select_related("blob_sha_ref").only(
-            "id", "name", "mime", "status", "blob_sha_ref__size",
-        ).order_by("created_at", "pk") if request.user.has_perm("identity.view_originals") else [],
+        "attachments": attachments,
     }, status=409 if error_text else 200)
 
 
