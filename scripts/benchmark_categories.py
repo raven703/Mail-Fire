@@ -73,6 +73,7 @@ def overlay(config, pack):
 
 
 def main():
+    wall_started = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--corpus", type=Path, required=True)
     parser.add_argument("--observations", type=Path, required=True)
@@ -84,6 +85,7 @@ def main():
     parser.add_argument("--category", action="append", help="Repeat to limit scoring; default all annotated RU3")
     parser.add_argument("--normalizer", choices=["keep","off","low","medium","high"], default="keep")
     parser.add_argument("--require-parity", action="store_true", help="Fail if any scoped category set differs from saved live findings")
+    parser.add_argument("--allow-partial", action="store_true", help="Replay saved PARTIAL extraction too; retain its status, never re-extract")
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError("Output must be a new directory")
@@ -122,8 +124,12 @@ def main():
     started = time.monotonic()
     for r in rows:
         o = byid[r["id"]]
+        if (args.require_parity and "configuration_snapshot" in o["analysis"]
+                and o["analysis"]["configuration_snapshot"] != config):
+            raise ValueError(f"Frozen configuration differs from replay: {r['id']}")
         sha = hashlib.sha256((args.corpus/r["file"]).read_bytes()).hexdigest()
-        if sha != o["sha256"] or o["status"] != "ANALYZED":
+        allowed_statuses = {"ANALYZED", "PARTIAL"} if args.allow_partial else {"ANALYZED"}
+        if sha != o["sha256"] or o["status"] not in allowed_statuses:
             raise ValueError(f"Input hash or extraction status mismatch: {r['id']}")
         docs = documents(o)
         result = analyze(dict(text=o["text"], documents=docs, attachments=o["attachments"], configuration=config))
@@ -136,19 +142,25 @@ def main():
         for c in scope:
             counts[c]["TP" if c in expected & actual else "FP" if c in actual else "FN" if c in expected else "TN"] += 1
         details.append(dict(id=r["id"], expected=sorted(expected), actual=sorted(actual),
+            extraction_status=o["status"],
             FP=sorted(actual-expected), FN=sorted(expected-actual), findings=findings,
             normalization=result["normalization"], engine_errors=result["engine_errors"]))
     per = {c: metrics(*(counts[c][k] for k in ("TP","FP","FN","TN"))) for c in sorted(scope)}
     micro = metrics(*(sum(counts[c][k] for c in scope) for k in ("TP","FP","FN","TN")))
     elapsed = time.monotonic()-started
+    errors = [dict(id=d["id"], outcome=outcome, category=c,
+                   expected=d["expected"], actual=d["actual"], findings=d["findings"])
+              for d in details for outcome in ("FP", "FN") for c in d[outcome]]
     summary = dict(messages=len(rows), scope=sorted(scope), micro=micro, per_category=per,
         exact_match=sum(d["expected"]==d["actual"] for d in details)/len(rows),
         live_category_set_mismatches=len(mismatches), seconds=elapsed,
+        wall_seconds_before_output=time.monotonic()-wall_started,
         input_hashes={str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in (manifest_path,args.observations)},
         configuration_sha256=hashlib.sha256(json.dumps(config,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),
         caveat="Frozen text replay; not end-to-end throughput or independent validation after tuning.")
     args.output.mkdir(parents=True)
-    for name,value in (("metrics.json",summary),("messages.json",details),("parity.json",mismatches)):
+    for name,value in (("metrics.json",summary),("messages.json",details),("parity.json",mismatches),
+                       ("errors.json",errors),("configuration.json",config)):
         (args.output/name).write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2))
     if args.require_parity and mismatches:
