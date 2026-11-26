@@ -18,6 +18,10 @@ def ml_status():
     total = models.count()
     published = models.filter(active=True)
     active = list(published.values("name", "engine"))
+    for model in active:
+        model["engine_label"] = {
+            "tfidf": "TF-IDF / Logistic Regression", "setfit": "SetFit", "rubert": "RuBERT-tiny2",
+        }.get(model["engine"], model["engine"])
     gate = enabled("ml")
     return {
         "status_label": classify_ml_status(total, len(active), gate),

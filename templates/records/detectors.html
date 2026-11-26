@@ -7,7 +7,7 @@
     <div class="policy-row">
       <span class="policy-icon" aria-hidden="true">◇</span>
       <div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.engine }}</p>{% if row.categories %}<small>{{ row.categories|join:', ' }}</small>{% endif %}</div>
-      <span class="badge{% if row.enabled %} OK{% endif %}">{% if row.id == 'ml' %}{{ row.status_label }}{% elif not row.available %}Недоступен{% elif row.enabled %}Включён{% else %}Отключён{% endif %}</span>
+      <span class="badge{% if row.enabled and row.id != 'ml' %} OK{% endif %}">{% if row.id == 'ml' %}{{ row.status_label }} (конфигурация){% elif not row.available %}Недоступен{% elif row.enabled %}Включён{% else %}Отключён{% endif %}</span>
       <a class="action-button" href="?edit={{ row.id }}" aria-label="Настройки {{ row.name }}">⋯</a>
       {% if admin and row.id != 'ml' %}
       <form method="post">{% csrf_token %}<input type="hidden" name="detector" value="{{ row.id }}"><input type="hidden" name="action" value="toggle">{% if not row.enabled %}<input type="hidden" name="enabled" value="1">{% endif %}
@@ -25,7 +25,8 @@
         {% if selected.id == 'ml' %}
         <p><strong>Статус:</strong> {{ selected.status_label }}</p>
         <p>Обученных моделей: {{ selected.total_count }} · Опубликовано: {{ selected.published_count }}</p>
-        {% for model in selected.published_models %}<p>{{ model.name }} · {{ model.engine }}</p>{% endfor %}
+        {% for model in selected.published_models %}<p>{{ model.name }} · {{ model.engine_label }}</p>{% endfor %}
+        <p class="muted">Статус отражает публикацию и конфигурацию, а не исправность ML. Ошибки загрузки модели или недоступность воркера не исключены.</p>
         {% if not selected.inference_enabled %}<p class="muted">ML-анализ отключён в конфигурации развёртывания (MICE_ML_INFERENCE_ENABLED).</p>{% else %}<p class="muted">ML-анализ разрешён конфигурацией развёртывания. Статус не подтверждает успешную загрузку моделей или работу очереди.</p>{% endif %}
         <a class="action-button" href="{% url 'models-page' %}">Управление ML-моделями</a>
         {% elif admin %}{{ form.as_p }}{% else %}<p>{% if not selected.available %}Детектор недоступен{% elif selected.enabled %}Детектор включён{% else %}Детектор отключён{% endif %}</p>{% endif %}
