@@ -231,7 +231,10 @@ def message_detail(request, message_id):
         else:
             return redirect("message-detail", message_id=row.pk)
     Audit.objects.create(actor=request.user.pk, action="view_message", target=row.pk)
+    from records.processing_status import describe, latest_jobs
+    processing = describe(row, latest_jobs([row]).get(row.pk))
     return render(request, "records/message.html", {
+        "processing": processing,
         "message": row, "events": MailEvent.objects.filter(message=row).order_by("created_at"),
         "history": Audit.objects.filter(target=row.pk).order_by("-created_at")[:100],
         "incidents": Incident.objects.filter(message=row).select_related("policy").only(
