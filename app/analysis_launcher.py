@@ -32,7 +32,7 @@ def child(connection, listener, directory):
     from app.analysis_isolation import confine
     from app.sandbox import restrict
     confine(directory)
-    restrict(scan=True, unified=True)
+    restrict(scan=True, unified=True, analysis=True)
     from app import analysis_ipc
     def helper(operation, data, name=""):
         send(connection, {"type": "helper", "operation": operation,
@@ -88,7 +88,7 @@ def preflight():
                 from app.analysis_isolation import confine
                 from app.sandbox import restrict
                 confine(directory)
-                restrict(scan=True, unified=True)
+                restrict(scan=True, unified=True, analysis=True)
                 os._exit(0)
             except BaseException:
                 os._exit(1)
