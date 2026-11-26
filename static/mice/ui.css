@@ -61,10 +61,10 @@ label :is(input, select, textarea) { color: var(--text); }
 .badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 4px 8px; font-size: 11px; font-weight: 550; white-space: nowrap; background: var(--selected); }
 .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 .badge:is(.HIGH, .high, .ERROR, .DEAD, .FAILED) { color: var(--high); background: var(--high-bg); }
-.badge:is(.MEDIUM, .medium, .WARNING, .PARTIAL) { color: var(--medium); background: var(--medium-bg); }
+.badge:is(.MEDIUM, .medium, .WARNING, .PARTIAL, .RETRYING) { color: var(--medium); background: var(--medium-bg); }
 .badge:is(.LOW, .low) { color: var(--low); background: var(--low-bg); }
 .badge:is(.UNKNOWN, .CLOSED, .FALSE_POSITIVE) { color: var(--muted); background: var(--bg); }
-.badge:is(.OK, .ANALYZED) { color: var(--accent); }
+.badge:is(.OK, .ANALYZED, .PROCESSING) { color: var(--accent); }
 .tabs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ui-space-2); padding: var(--ui-space-2) 0; margin-bottom: var(--ui-space-3); border-bottom: 1px solid var(--border); }
 .tabs > a { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 10px; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; }
 .tabs > a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
