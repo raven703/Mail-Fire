@@ -78,6 +78,24 @@ def test_binary_splits_are_stratified_without_leakage():
         _binary_data(data[:40], "FINANCE")
 
 
+def test_binary_preassigned_semantic_groups_and_class_coverage():
+    data = []
+    for split in ("train", "validation", "test"):
+        for positive in (False, True):
+            for group in range(4):
+                data.extend({"text": f"{split} {positive} {group} variant {variant}",
+                             "labels": ["FINANCE"] if positive else [],
+                             "group_id": f"{split}:{positive}:{group}", "split": split}
+                            for variant in range(2))
+    splits = _binary_data(data, "FINANCE")
+    assert all(set(targets) == {0, 1} for _, targets in splits.values())
+    with pytest.raises(ValueError, match="crosses splits"):
+        _binary_data(data + [{**data[0], "text": "other", "split": "test"}], "FINANCE")
+    missing = [{**row, "labels": []} if row["split"] == "validation" else row for row in data]
+    with pytest.raises(ValueError, match="Недостаточная представленность"):
+        _binary_data(missing, "FINANCE")
+
+
 def test_model_runtime_preference_and_failure_isolation(monkeypatch):
     from app import ml_runtime
 

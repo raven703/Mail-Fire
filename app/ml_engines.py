@@ -65,14 +65,20 @@ def _base_path(engine):
 
 def _binary_data(examples, category_id):
     from app.ml import group_hash
+    from app.ml_split import partition
 
     groups = {}
+    metadata = {}
     for item in examples:
         h = group_hash(item["text"])
         label = int(category_id in item["labels"])
         if h in groups and groups[h][1] != label:
             raise ValueError("Противоречивые метки для одинакового текста")
+        if h in metadata and (metadata[h].get("group_id") != item.get("group_id")
+                              or metadata[h].get("split") != item.get("split")):
+            raise ValueError("Identical content has conflicting group or split")
         groups[h] = (item["text"], label)
+        metadata[h] = item
     data = list(groups.values())
     if len(data) < 30:
         raise ValueError("Для обучения нужны минимум 30 разных подтверждённых текстов")
@@ -80,11 +86,16 @@ def _binary_data(examples, category_id):
     y = np.array([v[1] for v in data])
     if min(np.bincount(y, minlength=2)) < 6:
         raise ValueError("Нужно минимум 6 положительных и 6 отрицательных примеров")
-    x_train, x_hold, y_train, y_hold = train_test_split(x, y, test_size=0.4, random_state=42, stratify=y)
-    x_val, x_test, y_val, y_test = train_test_split(
-        x_hold, y_hold, test_size=0.5, random_state=42, stratify=y_hold
-    )
-    splits = {"train": (x_train, y_train), "validation": (x_val, y_val), "test": (x_test, y_test)}
+    assigned = partition(metadata)
+    if assigned is None:
+        x_train, x_hold, y_train, y_hold = train_test_split(x, y, test_size=0.4, random_state=42, stratify=y)
+        x_val, x_test, y_val, y_test = train_test_split(
+            x_hold, y_hold, test_size=0.5, random_state=42, stratify=y_hold
+        )
+        splits = {"train": (x_train, y_train), "validation": (x_val, y_val), "test": (x_test, y_test)}
+    else:
+        splits = {name: ([groups[key][0] for key in keys], np.array([groups[key][1] for key in keys]))
+                  for name, keys in assigned.items()}
     for name, (_, labels) in splits.items():
         if len(set(labels)) != 2:
             raise ValueError(f"Недостаточная представленность классов в {name}")

@@ -29,6 +29,8 @@ def snapshot_hash(examples):
 
 
 def train(examples, min_f1=0.7):
+    from app.ml_split import partition
+
     if not 0 <= min_f1 <= 1:
         raise ValueError("Invalid F1 threshold")
     groups = {}
@@ -37,18 +39,23 @@ def train(examples, min_f1=0.7):
         key = group_hash(example["text"])
         if key in groups and sorted(groups[key]["labels"]) != sorted(example["labels"]):
             raise ValueError("Conflicting labels for identical content")
+        if key in groups and (groups[key].get("group_id") != example.get("group_id")
+                              or groups[key].get("split") != example.get("split")):
+            raise ValueError("Identical content has conflicting group or split")
         groups[key] = example
     if len(groups) < 30:
         raise ValueError("At least 30 distinct approved examples are required")
-    keys = sorted(groups)
-    rng = np.random.default_rng(42)
-    rng.shuffle(keys)
-    n = len(keys)
-    partitions = {
-        "train": keys[: int(n * 0.6)],
-        "validation": keys[int(n * 0.6) : int(n * 0.8)],
-        "test": keys[int(n * 0.8) :],
-    }
+    partitions = partition(groups)
+    if partitions is None:
+        keys = sorted(groups)
+        rng = np.random.default_rng(42)
+        rng.shuffle(keys)
+        n = len(keys)
+        partitions = {
+            "train": keys[: int(n * 0.6)],
+            "validation": keys[int(n * 0.6) : int(n * 0.8)],
+            "test": keys[int(n * 0.8) :],
+        }
     labels = MultiLabelBinarizer()
     labels.fit([e["labels"] for e in groups.values()])
     if len(labels.classes_) < 2:

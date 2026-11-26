@@ -1,0 +1,6313 @@
+[
+  {
+    "id": "MF300-0001",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "f029d9069e7a00e5c81bc1d604a34a46f3f55d53098fdc54e9456b07d5f8e16d"
+  },
+  {
+    "id": "MF300-0002",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "e383db1a01f545321d98e11b686540a0d7792cf5d98dd7b83fcf5a14416a2c65"
+  },
+  {
+    "id": "MF300-0003",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "9e145f6b0606c6cc2e8a616a989fc8f80ca4fa3b6414a7aacbec673e1ac9f14c"
+  },
+  {
+    "id": "MF300-0004",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "d77c893f07e8f47946d3f4146d0e3de9ec9da76ea86d6e8725abfa2e6bab9b16"
+  },
+  {
+    "id": "MF300-0005",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "32f34e78520396e0278edc61acdc0dba803ad1cba2c665bd4bea3a472b811dc3"
+  },
+  {
+    "id": "MF300-0006",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "1cbb8a3886438e3b69b37b14910b260be0a4eb28af66d2e3096360d920cad3f6"
+  },
+  {
+    "id": "MF300-0007",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "d816bff082d8047c67ffb7a4192f8cc9b69b9dab77cd9fd09a1cb5a1e10b01c0"
+  },
+  {
+    "id": "MF300-0008",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "6f0012feab0b588d85d9824af515da7903180360941728a13baa439f1add44a1"
+  },
+  {
+    "id": "MF300-0009",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "fb90be4640f2c76d0a2a054150f66bb88e1bd5d46c8ef0ecac022d80bbf187fe"
+  },
+  {
+    "id": "MF300-0010",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "9e0fb35618af50bf3d922e4ae1d0251f8753819473d4c3ef4bbd27481eab9f2f"
+  },
+  {
+    "id": "MF300-0011",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "4c56d69113ccefc32ca74c7a4a409db8a36cc336868761a0f520e3e90f23d497"
+  },
+  {
+    "id": "MF300-0012",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "35c471b37a2b2592c93a80862b7d70b15d45bf21d89736218a62587fde93c837"
+  },
+  {
+    "id": "MF300-0013",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "10c71ce61bb507eb65efa7576eae00482019e1b364f0c75c66e56f85ff8beb8d"
+  },
+  {
+    "id": "MF300-0014",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "55b86962b31b29cb8fe3383186f780150b3a6ad811eccff3958e359a6334155a"
+  },
+  {
+    "id": "MF300-0015",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "45ca7b186264bb78b84958e49b1a62ff2345a902c4204125a68381e7743f38c5"
+  },
+  {
+    "id": "MF300-0016",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "867f0c868a2dea1d1da65e1022dbdc455c0097e9b4980b0e622f45d9b870fd2e"
+  },
+  {
+    "id": "MF300-0017",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "00a7c51af6570c3fc9c64b3094a0f7842daa2f368668cbff8feb70265cda73bf"
+  },
+  {
+    "id": "MF300-0018",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "3e82e32f8be7aa97589a4bfe963b47b2250db6ba212f22f5ac167df59d02be1c"
+  },
+  {
+    "id": "MF300-0019",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "25706a64255f65eb7b7709f198faadd3d430f596f93d6c23a733536bbedb92ae"
+  },
+  {
+    "id": "MF300-0020",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "9da94e6ea5890aa61ac4c97cbd254ad8d3f51f65c487fb2bd8742fa5610c9ca6"
+  },
+  {
+    "id": "MF300-0021",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "9a0e19d08d9181bb2324b55cd9bb6eab748ef9dce17af4771a4239f13b8fc6ca"
+  },
+  {
+    "id": "MF300-0022",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "1cfc39400b6a948823ccf915323304af975b29d63f4bbfd39dca2573ee1285e9"
+  },
+  {
+    "id": "MF300-0023",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "a34dcf736bfd35fdb88e224d0ddeed18dc04309281adc688cedb4b755a598814"
+  },
+  {
+    "id": "MF300-0024",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "9cb5c1b40a7b7b0e300c0e1612cef0389baf1ed55fc904714fab5ac86ca25e58"
+  },
+  {
+    "id": "MF300-0025",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "2e841b256bce0c9f01083483a9a1e7cd61c989aad0b262e7e6224ed73d1c2df1"
+  },
+  {
+    "id": "MF300-0026",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "880837a11214069244756b72f6369bad317dea51b2951cb8bf3c7e8fad73b3b4"
+  },
+  {
+    "id": "MF300-0027",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "7fe94cc7f6d1ad2128257e6746d961e8c4cdfcd7af4d142fd5220e76650eba2a"
+  },
+  {
+    "id": "MF300-0028",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "b01fae4c4fe53ed0a771692f8f77b5af03504f570c698c467ff15d9347cb3a25"
+  },
+  {
+    "id": "MF300-0029",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "e78040c3e7ef2b9be1b29815bf68a49e9fc1047880024772bf30b12e1cb460aa"
+  },
+  {
+    "id": "MF300-0030",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "03c03a8a6fc6c92c3952fd6ad93e659ab7cb0d0db0d30f286dffc559a667f0a0"
+  },
+  {
+    "id": "MF300-0031",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "5f703a7d231cc3a2f7c086392c3ea0fb5db142bc861c5c7a7009b0b3685561b1"
+  },
+  {
+    "id": "MF300-0032",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "b2a5933a170025bb5d05cc73f295feb930a8c1c1cc86be5ef6c50cb2395d14ea"
+  },
+  {
+    "id": "MF300-0033",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "1728410eb496df3efa5e016c30a0cceb89e6247e015a9b732a7585d9ab3d778f"
+  },
+  {
+    "id": "MF300-0034",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "d545b553a231d3944362b59680301c188d34705dcb2d1d806aa88d82ec8d6913"
+  },
+  {
+    "id": "MF300-0035",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "015736c238aceb29826a71e861a2840ca0706b615e635ba92155b41d476af564"
+  },
+  {
+    "id": "MF300-0036",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "c74624219c3d16f833e214195729485da176f370d8ac4f93b152f15251f9b9a3"
+  },
+  {
+    "id": "MF300-0037",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "e047375f382f8c939ad0021a5e29d58c87d13f00f04df29f19688bc17d166d35"
+  },
+  {
+    "id": "MF300-0038",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "f721d52aef384597a3db1226b778f7360f9120963583217601fe229de8c1efba"
+  },
+  {
+    "id": "MF300-0039",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "8eadb3c0cb08d1a2ac13079a94f96182e4b28eb652f4bbc17f53a9a02f9b349d"
+  },
+  {
+    "id": "MF300-0040",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "84b29ca504da0ad53bbe2daca8f6a04c88ca67c913b19b17d1436e631f668843"
+  },
+  {
+    "id": "MF300-0041",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "f029d9069e7a00e5c81bc1d604a34a46f3f55d53098fdc54e9456b07d5f8e16d"
+  },
+  {
+    "id": "MF300-0042",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "e383db1a01f545321d98e11b686540a0d7792cf5d98dd7b83fcf5a14416a2c65"
+  },
+  {
+    "id": "MF300-0043",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "9e145f6b0606c6cc2e8a616a989fc8f80ca4fa3b6414a7aacbec673e1ac9f14c"
+  },
+  {
+    "id": "MF300-0044",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "d77c893f07e8f47946d3f4146d0e3de9ec9da76ea86d6e8725abfa2e6bab9b16"
+  },
+  {
+    "id": "MF300-0045",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "32f34e78520396e0278edc61acdc0dba803ad1cba2c665bd4bea3a472b811dc3"
+  },
+  {
+    "id": "MF300-0046",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "1cbb8a3886438e3b69b37b14910b260be0a4eb28af66d2e3096360d920cad3f6"
+  },
+  {
+    "id": "MF300-0047",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "d816bff082d8047c67ffb7a4192f8cc9b69b9dab77cd9fd09a1cb5a1e10b01c0"
+  },
+  {
+    "id": "MF300-0048",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "6f0012feab0b588d85d9824af515da7903180360941728a13baa439f1add44a1"
+  },
+  {
+    "id": "MF300-0049",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "fb90be4640f2c76d0a2a054150f66bb88e1bd5d46c8ef0ecac022d80bbf187fe"
+  },
+  {
+    "id": "MF300-0050",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "9e0fb35618af50bf3d922e4ae1d0251f8753819473d4c3ef4bbd27481eab9f2f"
+  },
+  {
+    "id": "MF300-0051",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "4c56d69113ccefc32ca74c7a4a409db8a36cc336868761a0f520e3e90f23d497"
+  },
+  {
+    "id": "MF300-0052",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "35c471b37a2b2592c93a80862b7d70b15d45bf21d89736218a62587fde93c837"
+  },
+  {
+    "id": "MF300-0053",
+    "labels": [],
+    "group_id": "B350:policy_discussion",
+    "split": "train",
+    "text_sha256": "10c71ce61bb507eb65efa7576eae00482019e1b364f0c75c66e56f85ff8beb8d"
+  },
+  {
+    "id": "MF300-0054",
+    "labels": [],
+    "group_id": "B350:dummy_number",
+    "split": "train",
+    "text_sha256": "55b86962b31b29cb8fe3383186f780150b3a6ad811eccff3958e359a6334155a"
+  },
+  {
+    "id": "MF300-0055",
+    "labels": [],
+    "group_id": "B350:normal_invoice",
+    "split": "train",
+    "text_sha256": "45ca7b186264bb78b84958e49b1a62ff2345a902c4204125a68381e7743f38c5"
+  },
+  {
+    "id": "MF300-0056",
+    "labels": [],
+    "group_id": "B350:fake_credential_training",
+    "split": "train",
+    "text_sha256": "867f0c868a2dea1d1da65e1022dbdc455c0097e9b4980b0e622f45d9b870fd2e"
+  },
+  {
+    "id": "MF300-0057",
+    "labels": [],
+    "group_id": "B350:public_pricing",
+    "split": "train",
+    "text_sha256": "00a7c51af6570c3fc9c64b3094a0f7842daa2f368668cbff8feb70265cda73bf"
+  },
+  {
+    "id": "MF300-0058",
+    "labels": [],
+    "group_id": "B350:phishing_training",
+    "split": "train",
+    "text_sha256": "3e82e32f8be7aa97589a4bfe963b47b2250db6ba212f22f5ac167df59d02be1c"
+  },
+  {
+    "id": "MF300-0059",
+    "labels": [],
+    "group_id": "B350:fictional_threat_quote",
+    "split": "train",
+    "text_sha256": "25706a64255f65eb7b7709f198faadd3d430f596f93d6c23a733536bbedb92ae"
+  },
+  {
+    "id": "MF300-0060",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "9da94e6ea5890aa61ac4c97cbd254ad8d3f51f65c487fb2bd8742fa5610c9ca6"
+  },
+  {
+    "id": "MF300-0061",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "0bf71b696e693b5a86e33b41f27a116f9cefe52c80825cf082f482802cf88d1e"
+  },
+  {
+    "id": "MF300-0062",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "b432c9d56fa7c80dedbdd7011b945ddf00959ff9db5ced17af884d1e47281ca1"
+  },
+  {
+    "id": "MF300-0063",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "65693a1a8a7b5571b9eea2e31d01bfd091249e5beca7d23524718a2587fb36f2"
+  },
+  {
+    "id": "MF300-0064",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "29175321e969fa552d6172e55b464383958fcde763cfbc7c2d9e8613caa6465b"
+  },
+  {
+    "id": "MF300-0065",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "16d1dd93246ece944bb2bc267446abb0ac01dd926ceb4df70285330540ebe7be"
+  },
+  {
+    "id": "MF300-0066",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "b61b7e328e0cf97f09c0d2cde74555fd9513f70c37b4d4c61060b20748366a94"
+  },
+  {
+    "id": "MF300-0067",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "b9dc99c724d091f81a4674d4d3c81e059128dde69cefc9466ad35f22e7092e65"
+  },
+  {
+    "id": "MF300-0068",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "5677e7b3b10307dd62514f3975509ffa0c215a467861bc3aa746d9c81f0297c5"
+  },
+  {
+    "id": "MF300-0069",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "41f89bcaca85d60881591da61da5f5f097a43a452ea6da1ef63dd363c927d6bc"
+  },
+  {
+    "id": "MF300-0070",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "43f61a0dcf5139f5f07c68c3dbe3361520916f127ccab38362ad792cd90d7e8a"
+  },
+  {
+    "id": "MF300-0071",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "7db93edc664be5039912fa9fd6d458984eb1b984c32e504c5736eb5b5812753d"
+  },
+  {
+    "id": "MF300-0072",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "63f1c9e144338106422d815971dc84e5867f371d66c53dd192f9d760be08ddc4"
+  },
+  {
+    "id": "MF300-0073",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "6080e97f885a9d599b8152a9468f26d483e24462ac5ff4149e512d5578529513"
+  },
+  {
+    "id": "MF300-0074",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "e5f9b293ce116d9a7716b2a6f4f1c951bca3aeaf71e96020d6f60e894e003630"
+  },
+  {
+    "id": "MF300-0075",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "daeece72391a183cbef2b28c447b841bf16e1fd0307373708be9b32f5fb5c1e0"
+  },
+  {
+    "id": "MF300-0076",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "aa47b78c9e8a3b20105efaa386577f59e3daec50c9894fdb78d81cbee5e29f42"
+  },
+  {
+    "id": "MF300-0077",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "0e4d69eeb883d58ec159796e5436fd81e130b944a6b00baca7e49add076a0e39"
+  },
+  {
+    "id": "MF300-0078",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "aacc1d75e9c02cb056e0dc01a99eadcda46ff2b524207b5cb4f251f34015c1b9"
+  },
+  {
+    "id": "MF300-0079",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "ea450fc6db5ba2f30d280a78ac23357f63d6371437da0077b26159786006d84c"
+  },
+  {
+    "id": "MF300-0080",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "83ad10a8244d1627c184521ec11ea1d9ff5a2770019959cac553775d57a8d5fe"
+  },
+  {
+    "id": "MF300-0081",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "b2225244b1362edea5b60a0f35d7372941f50f5da03582f726d74f7bd1d18542"
+  },
+  {
+    "id": "MF300-0082",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "df79e77731208f2a2d4f6ffe26dccba0288e1f334fac8bec4a8f8ca3f9437e28"
+  },
+  {
+    "id": "MF300-0083",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "461e3ae87052f81d534a3f7fe733e9ddb01adf77f3e154bcd145e1f86407bc9c"
+  },
+  {
+    "id": "MF300-0084",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "29df87b5c16c5e48ed843b0b0b2d09e8a36f2ca28aeaa8c7e576de62f33d1021"
+  },
+  {
+    "id": "MF300-0085",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "1121dcae2e857bae3ac719802ac2a26d566c3cf09424b8e0c5c11729bd0ef5a3"
+  },
+  {
+    "id": "MF300-0086",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "61c12b58ca13694275fd42b908842e3c5a1d4acab24b1870d025711e1c81826f"
+  },
+  {
+    "id": "MF300-0087",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "78c31cfe9e158a54ad8115782152ed32418210fd03d7d24b9ac8710f06bb0e07"
+  },
+  {
+    "id": "MF300-0088",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "e258e0f5b2ed4a081d2d8053094bafd805dadcb6255f3ad9147f029b1af2f318"
+  },
+  {
+    "id": "MF300-0089",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "a421e2835c50adcf5152352254f19c50c7f8dd712bbeb8ce9d83ecbc68aef9ec"
+  },
+  {
+    "id": "MF300-0090",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "e3d50bcfb85de223d963e75ec5f4cb02c148c077d88aa8033fa1800382225b8a"
+  },
+  {
+    "id": "MF300-0091",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "b99207f1339297be0ea40224b871b42eaea5aa318d52a83bef8318203a13bca0"
+  },
+  {
+    "id": "MF300-0092",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "103a0a585baa574bc31cc2e9820d9b2138288ed8cd60feeb739bc5f6ac1095d5"
+  },
+  {
+    "id": "MF300-0093",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "647230c54a1957d0e32f4164891b748cea0a01ae20232d8f6ec986c003c52231"
+  },
+  {
+    "id": "MF300-0094",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "e4ccdc899dcc8c425261beb84f2e7a19a2f6d0fe2bd9399ad95432c2b647d775"
+  },
+  {
+    "id": "MF300-0095",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "910fa149db41cd1d52b22aa0746e14db91baa4c65b6327bc03816ec9893dc493"
+  },
+  {
+    "id": "MF300-0096",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "199d23507266b9644510c51e7308220c0fe8249531a44c14534e685c348ebc07"
+  },
+  {
+    "id": "MF300-0097",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "ac5ec62de38da52fca10fa171a3d4685b4bbd62391a5f3182562f9878f604fbe"
+  },
+  {
+    "id": "MF300-0098",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "93eb1a2c9945baa3581e1003306b87da16d00e64a0c91df9dd4e266a402fc11d"
+  },
+  {
+    "id": "MF300-0099",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "f6fb41ebcdbf5f47a8d2f619f3483adceccb9a1033a4bb358916a1f26ce487fd"
+  },
+  {
+    "id": "MF300-0100",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "3c37ea6cf9415473bf3476909fa84f1fd66f3ff4814c994d8b227135106094b1"
+  },
+  {
+    "id": "MF300-0101",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "06b8ab8d7c55e80263d581e7ab7607815dc5790efe03918e830e9c2fdc0f0155"
+  },
+  {
+    "id": "MF300-0102",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "f8dca0873a83b374c7eed3d8966e498e882e17ae71448bf007bd5538628cbb44"
+  },
+  {
+    "id": "MF300-0103",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "29abfa6db8473147e6b18ecd0579e3df1833db2e59c2a25b05ffb8fc41318d3a"
+  },
+  {
+    "id": "MF300-0104",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "903b823fc2b3fdb7786a22f51f5a3f5af3fcba20bb7279b0ee45f532f004f7fd"
+  },
+  {
+    "id": "MF300-0105",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "6aa4ea010e6e49672d01fcc6b36b740c75914c2a62d514e8873f5e524b6f9026"
+  },
+  {
+    "id": "MF300-0106",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "d9feef60ad5ba4d9c6e07e5daecd797ea88fe495912012ec5fe142440faa682e"
+  },
+  {
+    "id": "MF300-0107",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "b2da86b58e49a4b712882534acc2f683333f510a28c8b8577bad7c629c046658"
+  },
+  {
+    "id": "MF300-0108",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "753b273b20df1d8abf05ee3ec1dd91c71d6348dcc325b210d2c389d8a097fd56"
+  },
+  {
+    "id": "MF300-0109",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "8a3e6cd7e7c1217527eae1c74fbafc0fcf4319004031f84817f5244fd41f8e40"
+  },
+  {
+    "id": "MF300-0110",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "98dfd2208bd641eac280f3816c34056b4b0b4956e55dc3934fdd03c0919cef23"
+  },
+  {
+    "id": "MF300-0111",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "8099288695a3cb6bdb65a0518371c474527ddab034bea938485507bfe68bd275"
+  },
+  {
+    "id": "MF300-0112",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "fc177d882a4b8d096e66a15355e633c86516cb4205376538756f35ab1d684ea5"
+  },
+  {
+    "id": "MF300-0113",
+    "labels": [],
+    "group_id": "B350:passport_russian",
+    "split": "train",
+    "text_sha256": "d51cc181696b538da83be98ca24b4e8db48b821e61e31b5782b32460d36ab0f8"
+  },
+  {
+    "id": "MF300-0114",
+    "labels": [],
+    "group_id": "B350:snils_card",
+    "split": "train",
+    "text_sha256": "3a6335453267d8af19a88b1bc228d70ed6ada423a2933f1f71c4546b447ed457"
+  },
+  {
+    "id": "MF300-0115",
+    "labels": [],
+    "group_id": "B350:inn_certificate",
+    "split": "train",
+    "text_sha256": "f4556ec4eec588c5519ae71a65b7c4589cbdf845245144b6e1c38df7e174cf4f"
+  },
+  {
+    "id": "MF300-0116",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "f25751bc8695680203dffdd62b459cc1e08ba823c55b3e3464a0c79435cbd02d"
+  },
+  {
+    "id": "MF300-0117",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "a7b0fcc331e2da0b9c08b1defa8955968078bc6fbd611c75be689397d0d1a21b"
+  },
+  {
+    "id": "MF300-0118",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "c0986a06adbea52697cdc34cb4eb57e43e4a50529d2d78f999f5760c1c2dc4c8"
+  },
+  {
+    "id": "MF300-0119",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "3e859e3dd74231a6b96f9817908cc651657448d35d0f34f6c96442811085caa8"
+  },
+  {
+    "id": "MF300-0120",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "e0cc3c59d04ac93b6c7e6bdafddafb6b6520994094f2edce51f9ba2444ffc7b3"
+  },
+  {
+    "id": "MF300-0121",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "545065bf80be0239af63e83317a97816ab447ddb231d63fcd132a9902b28dfc5"
+  },
+  {
+    "id": "MF300-0122",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "ebbbe4a812b23c8e94bfb7659def29392352ad4f8dd0c7a451ff2aa8942763bf"
+  },
+  {
+    "id": "MF300-0123",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "f470904958acae25c6b06345e8a316d2c6d0a9e2f7dc5f7906ed5b2cb4fce03e"
+  },
+  {
+    "id": "MF300-0124",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "309be87819a97dfa310d83edcf31398573ef0122e6709ed75d7413e61aedc300"
+  },
+  {
+    "id": "MF300-0125",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "b47a2aeae9cc309e6a1d80bb5348fc5756a09a844f49d7202c4b762ad358ca54"
+  },
+  {
+    "id": "MF300-0126",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "5a10c3e026e2f4c6b8cf3cea1937f9e62ae7312023216c043b27c35da3097228"
+  },
+  {
+    "id": "MF300-0127",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "ea9026789c501a9211828c3d6265d8d19fa33ee3c9cd7f00c656713af3cb28d8"
+  },
+  {
+    "id": "MF300-0128",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "0be9e9c63dc8d4d70d6d0dd8e66c619b96903351fa9fa1cfa3b3d7784f177ad2"
+  },
+  {
+    "id": "MF300-0129",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "e51cae8f0abb95d133a28d041ee4f72f7f77ff7f48afd8cb3daf4fce1f476db3"
+  },
+  {
+    "id": "MF300-0130",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "d30e015d5b0981112a282099670b63f324b288c0d42e17812391beb8735edad5"
+  },
+  {
+    "id": "MF300-0131",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "bfbab3eba97aeafaad6383c750fd824411149bb449afa4574639565657a4bff2"
+  },
+  {
+    "id": "MF300-0132",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "8df27510e758d0469d29722f3f24ba13668e3963abe4f40219f4b3a6513361fe"
+  },
+  {
+    "id": "MF300-0133",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "d1138dea4de56360e59b449af2146fa14bea8e276be0b4b01fd45bdd750b8dc8"
+  },
+  {
+    "id": "MF300-0134",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "723705ccdac70904c1aaeac42c4619452f88e4ceed35cc95e9852a49a6702404"
+  },
+  {
+    "id": "MF300-0135",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "0cd0afb9b31cfc0eb34d8deb50ac59e3863ef349687b6de2d4b1ee8a949b1909"
+  },
+  {
+    "id": "MF300-0136",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "51ada902fac34770a5c53c42914eef94416ee09a385e562eb7bd9070ad11fcc3"
+  },
+  {
+    "id": "MF300-0137",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "d32c86594ad3f6284abbc8484ef53b2d3ca18ec5dbdb386f08930a5d8c9921f5"
+  },
+  {
+    "id": "MF300-0138",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "74e1121c3d6450d7b78743a78034bff7fc8c18aad751711c7b723e67ff624bb7"
+  },
+  {
+    "id": "MF300-0139",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "d943be7baef7f237cfe2a9ff21b927f62f6c3b2f5ab162b03bef5e980b4e1812"
+  },
+  {
+    "id": "MF300-0140",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "8811476fe8659043358c7d1b5ce8d093b5764af9a17cb713ce393e5cc8cb086c"
+  },
+  {
+    "id": "MF300-0141",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "164fbb02433efd09c88d6c448017773b417b15ee8ab1aeafaa8558e98c9a06ac"
+  },
+  {
+    "id": "MF300-0142",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "848c138f500e822a728f0bbd1612468134023aad6a0034bac312d6a6512e8d28"
+  },
+  {
+    "id": "MF300-0143",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "7999a7fee61d93171b7ae6b4ba314270453c179c123ae6c436950a1afb673b70"
+  },
+  {
+    "id": "MF300-0144",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "c85a04f3aafcc81c26605244ba0f7033c7e89dd92ec7fce51979968065b1529c"
+  },
+  {
+    "id": "MF300-0145",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "6b4134da4313f279516db164191e79f3cf6a5bd1be7dacd9361a139c9091e608"
+  },
+  {
+    "id": "MF300-0146",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "31c896cd67e40b0637bbfb87204c4404b146b966baf86be22c93c0dff6ec45cc"
+  },
+  {
+    "id": "MF300-0147",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "3e416549d359f0c16abb524ae7d8984e506c3ecb5ffdab9700efcc6771967c33"
+  },
+  {
+    "id": "MF300-0148",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "501a9d7e97f42a7760398c107efb78ad610ee3e13306e33a73f674314f45671d"
+  },
+  {
+    "id": "MF300-0149",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "577b72f0ab0656523f9c3bce1ccd22fc34f4de669a8b60877d200bae2a18af5c"
+  },
+  {
+    "id": "MF300-0150",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "d838210993eae5241126f62587acd1b3aba250272cef76a55c630a0232d31e8a"
+  },
+  {
+    "id": "MF300-0151",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "56d6212198071fcfa666409bf5cdabaec18f753f184f0ab0dd37670a13366070"
+  },
+  {
+    "id": "MF300-0152",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "f49b233c728eb59bdd155aafac4ff4ad84231a159ee332fdd919fd4bab62aea1"
+  },
+  {
+    "id": "MF300-0153",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "c19d00931ac5705fe882445eec44c77b4245841cb0e7eca09e3aff81b14f61ea"
+  },
+  {
+    "id": "MF300-0154",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "fedfb66dd073f5656f62f2db4941bd7e9e6421bbf0b44bdd8a356fd6de42b187"
+  },
+  {
+    "id": "MF300-0155",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "ad496de729957ac6aeaf7117b1631ecf4cde2d3b53b881aea220a4dba9b55992"
+  },
+  {
+    "id": "MF300-0156",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "7ecb08394931c4bdf108a9bfc92ac0514fd6d0ce29ebbec677b6fa40e9f79e21"
+  },
+  {
+    "id": "MF300-0157",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "8cfddaaa33f34a11d1d153e1b0fd5ec204ae7c485d85a598344b6c7344061edf"
+  },
+  {
+    "id": "MF300-0158",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "c0128496eefe4761fc570f80fcc9b3ac8d7953474186a48df9f82b20ae4f6756"
+  },
+  {
+    "id": "MF300-0159",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "12566e93ddd9938fc6c89dd02559c8d42e0841c83c798355bc017f2cb9e8892f"
+  },
+  {
+    "id": "MF300-0160",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "e9b2682fa86eb660b6b0a7fcfaa9a62080b33e54487e4f9fbd80bac6a58db233"
+  },
+  {
+    "id": "MF300-0161",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "fb8d892422c2c04a2df1dd84287cb2181f65ea9c574f6967fcff25cfda6b1716"
+  },
+  {
+    "id": "MF300-0162",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "167ba98d5778a5ce6e06d6aea13f33ea3ead8d17b548664b92d73ef1b22ddb6e"
+  },
+  {
+    "id": "MF300-0163",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "1b363dc06995d9574bf3153f402aa8be104a9e7958d0dc03b708272d0cf6a4b5"
+  },
+  {
+    "id": "MF300-0164",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "548244a5b770b539b28c06313d8bc06e3481bfeca39d637f3e853d6bd1ca3e81"
+  },
+  {
+    "id": "MF300-0165",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "e179f01a16453e6f5846649202327c386f08d808bbbb57ef53e46346138bb997"
+  },
+  {
+    "id": "MF300-0166",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:financial_forecast",
+    "split": "test",
+    "text_sha256": "f1f27dc1a88757810ad43726af329a8f70b4991ae31c088a1d5882ce2df4bd05"
+  },
+  {
+    "id": "MF300-0167",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:internal_budget",
+    "split": "train",
+    "text_sha256": "a902af408cd7aa9a1f23098fa5a500df2fa44525617dcfba6f12d21693fd6894"
+  },
+  {
+    "id": "MF300-0168",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:restricted_pricing",
+    "split": "train",
+    "text_sha256": "907c9d19cebf865ef8a09874a5c69899d1d580b7f63f380c5bf96d5e6f448d76"
+  },
+  {
+    "id": "MF300-0169",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:cost_margin",
+    "split": "validation",
+    "text_sha256": "a1bfdbce98ec57c6ee0a2995fd389d2d7b53ed6178b630678d06cffb86a15478"
+  },
+  {
+    "id": "MF300-0170",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:restricted_doc",
+    "split": "validation",
+    "text_sha256": "68b9d83673f2e390dff5a9eba859b718287b80891aef90e51b02ee6f8379ca6d"
+  },
+  {
+    "id": "MF300-0171",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "4f6191f24be84a1b02a8454ea5c37abb87e5fd83766aa032f71f07bf87c3f5b5"
+  },
+  {
+    "id": "MF300-0172",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "f72c91f8980a3de4b347e0485e8c24fe71d52074a2fce6a47c574af7a52e8804"
+  },
+  {
+    "id": "MF300-0173",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "ae2557da29f9c37949f8f7a81e4efcb87e1d45b8d6e93e3aedc7df4b71dedea5"
+  },
+  {
+    "id": "MF300-0174",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "5dc3433be06ed633d5a6faf0cc0805410b7dae0b4aeca6e22f3068d91136938f"
+  },
+  {
+    "id": "MF300-0175",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "5406e71bd0b3a8ee9a2806bca55936e1cee0bf92557f487b809aab521a07b5c7"
+  },
+  {
+    "id": "MF300-0176",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "3c845311f210428e4625c6ada912c05b392ddd8fb46cc8f8bd584b6d737a27ac"
+  },
+  {
+    "id": "MF300-0177",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "7675e244ea4bdabfaa090340d8200bb5a2aeb56882a1356ca77d86eefa1f6ff4"
+  },
+  {
+    "id": "MF300-0178",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "9052e2e955630bda6a2af6e78d384c2b91071ef45c7a14f752e13e741ebf38c7"
+  },
+  {
+    "id": "MF300-0179",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "aee481b5814cd718942d3e73beba7672ffc1b7bd7a0555efcd590b0cffc3d2e0"
+  },
+  {
+    "id": "MF300-0180",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "21f21555e8d9aaf3fd0938a3de4e9194c3ff5d6b584e3c53fa92b55399bf932b"
+  },
+  {
+    "id": "MF300-0181",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "354177557817e6d80848c26cd1c827de6f872594d9186ceae500beeb2f311ed9"
+  },
+  {
+    "id": "MF300-0182",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "fd18d4353ba5cbee338ae81a67d3768d676e5ec90b3560cae9e41b8218fda72d"
+  },
+  {
+    "id": "MF300-0183",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "ec2e0b8ea355bd11e923c02d897a43994b8615d5fd8ca96cbb4ecf7cde9b731f"
+  },
+  {
+    "id": "MF300-0184",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "1b3251bdb6b2f82afa4c7d055365abb32afa8cb465c2ef1fdf57c42f3b1591b8"
+  },
+  {
+    "id": "MF300-0185",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "0bb73a74f2db96b3169caf55d85b5b38533dbf8ed6fc0df433b6d4c4374a5609"
+  },
+  {
+    "id": "MF300-0186",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "c5d4e27b2b7594856e45edbb9137f1d530894b627bdb98dfd1c8510954924f31"
+  },
+  {
+    "id": "MF300-0187",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "69a939f36c5e4d900830c7ccef7f586f6d4fc7b88bbe430d04c8ecebe204d8e8"
+  },
+  {
+    "id": "MF300-0188",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "85e3e8f39a60018d7b44e89b9a549a2ad130fdc1ce76e404cdb49561bc443f1a"
+  },
+  {
+    "id": "MF300-0189",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "9094a0e633b10b670fe0d91aeb29efea33edfbbfca660a5256da34ff317ff07d"
+  },
+  {
+    "id": "MF300-0190",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "a129d04f2aeea57040cec3a751701c1ffbc9669f53feac5dbbc4561b4cfa1f1c"
+  },
+  {
+    "id": "MF300-0191",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "852e571c1de853944d7a24467207c84e974e5afd7a77dafae8e0ec9bf2899f88"
+  },
+  {
+    "id": "MF300-0192",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "13ed6e4b8698d958b820080dbff24b1b8161868c9435b920a57f94780b011565"
+  },
+  {
+    "id": "MF300-0193",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "8ec09eee87a76202b027c2cbc0a99190a716f1af7be4cdafed457f6b6ef3ed06"
+  },
+  {
+    "id": "MF300-0194",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "ec4b8dabbbf966231cd70a1251b20fab767df1a2a5ebb4dcb4d7928a408d9bf6"
+  },
+  {
+    "id": "MF300-0195",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "78331e4cc02be50cc253adf7817fb88b86888268c451c4ad08eee86b59b4142d"
+  },
+  {
+    "id": "MF300-0196",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "2d088e922b4420d6eb8f972af55956826d1e151d5c0d133a02a773e697da5491"
+  },
+  {
+    "id": "MF300-0197",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "1cccc33a8082fd50178d339ede222127b287f4d8dce8300c35771bcf11d69754"
+  },
+  {
+    "id": "MF300-0198",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "cc1e8e29466f3b707ee00f58184e6f27340bfe69e257c487c5c5f412691a8200"
+  },
+  {
+    "id": "MF300-0199",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "16ef165426730dc9495d64fe660c6aa18f62250b1429050109915b70d10dcbf0"
+  },
+  {
+    "id": "MF300-0200",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "a3e2eea5f0ce60ba8fe4ba29cac5b033f9b85d2b0e9f61867b7dc27a5e126ac6"
+  },
+  {
+    "id": "MF300-0201",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "c516e5571a79e2588b4ec0445eb6503aed17d646b37db3e639659e1306c72b58"
+  },
+  {
+    "id": "MF300-0202",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "175fae314b791aa074731ff7e381059bdaa0071b589bf50338ccf9423e6869a6"
+  },
+  {
+    "id": "MF300-0203",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "49e4a482455312242b3e4d76b4f822e0048e314a50bc39443b094c3185d05921"
+  },
+  {
+    "id": "MF300-0204",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "bc06210a9702ba17b32897ecbefe3ef3a38a7ae48dacc54354df0c923004c857"
+  },
+  {
+    "id": "MF300-0205",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "af70869373afa4e8dde18f71dde13f1e48eeac8f3dec95a47351522c1d0512b8"
+  },
+  {
+    "id": "MF300-0206",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "bad43c0caebbe166fa82de0e105389262b8c463eacc800347ada4d7e85d7525f"
+  },
+  {
+    "id": "MF300-0207",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "405049a640d7723a33ea217cac23ba6487ac21cb4dfabae5e48f297fb25f3c53"
+  },
+  {
+    "id": "MF300-0208",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "5af5f9dd6ef61d5d2cbae6e91d44ad423b15fc6bb1688975b744ba341f373041"
+  },
+  {
+    "id": "MF300-0209",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "d3009bad1ddc431e4b488796a35d1b7a71fe5ad3a9eba01c44aee19e7492221c"
+  },
+  {
+    "id": "MF300-0210",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "862f74909f313f69aec88d52444a296355b017bd648e48ab545f75c543079cd3"
+  },
+  {
+    "id": "MF300-0211",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "48d627e8cb2dd434e6c3cd620ad5228e897f820c6e587cb343aaf35718e67cb1"
+  },
+  {
+    "id": "MF300-0212",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_threat",
+    "split": "train",
+    "text_sha256": "aadee6b4ab32a76e422e29e5121306890898f1917521e8812dd0f281fc14d29c"
+  },
+  {
+    "id": "MF300-0213",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "d98927221febe7ec7f563dcdd9e63c510ee889e74b6455363ab3d083bb526cb0"
+  },
+  {
+    "id": "MF300-0214",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:it_sabotage",
+    "split": "validation",
+    "text_sha256": "6cc6292ea6ba16e2986b0a5e54ca9891fab24e35e153f11aede775d89ee2d24a"
+  },
+  {
+    "id": "MF300-0215",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:explosive_threat",
+    "split": "test",
+    "text_sha256": "fd9c78d392cf2c9519304e8ffa562ee83124b39baf5135e3347ac8ee6ef8061f"
+  },
+  {
+    "id": "MF300-0216",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "c6a5631995a4dd96d9b145da501529121fb1b9b6f07cb430e7e44c810b90815f"
+  },
+  {
+    "id": "MF300-0217",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "93b36f8f73fa77306b0853f79af00da85183b46036c1fdbe52d39e92d24bfe46"
+  },
+  {
+    "id": "MF300-0218",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "602555268d0f7f927017bbbce7082bba19a139209fd789933767e7b19a46d843"
+  },
+  {
+    "id": "MF300-0219",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "dd2da5b72ad2f00fe534253594be74bdff22cb87252f6e8259bd5e2326ec6b8d"
+  },
+  {
+    "id": "MF300-0220",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "424c99b1fbb289dbfdfbaef2be9936d437817cf54f42969691562b606084b18a"
+  },
+  {
+    "id": "MF300-0221",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "3dd02587ee79bcdf3f1bf2661d033e0c90f48b45597ef110055e6e27858e3480"
+  },
+  {
+    "id": "MF300-0222",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "8077072c3bc40d635ea3e7ed73257b7928217fb8f0bc698ac8d78113688f4007"
+  },
+  {
+    "id": "MF300-0223",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "4579fe5479c087d00287990ed6cefa568c8977bda4da9aa077c8fe5515fe014a"
+  },
+  {
+    "id": "MF300-0224",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "8326b9642cf6d20afc5e4cf3f0b3cb2ee358de60ddb09af3a73c9e39f2d0e87d"
+  },
+  {
+    "id": "MF300-0225",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "7038e9044b016061ed4f7f046a3f80aa870b6a6e564028d6a5306fa7075bc0b8"
+  },
+  {
+    "id": "MF300-0226",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "b1160d31d553422cdc9c3c120095b961c7a7042c8320d9bbf55c090318e77d4d"
+  },
+  {
+    "id": "MF300-0227",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "6864302ddce9abed8773b8c7106c844fe1d5e807333cecd1dc112ef85734bb47"
+  },
+  {
+    "id": "MF300-0228",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "dc93722b4a238048e95bbc2770de8fbdb4d5516b3e5b1f1f27efdbfa044453c3"
+  },
+  {
+    "id": "MF300-0229",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "df36a6aa5360c67eda41d9e1422324d58dc837a189285f70df6d30a4c795c795"
+  },
+  {
+    "id": "MF300-0230",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "b7d7a1bf262d9b39bf468ce55eb2a68c392cfb2ca85c1c88410f48049b3c9ba8"
+  },
+  {
+    "id": "MF300-0231",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "bedce6cbd14b401232361636ad06cc18537089c95fa8c7fd26f6f13ad8bfee6f"
+  },
+  {
+    "id": "MF300-0232",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "262ee85a2c7008a4865ae64a7085df27625ed227dde1ecdfffe62a101b7599e2"
+  },
+  {
+    "id": "MF300-0233",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "535594416200d16a30cbb857328a326eb98b4445d21748cc80a0849116eff2f7"
+  },
+  {
+    "id": "MF300-0234",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "d84cb508dd03fa7c7446186525c6d6fa35287b30a8ca390c6b0df7a1495a0e12"
+  },
+  {
+    "id": "MF300-0235",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "3895afefdaa9ef66568c2cbb929813ad0ad7a90ec96207792e2979449c4214c8"
+  },
+  {
+    "id": "MF300-0236",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "8043f92a9f03cce6e1c4e9890ae12be32e3ca2a801e3a0d136646d7689b8c7c2"
+  },
+  {
+    "id": "MF300-0237",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "905ffcb0619836873f9a27de464067a1c34180c948441134aed00b602bc93786"
+  },
+  {
+    "id": "MF300-0238",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "e9ba716b86a5f0b27e6c589d1d0941e86bb3d6e61b3d1e3a13c18fec35fba098"
+  },
+  {
+    "id": "MF300-0239",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "3f2be2a5ad0acd04fa320c6b0b65c336c111f9d4b0ecbb89638fc2b7543dbeb2"
+  },
+  {
+    "id": "MF300-0240",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "f965aa52618aab0ab9b6d507666587db273b78fe0e4e5b2af8008b5c8db0b38d"
+  },
+  {
+    "id": "MF300-0241",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "3c7550fe843301eb7a4d3e08d0fd1710d25614e319af32497eedbcd5c92a2ca3"
+  },
+  {
+    "id": "MF300-0242",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "7e82a04cad72bf92af904464fd028860ec9139c3d20dd6abcfcfc28aba302945"
+  },
+  {
+    "id": "MF300-0243",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "821141494d3beca170669bf92e4a317ef6e5b1c436affd074ee321935db30731"
+  },
+  {
+    "id": "MF300-0244",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "3575ec96b745c6eb27b65979622a5a3c8bff69e2dc73ea1194952dbdf2368e60"
+  },
+  {
+    "id": "MF300-0245",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "220bccda688cb118209585400c9dbac8293e22c56e7238e1d22237ffc9be0bbe"
+  },
+  {
+    "id": "MF300-0246",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "59259f0512423a96b3c365333b47a8cf7f3191057eb29b8550f8ef4a1dcf449a"
+  },
+  {
+    "id": "MF300-0247",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "28e239254d9dcdfa33a38e76059c7be642e0c26bee98c46ce84797092e2bfd2f"
+  },
+  {
+    "id": "MF300-0248",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "927f10f7e0e239e7ab78d6fc4c2948cb03e7501eecdde3df712ecd0aecf9a627"
+  },
+  {
+    "id": "MF300-0249",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "9d691c9ad06c54635f73d1ad70553439931baedaac1fb4ffb69b5fc7485471f0"
+  },
+  {
+    "id": "MF300-0250",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "bacc19790c6a87a3a9ab14e1cac54e4ee539c84afadf15c79eb018e7f06b328f"
+  },
+  {
+    "id": "MF300-0251",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "899d84e5d7707ba7e3da14e379e2a469f772deb643e0d2065fcc511c8695a9fe"
+  },
+  {
+    "id": "MF300-0252",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_account",
+    "split": "train",
+    "text_sha256": "601380693c0b52a67fb4648c63820b1b2d42dcf9977f1b863f1db80a2cd79b31"
+  },
+  {
+    "id": "MF300-0253",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phishing_otp",
+    "split": "test",
+    "text_sha256": "427e998b5292c692e2726c63d0028867e5fd88735cdbc837cda14d712d9d0fdf"
+  },
+  {
+    "id": "MF300-0254",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:credential_transfer",
+    "split": "validation",
+    "text_sha256": "1b827ec11eed248b1ba6ca43dd4f842a529b956406a99d36a72d732493f198d4"
+  },
+  {
+    "id": "MF300-0255",
+    "labels": [],
+    "group_id": "B350:secret_leak",
+    "split": "validation",
+    "text_sha256": "eeff32975217548092c08398f5f4681c5178f2fcec82084ae46f8058672935dd"
+  },
+  {
+    "id": "MF300-0256",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "e856f99fdfb225d06344bc0a068fc83dc1f4fd8713c140c5ac68178663791c64"
+  },
+  {
+    "id": "MF300-0257",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "2ffbb1c05a256a0c52cd7af6b6d11e5770ff198d6adc51369615f0931efad7df"
+  },
+  {
+    "id": "MF300-0258",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "52da48ec6af8974859649e213832c65a75924de752a05795c00d66f6cadd0cd9"
+  },
+  {
+    "id": "MF300-0259",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "620a6573450179c308b425da07741d3f35d62b96a3e850a87a5db3f515af6205"
+  },
+  {
+    "id": "MF300-0260",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "7c3dc322f6b49599e7661b0bd6a647a67e96d7a942299424e37aca633f9fe86d"
+  },
+  {
+    "id": "MF300-0261",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "a817f552ddcbc7e2f712dda3a540ffb24f8a323a3d072c20423b2046e189fde9"
+  },
+  {
+    "id": "MF300-0262",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "c5f595a17ffb36522abed71f187fbdb879ab94929cb2a71fc6f9467a256df6fe"
+  },
+  {
+    "id": "MF300-0263",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "4310b6d5f9b1d8f9154852a8e66773c70fa8460c87ae99fa75b864ae509330e6"
+  },
+  {
+    "id": "MF300-0264",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "7caf161130bf84ab398c12d3cd1e21fe7f259cd64f7ca601cb6df97c324a3c63"
+  },
+  {
+    "id": "MF300-0265",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "47a0abf0cee0894d885e277f5463879c5ec77022631e6b26993ba4e6e15e8b92"
+  },
+  {
+    "id": "MF300-0266",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "0923d25a101ba457b780cf89fa1f3e6741cfeb5c4f253bf041b0f8d431bc4087"
+  },
+  {
+    "id": "MF300-0267",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "d4a8e5f0946b745b185e25e2df2a34a960c3a7a9f02f9c1eebdeaa1a874dfc30"
+  },
+  {
+    "id": "MF300-0268",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "925d9996cffd567e1b4bc79f4bcbd986320c344da66d22a10ca8e8709f2d9966"
+  },
+  {
+    "id": "MF300-0269",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "77dda747d803ac6af26dfba056d9f9c1c4df8e6e48be6f60c07c028d2db42211"
+  },
+  {
+    "id": "MF300-0270",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "7de0d3d9995f2efee57cac51dc572248231bc2f212cefeed659233bf94b4120c"
+  },
+  {
+    "id": "MF300-0271",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "687cd7a27d49dbcb2c00d05fecc63e11ec2043781f83bff2b3ae6f020d2f0c04"
+  },
+  {
+    "id": "MF300-0272",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "c0a12e4679858eedbacf769f06d61d40c59f71ee7cb1f2eae580f6dcedbb935b"
+  },
+  {
+    "id": "MF300-0273",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "a132f9c4d6ad9d19bb3624306276390ee2a1eaa1e429e7df2f35a4aa9980bc26"
+  },
+  {
+    "id": "MF300-0274",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "853f5c04280aa8e1a12005ff0e9e09b48dfd3db5d7418843a9897c2cdc10670e"
+  },
+  {
+    "id": "MF300-0275",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "d0fc4878aa07b5cdb700ad0be75af1a01000bf7d7de540cb55a355420fa1afa0"
+  },
+  {
+    "id": "MF300-0276",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "367caefdafa4acfad5a791f4d4d357fa6c2d7a8ffacdd51f96c579edda03a8ac"
+  },
+  {
+    "id": "MF300-0277",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "c2ae0ce996ca915f18b8c2980140a6d99bcb454ccb454b60f37890b91ac9c08a"
+  },
+  {
+    "id": "MF300-0278",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "b5360a033b2cb0107ed625ddd5ab48294251101fab063bd55067232aabb94ac3"
+  },
+  {
+    "id": "MF300-0279",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:document_exfiltration",
+    "split": "validation",
+    "text_sha256": "c106bfbbeed41e32861b13fc967dcd49f79bed6aa47be89eca43f882f3bea6b7"
+  },
+  {
+    "id": "MF300-0280",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:customer_database_export",
+    "split": "train",
+    "text_sha256": "3ec6702dbfc995991617952eac14da8021c38188fcbc10793bb0e78560af1a92"
+  },
+  {
+    "id": "MF300-0281",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:mixed_forecast_credentials",
+    "split": "test",
+    "text_sha256": "c9a2e3ad5b705c060b5fb801a3254f789668a72fb3a7d74663ae6f12c18ab2b3"
+  },
+  {
+    "id": "MF300-0282",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:mixed_customer_price",
+    "split": "train",
+    "text_sha256": "e2a9755335f6e9317613d73fbcbbf98531b12ccadc2dfae956d07844c3d20c6d"
+  },
+  {
+    "id": "MF300-0283",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:mixed_exfil_internal",
+    "split": "validation",
+    "text_sha256": "7a93804c85afc3ab1437afee0fff68a27764aea25a2c4880f1b7e83ae2204b1f"
+  },
+  {
+    "id": "MF300-0284",
+    "labels": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:mixed_finance_pii",
+    "split": "test",
+    "text_sha256": "76c4202b9529baa3b251b2c0c72e1ee3ba76f6b4681a38bebbd093ba893cbc78"
+  },
+  {
+    "id": "MF300-0285",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:mixed_forecast_credentials",
+    "split": "test",
+    "text_sha256": "6669773eac31ce9a21a5b3448572bf40e2505ee17afaa70b8b05bbcf4d7975d1"
+  },
+  {
+    "id": "MF300-0286",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:mixed_customer_price",
+    "split": "train",
+    "text_sha256": "1c6f90e2c6fb96aea523badf96d91deb198dbe172457592d792a8fd5b5e2503a"
+  },
+  {
+    "id": "MF300-0287",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:mixed_exfil_internal",
+    "split": "validation",
+    "text_sha256": "09480a80478f7c6ed57f1cbed50ed401c4277af3fe777d8f722da3a60313e2e2"
+  },
+  {
+    "id": "MF300-0288",
+    "labels": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:mixed_finance_pii",
+    "split": "test",
+    "text_sha256": "9b034087810c6667721ccbfdc1daa82b565ec7a9cf585d86af070d721150f003"
+  },
+  {
+    "id": "MF300-0289",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:mixed_forecast_credentials",
+    "split": "test",
+    "text_sha256": "44dbbee649b7a32b845895556a69d8678c9d3dd14f05648d123e24eed1e0a551"
+  },
+  {
+    "id": "MF300-0290",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:mixed_customer_price",
+    "split": "train",
+    "text_sha256": "96a89799ccef60211947f2466e4b38a5ab8c1ef7f158f4d99c2ec5c34eac8959"
+  },
+  {
+    "id": "MF300-0291",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:mixed_exfil_internal",
+    "split": "validation",
+    "text_sha256": "8ff78880954fed63c46dc82a7c2fe96d84ea301e23d5f32b6b652787e121c683"
+  },
+  {
+    "id": "MF300-0292",
+    "labels": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:mixed_finance_pii",
+    "split": "test",
+    "text_sha256": "cca431d036ec30069fc5697a83d6a73c6bedd6e9ea1b0bc02556fc63f5d7a04f"
+  },
+  {
+    "id": "MF300-0293",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:mixed_forecast_credentials",
+    "split": "test",
+    "text_sha256": "1e92040c1dba0991637368066536aa0d8e616925ccce340ee9ce2ab2aca5f41b"
+  },
+  {
+    "id": "MF300-0294",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:mixed_customer_price",
+    "split": "train",
+    "text_sha256": "043db6fe5a682c4ab6b540ccefcd215af588c114c7c9b7fc4ff116b9b105b808"
+  },
+  {
+    "id": "MF300-0295",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:mixed_exfil_internal",
+    "split": "validation",
+    "text_sha256": "35b54d3318c15b34d001822c5f5541122229ac37c9b58046bb2d64e89273ab61"
+  },
+  {
+    "id": "MF300-0296",
+    "labels": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:mixed_finance_pii",
+    "split": "test",
+    "text_sha256": "92c34912dfcd42a847e147e3bd35d3d7db919cbf2297ea096eb6edfa6680e603"
+  },
+  {
+    "id": "MF300-0297",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:mixed_forecast_credentials",
+    "split": "test",
+    "text_sha256": "09854d82d6e8e6f32350d191fcf24426989bcead8acaa479492aeaf23bfda934"
+  },
+  {
+    "id": "MF300-0298",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:mixed_customer_price",
+    "split": "train",
+    "text_sha256": "94dddb3081e332e0defa9c47a16ad70cc54cda47a212b7a7ad9b58b17d1c825e"
+  },
+  {
+    "id": "MF300-0299",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:mixed_exfil_internal",
+    "split": "validation",
+    "text_sha256": "49b5b7fb78ece9618b1a5cb058b3c25cc2a302276a35c546443245526b110122"
+  },
+  {
+    "id": "MF300-0300",
+    "labels": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:mixed_finance_pii",
+    "split": "test",
+    "text_sha256": "7d4933edd2c0cded52a1ee165e22d38e45622fa333f1b150cd8bd04e4c79ee0c"
+  },
+  {
+    "id": "MF350-0301",
+    "labels": [],
+    "group_id": "B350:public_event",
+    "split": "test",
+    "text_sha256": "32c78c54a5fcfeafcf86c412aef0f5f697c97575558f2e852fb96aef311a5227"
+  },
+  {
+    "id": "MF350-0302",
+    "labels": [],
+    "group_id": "B350:fictional_quote",
+    "split": "test",
+    "text_sha256": "aeeabf1825dd3e1c017e04f45cbb6170f651e5ffc759b5700ff0fb90b1f01a8b"
+  },
+  {
+    "id": "MF350-0303",
+    "labels": [],
+    "group_id": "B350:training_key",
+    "split": "test",
+    "text_sha256": "18cd043e9b9b9463a947d897ac277b392fcabc3d34e6e11cb9950617f06e81fc"
+  },
+  {
+    "id": "MF350-0304",
+    "labels": [],
+    "group_id": "B350:public_budget",
+    "split": "test",
+    "text_sha256": "cb37be311768d0366f9c9aba1d5e6ce9b57e58de79681149458e0a3db58d69d1"
+  },
+  {
+    "id": "MF350-0305",
+    "labels": [],
+    "group_id": "B350:meeting",
+    "split": "train",
+    "text_sha256": "bbe97d6b6bc31b56990225c5a371fbd5407d12d93da859db7977ed9e0c6c8da1"
+  },
+  {
+    "id": "MF350-0306",
+    "labels": [],
+    "group_id": "B350:fake_number",
+    "split": "train",
+    "text_sha256": "e405aa1c1ef5e6003ac89dfc0b46fdb3eb6228d7e0da8c3a8124cdfbeb9aa5ca"
+  },
+  {
+    "id": "MF350-0307",
+    "labels": [],
+    "group_id": "B350:news_quote",
+    "split": "train",
+    "text_sha256": "a11f5befafcf645d07222bae1ca52895b0b18d3c47edf4cc142e822d74c809cf"
+  },
+  {
+    "id": "MF350-0308",
+    "labels": [],
+    "group_id": "B350:public_offer",
+    "split": "train",
+    "text_sha256": "9816d80c84eb6dee79451bfc05e8b2156dbffb641e937ab059d1b7c40c5f67c5"
+  },
+  {
+    "id": "MF350-0309",
+    "labels": [],
+    "group_id": "B350:public_png",
+    "split": "train",
+    "text_sha256": "005e4881ed94e5100391fd5bb25ac8304763cdcefa85bc9b369054031afd5d80"
+  },
+  {
+    "id": "MF350-0310",
+    "labels": [],
+    "group_id": "B350:thanks",
+    "split": "validation",
+    "text_sha256": "3fa8b3dea0a13f620e0cff344dce02bac2bb1d504c7c31f8703e4c4021fe3f19"
+  },
+  {
+    "id": "MF350-0311",
+    "labels": [],
+    "group_id": "B350:inn",
+    "split": "train",
+    "text_sha256": "882479e82cc3c1c0f3854707eaf4800e04eecf995fbf99ee131f22ba007cbc5a"
+  },
+  {
+    "id": "MF350-0312",
+    "labels": [],
+    "group_id": "B350:passport",
+    "split": "test",
+    "text_sha256": "b1d00fbb37d8e676f768f92ecd38a31853b1fd11c2db36e5bdd1bed1e0d3c23e"
+  },
+  {
+    "id": "MF350-0313",
+    "labels": [],
+    "group_id": "B350:snils",
+    "split": "train",
+    "text_sha256": "dcf42e01f12161776b2b38642c638318b94d1e60cc41faf93f31371c7292adf7"
+  },
+  {
+    "id": "MF350-0314",
+    "labels": [],
+    "group_id": "B350:inn_png",
+    "split": "train",
+    "text_sha256": "93bf57851cb6dc3bcb43ee6ee69e49f8491a6d41b97184ef6e1a07764a6d4f8b"
+  },
+  {
+    "id": "MF350-0315",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_register",
+    "split": "validation",
+    "text_sha256": "7fbb6722175589765af1163e4a420648c32737db4011bb16d39869c25bd9a2de"
+  },
+  {
+    "id": "MF350-0316",
+    "labels": [],
+    "group_id": "B350:passport_repeat",
+    "split": "train",
+    "text_sha256": "a7d5faa46bf61eebb838d2034892a17a9b204f1dfd9d997eb5e715711cd055ac"
+  },
+  {
+    "id": "MF350-0317",
+    "labels": [],
+    "group_id": "B350:snils_spaces",
+    "split": "train",
+    "text_sha256": "39211df1488c22902140a3a019655e34d9a6842ee19525d6a40dcfffeed1810b"
+  },
+  {
+    "id": "MF350-0318",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_transfer",
+    "split": "test",
+    "text_sha256": "3835b41287e7d9bcd2dbd53ee406fbf31a6b4a81c4ffea5ecf461a3a4c67966a"
+  },
+  {
+    "id": "MF350-0319",
+    "labels": [],
+    "group_id": "B350:inn_internal",
+    "split": "validation",
+    "text_sha256": "3c977a95501e145f04a87fa54487692ed13226ae9e251d6357592c82e71a642d"
+  },
+  {
+    "id": "MF350-0320",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_export",
+    "split": "train",
+    "text_sha256": "269adddd7b8adc1117e1fd5728a42d81e99eee801da5bf2233696a524ff7d272"
+  },
+  {
+    "id": "MF350-0321",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:budget",
+    "split": "train",
+    "text_sha256": "fd80d01b8bdbbe6bc58245de5869abcc09c8e8bb755a6f78176aa2bda8deb810"
+  },
+  {
+    "id": "MF350-0322",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:prices",
+    "split": "validation",
+    "text_sha256": "2b317bf48d6cbf873bc918d848f91ade089a21142a557a8ef7716c908c834584"
+  },
+  {
+    "id": "MF350-0323",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:internal",
+    "split": "train",
+    "text_sha256": "e67cfd8fdfbe46b92bb2e36ba37f894431e4c1af233d0b6a046b86a745d0b6b1"
+  },
+  {
+    "id": "MF350-0324",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:budget_pdf",
+    "split": "train",
+    "text_sha256": "b86922898490257c678bcd72148e861df522afd206127f4eed3f2208bbff1fd7"
+  },
+  {
+    "id": "MF350-0325",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:discounts",
+    "split": "train",
+    "text_sha256": "8d6346d82828e773d1ba0b0752fedae1498cd5f64eeab192c2883b645ee8dee4"
+  },
+  {
+    "id": "MF350-0326",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:clients",
+    "split": "train",
+    "text_sha256": "4da680cf01057e3a1214f6698dea598b0a3a16c12c4c31ddd1648ae4f69932c2"
+  },
+  {
+    "id": "MF350-0327",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:forecast",
+    "split": "train",
+    "text_sha256": "6c7555f70d473c300197065679aff29519505f996b216dfa9bc5e07d479d3027"
+  },
+  {
+    "id": "MF350-0328",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:security_docs",
+    "split": "train",
+    "text_sha256": "e0c470476036f7d197e31f820b5722a02266253d374e3f0e30e0e60e8d7f626a"
+  },
+  {
+    "id": "MF350-0329",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B350:price_list",
+    "split": "train",
+    "text_sha256": "4903294160355ff83d499b3bb0b876704741f5371d18e05ea9613a91020b01fe"
+  },
+  {
+    "id": "MF350-0330",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:memo",
+    "split": "train",
+    "text_sha256": "c94488e05b14cfb8109a99aee40743c31e4462eabe76eafb18bdf22284e1aa0e"
+  },
+  {
+    "id": "MF350-0331",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:bomb",
+    "split": "train",
+    "text_sha256": "efb9c23518b123921b5a7b9433711811094b1ff27fa367592f8ab2fcb6990116"
+  },
+  {
+    "id": "MF350-0332",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:obfuscated",
+    "split": "train",
+    "text_sha256": "bb545517a189c92b4fd07a9fef40abb985e3676133b2e311edc0c00f80397338"
+  },
+  {
+    "id": "MF350-0333",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence",
+    "split": "train",
+    "text_sha256": "5970007aa0adba25575e52e2a064e4f0704682a23de338f5e83f7c98997b61b7"
+  },
+  {
+    "id": "MF350-0334",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:extortion",
+    "split": "validation",
+    "text_sha256": "2ede1507faa81acebebb72794887953108ef5818379f41f89260b1b80dcc623e"
+  },
+  {
+    "id": "MF350-0335",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B350:sabotage",
+    "split": "train",
+    "text_sha256": "1351fa866edbc262e39bb312a4fa69119da06fe70d2132654cbc8b8b1e4077f0"
+  },
+  {
+    "id": "MF350-0336",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B350:separated",
+    "split": "train",
+    "text_sha256": "f6ba2b50873ad6ff5d7e49fc272c48c46a81aadf3267e057737e4c12b13496ce"
+  },
+  {
+    "id": "MF350-0337",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:violence_pdf",
+    "split": "validation",
+    "text_sha256": "3e6aed3004f009dd7c62df0377da25f8b1e3aba24ab134622d91380744eff28c"
+  },
+  {
+    "id": "MF350-0338",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B350:blackmail",
+    "split": "train",
+    "text_sha256": "144ae389b99d6b04c2b5c1d23ce104e7b8b86bf6d7bdc6d17ebdb5296cf75edd"
+  },
+  {
+    "id": "MF350-0339",
+    "labels": [],
+    "group_id": "B350:token",
+    "split": "test",
+    "text_sha256": "a9fc7d474745c28ae5cf0b2977edfffcc9a33d1fa76c38cf05ec2e61bb2f42e4"
+  },
+  {
+    "id": "MF350-0340",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B350:creds",
+    "split": "train",
+    "text_sha256": "d9441fba7b59300f243cb023fd523a49678cf5e2b202e5cf0a44ed44092df071"
+  },
+  {
+    "id": "MF350-0341",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phish",
+    "split": "train",
+    "text_sha256": "5b0e20189550fd24579050fe5b5b45e685e84073d981b8b1a8353f0c1e969cb3"
+  },
+  {
+    "id": "MF350-0342",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B350:exfil",
+    "split": "test",
+    "text_sha256": "59d5c5c01347fdc642ca8c517eb5c78f7acd1e1cd254b391454743957cc54977"
+  },
+  {
+    "id": "MF350-0343",
+    "labels": [],
+    "group_id": "B350:key",
+    "split": "validation",
+    "text_sha256": "dc317a16323a50fed4a218752cbdf0cd0a2883e0e5aac4f0f760d84ff91659a0"
+  },
+  {
+    "id": "MF350-0344",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phish_pdf",
+    "split": "train",
+    "text_sha256": "101fda797cd2cc55a6547158a0c9906f59cc52e7e1435ef168ca57f109d7e706"
+  },
+  {
+    "id": "MF350-0345",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B350:inn_budget",
+    "split": "validation",
+    "text_sha256": "e11aed01baf69b6c56791a3cb3b9baee16357986132c5d9506759750bd80ba3c"
+  },
+  {
+    "id": "MF350-0346",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B350:client_secret",
+    "split": "train",
+    "text_sha256": "411f208046c51714a1b595e16ef7c845632e7fea1751e6e55418d21ed3aca95c"
+  },
+  {
+    "id": "MF350-0347",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B350:threat_money",
+    "split": "train",
+    "text_sha256": "391db166fc77a6efe75d18962500a3e336ef32fe50aeb89bfef2760b7733e2b0"
+  },
+  {
+    "id": "MF350-0348",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B350:passport_policy",
+    "split": "test",
+    "text_sha256": "72784f82d66b814c3da05e0ecb1e3fac4005cb0e8436411997081529c8b74b27"
+  },
+  {
+    "id": "MF350-0349",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B350:phish_exfil",
+    "split": "train",
+    "text_sha256": "2adf24822a9f20b683c588e7066d2186cb391934b33d9cff5607ac9269e6c82e"
+  },
+  {
+    "id": "MF350-0350",
+    "labels": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B350:pii_policy",
+    "split": "train",
+    "text_sha256": "9eb8cf36a0d9f8a815712e1ca7a4d9208dbef0dec529bc0383a592f69346a29a"
+  },
+  {
+    "id": "MF400-0001",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "0de9c21b05e85f606ad4522855b26deb83a968643c8caa244591372198dbd811"
+  },
+  {
+    "id": "MF400-0002",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "5d41b81fda717d44a7abce42eb4472210ce919f866b29bd4245eb6ff79bda97d"
+  },
+  {
+    "id": "MF400-0003",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "853d4c0ce1b8803bc82e079073deed241859c92a45ca94f215734b164cbc51d4"
+  },
+  {
+    "id": "MF400-0004",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "8699f25c09c7a66d70ef3edec848ec261020ac16eda0d903ed6c0a9c1ecce357"
+  },
+  {
+    "id": "MF400-0005",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "b516bf6cd275fc63db3859fa3537b5eba6de34b0bb059b11475db7ba207cf699"
+  },
+  {
+    "id": "MF400-0006",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "c57f7ee1e9509b2f710476513955d7d4422e79836b09bf14709fde8009b7e3a4"
+  },
+  {
+    "id": "MF400-0007",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "c2d46f6c47fe6774ddfa3c42ae4b598bb2322843d716f9f335dde34c001799fa"
+  },
+  {
+    "id": "MF400-0008",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "c9eece5c6b93d181b2c4d525fd71a07075960442a16da2cba2f442c47d79b614"
+  },
+  {
+    "id": "MF400-0009",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "25afbd7648adfeee697d4e17053f8e77f6cf84edb454328ee78d800957e929e9"
+  },
+  {
+    "id": "MF400-0010",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "8e43cf3c7ebf80b5ca5f08f4600e8741bb24c147464fa07167ad0d74087bf39a"
+  },
+  {
+    "id": "MF400-0011",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "ebfd4ee996c203c7ee4cb225b81f731a9fe81a03531a4f1b0e0c7bb7defc2602"
+  },
+  {
+    "id": "MF400-0012",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "9a6da8609c75a4c3e04970b9ae407c5793e916c05c0c381a224cfac1b0b9bf35"
+  },
+  {
+    "id": "MF400-0013",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "f4e1b4dbf2595d02e40d1d617c9066bd7af5a1fcac2223df036882d24153b703"
+  },
+  {
+    "id": "MF400-0014",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "cb0cd8cff74a9936f70ea567e5dae539265d624a35b16c416edcd00f327d06bf"
+  },
+  {
+    "id": "MF400-0015",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "2f61bc2e7e8b035c88d9a49142b5c40a4b4044cd72c7a996963ebf21c82ccc66"
+  },
+  {
+    "id": "MF400-0016",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "91b86effcf7ff07e049cd833d793ae15952454a6a3ce1566c79d3e9f8be91002"
+  },
+  {
+    "id": "MF400-0017",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "681905eadae11264ea1eaee8708da6746769cb1e5ddd2ad57788c6cdbf522560"
+  },
+  {
+    "id": "MF400-0018",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "1639b138052524861abd9e055b974254485c746e3b63d8e0af434ad88204068b"
+  },
+  {
+    "id": "MF400-0019",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "024cab84920b7b0babe4cfe0d374cf2d7292d8aaec59bd55b8ce80be6f6321ab"
+  },
+  {
+    "id": "MF400-0020",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "09db7c5716b71d36a203e6ade92f3ab17126421515529ccd0c310f38a9859eb1"
+  },
+  {
+    "id": "MF400-0021",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "5fd9fb74fdb3747aaa91ec436a4364f292e9fcf8b76646e5da06df1d346d7fa7"
+  },
+  {
+    "id": "MF400-0022",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "daa321151294e747f5b185eabe98a6e411c4ebdc0570bd960ed329206ebe133a"
+  },
+  {
+    "id": "MF400-0023",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "a00edc0182e7e07f3d6bfcb0053456be87c2f92a69044b1cbdb9dfeda7e604b1"
+  },
+  {
+    "id": "MF400-0024",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "55ec9b465ab6fbe7ff15197fc589de60956816354fabe40dc4770ca7c106afb5"
+  },
+  {
+    "id": "MF400-0025",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "cb374e077d5e5241e5f4e4fecb1e0b4b23bbcacbe402411338ab73daacfcd38a"
+  },
+  {
+    "id": "MF400-0026",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "0f9349ae33bd7c2d24c643d5a587ea7df707a7c69b1007ceb24e8bb96bec4553"
+  },
+  {
+    "id": "MF400-0027",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "b62d25cc695d7ef58e9815376427e1f0031c99f6b80e317a10f91fead36d73f1"
+  },
+  {
+    "id": "MF400-0028",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "31044a9b271fb86c4cd85556686bafb0f74cf9b1604b6226198b203d98dd9da4"
+  },
+  {
+    "id": "MF400-0029",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "3e129b6ca6bdd45ee1bc1fe71d0ca8bcdc607bb9f74ea92232655241c19a9b48"
+  },
+  {
+    "id": "MF400-0030",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "584fb4d60eb7019c5f3962eec3c55bac66901254fbaf629f9b670173c661353b"
+  },
+  {
+    "id": "MF400-0031",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "d89122c59f4151f041abf7ff82ae47fb8cb8668f593281cb7add7fcb856b18e6"
+  },
+  {
+    "id": "MF400-0032",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "b00aa5a452cfdb604eef46c802b0197821ff7797179b222e85c55108e5654953"
+  },
+  {
+    "id": "MF400-0033",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "8b9070a147090ecd6fd945f4360919711fd10ee08e5e79dc25cbededd73da7f4"
+  },
+  {
+    "id": "MF400-0034",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "516a3f77ec23172fbb0ad0e20365f2a9e2479ea6d355160d6fc0311df1d56b47"
+  },
+  {
+    "id": "MF400-0035",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "aa5f20faf281435e40997934f4d1bdcbff641569c636b6c8565d4e6a2de781df"
+  },
+  {
+    "id": "MF400-0036",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "93db0087c12c63a61f613f76f37a986863c406cdfe662f01d28cc3dd1cb242b8"
+  },
+  {
+    "id": "MF400-0037",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "0f407d73c7a2fda9f35849d0928678adbb0de3f1c2557fa05e92290266b4122d"
+  },
+  {
+    "id": "MF400-0038",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "f69bf51498a8708ee1e3afd8411e788fefe6de1f412437f8e0379a5b22c95689"
+  },
+  {
+    "id": "MF400-0039",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "3f644e8c3a676eb2adad1a2b904b8bfef4ed40f16523d1dd2d0b155eabc3f886"
+  },
+  {
+    "id": "MF400-0040",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "4e387876eb806a4e9bea9b36e41857d978e48caced0d64901d11cf6586cb87f4"
+  },
+  {
+    "id": "MF400-0041",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "bac661b59b153ec1b2d17091eb75554ff432d04624d2152799024d53d00591d1"
+  },
+  {
+    "id": "MF400-0042",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "8f40f9aae8bef9732cfa7d0fae5c0f9fca51ee023e475a075c1fdbe9aaa1a434"
+  },
+  {
+    "id": "MF400-0043",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "2e918e3b4b13a3f6bf1363673c3108d6380ab582d12d98e3fecdb174c2678fbd"
+  },
+  {
+    "id": "MF400-0044",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "a69e700720a1ae048f72f55276249310f8124a154afbd45347455aca54ed9fff"
+  },
+  {
+    "id": "MF400-0045",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "622855d6a300563ba758738acba527b9f5721eea5d0c12ca411ae03e60d67d81"
+  },
+  {
+    "id": "MF400-0046",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "ea4ef282724b0451315418cc4f0c0ee82425433c30b66abc3d3afcbd833654d3"
+  },
+  {
+    "id": "MF400-0047",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "ae4c6503e7e44594b3f802a55d806750d668a5407aeb00858cf320c6ec495246"
+  },
+  {
+    "id": "MF400-0048",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "41047189f054e172a0ae76d9af427707a94af7cfa08331247a62d0c18c380ec9"
+  },
+  {
+    "id": "MF400-0049",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "2c0653661e693dbf9164a4fa8d40c9685a62d1acaf94608e90b6f1cd0963dc95"
+  },
+  {
+    "id": "MF400-0050",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "586663fa990b02aad6c0bad24b77ab76d0a612257c046707f9ba8f6ea6811ac8"
+  },
+  {
+    "id": "MF400-0051",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "ce6d02ba1777d7686deef8f98603b85a3bbc6ccda1f0227a4953e82dfb56073e"
+  },
+  {
+    "id": "MF400-0052",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "64c8085a68db5ee5ddbca2942c14a4883bba74b6fa8786de6e4fd027dc41291a"
+  },
+  {
+    "id": "MF400-0053",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "3695579371a64f99740040f47970231f4c409c8553b1f332bda823788432da0a"
+  },
+  {
+    "id": "MF400-0054",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "c067d6f8687ee74b58ea7c1be816f56eda7bf5ede1b149bfc241706f4b34731b"
+  },
+  {
+    "id": "MF400-0055",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "8a6ba04c46aa8ce348b7b5cc6f0ddfe506cc20a869c6aa97d1ffc16d0858b4b4"
+  },
+  {
+    "id": "MF400-0056",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "77cbc20c581adf80e99d7b6e970e5bd1b7e132bff465156b45fc9eaf2399fc53"
+  },
+  {
+    "id": "MF400-0057",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "e8412187b57f2c518e067b4972da305c827384c7e8e38c3851d370917c36735d"
+  },
+  {
+    "id": "MF400-0058",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "25f7a1b9e0b0b1a0cd49c45b6f216cc399f1de86a776a7739b1ccec1a2e3f89f"
+  },
+  {
+    "id": "MF400-0059",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "769ea45c5d92c21c79e636dff47db53883d8370ca6484306e073496d3eb438ea"
+  },
+  {
+    "id": "MF400-0060",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "9d1a141613dabb7c1c774e2ec3014d57e468d51b97d77f21d0a81477a9549fc0"
+  },
+  {
+    "id": "MF400-0061",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "15494fbafe722a2b86c1a62b0a6f927ce6f8977c9e9c2b2e459082d7d9a83b42"
+  },
+  {
+    "id": "MF400-0062",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "693077702222312ca7cca101f0897d59f59907abd5399a4784ce1b8edbfaebca"
+  },
+  {
+    "id": "MF400-0063",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "10e27843f5276be679e67cc174e77967fb65c0f7f3bd25e9d68b66b29a42cdf9"
+  },
+  {
+    "id": "MF400-0064",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "c3fa96b0c2f1d9100bdb38b2b554abf9d0378eeb23242701d9d64c516825c46f"
+  },
+  {
+    "id": "MF400-0065",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "26d88ffdef47dc68f124dca8a80e42199eb45924dda36c39df384b41f629867a"
+  },
+  {
+    "id": "MF400-0066",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "6e0fe7aa1f7e1ff8d674e69dc3854e75cc396d322f146c6830303a8c05bc4ddb"
+  },
+  {
+    "id": "MF400-0067",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "f7776dc139feefc950a3e1d0b7a0a1b777c7a76d0855239bfde6f415e1304364"
+  },
+  {
+    "id": "MF400-0068",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "92876f6f0958ac4012536c5314f296c5f1410d3e5155dcae51aea6df0bc901d2"
+  },
+  {
+    "id": "MF400-0069",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "aaaeb86917695934a4eeb09f305b94635af8d96867cda16fac41d2ca69b95165"
+  },
+  {
+    "id": "MF400-0070",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "55cca002fbddd6d1d88a3a6fe41b3ed391cbabc1704d1ae419bd077c741c6ebe"
+  },
+  {
+    "id": "MF400-0071",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "15370a35221f5e494deaf35ea302f16255413267a67f22776f6bb32bdeafba68"
+  },
+  {
+    "id": "MF400-0072",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "3012b315ee3bf217cd0ccef0ecf4fe4d23a52346ad4c32cfe032c0d5fd433448"
+  },
+  {
+    "id": "MF400-0073",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "15cb6613a62f44863f362e677e9fcafb388a47494ff961442a46e59945138851"
+  },
+  {
+    "id": "MF400-0074",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "d505a7ad4fe2de36336bdf94bfcc30e18ef960e261a397c7501b05a0d34ae06a"
+  },
+  {
+    "id": "MF400-0075",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "b4bf53470781e9e8db98abe31bdbcfe7a6e928cf4fa99ccb6428e2a90429813d"
+  },
+  {
+    "id": "MF400-0076",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "2d1e225a4b8b357546694a8f06aa84051dd22993298a93c87e8c631d8c32d417"
+  },
+  {
+    "id": "MF400-0077",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "df052956cc71900b9521191bf922533db78a7d40b94ad43713b2a11b8527ad8f"
+  },
+  {
+    "id": "MF400-0078",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "24e7cf1812f2a2ad1cbd02f96d97cf6390be6a0889929809d53c43fbe11596bb"
+  },
+  {
+    "id": "MF400-0079",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "16dee0b8e66069dbb824018d8743ea45fa6cba66ea65275c06bdf3f0ea352e1a"
+  },
+  {
+    "id": "MF400-0080",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "d1ff6c0d8d39dae792b3d67a5f2d82c3ded5e6a9aaa7c3f6ee5fde806da6bd37"
+  },
+  {
+    "id": "MF400-0081",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "b3864664faff311d32415875a790a2ddc70e9e3c4f7cfddb5920c210eee9cd08"
+  },
+  {
+    "id": "MF400-0082",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "5af34160184883978c19481b6dc06879a11dee64b8fce9c866edd1bb765ee1bd"
+  },
+  {
+    "id": "MF400-0083",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "56dbe785b41c878a43fa2c50ce13c14d6d010b7a049225c2ec5ecdb65a171bb9"
+  },
+  {
+    "id": "MF400-0084",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "ab03ed5a727da414cd6052c299eab2664e4fa7978ef01506f79d055073efe99d"
+  },
+  {
+    "id": "MF400-0085",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "f94ea1ac761b3272e9fde861cdbb7272ff7002a35d59b5e9cddd418d333523fd"
+  },
+  {
+    "id": "MF400-0086",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "705be3dffc95ac9b2380621d2ee048d8dda8eae8bef1fa13d848a645539b802b"
+  },
+  {
+    "id": "MF400-0087",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "caec01cca205c3ba7c8460d36e993bf6de46588bf1dfea919fc3181752e7a6af"
+  },
+  {
+    "id": "MF400-0088",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "9a310861a9a6c202df9292dad494c081ee5fc6be028aeb63401568d8d3ff95f2"
+  },
+  {
+    "id": "MF400-0089",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:ordinary_pii",
+    "split": "train",
+    "text_sha256": "3bc67fad9056a14b31d15df70cfd0268596554a06a6c6f60eb3fd3beb403359a"
+  },
+  {
+    "id": "MF400-0090",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:ordinary_credential",
+    "split": "train",
+    "text_sha256": "c67ef24e8c154a588eb64b10f1186f5c213cae73fed1d7be64d72947fc12f0f2"
+  },
+  {
+    "id": "MF400-0091",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:ordinary_exfil",
+    "split": "test",
+    "text_sha256": "451900d6bbaa2135c22f6870e06f976ee6f4edc3091db5c6267e9d8ffbaf3436"
+  },
+  {
+    "id": "MF400-0092",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:ordinary_phishing",
+    "split": "validation",
+    "text_sha256": "85306dd8faf13e7a6b569abd56f4962b8a167585a0c9df26df2652b799871d96"
+  },
+  {
+    "id": "MF400-0093",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:ordinary_explosive",
+    "split": "train",
+    "text_sha256": "4d0dd02309c0aa68b8da92a88c757860de4fdc710b74890bc2f13e2b501d4f4b"
+  },
+  {
+    "id": "MF400-0094",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:ordinary_violence",
+    "split": "train",
+    "text_sha256": "ab56f22de482c4eecc36c0f808ce800cd9e6c5e3ffbaaf085e51848764482a2b"
+  },
+  {
+    "id": "MF400-0095",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:ordinary_extortion",
+    "split": "validation",
+    "text_sha256": "11cbe8bd6d8a6bf9595a1e35d6b7d37861065f5fa63996ae7da263546aebfab3"
+  },
+  {
+    "id": "MF400-0096",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:ordinary_sabotage",
+    "split": "train",
+    "text_sha256": "330888bf6b60e208917963e9cf6b5ae8bc078d7fb06d5894cf8ee03c3b8da4a0"
+  },
+  {
+    "id": "MF400-0097",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:ordinary_financial",
+    "split": "train",
+    "text_sha256": "a706a97fb26a346c03122f53362f86c770752a5a88935841c47cc6d4b6178aa1"
+  },
+  {
+    "id": "MF400-0098",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:ordinary_pricing",
+    "split": "test",
+    "text_sha256": "2e7b2dd19e8de1fc17721600b712a40c4f2b259bd390715b200db202cd1f5602"
+  },
+  {
+    "id": "MF400-0099",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:ordinary_customer",
+    "split": "train",
+    "text_sha256": "105f7ffe213c57090f72d5c9f41da83bd1a021f39b38c3dc1de729188a2b37ec"
+  },
+  {
+    "id": "MF400-0100",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:ordinary_internal",
+    "split": "train",
+    "text_sha256": "e923247c1356c91b34c365eda32da14a70a5865edf80c4f09d97aeb11dfd4374"
+  },
+  {
+    "id": "MF400-0101",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "ca9c3c5ee8d2236e0337cb177336ea869b1759c3a5510e9b6af82780234be98b"
+  },
+  {
+    "id": "MF400-0102",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "6578cbe0e6099031d4cfd7389879bfd2313458587148159a0158c78f75a8d229"
+  },
+  {
+    "id": "MF400-0103",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "b8177396361711deb4d2011fa627bf3c6ad3f69873c3b3ccddc9d1eb7b466904"
+  },
+  {
+    "id": "MF400-0104",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "235facd0f221995bcc8b084d5a52636d8313e066b95b62ecb8867b7b0b5f70c1"
+  },
+  {
+    "id": "MF400-0105",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "e8bf873d2898fce9a963a04f9b369f3d9827fa7730a7b586a29ded798292ace0"
+  },
+  {
+    "id": "MF400-0106",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "5f6eb3fca1f1147dd0454aa5a33d452067ef17cffe30eeb54726315c5bd99acf"
+  },
+  {
+    "id": "MF400-0107",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "fa26677a161b832f2ee311554a88bbad5e56f942ad63a3275b6726f01152b760"
+  },
+  {
+    "id": "MF400-0108",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "7a2f46bf55ec5c08e0b56cab52cb3c682e1b79e19f9047474f5b64e35edc225a"
+  },
+  {
+    "id": "MF400-0109",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "b9b7e327a993753b60fb3a7b383be37e15981fd7f2dea9ae4e5337fea42f487c"
+  },
+  {
+    "id": "MF400-0110",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "1e3d153f29020dcb1943e6acb0803a559386f225e1b29bd3752cb850153b4b68"
+  },
+  {
+    "id": "MF400-0111",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "0a18d67e30e4a3fa5261d95678a60f2f9abf247bb6f8cd32ee058a24578052ce"
+  },
+  {
+    "id": "MF400-0112",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "caf9d8bad14745a82094a6b0a891b5573c97273454b52518bbdf0910a5803efa"
+  },
+  {
+    "id": "MF400-0113",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "f8dcac4d6eb2c50ccc2409012723668b84e7b08800bb7f44b464874394ea7448"
+  },
+  {
+    "id": "MF400-0114",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "dbabc1beb0d5b12251d8b527986579fb2e61a876bf81959cda2acfec218ae737"
+  },
+  {
+    "id": "MF400-0115",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "64c2304880d0614e87691b9d6f61c386f1add468f00684b3764147a2adeebe60"
+  },
+  {
+    "id": "MF400-0116",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "9965ee2b19a1c04f6a8fd5c1ab3bb4a169832b2ead1ce1a09afeda56e7e818d5"
+  },
+  {
+    "id": "MF400-0117",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "bc2dcf14b47f15fd115be2337080955c18d292ad7ae449002f45c5fc33efecf4"
+  },
+  {
+    "id": "MF400-0118",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "7c1fb301a615c9deb14f8ebab88d57f87ca4dd8045a8f519ae36d22669ab13cb"
+  },
+  {
+    "id": "MF400-0119",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "eba8d12e0308b319ce8cf069c06575fb34aa15cf07297e14bf09b5d947fbd53e"
+  },
+  {
+    "id": "MF400-0120",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "99efe7ae4688354519959dba06379bb22d38c77f4c726a2b540c4c9b33549da0"
+  },
+  {
+    "id": "MF400-0121",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "6784e5e1750ca210158677407fd957097a5d4e5d19246d38bc4691311ae2541d"
+  },
+  {
+    "id": "MF400-0122",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "b4491beab1710c56777095e55898ea174742b5fd04a4e88bbdca41e0b2f43d90"
+  },
+  {
+    "id": "MF400-0123",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "2835013c2346e451469858b95edc6a943009313a749b01cf5ada0b2497586061"
+  },
+  {
+    "id": "MF400-0124",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "abfdc9aec7f46ef831f08894d2715d7a722983881f12e9191412089ce3e000b0"
+  },
+  {
+    "id": "MF400-0125",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "30cb77e7f213a55d2d1e42b87836a70460de5f42b5221d08fb20ea9b0f55dc24"
+  },
+  {
+    "id": "MF400-0126",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "e8d0b9df733bb751aa7bc4aaac8feafd1ab70f29709d325285a2ce5d226b52c6"
+  },
+  {
+    "id": "MF400-0127",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "467b83598c8caad59d062bc30e6dc706d303fe79e8fcb9683001d4e3a5b987e1"
+  },
+  {
+    "id": "MF400-0128",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "50dd6ea561189a75363baec0a5eeb9111a642b263529382094eea433da6843ca"
+  },
+  {
+    "id": "MF400-0129",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "30ba7781bb0582450311bbf7e9e4c15081908f42c8b33958d62a43f5c07343e6"
+  },
+  {
+    "id": "MF400-0130",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "81a410e042febdcb14e6c819bf7cc5b5f6349faa1c6651a32db1f6ff83d67a0f"
+  },
+  {
+    "id": "MF400-0131",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "5574c8ddea598c22afabfd6769bf5f7d81b3bea228f3a89a144b99f1857b64e6"
+  },
+  {
+    "id": "MF400-0132",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "13a0ac8b5734eb64cc48b1c5945b559340813dd533df0e9ba1a87fc74c4efed2"
+  },
+  {
+    "id": "MF400-0133",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "966f897f5dc9a93df3d8b89c448edffd2d30e8176e16c9fffec6902eecd4e5fe"
+  },
+  {
+    "id": "MF400-0134",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "956ee9120f14a401ceac65d7a250e7b0e55368c3a8391460e05c03253b8470cc"
+  },
+  {
+    "id": "MF400-0135",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "89ac78441d5fd8d0603da81a039e6894bca03cbadc4c43162df3d726b2ffc9d7"
+  },
+  {
+    "id": "MF400-0136",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "b3977a898da5b21ba0ab0c4b4c5b1b8fe5257e8fc7096fdbf1dd48293b1e6fd7"
+  },
+  {
+    "id": "MF400-0137",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "dbfc24ac240755261ce51d51ce7669f786c7b560f09ee0f818249f9814d21742"
+  },
+  {
+    "id": "MF400-0138",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "f1eb1cc2763defdb02ad69ec4dbe140d1386b9581ba92613f6845600ce7a75fb"
+  },
+  {
+    "id": "MF400-0139",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "b11f57eeb6565bea064cf59b183b1e8bd748a6dd0a4d954f84afb02aec8db901"
+  },
+  {
+    "id": "MF400-0140",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "4a46d90e9505de9a992d55bef9a32861fb0365a1d52ce6b6106b4060a23df9f8"
+  },
+  {
+    "id": "MF400-0141",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "284afc3cbb05cd5c169a7bc51fe980a3300bfcdbe43a12c884bbd8c06a1ac2af"
+  },
+  {
+    "id": "MF400-0142",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "fff5090f3bddfa86841289990f207986340695d8b0f9fb194542edb69c95466f"
+  },
+  {
+    "id": "MF400-0143",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "05e71e81e2dd941096092e1313b51897b9845fc5dfd4e9186f79e3d85722feb4"
+  },
+  {
+    "id": "MF400-0144",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "54481821520a081a57d332acec51aba8e0b11e6ec4eea3052f0a3f6b63528f64"
+  },
+  {
+    "id": "MF400-0145",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "7c45d8cfa5f5f2526a96a03ae26caf6f0f72ba8563acc95f3672dd88aa60ae17"
+  },
+  {
+    "id": "MF400-0146",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "d1abb0dcca6eaa9b2d7d70880fb73149d4fb270235194d32706c560a936925a7"
+  },
+  {
+    "id": "MF400-0147",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "7cbf1638c973783eee77c57e22bd02511bba649e8a35ea14d31ac556f49063e9"
+  },
+  {
+    "id": "MF400-0148",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "2a1abc3797f8d8ef3cb2832bde90dfd03ff097e901667181d3a1c7271f16191f"
+  },
+  {
+    "id": "MF400-0149",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "bf15cb648c951988a2c01b61c1471fd29adf89df0ff5f4a90522d204e7a248a3"
+  },
+  {
+    "id": "MF400-0150",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "2a58a8cde4c1eea271f0f73658b95bc4d9f831d1ab1dda5184053bf4249d6dd4"
+  },
+  {
+    "id": "MF400-0151",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "c6d67d585e952bc73c868b1e62beebba394c5f1f2fbc9d2c8a1de708ab080830"
+  },
+  {
+    "id": "MF400-0152",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "5160f9e5b4315854e01a7326d0ba603084483115c339a1c6c22b0bfdb3ae24d6"
+  },
+  {
+    "id": "MF400-0153",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "15f7d572c02b63450cf808b93fe7201dbd217433272a54d3d883b4c7d835e6a5"
+  },
+  {
+    "id": "MF400-0154",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "e6334ccf7b1c4030e7cdd01b4374e6f809700dd593693f9c5c0a25562d5fa309"
+  },
+  {
+    "id": "MF400-0155",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "1f0bc6281070b12bf8a88ed491d9011a7c6ced3f42d7a70950a6c0b54ec1c747"
+  },
+  {
+    "id": "MF400-0156",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "c03d1894d76e800ea11aa27d3c7008ea5390c3a7317feaaa0f1261389539eef6"
+  },
+  {
+    "id": "MF400-0157",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "95c63741cfdaed0071041ab4d179bb5474aa29d9608b4fd6a82676a715661abd"
+  },
+  {
+    "id": "MF400-0158",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "0af6d5b2b5495658064a0e18b905381db6798974cfc9afc7643a6cd1372f5140"
+  },
+  {
+    "id": "MF400-0159",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "197a5008762f57bb4ba778bdd92adaf20ee9d107bfd26888ce004468e3a8edd9"
+  },
+  {
+    "id": "MF400-0160",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "0f1b628e263796a5a886dc532045944dab7b9d9b048d58bffe158fbb686adfb1"
+  },
+  {
+    "id": "MF400-0161",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "624ebbd016feff7e9630ba9b220b944ce660489645c03b11e11059c1631f43ef"
+  },
+  {
+    "id": "MF400-0162",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "e2eeefbf894b770811b5f2ee6f7a9febd9c309d8961daf751492adae8d8122f3"
+  },
+  {
+    "id": "MF400-0163",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "9c564f854a2f27b3b9c9fcde12ac5491f93ba7ca341a7d2c644d923f2b9b93fa"
+  },
+  {
+    "id": "MF400-0164",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "ff5fe06a4bd3724c91e524d93c0f68732350cde85e6ab282fa6bc045265fbbd8"
+  },
+  {
+    "id": "MF400-0165",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "c5490d8e1bc2021c38734b0878048706d2e2bdf003dcf7014806832e916b53be"
+  },
+  {
+    "id": "MF400-0166",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "8f27cca4d48c33c2e80b66e549d9368f9ecdda47b31bd67853634179076b8396"
+  },
+  {
+    "id": "MF400-0167",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "a1b0fa35067e46516106ea9c5b0db148c1c6ca3f82c4a2266b74b70f8fd8edae"
+  },
+  {
+    "id": "MF400-0168",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "91d835f14cfffcf94b6e8f350f2eee6cf431af28f52eefe976874729342dac46"
+  },
+  {
+    "id": "MF400-0169",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:attachment_only_financial",
+    "split": "train",
+    "text_sha256": "7112a70ee5a7842c205e56effa534232132bc044bfbc93aaaa1d4048eef728d1"
+  },
+  {
+    "id": "MF400-0170",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:attachment_only_pricing",
+    "split": "train",
+    "text_sha256": "97eea4575f1f0df2c0fe2f656b734a604fa722399af5fe8999bb078bff2c0016"
+  },
+  {
+    "id": "MF400-0171",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:attachment_only_customer",
+    "split": "train",
+    "text_sha256": "b494dbf59c3c111b380a225596f186aae693962221e522c8d3d17902350e8bc5"
+  },
+  {
+    "id": "MF400-0172",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:attachment_only_internal",
+    "split": "test",
+    "text_sha256": "4196735c2e79e2216956da38940030afc029df13cf561d761c0490fd69f07257"
+  },
+  {
+    "id": "MF400-0173",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:attachment_only_pii",
+    "split": "train",
+    "text_sha256": "c3f2e6c7f36e08e8b7a5499d62bfe89db46b4d7390a5357f4436a668da2d3e67"
+  },
+  {
+    "id": "MF400-0174",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:attachment_only_credential",
+    "split": "train",
+    "text_sha256": "a1cd746d1937f7758f23521d81125078da1dad87d76f666a2fa7aa921f14f12e"
+  },
+  {
+    "id": "MF400-0175",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:attachment_only_exfil",
+    "split": "validation",
+    "text_sha256": "3c8db2241af0784513c33977a8fa4618a847e90ed447127d98a37516afcd7360"
+  },
+  {
+    "id": "MF400-0176",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:attachment_only_phishing",
+    "split": "test",
+    "text_sha256": "0225aa7e0bc7b7e6e39ecf789a914d5d4d4fc9f9a4b469afe8dd82ce057da99c"
+  },
+  {
+    "id": "MF400-0177",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:attachment_only_explosive",
+    "split": "train",
+    "text_sha256": "3580fe87257ecd9299c4b9ab8fa2bd8b19c8071ce36d7203fe06427af32f9571"
+  },
+  {
+    "id": "MF400-0178",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:attachment_only_violence",
+    "split": "train",
+    "text_sha256": "1721274d25af916b68dbd044990f937819c1a5680165a8130d16104ffeb1cc10"
+  },
+  {
+    "id": "MF400-0179",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:attachment_only_extortion",
+    "split": "test",
+    "text_sha256": "7e2b58bcf0a56fa2ef602ee5a272c3c347118685f8ae88ec65643ee33b496ad9"
+  },
+  {
+    "id": "MF400-0180",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:attachment_only_sabotage",
+    "split": "test",
+    "text_sha256": "ed63ffbad4751a704eb0af26114cde2a1d2a666af7cc4b6d66d60691f692432b"
+  },
+  {
+    "id": "MF400-0181",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:obfuscated_financial",
+    "split": "train",
+    "text_sha256": "97f3e0496cbf0c9aa7f85497d13c7b15325fa22819b8a0725619c2b31beb57f2"
+  },
+  {
+    "id": "MF400-0182",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:obfuscated_pricing",
+    "split": "train",
+    "text_sha256": "f1c2c4e9b9b61a29f63a6846777bb060f8cf55fc46b6b3811681696c62f327ee"
+  },
+  {
+    "id": "MF400-0183",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:obfuscated_customer",
+    "split": "validation",
+    "text_sha256": "5eb9665dc48184d202fcf2c269752cf846a933b219380609c4754833174c05ee"
+  },
+  {
+    "id": "MF400-0184",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:obfuscated_internal",
+    "split": "test",
+    "text_sha256": "d321e85c63b75f445bedf244b817e03b8b0eef361a45a51d9b4cb45052147f08"
+  },
+  {
+    "id": "MF400-0185",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:obfuscated_pii",
+    "split": "train",
+    "text_sha256": "4467761d51edfce7ff498efc98c16d4e70eac4e71a0880c890dee3c0bad05a82"
+  },
+  {
+    "id": "MF400-0186",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:obfuscated_credential",
+    "split": "validation",
+    "text_sha256": "780e5d8c0480011aea494a15f094e03107f69440b7d7f162a7e7fbb1cb3c77ff"
+  },
+  {
+    "id": "MF400-0187",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:obfuscated_exfil",
+    "split": "train",
+    "text_sha256": "aecd0808ed99f4d49ef120ff4c4657bd9dcdcf7f9f8479a18c34613621b72f79"
+  },
+  {
+    "id": "MF400-0188",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:obfuscated_phishing",
+    "split": "train",
+    "text_sha256": "01aa67fd8dcf2b233386ee30f33a972d9bf0518e58d9f9e401150a39cb4bfac9"
+  },
+  {
+    "id": "MF400-0189",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:obfuscated_explosive",
+    "split": "train",
+    "text_sha256": "c9c011350bce94b08bc94e5b5cb33a9014cb6be1eb302e18de2e94175259fa53"
+  },
+  {
+    "id": "MF400-0190",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:obfuscated_violence",
+    "split": "validation",
+    "text_sha256": "601bb8e5c73164391fb2899e9c256c20b08d92743f76f8bf4592a2944adcead9"
+  },
+  {
+    "id": "MF400-0191",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:obfuscated_extortion",
+    "split": "test",
+    "text_sha256": "1ce3521d17313f9171b2b1315c10a5dc28009e5131e4a24904d05f524113a9c6"
+  },
+  {
+    "id": "MF400-0192",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:obfuscated_sabotage",
+    "split": "train",
+    "text_sha256": "e3feb383ae533745e6ec736d2eff0605febfd0a6fb53df1190dd307f7e346a31"
+  },
+  {
+    "id": "MF400-0193",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:obfuscated_financial",
+    "split": "train",
+    "text_sha256": "53c92634da138d05235b946abe8da70d52a5b3e9b583766711ea7af89863b729"
+  },
+  {
+    "id": "MF400-0194",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:obfuscated_pricing",
+    "split": "train",
+    "text_sha256": "b3326c24e35ceaed416e3d44a7a922b6da7341b8125cdaf263fe4a0e585cfc96"
+  },
+  {
+    "id": "MF400-0195",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:obfuscated_customer",
+    "split": "validation",
+    "text_sha256": "22cd42fd70204e201840c8a9ab3eccc06173de6365de8ba698143f95eaf5142a"
+  },
+  {
+    "id": "MF400-0196",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:obfuscated_internal",
+    "split": "test",
+    "text_sha256": "b9767b576f8ff58cac2cbbcf41967600cfa9e0cd9089a42988d66f807887bc80"
+  },
+  {
+    "id": "MF400-0197",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:obfuscated_pii",
+    "split": "train",
+    "text_sha256": "973410e89aaa5d3ded39a728876bcb5a23b9b6bdf366aac0898baaef965d526b"
+  },
+  {
+    "id": "MF400-0198",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:obfuscated_credential",
+    "split": "validation",
+    "text_sha256": "eff352edc8c04c55de3f9eafae92de39677c48096478443aaa858e842e27b830"
+  },
+  {
+    "id": "MF400-0199",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:obfuscated_exfil",
+    "split": "train",
+    "text_sha256": "ea914945bb350f5a1dcbf19384b104fce715fa2e628e5b791896e3551bd01844"
+  },
+  {
+    "id": "MF400-0200",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:obfuscated_phishing",
+    "split": "train",
+    "text_sha256": "6c02fcbb388a0031f32e6c4a8b2980520c6aca7ce90caa6b229ad49aedcf7e5c"
+  },
+  {
+    "id": "MF400-0201",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:obfuscated_explosive",
+    "split": "train",
+    "text_sha256": "8b8a7435703904b846cb14cffbc0fbfa0f70a58a4a57c6d5135cb60f2afa6f91"
+  },
+  {
+    "id": "MF400-0202",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:obfuscated_violence",
+    "split": "validation",
+    "text_sha256": "510eb1073e876e18381e2a1382403583b0d81bf38fa695e292d1c589fd472b08"
+  },
+  {
+    "id": "MF400-0203",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:obfuscated_extortion",
+    "split": "test",
+    "text_sha256": "57bb043c333b69dc62397e64d105d655c4bd9e2e3a9f623efda64a4285f35387"
+  },
+  {
+    "id": "MF400-0204",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:obfuscated_sabotage",
+    "split": "train",
+    "text_sha256": "e4ebe601a1da983cd691d328707539ac25401edd498cbec9de385c7b637b19ac"
+  },
+  {
+    "id": "MF400-0205",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:obfuscated_financial",
+    "split": "train",
+    "text_sha256": "7930b210d213a2038d494c7cbbe8dd0037d0385b2db84500a0e6165a6034198a"
+  },
+  {
+    "id": "MF400-0206",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:obfuscated_pricing",
+    "split": "train",
+    "text_sha256": "4849fb99bfe196afcbde92b709e0cd22a4404882dec2f7178052d7ec49c6c1bc"
+  },
+  {
+    "id": "MF400-0207",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:obfuscated_customer",
+    "split": "validation",
+    "text_sha256": "6b9bd36e3a38545f6674e01fcba8997448e96241a48f168ba0d1f4e4630eb095"
+  },
+  {
+    "id": "MF400-0208",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:obfuscated_internal",
+    "split": "test",
+    "text_sha256": "7ac288aab444ff38ee7d24ee01f3e60ddcb4680a1be968c271ecb838e6352712"
+  },
+  {
+    "id": "MF400-0209",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:obfuscated_pii",
+    "split": "train",
+    "text_sha256": "67495cb48d95a784740519ed5e3cb89d24c180a5607fe422dded220f001a6551"
+  },
+  {
+    "id": "MF400-0210",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:obfuscated_credential",
+    "split": "validation",
+    "text_sha256": "54d1349fc2bb5abaf94c9c714c927320b68569357b1d1d237ea58b90890fa5c6"
+  },
+  {
+    "id": "MF400-0211",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:obfuscated_exfil",
+    "split": "train",
+    "text_sha256": "fb73d2f1e87911241a5066246991036edf090f47ead92e7c7dcb2cd1b00b4c4b"
+  },
+  {
+    "id": "MF400-0212",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:obfuscated_phishing",
+    "split": "train",
+    "text_sha256": "2e6c9c20b51c2fba11413b2000f042d4ad89c300dda4642daf6341852fde2f56"
+  },
+  {
+    "id": "MF400-0213",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:obfuscated_explosive",
+    "split": "train",
+    "text_sha256": "b7c37372a1be2c6bb1857e1922067f6f77c185d2c82c8b4692c1ae023d7b6591"
+  },
+  {
+    "id": "MF400-0214",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:obfuscated_violence",
+    "split": "validation",
+    "text_sha256": "2545bd2d01a3c5e940d284b6c7db9cf51ba65986237428e3bca47751b5b806f6"
+  },
+  {
+    "id": "MF400-0215",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:obfuscated_extortion",
+    "split": "test",
+    "text_sha256": "fdd8ae8665e808c6008f2c0eed1676843947dcaee75c7823c74d04026a827a54"
+  },
+  {
+    "id": "MF400-0216",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:obfuscated_sabotage",
+    "split": "train",
+    "text_sha256": "741d6a80294076e2795fd25d7f6db838637ca285bdebfc63f1c23c66f2d40304"
+  },
+  {
+    "id": "MF400-0217",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:obfuscated_financial",
+    "split": "train",
+    "text_sha256": "1666fc734accb96490d9dd9345e0a2abdf53d3cba806449f13ae2f32b23b1820"
+  },
+  {
+    "id": "MF400-0218",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:obfuscated_pricing",
+    "split": "train",
+    "text_sha256": "647507e89c154fd0ff8c579da18dc090ca4d859417d0bc8a9717a82892cfc529"
+  },
+  {
+    "id": "MF400-0219",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:obfuscated_customer",
+    "split": "validation",
+    "text_sha256": "1e730ed47a10cb82c3fb69f66a797aa67ccac6d46d04b9c83f1c0bc5be1c0adb"
+  },
+  {
+    "id": "MF400-0220",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:obfuscated_internal",
+    "split": "test",
+    "text_sha256": "9e73f2920fdaf3fed60cf84f84c6b14b635cffbcadb8bee1cb57c7284a696227"
+  },
+  {
+    "id": "MF400-0221",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:obfuscated_pii",
+    "split": "train",
+    "text_sha256": "dc67d4423679fee76e3c18f3b607c0f33d6de9508f2e8ddf643acb9eee116f0e"
+  },
+  {
+    "id": "MF400-0222",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:obfuscated_credential",
+    "split": "validation",
+    "text_sha256": "4ec0b4cf7fe1401bb436af475dc527b6b6a055d586fd0f099713c32bd864ee0d"
+  },
+  {
+    "id": "MF400-0223",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:obfuscated_exfil",
+    "split": "train",
+    "text_sha256": "177ef9f308b4f465b7bf790a2a420047e800e7abcec355c1736054d6c6d03d8d"
+  },
+  {
+    "id": "MF400-0224",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:obfuscated_phishing",
+    "split": "train",
+    "text_sha256": "ffd0300cae2ca7fd26ea488f276876cb68f64a95e3afdfdcf78d1224214e3a56"
+  },
+  {
+    "id": "MF400-0225",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:obfuscated_explosive",
+    "split": "train",
+    "text_sha256": "d4dfa6c992e614ab74aaab6562f4452e5417414fd8f51810c61ff36072509aea"
+  },
+  {
+    "id": "MF400-0226",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:obfuscated_violence",
+    "split": "validation",
+    "text_sha256": "acb2583ba15053b4f87b5a63b24a6eab445f80957a9d75aa8b7633400af6ea23"
+  },
+  {
+    "id": "MF400-0227",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:obfuscated_extortion",
+    "split": "test",
+    "text_sha256": "3b790c01251cd528c00e267ff1dc0f8ecab4d7a6c6b24792c7f2954378af8629"
+  },
+  {
+    "id": "MF400-0228",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:obfuscated_sabotage",
+    "split": "train",
+    "text_sha256": "9219c946570f818178fc28a91a37c6d47c49516df61ad8daad4f09c0cbdc0968"
+  },
+  {
+    "id": "MF400-0229",
+    "labels": [
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:obfuscated_financial",
+    "split": "train",
+    "text_sha256": "f08021a6d835ab2fe021a89056a20cfb1c1a9d0da0b69a25ec5a66a7a96d5125"
+  },
+  {
+    "id": "MF400-0230",
+    "labels": [
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:obfuscated_pricing",
+    "split": "train",
+    "text_sha256": "e1c18859531ba41cf392a3906f061ad47c0a0b8562bf619cbfce3e004d76e0d2"
+  },
+  {
+    "id": "MF400-0231",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "group_id": "B400:obfuscated_customer",
+    "split": "validation",
+    "text_sha256": "b9bd5227b8f62c851e54f42954e60151b7fc279dbd3574d87badbbb3949d357c"
+  },
+  {
+    "id": "MF400-0232",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:obfuscated_internal",
+    "split": "test",
+    "text_sha256": "4660856bc2e8ed6e8d4a4916ef355f1f7e8a1678c9d3dd0c23cef2b1108225cd"
+  },
+  {
+    "id": "MF400-0233",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:obfuscated_pii",
+    "split": "train",
+    "text_sha256": "4dfafc50baa736608f7ba0e7642dfe2c88bb48e2084f17a4eff31274510b93fc"
+  },
+  {
+    "id": "MF400-0234",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "group_id": "B400:obfuscated_credential",
+    "split": "validation",
+    "text_sha256": "ef738d65bc46d1af6533ecf7d16aa0e6df9046b6dad8898e1d2ee5bd27ac4a2b"
+  },
+  {
+    "id": "MF400-0235",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "group_id": "B400:obfuscated_exfil",
+    "split": "train",
+    "text_sha256": "aef27141e2d76f533f729df43babf44a1749a907b4e1f470f06cd5e3e49a8a1f"
+  },
+  {
+    "id": "MF400-0236",
+    "labels": [
+      "pack-ru2-phishing"
+    ],
+    "group_id": "B400:obfuscated_phishing",
+    "split": "train",
+    "text_sha256": "6a64448e8e73b78b054d753c43c4d76eabac55ce3c68c898258be55d79faa0cb"
+  },
+  {
+    "id": "MF400-0237",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "group_id": "B400:obfuscated_explosive",
+    "split": "train",
+    "text_sha256": "fff3f4749fedf99aea9c808d1fd2788b331cdb8dc4e532f6992462f0b140136c"
+  },
+  {
+    "id": "MF400-0238",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:obfuscated_violence",
+    "split": "validation",
+    "text_sha256": "1587de5c30e9dcc1b24ff03afb837a42e35e0459f7a29af857a6211ff6516279"
+  },
+  {
+    "id": "MF400-0239",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "group_id": "B400:obfuscated_extortion",
+    "split": "test",
+    "text_sha256": "0ff569408eb7cde46c110f6ebe319e5ec504831c9d3d1a90a25ab871447b082c"
+  },
+  {
+    "id": "MF400-0240",
+    "labels": [
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:obfuscated_sabotage",
+    "split": "train",
+    "text_sha256": "147cf076a0dae5f3a66fbde134d0fd46a875d2daba2034b4be0368cdce626d33"
+  },
+  {
+    "id": "MF400-0241",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_financial",
+    "split": "train",
+    "text_sha256": "6d7ee1bea654d9429c42df399da7c7c462e5ca6a89437d096709801bb8d5276a"
+  },
+  {
+    "id": "MF400-0242",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_pricing",
+    "split": "test",
+    "text_sha256": "9a79a8041acf17a5e76ce12b5f25d810aeb48e6519918ce6f15bf2a6e3a46302"
+  },
+  {
+    "id": "MF400-0243",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_customer",
+    "split": "test",
+    "text_sha256": "8b59b9bf1fe7af67dd28c622e73adb5be6b3f8348c2966143a4c6fec174f1a47"
+  },
+  {
+    "id": "MF400-0244",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_internal",
+    "split": "validation",
+    "text_sha256": "b51bfaacc4435f5e0e5f4e78ab0578d1bdcf2833dca4a15926f7e4dcddb40edb"
+  },
+  {
+    "id": "MF400-0245",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_pii",
+    "split": "validation",
+    "text_sha256": "12d249bb036e6b0e5f1f4e8f1aded856fb9a8e456fd4e458a79a3f252dc1564b"
+  },
+  {
+    "id": "MF400-0246",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_credential",
+    "split": "validation",
+    "text_sha256": "21eb3d85c0ad591dd6f49c74ede623dc73a8bdfe3b23e245db1da02a5859655c"
+  },
+  {
+    "id": "MF400-0247",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_exfil",
+    "split": "train",
+    "text_sha256": "36653ef8e3a913089fc975c713f978d669b77fcca4d6ac76630d055fa117a2ed"
+  },
+  {
+    "id": "MF400-0248",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_phishing",
+    "split": "validation",
+    "text_sha256": "234a6b664b195c906d642f3da9ec33e86511d387c7291f279d144714a4b8a903"
+  },
+  {
+    "id": "MF400-0249",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_explosive",
+    "split": "train",
+    "text_sha256": "90b5da52b210503e2592e28e74fbb3e161b140bd9f60ebc0b9f924603eacbda1"
+  },
+  {
+    "id": "MF400-0250",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_violence",
+    "split": "test",
+    "text_sha256": "23d025f41c3857027e1a4737c64523675cb1f7167386516b5ec98cafd8292d33"
+  },
+  {
+    "id": "MF400-0251",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_extortion",
+    "split": "test",
+    "text_sha256": "994518c01657c7f151ff3451d0995c547a7324f416447db099ac8d42eb1d7df4"
+  },
+  {
+    "id": "MF400-0252",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_sabotage",
+    "split": "train",
+    "text_sha256": "ffc60a1295f974807db0407b6f185ad87a269d9f25fba4ce70a5e98fa0cd2886"
+  },
+  {
+    "id": "MF400-0253",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_financial",
+    "split": "train",
+    "text_sha256": "ab3068e0f2655d546b648fdbbaf6d368353f2374bb38c2daff2d0602cd5643f1"
+  },
+  {
+    "id": "MF400-0254",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_pricing",
+    "split": "test",
+    "text_sha256": "ea0c1e1eb7c18c10753b315885992d1814d4b459ab7a498673fe69b66365c2b0"
+  },
+  {
+    "id": "MF400-0255",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_customer",
+    "split": "test",
+    "text_sha256": "40ec446749612270d9892838a38d6e9d3f6a04b18b090bde6db4a8c48fb64140"
+  },
+  {
+    "id": "MF400-0256",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_internal",
+    "split": "validation",
+    "text_sha256": "23112f93d08665814a5fe14fc8c121e825b118a8d6186f1f3b6de9a32fe7fbf5"
+  },
+  {
+    "id": "MF400-0257",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_pii",
+    "split": "validation",
+    "text_sha256": "f008ad21897c594acbcabbf2e8ef48f8226a45c1f6918b5feee0a7814f4a0458"
+  },
+  {
+    "id": "MF400-0258",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_credential",
+    "split": "validation",
+    "text_sha256": "8a23d0fcdde641c808a5d7d6d8bd4cf7c20abb1e84d115d07ec22de9d5b25418"
+  },
+  {
+    "id": "MF400-0259",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_exfil",
+    "split": "train",
+    "text_sha256": "cb867c6d8b2209bf3a79625d01efed904fe784dd86ba1cff9d958173672f93c6"
+  },
+  {
+    "id": "MF400-0260",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_phishing",
+    "split": "validation",
+    "text_sha256": "843f9cdcd98d656cf717951d6a4d225081a0956ff11c61a26de7dddfc2c7353c"
+  },
+  {
+    "id": "MF400-0261",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_explosive",
+    "split": "train",
+    "text_sha256": "083e626c0870beb81341625d92b2c586aea7d88bd734c998604ae236895ffc6b"
+  },
+  {
+    "id": "MF400-0262",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_violence",
+    "split": "test",
+    "text_sha256": "faa804ad47d624d14a9c86ba1a769c3a3cbe5bcb7c7ad8c757ce5ee48460fe55"
+  },
+  {
+    "id": "MF400-0263",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_extortion",
+    "split": "test",
+    "text_sha256": "32439abfa61bc09344fdabd0959836db1395417a1a9d9e5744dce63c5ffa6851"
+  },
+  {
+    "id": "MF400-0264",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_sabotage",
+    "split": "train",
+    "text_sha256": "278c137713d1b761d9d3feabeb8b368ecd7509f342f666b261c390360de9d67a"
+  },
+  {
+    "id": "MF400-0265",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_financial",
+    "split": "train",
+    "text_sha256": "c2a5276b6d40e53806856022e31f1ced9fa18442ba21d81d9609219a94478d67"
+  },
+  {
+    "id": "MF400-0266",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_pricing",
+    "split": "test",
+    "text_sha256": "7adfd6009d2ee6893e0f779175df442e0e2489ffcb7e916bc0957f46cd156f8f"
+  },
+  {
+    "id": "MF400-0267",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_customer",
+    "split": "test",
+    "text_sha256": "1dc737ebcc202adcf1f348026b5132c9a4376137f9585e5e093a7a242fe0aab1"
+  },
+  {
+    "id": "MF400-0268",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_internal",
+    "split": "validation",
+    "text_sha256": "ec92a84b9ef46b87886059d5209dd0306d7394049c69f9224b38de081ba663aa"
+  },
+  {
+    "id": "MF400-0269",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_pii",
+    "split": "validation",
+    "text_sha256": "88eeb5f77104f416ea64ce377b8f3a14a921cc51f936db51b607b8ab028609a0"
+  },
+  {
+    "id": "MF400-0270",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_credential",
+    "split": "validation",
+    "text_sha256": "603ad61065141d61e58d0b977885159ac811f218bc40ba3bd195e0d81a6672f0"
+  },
+  {
+    "id": "MF400-0271",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_exfil",
+    "split": "train",
+    "text_sha256": "85a47e90a099add45a9964e38d921e85437c502eab6ca63edffea44762fc966a"
+  },
+  {
+    "id": "MF400-0272",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_phishing",
+    "split": "validation",
+    "text_sha256": "cf7885fa01fa16c5fe47d1b42424b0eceab86d44438821cd5c2c8c37c7f85a84"
+  },
+  {
+    "id": "MF400-0273",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_explosive",
+    "split": "train",
+    "text_sha256": "9a0c76ec6821ceaafeacfc18b8ca77fbbc86bef528fe723466bc26fc8c15fffe"
+  },
+  {
+    "id": "MF400-0274",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_violence",
+    "split": "test",
+    "text_sha256": "48dab9ee83702d8ea817477620acd650bedb11b5753eada265d3fea774316234"
+  },
+  {
+    "id": "MF400-0275",
+    "labels": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "group_id": "B400:mixed_extortion",
+    "split": "test",
+    "text_sha256": "91737a07a74829fb14dbb77bbfc0d5586805a3e1d284aa30aa999cbb57bb7153"
+  },
+  {
+    "id": "MF400-0276",
+    "labels": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "group_id": "B400:mixed_sabotage",
+    "split": "train",
+    "text_sha256": "73745183e350be6b0a501500b9126c3105fdcb21ba0fd429e124010042ab666f"
+  },
+  {
+    "id": "MF400-0277",
+    "labels": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "group_id": "B400:mixed_financial",
+    "split": "train",
+    "text_sha256": "313507185d8e23268e38bbf36028c1e4a1870c2d54dfc2789a8f546ed5744fb2"
+  },
+  {
+    "id": "MF400-0278",
+    "labels": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "group_id": "B400:mixed_pricing",
+    "split": "test",
+    "text_sha256": "97794eba71e138988c64b44a1034d77212ea73e99b8420a787a7cfd3dc72a972"
+  },
+  {
+    "id": "MF400-0279",
+    "labels": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "group_id": "B400:mixed_customer",
+    "split": "test",
+    "text_sha256": "dbf848e64ca0036d03758bd350279302bef16cfa5f0fb0a78085acd1117e804d"
+  },
+  {
+    "id": "MF400-0280",
+    "labels": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "group_id": "B400:mixed_internal",
+    "split": "validation",
+    "text_sha256": "9440d12d11fef11f4c9f9b478d3cdba717cc43214001a16adf18ef4e269b70fe"
+  },
+  {
+    "id": "MF400-0281",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "dcb631a122acc6eb1ab2018984498eb42e431c8d857ac9026953d60ebc567062"
+  },
+  {
+    "id": "MF400-0282",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "81d4c4fd0a85a297f195061e2af838f4952889ff8bc403b036ac0ae7c818f245"
+  },
+  {
+    "id": "MF400-0283",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "98543c3e883a6df03caecdf292e46de296a588bb598ba63acafe66803b6a475b"
+  },
+  {
+    "id": "MF400-0284",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "5d3818b17a60f6202208f540378f7d51975ff7effac0ed66256269fde27d3574"
+  },
+  {
+    "id": "MF400-0285",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "f0be19cc64070c64961a87e1cb39c6c1608799b2c04cc204d9c243b32a2fc51b"
+  },
+  {
+    "id": "MF400-0286",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "0012b2f550e36505e7d64a528a0c4c363ae48299d22e208ca4e8b9b0c57f8782"
+  },
+  {
+    "id": "MF400-0287",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "215329315ae704dd9838a32fe3589b67e4755bc20f7f42bdd4ef3e37f6d7a157"
+  },
+  {
+    "id": "MF400-0288",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "ba8f6260285b508668c58e94ea7975a358b0ee03ed3eee48828527547a6da8ca"
+  },
+  {
+    "id": "MF400-0289",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "1ff788e18272f925784efc096289b0c34a55fe55b5547c45b19268d9a6741a51"
+  },
+  {
+    "id": "MF400-0290",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "8b70a8979a9e7e4a84ba9c41769ab50b4ac19aebddcb90ab4d6bf0a9c8532551"
+  },
+  {
+    "id": "MF400-0291",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "90d38a751b46976975988ea765ad16ab0dda528ec76d8e122ed7f52868f3769a"
+  },
+  {
+    "id": "MF400-0292",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "3fa6c96d378f266083b6f551c3836cb73d713af8fbc009322165fda0c2b05091"
+  },
+  {
+    "id": "MF400-0293",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "9ababe733662bcd981dbc899f7ce8687f626e91961c3c98b8e12900cf0c09538"
+  },
+  {
+    "id": "MF400-0294",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "ba4b095f0a47a6ce9dc1a38c9df8ee32c29fc7cbeb5e1d1889a16e4422fb8e19"
+  },
+  {
+    "id": "MF400-0295",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "066f9ec65fb80cad38d79369d6eeb2bef6ea6f7e6f426f3ff00dd06541e0d650"
+  },
+  {
+    "id": "MF400-0296",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "8e3ff8616569591bbf511daf4bd43c53a237423e5fb7ce6b9810967c3b59645b"
+  },
+  {
+    "id": "MF400-0297",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "9339be88e127dd77467230f65a5e04bd3895bec39d9af9101418e7df687adfee"
+  },
+  {
+    "id": "MF400-0298",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "92e5fc818dede455f483575364eeb376a5b9833890aeeaddb293e2be8b864078"
+  },
+  {
+    "id": "MF400-0299",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "fb139bdb6964065fb55a4751ac8422a161f1faba518fa32cbe0fe42c39cc49fb"
+  },
+  {
+    "id": "MF400-0300",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "ca67a95bfb02a0c10b44f46687d8dc3d7a9d08d86c2830548dc6e77da066411f"
+  },
+  {
+    "id": "MF400-0301",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "24d39586f6536dde27b2d2ac3c5d6c68ce4639bee8a6e23e382766b0780daa8c"
+  },
+  {
+    "id": "MF400-0302",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "083ae12152fdaf8670f737a70079b0d99ee8cee15d3ec29644189fad673e223f"
+  },
+  {
+    "id": "MF400-0303",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "190db315d0ac7c95e95dea4834d466a1a9ede8ea6bcebec6cedfe934027628da"
+  },
+  {
+    "id": "MF400-0304",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "7795a22d270c4b08ecbb5d74c61bd2f08b89036ab60b4e807d191dd0be330f30"
+  },
+  {
+    "id": "MF400-0305",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "60724a1cfe3eac06db415e09c813fa46861fe7bdc60c5a276355cab7db806c00"
+  },
+  {
+    "id": "MF400-0306",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "e2ca3ba78b4e3a93cb2ecac405b5c06a65c80a026b90304bb00bb717211aad22"
+  },
+  {
+    "id": "MF400-0307",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "16fda93e0f262b51328115b0d367a712fa64630ded23777c17b7de9a1c9a4713"
+  },
+  {
+    "id": "MF400-0308",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "823ed2bfe66d6c74be21014e8ca711ad980d51b298d8fcbf2bb525be21f930f3"
+  },
+  {
+    "id": "MF400-0309",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "db4ccbc983d0e63ce2a9b22b6e7b01534565b6a207fbbf0d610055f6e7010c73"
+  },
+  {
+    "id": "MF400-0310",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "c545782eed5de2af12a5db935ef01fe8fcad9c7aff029c3a28513de957654b82"
+  },
+  {
+    "id": "MF400-0311",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "f0622db7027b316c78ccacdd26a9977b974d0d085cea47bba97cd69bd382a920"
+  },
+  {
+    "id": "MF400-0312",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "fd27502e1a4b562171864d537b6024aca9490cefb2c06c3ac81c622e0f1a6058"
+  },
+  {
+    "id": "MF400-0313",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "fe4fc278a52cc86f0dca121d21ed66f43ad018fccb7a64540308a32528d6dce2"
+  },
+  {
+    "id": "MF400-0314",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "9c9d2131e42b86238cfae84821ea7c053b9bd872e2803b87f1e88b60adc040bc"
+  },
+  {
+    "id": "MF400-0315",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "9f142faebbe5f533c1d7af714e41c28b372e91472f99f88913439f0051a6e434"
+  },
+  {
+    "id": "MF400-0316",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "ef7d66b180dd637bae343d79fbbaf50dba5a33382f2811abdeb38066dfd79afa"
+  },
+  {
+    "id": "MF400-0317",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "d20902276d118e55fcb30ba567028fe5ff9c83915151c8c6821a0fcc51a735cc"
+  },
+  {
+    "id": "MF400-0318",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "500ce340c1b48432b5a974a46e1eced3434775404aca403373ad924c53a948df"
+  },
+  {
+    "id": "MF400-0319",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "2896a72ef45e856bcc44d2c0bd82b54c65af7a4d70730124612e15db366d68df"
+  },
+  {
+    "id": "MF400-0320",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "b07b0611260fade96e21ee42fe946f93d8da5c50a48dd633bc3ea6cb8032a390"
+  },
+  {
+    "id": "MF400-0321",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "8ae82ab6d9870aa83172dd5b1b95942ed1c2d3af6788674144a0834b6b226b3d"
+  },
+  {
+    "id": "MF400-0322",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "b564026454bf0e1cd26eec6dae26de1527881f1909c6c00132b1df40e7506c3c"
+  },
+  {
+    "id": "MF400-0323",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "178ac6218a943a08dd3d77adbea7a0f1725bcb74a70742101bfbdcbeeddb9c69"
+  },
+  {
+    "id": "MF400-0324",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "f957b147f652e3302617860a2738c20db5e8a2e6892f3458e465df8e6796f52a"
+  },
+  {
+    "id": "MF400-0325",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "370c4a6d44e0a5fb96fdd3427a772cfd9b1a9b2b96ad4544b28126fe31526da3"
+  },
+  {
+    "id": "MF400-0326",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "35ea958f1ead1fb536da8123e5799bbcb0403f5142e1a6e3b034d04f12db96ad"
+  },
+  {
+    "id": "MF400-0327",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "de989e7a6877c927baf8b9bb22b3ebf7e4a51e3ec2b2c64cd5079b0acc826d32"
+  },
+  {
+    "id": "MF400-0328",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "1d39a912a1ab883323642b7d513150953289954691c1e33f5fd878388c575174"
+  },
+  {
+    "id": "MF400-0329",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "68449bd5c44c1189b4b10cf2a2830ea80fbc6649dc7e6968d6972fdc29f95b5a"
+  },
+  {
+    "id": "MF400-0330",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "d27be87538a2d92304ed42a26ba79c873e65a938e8c03da707d5031c65654ac0"
+  },
+  {
+    "id": "MF400-0331",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "e5368c312a4c9e9daf3cfc64b0d56562cd242c351c2029967a51e4294544ace4"
+  },
+  {
+    "id": "MF400-0332",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "f3a746933a0b8f2f45c85f15522218dac36a1401cbcc9838eaf13a5c817b6e2d"
+  },
+  {
+    "id": "MF400-0333",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "212f006874d1fddf9b7154a9eff371636849369d905d1bc38d1a3210ec4710e9"
+  },
+  {
+    "id": "MF400-0334",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "16dc96fa339560f095e9228593e66ad2c99dbf79be783165db9d884fba1268f0"
+  },
+  {
+    "id": "MF400-0335",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "20fb2e680c70af4931463b40754405d1ff5fefc3b55e489b2ec64de7a0840193"
+  },
+  {
+    "id": "MF400-0336",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "3c9b746c59dd01f9451daf8ebabdbb02957f6f9444aab3769b6e949720193118"
+  },
+  {
+    "id": "MF400-0337",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "1018b2f078fc3b07d2d7483443297db2b91673b4157073b7ac03253287ddfecf"
+  },
+  {
+    "id": "MF400-0338",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "8e3f3e9b1181e6d2505ae1258c4731039e37ff2ee4cc7f14743351f665c30611"
+  },
+  {
+    "id": "MF400-0339",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "9a203395cbe8e6fd514eca88c15061cf159fd5180872711e39ed23bc60726a52"
+  },
+  {
+    "id": "MF400-0340",
+    "labels": [],
+    "group_id": "B400:safe_ordinary_control",
+    "split": "train",
+    "text_sha256": "2805fd4bc17f7c3306d7fddbeffbe19dface95c1782c590980403b4dbf32dc57"
+  },
+  {
+    "id": "MF400-0341",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "8119ccfc1c1d2b63dbe3d22d0fb0dad03311529c55211c827419ee636a2cef31"
+  },
+  {
+    "id": "MF400-0342",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "6cf143b0f3c5b950418225cdbb63bb56641f6bc78e7af122104050986a7d826b"
+  },
+  {
+    "id": "MF400-0343",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "cdf42ab74a0e49cd112fa490f45956ea26ba3f00b9d8684d1da1fe5ecdd70392"
+  },
+  {
+    "id": "MF400-0344",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "51bd7e3cc88fefd482df861b0383e14b58e056e88599bb72f4270b3ad35798a9"
+  },
+  {
+    "id": "MF400-0345",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "22c9665fd16b8d87cd18ffd367664b2f8d09f74eedc30001cdc82821d79c54d4"
+  },
+  {
+    "id": "MF400-0346",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "78b0a45e58ee53a396814f99436535ffc79d9312615e5cdc0085c9bce9a7d3a6"
+  },
+  {
+    "id": "MF400-0347",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "b8bfac541de6ce2ae8a3aadbfa6aaadaae70efd4d46b48442048835cbf4fab32"
+  },
+  {
+    "id": "MF400-0348",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "a50ff1e74e8d5759f2ebdf37078bd4967fdafda3f86066d261dd6a0c01ce91f0"
+  },
+  {
+    "id": "MF400-0349",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "41daf3a877a833fd8023fc2b9ab232bc7064f6499010f91894c74250598642ed"
+  },
+  {
+    "id": "MF400-0350",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "033030ce42555996bf7516871ffa831bc992a09fd564401a0051ff242405fcdb"
+  },
+  {
+    "id": "MF400-0351",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "69b96c9c85f1f62e36ecb086a42e0bc2d42578c90116bf53e83fc9665cc99b2b"
+  },
+  {
+    "id": "MF400-0352",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "c0dbc7b232291f485f72ccb88ef898d7a3a8647457166b497bc1c9aca5f5a767"
+  },
+  {
+    "id": "MF400-0353",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "e9518c3501e073d925c3b6d888661fad1234b02dcb09e652d76d0b4ca07512ce"
+  },
+  {
+    "id": "MF400-0354",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "0e22f35a15cb627d8c9fd979cfa07a841c3071e6f40599b483072f0e6a727468"
+  },
+  {
+    "id": "MF400-0355",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "fad6b12b5b89ded9e10ad8012c6a4c4eb5f96e5825e8484e91a29826369f34be"
+  },
+  {
+    "id": "MF400-0356",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "2b1ea45c6dea171b9098d0ad2f2815888cf5ae5cfe19c8c97ca6bc89336b083c"
+  },
+  {
+    "id": "MF400-0357",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "1bdc84a049d9fc8a43f2f40f55dadd895a1b368c840f2ae48242186ebb63eec4"
+  },
+  {
+    "id": "MF400-0358",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "e128e36a3929c4fb7b0142b2495b572e25a2abbbb30e57d0348b2421c8e0f4f0"
+  },
+  {
+    "id": "MF400-0359",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "faac898f670c2342e27feae81c599272dd814be350ad8dd1462b57e13e298b97"
+  },
+  {
+    "id": "MF400-0360",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "6fbb136e8ea40fff8c9e7ff2a51f0962cb4ce3aac4ff50422aa0b6ae9739c46d"
+  },
+  {
+    "id": "MF400-0361",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "ab77853e9447ae9e023b08211aa52740337034d8755c0f035ba5fc97bc502069"
+  },
+  {
+    "id": "MF400-0362",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "97da006fcb144293b7b0fe539d394ae96782f83b7bab983fdee4c7aa2d4e6468"
+  },
+  {
+    "id": "MF400-0363",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "68b7f4ae8d07f87aa6b3bd0b8058a28e16081c2c8149a0d54697836d93d5895a"
+  },
+  {
+    "id": "MF400-0364",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "a7f3c7185cf53330865badd038929ad84857ef627e19b0e38a9c5dc175f871d4"
+  },
+  {
+    "id": "MF400-0365",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "54606d33a0138ce36a7eed7b7b3a69fd77530d2f9d5f30f322a60a7a970e2a97"
+  },
+  {
+    "id": "MF400-0366",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "43f4772541289e3d4dc2309461084f7582937e9b27fe0ffa931dfe59020129a2"
+  },
+  {
+    "id": "MF400-0367",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "4a2bddba4fb5ddd7493b521a7a8de248c551e448e92b7d892b21b24e31c42ac4"
+  },
+  {
+    "id": "MF400-0368",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "b2c7d134bec4865bd5074248ed805343ef8cfdfa37795310437451bf20e6b48f"
+  },
+  {
+    "id": "MF400-0369",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "e25c17a9c22df25a4ea9ff7d383133263080d7e631be9a2f94dcb4bb73df1614"
+  },
+  {
+    "id": "MF400-0370",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "6468b0ee52bb0f4d2474e9acda774b7048b9f400eaab0105afacb1d5c6d92e13"
+  },
+  {
+    "id": "MF400-0371",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "5e43b9b5c97ee9c45fa69b74bbbff3eb9b1f1b6af0f64122e46d1ab78d9c2dfd"
+  },
+  {
+    "id": "MF400-0372",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "64467d1db3d614a030e52b3785d196fc8c4374fa9a3b97c50bbde265fe2cb190"
+  },
+  {
+    "id": "MF400-0373",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "f49ce38eae279222336a2e406770591862c3735376b630844ba2101385d24e2a"
+  },
+  {
+    "id": "MF400-0374",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "38d5d051058461bdead996fea974b634ba1b54c49d1c805aace28b5864417b02"
+  },
+  {
+    "id": "MF400-0375",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "d1a69af6b9a5acdc2667707c95bd6eca65b7c6c5fe958cd49038c05b06e576cd"
+  },
+  {
+    "id": "MF400-0376",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "bd19278df5e0bebe8964ba26a27f8f0e02a1a3559427d0a39363d94a51dc7526"
+  },
+  {
+    "id": "MF400-0377",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "c26e912d72f2e2065f97ef316b133188efd31fdc842c4b631e918184cc9d7865"
+  },
+  {
+    "id": "MF400-0378",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "cb80317f98318c46f15192261e36b885589462eda3ea012186ccf1ffedf6f866"
+  },
+  {
+    "id": "MF400-0379",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "ed11a01db5488069529cd71a9175eb0dc0a2233328c16818743aedbf804e4bb7"
+  },
+  {
+    "id": "MF400-0380",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "bb00c8a5602dba2f988b6979b8abd2494b41f2a84f32f89d56b3cb3edeaf3878"
+  },
+  {
+    "id": "MF400-0381",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "46b5978ab63bdb22ab96dbcc60946f583a406addd0f03a379d2df96718d0df36"
+  },
+  {
+    "id": "MF400-0382",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "d486f403a4f52ef5a17d537a2f71b559b3cebe7224dce6b4c49296b34156a6df"
+  },
+  {
+    "id": "MF400-0383",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "b4b47986f66ee40b7a1169d7ceb38b1166c8278aef5ad93e42bec662925b9a18"
+  },
+  {
+    "id": "MF400-0384",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "690909206f995b3ef87efe5fe4fbdb8f73c06ffbc25668ca5f86a0916ef5d849"
+  },
+  {
+    "id": "MF400-0385",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "b0fe8dc549f522b0a832c25401cefece57a441389c76f4a6321cbef2cc62239b"
+  },
+  {
+    "id": "MF400-0386",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "908b0d678f0581a4f5262ebe69d5a88cd72656a7b7294229ccc528de7c2d19c5"
+  },
+  {
+    "id": "MF400-0387",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "fcf9e37131a0cdd5443ddd84642362e9df6340adc4b4330d3230b387f2ba3be7"
+  },
+  {
+    "id": "MF400-0388",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "cffd5ff84cf653e442e0428c9500b5ffc37dc73727d50115e8b0ac947858bc75"
+  },
+  {
+    "id": "MF400-0389",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "999a0f57e7b442cc1f8752b1dae8c22ca99c27d8617c6c7f6f7a95aec098a34e"
+  },
+  {
+    "id": "MF400-0390",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "329dab912c92d53d77ea5afec1e3201cf6985ae501af1b08d83c8bbb42f2a215"
+  },
+  {
+    "id": "MF400-0391",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "11a233f15142fb6a6b8e1b3105d7d1620b78fd130d2f2090697fcbbc408c3cb2"
+  },
+  {
+    "id": "MF400-0392",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "4eaab5595565036ecf790e4917f822d3b82535fc3503c904267c015596691a69"
+  },
+  {
+    "id": "MF400-0393",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "ac90b02bb562f63955c79dbb4d453a221b268d4c3fc2e9bb42b9cd6ff5389240"
+  },
+  {
+    "id": "MF400-0394",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "b045931ee41dec801bf39bce96dfbe9be004e0359c6ac16b9a0c9681488c0b5d"
+  },
+  {
+    "id": "MF400-0395",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "bc61a2985d55e9752b28d1dd46ee56494c256762bd618fbcc95fa4d9c9816c0e"
+  },
+  {
+    "id": "MF400-0396",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "372d752cba4060f77e995d4901fe90b82637fb1d38593ae0731596ecd852c83a"
+  },
+  {
+    "id": "MF400-0397",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "c7dc2e318dd3df6b3ab022c84afb645a7efbc1cafa067741ddd380ebf6fc5186"
+  },
+  {
+    "id": "MF400-0398",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "f47554a440557e992be2c3aac152489821b6118cae6720397ccb5f9f80165519"
+  },
+  {
+    "id": "MF400-0399",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "be7950ec0e88eedabe0a342f1e8f7f5956f909b8270b59176b2f1220d1f0d204"
+  },
+  {
+    "id": "MF400-0400",
+    "labels": [],
+    "group_id": "B400:safe_hard_control",
+    "split": "validation",
+    "text_sha256": "552b8b1b1b93d7f44ffa184dfa4598176caf22eeb8317b026f544d7b26ee8803"
+  }
+]
