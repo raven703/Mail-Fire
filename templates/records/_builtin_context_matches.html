@@ -1,0 +1,16 @@
+{% if finding.context_matches %}
+<details class="evidence-context"><summary>Дополнительные правила контекста ({{ finding.context_matches|length }})</summary>
+  <p class="muted">Дополняют нативную находку, не меняют её риск, проверку реквизита или число срабатываний.</p>
+  {% for context in finding.context_matches %}
+  <div class="evidence-match"><strong>{{ context.historical_rule.title|default:context.rule_id }}</strong>
+    {% if context.excerpt %}<blockquote>{{ context.excerpt }}</blockquote>{% endif %}
+    <dl class="facts"><div><dt>Координаты</dt><dd>{{ context.start }}–{{ context.end }}</dd></div>
+    <div><dt>ID правила</dt><dd>{{ context.rule_id }}</dd></div>
+    <div><dt>Версия правила</dt><dd>{{ context.rule_version|default:"—" }}</dd></div>
+    <div><dt>Параметры на момент анализа</dt><dd>{{ context.historical_rule.config }}</dd></div>
+    {% if context.match_score != None %}<div><dt>Баллы контекста</dt><dd>{{ context.match_score }}</dd></div>{% endif %}
+    {% if context.normalization %}<div><dt>Преобразования</dt><dd>{{ context.normalization|join:", " }}</dd></div>{% endif %}</dl>
+  </div>
+  {% endfor %}
+</details>
+{% endif %}
