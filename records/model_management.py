@@ -18,6 +18,7 @@ from records.category_picker import LabelForm
 from app.category_catalog import LEGACY_ALIASES
 from records.datasets import update_dataset
 from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
+from records.ml_status import ml_status
 from records.operations import admin_access
 from records.workspace import access
 
@@ -260,7 +261,7 @@ def models(request):
     active = MLModel.objects.filter(active=True)
     rows = MLModel.objects.select_related("category").defer("artifact").order_by("-created_at", "-pk")
     context = {"tab": tab, "admin": admin, "can_label": can_label, "train_form": train_form,
-               "example_form": example_form, "error": error, "active_count": active.count()}
+               "example_form": example_form, "error": error, "active_count": active.count(), "ml_status": ml_status()}
     if tab == "label":
         context["training_labels"] = Category.objects.filter(mode="label").order_by("name")
         context["label_form"] = label_form

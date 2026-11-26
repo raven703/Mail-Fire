@@ -31,6 +31,9 @@
   </section>
   {% else %}
   <section><h2>История версий</h2>
+    <p>ML-анализ (конфигурация): <strong>{{ ml_status.status_label }}</strong>{% if not ml_status.inference_enabled %} · отключён в конфигурации развёртывания{% endif %}</p>
+    <p class="muted">Статус не подтверждает успешную загрузку моделей или доступность воркера.</p>
+    <p class="muted">Публикация модели не включает ML-анализ автоматически. Статус отражает конфигурацию, а не проверку выполнения.</p>
     {% for row in models %}
     <div class="policy-row">
       <span class="policy-icon" aria-hidden="true">◎</span>

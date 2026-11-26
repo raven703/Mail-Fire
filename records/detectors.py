@@ -10,6 +10,7 @@ from django.views.decorators.http import require_http_methods
 from app.text_normalizer import DEFAULTS
 from policy_engine.catalog import DETECTORS
 from records.models import Audit, Setting
+from records.ml_status import ml_status
 from records.operations import admin_access
 from records.workspace import access
 
@@ -56,7 +57,10 @@ def detectors(request):
     normalizer = {**DEFAULTS, **stored.get("normalizer", {})}
     rows = {}
     for key, (title, engine, categories) in DETECTORS.items():
-        available = key != "ml" and (key != "antivirus" or bool(settings.MICE_CLAMAV_HOST))
+        if key == "ml":
+            rows[key] = {"id": key, "name": title, "engine": engine, "categories": categories, **ml_status()}
+            continue
+        available = key != "antivirus" or bool(settings.MICE_CLAMAV_HOST)
         rows[key] = {"id": key, "name": title, "engine": engine, "categories": categories, "available": available,
                      "enabled": normalizer["enabled"] if key == "normalizer" else available and flags.get(key, True)}
     form = None
