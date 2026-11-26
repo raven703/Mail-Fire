@@ -1,0 +1,17 @@
+/mice-analysis-1 oom=false restarts=0
+/mice-beat-1 oom=false restarts=0
+/mice-converter-1 oom=false restarts=0
+/mice-db-1 oom=false restarts=0
+/mice-detection-1 oom=false restarts=0
+/mice-extraction-1 oom=false restarts=0
+/mice-frontend-1 oom=false restarts=0
+/mice-ingestion-1 oom=false restarts=0
+/mice-maintenance-1 oom=false restarts=0
+/mice-notifications-1 oom=false restarts=0
+/mice-ocr-1 oom=false restarts=0
+/mice-ocr-parser-1 oom=false restarts=0
+/mice-parser-1 oom=false restarts=0
+/mice-policy-1 oom=false restarts=0
+/mice-publisher-1 oom=false restarts=0
+/mice-rabbitmq-1 oom=false restarts=0
+/mice-web-1 oom=false restarts=0

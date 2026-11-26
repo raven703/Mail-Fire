@@ -1,0 +1,2 @@
+/mice-analysis-1 ["python","-m","pipeline.worker"]
+/mice-parser-1 ["python","-m","app.parser_service"]

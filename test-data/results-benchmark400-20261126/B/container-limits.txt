@@ -1,0 +1,17 @@
+/mice-analysis-1 memory=1073741824 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-beat-1 memory=268435456 cpus=500000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-converter-1 memory=1073741824 cpus=1000000000 pids=128 image=sha256:ad81c9c3bea6c26db10bfc887e56f64c2df97f976358e63ac21b5a96af12fb2c oom=false restarts=0
+/mice-db-1 memory=0 cpus=0 pids=<no value> image=sha256:b513c48566e4777cd3370451400000c78eda6a08131d68f4c31d4a76f27bd8fd oom=false restarts=0
+/mice-detection-1 memory=1073741824 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-extraction-1 memory=1073741824 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-frontend-1 memory=134217728 cpus=500000000 pids=<no value> image=sha256:d86f159d9850db8a53a182c7a0bb166ca4c435ef7fdc3a6c90dd9531a7e03598 oom=false restarts=0
+/mice-ingestion-1 memory=536870912 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-maintenance-1 memory=536870912 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-notifications-1 memory=536870912 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-ocr-1 memory=3221225472 cpus=2000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-ocr-parser-1 memory=3221225472 cpus=2000000000 pids=96 image=sha256:1bb85be78c197c7adb202c258de8ae84bd7d4b2b0dd1e9e9e74761f1f77aa687 oom=false restarts=0
+/mice-parser-1 memory=3221225472 cpus=2000000000 pids=96 image=sha256:880623469184f45e5f07ac9a023200766dc51ac5eee2c6160a6921b713ed282e oom=false restarts=0
+/mice-policy-1 memory=536870912 cpus=1000000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-publisher-1 memory=268435456 cpus=500000000 pids=<no value> image=sha256:b80d95e28a847763f1bfcb1d6ee4ffa77b0d0c8903886075d2985989869fba6c oom=false restarts=0
+/mice-rabbitmq-1 memory=1073741824 cpus=1000000000 pids=<no value> image=sha256:ccc474914a27f60b402c0945847b4b95987968525bc608a25f91b4baab299055 oom=false restarts=0
+/mice-web-1 memory=536870912 cpus=1000000000 pids=<no value> image=sha256:0eb145656f9c9557646475f7abafb8f5a5339c3d1d634863525e8f17ab04776a oom=false restarts=0

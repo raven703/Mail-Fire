@@ -1,0 +1,134 @@
+{
+  "categories": {
+    "before": [
+      31,
+      "0cdea3f63b0e7bcbf22a71125e0687d9"
+    ],
+    "after": [
+      31,
+      "0cdea3f63b0e7bcbf22a71125e0687d9"
+    ],
+    "equal": true
+  },
+  "category_rules": {
+    "before": [
+      97,
+      "f02798ad778069d53cb6adc5c5a684f2"
+    ],
+    "after": [
+      97,
+      "f02798ad778069d53cb6adc5c5a684f2"
+    ],
+    "equal": true
+  },
+  "policies": {
+    "before": [
+      9,
+      "caca583ea71b275b517b054784d92838"
+    ],
+    "after": [
+      9,
+      "caca583ea71b275b517b054784d92838"
+    ],
+    "equal": true
+  },
+  "settings": {
+    "before": [
+      6,
+      "34ec8b9952b0739be87b0aeb4a575fb5"
+    ],
+    "after": [
+      6,
+      "34ec8b9952b0739be87b0aeb4a575fb5"
+    ],
+    "equal": true
+  },
+  "ml_models": {
+    "before": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "after": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "equal": true
+  },
+  "ml_datasets": {
+    "before": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "after": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "equal": true
+  },
+  "training_examples": {
+    "before": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "after": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "equal": true
+  },
+  "references": {
+    "before": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "after": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "equal": true
+  },
+  "accounts": {
+    "before": [
+      1,
+      "5940f0478e559926e535d589cee25298"
+    ],
+    "after": [
+      1,
+      "5940f0478e559926e535d589cee25298"
+    ],
+    "equal": true
+  },
+  "mice_users": {
+    "before": [
+      1,
+      "b448e6e821696de9c5bb2a4914ea486a"
+    ],
+    "after": [
+      1,
+      "b448e6e821696de9c5bb2a4914ea486a"
+    ],
+    "equal": true
+  },
+  "auth_group": {
+    "before": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "after": [
+      0,
+      "d41d8cd98f00b204e9800998ecf8427e"
+    ],
+    "equal": true
+  },
+  "auth_permission": {
+    "before": [
+      164,
+      "467edfec5c78fffe03a3e45c1f3db296"
+    ],
+    "after": [
+      164,
+      "467edfec5c78fffe03a3e45c1f3db296"
+    ],
+    "equal": true
+  }
+}

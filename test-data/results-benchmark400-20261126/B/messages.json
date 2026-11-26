@@ -1,0 +1,6421 @@
+[
+  {
+    "id": "MF400-0001",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 32.411872,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0002",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 68.386874,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0003",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [
+      "pack-ru2-customer-data"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 42.54461,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0004",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 59.358172,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0005",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 117.244082,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0006",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 81.462357,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0007",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 111.573977,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0008",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 149.819797,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0009",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1785.306938,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0010",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 133.134273,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0011",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 143.892119,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0012",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 168.259181,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0013",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 158.132957,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0014",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 166.213262,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0015",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 189.799798,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0016",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 176.143857,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0017",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 181.195488,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0018",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 206.68764,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0019",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 195.373551,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0020",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 208.642545,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0021",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 216.38537,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0022",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 232.171481,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0023",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 222.57828,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0024",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 232.005507,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0025",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 256.665221,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0026",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 238.140868,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0027",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 246.327177,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0028",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1880.459217,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0029",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 254.795827,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0030",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 266.444957,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0031",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 280.405275,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0032",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 2228.63632,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0033",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 274.61125,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0034",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 284.991187,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0035",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 311.634811,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0036",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 292.165187,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0037",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 303.208533,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0038",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 336.309671,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0039",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 315.949029,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0040",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 321.968225,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0041",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1962.97682,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0042",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "FP": [
+      "pack-ru2-phishing"
+    ],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 329.84042,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0043",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 344.846062,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0044",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 344.941611,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0045",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 375.111236,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0046",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 358.504324,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0047",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 367.23346,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0048",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 400.417302,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0049",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 380.4475,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0050",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 388.924732,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0051",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 391.200125,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0052",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 396.726592,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0053",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 400.219342,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0054",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 404.178965,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0055",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 406.173613,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0056",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 408.04948,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0057",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 408.170648,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0058",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 411.734015,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0059",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 411.847932,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0060",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 416.289234,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0061",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 416.335369,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0062",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 418.596389,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0063",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 420.620474,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0064",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 422.609569,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0065",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 424.407831,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0066",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 426.49185,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0067",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 426.568014,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0068",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 430.399253,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0069",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 430.511497,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0070",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 434.302548,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0071",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 434.395515,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0072",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 436.091652,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0073",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 437.796202,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0074",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 439.771641,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0075",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 441.95632,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0076",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 443.87689,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0077",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 445.580886,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0078",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 447.399492,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0079",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 447.491978,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0080",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 452.949016,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0081",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 453.386024,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0082",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 457.966029,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0083",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 458.041458,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0084",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 461.763361,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0085",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 461.842249,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0086",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 463.369317,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0087",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 465.153693,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0088",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 467.013436,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0089",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [
+      "pack-ru2-pii-handling"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 467.173145,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0090",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 470.562954,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0091",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [
+      "pack-ru2-data-exfil"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 470.660157,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0092",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 472.17656,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0093",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 473.793552,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0094",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 476.178142,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0095",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 476.276858,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0096",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 479.710535,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0097",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 479.771971,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0098",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 481.960387,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0099",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [
+      "pack-ru2-customer-data"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 482.018644,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0100",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 485.86776,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0101",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 514.890228,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0102",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 494.2503,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0103",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 509.594967,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0104",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 534.461522,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0105",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 2382.532007,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0106",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 520.957038,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0107",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 528.561478,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0108",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 561.017545,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0109",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 548.238787,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0110",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 555.562962,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0111",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 580.341896,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0112",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 566.858496,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0113",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 572.639721,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0114",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 602.949249,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0115",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 589.158009,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0116",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 602.782496,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0117",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 610.771257,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0118",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 625.750721,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0119",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 617.3228,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0120",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 625.613337,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0121",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 658.920519,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0122",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 633.543826,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0123",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 643.178302,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0124",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1823.404784,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0125",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 650.947294,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0126",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 662.484921,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0127",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 689.477131,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0128",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 1899.982092,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0129",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 670.585803,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0130",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 682.984287,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0131",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 706.067258,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0132",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 697.041193,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0133",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 704.239338,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0134",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 736.974912,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0135",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 712.317407,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0136",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 720.95169,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0137",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 2026.125862,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0138",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 734.936368,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0139",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 749.322553,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0140",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 749.219381,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0141",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 771.322212,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0142",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 760.333416,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0143",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 767.300376,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0144",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 787.036198,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0145",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 776.602869,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0146",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 783.263584,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0147",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 805.08725,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0148",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 794.47652,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0149",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 803.067602,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0150",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 826.547928,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0151",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 2161.999573,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0152",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 812.471728,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0153",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 820.423292,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0154",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 838.884152,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0155",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 831.287704,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0156",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 838.79808,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0157",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 863.941222,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0158",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 844.288847,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0159",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 852.847044,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0160",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 2063.358266,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0161",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 2278.064994,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0162",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 864.663489,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0163",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 870.252954,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0164",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 891.074309,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0165",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 876.492809,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0166",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 883.424538,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0167",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 2323.098408,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0168",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 890.820285,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0169",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 896.334509,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0170",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 916.152419,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0171",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 901.774443,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0172",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 912.222146,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0173",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 936.338197,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0174",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 2187.635511,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0175",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 922.751018,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0176",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 928.435987,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0177",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 2205.120534,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0178",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 935.708528,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0179",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 943.701084,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0180",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 959.929424,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0181",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 948.646098,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0182",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 952.68095,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0183",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 977.148441,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0184",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 2129.148759,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0185",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [
+      "pack-ru2-pii-handling"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 968.78393,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0186",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 978.53853,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0187",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [
+      "pack-ru2-data-exfil"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 995.900374,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0188",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 983.668371,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0189",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 990.922858,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0190",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1017.110352,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0191",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1007.65779,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0192",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1013.42915,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0193",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1037.741482,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0194",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1023.0036,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0195",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [
+      "pack-ru2-customer-data"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1035.807966,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0196",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1066.937498,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0197",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1837.247171,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0198",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 1050.522803,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0199",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 1059.658454,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0200",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 2303.447701,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0201",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1066.883631,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0202",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1074.863593,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0203",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1092.919605,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0204",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1078.2912,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0205",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1084.034335,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0206",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1120.312692,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0207",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 1925.787407,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0208",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1110.852174,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0209",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1120.295681,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0210",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1141.231438,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0211",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 1123.976339,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0212",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 1125.63118,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0213",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1129.274993,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0214",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1132.95494,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0215",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1134.569645,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0216",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1139.371059,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0217",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1142.896293,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0218",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1142.96924,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0219",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 1144.881816,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0220",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1147.699579,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0221",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1150.873672,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0222",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 1150.93789,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0223",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 1152.733997,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0224",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 1154.818966,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0225",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1156.79523,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0226",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1158.580705,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0227",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1160.476122,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0228",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1160.555295,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0229",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1162.236234,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0230",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1164.497936,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0231",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 1166.627917,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0232",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1168.593984,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0233",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1171.228433,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0234",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer"
+    ],
+    "exact": false,
+    "seconds": 1173.156381,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0235",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil"
+    ],
+    "exact": false,
+    "seconds": 1173.286436,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0236",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 1174.960686,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0237",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1177.543995,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0238",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1179.521527,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0239",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1181.378305,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0240",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1183.190288,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0241",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1188.708783,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0242",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 1190.592252,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0243",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1210.589394,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0244",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1198.524329,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0245",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1205.122861,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0246",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1227.546172,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0247",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1218.378594,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0248",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1229.251792,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0249",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1801.516613,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0250",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1257.699412,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0251",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [
+      "pack-ru2-pii-handling"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion"
+    ],
+    "exact": false,
+    "seconds": 1237.091059,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0252",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [
+      "pack-ru2-data-exfil"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1244.46759,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0253",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 2042.630281,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0254",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1252.05586,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0255",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data"
+    ],
+    "exact": false,
+    "seconds": 1259.23431,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0256",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1282.469295,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0257",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1266.769899,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0258",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1271.279713,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0259",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 2390.849501,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0260",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing"
+    ],
+    "exact": false,
+    "seconds": 2447.121385,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0261",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [
+      "pack-ru2-internal-docs"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat"
+    ],
+    "exact": false,
+    "seconds": 1282.478903,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0262",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-customer-data"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1289.771312,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0263",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1308.370314,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0264",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1295.009276,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0265",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1304.159704,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0266",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1328.718565,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0267",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1315.416536,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0268",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1320.955897,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0269",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1852.417026,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0270",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1328.40977,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0271",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1340.5199,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0272",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "FP": [],
+    "FN": [
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1351.432846,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0273",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 2077.167579,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0274",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 1347.391656,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0275",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "exact": false,
+    "seconds": 1353.310694,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0276",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "exact": false,
+    "seconds": 1383.270493,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0277",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "exact": false,
+    "seconds": 1364.03561,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0278",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "exact": false,
+    "seconds": 1371.984708,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0279",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "exact": false,
+    "seconds": 2409.521489,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0280",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "FP": [],
+    "FN": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "exact": false,
+    "seconds": 1379.729762,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0281",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1390.970482,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0282",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1406.759728,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0283",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 2249.10669,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0284",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1398.407795,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0285",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1406.580663,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0286",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1435.029163,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0287",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1414.267217,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0288",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1422.470191,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0289",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1971.520077,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0290",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1428.184196,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0291",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1436.655622,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0292",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1459.675129,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0293",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1442.174719,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0294",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1454.02021,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0295",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1477.225395,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0296",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 2500.126625,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0297",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1465.350789,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0298",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1473.352042,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0299",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1501.691643,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0300",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1482.639535,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0301",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1484.264092,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0302",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1488.241899,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0303",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1491.395737,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0304",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1493.649011,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0305",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1497.038749,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0306",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1501.414174,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0307",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1504.753133,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0308",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1504.818671,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0309",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1506.488572,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0310",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1508.398092,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0311",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1510.576897,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0312",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1510.686414,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0313",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1513.967228,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0314",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1514.032553,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0315",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1515.676755,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0316",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1517.817478,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0317",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1519.580186,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0318",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1521.473942,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0319",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1523.194208,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0320",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1523.28481,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0321",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1526.713996,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0322",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1526.767426,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0323",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1528.396749,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0324",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1530.330568,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0325",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1533.650202,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0326",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1533.769869,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0327",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1536.968854,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0328",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1537.016078,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0329",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1538.645116,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0330",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1541.269243,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0331",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1543.426697,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0332",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1543.534578,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0333",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1545.20057,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0334",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1547.020925,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0335",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1548.741411,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0336",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1548.827024,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0337",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1550.576783,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0338",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1552.495753,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0339",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1554.444137,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0340",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1556.306678,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0341",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1559.445913,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0342",
+    "expected": [],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "FP": [
+      "pack-ru2-phishing"
+    ],
+    "FN": [],
+    "exact": false,
+    "seconds": 1579.610655,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 1,
+    "incidents": 1
+  },
+  {
+    "id": "MF400-0343",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1565.755579,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0344",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1577.69577,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0345",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1936.60512,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0346",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1606.125099,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0347",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1586.555058,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0348",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1593.036789,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0349",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 2000.099925,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0350",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1601.028653,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0351",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1609.448177,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0352",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1631.574617,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0353",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1618.263256,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0354",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1623.709589,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0355",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1647.208454,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0356",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1636.752033,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0357",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1647.312797,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0358",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1906.678456,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0359",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1681.659801,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0360",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1661.88596,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0361",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1663.401013,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0362",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1667.811299,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0363",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1669.498296,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0364",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1672.942991,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0365",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1676.41989,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0366",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1679.742835,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0367",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1682.935995,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0368",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1682.99461,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0369",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1684.661964,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0370",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1686.306038,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0371",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1689.434038,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0372",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1689.511221,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0373",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1694.06245,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0374",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1694.554648,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0375",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1698.7856,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0376",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1698.919257,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0377",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1704.525358,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0378",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1704.417684,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0379",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1707.815859,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0380",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1707.869792,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0381",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1709.446234,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0382",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1709.526844,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0383",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1712.406622,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0384",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1714.016147,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0385",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1715.581406,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0386",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1715.645666,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0387",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1718.935309,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0388",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1719.05245,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0389",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1721.854443,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0390",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1721.91237,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0391",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1723.424706,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0392",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1725.131879,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0393",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1726.61792,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0394",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1728.266479,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0395",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1730.515619,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0396",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1732.188615,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0397",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1733.779394,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0398",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1735.661411,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0399",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1739.133789,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  },
+  {
+    "id": "MF400-0400",
+    "expected": [],
+    "actual": [],
+    "FP": [],
+    "FN": [],
+    "exact": true,
+    "seconds": 1742.149011,
+    "status": "ANALYZED",
+    "evaluation": true,
+    "policy_hits": 0,
+    "incidents": 0
+  }
+]

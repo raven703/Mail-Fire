@@ -1,0 +1,474 @@
+{
+  "sample_count": 210,
+  "sample_period": "approximately 5s plus docker stats/RabbitMQ command duration; sampled peaks, not absolute maxima",
+  "containers_cpu_percent_definition": "Docker: 100% = one CPU core; host CPU uses total host capacity",
+  "summary": {
+    "host": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 78.73680541748104,
+        "median": 83.98930042804918,
+        "p95": 92.97403447523456,
+        "p99": 95.38265769860026,
+        "min": 24.579033134166217,
+        "max": 96.75284702985533
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 5262847785.447619,
+        "median": 5242505216.0,
+        "p95": 5695762432,
+        "p99": 5829173248,
+        "min": 4683358208,
+        "max": 5960908800
+      }
+    },
+    "mice-web-run-ae4295ade98b": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 17.07690476190476,
+        "median": 6.355,
+        "p95": 65.01,
+        "p99": 83.22,
+        "min": 0.0,
+        "max": 87.99
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 64882737.152,
+        "median": 67024977.92,
+        "p95": 71166853.12,
+        "p99": 79408660.48,
+        "min": 56497274.88,
+        "max": 80719380.48
+      }
+    },
+    "mice-frontend-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.26461904761904764,
+        "median": 0.0,
+        "p95": 0.2,
+        "p99": 6.89,
+        "min": 0.0,
+        "max": 7.02
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 7821313.404342857,
+        "median": 7819231.232,
+        "p95": 8068792.32,
+        "p99": 8253341.696,
+        "min": 6184501.248,
+        "max": 8356102.144
+      }
+    },
+    "mice-web-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 10.558238095238096,
+        "median": 0.67,
+        "p95": 56.93,
+        "p99": 68.77,
+        "min": 0.4,
+        "max": 69.26
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 193329452.37333333,
+        "median": 195821568.0,
+        "p95": 207198617.6,
+        "p99": 209610342.4,
+        "min": 172490752.0,
+        "max": 211917209.6
+      }
+    },
+    "mice-beat-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.23252380952380952,
+        "median": 0.0,
+        "p95": 0.6,
+        "p99": 6.49,
+        "min": 0.0,
+        "max": 8.61
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 74473462.63771428,
+        "median": 74448896.0,
+        "p95": 74459381.76,
+        "p99": 75497472.0,
+        "min": 74438410.24,
+        "max": 76546048.0
+      }
+    },
+    "mice-ingestion-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.560047619047619,
+        "median": 0.31,
+        "p95": 0.79,
+        "p99": 7.63,
+        "min": 0.0,
+        "max": 9.61
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 97132191.35390475,
+        "median": 97066680.32,
+        "p95": 97328824.32,
+        "p99": 97349795.84,
+        "min": 97045708.8,
+        "max": 98115256.32
+      }
+    },
+    "mice-detection-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.4874761904761905,
+        "median": 0.27,
+        "p95": 0.84,
+        "p99": 7.59,
+        "min": 0.0,
+        "max": 9.32
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 97082209.2312381,
+        "median": 96993280.0,
+        "p95": 97265909.76,
+        "p99": 97528053.76,
+        "min": 96982794.24,
+        "max": 97674854.4
+      }
+    },
+    "mice-maintenance-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 1.7633809523809523,
+        "median": 0.3,
+        "p95": 10.91,
+        "p99": 30.05,
+        "min": 0.0,
+        "max": 37.98
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 119152686.81142858,
+        "median": 119223091.2,
+        "p95": 119537664.0,
+        "p99": 119642521.6,
+        "min": 118803660.8,
+        "max": 120166809.6
+      }
+    },
+    "mice-extraction-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.5090476190476191,
+        "median": 0.31,
+        "p95": 0.86,
+        "p99": 7.24,
+        "min": 0.0,
+        "max": 9.93
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 97244738.5112381,
+        "median": 97202995.2,
+        "p95": 97465139.2,
+        "p99": 97496596.48,
+        "min": 97182023.68,
+        "max": 97978941.44
+      }
+    },
+    "mice-policy-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 1.346142857142857,
+        "median": 0.36,
+        "p95": 6.23,
+        "p99": 10.01,
+        "min": 0.0,
+        "max": 11.47
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 113773491.93142857,
+        "median": 114085068.8,
+        "p95": 115448217.6,
+        "p99": 115448217.6,
+        "min": 99509862.4,
+        "max": 115448217.6
+      }
+    },
+    "mice-analysis-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 5.118047619047619,
+        "median": 0.42,
+        "p95": 22.04,
+        "p99": 40.31,
+        "min": 0.0,
+        "max": 47.9
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 178567499.58095238,
+        "median": 170393600.0,
+        "p95": 195978854.4,
+        "p99": 196188569.6,
+        "min": 168925593.6,
+        "max": 196398284.8
+      }
+    },
+    "mice-ocr-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.5965238095238096,
+        "median": 0.315,
+        "p95": 0.88,
+        "p99": 7.48,
+        "min": 0.0,
+        "max": 9.81
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 97013852.06247619,
+        "median": 96982794.24,
+        "p95": 97244938.24,
+        "p99": 97255424.0,
+        "min": 96972308.48,
+        "max": 97569996.8
+      }
+    },
+    "mice-notifications-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.6328095238095238,
+        "median": 0.3,
+        "p95": 1.16,
+        "p99": 7.97,
+        "min": 0.0,
+        "max": 8.21
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 97295020.22704762,
+        "median": 97265909.76,
+        "p95": 97528053.76,
+        "p99": 97601454.08,
+        "min": 97244938.24,
+        "max": 97916026.88
+      }
+    },
+    "mice-publisher-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 10.518380952380953,
+        "median": 8.02,
+        "p95": 24.53,
+        "p99": 30.73,
+        "min": 0.83,
+        "max": 41.52
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 67372006.64380953,
+        "median": 66081259.52,
+        "p95": 69877104.64,
+        "p99": 70191677.44,
+        "min": 64885882.88,
+        "max": 72592916.48
+      }
+    },
+    "mice-parser-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 86.85933333333334,
+        "median": 91.455,
+        "p95": 185.54,
+        "p99": 190.37,
+        "min": 0.08,
+        "max": 192.37
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 270295430.0952381,
+        "median": 262196428.8,
+        "p95": 410412646.4,
+        "p99": 484861542.4,
+        "min": 157076684.8,
+        "max": 556269568.0
+      }
+    },
+    "mice-ocr-parser-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 65.69071428571428,
+        "median": 91.005,
+        "p95": 106.82,
+        "p99": 119.72,
+        "min": 0.01,
+        "max": 125.0
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 313556180.60190475,
+        "median": 257005977.6,
+        "p95": 664482611.2,
+        "p99": 801741209.6,
+        "min": 106745036.8,
+        "max": 875456102.4
+      }
+    },
+    "mice-converter-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 0.11714285714285715,
+        "median": 0.01,
+        "p95": 0.09,
+        "p99": 2.49,
+        "min": 0.01,
+        "max": 4.28
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 24791082.91047619,
+        "median": 24788336.64,
+        "p95": 24788336.64,
+        "p99": 25050480.64,
+        "min": 24337448.96,
+        "max": 25197281.28
+      }
+    },
+    "mice-rabbitmq-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 32.09642857142857,
+        "median": 12.2,
+        "p95": 93.35,
+        "p99": 98.19,
+        "min": 0.67,
+        "max": 104.76
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 193417333.02857143,
+        "median": 174692761.6,
+        "p95": 250714521.6,
+        "p99": 253545676.8,
+        "min": 167457587.2,
+        "max": 258998272.0
+      }
+    },
+    "mice-db-1": {
+      "cpu_percent": {
+        "n": 210,
+        "mean": 26.842190476190478,
+        "median": 19.6,
+        "p95": 69.48,
+        "p99": 77.48,
+        "min": 0.1,
+        "max": 77.93
+      },
+      "memory_used_bytes": {
+        "n": 210,
+        "mean": 174246367.81714284,
+        "median": 176685056.0,
+        "p95": 196503142.4,
+        "p99": 209400627.2,
+        "min": 142082048.0,
+        "max": 213490073.6
+      }
+    }
+  },
+  "broker_queue_peak": {
+    "extraction.dead": 0,
+    "analysis.dead": 0,
+    "maintenance@c0e931f00538.celery.pidbox": 0,
+    "notifications": 0,
+    "celery_delayed_26": 0,
+    "celeryev.bb6586f9-ec28-4c3c-8116-7fd2ec9be72d": 0,
+    "celeryev.ea100788-c413-4f59-be3f-99d24dfdfd83": 0,
+    "celeryev.83171661-77ff-44aa-b68a-1339e7d61eba": 0,
+    "ocr": 0,
+    "celery_delayed_10": 0,
+    "ml.dead": 0,
+    "celery_delayed_18": 0,
+    "celery_delayed_9": 0,
+    "analysis@bfcf419e309b.celery.pidbox": 0,
+    "maintenance.dead": 0,
+    "celery_delayed_21": 0,
+    "celery_delayed_11": 0,
+    "celery_delayed_19": 0,
+    "detection.dead": 0,
+    "celeryev.7e4629da-f3e9-4487-a16d-bf1b36e68206": 0,
+    "ingestion": 0,
+    "celery_delayed_20": 0,
+    "celery_delayed_16": 0,
+    "celeryev.55c2f5d1-1a05-459e-987d-172126990c71": 0,
+    "celeryev.e94afd52-81fd-4642-afb7-743f702a1557": 0,
+    "celery_delayed_4": 0,
+    "celery_delayed_22": 0,
+    "detection": 0,
+    "celeryev.bbbf04cc-8ad7-45c9-a385-0472ce1da1d4": 0,
+    "celery_delayed_23": 0,
+    "celery_delayed_8": 0,
+    "ocr.dead": 0,
+    "celery_delayed_5": 0,
+    "training.dead": 0,
+    "celery_delayed_2": 0,
+    "policy.dead": 0,
+    "neural_training.dead": 0,
+    "llm.dead": 0,
+    "celery_delayed_12": 0,
+    "celery_delayed_14": 0,
+    "extraction": 0,
+    "notifications.dead": 0,
+    "ingestion@e3f563739e42.celery.pidbox": 0,
+    "celery_delayed_3": 0,
+    "celery_delayed_7": 0,
+    "ingestion.dead": 0,
+    "celery_delayed_0": 0,
+    "extraction@b3e68061e98c.celery.pidbox": 0,
+    "detection@4f8011afd1f0.celery.pidbox": 0,
+    "analysis": 989,
+    "ocr@838eb914d2a9.celery.pidbox": 0,
+    "neural.dead": 0,
+    "policy@c2c116f2251d.celery.pidbox": 0,
+    "maintenance": 2,
+    "semantic.dead": 0,
+    "celery_delayed_17": 0,
+    "celery_delayed_24": 0,
+    "semantic": 0,
+    "celery_delayed_15": 0,
+    "celeryev.d0d11127-b32e-487b-8010-1708b12bdc4f": 0,
+    "celery_delayed_6": 0,
+    "neural": 0,
+    "celery_delayed_13": 0,
+    "celery_delayed_27": 0,
+    "policy": 1,
+    "notifications@e6c77ce1c112.celery.pidbox": 0,
+    "llm": 0,
+    "ml": 0,
+    "training": 0,
+    "neural_training": 0,
+    "celery_delayed_25": 0,
+    "celery_delayed_1": 0,
+    "def25e5f-4946-37d4-b11e-2ea3de0b80ea.reply.celery.pidbox": 0,
+    "403dfa5b-c2e4-3aaa-8ab9-6791ee23520d.reply.celery.pidbox": 0,
+    "bae24350-7227-37f3-81e1-0636c217fa61.reply.celery.pidbox": 0,
+    "afac5eda-6b85-3fdf-bc80-b53f3d03bc53.reply.celery.pidbox": 0,
+    "031fe91b-bae1-3315-b4b7-591ff681b113.reply.celery.pidbox": 0,
+    "5cfc8c6a-9a9d-370b-adc8-f517e6f85a78.reply.celery.pidbox": 0,
+    "5c94bafa-c40a-3f85-9a8c-4c309e6a3c79.reply.celery.pidbox": 0,
+    "8e9cec23-8941-316c-bfee-ab6121f169e2.reply.celery.pidbox": 0,
+    "8d63caec-f95d-3bfa-a4e0-6c1986d611c6.reply.celery.pidbox": 0,
+    "d51c30f6-03b8-31ff-99c3-636871cd8859.reply.celery.pidbox": 0,
+    "6fe2e181-f625-33ad-8633-a88892fa45f0.reply.celery.pidbox": 0,
+    "fe4ccf5d-1b02-34ea-a8be-67620913a8b7.reply.celery.pidbox": 0,
+    "1c6e46be-2dff-3cd8-a9e8-290b7aa19928.reply.celery.pidbox": 0
+  }
+}

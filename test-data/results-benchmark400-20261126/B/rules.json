@@ -1,0 +1,412 @@
+{
+  "974293b7-c0f0-53ae-b343-d5df41114ea3": {
+    "title": "Прямые угрозы адресату",
+    "category": "pack-ru2-violence-threat",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "9328bb81-561d-53d0-90b3-51b24deb50d5": {
+    "title": "Явная угроза расправы",
+    "category": "pack-ru2-violence-threat",
+    "TP": 4,
+    "FP": 0,
+    "messages": 4,
+    "unique_TP": 4,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "5bea54a2-d68d-5e1f-bd5c-3eeccbf55648": {
+    "title": "Выраженное намерение расправы",
+    "category": "pack-ru2-violence-threat",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "01d86320-df06-5452-81e5-03f84a916404": {
+    "title": "Явная передача приватного ключа",
+    "category": "pack-ru2-credential-transfer",
+    "TP": 7,
+    "FP": 0,
+    "messages": 7,
+    "unique_TP": 7,
+    "FN_category_proxy": 20,
+    "precision": 1.0
+  },
+  "567a151d-c49b-57fc-a420-f5f32a734663": {
+    "title": "Запрос пароля",
+    "category": "pack-ru2-credential-transfer",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "5c20bc62-d703-5f4c-8bc0-2e00a67d6683": {
+    "title": "Запрос API-токена",
+    "category": "pack-ru2-credential-transfer",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "9a805cdd-73de-5923-96d7-fd339a9db5b2": {
+    "title": "Недвусмысленные прямые угрозы",
+    "category": "pack-ru2-explosive-threat",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "2163ef44-ac6c-55f2-b05b-3c6f18558c88": {
+    "title": "Угроза взрыва здания",
+    "category": "pack-ru2-explosive-threat",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "e05b421c-b7ba-5231-8349-67b7b75602f2": {
+    "title": "Сообщение о заложенном устройстве",
+    "category": "pack-ru2-explosive-threat",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "00e028e8-3e1b-5501-ada0-9e4fe85e9d10": {
+    "title": "Признаки поддельной формы входа",
+    "category": "pack-ru2-phishing",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "7856514b-35a4-5fad-bbc2-48a5ae54cf99": {
+    "title": "Подтверждение аккаунта с паролем",
+    "category": "pack-ru2-phishing",
+    "TP": 1,
+    "FP": 2,
+    "messages": 3,
+    "unique_TP": 1,
+    "FN_category_proxy": 26,
+    "precision": 0.3333333333333333
+  },
+  "b341129b-15f4-52c7-979d-94a33e94cbad": {
+    "title": "Запрос одноразового кода",
+    "category": "pack-ru2-phishing",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "d518a982-3615-5140-9dbc-f2b074f59db6": {
+    "title": "Ссылка для разблокировки",
+    "category": "pack-ru2-phishing",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "3318bde9-df9c-50ad-9318-1e4b7b2716a9": {
+    "title": "Явное требование выкупа",
+    "category": "pack-ru2-extortion",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "e1bf144e-d397-55f2-b391-769d1fa8d124": {
+    "title": "Требование оплаты под угрозой",
+    "category": "pack-ru2-extortion",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "0268ebd4-1f2d-52b0-9a26-7d5f0dfe810b": {
+    "title": "Выкуп за данные",
+    "category": "pack-ru2-extortion",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "ac0411b4-6773-5a3f-95fb-f45dadb7268c": {
+    "title": "Прямая формулировка выгрузки",
+    "category": "pack-ru2-customer-data",
+    "TP": 4,
+    "FP": 0,
+    "messages": 4,
+    "unique_TP": 0,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "f9f837d2-f6ba-5865-970d-e4a025641e8a": {
+    "title": "Экспорт клиентской базы",
+    "category": "pack-ru2-customer-data",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "0c9c0df0-8e95-5b97-8fc1-d5d0eb4d9931": {
+    "title": "Отправка списка контактов",
+    "category": "pack-ru2-customer-data",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "63e7f723-e3fb-504a-a691-2365fb6b5646": {
+    "title": "Клиентская база с чувствительным содержимым",
+    "category": "pack-ru2-customer-data",
+    "TP": 4,
+    "FP": 0,
+    "messages": 4,
+    "unique_TP": 0,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "11b54224-cdf3-5591-91fc-a2bbe2db24a2": {
+    "title": "Передача реестра клиентов",
+    "category": "pack-ru2-customer-data",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "9be0d926-745c-5baa-bd3a-a07331667cd0": {
+    "title": "Выгрузка CRM",
+    "category": "pack-ru2-customer-data",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "7d1f330f-5253-55b9-b470-de2045ac038b": {
+    "title": "Явные коммерческие пометки",
+    "category": "pack-ru2-pricing",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "3e946382-4d20-5dff-b69e-5b12a433f541": {
+    "title": "Персональное предложение с тарифом",
+    "category": "pack-ru2-pricing",
+    "TP": 4,
+    "FP": 0,
+    "messages": 4,
+    "unique_TP": 4,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "ae29a85f-e794-5870-a24c-befe91dfc658": {
+    "title": "Закрытая себестоимость и наценка",
+    "category": "pack-ru2-pricing",
+    "TP": 3,
+    "FP": 0,
+    "messages": 3,
+    "unique_TP": 3,
+    "FN_category_proxy": 24,
+    "precision": 1.0
+  },
+  "fbb08b17-e3a6-5fb3-bd6d-29cc2c507fe9": {
+    "title": "Скидка и ограничение доступа",
+    "category": "pack-ru2-pricing",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "617a2859-2805-5f63-b0dd-dc0e13dac39d": {
+    "title": "Явные пометки финансовых прогнозов",
+    "category": "pack-ru2-financial-plans",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "18841eb0-4c15-512e-8285-6453cff277cc": {
+    "title": "Прогноз выручки с внутренним контекстом",
+    "category": "pack-ru2-financial-plans",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "30095959-d358-5515-b57e-abe862c20595": {
+    "title": "Бюджет с непубличным контекстом",
+    "category": "pack-ru2-financial-plans",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "cff9ba62-d910-55c4-b5d5-aac139007e7d": {
+    "title": "Явные обозначения выгрузки ПДн",
+    "category": "pack-ru2-pii-handling",
+    "TP": 3,
+    "FP": 0,
+    "messages": 3,
+    "unique_TP": 3,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "1cb75122-d0e6-5665-89f8-c9df04ba399e": {
+    "title": "Переслать персональные данные",
+    "category": "pack-ru2-pii-handling",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "2fb0a01d-9f0d-51df-9bc0-be5574b11789": {
+    "title": "Передача паспортных сканов",
+    "category": "pack-ru2-pii-handling",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "427cd5af-a521-563f-b481-309cb69f5ba5": {
+    "title": "Передача личных данных",
+    "category": "pack-ru2-pii-handling",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "067085bd-d359-58f1-9f69-1ba41ec8d38c": {
+    "title": "Передача персональных сведений",
+    "category": "pack-ru2-pii-handling",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "6f0185a5-4c5b-580c-8086-a46f4c285926": {
+    "title": "Метки внутреннего обращения",
+    "category": "pack-ru2-internal-docs",
+    "TP": 10,
+    "FP": 0,
+    "messages": 10,
+    "unique_TP": 10,
+    "FN_category_proxy": 17,
+    "precision": 1.0
+  },
+  "daec038c-6f28-5929-af85-cf8ab655ec14": {
+    "title": "Внутренний документ с ограничением доступа",
+    "category": "pack-ru2-internal-docs",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 27,
+    "precision": null
+  },
+  "48ea8131-6f60-56de-93c8-a1a10c00ce4f": {
+    "title": "Передача внутреннего файла внешнему получателю",
+    "category": "pack-ru2-data-exfil",
+    "TP": 3,
+    "FP": 0,
+    "messages": 3,
+    "unique_TP": 3,
+    "FN_category_proxy": 23,
+    "precision": 1.0
+  },
+  "9675f66f-6ee3-5373-ad0c-3e68dacecd43": {
+    "title": "Экспорт коммерческих документов",
+    "category": "pack-ru2-data-exfil",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "c97898bd-611d-5b89-86de-9189e087ced5": {
+    "title": "Передача конфиденциального архива внешнему адресату",
+    "category": "pack-ru2-data-exfil",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "73166d7a-3af4-5350-9d40-daef00c21dde": {
+    "title": "Намерение вывести сервер из строя",
+    "category": "pack-ru2-sabotage",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  },
+  "2c1b86eb-64ad-548a-ba4d-47cb484e240a": {
+    "title": "Умышленное удаление резервных копий",
+    "category": "pack-ru2-sabotage",
+    "TP": 0,
+    "FP": 0,
+    "messages": 0,
+    "unique_TP": 0,
+    "FN_category_proxy": 26,
+    "precision": null
+  }
+}

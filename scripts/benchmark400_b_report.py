@@ -1,0 +1,77 @@
+"""Offline reporting only; never invokes inference or modifies benchmark input."""
+import json,statistics,collections,datetime,re,difflib,math
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'test-data/results-benchmark400-20261126/B';CORPUS=ROOT/'test-data/benchmark-400-v1'
+def load(n):return json.loads((OUT/n).read_text())
+def save(n,v):(OUT/n).write_text(json.dumps(v,ensure_ascii=False,indent=2,default=str))
+def dt(s):
+ d=datetime.datetime.fromisoformat(s);return d.replace(tzinfo=datetime.timezone.utc) if not d.tzinfo else d
+
+def summary(v):
+ v=sorted(v)
+ return {'n':len(v),'mean':statistics.mean(v),'median':statistics.median(v),'p95':v[min(len(v)-1,math.ceil(.95*len(v))-1)],'p99':v[min(len(v)-1,math.ceil(.99*len(v))-1)],'min':min(v),'max':max(v)} if v else {}
+def metric(tp,fp,fn,tn=0):return dict(TP=tp,FP=fp,FN=fn,TN=tn,precision=tp/(tp+fp) if tp+fp else 0,recall=tp/(tp+fn) if tp+fn else 0,F1=2*tp/(2*tp+fp+fn) if 2*tp+fp+fn else 0)
+def main():
+ rows=[json.loads(l) for l in (CORPUS/'manifest.jsonl').read_text().splitlines()];obs=[json.loads(l) for l in (OUT/'observations.jsonl').read_text().splitlines()];assert len(obs)==len({o['id'] for o in obs})==400
+ byid={o['id']:o for o in obs};run=load('run.json');end=load('completion.json');scope=set(c for r in rows for c in r['expected_semantic_categories']);assert len(scope)==12
+ counts={c:collections.Counter() for c in scope};errors=[];messages=[];attachments=[];rules={r['id']:{'title':r['title'],'category':g['category']['id'],'TP':0,'FP':0,'messages':0,'unique_TP':0} for g in run['configuration']['groups'] for r in g['rules']};builtin=collections.Counter();probes=collections.Counter();norm=collections.Counter();stage=collections.defaultdict(list);wait=collections.defaultdict(list);substage=collections.defaultdict(list);lat=[];analysis_times=[];joberrors=[];incidents=[];policy=collections.Counter();cohorts=collections.defaultdict(list);formats=collections.defaultdict(list)
+ for r in rows:
+  o=byid[r['id']];fs=o['analysis'].get('findings',[]);actual={f['category'] for f in fs}&scope;expected=set(r['expected_semantic_categories']);allactual={f['category'] for f in fs};fp=actual-expected;fn=expected-actual
+  for c in scope:counts[c]['TP' if c in actual&expected else 'FP' if c in fp else 'FN' if c in fn else 'TN']+=1
+  builtin.update(allactual-scope)
+  for c in r.get('expected_builtin_categories',[]):probes[c+'_expected']+=1;probes[c+'_found']+=int(c in allactual)
+  no=o['analysis'].get('normalization',{});norm['enabled_messages']+=bool(no.get('enabled'));norm['transformed_messages']+=bool(no.get('transforms'));norm.update(no.get('transforms',[]));nf=[f for f in fs if f.get('normalization')];norm['normalized_findings']+=len(nf);norm['messages_with_normalized_findings']+=bool(nf);norm['FP_messages_with_normalized_evidence']+=bool(fp & {f['category'] for f in nf})
+  hitrules=set()
+  for f in fs:
+   hitrules.add(f.get('rule_id'));hitrules.update(x.get('rule_id') for x in f.get('supporting_rules',[]) if isinstance(x,dict))
+  hitrules &= rules.keys()
+  for rid in hitrules:
+   rr=rules[rid];rr['messages']+=1;rr['TP' if rr['category'] in expected else 'FP']+=1
+   rr['unique_TP']+=int(rr['category'] in expected and sum(rules[x]['category']==rr['category'] for x in hitrules)==1)
+  for c in sorted(fp|fn):
+   evidence=[f for f in fs if f['category']==c];reason='Гипотеза: правило совпало с допустимым/описательным контекстом; проверить обязательные контекстные условия и локальные исключения.' if c in fp else 'Гипотеза: формулировка/обфускация не покрыта активными условиями категории; штатная трасса несработавших условий отсутствует.'
+   if not o['evaluation_id']:reason='Конвейер не завершил оценку политик; пропуск учтён в общей метрике.'
+   errors.append({'id':r['id'],'message_id':o['message_id'],'outcome':'FP' if c in fp else 'FN','category':c,'expected':sorted(expected),'actual':sorted(actual),'scenario':r['scenario'],'group':r['group'],'rules':sorted(hitrules),'evidence':evidence,'text_excerpt':o['text'][:5000],'attachment_excerpts':[a['text'][:2000] for a in o['attachments']],'reason_hypothesis':reason,'ocr_possible_influence':[{'name':a['name'],'status':a['status'],'ocr_state':a['details'].get('ocr_state')} for a in o['attachments']],'normalization':no,'normalized_evidence':[f for f in nf if f['category']==c],'causality':'Без A-прогона причинный вклад нормализатора не установлен.'})
+  for a in o['attachments']:
+   ref=r.get('attachment_visible_text','');normtext=lambda t:re.sub(r'\s+',' ',t).strip().casefold();truth=normtext(ref);text=normtext(a['text']);ratio=difflib.SequenceMatcher(None,truth,text,autojunk=False).ratio() if truth else None
+   # Levenshtein character/word distance on whitespace/case-normalized reference.
+   def distance(x,y):
+    prev=list(range(len(y)+1))
+    for i,c in enumerate(x,1):
+     cur=[i]
+     for j,d in enumerate(y,1):cur.append(min(cur[-1]+1,prev[j]+1,prev[j-1]+(c!=d)))
+     prev=cur
+    return prev[-1]
+   attachments.append({'id':r['id'],'attachment_id':a['id'],'name':a['name'],'format':r['attachment_type'],'status':a['status'],'expected_ocr':r['expected_ocr'],'ocr_state':a['details'].get('ocr_state'),'engines':a['details'].get('ocr_engines',[]),'ocr_records':len(a['details'].get('ocr',[])),'reference':ref,'text':a['text'],'character_similarity':ratio,'CER':distance(truth,text)/len(truth) if truth else None,'WER':distance(truth.split(),text.split())/len(truth.split()) if truth else None,'details':a['details']})
+  for j in o['pipeline_jobs']:
+   if j['execution_seconds'] is not None:stage[j['kind']].append(j['execution_seconds'])
+   if j['queue_seconds'] is not None:wait[j['kind']].append(j['queue_seconds'])
+   for k,v in j.get('output',{}).get('timings',{}).items():substage[k].append(v)
+   if j['kind']=='analysis.analyze' and j['execution_seconds'] is not None:analysis_times.append(j['execution_seconds'])
+   if j['error'] or j['status']!='DONE' or j['attempts']>1 or j.get('deferrals',0):joberrors.append({'id':r['id'],**j})
+  terminal=[dt(j['finished_at']) for j in o['pipeline_jobs'] if j['kind']=='policy.evaluate' and j['finished_at']];seconds=(max(terminal)-dt(o['accepted_at'])).total_seconds() if terminal else o['seconds'];lat.append(seconds);incidents.extend(o['incidents']);policy.update(h['policy_id'] for h in o['policy_hits'])
+  record={'id':r['id'],'expected':sorted(expected),'actual':sorted(actual),'FP':sorted(fp),'FN':sorted(fn),'exact':actual==expected,'seconds':seconds,'status':o['status'],'evaluation':bool(o['evaluation_id']),'policy_hits':len(o['policy_hits']),'incidents':len(o['incidents'])};messages.append(record);cohorts[r['group']].append(record);formats[r['attachment_type']].append(record)
+ per={c:metric(*(counts[c][k] for k in ['TP','FP','FN','TN'])) for c in sorted(scope)}
+ micro=metric(*(sum(counts[c][k] for c in scope) for k in ['TP','FP','FN','TN']));macro={k:statistics.mean(per[c][k] for c in scope) for k in ['precision','recall','F1']}
+ def strat(groups):return {k:{'messages':len(v),'exact_match':sum(x['exact'] for x in v)/len(v),'FP':sum(len(x['FP']) for x in v),'FN':sum(len(x['FN']) for x in v),'mean_latency':statistics.mean(x['seconds'] for x in v)} for k,v in groups.items()}
+ for rr in rules.values():rr['FN_category_proxy']=per.get(rr['category'],{}).get('TP',0)+per.get(rr['category'],{}).get('FN',0)-rr['TP'];rr['precision']=rr['TP']/rr['messages'] if rr['messages'] else None
+ first=dt(run['started_at']);last=max(dt(j['finished_at']) for o in obs for j in o['pipeline_jobs'] if j['finished_at'] and j['kind']=='policy.evaluate');elapsed=(last-first).total_seconds();timing={'wall_seconds_to_last_policy':elapsed,'observed_monitor_finish_seconds':(dt(end['finished_at'])-first).total_seconds(),'throughput_per_hour':400*3600/elapsed,'projected_per_day':400*86400/elapsed,'projection_caveat':'Линейная экстраполяция одного пакетного прогона, не суточный нагрузочный тест.','latency_including_queue':summary(lat),'analysis_execution':summary(analysis_times),'stage_execution':{k:summary(v) for k,v in stage.items()},'stage_queue_wait':{k:summary(v) for k,v in wait.items()},'unified_internal_timings':{k:summary(v) for k,v in substage.items()}}
+ safe=[m for r,m in zip(rows,messages) if r['expected_no_issue']];metrics={'messages':400,'micro':micro,'macro':macro,'exact_match':sum(m['exact'] for m in messages)/400,'safe_messages':len(safe),'safe_with_RU3_false_alarm':sum(bool(m['FP']) for m in safe),'safe_false_alarm_rate':sum(bool(m['FP']) for m in safe)/len(safe),'per_category':per,'cohorts':strat(cohorts),'formats':strat(formats),'status_counts':dict(collections.Counter(o['status'] for o in obs)),'fresh_evaluations':sum(bool(o['evaluation_id']) for o in obs),'incidents':len(incidents),'unique_incidents':len({i['id'] for i in incidents}),'messages_with_multiple_incidents':sum(len(o['incidents'])>1 for o in obs),'policy_hits':sum(policy.values()),'policies':dict(policy),'builtin_findings_message_counts_unannotated_not_FP':dict(builtin),'builtin_positive_probes':dict(probes),'normalizer':dict(norm),'job_errors_retries':len(joberrors),'messages_with_engine_errors':sum(bool(o['analysis'].get('engine_errors')) for o in obs)}
+ ocr=[a for a in attachments if a['expected_ocr'] not in ['not_required','none']];metrics['ocr']={'expected_values':dict(collections.Counter(a['expected_ocr'] for a in attachments)),'states':dict(collections.Counter(a['ocr_state'] for a in attachments)),'required_count':len(ocr),'required_attempted':sum(bool(a['ocr_records']) for a in ocr),'engines':dict(collections.Counter(e for a in attachments for e in a['engines'])),'required_CER':summary([a['CER'] for a in ocr if a['CER'] is not None]),'required_WER':summary([a['WER'] for a in ocr if a['WER'] is not None]),'quality_method':'Casefold + collapsed whitespace; edit distance / reference length; CER/WER can exceed 1; synthetic author-defined text.'}
+ samples=[json.loads(l) for l in (OUT/'resource-samples.jsonl').read_text().splitlines()];samples=[s for s in samples if first<=dt(s['at'])<=last];resources=collections.defaultdict(lambda:collections.defaultdict(list));brokerpeak=collections.Counter()
+ def bytes_(s):
+  m=re.match(r'([\d.]+)(\w+)',s.strip());return float(m[1])*{'B':1,'KiB':1024,'MiB':1024**2,'GiB':1024**3,'kB':1000,'MB':1e6,'GB':1e9}.get(m[2],1)
+ for s in samples:
+  resources['host']['cpu_percent'].append(s['host_cpu_percent']);resources['host']['memory_used_bytes'].append(s['host_memory']['MemTotal']-s['host_memory']['MemAvailable'])
+  for c in s['containers']:resources[c['Name']]['cpu_percent'].append(float(c['CPUPerc'].rstrip('%')));resources[c['Name']]['memory_used_bytes'].append(bytes_(c['MemUsage'].split('/')[0]))
+  try:
+   for q in json.loads(s['broker_queues'][s['broker_queues'].index('['):]):brokerpeak[q['name']]=max(brokerpeak[q['name']],q['messages_ready']+q['messages_unacknowledged'])
+  except (ValueError,TypeError):pass
+ res={'sample_count':len(samples),'sample_period':'approximately 5s plus docker stats/RabbitMQ command duration; sampled peaks, not absolute maxima','containers_cpu_percent_definition':'Docker: 100% = one CPU core; host CPU uses total host capacity','summary':{k:{x:summary(v) for x,v in vals.items()} for k,vals in resources.items()},'broker_queue_peak':dict(brokerpeak)}
+ for n,v in [('metrics.json',metrics),('timing.json',timing),('resources.json',res),('categories.json',per),('rules.json',rules),('attachments.json',attachments),('errors.json',errors),('messages.json',messages),('job-errors.json',joberrors)]:save(n,v)
+ lines=['# Benchmark-400-B — единственный прогон с нормализатором detect/high','', '## TL;DR',json.dumps({k:metrics[k] for k in ['micro','macro','exact_match','safe_with_RU3_false_alarm','fresh_evaluations','incidents','status_counts']},ensure_ascii=False,indent=2),'','## Методика и сохранность','400 новых EML из коммита '+run['dataset_commit']+'; штатный accept → очередь → unified analysis (извлечение/OCR/детекторы) → policy → incidents. Старые 350 сообщений сохранены; совпадения входных SHA исключены до приёма. Нет прямых вызовов детекторов, повторной подачи, A-прогона или кэшированных наблюдений. Бэкап БД вне Git: /home/user/mice-archives/benchmark400-B/pre-run.dump.','Конфигурация неизменна во время прогона; нормализатор оставлен detect/high. ML/LLM отключены в окружении и настройках, semantic выключен. Антивирус не настроен, его исходный выключенный переключатель сохранён: это отклонение от требования всех штатных детекторов. Категории/правила/политики не корректировались.','', '## Ограничения','Синтетическая авторская разметка не прошла экспертную валидацию. Встроенные категории размечены только положительными пробами: остальные находки не считаются доказанными FP. Правила оцениваются по поддержке категории, независимой разметки отдельных правил/политик нет. OCR CER/WER относительно авторского текста, не независимой транскрипции. Нормализованный evidence показывает совпадения, но без A нельзя количественно приписывать ему изменение F1 или скорости. CPU/RAM пики дискретные.','', '## RU3 по категориям','| Категория | TP | FP | FN | TN | Precision | Recall | F1 |','|---|---:|---:|---:|---:|---:|---:|---:|']
+ for c,m in per.items():lines.append(f"| {c} | {m['TP']} | {m['FP']} | {m['FN']} | {m['TN']} | {m['precision']:.4f} | {m['recall']:.4f} | {m['F1']:.4f} |")
+ for title,v in [('Производительность',timing),('Группы и обфускация',metrics['cohorts']),('Форматы',metrics['formats']),('OCR',metrics['ocr']),('Нормализатор',metrics['normalizer']),('Встроенные детекторы',{'findings':dict(builtin),'positive_probes':dict(probes)}),('Политики и инциденты',{'policies':dict(policy),'incidents':len(incidents),'multiple_per_message':metrics['messages_with_multiple_incidents']}),('Ресурсы',res)]:lines+=['','## '+title,'```json',json.dumps(v,ensure_ascii=False,indent=2),'```']
+ lines+=['','## Разбор ошибок','Полный перечень FP/FN: errors.json (ID, ожидаемые/фактические категории, правила, evidence, фрагменты, гипотеза причины, OCR/normalization). Все 400 сообщений включены в знаменатели. attachments.json содержит извлечённый и эталонный тексты, OCR и качество; rules.json — срабатывания, precision и unique TP; observations.jsonl — исходные наблюдения.','','## Рекомендации — без внесения изменений','1. В первую очередь экспертно разобрать категории с низким recall и реальные FN по errors.json: разделить непокрытую лексику, обязательный контекст и потери извлечения/OCR.','2. Для FP на safe_hard проверить локальные исключения цитат, учебных и описательных формулировок; не добавлять глобальные исключения без проверки TP.','3. Отдельно оценить обфускацию: безопасные нормализованные варианты должны сохранять координаты и происхождение; не расширять нормализацию идентификаторов/секретов автоматически.','4. Для OCR разобрать высокий CER/WER по формату и состоянию; синтетический пиксельный шрифт не репрезентативен для реальных сканов.','5. Проверять эффективность правил по unique TP и FP, а не только числу срабатываний; policy/incident counts не подменяют качество классификации.','6. Следующие прогоны и любые изменения правил — только после согласования; количественного сравнения с выключенным нормализатором здесь нет.']
+ (OUT/'REPORT.md').write_text('\n'.join(lines)+'\n');print(json.dumps({'micro':micro,'macro':macro,'seconds':elapsed,'completed':len(obs)},ensure_ascii=False))
+if __name__=='__main__':main()

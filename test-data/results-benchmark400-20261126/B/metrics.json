@@ -1,0 +1,325 @@
+{
+  "messages": 400,
+  "micro": {
+    "TP": 39,
+    "FP": 2,
+    "FN": 281,
+    "TN": 4478,
+    "precision": 0.9512195121951219,
+    "recall": 0.121875,
+    "F1": 0.21606648199445982
+  },
+  "macro": {
+    "precision": 0.6111111111111112,
+    "recall": 0.12108262108262108,
+    "F1": 0.19672156288985446
+  },
+  "exact_match": 0.3675,
+  "safe_messages": 120,
+  "safe_with_RU3_false_alarm": 1,
+  "safe_false_alarm_rate": 0.008333333333333333,
+  "per_category": {
+    "pack-ru2-credential-transfer": {
+      "TP": 7,
+      "FP": 0,
+      "FN": 20,
+      "TN": 373,
+      "precision": 1.0,
+      "recall": 0.25925925925925924,
+      "F1": 0.4117647058823529
+    },
+    "pack-ru2-customer-data": {
+      "TP": 4,
+      "FP": 0,
+      "FN": 23,
+      "TN": 373,
+      "precision": 1.0,
+      "recall": 0.14814814814814814,
+      "F1": 0.25806451612903225
+    },
+    "pack-ru2-data-exfil": {
+      "TP": 3,
+      "FP": 0,
+      "FN": 23,
+      "TN": 374,
+      "precision": 1.0,
+      "recall": 0.11538461538461539,
+      "F1": 0.20689655172413793
+    },
+    "pack-ru2-explosive-threat": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 27,
+      "TN": 373,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-extortion": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 26,
+      "TN": 374,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-financial-plans": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 27,
+      "TN": 373,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-internal-docs": {
+      "TP": 10,
+      "FP": 0,
+      "FN": 17,
+      "TN": 373,
+      "precision": 1.0,
+      "recall": 0.37037037037037035,
+      "F1": 0.5405405405405406
+    },
+    "pack-ru2-phishing": {
+      "TP": 1,
+      "FP": 2,
+      "FN": 26,
+      "TN": 371,
+      "precision": 0.3333333333333333,
+      "recall": 0.037037037037037035,
+      "F1": 0.06666666666666667
+    },
+    "pack-ru2-pii-handling": {
+      "TP": 3,
+      "FP": 0,
+      "FN": 23,
+      "TN": 374,
+      "precision": 1.0,
+      "recall": 0.11538461538461539,
+      "F1": 0.20689655172413793
+    },
+    "pack-ru2-pricing": {
+      "TP": 7,
+      "FP": 0,
+      "FN": 20,
+      "TN": 373,
+      "precision": 1.0,
+      "recall": 0.25925925925925924,
+      "F1": 0.4117647058823529
+    },
+    "pack-ru2-sabotage": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 26,
+      "TN": 374,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-violence-threat": {
+      "TP": 4,
+      "FP": 0,
+      "FN": 23,
+      "TN": 373,
+      "precision": 1.0,
+      "recall": 0.14814814814814814,
+      "F1": 0.25806451612903225
+    }
+  },
+  "cohorts": {
+    "ordinary": {
+      "messages": 100,
+      "exact_match": 0.14,
+      "FP": 1,
+      "FN": 86,
+      "mean_latency": 407.62108774
+    },
+    "attachment_only": {
+      "messages": 80,
+      "exact_match": 0.0625,
+      "FP": 0,
+      "FN": 75,
+      "mean_latency": 912.803664825
+    },
+    "obfuscated": {
+      "messages": 60,
+      "exact_match": 0.15,
+      "FP": 0,
+      "FN": 51,
+      "mean_latency": 1164.66155195
+    },
+    "mixed": {
+      "messages": 40,
+      "exact_match": 0.0,
+      "FP": 0,
+      "FN": 69,
+      "mean_latency": 1435.649278375
+    },
+    "safe_ordinary": {
+      "messages": 60,
+      "exact_match": 1.0,
+      "FP": 0,
+      "FN": 0,
+      "mean_latency": 1536.5177194833334
+    },
+    "safe_hard": {
+      "messages": 60,
+      "exact_match": 0.9833333333333333,
+      "FP": 1,
+      "FN": 0,
+      "mean_latency": 1691.70514755
+    }
+  },
+  "formats": {
+    "pdf": {
+      "messages": 40,
+      "exact_match": 0.175,
+      "FP": 0,
+      "FN": 35,
+      "mean_latency": 858.5814705
+    },
+    "png": {
+      "messages": 50,
+      "exact_match": 0.24,
+      "FP": 0,
+      "FN": 45,
+      "mean_latency": 1372.27158262
+    },
+    "docx": {
+      "messages": 40,
+      "exact_match": 0.225,
+      "FP": 1,
+      "FN": 38,
+      "mean_latency": 880.656117
+    },
+    "csv": {
+      "messages": 10,
+      "exact_match": 0.4,
+      "FP": 0,
+      "FN": 8,
+      "mean_latency": 811.6340297
+    },
+    "scan_pdf": {
+      "messages": 40,
+      "exact_match": 0.225,
+      "FP": 1,
+      "FN": 36,
+      "mean_latency": 1212.55371795
+    },
+    "zip": {
+      "messages": 20,
+      "exact_match": 0.3,
+      "FP": 0,
+      "FN": 16,
+      "mean_latency": 889.5430368
+    },
+    "xlsx": {
+      "messages": 30,
+      "exact_match": 0.26666666666666666,
+      "FP": 0,
+      "FN": 24,
+      "mean_latency": 904.8227806
+    },
+    "txt": {
+      "messages": 10,
+      "exact_match": 0.4,
+      "FP": 0,
+      "FN": 7,
+      "mean_latency": 901.7962377
+    },
+    "none": {
+      "messages": 160,
+      "exact_match": 0.55,
+      "FP": 0,
+      "FN": 72,
+      "mean_latency": 1162.68975035625
+    }
+  },
+  "status_counts": {
+    "ANALYZED": 400
+  },
+  "fresh_evaluations": 400,
+  "incidents": 61,
+  "unique_incidents": 61,
+  "messages_with_multiple_incidents": 0,
+  "policy_hits": 61,
+  "policies": {
+    "58079793-337a-4423-9440-14d4ee0070af": 17,
+    "7c00e240-6a7d-49c8-b9eb-e7ed0f16b909": 27,
+    "ed02c54d-3ff9-4290-8455-c0a58e525240": 4,
+    "b87abbfb-43d4-47c8-b574-7e786410770d": 7,
+    "33a14c67-041f-4c7c-99bd-3f1412266913": 3,
+    "9c80ac12-bd2a-41dc-b328-3f3501b1a3f5": 3
+  },
+  "builtin_findings_message_counts_unannotated_not_FP": {
+    "RU_SNILS": 10,
+    "INN": 9,
+    "RU_PASSPORT": 3
+  },
+  "builtin_positive_probes": {
+    "RU_SNILS_expected": 10,
+    "RU_SNILS_found": 10,
+    "INN_expected": 10,
+    "INN_found": 9,
+    "RU_PASSPORT_expected": 3,
+    "RU_PASSPORT_found": 3
+  },
+  "normalizer": {
+    "enabled_messages": 400,
+    "transformed_messages": 85,
+    "normalized_findings": 2,
+    "messages_with_normalized_findings": 2,
+    "FP_messages_with_normalized_evidence": 0,
+    "mixed_script_or_digits": 43,
+    "invisible_characters": 22,
+    "separated_letters": 20
+  },
+  "job_errors_retries": 31,
+  "messages_with_engine_errors": 0,
+  "ocr": {
+    "expected_values": {
+      "not_required": 150,
+      "required": 90
+    },
+    "states": {
+      "not_required": 150,
+      "done": 90
+    },
+    "required_count": 90,
+    "required_attempted": 90,
+    "engines": {
+      "rapidocr": 90
+    },
+    "required_CER": {
+      "n": 90,
+      "mean": 0.08083505540810236,
+      "median": 0.013333333333333334,
+      "p95": 0.40540540540540543,
+      "p99": 0.5164835164835165,
+      "min": 0.0,
+      "max": 0.5164835164835165
+    },
+    "required_WER": {
+      "n": 90,
+      "mean": 0.17462103523507033,
+      "median": 0.125,
+      "p95": 0.5714285714285714,
+      "p99": 0.8,
+      "min": 0.0,
+      "max": 0.8
+    },
+    "quality_method": "Casefold + collapsed whitespace; edit distance / reference length; CER/WER can exceed 1; synthetic author-defined text."
+  },
+  "retry_details": {
+    "attempt_records": 960,
+    "failed_attempt_records": 160,
+    "error_counts": {
+      "parser service=parser operation=analyze_message status=503 reason=ocr_unavailable": 160
+    },
+    "messages_with_deferrals": 31,
+    "deferrals_total": 160,
+    "final_unfinished_jobs": 0
+  }
+}

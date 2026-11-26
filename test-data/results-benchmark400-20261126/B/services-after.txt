@@ -1,0 +1,17 @@
+analysis running healthy
+beat running healthy
+converter running
+db running healthy
+detection running healthy
+extraction running healthy
+frontend running healthy
+ingestion running healthy
+maintenance running
+notifications running healthy
+ocr running healthy
+ocr-parser running healthy
+parser running healthy
+policy running healthy
+publisher running healthy
+rabbitmq running healthy
+web running healthy

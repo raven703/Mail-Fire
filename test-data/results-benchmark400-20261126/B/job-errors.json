@@ -1,0 +1,839 @@
+[
+  {
+    "id": "458ebe8e-ac2f-4dd2-923b-080b20478c2d",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 1,
+    "error": "",
+    "created_at": "2026-11-26 14:29:08.540119",
+    "started_at": "2026-11-26 14:58:21.069860",
+    "finished_at": "2026-11-26 14:58:52.734271",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.033484532992588356,
+        "detection": 0.09507512699929066,
+        "static_scan": 7.209905310999602,
+        "extraction_ocr": 23.224695600001724
+      },
+      "content_id": "beee203f-2c8b-4921-8f7f-c0d1b0532346",
+      "policy_job_id": "d14f9087-7bae-4fc8-92af-c794e17f1c55",
+      "attachment_ids": [
+        "a768d259-082c-49bf-a649-1e8f9812c188"
+      ]
+    },
+    "execution_seconds": 31.664411,
+    "queue_seconds": 1752.529741
+  },
+  {
+    "id": "5501d001-772f-4b32-9281-ea9934ab4afc",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 3,
+    "error": "",
+    "created_at": "2026-11-26 14:29:08.912698",
+    "started_at": "2026-11-26 15:00:03.042476",
+    "finished_at": "2026-11-26 15:00:27.932725",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.023176464994321577,
+        "detection": 0.07416305100196041,
+        "static_scan": 6.849846579003497,
+        "extraction_ocr": 16.71106590999989
+      },
+      "content_id": "1b5299cd-d786-4157-8e45-f4fbfc057163",
+      "policy_job_id": "89c098ba-e0b2-4a7d-8f3b-8f3dbe7afd7e",
+      "attachment_ids": [
+        "2a971cb9-7b79-44dd-9038-b122a275831f"
+      ]
+    },
+    "execution_seconds": 24.890249,
+    "queue_seconds": 1854.129778
+  },
+  {
+    "id": "81f99048-9e4a-4f38-be4c-92f8e115acbb",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 7,
+    "error": "",
+    "created_at": "2026-11-26 14:29:08.993066",
+    "started_at": "2026-11-26 15:05:52.634904",
+    "finished_at": "2026-11-26 15:06:16.373188",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.05840535499737598,
+        "detection": 0.07882261599297635,
+        "static_scan": 4.799146329998621,
+        "extraction_ocr": 17.325436511993757
+      },
+      "content_id": "a1ed30f1-3b5e-4019-9145-76b46c7b0cf9",
+      "policy_job_id": "83bdd5cd-0064-4a68-b00a-ae82e1830d36",
+      "attachment_ids": [
+        "fad1e8a8-598d-4b8e-aa69-b8979410feee"
+      ]
+    },
+    "execution_seconds": 23.738284,
+    "queue_seconds": 2203.641838
+  },
+  {
+    "id": "f98c3b2c-8546-4d73-b120-9516b0dc3107",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 4,
+    "error": "",
+    "created_at": "2026-11-26 14:29:09.180051",
+    "started_at": "2026-11-26 15:01:32.090152",
+    "finished_at": "2026-11-26 15:01:50.818572",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.028901368990773335,
+        "detection": 0.09236314700683579,
+        "static_scan": 4.320421548996819,
+        "extraction_ocr": 13.997055768995779
+      },
+      "content_id": "5e2f7395-9b19-4e9c-adb1-b010ed5638ad",
+      "policy_job_id": "37bff7c4-3012-4306-ac9c-91da5f148bc6",
+      "attachment_ids": [
+        "e19df4bc-ef4d-49a8-98ad-1bf08c349267"
+      ]
+    },
+    "execution_seconds": 18.72842,
+    "queue_seconds": 1942.910101
+  },
+  {
+    "id": "7f19d095-5846-4e68-b770-e3f5b1aed5f4",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 8,
+    "error": "",
+    "created_at": "2026-11-26 14:29:10.810800",
+    "started_at": "2026-11-26 15:08:32.028376",
+    "finished_at": "2026-11-26 15:08:52.667921",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.008643516004667617,
+        "detection": 0.10332918900530785,
+        "static_scan": 7.052993167002569,
+        "extraction_ocr": 12.500174179003807
+      },
+      "content_id": "93b6de39-e2b3-41bd-89cc-a9373a007702",
+      "policy_job_id": "6f371fef-0f7b-46e6-b4b5-d6722613138e",
+      "attachment_ids": [
+        "795b3931-ca58-4b03-a38e-d15163e51b02"
+      ]
+    },
+    "execution_seconds": 20.639545,
+    "queue_seconds": 2361.217576
+  },
+  {
+    "id": "4b5c8b49-c580-42cf-886f-185260cb733f",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 2,
+    "error": "",
+    "created_at": "2026-11-26 14:29:11.260170",
+    "started_at": "2026-11-26 14:59:11.416685",
+    "finished_at": "2026-11-26 14:59:33.943384",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.016003861994249746,
+        "detection": 0.06941389999701641,
+        "static_scan": 4.578139572011423,
+        "extraction_ocr": 16.4326584310038
+      },
+      "content_id": "cf4eed7a-b6bd-4d94-9970-eaf3d80e7236",
+      "policy_job_id": "3d7ec195-725f-485a-bb29-31899bc4d761",
+      "attachment_ids": [
+        "7df199b3-0576-4440-909d-8b512a0e0c99"
+      ]
+    },
+    "execution_seconds": 22.526699,
+    "queue_seconds": 1800.156515
+  },
+  {
+    "id": "509ad982-19a5-49af-af69-1d3fc26defd2",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 3,
+    "error": "",
+    "created_at": "2026-11-26 14:29:11.358412",
+    "started_at": "2026-11-26 15:00:21.567211",
+    "finished_at": "2026-11-26 15:00:50.467263",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.025648090013419278,
+        "detection": 0.08519203300238587,
+        "static_scan": 5.076256849002675,
+        "extraction_ocr": 22.333196206993307
+      },
+      "content_id": "0e6953e1-4b5c-45b6-adad-cf61d887927a",
+      "policy_job_id": "5f1cf0f5-501c-4be1-8b56-a78659d64251",
+      "attachment_ids": [
+        "9421ae8c-af87-49c9-8ef7-3a7fb333ab8f"
+      ]
+    },
+    "execution_seconds": 28.900052,
+    "queue_seconds": 1870.208799
+  },
+  {
+    "id": "647beebf-fc48-4508-8ab1-de406360a7ce",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 5,
+    "error": "",
+    "created_at": "2026-11-26 14:29:11.553629",
+    "started_at": "2026-11-26 15:02:38.374415",
+    "finished_at": "2026-11-26 15:02:56.993477",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.030965379992267117,
+        "detection": 0.06613063999975566,
+        "static_scan": 4.2358148979983525,
+        "extraction_ocr": 13.906445079992409
+      },
+      "content_id": "e73cc5a5-25e1-4415-b28d-faa08d53a619",
+      "policy_job_id": "ac2b58a5-53ff-4b99-aba7-d39976dc4769",
+      "attachment_ids": [
+        "33455a3e-2ec7-4fc5-a3da-b79963580b19"
+      ]
+    },
+    "execution_seconds": 18.619062,
+    "queue_seconds": 2006.820786
+  },
+  {
+    "id": "cc8597e7-7e9a-4d03-82fc-795e613acb2f",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 6,
+    "error": "",
+    "created_at": "2026-11-26 14:29:12.096102",
+    "started_at": "2026-11-26 15:04:41.722363",
+    "finished_at": "2026-11-26 15:05:13.376307",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01976459499564953,
+        "detection": 0.09555142199678812,
+        "static_scan": 6.880379519003327,
+        "extraction_ocr": 23.25137845700374
+      },
+      "content_id": "37d1743f-d77a-4d64-9bf7-c9a35645f462",
+      "policy_job_id": "70cb7af5-817a-44a2-836e-990d2629d001",
+      "attachment_ids": [
+        "1b97a584-c3cd-478d-a582-ba861edbfd49"
+      ]
+    },
+    "execution_seconds": 31.653944,
+    "queue_seconds": 2129.626261
+  },
+  {
+    "id": "800c4b52-5225-430d-9dfb-509fa3ece6db",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 5,
+    "error": "",
+    "created_at": "2026-11-26 14:29:13.632742",
+    "started_at": "2026-11-26 15:03:15.537929",
+    "finished_at": "2026-11-26 15:03:36.524355",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.03050044400151819,
+        "detection": 0.06666934299573768,
+        "static_scan": 5.144877029990312,
+        "extraction_ocr": 15.37532865301182
+      },
+      "content_id": "f699b42b-f304-4c10-a489-6d86d2799949",
+      "policy_job_id": "5430aa62-81f2-412e-a2f7-79cb9ae587da",
+      "attachment_ids": [
+        "33944bbd-027c-4433-931d-3db67c583c53"
+      ]
+    },
+    "execution_seconds": 20.986426,
+    "queue_seconds": 2041.905187
+  },
+  {
+    "id": "435f5c8a-6e2d-4ed6-a530-8b972e719b94",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 7,
+    "error": "",
+    "created_at": "2026-11-26 14:29:13.714325",
+    "started_at": "2026-11-26 15:06:38.108303",
+    "finished_at": "2026-11-26 15:07:11.213816",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.07353800999408122,
+        "detection": 0.12202092001098208,
+        "static_scan": 4.606112752007903,
+        "extraction_ocr": 26.709252579006716
+      },
+      "content_id": "9236e2c6-b8c1-4f04-896a-5baa90996f01",
+      "policy_job_id": "7a658ec6-5f62-4e4a-9b32-a912a81ab4d7",
+      "attachment_ids": [
+        "f808131d-c089-4468-ba97-8a5ee6807321"
+      ]
+    },
+    "execution_seconds": 33.105513,
+    "queue_seconds": 2244.393978
+  },
+  {
+    "id": "545dbbef-c39b-407a-b060-7a800d5c24ae",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 8,
+    "error": "",
+    "created_at": "2026-11-26 14:29:13.987059",
+    "started_at": "2026-11-26 15:07:42.005261",
+    "finished_at": "2026-11-26 15:07:56.662928",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01285138400271535,
+        "detection": 0.07764623800176196,
+        "static_scan": 3.5641121130029205,
+        "extraction_ocr": 10.829195130005246
+      },
+      "content_id": "44ffee2a-1f7d-410e-ba60-f2d19be0328a",
+      "policy_job_id": "681c5ec8-5bb8-40c1-b924-f8942ad58fa2",
+      "attachment_ids": [
+        "c9353355-1418-4312-9bd7-e188f3568a1f"
+      ]
+    },
+    "execution_seconds": 14.657667,
+    "queue_seconds": 2308.018202
+  },
+  {
+    "id": "76d9cd63-ca09-4d27-9244-a192a78aa33d",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 7,
+    "error": "",
+    "created_at": "2026-11-26 14:29:14.648484",
+    "started_at": "2026-11-26 15:05:09.359759",
+    "finished_at": "2026-11-26 15:05:41.929686",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.04808969200530555,
+        "detection": 0.08067001700692344,
+        "static_scan": 5.027025153001887,
+        "extraction_ocr": 26.05532447899168
+      },
+      "content_id": "cb123661-e2c5-4b72-bac9-55ceca0f04d7",
+      "policy_job_id": "0dcbfbc8-3512-4494-9f7e-1599edfe42b9",
+      "attachment_ids": [
+        "d0683f46-38e8-4857-b912-f89c134234e8"
+      ]
+    },
+    "execution_seconds": 32.569927,
+    "queue_seconds": 2154.711275
+  },
+  {
+    "id": "0f044292-e397-4d67-b06d-1a3505322c13",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 7,
+    "error": "",
+    "created_at": "2026-11-26 14:29:15.140100",
+    "started_at": "2026-11-26 15:05:36.508214",
+    "finished_at": "2026-11-26 15:05:58.342560",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.027363608009181917,
+        "detection": 0.08506569800374564,
+        "static_scan": 7.292760198004544,
+        "extraction_ocr": 13.188431884991587
+      },
+      "content_id": "102497a3-325b-42f1-9733-e4d6c4cf6dc1",
+      "policy_job_id": "e73e5e26-5cb5-463e-9814-e39a75719226",
+      "attachment_ids": [
+        "1a351fae-8cfe-4f39-86f8-3ff779179af1"
+      ]
+    },
+    "execution_seconds": 21.834346,
+    "queue_seconds": 2181.368114
+  },
+  {
+    "id": "53f6b671-3e50-4d07-872e-f9b083316272",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 6,
+    "error": "",
+    "created_at": "2026-11-26 14:29:16.033532",
+    "started_at": "2026-11-26 15:04:19.234778",
+    "finished_at": "2026-11-26 15:04:43.682815",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.013905205996707082,
+        "detection": 0.10777531200437807,
+        "static_scan": 4.9647537520068,
+        "extraction_ocr": 18.6388726879959
+      },
+      "content_id": "dac67666-e362-41b4-80c3-3f0234dc620f",
+      "policy_job_id": "fe43b881-933f-45e1-9780-2aa23628c5f7",
+      "attachment_ids": [
+        "5830c98f-c7be-4775-a3d7-85252100025e"
+      ]
+    },
+    "execution_seconds": 24.448037,
+    "queue_seconds": 2103.201246
+  },
+  {
+    "id": "5438db91-d6de-43a5-95a3-2183edd6e07c",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 2,
+    "error": "",
+    "created_at": "2026-11-26 14:29:16.819863",
+    "started_at": "2026-11-26 14:59:29.440530",
+    "finished_at": "2026-11-26 14:59:52.983448",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.012184874998638406,
+        "detection": 0.19656421800027601,
+        "static_scan": 7.5326583169953665,
+        "extraction_ocr": 14.791660488001071
+      },
+      "content_id": "c30e4589-0338-4bda-a30b-4d90083b7d2a",
+      "policy_job_id": "b4786983-c31f-4441-916d-96a1d08be787",
+      "attachment_ids": [
+        "0d2af71c-bd75-4145-b9be-fd6f4b1446b4"
+      ]
+    },
+    "execution_seconds": 23.542918,
+    "queue_seconds": 1812.620667
+  },
+  {
+    "id": "da99665c-2a39-4039-b3b3-d038f034c707",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 8,
+    "error": "",
+    "created_at": "2026-11-26 14:29:16.953060",
+    "started_at": "2026-11-26 15:07:13.103660",
+    "finished_at": "2026-11-26 15:07:38.379751",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.02572461200179532,
+        "detection": 0.07097576599335298,
+        "static_scan": 3.8644142449920764,
+        "extraction_ocr": 20.102054567993036
+      },
+      "content_id": "31ae179f-3420-402a-8c97-03eeefb6556d",
+      "policy_job_id": "e480c0a1-c69b-4c1f-9ff8-fc1fbe637cf1",
+      "attachment_ids": [
+        "57c606d6-92d2-4e35-9333-8d174f4627bf"
+      ]
+    },
+    "execution_seconds": 25.276091,
+    "queue_seconds": 2276.1506
+  },
+  {
+    "id": "59be3478-db0a-4c59-b032-d2663ecb575d",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 4,
+    "error": "",
+    "created_at": "2026-11-26 14:29:17.174440",
+    "started_at": "2026-11-26 15:01:03.977730",
+    "finished_at": "2026-11-26 15:01:22.158338",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.014970461998018436,
+        "detection": 0.08396323100896552,
+        "static_scan": 5.4057986389962025,
+        "extraction_ocr": 12.396230609010672
+      },
+      "content_id": "5ae94012-223f-46fd-87b5-b667f9b54c89",
+      "policy_job_id": "55d5e77d-33c8-45c3-ad6d-f5eb61d06d67",
+      "attachment_ids": [
+        "61a2454a-b40c-42f3-b8ec-13aa05acc1c5"
+      ]
+    },
+    "execution_seconds": 18.180608,
+    "queue_seconds": 1906.80329
+  },
+  {
+    "id": "04beccad-4eb0-4d5e-878c-98ddf6364496",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 1,
+    "error": "",
+    "created_at": "2026-11-26 14:29:18.256397",
+    "started_at": "2026-11-26 14:58:47.493083",
+    "finished_at": "2026-11-26 14:59:17.457883",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.028033201000653207,
+        "detection": 0.09059274400351569,
+        "static_scan": 5.278068616986275,
+        "extraction_ocr": 24.305332464995445
+      },
+      "content_id": "f2ba6c65-8700-4737-94dd-3fc0f4c9c0d4",
+      "policy_job_id": "3aaedff5-ee0c-4d80-b147-9a776d1b1329",
+      "attachment_ids": [
+        "468f722f-b007-4caa-81ec-5e28de22c10d"
+      ]
+    },
+    "execution_seconds": 29.9648,
+    "queue_seconds": 1769.236686
+  },
+  {
+    "id": "cd3ce280-fac4-4603-91fe-71b986836696",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 5,
+    "error": "",
+    "created_at": "2026-11-26 14:29:18.390276",
+    "started_at": "2026-11-26 15:02:53.506447",
+    "finished_at": "2026-11-26 15:03:20.076544",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01331429799029138,
+        "detection": 0.14260324600036256,
+        "static_scan": 5.274155662002158,
+        "extraction_ocr": 20.011533533994225
+      },
+      "content_id": "3fde0faf-57dd-4895-a8b0-eac3e95cc33d",
+      "policy_job_id": "304975ab-f48c-43e0-acb9-438f1082a080",
+      "attachment_ids": [
+        "c1e8906a-ce7e-4da6-b29c-ea22de3529e1"
+      ]
+    },
+    "execution_seconds": 26.570097,
+    "queue_seconds": 2015.116171
+  },
+  {
+    "id": "95d7326e-9c5f-4f82-b060-e69c6497a3c5",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 8,
+    "error": "",
+    "created_at": "2026-11-26 14:29:18.539279",
+    "started_at": "2026-11-26 15:08:47.440247",
+    "finished_at": "2026-11-26 15:09:08.810826",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01710906400694512,
+        "detection": 0.10153603099752218,
+        "static_scan": 5.081842716987012,
+        "extraction_ocr": 15.69882647099439
+      },
+      "content_id": "b9231a36-6c8e-43a3-9495-fc89fd3581e7",
+      "policy_job_id": "bd014e93-f522-4e4b-b010-825220339f1e",
+      "attachment_ids": [
+        "421226eb-21c2-4e8f-a2fa-c74ce5cff97f"
+      ]
+    },
+    "execution_seconds": 21.370579,
+    "queue_seconds": 2368.900968
+  },
+  {
+    "id": "b1ac2e1c-36f3-41dc-8070-b334c5ce89a5",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 9,
+    "error": "",
+    "created_at": "2026-11-26 14:29:18.574323",
+    "started_at": "2026-11-26 15:09:45.499898",
+    "finished_at": "2026-11-26 15:10:05.577449",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01137502200435847,
+        "detection": 0.05739734400412999,
+        "static_scan": 3.254725723993033,
+        "extraction_ocr": 15.628837397001917
+      },
+      "content_id": "8e6faed0-42ba-47d9-a53c-897789f93e44",
+      "policy_job_id": "ab96c725-3576-4827-b172-6b6f45a809c0",
+      "attachment_ids": [
+        "1de2509d-8e64-408c-abea-aa2be81ac044"
+      ]
+    },
+    "execution_seconds": 20.077551,
+    "queue_seconds": 2426.925575
+  },
+  {
+    "id": "ef59cc50-fa91-45ff-ae53-10b142347967",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 2,
+    "error": "",
+    "created_at": "2026-11-26 14:29:18.870683",
+    "started_at": "2026-11-26 14:59:41.789354",
+    "finished_at": "2026-11-26 15:00:10.747375",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.03062458199565299,
+        "detection": 0.08918762599932961,
+        "static_scan": 5.168380030998378,
+        "extraction_ocr": 22.623503848997643
+      },
+      "content_id": "74888752-d3a2-4167-8855-3069fb2f5de0",
+      "policy_job_id": "d2506969-5465-4ebe-8302-a47f5a8f83e0",
+      "attachment_ids": [
+        "ee100a8e-6590-4741-bf22-adc1bdbd38e7"
+      ]
+    },
+    "execution_seconds": 28.958021,
+    "queue_seconds": 1822.918671
+  },
+  {
+    "id": "b17840cd-043d-4184-88a5-1710ba8ccdce",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 5,
+    "error": "",
+    "created_at": "2026-11-26 14:29:19.163836",
+    "started_at": "2026-11-26 15:03:32.115787",
+    "finished_at": "2026-11-26 15:03:55.705032",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.01736002899997402,
+        "detection": 0.09914264599501621,
+        "static_scan": 3.6642676329938695,
+        "extraction_ocr": 18.427202712002327
+      },
+      "content_id": "50022fe1-e4fd-47c7-b564-a9d015796134",
+      "policy_job_id": "8c183702-171b-4caf-b511-48d3079aed9f",
+      "attachment_ids": [
+        "2d162cdc-499a-4523-a942-4cb3620fb21f"
+      ]
+    },
+    "execution_seconds": 23.589245,
+    "queue_seconds": 2052.951951
+  },
+  {
+    "id": "61164c28-3c8c-4201-bfa7-0efdc75b5fe0",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 8,
+    "error": "",
+    "created_at": "2026-11-26 14:29:19.460791",
+    "started_at": "2026-11-26 15:09:09.292154",
+    "finished_at": "2026-11-26 15:09:26.967495",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.028545829001814127,
+        "detection": 0.0686617580067832,
+        "static_scan": 3.4547486169904005,
+        "extraction_ocr": 12.93017505199532
+      },
+      "content_id": "56e68b14-da49-4e2e-8a0f-8f61d7bdb338",
+      "policy_job_id": "f001ef30-ddd5-430e-8264-60c8b8fb0fe1",
+      "attachment_ids": [
+        "58f69247-8ebc-4e54-9447-5381bdc24f16"
+      ]
+    },
+    "execution_seconds": 17.675341,
+    "queue_seconds": 2389.831363
+  },
+  {
+    "id": "de1e1eab-c851-485d-912d-dba4ae87c908",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 7,
+    "error": "",
+    "created_at": "2026-11-26 14:29:19.616655",
+    "started_at": "2026-11-26 15:06:16.193326",
+    "finished_at": "2026-11-26 15:06:48.023848",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.015181766997557133,
+        "detection": 0.6927663360111183,
+        "static_scan": 9.657488261000253,
+        "extraction_ocr": 20.257018089003395
+      },
+      "content_id": "0fbf21af-18b5-415b-afd3-d21868ecd19b",
+      "policy_job_id": "bb8e3cf2-4387-4433-a928-73d65f618b16",
+      "attachment_ids": [
+        "708f4ee5-6b7f-40ed-a76d-44c9da4a523a"
+      ]
+    },
+    "execution_seconds": 31.830522,
+    "queue_seconds": 2216.576671
+  },
+  {
+    "id": "473bf5db-ecec-4160-8fd8-e91e076d42cf",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 4,
+    "error": "",
+    "created_at": "2026-11-26 14:29:19.776319",
+    "started_at": "2026-11-26 15:01:46.198092",
+    "finished_at": "2026-11-26 15:02:09.998258",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.013965411999379285,
+        "detection": 0.08564509399002418,
+        "static_scan": 3.609545027007698,
+        "extraction_ocr": 18.99592576599389
+      },
+      "content_id": "f9799dcf-85b9-4735-8bb5-c1eaee5adc5c",
+      "policy_job_id": "dda632df-e2e3-4540-a243-375a8536044b",
+      "attachment_ids": [
+        "a0721ac0-ae70-44dc-8450-ff1decaad9b2"
+      ]
+    },
+    "execution_seconds": 23.800166,
+    "queue_seconds": 1946.421773
+  },
+  {
+    "id": "df9fd3a3-07a1-4c52-9941-1bc6b0fe6e3a",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 9,
+    "error": "",
+    "created_at": "2026-11-26 14:29:19.993014",
+    "started_at": "2026-11-26 15:10:38.887106",
+    "finished_at": "2026-11-26 15:10:58.931894",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.011063590995036066,
+        "detection": 0.08207348300493322,
+        "static_scan": 3.7619096900016302,
+        "extraction_ocr": 15.053741124997032
+      },
+      "content_id": "3212ee21-3a17-4fbf-b484-15334db93322",
+      "policy_job_id": "1c0a1629-95be-488d-a39c-adf31213ef05",
+      "attachment_ids": [
+        "f5ad6840-bdfe-4073-b731-1345bd4f8154"
+      ]
+    },
+    "execution_seconds": 20.044788,
+    "queue_seconds": 2478.894092
+  },
+  {
+    "id": "d72c0262-36a2-4ccc-ab83-8042e8369770",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 3,
+    "error": "",
+    "created_at": "2026-11-26 14:29:21.094477",
+    "started_at": "2026-11-26 15:01:15.464159",
+    "finished_at": "2026-11-26 15:01:37.554424",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.016024663986172527,
+        "detection": 0.11013760100468062,
+        "static_scan": 4.9890917709999485,
+        "extraction_ocr": 15.844205451998278
+      },
+      "content_id": "5ba0b024-29be-4d14-972e-9015ad73ae24",
+      "policy_job_id": "642b1fa0-3841-4ea5-b0dd-f340dbe8487b",
+      "attachment_ids": [
+        "42647add-efdf-4cb9-a5ed-2692616a3405"
+      ]
+    },
+    "execution_seconds": 22.090265,
+    "queue_seconds": 1914.369682
+  },
+  {
+    "id": "1a38d3c8-78a5-408c-bab9-1a8678636864",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 4,
+    "error": "",
+    "created_at": "2026-11-26 14:29:21.230281",
+    "started_at": "2026-11-26 15:02:14.399134",
+    "finished_at": "2026-11-26 15:02:41.025448",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.0442047359974822,
+        "detection": 0.06895161801367067,
+        "static_scan": 5.495052031008527,
+        "extraction_ocr": 19.666239415004384
+      },
+      "content_id": "4deea42a-f59a-4162-bc14-617f1aa25a88",
+      "policy_job_id": "5f0b3ccf-dcf7-478e-8611-ac85f3588f6d",
+      "attachment_ids": [
+        "ca1556ef-905c-4126-b0fe-e503ceffaed0"
+      ]
+    },
+    "execution_seconds": 26.626314,
+    "queue_seconds": 1973.168853
+  },
+  {
+    "id": "77c4d96a-fd01-44bb-9d89-6813209f8174",
+    "kind": "analysis.analyze",
+    "status": "DONE",
+    "attempts": 1,
+    "deferrals": 2,
+    "error": "",
+    "created_at": "2026-11-26 14:29:21.459886",
+    "started_at": "2026-11-26 15:00:44.959637",
+    "finished_at": "2026-11-26 15:01:07.938924",
+    "output": {
+      "status": "ANALYZED",
+      "timings": {
+        "mail": 0.02018714399309829,
+        "detection": 0.10600744200928602,
+        "static_scan": 4.577911517000757,
+        "extraction_ocr": 17.1393251910049
+      },
+      "content_id": "856eca1b-7b51-427e-916a-01bb4803e258",
+      "policy_job_id": "8ed5576c-5466-474d-a01e-55c190acd74e",
+      "attachment_ids": [
+        "dc257ec8-81d6-4de5-8a57-96ab0a622f6a"
+      ]
+    },
+    "execution_seconds": 22.979287,
+    "queue_seconds": 1883.499751
+  }
+]
