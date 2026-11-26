@@ -1,0 +1,28 @@
+From: sender21@mail.example.invalid
+To: recipient6@mail.example.invalid
+Subject: =?UTF-8?B?0KPRgtC+0YfQvdC10L3QuNC1INC/0L4g0LLQvtC/0YDQvtGB0YMgLyA5Njg5?=
+Date: Thu, 05 Nov 2026 11:53:00 +0000
+Message-ID: <mf400-0354@benchmark.example.invalid>
+X-MICE-Benchmark: MF400-0354
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mice-b400-MF400-0354"
+
+--mice-b400-MF400-0354
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+0J7RgdGC0LDQstC70Y/RjiDRgdC+0L7QsdGJ0LXQvdC40LUg0LTQu9GPINGA0LDRgdGB0LzQvtGC
+0YDQtdC90LjRjy4KCtCd0LUg0L/QtdGA0LXQtNCw0LLQsNC50YLQtSDQv9Cw0YDQvtC70Ywg0LIg
+0L/QuNGB0YzQvNCw0YUuINCh0LvRg9C20LHQsCDQv9C+0LTQtNC10YDQttC60Lgg0L3QuNC60L7Q
+s9C00LAg0L3QtSDQt9Cw0L/RgNCw0YjQuNCy0LDQtdGCINGD0YfRkdGC0L3Ri9C1INC00LDQvdC9
+0YvQtS4KCtChINGD0LLQsNC20LXQvdC40LXQvCwK0KPRh9Cw0YHRgtC90LjQuiDQv9C10YDQtdC/
+0LjRgdC60LggMTM1Mw==
+--mice-b400-MF400-0354
+Content-Type: text/plain; name="document-0354.txt"
+Content-Disposition: attachment; filename="document-0354.txt"
+Content-Transfer-Encoding: base64
+
+0J7RgtGH0ZHRgiDQviDQv9C+0YHQtdGJ0LDQtdC80L7RgdGC0Lgg0L/Rg9Cx0LvQuNGH0L3QvtCz
+0L4g0LzQtdGA0L7Qv9GA0LjRj9GC0LjRjyDQs9C+0YLQvtCyLiDQkiDQvtGC0YfRkdGC0LUg0YLQ
+vtC70YzQutC+INGB0YPQvNC80LDRgNC90YvQtSDQv9C+0LrQsNC30LDRgtC10LvQuC4=
+--mice-b400-MF400-0354--

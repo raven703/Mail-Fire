@@ -1,0 +1,13 @@
+# MICE B-400 v1 — synthetic independent input corpus
+
+400 newly authored RFC 5322/MIME EML files, 280 semantic-positive and 120 controls; 240 attachments. No B-350 EML reused. Reserved .invalid domains, no real credentials, malware or actionable attack details. Numeric identifier probes are generated format/checksum examples, not sourced records; a coincidental match to an existing identifier cannot be ruled out.
+
+The 12 RU3 IDs are taken from docs/DLP-RU3-BENCHMARK.md. Author-defined provisional semantic ground truth, NOT expert reviewed and NOT detector or policy output. Some threat/phishing scenarios are descriptive rather than operational. Templates are varied but reused; this is a synthetic corpus, not a representative production sample. Do not train or tune on these inputs before recording the first A/B runs.
+
+Cohorts: {"ordinary":100,"attachment_only":80,"obfuscated":60,"mixed":40,"safe_ordinary":60,"safe_hard":60}
+
+Formats: {"pdf":40,"png":50,"docx":40,"csv":10,"scan_pdf":40,"zip":20,"xlsx":30,"txt":10}. PDF text fixtures have embedded Type3 glyphs and ToUnicode; scanned PDFs have only bitmap content; PNG and PDF image fixtures use a deliberately simple pixel font, not realistic photographed scans. DOCX/XLSX are minimal OOXML, ZIP contains plain text. Attachment expectations are author-defined; independently validate all formats and text extraction before scoring. Archive OCR expectation is for top-level text-only ZIP. No JPEG included; all image attachments PNG. No actual OCR or MICE execution performed during creation.
+
+RU3 label supports: {"pack-ru2-financial-plans":27,"pack-ru2-pricing":27,"pack-ru2-customer-data":27,"pack-ru2-internal-docs":27,"pack-ru2-pii-handling":26,"pack-ru2-credential-transfer":27,"pack-ru2-data-exfil":26,"pack-ru2-phishing":27,"pack-ru2-explosive-threat":27,"pack-ru2-violence-threat":27,"pack-ru2-extortion":26,"pack-ru2-sabotage":26}. Built-in positive probes: 23. Built-in labels are not exhaustive; do not score unannotated built-ins as FP. No independent policy-level ground truth. Report policy hits and incidents separately from category metrics.
+
+Run A normalizer OFF; B normalizer ON, detect mode, high sensitivity (medium may be an additional run), identical configuration otherwise. Use the production ingestion and live workers, never direct detector calls or cached content. Fresh isolated database for each run, or proven fresh full reanalysis with immutable evidence. ML/LLM/semantic disabled, OCR enabled with same backend. Keep corpus immutable and report first-pass failures even if recovery succeeds. See agent instructions in RUN.md.
