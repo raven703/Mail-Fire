@@ -36,7 +36,7 @@
   }, true);
   function updateCategoryClear(field) {
     const button = field.closest('.category-search-field')?.querySelector('[data-clear-category-search]');
-    if (button) button.hidden = !field.value;
+    if (button) button.disabled = !field.value;
   }
   document.addEventListener('input', event => {
     if (event.target.matches('.category-search-field input')) updateCategoryClear(event.target);
