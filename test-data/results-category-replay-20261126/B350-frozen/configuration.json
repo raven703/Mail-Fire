@@ -1,0 +1,2151 @@
+{
+  "inactive_categories": [
+    "RU_INN",
+    "RU_PHONE"
+  ],
+  "settings": {
+    "normalizer": {
+      "mode": "detect",
+      "enabled": false,
+      "sensitivity": "medium"
+    },
+    "detectors": {
+      "ml": false,
+      "llm": false,
+      "semantic": false,
+      "antivirus": false
+    }
+  },
+  "groups": [
+    {
+      "category": {
+        "id": "pack-ru2-violence-threat",
+        "name": "[RU3] Прямые угрозы физической расправы",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "974293b7-c0f0-53ae-b343-d5df41114ea3",
+          "kind": "keywords",
+          "title": "Прямые угрозы адресату",
+          "risk": 90,
+          "config": {
+            "phrases": [
+              "я тебя убью",
+              "я вас убью",
+              "я тебя зарежу",
+              "тебя застрелю",
+              "убью вас всех"
+            ],
+            "match_type": "word",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.386625"
+        },
+        {
+          "id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+          "kind": "keywords",
+          "title": "Явная угроза расправы",
+          "risk": 86,
+          "config": {
+            "phrases": [
+              "угрожаю физической расправой",
+              "причиню тебе физический вред",
+              "угрожать сотруднику",
+              "угрожать сотрудникам",
+              "угрожать причинить вред"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.050072"
+        },
+        {
+          "id": "5bea54a2-d68d-5e1f-bd5c-3eeccbf55648",
+          "kind": "keywords",
+          "title": "Выраженное намерение расправы",
+          "risk": 84,
+          "config": {
+            "terms": [
+              {
+                "text": "убить",
+                "weight": 6,
+                "required": true
+              },
+              {
+                "text": "тебя",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "вас",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "найти",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "завтра",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "сегодня",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.392359"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-credential-transfer",
+        "name": "[RU3] Передача паролей и ключей",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "01d86320-df06-5452-81e5-03f84a916404",
+          "kind": "keywords",
+          "title": "Явная передача приватного ключа",
+          "risk": 86,
+          "config": {
+            "phrases": [
+              "отправьте приватный ключ",
+              "пришлите приватный ключ",
+              "перешлите секретный ключ",
+              "пришлите секретный ключ",
+              "передайте пароль доступа",
+              "отправьте токен доступа",
+              "пришлите api ключ",
+              "передаю логин и пароль",
+              "передаю логин и временный пароль",
+              "передаю рабочий пароль",
+              "передаю токен доступа"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.028735"
+        },
+        {
+          "id": "567a151d-c49b-57fc-a420-f5f32a734663",
+          "kind": "keywords",
+          "title": "Запрос пароля",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "пароль",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "скинуть",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 13,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.023138"
+        },
+        {
+          "id": "5c20bc62-d703-5f4c-8bc0-2e00a67d6683",
+          "kind": "keywords",
+          "title": "Запрос API-токена",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "токен",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "ключ",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "секретный",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.026165"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-explosive-threat",
+        "name": "[RU3] Сообщения с угрозой взрыва",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        {
+          "id": "2163ef44-ac6c-55f2-b05b-3c6f18558c88",
+          "kind": "keywords",
+          "title": "Угроза взрыва здания",
+          "risk": 90,
+          "config": {
+            "terms": [
+              {
+                "text": "взорвать",
+                "weight": 6,
+                "required": true
+              },
+              {
+                "text": "здание",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "офис",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "школа",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "завтра",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "сегодня",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.044296"
+        },
+        {
+          "id": "e05b421c-b7ba-5231-8349-67b7b75602f2",
+          "kind": "keywords",
+          "title": "Сообщение о заложенном устройстве",
+          "risk": 90,
+          "config": {
+            "terms": [
+              {
+                "text": "заложить",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "бомба",
+                "weight": 6,
+                "required": true
+              },
+              {
+                "text": "здание",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "офис",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "школа",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.046354"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-phishing",
+        "name": "[RU3] Фишинговые требования к получателю",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "00e028e8-3e1b-5501-ada0-9e4fe85e9d10",
+          "kind": "keywords",
+          "title": "Признаки поддельной формы входа",
+          "risk": 80,
+          "config": {
+            "phrases": [
+              "поддельная страница входа",
+              "поддельная форма входа",
+              "поддельная страница авторизации",
+              "ввести пароль на поддельной странице"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.037098"
+        },
+        {
+          "id": "7856514b-35a4-5fad-bbc2-48a5ae54cf99",
+          "kind": "keywords",
+          "title": "Подтверждение аккаунта с паролем",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "подтвердить",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "учетный",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "аккаунт",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "пароль",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "ссылка",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "немедленно",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "ввести",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "авторизация",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "проверка",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "срочно",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.030850"
+        },
+        {
+          "id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+          "kind": "keywords",
+          "title": "Запрос одноразового кода",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "код",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "подтверждение",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "одноразовый",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "назвать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "код подтверждения",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "одноразовый код",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.033069"
+        },
+        {
+          "id": "d518a982-3615-5140-9dbc-f2b074f59db6",
+          "kind": "keywords",
+          "title": "Ссылка для разблокировки",
+          "risk": 76,
+          "config": {
+            "terms": [
+              {
+                "text": "перейти",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "ссылка",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "заблокировать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "аккаунт",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "срочно",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "восстановить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "подтвердить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "войти",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.035009"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-extortion",
+        "name": "[RU3] Шантаж и вымогательство",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "3318bde9-df9c-50ad-9318-1e4b7b2716a9",
+          "kind": "keywords",
+          "title": "Явное требование выкупа",
+          "risk": 85,
+          "config": {
+            "phrases": [
+              "требую выкуп за данные",
+              "переведите выкуп",
+              "заплатите иначе опубликую",
+              "шантаж с требованием денег",
+              "вымогать деньги",
+              "вымогать оплату",
+              "требую выкуп"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.042348"
+        },
+        {
+          "id": "e1bf144e-d397-55f2-b391-769d1fa8d124",
+          "kind": "keywords",
+          "title": "Требование оплаты под угрозой",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "перевести",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "заплатить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "деньги",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "иначе",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "раскрыть",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "опубликовать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "пострадать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "оплатить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выкуп",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "шантаж",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.335416"
+        },
+        {
+          "id": "0268ebd4-1f2d-52b0-9a26-7d5f0dfe810b",
+          "kind": "keywords",
+          "title": "Выкуп за данные",
+          "risk": 85,
+          "config": {
+            "terms": [
+              {
+                "text": "выкуп",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "данные",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "зашифровать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "вернуть",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "оплатить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "расшифровать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "восстановить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "требовать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.343519"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-customer-data",
+        "name": "[RU3] Выгрузки клиентов и контактных баз",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "ac0411b4-6773-5a3f-95fb-f45dadb7268c",
+          "kind": "keywords",
+          "title": "Прямая формулировка выгрузки",
+          "risk": 75,
+          "config": {
+            "phrases": [
+              "реестр клиентов с телефонами",
+              "список клиентов с адресами",
+              "выгрузка клиентской базы",
+              "экспорт базы клиентов",
+              "реестр контактных данных",
+              "список клиентов с номерами телефонов",
+              "база покупателей с контактами",
+              "выгрузка контактов из crm",
+              "таблица клиентов с электронной почтой",
+              "закрытая клиентская база",
+              "конфиденциальная клиентская база",
+              "непубличная база клиентов",
+              "закрытый реестр клиентов",
+              "клиентская база с контактами",
+              "клиентская база содержит секрет"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.052092"
+        },
+        {
+          "id": "f9f837d2-f6ba-5865-970d-e4a025641e8a",
+          "kind": "keywords",
+          "title": "Экспорт клиентской базы",
+          "risk": 76,
+          "config": {
+            "terms": [
+              {
+                "text": "клиент",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "база",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "выгрузка",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "экспорт",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "скачать",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "csv",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "экспортировать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "реестр",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "xlsx",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "crm",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 17,
+            "ordered": false,
+            "min_score": 8,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.243156"
+        },
+        {
+          "id": "0c9c0df0-8e95-5b97-8fc1-d5d0eb4d9931",
+          "kind": "keywords",
+          "title": "Отправка списка контактов",
+          "risk": 72,
+          "config": {
+            "terms": [
+              {
+                "text": "контакт",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "список",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "рассылка",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "таблица",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "телефон",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "адрес",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 8,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.250549"
+        },
+        {
+          "id": "63e7f723-e3fb-504a-a691-2365fb6b5646",
+          "kind": "keywords",
+          "title": "Клиентская база с чувствительным содержимым",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "клиентская база",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "контакт",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "персональные данные",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "история заказов",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "секрет",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "пароль",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "токен доступа",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "закрытая клиентская база",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "конфиденциальная клиентская база",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.054064"
+        },
+        {
+          "id": "11b54224-cdf3-5591-91fc-a2bbe2db24a2",
+          "kind": "keywords",
+          "title": "Передача реестра клиентов",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "реестр",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "клиент",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "телефон",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "адрес",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.264018"
+        },
+        {
+          "id": "9be0d926-745c-5baa-bd3a-a07331667cd0",
+          "kind": "keywords",
+          "title": "Выгрузка CRM",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "crm",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "выгрузка",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "экспорт",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "клиент",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "контакт",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.271511"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-pricing",
+        "name": "[RU3] Специальные цены и коммерческие условия",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "7d1f330f-5253-55b9-b470-de2045ac038b",
+          "kind": "keywords",
+          "title": "Явные коммерческие пометки",
+          "risk": 65,
+          "config": {
+            "phrases": [
+              "индивидуальные условия поставки",
+              "закрытый прайс лист",
+              "коммерческое предложение конфиденциально",
+              "специальная цена для клиента",
+              "закрытые коммерческие условия",
+              "конфиденциальный прайс",
+              "закупочная цена для внутреннего использования",
+              "внутренняя калькуляция себестоимости",
+              "индивидуальный тариф клиента",
+              "непубличная ценовая политика",
+              "закрытые закупочные цены",
+              "конфиденциальные закупочные цены",
+              "непубличные расценки",
+              "закрытые расценки",
+              "конфиденциальные тарифы",
+              "непубличный прайс-лист",
+              "закрытая калькуляция себестоимости",
+              "индивидуальная скидка для клиента",
+              "персональная скидка для покупателя"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.062214"
+        },
+        {
+          "id": "3e946382-4d20-5dff-b69e-5b12a433f541",
+          "kind": "keywords",
+          "title": "Персональное предложение с тарифом",
+          "risk": 67,
+          "config": {
+            "terms": [
+              {
+                "text": "клиент",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "индивидуальный",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "скидка",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "согласовать",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "цена",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "покупатель",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "контрагент",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.057475"
+        },
+        {
+          "id": "ae29a85f-e794-5870-a24c-befe91dfc658",
+          "kind": "keywords",
+          "title": "Закрытая себестоимость и наценка",
+          "risk": 70,
+          "config": {
+            "terms": [
+              {
+                "text": "себестоимость",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "наценка",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "маржа",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "внутренний",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "закупочный",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "калькуляция",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "конфиденциальный",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "закрытый",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.059857"
+        },
+        {
+          "id": "fbb08b17-e3a6-5fb3-bd6d-29cc2c507fe9",
+          "kind": "keywords",
+          "title": "Скидка и ограничение доступа",
+          "risk": 72,
+          "config": {
+            "terms": [
+              {
+                "text": "скидка",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "конфиденциальная скидка",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "закрытая скидка",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "непубличная скидка",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "скидка для внутреннего использования",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "скидка не для публикации",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 10,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.064313"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-financial-plans",
+        "name": "[RU3] Непубличные финансовые планы",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "617a2859-2805-5f63-b0dd-dc0e13dac39d",
+          "kind": "keywords",
+          "title": "Явные пометки финансовых прогнозов",
+          "risk": 66,
+          "config": {
+            "phrases": [
+              "непубличный финансовый прогноз",
+              "внутренний бюджет подразделения",
+              "закрытый финансовый план",
+              "конфиденциальный бюджет",
+              "непубличные финансовые показатели",
+              "внутренний прогноз прибыли",
+              "непубличный план расходов",
+              "внутренний финансовый прогноз",
+              "закрытый прогноз выручки",
+              "непубличный прогноз прибыли",
+              "конфиденциальный план расходов",
+              "закрытый бюджет",
+              "непубличный бюджет",
+              "конфиденциальный финансовый план",
+              "внутренний план финансирования"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.070357"
+        },
+        {
+          "id": "18841eb0-4c15-512e-8285-6453cff277cc",
+          "kind": "keywords",
+          "title": "Прогноз выручки с внутренним контекстом",
+          "risk": 68,
+          "config": {
+            "terms": [
+              {
+                "text": "прогноз",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "выручка",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "внутренний",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "закрытый",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "конфиденциальный",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "непубличный",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 10,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.066298"
+        },
+        {
+          "id": "30095959-d358-5515-b57e-abe862c20595",
+          "kind": "keywords",
+          "title": "Бюджет с непубличным контекстом",
+          "risk": 72,
+          "config": {
+            "terms": [
+              {
+                "text": "бюджет",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "непубличный бюджет",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "закрытый бюджет",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "конфиденциальный бюджет",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "внутренний бюджет",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "бюджет не для публикации",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "запрещено внешнее распространение",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "бюджет ограниченного доступа",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.068286"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-pii-handling",
+        "name": "[RU3] Пересылка персональных данных",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "cff9ba62-d910-55c4-b5d5-aac139007e7d",
+          "kind": "keywords",
+          "title": "Явные обозначения выгрузки ПДн",
+          "risk": 75,
+          "config": {
+            "phrases": [
+              "реестр персональных данных",
+              "выгрузка пдн",
+              "передача паспортных данных",
+              "реестр паспортных данных",
+              "выгрузка персональных данных",
+              "выгрузка персональных сведений",
+              "передача персональных сведений",
+              "пересылка персональных сведений",
+              "отправка личных данных",
+              "передача личных данных",
+              "закрытый список персональных сведений",
+              "закрытый реестр персональных сведений",
+              "закрытый реестр сотрудников с персональными сведениями"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.075922"
+        },
+        {
+          "id": "1cb75122-d0e6-5665-89f8-c9df04ba399e",
+          "kind": "keywords",
+          "title": "Переслать персональные данные",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "персональный",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "данные",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "экспортировать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 15,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.418653"
+        },
+        {
+          "id": "2fb0a01d-9f0d-51df-9bc0-be5574b11789",
+          "kind": "keywords",
+          "title": "Передача паспортных сканов",
+          "risk": 78,
+          "config": {
+            "terms": [
+              {
+                "text": "паспорт",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "скан",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прикрепить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "направить",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.072968"
+        },
+        {
+          "id": "427cd5af-a521-563f-b481-309cb69f5ba5",
+          "kind": "keywords",
+          "title": "Передача личных данных",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "личные данные",
+                "weight": 6,
+                "required": true
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "направить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.078428"
+        },
+        {
+          "id": "067085bd-d359-58f1-9f69-1ba41ec8d38c",
+          "kind": "keywords",
+          "title": "Передача персональных сведений",
+          "risk": 75,
+          "config": {
+            "terms": [
+              {
+                "text": "персональные сведения",
+                "weight": 6,
+                "required": true
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "направить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.080549"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-internal-docs",
+        "name": "[RU3] Ограничение распространения документов",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "6f0185a5-4c5b-580c-8086-a46f4c285926",
+          "kind": "keywords",
+          "title": "Метки внутреннего обращения",
+          "risk": 65,
+          "config": {
+            "phrases": [
+              "только для внутреннего использования",
+              "не подлежит распространению",
+              "запрещено передавать третьим лицам",
+              "строго конфиденциально",
+              "для служебного пользования",
+              "не пересылать третьим лицам",
+              "не для распространения",
+              "не для публикации",
+              "внутреннее использование",
+              "конфиденциальный документ",
+              "распространение ограничено",
+              "не передавать за пределы организации",
+              "закрытый внутренний регламент",
+              "секретный служебный отчет",
+              "служебная записка ограниченного доступа",
+              "служебная записка с закрытыми условиями",
+              "внутренний кадровый документ",
+              "внутренний закрытый список персональных сведений",
+              "документ ограниченного доступа",
+              "конфиденциальная служебная записка"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": [
+              "в инструкции сказано",
+              "пример маркировки",
+              "образец грифа"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.082562"
+        },
+        {
+          "id": "daec038c-6f28-5929-af85-cf8ab655ec14",
+          "kind": "keywords",
+          "title": "Внутренний документ с ограничением доступа",
+          "risk": 70,
+          "config": {
+            "terms": [
+              {
+                "text": "внутренний документ",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "конфиденциально",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "конфиденциальный",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "закрытый",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "ограниченный доступ",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "секретный",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "для служебного пользования",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "не подлежит распространению",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 10,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "в инструкции сказано",
+              "пример маркировки",
+              "образец грифа"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.084778"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-data-exfil",
+        "name": "[RU3] Вывод информации за пределы организации",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "48ea8131-6f60-56de-93c8-a1a10c00ce4f",
+          "kind": "keywords",
+          "title": "Передача внутреннего файла внешнему получателю",
+          "risk": 78,
+          "config": {
+            "terms": [
+              {
+                "text": "внутренний",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "файл",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "личный",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "почта",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "внешний",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "сторонний",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выгрузить",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.320189"
+        },
+        {
+          "id": "9675f66f-6ee3-5373-ad0c-3e68dacecd43",
+          "kind": "keywords",
+          "title": "Экспорт коммерческих документов",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "коммерческий",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "документ",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "выгрузить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "скопировать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "наружу",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "контрагент",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "экспортировать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "личный",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.327377"
+        },
+        {
+          "id": "c97898bd-611d-5b89-86de-9189e087ced5",
+          "kind": "keywords",
+          "title": "Передача конфиденциального архива внешнему адресату",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "конфиденциальный архив",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "отправить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "внешний адресат",
+                "weight": 5,
+                "required": true
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 13,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "пример маркировки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.039861"
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "pack-ru2-sabotage",
+        "name": "[RU3] Угрозы саботажа ИТ-инфраструктуры",
+        "mode": "custom",
+        "match_mode": "any"
+      },
+      "rules": [
+        {
+          "id": "73166d7a-3af4-5350-9d40-daef00c21dde",
+          "kind": "keywords",
+          "title": "Намерение вывести сервер из строя",
+          "risk": 78,
+          "config": {
+            "terms": [
+              {
+                "text": "сервер",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "вывести",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "сломать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отключить",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "намеренно",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "работа",
+                "weight": 1,
+                "required": false
+              },
+              {
+                "text": "умышленно",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "преднамеренно",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "саботаж",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.404985"
+        },
+        {
+          "id": "2c1b86eb-64ad-548a-ba4d-47cb484e240a",
+          "kind": "keywords",
+          "title": "Умышленное удаление резервных копий",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "резервный",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "копия",
+                "weight": 4,
+                "required": true
+              },
+              {
+                "text": "удалить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "стереть",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "уничтожить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "умышленно",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "намеренно",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "преднамеренно",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 12,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T11:25:38.412304"
+        }
+      ]
+    }
+  ],
+  "references": []
+}

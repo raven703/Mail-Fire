@@ -1,0 +1,506 @@
+[
+  {
+    "id": "MF300-0003",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0011",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0019",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0027",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0035",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0043",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0051",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF300-0059",
+    "outcome": "FP",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-explosive-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-explosive-threat",
+        "source": "custom-keywords",
+        "rule_id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+        "risk": 92,
+        "excerpt": " художественном сценарии герой говорит «я устрою взрыв», но это фрагмент диалога для редакторс",
+        "reason": "Совпадение с пользовательским правилом: Недвусмысленные прямые угрозы",
+        "confidence": null,
+        "start": 41,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.048176",
+        "historical_rule": {
+          "id": "9a805cdd-73de-5923-96d7-fd339a9db5b2",
+          "kind": "keywords",
+          "title": "Недвусмысленные прямые угрозы",
+          "risk": 92,
+          "config": {
+            "phrases": [
+              "я устрою взрыв",
+              "я вас взорву",
+              "я заложил бомбу",
+              "я заложила бомбу"
+            ],
+            "match_type": "word",
+            "exclude_phrases": [
+              "в художественном сценарии герой говорит",
+              "фрагмент диалога для редакторской правки"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.048176"
+        },
+        "historical_category": "[RU3] Сообщения с угрозой взрыва",
+        "original_excerpt": "я устрою взрыв",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  },
+  {
+    "id": "MF350-0332",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0334",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0336",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0337",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0342",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0344",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF350-0349",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-phishing"
+    ],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-phishing",
+        "source": "custom-keywords",
+        "rule_id": "00e028e8-3e1b-5501-ada0-9e4fe85e9d10",
+        "risk": 80,
+        "excerpt": "Поддельная форма входа собирает пароли и выгружает документы.\n",
+        "reason": "Совпадение с пользовательским правилом: Признаки поддельной формы входа",
+        "confidence": null,
+        "start": 0,
+        "end": 22,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.037098",
+        "historical_rule": {
+          "id": "00e028e8-3e1b-5501-ada0-9e4fe85e9d10",
+          "kind": "keywords",
+          "title": "Признаки поддельной формы входа",
+          "risk": 80,
+          "config": {
+            "phrases": [
+              "поддельная страница входа",
+              "поддельная форма входа",
+              "поддельная страница авторизации",
+              "ввести пароль на поддельной странице"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.037098"
+        },
+        "historical_category": "[RU3] Фишинговые требования к получателю",
+        "original_excerpt": "Поддельная форма входа",
+        "match_score": 1,
+        "document_id": "body"
+      }
+    ]
+  }
+]
