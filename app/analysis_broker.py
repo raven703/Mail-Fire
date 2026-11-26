@@ -21,6 +21,11 @@ class AnalysisUnavailable(RuntimeError):
     pass
 
 
+class AnalysisRejected(ValueError):
+    """Fixed protocol token for a known per-request failure."""
+    pass
+
+
 class AnalysisBroker:
     def __init__(self):
         from app.analysis_launcher import nondumpable
@@ -143,13 +148,15 @@ class AnalysisBroker:
                 while True:
                     remaining = deadline - time.monotonic()
                     if remaining <= 0:
-                        raise AnalysisUnavailable("Analysis deadline exceeded")
+                        raise AnalysisRejected("sandbox_timeout")
                     connection.settimeout(remaining)
                     frame = receive(connection)
                     if frame.get("type") == "result":
                         return frame["result"]
                     if frame.get("type") == "error":
-                        raise ValueError("Analysis sandbox rejected input")
+                        if frame.get("error") == "MemoryError":
+                            raise AnalysisRejected("sandbox_memory_limit")
+                        raise AnalysisRejected("sandbox_failed")
                     if frame.get('type') == 'helper':
                         count += 1
                         if count > settings().max_objects * 10:
@@ -183,4 +190,5 @@ class AnalysisBroker:
                     result = self.ocr(frame, min(130, remaining), request.get("ocr_provider", "rapidocr"))
                     send(connection, {"type": "ocr_result", "result": result})
             except (OSError, EOFError):
+                # An EOF alone cannot identify OOM versus a launcher crash.
                 raise AnalysisUnavailable("Analysis launcher unavailable") from None
