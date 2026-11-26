@@ -1,0 +1,9 @@
+From: sender416@example.invalid
+To: receiver@example.invalid
+Subject: Message 416
+Message-ID: <MF500-0416@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Таблица содержит только заголовки адрес и дата рождения, строки пустые.

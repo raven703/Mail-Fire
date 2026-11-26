@@ -1,0 +1,11 @@
+From: sender212@example.invalid
+To: receiver@example.invalid
+Subject: Message 212
+Message-ID: <MF500-0212@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Подозрительная рассылка маскируется под уведомление о доступе и требует секрет аутентификации.
+
+План капитальных затрат следующего полугодия доступен лишь членам правления.

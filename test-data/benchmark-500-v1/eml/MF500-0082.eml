@@ -1,0 +1,9 @@
+From: sender82@example.invalid
+To: receiver@example.invalid
+Subject: Message 82
+Message-ID: <MF500-0082@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Адресат получил письмо, автор которого угрожает взорвать объект.

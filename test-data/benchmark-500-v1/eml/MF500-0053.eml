@@ -1,0 +1,9 @@
+From: sender53@example.invalid
+To: receiver@example.invalid
+Subject: Message 53
+Message-ID: <MF500-0053@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Передай мне рабочий токен авторизации в ответе.

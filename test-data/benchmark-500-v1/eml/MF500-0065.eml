@@ -1,0 +1,9 @@
+From: sender65@example.invalid
+To: receiver@example.invalid
+Subject: Message 65
+Message-ID: <MF500-0065@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Внутренние материалы отправлены на мой внешний адрес без допуска.

@@ -1,0 +1,9 @@
+From: sender454@example.invalid
+To: receiver@example.invalid
+Subject: Message 454
+Message-ID: <MF500-0454@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Проверка авторизации завершена; секретные коды никому не отправляются.

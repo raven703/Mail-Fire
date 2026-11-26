@@ -1,0 +1,11 @@
+From: sender200@example.invalid
+To: receiver@example.invalid
+Subject: Message 200
+Message-ID: <MF500-0200@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Ложное уведомление от якобы администратора предназначено для хищения учетных данных.
+
+Автор заявляет о намерении саботировать работу сети организации.

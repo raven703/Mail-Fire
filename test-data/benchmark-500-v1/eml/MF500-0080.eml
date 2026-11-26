@@ -1,0 +1,9 @@
+From: sender80@example.invalid
+To: receiver@example.invalid
+Subject: Message 80
+Message-ID: <MF500-0080@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Сообщение имитирует официальный запрос с целью похищения данных для входа.

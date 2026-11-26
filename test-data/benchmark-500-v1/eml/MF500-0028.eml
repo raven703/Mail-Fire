@@ -1,0 +1,9 @@
+From: sender28@example.invalid
+To: receiver@example.invalid
+Subject: Message 28
+Message-ID: <MF500-0028@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Файл содержит контакты и историю обращений всех подписчиков сервиса.

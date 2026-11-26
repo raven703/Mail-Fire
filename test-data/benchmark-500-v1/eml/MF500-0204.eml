@@ -1,0 +1,11 @@
+From: sender204@example.invalid
+To: receiver@example.invalid
+Subject: Message 204
+Message-ID: <MF500-0204@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Автор угрожает умышленно нарушить функционирование серверной среды.
+
+Внутренний акт проверки не предназначен для публичного доступа.

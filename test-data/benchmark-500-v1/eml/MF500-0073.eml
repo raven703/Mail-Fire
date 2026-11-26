@@ -1,0 +1,9 @@
+From: sender73@example.invalid
+To: receiver@example.invalid
+Subject: Message 73
+Message-ID: <MF500-0073@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Обнаружено мошенническое обращение с целью получить код аутентификации.

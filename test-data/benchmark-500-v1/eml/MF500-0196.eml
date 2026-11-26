@@ -1,0 +1,11 @@
+From: sender196@example.invalid
+To: receiver@example.invalid
+Subject: Message 196
+Message-ID: <MF500-0196@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Внутренний акт проверки не предназначен для публичного доступа.
+
+Зафиксирована попытка обманного получения данных авторизации через почту.

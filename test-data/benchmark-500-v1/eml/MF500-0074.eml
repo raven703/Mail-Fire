@@ -1,0 +1,9 @@
+From: sender74@example.invalid
+To: receiver@example.invalid
+Subject: Message 74
+Message-ID: <MF500-0074@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Поддельное сообщение имитирует банковское уведомление ради получения секрета клиента.

@@ -1,0 +1,9 @@
+From: sender396@example.invalid
+To: receiver@example.invalid
+Subject: Message 396
+Message-ID: <MF500-0396@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Отчет о количестве клиентов содержит только агрегированные показатели.

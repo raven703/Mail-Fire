@@ -1,0 +1,9 @@
+From: sender71@example.invalid
+To: receiver@example.invalid
+Subject: Message 71
+Message-ID: <MF500-0071@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Подозрительное письмо выдает себя за службу поддержки и добивается раскрытия реквизитов входа.

@@ -1,0 +1,9 @@
+From: sender75@example.invalid
+To: receiver@example.invalid
+Subject: Message 75
+Message-ID: <MF500-0075@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Злоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.

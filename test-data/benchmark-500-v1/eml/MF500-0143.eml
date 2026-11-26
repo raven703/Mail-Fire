@@ -1,0 +1,9 @@
+From: sender143@example.invalid
+To: receiver@example.invalid
+Subject: Message 143
+Message-ID: <MF500-0143@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Приложена ведомость с датами рождения и дoмaшними телефонами персонала для внeшнeгo адресата.

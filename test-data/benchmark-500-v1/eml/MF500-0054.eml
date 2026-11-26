@@ -1,0 +1,9 @@
+From: sender54@example.invalid
+To: receiver@example.invalid
+Subject: Message 54
+Message-ID: <MF500-0054@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Вышли секретный ключ для доступа к сервису, чтобы я мог войти.

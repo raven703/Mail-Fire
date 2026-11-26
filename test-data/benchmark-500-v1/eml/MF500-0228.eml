@@ -1,0 +1,11 @@
+From: sender228@example.invalid
+To: receiver@example.invalid
+Subject: Message 228
+Message-ID: <MF500-0228@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+В письме содержится угроза намеренно остановить корпоративные сервисы.
+
+Пришлите секрет для авторизации приложения.

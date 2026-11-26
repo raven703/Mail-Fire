@@ -1,0 +1,9 @@
+From: sender398@example.invalid
+To: receiver@example.invalid
+Subject: Message 398
+Message-ID: <MF500-0398@example.invalid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Проверяем формат реестра заказчиков без записей.
