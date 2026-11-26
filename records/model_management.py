@@ -15,6 +15,7 @@ from django.views.decorators.http import require_http_methods
 from pipeline.models import WorkItem
 from pipeline.services import enqueue, finish, locked_current
 from records.category_picker import LabelForm
+from app.category_catalog import LEGACY_ALIASES
 from records.datasets import update_dataset
 from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
 from records.operations import admin_access
@@ -27,6 +28,18 @@ def snapshot_hash(rows):
         + ":" + ",".join(sorted(row["labels"])) for row in rows
     ))
     return hashlib.sha256(value.encode()).hexdigest()
+
+
+class TrainingLabelForm(forms.Form):
+    name = forms.CharField(max_length=160, min_length=2, label="Название метки")
+    description = forms.CharField(max_length=2000, required=False, label="Описание",
+                                  widget=forms.Textarea(attrs={"rows": 2}))
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if Category.objects.filter(name__iexact=name).exists():
+            raise forms.ValidationError("Название уже используется в каталоге категорий или меток")
+        return name
 
 
 class TrainingForm(forms.Form):
@@ -45,7 +58,7 @@ class TrainingForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["dataset"].queryset = MLDataset.objects.order_by("name", "-version")
         self.fields["dataset"].label_from_instance = lambda row: f"{row.name} (v{row.version})"
-        self.fields["category"].queryset = Category.objects.filter(active=True).exclude(mode="label").order_by("name")
+        self.fields["category"].queryset = Category.objects.filter(active=True).exclude(mode="label").exclude(pk__in=LEGACY_ALIASES).order_by("name")
         self.fields["category"].label_from_instance = lambda row: row.name
 
     def clean(self):
@@ -183,7 +196,7 @@ def models(request):
     if tab in {"examples", "label"} and not can_label:
         return HttpResponseForbidden("Требуется доступ к обучающим примерам")
     action = request.POST.get("action", "")
-    train_form = example_form = None
+    train_form = example_form = label_form = None
     error = ""
     if request.method == "POST":
         if action == "example":
@@ -198,7 +211,19 @@ def models(request):
             denied = admin_access(request)
             if denied is not None:
                 return denied
-            if action == "train":
+            if action == "create_label":
+                if not can_label:
+                    return HttpResponseForbidden("Требуется доступ к обучающим примерам")
+                tab = "label"
+                label_form = TrainingLabelForm(request.POST)
+                if label_form.is_valid():
+                    with transaction.atomic():
+                        # Keep label identities independent of detection categories.
+                        row = Category.objects.create(pk="CUSTOM_" + uuid4().hex, mode="label",
+                            group_name="ML-разметка", active=True, **label_form.cleaned_data)
+                        Audit.objects.create(actor=request.user.pk, action="training_label_create", target=row.pk)
+                    return tab_redirect("label")
+            elif action == "train":
                 denied = access(request, originals=True)
                 if denied is not None:
                     return denied
@@ -228,12 +253,17 @@ def models(request):
                 return HttpResponseBadRequest("Неизвестное действие")
     if tab == "training" and admin and request.user.has_perm("identity.view_originals") and request.GET.get("new"):
         train_form = train_form or TrainingForm()
+    if tab == "label" and admin:
+        label_form = label_form or TrainingLabelForm()
     if tab == "label" and request.GET.get("new"):
         example_form = example_form or ManualExampleForm()
     active = MLModel.objects.filter(active=True)
     rows = MLModel.objects.select_related("category").defer("artifact").order_by("-created_at", "-pk")
     context = {"tab": tab, "admin": admin, "can_label": can_label, "train_form": train_form,
                "example_form": example_form, "error": error, "active_count": active.count()}
+    if tab == "label":
+        context["training_labels"] = Category.objects.filter(mode="label").order_by("name")
+        context["label_form"] = label_form
     if tab == "examples":
         names = dict(Category.objects.values_list("pk", "name"))
         samples = TrainingExample.objects.defer("text").annotate(preview=Left("text", 281)).order_by("-created_at", "-pk")

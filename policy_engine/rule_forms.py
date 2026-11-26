@@ -77,3 +77,25 @@ class StructuredRuleForm(forms.ModelForm):
         if not 0 <= values.get("risk", -1) <= 100 or not 0 <= values.get("priority", -1) <= 10000:
             raise forms.ValidationError("Риск: 0–100; приоритет: 0–10000")
         return values
+
+class BuiltinContextRuleForm(StructuredRuleForm):
+    """Only annotations on existing native evidence; no new evidence or risk."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["kind"].widget.choices = [
+            ("keywords", "Ключевые слова"), ("regex", "Безопасный Regex"),
+        ]
+        self.fields["risk"].widget = forms.HiddenInput()
+        self.fields["risk"].initial = 0
+
+    def clean(self):
+        from app.category_catalog import CONTEXT_KINDS, CONTEXT_MARKER
+        values = super().clean()
+        if self.errors:
+            return values
+        if values.get("kind") not in CONTEXT_KINDS:
+            self.add_error("kind", "Для встроенных категорий доступны только текстовые правила контекста.")
+            return values
+        values["risk"] = 0
+        self.instance.config = {**self.instance.config, CONTEXT_MARKER: True}
+        return values

@@ -11,6 +11,11 @@
   </section>
   {% elif tab == 'label' %}
   <section><header><div><h2>Разметка обучающих примеров</h2><p class="muted">Выберите категории и подтвердите проверенную разметку.</p></div><a class="action-button primary" href="?tab=label&amp;new=1">＋ Добавить пример</a></header></section>
+  <section>
+    <header><div><h2>Метки датасетов</h2><p class="muted">Только для разметки и обучения; не создают DLP-находки сами по себе.</p></div></header>
+    {% for label in training_labels %}<div class="policy-row"><div class="policy-info"><strong>{{ label.name }}</strong><p>{{ label.description|default:label.pk }}</p></div><span class="badge">{% if label.active %}Активна{% else %}Архив{% endif %}</span></div>{% empty %}<p>Нет специальных меток</p>{% endfor %}
+    {% if label_form %}<form method="post">{% csrf_token %}{{ label_form.as_p }}<button name="action" value="create_label">Добавить метку обучения</button></form>{% endif %}
+  </section>
   {% elif tab == 'training' %}
   <section>
     <header><div><h2>Контролируемое обучение</h2><p class="muted">Раздельные train, validation и test. Публикация модели выполняется отдельно.</p></div>

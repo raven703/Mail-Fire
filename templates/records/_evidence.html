@@ -13,6 +13,7 @@
       <div class="evidence-match-heading"><strong>{{ match.document_label }}</strong><small>№{{ forloop.counter }} · Риск {{ match.risk|default:0 }}{% if match.confidence != None %} · Уверенность {{ match.confidence }}{% endif %}</small></div>
       {% if match.excerpt %}<blockquote>{{ match.excerpt }}</blockquote>{% endif %}
       {% if match.reason %}<p>{{ match.reason }}</p>{% endif %}
+      {% include "records/_builtin_context_matches.html" with finding=match only %}
       <details><summary>Подробности совпадения</summary><dl class="facts">
         <div><dt>Документ и координаты</dt><dd>{{ match.document_id|default:"message" }} · {{ match.start }}–{{ match.end }}</dd></div>
         {% if match.normalization %}<div><dt>Преобразования</dt><dd>{{ match.normalization|join:", " }}</dd></div><div><dt>Исходный фрагмент</dt><dd>{{ match.original_excerpt }}</dd></div><div><dt>Нормализованный фрагмент</dt><dd>{{ match.normalized_excerpt }}</dd></div>{% endif %}

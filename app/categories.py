@@ -195,3 +195,62 @@ def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_en
         if len(result) >= MAX_FINDINGS:
             return result[:MAX_FINDINGS]
     return result
+
+
+def annotate_builtin_context(groups, text, native, *, prepared=None, compiled=None, normalized=None):
+    """Supplement native text findings; never create or upgrade a native hit.
+
+    The supplemental match belongs to the same MIME document. Its configured
+    risk, if any, is not a policy threshold and its span is not new evidence.
+    Invalid/suspected native identifiers retain their native verification.
+    """
+    from app.category_catalog import CONTEXT_CATEGORIES, CONTEXT_KINDS, CONTEXT_MARKER
+    from app.evidence import ALIASES
+    by_category = {}
+    for hit in native:
+        key = ALIASES.get(hit["category"], hit["category"])
+        by_category.setdefault(key, []).append(hit)
+    if not by_category:
+        return
+    from app.text_match import PreparedDocument
+    variant_prepared = None
+    for bucket in groups:
+        category = bucket["category"]
+        if category.mode != "builtin" or category.id not in CONTEXT_CATEGORIES:
+            continue
+        base = by_category.get(category.id, [])
+        if not base or not getattr(category, "active", True):
+            continue
+        for rule in bucket["rules"]:
+            if (not getattr(rule, "enabled", True) or getattr(rule, "deleted_at", None)
+                    or rule.kind not in CONTEXT_KINDS or (rule.config or {}).get(CONTEXT_MARKER) is not True):
+                continue
+            matches = _hits(rule, category, text, (), {}, prepared=prepared, compiled=compiled)
+            if normalized and rule.kind in CONTEXT_KINDS:
+                from app.evidence import map_finding, normalization_safe_regex
+                from app.text_match import excluded
+                if rule.kind == "keywords" or normalization_safe_regex(rule.config.get("pattern", "")):
+                    variant, spans, transforms = normalized
+                    if variant_prepared is None:
+                        variant_prepared = PreparedDocument(variant)
+                    for item in _hits(rule, category, variant, (), {}, prepared=variant_prepared, compiled=compiled):
+                        mapped = map_finding(item, text, spans, transforms)
+                        if not excluded(text, mapped["start"], mapped["end"], rule.config.get("exclude_phrases", [])):
+                            matches.append(mapped)
+            # Attach only matches that overlap the native occurrence. Context
+            # elsewhere in the same document must not label unrelated numbers.
+            for hit in base:
+                a, b = hit.get("start", 0), hit.get("end", 0)
+                if b <= a:
+                    continue
+                entries = hit.get("context_matches", [])
+                for match in matches[:30]:
+                    if max(a, match.get("start", 0)) >= min(b, match.get("end", 0)):
+                        continue
+                    entry = {k: match[k] for k in ("rule_id", "rule_version", "historical_rule",
+                             "source", "start", "end", "excerpt", "original_excerpt",
+                             "match_score", "normalization") if k in match}
+                    if entry not in entries and len(entries) < 30:
+                        entries.append(entry)
+                if entries:
+                    hit["context_matches"] = entries
