@@ -15,7 +15,7 @@ import tempfile
 from app.config import settings
 
 
-def restrict(scan=False, unified=False):
+def restrict(scan=False, unified=False, analysis=False):
     cpu_limit = 1200 if settings().ocr_backend == "surya" else 90
     resource.setrlimit(resource.RLIMIT_CPU, (cpu_limit, cpu_limit))
     # Gitleaks' WASM regex runtime reserves 4GiB virtual memory; RSS remains
@@ -23,6 +23,12 @@ def restrict(scan=False, unified=False):
     address_limit = (8 if scan else 3) * 1024**3
     if settings().ocr_backend == "surya":
         address_limit = 24 * 1024**3
+    if analysis:
+        # Main per-message process only; helpers keep their separate limits.
+        limit_mib = int(os.environ.get("MICE_SANDBOX_ADDRESS_LIMIT_MIB", "1024"))
+        if not 512 <= limit_mib <= 2048:
+            raise ValueError("Invalid per-message address-space limit")
+        address_limit = limit_mib * 1024**2
     resource.setrlimit(resource.RLIMIT_AS, (address_limit, address_limit))
     resource.setrlimit(resource.RLIMIT_FSIZE, (128 * 1024**2, 128 * 1024**2))
     resource.setrlimit(resource.RLIMIT_NOFILE, (128, 128))

@@ -111,6 +111,16 @@ def analyze(job):
         if message.content_id or Attachment.objects.filter(message=message).exists():
             if not job.payload.get("reanalysis"):
                 raise ValueError("Existing evidence; refusing overwrite")
+            if message.content_id:
+                previous = Content.objects.select_for_update().get(pk=message.content_id)
+                snapshot = dict(previous.analysis)
+                snapshot.setdefault("attachment_snapshot", list(
+                    Attachment.objects.filter(message=message).order_by("pk").values(
+                        "id", "blob_sha_ref_id", "name", "mime", "text", "status", "details",
+                    )
+                ))
+                previous.analysis = snapshot
+                previous.save(update_fields=["analysis"])
             Attachment.objects.filter(message=message).delete()
         identifiers = []
         for row in rows:

@@ -16,7 +16,7 @@
 <div class="message-attachments">
 {% for attachment in attachments %}
 <div class="policy-row">
-  <div class="policy-info"><strong>{{ attachment.name }}</strong><p>{{ attachment.mime|default:'Неизвестный формат' }} · {{ attachment.blob_sha_ref.size }} байт · {{ attachment.status }}</p></div>
+  <div class="policy-info"><strong>{{ attachment.name }}</strong><p>{{ attachment.mime|default:'Неизвестный формат' }} · {{ attachment.blob_sha_ref.size }} байт · {{ attachment.status }}</p>{% if attachment.processing_reason %}<p>{{ attachment.processing_reason }}</p>{% endif %}</div>
   <div class="actions">
     <a class="action-button" data-viewer-trigger href="{% url 'attachment-detail' attachment.pk %}" hx-get="{% url 'attachment-detail' attachment.pk %}" hx-target="#attachment-viewer-host" hx-select="#attachment-viewer" hx-swap="innerHTML" hx-sync="#attachment-viewer-host:replace" hx-push-url="false">Просмотр</a>
     <a class="action-button" href="{% url 'attachment-download' attachment.pk %}" hx-boost="false" download aria-label="Скачать {{ attachment.name }}">↓ Скачать</a>

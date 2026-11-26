@@ -1,8 +1,8 @@
 <section class="so-panel so-risk">
-  <header class="so-section-heading"><div><h2>Уровни риска</h2><p>Распределение инцидентов за период</p></div><a class="so-subtle-link" href="{% url 'incidents-page' %}?{{ date_query }}&amp;status=">Все инциденты →</a></header>
+  <header class="so-section-heading"><div><h2>Уровни риска</h2><p>Распределение инцидентов за период</p></div><a hx-boost="false" class="so-subtle-link" href="{% url 'incidents-page' %}?{{ date_query }}&amp;status=">Все инциденты →</a></header>
   <div class="so-risk-list">
     {% for band in risk_bands %}
-    <a class="so-risk-line so-level-{{ band.key|upper }}" href="{% url 'incidents-page' %}?{{ date_query }}&amp;severity={{ band.key }}&amp;status=">
+    <a hx-boost="false" class="so-risk-line so-level-{{ band.key|upper }}" href="{% url 'incidents-page' %}?{{ date_query }}&amp;severity={{ band.key }}&amp;status=">
       <span class="so-risk-label"><i aria-hidden="true"></i>{{ band.label }}</span><span class="so-risk-track"><span style="width:{% widthratio band.count risk_max 100 %}%"></span></span><strong>{{ band.count }}</strong>
     </a>
     {% endfor %}

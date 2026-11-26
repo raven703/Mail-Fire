@@ -21,6 +21,15 @@ class AnalysisUnavailable(RuntimeError):
     pass
 
 
+class OCRUnavailable(AnalysisUnavailable):
+    pass
+
+
+class AnalysisRejected(ValueError):
+    """Fixed protocol token for a known per-request failure."""
+    pass
+
+
 class AnalysisBroker:
     def __init__(self):
         from app.analysis_launcher import nondumpable
@@ -116,10 +125,10 @@ class AnalysisBroker:
             result = json.loads(asyncio.run(bounded()))
         except httpx.HTTPStatusError as exc:
             if exc.response.status_code in {408, 425, 429, 500, 502, 503, 504}:
-                raise AnalysisUnavailable("OCR temporarily unavailable") from None
+                raise OCRUnavailable("OCR temporarily unavailable") from None
             return {"text": "", "status": "FAILED", "details": {"error": "OCRRejected"}}
         except (httpx.TransportError, TimeoutError):
-            raise AnalysisUnavailable("OCR transport unavailable") from None
+            raise OCRUnavailable("OCR transport unavailable") from None
         if (not isinstance(result.get("text"), str) or not isinstance(result.get("details"), dict)
                 or result.get("status") not in {"ANALYZED", "PARTIAL", "FAILED", "ENCRYPTED", "UNSUPPORTED"}):
             raise ValueError("Invalid OCR response")
@@ -133,6 +142,7 @@ class AnalysisBroker:
                 self.process.wait()
                 self._start()
                 raise AnalysisUnavailable("Analysis launcher restarted; retry request")
+            launcher = self.process
         deadline = time.monotonic() + self.timeout
         count = 0
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as connection:
@@ -143,13 +153,15 @@ class AnalysisBroker:
                 while True:
                     remaining = deadline - time.monotonic()
                     if remaining <= 0:
-                        raise AnalysisUnavailable("Analysis deadline exceeded")
+                        raise AnalysisRejected("sandbox_timeout")
                     connection.settimeout(remaining)
                     frame = receive(connection)
                     if frame.get("type") == "result":
                         return frame["result"]
                     if frame.get("type") == "error":
-                        raise ValueError("Analysis sandbox rejected input")
+                        if frame.get("error") == "MemoryError":
+                            raise AnalysisRejected("sandbox_memory_limit")
+                        raise AnalysisRejected("sandbox_failed")
                     if frame.get('type') == 'helper':
                         count += 1
                         if count > settings().max_objects * 10:
@@ -182,5 +194,10 @@ class AnalysisBroker:
                         raise ValueError("OCR request count limit")
                     result = self.ocr(frame, min(130, remaining), request.get("ocr_provider", "rapidocr"))
                     send(connection, {"type": "ocr_result", "result": result})
+            except TimeoutError:
+                if time.monotonic() >= deadline and launcher.poll() is None:
+                    raise AnalysisRejected("sandbox_timeout") from None
+                raise AnalysisUnavailable("Analysis connection timed out") from None
             except (OSError, EOFError):
+                # An EOF alone cannot identify OOM versus a launcher crash.
                 raise AnalysisUnavailable("Analysis launcher unavailable") from None

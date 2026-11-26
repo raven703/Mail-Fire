@@ -269,3 +269,25 @@ local_call('regex', b'a'*100000+b'!', 'a{0,32}'*12+'b', isolated=True)
             if owner.poll() is None:
                 owner.kill()
                 owner.wait()
+
+def test_main_sandbox_address_limit():
+    """A memory allocation larger than the configured per-mail limit is denied."""
+    import resource
+    import mmap
+    from app.sandbox import restrict
+    pid = os.fork()
+    if pid == 0:
+        try:
+            os.environ["MICE_SANDBOX_ADDRESS_LIMIT_MIB"] = "1024"
+            restrict(scan=True, unified=True, analysis=True)
+            # getrlimit uses prlimit64, intentionally denied after seccomp.
+            # Exercise the enforced allocation boundary instead.
+            try:
+                mmap.mmap(-1, 2 * 1024**3)
+            except (MemoryError, OSError):
+                os._exit(0)
+        except BaseException:
+            os._exit(1)
+        os._exit(2)
+    _, status = os.waitpid(pid, 0)
+    assert os.waitstatus_to_exitcode(status) == 0

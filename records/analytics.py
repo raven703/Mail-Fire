@@ -116,6 +116,9 @@ def overview(request, analytics=False):
         "analytics_analyzed": Message.objects.filter(
             created_at__gte=start, created_at__lt=end, status="ANALYZED",
         ).count(),
+        "analytics_incomplete": Message.objects.filter(
+            created_at__gte=start, created_at__lt=end, status__in=["PARTIAL", "FAILED"],
+        ).count(),
         "analytics_jobs": queues.get("PENDING", 0) + queues.get("RUNNING", 0),
         "analytics_services": status_cards(queues, now), "dead_jobs": queues.get("DEAD", 0),
         "policies": policies if analytics else policies[:6], "policy_max": policies[0]["count"] if policies else 1,

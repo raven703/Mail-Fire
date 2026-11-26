@@ -67,7 +67,7 @@ def _request(operation, data, name, ocr, provider, force_ocr, url, service):
                 reason = reasons.get(status, "http_error")
                 # Only fixed tokens from our protocol; never echo arbitrary headers/body.
                 header = response.headers.get("X-Parser-Reason", "")
-                if header in {"busy", "queue_full", "sandbox_timeout", "sandbox_failed", "input_rejected"}:
+                if header in {"busy", "queue_full", "sandbox_timeout", "sandbox_failed", "sandbox_memory_limit", "ocr_unavailable", "input_rejected"}:
                     reason = header
                 try:
                     delay = min(300, max(0, int(response.headers.get("Retry-After", "0"))))

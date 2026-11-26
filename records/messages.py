@@ -9,6 +9,7 @@ from django.db.models.functions import Cast
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
 
+from records.processing_status import describe, latest_jobs
 from records.models import Attachment, Content, ImportRecord, Incident, MailEvent, Message
 from records.ui_filters import filter_dates, list_period, pagination_query, resolve_period
 from records.workspace import HIGH_RISK, MEDIUM_RISK, access, severity
@@ -34,7 +35,9 @@ def messages(request):
     if direction or source and source not in {"eml", "msg"}:
         rows = rows.filter(pk__in=events.values("message_id"))
     query, status = request.GET.get("q", "").strip()[:500], request.GET.get("status", "")
-    if status in {"PENDING", "ANALYZED", "PARTIAL", "FAILED"}:
+    if status == "INCOMPLETE":
+        rows = rows.filter(status__in=["PARTIAL", "FAILED"])
+    elif status in {"PENDING", "ANALYZED", "PARTIAL", "FAILED"}:
         rows = rows.filter(status=status)
     if query:
         criteria = Q(pk=query)
@@ -78,7 +81,9 @@ def messages(request):
     for model, key in ((Attachment, "attachment_count"), (Incident, "incident_count")):
         for row in model.objects.filter(message_id__in=identifiers).values("message_id").annotate(total=Count("pk")):
             counts.setdefault(row["message_id"], {})[key] = row["total"]
+    jobs = latest_jobs(page)
     for row in page:
+        row.processing = describe(row, jobs.get(row.pk))
         row.attachment_count = counts.get(row.pk, {}).get("attachment_count", 0)
         row.incident_count = counts.get(row.pk, {}).get("incident_count", 0)
         row.delivery = deliveries.get(row.pk)
