@@ -6,6 +6,7 @@ from django import forms
 from django.template.loader import render_to_string
 
 from records.models import Category, CategoryRule
+from app.category_catalog import LEGACY_ALIASES, detector_name
 
 RULE_KINDS = {"keywords": "Ключевые слова", "regex": "Regex", "reference": "Эталон", "ml": "ML"}
 
@@ -22,7 +23,9 @@ class CategoryPicker(forms.CheckboxSelectMultiple):
         categories = Category.objects.filter(active=True).order_by("group_name", "name")
         if policy:
             categories = categories.exclude(mode="label")
-        rows = list(categories.values_list("pk", "name", "group_name", "mode"))
+        selected = tuple(selected or ())
+        rows = [row for row in categories.values_list("pk", "name", "group_name", "mode")
+                if row[0] not in LEGACY_ALIASES or row[0] in selected]
         modes = {pk: mode for pk, _, _, mode in rows}
         rules = defaultdict(set)
         for pk, kind in CategoryRule.objects.filter(category_id__in=modes).values_list("category_id", "kind"):
@@ -30,7 +33,8 @@ class CategoryPicker(forms.CheckboxSelectMultiple):
         for pk, name, group, mode in rows:
             groups[group].append((pk, name))
             self.details[pk] = {
-                "description": "Системный детектор" if mode == "builtin" else "Учебная категория" if mode == "label"
+                "description": (("Устаревший идентификатор → " + LEGACY_ALIASES[pk]) if pk in LEGACY_ALIASES else
+                                "Встроенный детектор: " + (detector_name(pk) or name)) if mode == "builtin" else "Метка обучения" if mode == "label"
                 else " · ".join(sorted(rules[pk])) or "Правила обнаружения",
                 "editable": mode not in {"builtin", "label"},
             }
