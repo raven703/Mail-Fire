@@ -3,6 +3,7 @@
 <main class="management">
   {% include 'ui/page_header.html' with title='Настройки' %}
   <nav class="tabs" aria-label="Настройки">
+    <a href="{% url 'performance-page' %}"{% if request.resolver_match.url_name == 'performance-page' %} aria-current="page"{% endif %}>Производительность</a>
     <a href="{% url 'ocr-page' %}"{% if request.resolver_match.url_name == 'ocr-page' %} aria-current="page"{% endif %}>OCR</a>
     <a href="{% url 'configuration-page' %}"{% if request.resolver_match.url_name == 'configuration-page' %} aria-current="page"{% endif %}>SIEM и уведомления</a>
     <a href="{% url 'retention-page' %}"{% if request.resolver_match.url_name == 'retention-page' %} aria-current="page"{% endif %}>Хранение и очистка</a>
