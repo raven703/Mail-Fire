@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "rubert",
+    "labels": [
+      "pack-ru2-credential-transfer"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-credential-transfer": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 18
+      }
+    },
+    "test": {
+      "pack-ru2-credential-transfer": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 190.6934963590029,
+  "maxrss_kib": 1334628,
+  "artifact_sha256": "bcba5f082669706115ee5d21d80ec5ac56e688b33fbf07d8918e7c084bd425e5",
+  "artifact_bytes": 108745460,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

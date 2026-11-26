@@ -1,0 +1,237 @@
+{
+  "dataset_commits": {
+    "b500": "e34b5d94c563fa840d262d62b211ca2a372c1f1c",
+    "b400_observations": "5607417",
+    "ru3_ru4_baseline": "e3f5d016667d8db939b614055334fb50442d4899"
+  },
+  "input_hashes": {
+    "b350": {
+      "manifest_sha256": "0555f190d9bfba4492d0470b1a082f712747d416274eb4c6d458bb10111869ef",
+      "observations_sha256": "669ad837e6432350527da365b4cfc1057aea20a2110bdaa3b3dec44116386075"
+    },
+    "b400": {
+      "manifest_sha256": "abe36beac47ccb7b8537fcc4ab6ec8f543428e8537440977285b9f7470b9972b",
+      "observations_sha256": "d18ab4b9e55e05832f079e94f6ec44bf0658003736ef7acdcce03c0fc61825cd"
+    },
+    "b500": {
+      "manifest_sha256": "a8abdd6a67e3c7bd8747677aabf6d1416990ce25084b6d7e2f6a52d1b044a007",
+      "observations_sha256": "5b1ff9f7691fdffc999219cf039988aa1a6caa8acdc3e50f0fc75144868169af"
+    }
+  },
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8",
+  "split_method": "scenario grouping plus exact-text union; fixed selection seed 717 on B350+B400 only",
+  "training_parameters": {
+    "tfidf": "TfidfVectorizer(ngram_range=(1,2),max_features=50000); OneVsRest LogisticRegression(max_iter=500,random_state=42); thresholds 0.2..0.8 step 0.1",
+    "setfit": "native SetFit Trainer batch_size=8,num_epochs=1,max_steps=120,num_iterations=5,end_to_end=False; thresholds 0.3..0.7 step 0.1",
+    "rubert": "native Transformers Trainer num_train_epochs=2,max_steps=150,per_device_train_batch_size=8,use_cpu=True; thresholds 0.3..0.7 step 0.1"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "cpu": "x86_64",
+    "gpu": "none detected; CPU only",
+    "versions": {
+      "numpy": "2.5.5",
+      "scikit-learn": "1.9.1",
+      "torch": "2.15.0+cpu",
+      "transformers": "5.23.0",
+      "setfit": "1.2.0",
+      "datasets": "5.2.0",
+      "sentence-transformers": "6.3.0",
+      "accelerate": "1.16.0"
+    }
+  },
+  "artifacts": {
+    "setfit": {
+      "pack-ru2-credential-transfer": {
+        "sha256": "ca7a355ef2ba8df5043162e0ed0b82fb9f55b9ac208aa93923f5b718bf156374",
+        "bytes": 108750910,
+        "threshold": 0.3,
+        "seconds": 119.64489317999687,
+        "maxrss_kib": 1657532
+      },
+      "pack-ru2-customer-data": {
+        "sha256": "b0a2b965eb1613a22b28c6a75dd6d63de60e9db6e9a5d6e71c4d66fa27f06b4b",
+        "bytes": 108751518,
+        "threshold": 0.3,
+        "seconds": 219.82582960600848,
+        "maxrss_kib": 1675572
+      },
+      "pack-ru2-data-exfil": {
+        "sha256": "9adaf10188d012632ff835337ab860c095820bc1c03d694821da65f187d36c76",
+        "bytes": 108751363,
+        "threshold": 0.7,
+        "seconds": 175.00893817000906,
+        "maxrss_kib": 1627004
+      },
+      "pack-ru2-explosive-threat": {
+        "sha256": "29f071bad22a12d496b1dba7b54e246be2b8734614ef361fa23acf4fd121dde7",
+        "bytes": 108751177,
+        "threshold": 0.7,
+        "seconds": 199.91744011599803,
+        "maxrss_kib": 1660696
+      },
+      "pack-ru2-extortion": {
+        "sha256": "dc7adc6efaa659204355a019be3b47b00bd44f6d22ab26e90950e9928795252c",
+        "bytes": 108750257,
+        "threshold": 0.7,
+        "seconds": 180.3848481909954,
+        "maxrss_kib": 1644168
+      },
+      "pack-ru2-financial-plans": {
+        "sha256": "204057b13ea616b3a57bba19ad08b7231ae7c3071dcee9b713e8d39eaa6e4d9c",
+        "bytes": 108751076,
+        "threshold": 0.3,
+        "seconds": 134.64662208899972,
+        "maxrss_kib": 1666224
+      },
+      "pack-ru2-internal-docs": {
+        "sha256": "d261e151f3096d314d6b3cff18587c02f927496bf5eabc05766b744e37693d9c",
+        "bytes": 108751433,
+        "threshold": 0.7,
+        "seconds": 186.14952187100425,
+        "maxrss_kib": 1668412
+      },
+      "pack-ru2-phishing": {
+        "sha256": "eb916db9c839e140d0d6293bee272eddab42e9b264d896852a6d33e18e7da03e",
+        "bytes": 108751193,
+        "threshold": 0.7,
+        "seconds": 176.84380037599476,
+        "maxrss_kib": 1652308
+      },
+      "pack-ru2-pii-handling": {
+        "sha256": "974bb64b04549e23e63c94c22809064e88183a60ee9443c745d6e369050a0067",
+        "bytes": 108750540,
+        "threshold": 0.3,
+        "seconds": 174.31097615799808,
+        "maxrss_kib": 1613324
+      },
+      "pack-ru2-pricing": {
+        "sha256": "658088719c13a681089ed5ea08838734feac846880b465237fa48d68ff5987da",
+        "bytes": 108751209,
+        "threshold": 0.7,
+        "seconds": 176.2246538939944,
+        "maxrss_kib": 1667224
+      },
+      "pack-ru2-sabotage": {
+        "sha256": "ce92809a748590a7d53aa906c0fdccb2b13f7f0a825c7a8df987954a4c67abe3",
+        "bytes": 108751503,
+        "threshold": 0.7,
+        "seconds": 170.9171049840079,
+        "maxrss_kib": 1625180
+      },
+      "pack-ru2-violence-threat": {
+        "sha256": "1df51d6d1191544ba61a10d3e30dc2dafdd82cd44d09b948b32f1b0ca60f4e72",
+        "bytes": 108751173,
+        "threshold": 0.3,
+        "seconds": 173.13669431499147,
+        "maxrss_kib": 1667340
+      }
+    },
+    "rubert": {
+      "pack-ru2-credential-transfer": {
+        "sha256": "bcba5f082669706115ee5d21d80ec5ac56e688b33fbf07d8918e7c084bd425e5",
+        "bytes": 108745460,
+        "threshold": 0.7,
+        "seconds": 190.6934963590029,
+        "maxrss_kib": 1334628
+      },
+      "pack-ru2-customer-data": {
+        "sha256": "a4f1ed6dc718151cd43684c193a4d800d90fa58ed711e405fbbb010d0108c578",
+        "bytes": 108745151,
+        "threshold": 0.3,
+        "seconds": 212.69921870199323,
+        "maxrss_kib": 1328580
+      },
+      "pack-ru2-data-exfil": {
+        "sha256": "2c36b7da06887bffaed190313315985ec32aca0c256e3f4d0f31ef46ec605a52",
+        "bytes": 108745205,
+        "threshold": 0.7,
+        "seconds": 189.78447931600385,
+        "maxrss_kib": 1319108
+      },
+      "pack-ru2-explosive-threat": {
+        "sha256": "e897f9e5507fc0e37ae116c05350aedeae22788f76a4deb88fea4c97367166d4",
+        "bytes": 108745121,
+        "threshold": 0.7,
+        "seconds": 195.17168582999147,
+        "maxrss_kib": 1326548
+      },
+      "pack-ru2-extortion": {
+        "sha256": "8afb24a2689e77f2d10fda6c44ea7715965af0f839d438cc9aa38aae31849b3b",
+        "bytes": 108745625,
+        "threshold": 0.7,
+        "seconds": 180.48768294100591,
+        "maxrss_kib": 1330556
+      },
+      "pack-ru2-financial-plans": {
+        "sha256": "6a31fb89256c273bbdedbfb36d9456108863c9453a9c3559029445ad62a1b378",
+        "bytes": 108745113,
+        "threshold": 0.4,
+        "seconds": 226.51716681000835,
+        "maxrss_kib": 1330100
+      },
+      "pack-ru2-internal-docs": {
+        "sha256": "bb63b9d57cad2d956453b3aa04d1f225a57023e02a172fd42bff9565f1accfc3",
+        "bytes": 108744740,
+        "threshold": 0.7,
+        "seconds": 183.2433955430024,
+        "maxrss_kib": 1324384
+      },
+      "pack-ru2-phishing": {
+        "sha256": "11b4b36649b9fb37a67e718ce0c1baf48737d9ec0e0a295fce57efac0750b7f8",
+        "bytes": 108744911,
+        "threshold": 0.7,
+        "seconds": 183.29486141300004,
+        "maxrss_kib": 1334784
+      },
+      "pack-ru2-pii-handling": {
+        "sha256": "ce8b076a0c27254226f6c6831955cabbed45048ec2aab77e9867c2048781962f",
+        "bytes": 108744753,
+        "threshold": 0.7,
+        "seconds": 184.04136430998915,
+        "maxrss_kib": 1333768
+      },
+      "pack-ru2-pricing": {
+        "sha256": "65366f7a8af97d4ccd1df8f11e1cf6d84de42212989b4bfe4a5c93521e4e93ee",
+        "bytes": 108745142,
+        "threshold": 0.4,
+        "seconds": 183.75590667899814,
+        "maxrss_kib": 1327928
+      },
+      "pack-ru2-sabotage": {
+        "sha256": "02e2e098946da6f6eff0539ce4564690f7717771df52992ea2e8eb2a447b80d4",
+        "bytes": 108745244,
+        "threshold": 0.7,
+        "seconds": 126.19969289300207,
+        "maxrss_kib": 1329940
+      },
+      "pack-ru2-violence-threat": {
+        "sha256": "295121d000d666216dd3984eaa508553c35af2de6218218a8c893254c9dd4fe4",
+        "bytes": 108745566,
+        "threshold": 0.7,
+        "seconds": 115.91459581500385,
+        "maxrss_kib": 1329092
+      }
+    },
+    "tfidf": {
+      "sha256": "573dfa130094d3b6e370d6f57283157d88a4f548f27530685964c57e7f45de2b",
+      "bytes": 611393,
+      "thresholds": {
+        "pack-ru2-credential-transfer": 0.2,
+        "pack-ru2-customer-data": 0.2,
+        "pack-ru2-data-exfil": 0.8,
+        "pack-ru2-explosive-threat": 0.8,
+        "pack-ru2-extortion": 0.8,
+        "pack-ru2-financial-plans": 0.2,
+        "pack-ru2-internal-docs": 0.8,
+        "pack-ru2-phishing": 0.8,
+        "pack-ru2-pii-handling": 0.8,
+        "pack-ru2-pricing": 0.8,
+        "pack-ru2-sabotage": 0.8,
+        "pack-ru2-violence-threat": 0.8
+      },
+      "seconds": 0.8050649700016947,
+      "maxrss_kib": 245088
+    }
+  }
+}
