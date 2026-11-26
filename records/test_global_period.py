@@ -64,3 +64,20 @@ class PeriodPageTests(TestCase):
         self.assertEqual(self.client.get('/analytics/').context['analytics_total'], 1)
         self.assertEqual(self.client.get('/analytics/?export=timeline')['Content-Type'], 'text/csv; charset=utf-8')
         self.assertEqual(self.client.get('/incidents/?range=720').context['page'].paginator.count, 2)
+    def test_risk_drilldown_and_incomplete_mail_counter(self):
+        user = User.objects.create_superuser('risk-admin', 'test-password-long')
+        self.client.force_login(user)
+        session = self.client.session
+        session['mice_access_version'] = user.access_version
+        session.save()
+        for risk, state in ((99, 'ANALYZED'), (0, 'PARTIAL'), (98, 'FAILED')):
+            blob = Blob.objects.create(sha=f'{risk:064x}', data=b'mail', size=4)
+            message = Message.objects.create(original_sha_ref=blob, format='eml', status=state)
+            event = MailEvent.objects.create(message=message, source='test', source_key=str(risk))
+            Incident.objects.create(message=message, event=event, risk=risk, findings=[], policy_hits=[])
+        overview = self.client.get('/overview/?range=24')
+        self.assertContains(overview, 'hx-boost="false" class="so-risk-line')
+        self.assertContains(overview, 'severity=high&amp;status=')
+        self.assertEqual(overview.context['analytics_incomplete'], 2)
+        self.assertEqual(self.client.get('/incidents/?range=24&severity=high&status=').context['page'].paginator.count, 2)
+        self.assertEqual(self.client.get('/messages/?range=24&status=INCOMPLETE').context['page'].paginator.count, 2)
