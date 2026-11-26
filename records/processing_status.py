@@ -11,7 +11,7 @@ LABELS = {
 }
 
 REASONS = {
-    "sandbox_memory_limit": "Не хватило адресного пространства sandbox",
+    "sandbox_memory_limit": "Sandbox не смог выделить память (возможно, превышен лимит)",
     "sandbox_timeout": "Превышен deadline анализа",
     "sandbox_failed": "Ошибка sandbox",
     "input_rejected": "Входные данные отклонены",
@@ -73,3 +73,23 @@ def describe(message, job=None):
             "attempts": job.attempts if job else None, "deferrals": job.deferrals if job else None,
             "next_retry": job.available_at if state == "RETRYING" and job else None,
             "previous_evidence": bool(message.content_id and state in {"PENDING", "PROCESSING", "RETRYING", "FAILED"})}
+
+
+ATTACHMENT_STATES = {
+    "PARTIAL": "Неполное извлечение",
+    "FAILED": "Не удалось извлечь содержимое",
+    "ENCRYPTED": "Вложение зашифровано",
+    "UNSUPPORTED": "Формат не поддерживается",
+}
+
+
+def attachment_reason(attachment):
+    details = attachment.details if isinstance(attachment.details, dict) else {}
+    error = details.get("error")
+    fixed = {"page limit": "Превышен лимит страниц", "archive depth": "Превышена глубина архивов",
+             "MemoryError": "Не удалось выделить память", "OCRRejected": "OCR отклонил вложение"}
+    if isinstance(error, str) and error in fixed:
+        return fixed[error]
+    if details.get("ocr_required"):
+        return "Для извлечения текста требуется OCR"
+    return ATTACHMENT_STATES.get(attachment.status, "")
