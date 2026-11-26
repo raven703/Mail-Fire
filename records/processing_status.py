@@ -18,6 +18,7 @@ REASONS = {
     "input_limit": "Превышен лимит входных данных",
     "queue_full": "Очередь parser заполнена",
     "busy": "Parser временно недоступен или занят",
+    "ocr_unavailable": "Сервис OCR временно недоступен",
     "transport": "Нет соединения с parser",
     "timeout": "Истекло время ожидания parser",
     "wait_budget_exceeded": "Исчерпан срок ожидания сервиса",
