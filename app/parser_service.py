@@ -130,12 +130,16 @@ class Handler(BaseHTTPRequestHandler):
                 if not UNIFIED or broker is None:
                     self.send_error(422, "Unified analysis disabled")
                     return
-                from app.analysis_broker import AnalysisUnavailable
+                from app.analysis_broker import AnalysisRejected, AnalysisUnavailable
                 try:
                     if (not isinstance(request.get("original"), str) or not isinstance(request.get("configuration"), dict)
                             or type(request.get("ocr_enabled")) is not bool):
                         raise ValueError("Invalid analysis request")
                     payload = json.dumps(broker.analyze(request), ensure_ascii=False).encode()
+                except AnalysisRejected as exc:
+                    reason = str(exc)
+                    self.parser_error(422, reason if reason in {"sandbox_timeout", "sandbox_memory_limit", "sandbox_failed"} else "input_rejected")
+                    return
                 except AnalysisUnavailable:
                     self.parser_error(503, "busy")
                     return
