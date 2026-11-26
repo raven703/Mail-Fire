@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.3,
+    "validation": {
+      "pack-ru2-customer-data": {
+        "precision": 0.42857142857142855,
+        "recall": 0.6,
+        "f1": 0.5,
+        "support": 5
+      }
+    },
+    "test": {
+      "pack-ru2-customer-data": {
+        "precision": 0.18181818181818182,
+        "recall": 0.2857142857142857,
+        "f1": 0.2222222222222222,
+        "support": 7
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 219.82582960600848,
+  "maxrss_kib": 1675572,
+  "artifact_sha256": "b0a2b965eb1613a22b28c6a75dd6d63de60e9db6e9a5d6e71c4d66fa27f06b4b",
+  "artifact_bytes": 108751518,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

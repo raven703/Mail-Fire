@@ -68,3 +68,7 @@ def test_grouped_training_rejects_missing_class_or_conflicting_duplicate():
         row["split"] = "train" if "finance" in row["labels"] else "validation"
     with pytest.raises(ValueError, match="Every split needs examples"):
         train(data)
+    for i, row in enumerate(data):
+        row["split"] = "test" if i % 5 == 0 else "validation" if "finance" in row["labels"] else "train"
+    with pytest.raises(ValueError, match="Insufficient positive/negative label coverage"):
+        train(data)

@@ -1,0 +1,786 @@
+{
+  "ALL": {
+    "messages": 500,
+    "micro": {
+      "TP": 65,
+      "FP": 30,
+      "FN": 235,
+      "TN": 5670,
+      "precision": 0.6842105263157895,
+      "recall": 0.21666666666666667,
+      "F1": 0.3291139240506329
+    },
+    "macro": {
+      "precision": 0.4962606837606838,
+      "recall": 0.21666666666666667,
+      "F1": 0.24569489355531315
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 23,
+        "TN": 475,
+        "precision": 1.0,
+        "recall": 0.08,
+        "F1": 0.14814814814814814
+      },
+      "pack-ru2-customer-data": {
+        "TP": 15,
+        "FP": 5,
+        "FN": 10,
+        "TN": 470,
+        "precision": 0.75,
+        "recall": 0.6,
+        "F1": 0.6666666666666666
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 25,
+        "TN": 475,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 6,
+        "FP": 0,
+        "FN": 19,
+        "TN": 475,
+        "precision": 1.0,
+        "recall": 0.24,
+        "F1": 0.3870967741935484
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 25,
+        "TN": 475,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 21,
+        "FP": 18,
+        "FN": 4,
+        "TN": 457,
+        "precision": 0.5384615384615384,
+        "recall": 0.84,
+        "F1": 0.65625
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 25,
+        "TN": 475,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 25,
+        "TN": 475,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 5,
+        "FP": 0,
+        "FN": 20,
+        "TN": 475,
+        "precision": 1.0,
+        "recall": 0.2,
+        "F1": 0.3333333333333333
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 25,
+        "TN": 475,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-sabotage": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 23,
+        "TN": 475,
+        "precision": 1.0,
+        "recall": 0.08,
+        "F1": 0.14814814814814814
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 14,
+        "FP": 7,
+        "FN": 11,
+        "TN": 468,
+        "precision": 0.6666666666666666,
+        "recall": 0.56,
+        "F1": 0.6086956521739131
+      }
+    },
+    "messages_with_FP": 30
+  },
+  "mixed": {
+    "messages": 60,
+    "micro": {
+      "TP": 10,
+      "FP": 0,
+      "FN": 110,
+      "TN": 600,
+      "precision": 1.0,
+      "recall": 0.08333333333333333,
+      "F1": 0.15384615384615385
+    },
+    "macro": {
+      "precision": 0.25,
+      "recall": 0.08333333333333333,
+      "F1": 0.11611305361305362
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-customer-data": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 7,
+        "TN": 50,
+        "precision": 1.0,
+        "recall": 0.3,
+        "F1": 0.46153846153846156
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 6,
+        "FP": 0,
+        "FN": 4,
+        "TN": 50,
+        "precision": 1.0,
+        "recall": 0.6,
+        "F1": 0.75
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-sabotage": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 50,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 9,
+        "TN": 50,
+        "precision": 1.0,
+        "recall": 0.1,
+        "F1": 0.18181818181818182
+      }
+    },
+    "messages_with_FP": 0
+  },
+  "obfuscated": {
+    "messages": 60,
+    "micro": {
+      "TP": 16,
+      "FP": 1,
+      "FN": 44,
+      "TN": 659,
+      "precision": 0.9411764705882353,
+      "recall": 0.26666666666666666,
+      "F1": 0.4155844155844156
+    },
+    "macro": {
+      "precision": 0.5694444444444444,
+      "recall": 0.26666666666666666,
+      "F1": 0.3317099567099567
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 4,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.2,
+        "F1": 0.3333333333333333
+      },
+      "pack-ru2-customer-data": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 3,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.4,
+        "F1": 0.5714285714285714
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 55,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 2,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.6,
+        "F1": 0.75
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 55,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 5,
+        "FP": 1,
+        "FN": 0,
+        "TN": 54,
+        "precision": 0.8333333333333334,
+        "recall": 1.0,
+        "F1": 0.9090909090909091
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 55,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 55,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 4,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.2,
+        "F1": 0.3333333333333333
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 5,
+        "TN": 55,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-sabotage": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 4,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.2,
+        "F1": 0.3333333333333333
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 2,
+        "TN": 55,
+        "precision": 1.0,
+        "recall": 0.6,
+        "F1": 0.75
+      }
+    },
+    "messages_with_FP": 1
+  },
+  "ordinary_positive": {
+    "messages": 120,
+    "micro": {
+      "TP": 39,
+      "FP": 2,
+      "FN": 81,
+      "TN": 1318,
+      "precision": 0.9512195121951219,
+      "recall": 0.325,
+      "F1": 0.484472049689441
+    },
+    "macro": {
+      "precision": 0.5681818181818182,
+      "recall": 0.325,
+      "F1": 0.3584471084471084
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 9,
+        "TN": 110,
+        "precision": 1.0,
+        "recall": 0.1,
+        "F1": 0.18181818181818182
+      },
+      "pack-ru2-customer-data": {
+        "TP": 10,
+        "FP": 0,
+        "FN": 0,
+        "TN": 110,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 110,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 7,
+        "TN": 110,
+        "precision": 1.0,
+        "recall": 0.3,
+        "F1": 0.46153846153846156
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 110,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 10,
+        "FP": 1,
+        "FN": 0,
+        "TN": 109,
+        "precision": 0.9090909090909091,
+        "recall": 1.0,
+        "F1": 0.9523809523809523
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 110,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 110,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 4,
+        "FP": 0,
+        "FN": 6,
+        "TN": 110,
+        "precision": 1.0,
+        "recall": 0.4,
+        "F1": 0.5714285714285714
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 10,
+        "TN": 110,
+        "precision": null,
+        "recall": 0.0,
+        "F1": 0.0
+      },
+      "pack-ru2-sabotage": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 9,
+        "TN": 110,
+        "precision": 1.0,
+        "recall": 0.1,
+        "F1": 0.18181818181818182
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 10,
+        "FP": 1,
+        "FN": 0,
+        "TN": 109,
+        "precision": 0.9090909090909091,
+        "recall": 1.0,
+        "F1": 0.9523809523809523
+      }
+    },
+    "messages_with_FP": 2
+  },
+  "safe_hard": {
+    "messages": 130,
+    "micro": {
+      "TP": 0,
+      "FP": 22,
+      "FN": 0,
+      "TN": 1538,
+      "precision": 0.0,
+      "recall": null,
+      "F1": 0.0
+    },
+    "macro": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-customer-data": {
+        "TP": 0,
+        "FP": 5,
+        "FN": 0,
+        "TN": 125,
+        "precision": 0.0,
+        "recall": null,
+        "F1": 0.0
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 0,
+        "FP": 11,
+        "FN": 0,
+        "TN": 119,
+        "precision": 0.0,
+        "recall": null,
+        "F1": 0.0
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-sabotage": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 0,
+        "FP": 6,
+        "FN": 0,
+        "TN": 124,
+        "precision": 0.0,
+        "recall": null,
+        "F1": 0.0
+      }
+    },
+    "messages_with_FP": 22
+  },
+  "safe_ordinary": {
+    "messages": 130,
+    "micro": {
+      "TP": 0,
+      "FP": 5,
+      "FN": 0,
+      "TN": 1555,
+      "precision": 0.0,
+      "recall": null,
+      "F1": 0.0
+    },
+    "macro": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "per_category": {
+      "pack-ru2-credential-transfer": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-customer-data": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-data-exfil": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-explosive-threat": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-extortion": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-financial-plans": {
+        "TP": 0,
+        "FP": 5,
+        "FN": 0,
+        "TN": 125,
+        "precision": 0.0,
+        "recall": null,
+        "F1": 0.0
+      },
+      "pack-ru2-internal-docs": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-phishing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-pii-handling": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-pricing": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-sabotage": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      },
+      "pack-ru2-violence-threat": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 130,
+        "precision": null,
+        "recall": null,
+        "F1": null
+      }
+    },
+    "messages_with_FP": 5
+  },
+  "inference_seconds": 83.98494230500364,
+  "maxrss_kib": 1549116,
+  "model_sha256s": {
+    "pack-ru2-credential-transfer": "ca7a355ef2ba8df5043162e0ed0b82fb9f55b9ac208aa93923f5b718bf156374",
+    "pack-ru2-customer-data": "b0a2b965eb1613a22b28c6a75dd6d63de60e9db6e9a5d6e71c4d66fa27f06b4b",
+    "pack-ru2-data-exfil": "9adaf10188d012632ff835337ab860c095820bc1c03d694821da65f187d36c76",
+    "pack-ru2-explosive-threat": "29f071bad22a12d496b1dba7b54e246be2b8734614ef361fa23acf4fd121dde7",
+    "pack-ru2-extortion": "dc7adc6efaa659204355a019be3b47b00bd44f6d22ab26e90950e9928795252c",
+    "pack-ru2-financial-plans": "204057b13ea616b3a57bba19ad08b7231ae7c3071dcee9b713e8d39eaa6e4d9c",
+    "pack-ru2-internal-docs": "d261e151f3096d314d6b3cff18587c02f927496bf5eabc05766b744e37693d9c",
+    "pack-ru2-phishing": "eb916db9c839e140d0d6293bee272eddab42e9b264d896852a6d33e18e7da03e",
+    "pack-ru2-pii-handling": "974bb64b04549e23e63c94c22809064e88183a60ee9443c745d6e369050a0067",
+    "pack-ru2-pricing": "658088719c13a681089ed5ea08838734feac846880b465237fa48d68ff5987da",
+    "pack-ru2-sabotage": "ce92809a748590a7d53aa906c0fdccb2b13f7f0a825c7a8df987954a4c67abe3",
+    "pack-ru2-violence-threat": "1df51d6d1191544ba61a10d3e30dc2dafdd82cd44d09b948b32f1b0ca60f4e72"
+  }
+}

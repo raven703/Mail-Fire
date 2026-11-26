@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-internal-docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 20
+      }
+    },
+    "test": {
+      "pack-ru2-internal-docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 186.14952187100425,
+  "maxrss_kib": 1668412,
+  "artifact_sha256": "d261e151f3096d314d6b3cff18587c02f927496bf5eabc05766b744e37693d9c",
+  "artifact_bytes": 108751433,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}
