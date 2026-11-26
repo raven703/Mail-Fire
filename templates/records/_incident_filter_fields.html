@@ -11,4 +11,4 @@
     {% include 'ui/multiselect.html' with label='Категории данных' name='category' options=categories selected=selected_categories only %}
   </div>
 </details>
-<div class="ui-filter-actions">{% url 'incidents-page' as reset_url %}{% include 'ui/button.html' with href=reset_url text='Сбросить' only %}{% include 'ui/button.html' with type='submit' variant='primary' text='Найти' only %}</div>
+<div class="ui-filter-actions">{% url 'incidents-page' as reset_url %}{% include 'ui/button.html' with href=reset_url text='Сбросить' only %}<button type="submit" class="primary" data-live-submit>Найти</button></div>

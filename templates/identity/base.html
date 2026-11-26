@@ -45,7 +45,7 @@
 {% if request.user.is_authenticated %}
 <header class="topbar native-topbar" hx-boost="true" hx-target="#mice-content" hx-select="#mice-content" hx-swap="outerHTML">
   <div class="breadcrumbs">MICE <span>/</span> <b data-workspace-title>Рабочее место аналитика</b></div>
-  <form class="global-search" method="get" action="{% url 'messages-page' %}"><input aria-label="Глобальный поиск" name="q" placeholder="Поиск писем, адресов, содержимого…"><button>Найти</button></form>
+  <form data-live-filter="global" class="global-search" method="get" action="{% url 'messages-page' %}"><input aria-label="Глобальный поиск" name="q" placeholder="Поиск писем, адресов, содержимого…"><button data-live-submit>Найти</button></form>
   <a class="system-indicator icon-control" href="{% url 'operations' %}" aria-label="Состояние системы" data-system-health="{% url 'health' %}"><span class="health-dot"></span></a>
   <button type="button" class="theme-toggle" data-theme-toggle aria-label="Переключить тему">
     <svg class="mice-light" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></svg>

@@ -231,6 +231,16 @@ class Attachment(models.Model):
     id = models.CharField(max_length=36, primary_key=True, default=record_id)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
 
+    @property
+    def ocr_status_label(self):
+        from app.ocr_evidence import display
+        return display(self.details, self.status)[0]
+
+    @property
+    def ocr_engine_label(self):
+        from app.ocr_evidence import display
+        return display(self.details, self.status)[1]
+
     class Meta:
         db_table = "attachments"
 

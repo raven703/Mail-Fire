@@ -9,6 +9,7 @@ from app.config import settings
 def analyze_message(payload, ocr):
     from app.mail import parse_mail
     from app.extraction import extract
+    from app.ocr_evidence import evidence
     from app.detection_evidence import analyze
     from app.advanced_detectors import static_scan
 
@@ -27,9 +28,13 @@ def analyze_message(payload, ocr):
     start = time.monotonic()
     for name, mime, data in raw:
         text, status, details = extract(data, name, budget=budget, use_ocr=False)
-        if details.get("ocr_required") and payload["ocr_enabled"]:
+        required = bool(details.get("ocr_required"))
+        attempted = required and payload["ocr_enabled"]
+        if attempted:
             result = ocr(data, name)
             text, status, details = result["text"], result["status"], result["details"]
+        details = {**details, **evidence(details, status, required=required,
+                                        enabled=payload["ocr_enabled"], attempted=attempted)}
         identifier = str(uuid.uuid4())
         rows.append({"id": identifier, "name": name, "mime": mime, "text": text,
                      "status": status, "details": details,

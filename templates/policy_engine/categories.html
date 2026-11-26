@@ -3,10 +3,10 @@
 {% block body %}
 <main class="management">
   <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1">＋ Категория</a>{% endif %}</header>
-  <form class="filters" method="get" action="{% url 'categories-page' %}">
+  <form data-live-filter="categories" class="filters" method="get" action="{% url 'categories-page' %}">
     <label>Поиск категории<input name="q" value="{{ query }}" placeholder="Название или группа"></label>
     <label>Метод обнаружения<select name="kind"><option value="all"{% if kind == 'all' %} selected{% endif %}>Все категории</option><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Правила / ML</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Встроенный детектор</option></select></label>
-    <button>Найти</button>
+    <button data-live-submit>Найти</button>
   </form>
   {% category_rule_counts categories as rule_counts %}
   <section>
