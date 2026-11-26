@@ -39,6 +39,34 @@ def dispatch(job, dead=False):
     )
 
 
+def analysis_message(job):
+    """Called with the work item locked. Never mutate a newer analysis run."""
+    if job.kind != "analysis.analyze":
+        return None
+    from records.models import Message
+
+    message_id = job.payload.get("message_id")
+    if not message_id:
+        return None
+    message = Message.objects.select_for_update().filter(pk=message_id).first()
+    if message is None:
+        return None
+    latest = WorkItem.objects.filter(kind=job.kind, payload__message_id=message_id).order_by(
+        "-created_at", "-pk"
+    ).values_list("pk", flat=True).first()
+    return message if latest == job.pk else None
+
+
+def sync_terminal_analysis(job):
+    message = analysis_message(job)
+    if message is not None and message.status == "PENDING":
+        # Prior evidence may remain after a failed reanalysis. It is not proof
+        # of the completeness of the latest run.
+        message.status = "FAILED"
+        message.error = job.error or "Cancelled"
+        message.save(update_fields=["status", "error"])
+
+
 def failed(job, error):
     now = timezone.now()
     Attempt.objects.filter(job=job, token=job.token, finished_at__isnull=True).update(
@@ -52,6 +80,7 @@ def failed(job, error):
         job.finished_at = now
         job.available_at = now
         dispatch(job, dead=True)
+        sync_terminal_analysis(job)
     else:
         job.status = WorkItem.Status.PENDING
         job.available_at = now + timedelta(seconds=min(300, 2**job.attempts) + random.uniform(0, 1))
@@ -131,6 +160,7 @@ def defer(job_id, token, error, retry_after=0):
         job.finished_at = now
         job.error = (error[:130] + ' wait_budget_exceeded')[:160]
         job.save()
+        sync_terminal_analysis(job)
         return
     job.available_at = now + timedelta(seconds=delay)
     dispatch(job)
@@ -181,10 +211,12 @@ def cancel(job_id):
         finished_at=timezone.now(), error="Cancelled"
     )
     job.status = WorkItem.Status.CANCELLED
+    job.error = "Cancelled"
     job.token = None
     job.deadline = None
     job.finished_at = timezone.now()
     job.save()
+    sync_terminal_analysis(job)
     return job
 
 
@@ -193,6 +225,14 @@ def retry(job_id):
     job = WorkItem.objects.select_for_update().get(pk=job_id)
     if job.status not in {WorkItem.Status.DEAD, WorkItem.Status.CANCELLED}:
         raise ValueError("Only dead or cancelled jobs may be retried")
+    if job.kind == "analysis.analyze":
+        message = analysis_message(job)
+        if message is None:
+            raise ValueError("Analysis has been superseded or message removed")
+        if WorkItem.objects.filter(payload__message_id=message.pk, status__in=["PENDING", "RUNNING"]).exists():
+            raise ValueError("Message already processing")
+        message.status, message.error = "PENDING", None
+        message.save(update_fields=["status", "error"])
     job.max_attempts += 5
     job.status = WorkItem.Status.PENDING
     job.finished_at = None
