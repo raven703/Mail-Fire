@@ -1,0 +1,8 @@
+# RU4 candidate — iteration 1
+Source: B-400 errors.json (283 category errors) and RU3 candidate. All 12 categories expanded using required anchor plus contextual alternatives, with existing production flexible matcher. Existing categories and policies retain IDs; no production changes. Phishing confirmation window tightened and credential/ phishing local negation exclusions added.
+
+Important: B-400 contains descriptions of threats and phishing rather than direct messages. Its labels are provisional. Do not silently broaden the category definitions or treat all descriptive matches as genuine threats. Review ambiguous cases separately, including synthetic/educational framing, cross-category overlaps, and sabotage outside the existing IT-only definition. The proposed sabotage expansion is experimental and requires explicit scope approval. Keep original manifest unchanged. Report metrics against original labels and separately against any reviewed label set.
+
+Run fast replay against both B-350 and B-400 using the verified PR26 tool, original frozen configuration and --rulepack config/rulepacks/ru4_candidate.json. Compare with RU3 baseline under identical settings per dataset. Also report same-normalizer comparison if needed. No import, OCR, policies, incidents or database modifications. Report TP/FP/FN, per-category and cohort metrics, regressions on B-350, and rule-level evidence. Iterate only on legitimate coverage gaps; do not optimize for synthetic template phrases. Both datasets become calibration data, not independent validation.
+
+This candidate has not been executed. No measured improvement is claimed.
