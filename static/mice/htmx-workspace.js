@@ -34,7 +34,33 @@
       event.target.querySelectorAll('[name="page"]').forEach(field => field.remove());
     }
   }, true);
+  function updateCategoryClear(field) {
+    const button = field.closest('.category-search-field')?.querySelector('[data-clear-category-search]');
+    if (button) button.hidden = !field.value;
+  }
+  document.addEventListener('input', event => {
+    if (event.target.matches('.category-search-field input')) updateCategoryClear(event.target);
+  });
+  function clearCategorySearch(field) {
+    field.value = '';
+    field.focus({preventScroll: true});
+    updateCategoryClear(field);
+    scheduleFilter({target: field}, 0);
+  }
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-clear-category-search]');
+    if (!button) return;
+    clearCategorySearch(button.closest('.category-search-field').querySelector('input'));
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || event.isComposing ||
+        !event.target.matches('form[data-live-filter="categories"] .category-search-field input')) return;
+    event.preventDefault();
+    event.stopPropagation();
+    clearCategorySearch(event.target);
+  });
   function prepareFilters(root) {
+    root.querySelectorAll('.category-search-field input').forEach(updateCategoryClear);
     root.querySelectorAll(filterSelector).forEach(form => {
       form.setAttribute('hx-sync', '#mice-content:replace');
       form.querySelectorAll('input:not([type=hidden]), select').forEach((field, i) => {
