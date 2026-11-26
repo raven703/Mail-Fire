@@ -53,6 +53,11 @@ poll's HTMX fragment selector.
 
 ## Before merge
 
+Review follow-up: successful reanalysis archives the replaced attachment metadata,
+text, status, details and blob references in the previous Content analysis snapshot.
+Original blobs and previous content/findings remain intact. The address-limit
+probe tests allocation denial without calling prlimit64 after seccomp installation.
+
 Run Django CI including migration checks, restricted-container tests including
 the new per-message address-limit probe, verify risk drill-down in the browser
 manually, and verify the deployment configuration and failure/retry paths.

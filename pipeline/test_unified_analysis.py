@@ -102,6 +102,33 @@ class UnifiedPipelineTests(TestCase):
         self.assertFalse(Attachment.objects.filter(message_id=record.message_id).exists())
         self.assertIsNone(Message.objects.get(pk=record.message_id).content_id)
 
+    def test_reanalysis_retains_previous_attachment_evidence(self):
+        from records.models import Content
+        record, job = self.make_job()
+        message = Message.objects.get(pk=record.message_id)
+        previous = Content.objects.create(normalized_sha="a" * 64, text="previous text",
+                                          analysis={"findings": [{"category": "previous"}]})
+        message.content = previous
+        message.save(update_fields=["content"])
+        attachment = Attachment.objects.create(message=message, name="previous.txt", mime="text/plain",
+                                                text="previous attachment", status="ANALYZED",
+                                                blob_sha_ref=message.original_sha_ref)
+        job.payload["reanalysis"] = True
+        job.save(update_fields=["payload"])
+        config = {"settings": {"detectors": {"antivirus": False}}, "groups": [], "references": []}
+        with patch("pipeline.analysis.configuration", return_value=config), patch(
+            "pipeline.analysis.call", return_value=self.response()
+        ):
+            analyze(job)
+        previous.refresh_from_db()
+        self.assertEqual(previous.text, "previous text")
+        self.assertEqual(previous.analysis["findings"], [{"category": "previous"}])
+        saved = previous.analysis["attachment_snapshot"][0]
+        self.assertEqual(saved["id"], attachment.pk)
+        self.assertEqual(saved["text"], "previous attachment")
+        self.assertEqual(saved["blob_sha_ref_id"], message.original_sha_ref_id)
+        self.assertFalse(Attachment.objects.filter(pk=attachment.pk).exists())
+
     def test_terminal_rejection_marks_message_failed_and_preserves_original(self):
         from pipeline.services import reject, retry
         record, job = self.make_job()

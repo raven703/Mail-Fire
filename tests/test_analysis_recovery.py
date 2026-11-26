@@ -280,7 +280,8 @@ def test_main_sandbox_address_limit():
         try:
             os.environ["MICE_SANDBOX_ADDRESS_LIMIT_MIB"] = "1024"
             restrict(scan=True, unified=True, analysis=True)
-            assert resource.getrlimit(resource.RLIMIT_AS) == (1024 * 1024**2,) * 2
+            # getrlimit uses prlimit64, intentionally denied after seccomp.
+            # Exercise the enforced allocation boundary instead.
             try:
                 mmap.mmap(-1, 2 * 1024**3)
             except (MemoryError, OSError):
