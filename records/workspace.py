@@ -153,7 +153,9 @@ def incidents(request):
     return render(request, "records/incidents.html", {
         "page": page, "statuses": STATUS_LABELS.items(), "query": query,
         "selected_status": status, "selected_assignee": assignee, "pagination_query": pagination_query(request.GET),
-        "categories": Category.objects.filter(active=True).order_by("name"), "selected_categories": selected_categories,
+        "categories": Category.objects.filter(active=True).exclude(mode="label").exclude(
+            pk__in=[key for key in ("RU_INN", "RU_PHONE") if key not in selected_categories]
+        ).order_by("name"), "selected_categories": selected_categories,
         "policy_options": Policy.objects.order_by("name").values_list("name", flat=True).distinct(),
         "sources": MailEvent.objects.values_list("source", flat=True).distinct().order_by("source"),
     })
