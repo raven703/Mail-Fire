@@ -307,6 +307,9 @@ class CategoryRule(models.Model):
 
 
 class Incident(models.Model):
+    number = models.BigIntegerField(unique=True, editable=False, db_default=models.Func(
+        template="nextval('mice_incident_number_seq'::regclass)", output_field=models.BigIntegerField(),
+    ))
     event = models.ForeignKey("MailEvent", on_delete=models.PROTECT, db_column="event_id", related_name="+")
     message = models.OneToOneField(
         "Message", on_delete=models.PROTECT, db_column="message_id", related_name="+"
@@ -323,6 +326,10 @@ class Incident(models.Model):
     )
     id = models.CharField(max_length=36, primary_key=True, default=record_id)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
+
+    @property
+    def display_number(self):
+        return f"INC-{self.number:06d}" if isinstance(self.number, int) else ""
 
     class Meta:
         db_table = "incidents"
