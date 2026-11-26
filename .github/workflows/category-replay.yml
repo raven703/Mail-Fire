@@ -1,0 +1,31 @@
+name: Category replay
+on:
+  pull_request:
+    paths:
+      - 'scripts/benchmark_categories.py'
+      - 'config/rulepacks/ru4_candidate.json'
+      - '.github/workflows/category-replay.yml'
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install razdel==0.5.0 pymorphy3==2.0.6 pymorphy3-dicts-ru==2.4.417150.4580142
+      - name: Fetch frozen corpus and observations
+        run: |
+          git fetch --no-tags origin refs/heads/test/benchmark-400-v1 refs/heads/results/benchmark400-20261126-B
+          git archive 7a433a3ac23fe3c8f13aa86effc95fa257623927 test-data/benchmark-400-v1 | tar -xf -
+          git archive 5607417fb0bc8e20055a91417b04dadc1171349c test-data/results-benchmark400-20261126/B | tar -xf -
+      - name: Verify RU3 parity on all 12 categories
+        run: |
+          python scripts/benchmark_categories.py --corpus test-data/benchmark-400-v1 --observations test-data/results-benchmark400-20261126/B/observations.jsonl --configuration test-data/results-benchmark400-20261126/B/run.json --output /tmp/replay-ru3 --require-parity
+      - name: Save diagnostic results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: category-replay
+          path: /tmp/replay-ru3
