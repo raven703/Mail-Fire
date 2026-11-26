@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods
 
 from policy_engine.catalog_service import revision
 from policy_engine.rule_config import validate_config
+from app.category_catalog import CONTEXT_CATEGORIES, CONTEXT_KINDS, CONTEXT_MARKER, possible_duplicates
 from records.models import Audit, Category, CategoryRule, Policy, Reference, Setting
 from records.operations import admin_access
 
@@ -66,10 +67,16 @@ def parse(raw):
     policies = objects(pack.setdefault("policies", []), 100)
     ids, names = set(), set()
     for cat in cats:
-        if set(cat) - {"id", "name", "group_name", "description", "active", "match_mode", "rules"}:
+        if set(cat) - {"id", "name", "group_name", "description", "active", "match_mode", "rules", "builtin_context", "confirm_distinct"}:
             raise ValueError("Неизвестные поля категории")
         identifier = cat.get("id", "")
-        if not isinstance(identifier, str) or not re.fullmatch(r"(?:pack-[a-z0-9][a-z0-9-]{2,58}|custom-[a-f0-9]{32}|CUSTOM_[a-f0-9]{32})", identifier):
+        context = boolean(cat.get("builtin_context", False))
+        cat["builtin_context"] = context
+        cat["confirm_distinct"] = boolean(cat.get("confirm_distinct", False))
+        if context:
+            if not isinstance(identifier, str) or identifier not in CONTEXT_CATEGORIES:
+                raise ValueError("Контекст недоступен для этой встроенной категории")
+        elif not isinstance(identifier, str) or not re.fullmatch(r"(?:pack-[a-z0-9][a-z0-9-]{2,58}|custom-[a-f0-9]{32}|CUSTOM_[a-f0-9]{32})", identifier):
             raise ValueError("Непереносимый ID категории")
         cat["name"] = text(cat.get("name"), 2, 160)
         if identifier in ids or cat["name"].casefold() in names:
@@ -94,7 +101,12 @@ def parse(raw):
             rule["enabled"] = boolean(rule.get("enabled", True))
             rule["risk"] = number(rule.get("risk", 70), 0, 100)
             rule["priority"] = number(rule.get("priority", 100), 0, 10000)
+            if context and rule.get("kind") not in CONTEXT_KINDS:
+                raise ValueError("Встроенный контекст: только keywords и regex")
             config = validate_config(rule.get("kind"), {key: value for key, value in rule.items() if key not in metadata})
+            if context:
+                rule["risk"] = 0
+                config[CONTEXT_MARKER] = True
             rule["config"] = config
     names = set()
     for policy in policies:
@@ -125,10 +137,29 @@ def inspect(pack, update=False):
     changes = []
     for cat in pack["categories"]:
         row = existing.get(cat["id"])
+        if cat.get("builtin_context"):
+            if not row or row.mode != "builtin":
+                raise ValueError("Контекст требует существующей встроенной категории")
+            existing_rules = CategoryRule.objects.filter(category=row, config__builtin_context=True)
+            has_rules = existing_rules.exists()
+            # Never replace manually managed rules (or another pack's rules).
+            if has_rules and update:
+                owned = Audit.objects.filter(action__in=["rulepack_context_create", "rulepack_context_update"],
+                                             details__pack=pack["name"], details__category_id=row.pk).values_list("target", flat=True)
+                if existing_rules.exclude(pk__in=owned).exists():
+                    raise ValueError("Правила контекста принадлежат другому набору или созданы вручную")
+            changes.append({"entity": "builtin_context", "name": row.name,
+                            "action": "create" if not has_rules else "update" if update else "skip"})
+            continue
         if row and row.mode not in {"custom", "rules"}:
             raise ValueError("Системную категорию менять нельзя")
         if any(other.name.casefold() == cat["name"].casefold() and other.pk != cat["id"] for other in existing.values()):
             raise ValueError("Название категории занято")
+        if (not row or (update and row.name != cat["name"])) and not cat.get("confirm_distinct"):
+            duplicates = possible_duplicates(cat["name"], [(key, item.name) for key, item in existing.items() if item.active and item.mode != "label"], cat["id"])
+            if duplicates:
+                raise ValueError("Возможный дубль: " + ", ".join(name for _, name in duplicates[:5])
+                                 + ". Используйте существующую категорию или подтвердите confirm_distinct=true")
         if row and update and not Audit.objects.filter(target=row.pk, action__in=["rulepack_category_create", "rulepack_category_update"], details__pack=pack["name"]).exists():
             raise ValueError("Категория принадлежит другому набору")
         for rule in cat["rules"]:
@@ -163,6 +194,19 @@ def apply(pack, actor, update=False):
     for spec, change in zip(pack["categories"], changes):
         if change["action"] == "skip":
             continue
+        if spec.get("builtin_context"):
+            row = Category.objects.get(pk=spec["id"], mode="builtin")
+            from django.utils import timezone
+            for previous in CategoryRule.objects.filter(category=row, config__builtin_context=True):
+                previous.deleted_at = timezone.now()
+                previous.save(update_fields=["deleted_at"])
+                Audit.objects.create(actor=actor.pk, action="rule_delete", target=previous.pk,
+                                     details={"category_id": row.pk, "title": previous.title})
+            for rule in spec["rules"]:
+                item = CategoryRule.objects.create(category=row, **{key: rule[key] for key in ("kind", "title", "enabled", "risk", "priority", "config")})
+                Audit.objects.create(actor=actor.pk, action="rulepack_context_" + change["action"], target=item.pk,
+                                     details={"pack": pack["name"], "category_id": row.pk})
+            continue
         row, _ = Category.objects.update_or_create(pk=spec["id"], defaults={
             **{key: spec[key] for key in ("name", "group_name", "description", "active", "match_mode")},
             "mode": "custom", "keywords": [],
@@ -195,6 +239,13 @@ def export():
         rules = [{"kind": rule.kind, "title": rule.title, "enabled": rule.enabled, "risk": rule.risk, "priority": rule.priority, **rule.config} for rule in CategoryRule.objects.filter(category=row).order_by("priority", "pk")]
         if rules:
             categories.append({"id": row.pk, "name": row.name, "group_name": row.group_name, "description": row.description, "active": row.active, "match_mode": row.match_mode, "rules": rules})
+    for row in Category.objects.filter(mode="builtin", pk__in=CONTEXT_CATEGORIES).order_by("pk"):
+        rules = [{"kind": rule.kind, "title": rule.title, "enabled": rule.enabled, "risk": 0, "priority": rule.priority,
+                  **{key: value for key, value in rule.config.items() if key != CONTEXT_MARKER}}
+                 for rule in CategoryRule.objects.filter(category=row, config__builtin_context=True).order_by("priority", "pk")]
+        if rules:
+            categories.append({"id": row.pk, "name": row.name, "group_name": row.group_name, "description": row.description,
+                               "active": row.active, "match_mode": row.match_mode, "builtin_context": True, "rules": rules})
     ids = {cat["id"] for cat in categories} | set(Category.objects.filter(mode="builtin").values_list("pk", flat=True))
     policies = [{"name": row.name, "enabled": row.enabled, "shadow": row.shadow, "priority": row.priority, **{key: value for key, value in row.conditions.items() if key in CONDITIONS}} for row in Policy.objects.filter(archived=False).order_by("name") if not set(row.conditions.get("categories", [])) - ids]
     return {"schema_version": 1, "name": "mice-export", "categories": categories, "policies": policies}
