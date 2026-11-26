@@ -12,6 +12,20 @@ from records.category_picker import CategoryPicker
 
 
 class BuiltinContextTests(SimpleTestCase):
+    def test_grouped_template_retains_context_for_each_source(self):
+        from django.template.loader import render_to_string
+        context = {"rule_id": "ctx", "rule_version": "v1", "excerpt": "<context>",
+                   "historical_rule": {"title": "Контекст", "config": {"phrases": ["token"]}}}
+        first = {"category": "RU_SNILS", "rule_id": "native", "source": "presidio",
+                 "risk": 40, "document_id": "body", "context_matches": [context]}
+        html = render_to_string("records/_evidence.html", {
+            "findings": [first, {**first, "document_id": "attachment"}],
+        })
+        self.assertEqual(html.count('class="evidence-card"'), 1)
+        self.assertEqual(html.count('class="evidence-context"'), 2)
+        self.assertIn("Совпадений: 2", html)
+        self.assertIn("&lt;context&gt;", html)
+
     def run_analysis(self, documents, native=(), enabled=True, marker=True):
         rule = {"id": "ctx", "kind": "keywords", "title": "Context",
                 "risk": 99, "config": {"phrases": ["sample token"], "match_type": "substring",
@@ -19,7 +33,7 @@ class BuiltinContextTests(SimpleTestCase):
         config = {"settings": {"normalizer": {"enabled": False}, "detectors": {"pii": enabled}},
                   "references": [], "groups": [{"category": {"id": "RU_SNILS", "name": "СНИЛС",
                   "mode": "builtin", "match_mode": "any"}, "rules": [rule]}]}
-        with patch("app.detectors.detect", return_value=[]), patch(
+        with patch("app.detectors.detect", side_effect=lambda *args, **kwargs: []), patch(
             "app.advanced_detectors.pii", side_effect=lambda text, **kw: [
                 dict(hit) for hit in native if hit.get("excerpt") in text
             ]
@@ -67,6 +81,8 @@ class BuiltinContextTests(SimpleTestCase):
 class UnifiedCatalogTests(TestCase):
     def setUp(self):
         self.actor = User.objects.create_superuser("catalog-admin", "test-password-long")
+        self.actor.originals = True
+        self.actor.save(update_fields=["originals"])
         self.client.force_login(self.actor)
         session = self.client.session
         session["mice_access_version"] = self.actor.access_version
@@ -88,6 +104,11 @@ class UnifiedCatalogTests(TestCase):
         self.assertNotIn("RU_INN", keys)
         old = CategoryPicker(policy=True, selected=["RU_INN"])
         self.assertIn("RU_INN", {key for _, choices in old.choices for key, _ in choices})
+
+    def test_training_labels_require_originals_permission(self):
+        self.actor.originals = False
+        self.actor.save(update_fields=["originals"])
+        self.assertEqual(self.client.get("/models/?tab=label").status_code, 403)
 
     def test_duplicate_warning_and_legacy_mode(self):
         data = {"name": "СНИЛС сотрудника", "group_name": "Персональные данные",

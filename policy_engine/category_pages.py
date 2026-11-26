@@ -38,6 +38,7 @@ class CategoryForm(forms.ModelForm):
         if kwargs.get("instance") is None:
             kwargs["instance"] = Category(mode="custom", group_name="Конфиденциальные данные")
         super().__init__(*args, **kwargs)
+        self.fields["description"].required = False
         if self.instance.mode == "rules":
             self.initial["mode"] = "custom"
 
