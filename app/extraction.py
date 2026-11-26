@@ -110,7 +110,7 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True, force_ocr=False):
         if zipfile.is_zipfile(io.BytesIO(data)):
             if depth >= settings().max_archive_depth:
                 return "", "PARTIAL", {"error": "archive depth"}
-            texts, states, findings = [], [], []
+            texts, states, findings, ocr_records = [], [], [], []
             with zipfile.ZipFile(io.BytesIO(data)) as archive:
                 for member in archive.infolist():
                     path = PurePosixPath(member.filename)
@@ -140,6 +140,7 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True, force_ocr=False):
                         child, member.filename, depth + 1, budget, use_ocr=use_ocr, force_ocr=force_ocr
                     )
                     findings.extend(child_details.get("findings", []))
+                    ocr_records.extend(child_details.get("ocr", []))
                     texts.append(child_text)
                     states.append(state)
             return (
@@ -147,6 +148,7 @@ def extract(data, name, depth=0, budget=None, *, use_ocr=True, force_ocr=False):
                 "ANALYZED" if all(s == "ANALYZED" for s in states) else "PARTIAL",
                 {
                     "children": states,
+                    "ocr": ocr_records,
                     "findings": findings,
                     **({"ocr_required": any(s == "PARTIAL" for s in states)} if not use_ocr else {}),
                 },

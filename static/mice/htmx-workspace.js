@@ -6,7 +6,51 @@
   // The workspace starts below a sticky toolbar. Scrolling the swap target
   // itself to the viewport top hides its heading/period behind that toolbar.
   htmx.config.scrollIntoViewOnBoost = false;
+
+  // Opt-in read-only filters; retain native submit as a no-JS fallback.
+  const filterSelector = 'form[data-live-filter]';
+  const timers = new WeakMap();
+  let filterRevision = 0;
+  function scheduleFilter(event, delay) {
+    const field = event.target;
+    const form = field.closest(filterSelector);
+    if (!form || !field.name || field.type === 'hidden' || event.isComposing) return;
+    filterRevision++;
+    clearTimeout(timers.get(form));
+    timers.set(form, setTimeout(() => {
+      if (form.isConnected && form.checkValidity()) form.requestSubmit();
+    }, delay));
+  }
+  document.addEventListener('input', event => {
+    if (event.target.matches('input:not([type]), input[type=text], input[type=search]')) scheduleFilter(event, 350);
+  });
+  document.addEventListener('compositionend', event => scheduleFilter(event, 350));
+  document.addEventListener('change', event => {
+    if (event.target.matches('select, input[type=checkbox], input[type=radio], input[type=date], input[type=datetime-local]')) scheduleFilter(event, 0);
+  });
+  document.addEventListener('submit', event => {
+    if (event.target.matches(filterSelector)) clearTimeout(timers.get(event.target));
+  }, true);
+  function prepareFilters(root) {
+    root.querySelectorAll(filterSelector).forEach(form => {
+      form.setAttribute('hx-sync', '#mice-content:replace');
+      form.querySelectorAll('input:not([type=hidden]), select').forEach((field, i) => {
+        if (!field.id) field.id = 'live-' + form.dataset.liveFilter + '-' + i;
+      });
+      form.querySelectorAll('[data-live-submit]').forEach(button => button.hidden = true);
+      htmx.process(form);
+    });
+  }
+  document.addEventListener('htmx:beforeRequest', event => {
+    if (event.detail.elt.matches(filterSelector)) event.detail.xhr.miceFilterRevision = filterRevision;
+  });
+  document.addEventListener('htmx:beforeSwap', event => {
+    const revision = event.detail.xhr.miceFilterRevision;
+    if (revision !== undefined && revision !== filterRevision) event.detail.shouldSwap = false;
+  });
+
   function initialize(root = document) {
+    prepareFilters(root);
     const globalPeriod = document.querySelector('[data-global-period]');
     if (globalPeriod) {
       const dates = new URLSearchParams();
@@ -57,7 +101,7 @@
   document.addEventListener('DOMContentLoaded', () => initialize());
   document.addEventListener('htmx:afterSettle', event => {
     initialize();
-    if (event.detail.target && event.detail.target.id === 'mice-content') window.scrollTo(0, 0);
+    if (event.detail.target && event.detail.target.id === 'mice-content' && event.detail.xhr?.miceFilterRevision === undefined) window.scrollTo(0, 0);
   });
   document.addEventListener('htmx:configRequest', event => {
     if (event.detail.elt.id === 'overview-live') event.detail.headers['X-MICE-Period-Poll'] = 'true';

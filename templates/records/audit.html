@@ -4,8 +4,8 @@
   {% include 'ui/page_header.html' with title='Журналы и аудит' %}
   <nav class="tabs"><a href="?tab=logs"{% if diagnostics %} aria-current="page"{% endif %}>Диагностические события</a><a href="?tab=audit"{% if not diagnostics %} aria-current="page"{% endif %}>Аудит действий</a></nav>
   <section>
-    <form method="get" class="filters"><input type="hidden" name="tab" value="{% if diagnostics %}logs{% else %}audit{% endif %}">
-      {% for field, value in fields %}<label>{% if field == 'service' %}Сервис{% elif field == 'level' %}Уровень{% elif field == 'event' %}Событие{% elif field == 'actor' %}Пользователь{% elif field == 'action' %}Действие{% else %}Объект{% endif %}<input name="{{ field }}" value="{{ value }}"></label>{% endfor %}<button>Фильтровать</button>
+    <form data-live-filter="audit" method="get" class="filters"><input type="hidden" name="tab" value="{% if diagnostics %}logs{% else %}audit{% endif %}">
+      {% for field, value in fields %}<label>{% if field == 'service' %}Сервис{% elif field == 'level' %}Уровень{% elif field == 'event' %}Событие{% elif field == 'actor' %}Пользователь{% elif field == 'action' %}Действие{% else %}Объект{% endif %}<input name="{{ field }}" value="{{ value }}"></label>{% endfor %}<button data-live-submit>Фильтровать</button>
     </form>
     <div class="table"><div class="ui-table-scroll" role="region" aria-label="Таблица данных" tabindex="0"><table class="ui-data-table">
       <thead><tr><th>Время</th>{% if diagnostics %}<th>Сервис</th><th>Уровень</th><th>Событие</th>{% else %}<th>Пользователь</th><th>Действие</th><th>Объект</th>{% endif %}<th>Подробности</th></tr></thead>

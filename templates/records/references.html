@@ -9,7 +9,7 @@
     <article><span>Объём библиотеки</span><strong>{{ stats.bytes|filesizeformat }}</strong><small>Хранение PostgreSQL</small></article>
   </div>
   <section>
-    <header><h2>Библиотека эталонов</h2><form method="get" action="{% url 'references-page' %}" class="inline"><label>Поиск по эталонам<input name="q" maxlength="200" value="{{ query }}" placeholder="Название документа"></label><button>Найти</button></form></header>
+    <header><h2>Библиотека эталонов</h2><form data-live-filter="references" method="get" action="{% url 'references-page' %}" class="inline"><label>Поиск по эталонам<input name="q" maxlength="200" value="{{ query }}" placeholder="Название документа"></label><button data-live-submit>Найти</button></form></header>
     {% for row in page %}
     <div class="policy-row"><span class="policy-icon" aria-hidden="true">▤</span>
       <div class="policy-info"><strong>{{ row.name }}</strong><p>{% if row.fingerprint.document_template %}Шаблон типа документа{% else %}{{ row.blob_sha_ref.size|filesizeformat }} · {{ row.chunk_count|default:0 }} фрагментов{% endif %} · {{ row.created_at }}</p></div>
