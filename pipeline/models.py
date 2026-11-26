@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.db.models.fields.json import KeyTextTransform
 from django.utils import timezone
 
 from pipeline.config import GROUPS
@@ -39,6 +40,8 @@ class WorkItem(models.Model):
         indexes = [
             models.Index(fields=["status", "deadline"]),
             models.Index(fields=["queue", "status", "created_at"]),
+            models.Index(KeyTextTransform("message_id", "payload"), models.F("created_at").desc(), models.F("id").desc(),
+                         name="work_message_analysis_idx", condition=models.Q(kind__in=["analysis.analyze", "ingestion.parse"])),
         ]
         constraints = [
             models.CheckConstraint(condition=models.Q(max_attempts__gte=1), name="work_attempts_positive")
