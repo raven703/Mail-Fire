@@ -5,6 +5,7 @@ from datetime import timedelta
 from django.db import transaction
 from django.conf import settings
 from django.db.models import Max
+from django.db.models.fields.json import KeyTextTransform
 from django.utils import timezone
 
 from pipeline.config import limits
@@ -51,9 +52,9 @@ def analysis_message(job):
     message = Message.objects.select_for_update().filter(pk=message_id).first()
     if message is None:
         return None
-    latest = WorkItem.objects.filter(kind=job.kind, payload__message_id=message_id).order_by(
-        "-created_at", "-pk"
-    ).values_list("pk", flat=True).first()
+    latest = WorkItem.objects.filter(kind__in=["analysis.analyze", "ingestion.parse"]).alias(
+        message_key=KeyTextTransform("message_id", "payload")
+    ).filter(message_key=message_id).order_by("-created_at", "-pk").values_list("pk", flat=True).first()
     return message if latest == job.pk else None
 
 
