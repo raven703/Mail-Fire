@@ -5,7 +5,7 @@
   <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1">＋ Категория</a>{% endif %}</header>
   <form class="filters" method="get" action="{% url 'categories-page' %}">
     <label>Поиск категории<input name="q" value="{{ query }}" placeholder="Название или группа"></label>
-    <label>Каталог<select name="kind"><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Пользовательские</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Системные</option><option value="all"{% if kind == 'all' %} selected{% endif %}>Все</option></select></label>
+    <label>Метод обнаружения<select name="kind"><option value="all"{% if kind == 'all' %} selected{% endif %}>Все категории</option><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Правила / ML</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Встроенный детектор</option></select></label>
     <button>Найти</button>
   </form>
   {% category_rule_counts categories as rule_counts %}
@@ -15,17 +15,17 @@
     <details class="ui-disclosure" open>
       <summary><strong>{{ group.grouper|default:'Без группы' }}</strong><span class="muted">Категорий: {{ group.list|length }}</span></summary>
       <div class="ui-table-scroll" role="region" aria-label="{{ group.grouper }}" tabindex="0">
-        <table class="ui-data-table ui-data-table-compact"><thead><tr><th>Название категории</th><th>Правила</th><th>Логика</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
+        <table class="ui-data-table ui-data-table-compact"><thead><tr><th>Название категории</th><th>Метод обнаружения</th><th>Правила</th><th>Логика</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
         {% for row in group.list %}
         <tr>
           <td><span title="{{ row.description|default:row.pk }}">{{ row.name }}</span></td>
-          <td>{{ rule_counts|lookup:row.pk }}</td>
-          <td><span title="{{ row.match_mode|upper }} — {% if row.match_mode == 'all' %}все правила{% else %}любое правило{% endif %}">{{ row.match_mode|upper }}</span></td>
+          {% with count=rule_counts|lookup:row.pk %}<td>{% detection_method row count %}</td><td>{{ count }}</td>{% endwith %}
+          <td>{% if row.mode == "builtin" %}Встроенная{% else %}<span title="{{ row.match_mode|upper }} — {% if row.match_mode == 'all' %}все правила{% else %}любое правило{% endif %}">{{ row.match_mode|upper }}</span>{% endif %}</td>
           <td>{% if row.active %}{% include 'ui/badge.html' with text='Активна' %}{% else %}{% include 'ui/badge.html' with text='Архив' variant='CLOSED' %}{% endif %}</td>
           <td><div class="ui-row-actions">
             {% if admin and row.mode != 'builtin' and row.mode != 'label' %}<a class="icon-control" href="{% url 'category-detail' row.pk %}?edit=1" aria-label="Правила и настройки · {{ row.name }}" title="Редактировать">{% include 'ui/icons/pencil.html' %}</a>{% endif %}
             <details class="ui-action-menu"><summary class="icon-control" aria-label="Действия · {{ row.name }}" title="Действия">⋯</summary><div class="ui-action-menu-items">
-              <a class="action-button" href="{% url 'category-detail' row.pk %}">Просмотр и описание</a>
+              <a class="action-button" href="{% url 'category-detail' row.pk %}">Просмотр и описание</a>{% category_context_supported row as supported %}{% if admin and supported %}<a class="action-button" href="{% url 'category-detail' row.pk %}?rule=new">Добавить правило контекста</a>{% endif %}
               {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button name="action" value="archive">Архивировать</button></form>{% endif %}
             </div></details>
           </div></td>
@@ -39,7 +39,9 @@
   {% if category and not form %}
     <section><header><div><h2>{{ category.name }}</h2><p class="muted">{{ category.group_name }} · {{ category.pk }}</p></div><a href="{% url 'categories-page' %}">Закрыть</a></header>
     <p>{{ category.description }}</p>
-    {% for rule in rules %}<p>{{ rule.title|default:rule.kind }} · {{ rule.kind }} · {{ rule.risk }} · {{ rule.enabled|yesno:'Активно,Отключено' }}</p>{% empty %}{% if not system %}<p>Нет правил</p>{% endif %}{% endfor %}
+    {% if system %}<p><strong>Метод:</strong> {% detection_method category rules|length %}. Алгоритм встроенного детектора фиксирован.</p>{% endif %}
+    {% if context_allowed %}<p class="muted">Правила контекста дополняют только совпадающий фрагмент уже обнаруженного встроенным детектором признака. Они не создают находок, не повышают риск и не заменяют проверку реквизитов.</p>{% if admin %}<a class="action-button" href="{% url 'category-detail' category.pk %}?rule=new">＋ Правило контекста</a>{% endif %}{% endif %}
+    {% for rule in rules %}<div class="policy-row"><div class="policy-info"><strong>{{ rule.title|default:rule.kind }}</strong><p>{{ rule.kind }} · {% if not context_allowed %}Риск {{ rule.risk }} · {% endif %}{{ rule.enabled|yesno:'Активно,Отключено' }}</p></div>{% if admin and context_allowed %}<a class="action-button" href="{% url 'category-rule' category.pk rule.pk %}">Редактировать</a><form method="post" action="{% url 'category-rule' category.pk rule.pk %}" hx-confirm="Удалить правило контекста? История сохранится.">{% csrf_token %}<button name="action" value="delete_context">Удалить</button></form>{% endif %}</div>{% empty %}{% if not system %}<p>Нет правил</p>{% endif %}{% endfor %}
     </section>
   {% endif %}
   {% if form %}
