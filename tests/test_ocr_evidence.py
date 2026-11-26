@@ -25,3 +25,15 @@ class OCREvidenceTests(unittest.TestCase):
 
     def test_legacy_unknown(self):
         self.assertEqual(display({}, "ANALYZED")[0], "Нет данных")
+
+    def test_legacy_and_incomplete_metadata(self):
+        for details in (None, {}, {"ocr": None}, {"ocr": [None]}):
+            self.assertEqual(display(details, "ANALYZED")[0], "Нет данных")
+        details = {"ocr": [{"backend": "surya", "blocks": [{"text": "saved"}]}]}
+        self.assertEqual(display(details, "ANALYZED"), ("Выполнен", "Surya"))
+        self.assertEqual(display(details, "FAILED"), ("Ошибка", "Surya"))
+
+    def test_reanalysis_does_not_inherit_engine_or_state(self):
+        details = evidence({}, "PARTIAL", required=True, enabled=False)
+        self.assertEqual(display(details, "PARTIAL"), ("Пропущен", "—"))
+        self.assertEqual(details["ocr_engines"], [])

@@ -29,7 +29,10 @@
     if (event.target.matches('select, input[type=checkbox], input[type=radio], input[type=date], input[type=datetime-local]')) scheduleFilter(event, 0);
   });
   document.addEventListener('submit', event => {
-    if (event.target.matches(filterSelector)) clearTimeout(timers.get(event.target));
+    if (event.target.matches(filterSelector)) {
+      clearTimeout(timers.get(event.target));
+      event.target.querySelectorAll('[name="page"]').forEach(field => field.remove());
+    }
   }, true);
   function prepareFilters(root) {
     root.querySelectorAll(filterSelector).forEach(form => {
@@ -46,7 +49,28 @@
   });
   document.addEventListener('htmx:beforeSwap', event => {
     const revision = event.detail.xhr.miceFilterRevision;
-    if (revision !== undefined && revision !== filterRevision) event.detail.shouldSwap = false;
+    if (revision !== undefined && (revision !== filterRevision || event.detail.xhr.miceGeneration !== generation)) {
+      event.detail.shouldSwap = false;
+      return;
+    }
+    const active = document.activeElement;
+    if (revision !== undefined && active && active.closest(filterSelector)) {
+      event.detail.xhr.miceFilterFocus = {
+        id: active.id, start: active.selectionStart, end: active.selectionEnd,
+        direction: active.selectionDirection,
+      };
+    }
+  });
+  document.addEventListener('htmx:afterSwap', event => {
+    const saved = event.detail.xhr && event.detail.xhr.miceFilterFocus;
+    if (!saved) return;
+    prepareFilters(document);
+    const field = document.getElementById(saved.id);
+    if (!field) return;
+    field.focus({preventScroll: true});
+    if (saved.start !== null && typeof field.setSelectionRange === 'function') {
+      field.setSelectionRange(saved.start, saved.end, saved.direction);
+    }
   });
 
   function initialize(root = document) {
@@ -101,7 +125,7 @@
   document.addEventListener('DOMContentLoaded', () => initialize());
   document.addEventListener('htmx:afterSettle', event => {
     initialize();
-    if (event.detail.target && event.detail.target.id === 'mice-content' && event.detail.xhr?.miceFilterRevision === undefined) window.scrollTo(0, 0);
+    if (event.detail.target && event.detail.target.id === 'mice-content' && (!event.detail.xhr || event.detail.xhr.miceFilterRevision === undefined)) window.scrollTo(0, 0);
   });
   document.addEventListener('htmx:configRequest', event => {
     if (event.detail.elt.id === 'overview-live') event.detail.headers['X-MICE-Period-Poll'] = 'true';
@@ -119,6 +143,8 @@
       return;
     }
     if ([400, 409, 422].includes(event.detail.xhr.status) &&
+        (event.detail.xhr.miceFilterRevision === undefined ||
+         (event.detail.xhr.miceFilterRevision === filterRevision && event.detail.xhr.miceGeneration === generation)) &&
         (event.detail.xhr.getResponseHeader('Content-Type') || '').includes('text/html')) {
       event.detail.shouldSwap = true;
       event.detail.isError = false;

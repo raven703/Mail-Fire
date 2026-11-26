@@ -9,18 +9,22 @@ ENGINES = {"rapidocr": "RapidOCR", "paddleocr": "PaddleOCR", "surya": "Surya"}
 
 
 def pages(details):
-    return [p for p in details.get("ocr", []) if isinstance(p, dict)]
+    records = details.get("ocr", [])
+    return [p for p in records if isinstance(p, dict)] if isinstance(records, list) else []
 
 
 def evidence(details, status, *, required=None, enabled=None, attempted=False):
+    details = details if isinstance(details, dict) else {}
     records = pages(details)
     engines = sorted({p.get("engine") or p.get("backend") for p in records
-                      if p.get("engine") or p.get("backend")})
-    if attempted and status in {"FAILED", "ENCRYPTED", "UNSUPPORTED"}:
+                      if isinstance(p.get("engine") or p.get("backend"), str)
+                      and (p.get("engine") or p.get("backend"))})
+    if (attempted or records) and status in {"FAILED", "ENCRYPTED", "UNSUPPORTED"}:
         state = "error"
     elif records:
         state = "done" if any(str(b.get("text", "")).strip()
-                              for p in records for b in p.get("blocks", [])) else "empty"
+                              for p in records for b in (p.get("blocks") or [])
+                              if isinstance(b, dict)) else "empty"
     elif attempted:
         state = "unknown"
     elif required and enabled is False:
@@ -35,7 +39,9 @@ def evidence(details, status, *, required=None, enabled=None, attempted=False):
 
 
 def display(details, status):
+    details = details if isinstance(details, dict) else {}
     meta = details if details.get("ocr_state") in LABELS else evidence(details, status)
     state = meta["ocr_state"]
-    engines = ", ".join(ENGINES.get(e, e) for e in meta.get("ocr_engines", []))
+    saved_engines = meta.get("ocr_engines", [])
+    engines = ", ".join(ENGINES.get(e, e) for e in saved_engines if isinstance(e, str)) if isinstance(saved_engines, list) else ""
     return LABELS[state], engines or ("Нет данных" if state in {"done", "empty", "error", "unknown"} else "—")
