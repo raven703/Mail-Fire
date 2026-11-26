@@ -6,13 +6,21 @@
     {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
     <div class="message-meta-line">
       {% if perms.identity.view_originals %}<span>Отправитель <b>{{ message.sender|default:'—' }}</b></span><span>Получателей <b>{{ message.recipients|length }}</b></span><span>Вложений <b>{{ attachments|length }}</b></span>{% endif %}
-      <span>Инцидентов <b>{{ incidents|length }}</b></span><span class="badge {{ message.status }}">{{ message.status }}</span>
+      <span>Инцидентов <b>{{ incidents|length }}</b></span><span class="badge {{ processing.state }}">{{ processing.label }}</span>
     </div>
+    {% if processing.reason or processing.previous_evidence %}
+    <div class="warning" role="status">
+      {% if processing.reason %}<p>{{ processing.reason }}</p>{% endif %}
+      {% if processing.attempts != None %}<p>Попытки: {{ processing.attempts }} · Отложено: {{ processing.deferrals }}{% if processing.next_retry %} · Следующая попытка: {{ processing.next_retry|date:'d.m.Y H:i:s' }}{% endif %}</p>{% endif %}
+      {% if processing.previous_evidence %}<p>Ниже могут отображаться результаты предыдущего анализа. Текущий анализ не завершён.</p>{% endif %}
+      {% if processing.state == 'FAILED' or processing.state == 'PARTIAL' %}<p>Письмо нельзя считать проверенным полностью. Доступен полный переанализ.</p>{% endif %}
+    </div>
+    {% endif %}
     {% include 'records/_message_tabs.html' %}
     <div class="actions message-actions">
       {% if perms.identity.investigate %}
       <form method="post">{% csrf_token %}<button>Переоценить политики</button></form>
-      <form method="post" action="{% url 'messages-reanalyze' %}">{% csrf_token %}<input type="hidden" name="message_ids" value="{{ message.pk }}"><input type="hidden" name="request_token" value="{{ reanalysis_token }}"><button>Полный переанализ</button></form>
+      <form method="post" action="{% url 'messages-reanalyze' %}">{% csrf_token %}<input type="hidden" name="message_ids" value="{{ message.pk }}"><input type="hidden" name="request_token" value="{{ reanalysis_token }}"><button{% if processing.state == "PROCESSING" or processing.state == "RETRYING" %} disabled{% endif %}>{% if processing.state == "FAILED" or processing.state == "PARTIAL" %}Повторить анализ{% else %}Полный переанализ{% endif %}</button></form>
       {% endif %}
       {% if perms.identity.view_originals %}<a class="action-button" href="{% url 'message-original' message.pk %}" hx-boost="false" download>Скачать оригинал</a>{% endif %}
     </div>
