@@ -1,2 +1,35 @@
-{% load evidence_history %}{% historical_findings findings as saved_findings %}
-<div class="evidence-list">{% for finding in saved_findings %}<article class="evidence-card"><header><div><h3>{{ finding.historical_category|default:finding.category|default:'Обнаруженный признак' }}</h3><small>{{ finding.source|default:'Детектор' }}{% if finding.confidence != None %} · Уверенность {{ finding.confidence }}{% endif %}</small></div><span class="badge {% if finding.risk >= 70 %}HIGH{% elif finding.risk >= 40 %}MEDIUM{% else %}LOW{% endif %}">Риск {{ finding.risk|default:0 }}</span></header>{% if finding.rule_deleted %}<span class="badge">Правило удалено</span>{% endif %}<p>{{ finding.reason|default:'Обнаружен признак, требующий проверки контекста аналитиком.' }}</p>{% if finding.excerpt %}<blockquote>{{ finding.excerpt }}</blockquote>{% endif %}<details><summary>Сведения о детекторе</summary><dl class="facts"><div><dt>Правило</dt><dd>{{ finding.historical_rule.title|default:finding.rule_id|default:'—' }}</dd></div><div><dt>ID правила</dt><dd>{{ finding.rule_id|default:'—' }}</dd></div><div><dt>Тип обнаружения</dt><dd>{{ finding.historical_rule.kind|default:finding.source|default:'—' }}</dd></div><div><dt>Параметры на момент анализа</dt><dd>{{ finding.historical_rule.config|default:'Снимок параметров недоступен для этого анализа' }}</dd></div><div><dt>Документ и координаты</dt><dd>{{ finding.document_id|default:"message" }} · {{ finding.start }}–{{ finding.end }}</dd></div>{% if finding.normalization %}<div><dt>Преобразования</dt><dd>{{ finding.normalization|join:", " }}</dd></div><div><dt>Исходный фрагмент</dt><dd>{{ finding.original_excerpt }}</dd></div><div><dt>Нормализованный фрагмент</dt><dd>{{ finding.normalized_excerpt }}</dd></div>{% endif %}{% if finding.match_score %}<div><dt>Баллы правила (не риск)</dt><dd>{{ finding.match_score }}</dd></div>{% endif %}<div><dt>Версия правила</dt><dd>{{ finding.historical_rule.version|default:finding.rule_version|default:"—" }}</dd></div><div><dt>Версия</dt><dd>{{ finding.version|default:'—' }}</dd></div></dl></details></article>{% empty %}<p class="empty">Обнаруженные признаки отсутствуют или анализ ещё не завершён.</p>{% endfor %}</div>
+{% load evidence_history %}{% grouped_findings findings as groups %}
+<div class="evidence-list">
+{% for group in groups %}{% with finding=group.finding %}
+<article class="evidence-card">
+  <header><div><h3>{{ finding.historical_category|default:finding.category|default:'Обнаруженный признак' }}</h3>
+    <small>{{ finding.historical_rule.title|default:finding.rule_id|default:finding.source }} · Совпадений: {{ group.matches|length }}</small></div>
+    <span class="badge {% if group.risk >= 70 %}HIGH{% elif group.risk >= 40 %}MEDIUM{% else %}LOW{% endif %}">Риск {{ group.risk }}</span>
+  </header>
+  {% if finding.rule_deleted %}<span class="badge">Правило удалено</span>{% endif %}
+  <div class="evidence-matches">
+    {% for match in group.matches %}
+    <div class="evidence-match">
+      <div class="evidence-match-heading"><strong>{{ match.document_label }}</strong><small>№{{ forloop.counter }} · Риск {{ match.risk|default:0 }}{% if match.confidence != None %} · Уверенность {{ match.confidence }}{% endif %}</small></div>
+      {% if match.excerpt %}<blockquote>{{ match.excerpt }}</blockquote>{% endif %}
+      {% if match.reason %}<p>{{ match.reason }}</p>{% endif %}
+      <details><summary>Подробности совпадения</summary><dl class="facts">
+        <div><dt>Документ и координаты</dt><dd>{{ match.document_id|default:"message" }} · {{ match.start }}–{{ match.end }}</dd></div>
+        {% if match.normalization %}<div><dt>Преобразования</dt><dd>{{ match.normalization|join:", " }}</dd></div><div><dt>Исходный фрагмент</dt><dd>{{ match.original_excerpt }}</dd></div><div><dt>Нормализованный фрагмент</dt><dd>{{ match.normalized_excerpt }}</dd></div>{% endif %}
+        {% if match.match_score != None %}<div><dt>Баллы правила (не риск)</dt><dd>{{ match.match_score }}</dd></div>{% endif %}
+        {% if match.supporting_rules %}<div><dt>Дополнительные правила</dt><dd>{{ match.supporting_rules }}</dd></div>{% endif %}
+      </dl></details>
+    </div>
+    {% endfor %}
+  </div>
+  <details><summary>Сведения о детекторе</summary><dl class="facts">
+    <div><dt>Правило</dt><dd>{{ finding.historical_rule.title|default:finding.rule_id|default:'—' }}</dd></div>
+    <div><dt>ID правила</dt><dd>{{ finding.rule_id|default:'—' }}</dd></div>
+    <div><dt>Тип обнаружения</dt><dd>{{ finding.historical_rule.kind|default:finding.source|default:'—' }}</dd></div>
+    <div><dt>Параметры на момент анализа</dt><dd>{{ finding.historical_rule.config|default:'Снимок параметров недоступен для этого анализа' }}</dd></div>
+    <div><dt>Версия правила</dt><dd>{{ finding.historical_rule.version|default:finding.rule_version|default:"—" }}</dd></div>
+    <div><dt>Версия</dt><dd>{{ finding.version|default:'—' }}</dd></div>
+  </dl></details>
+</article>
+{% endwith %}{% empty %}<p class="empty">Обнаруженные признаки отсутствуют или анализ ещё не завершён.</p>{% endfor %}
+</div>
