@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 52100)
-Total output lines: 7056
-
 {
   "schema_version": 1,
   "name": "RU4 candidate — contextual coverage",
@@ -3316,7 +3313,285 @@ Total output lines: 7056
           "title": "Обманный запрос реквизитов: реквизиты доступа",
           "enabled": true,
           "risk": 84,
-      …2100 tokens truncated…e
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "реквизиты доступа",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "выманить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выманивать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "обманом",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное уведомление",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное сообщение",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "мошенническое письмо",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "ложно представляться",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выдавать себя",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 10,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": [
+            "не передавайте",
+            "не передавать",
+            "никогда не запрашивает",
+            "никогда не просит",
+            "цитата учебного образца",
+            "на обучении разбирали"
+          ]
+        },
+        {
+          "kind": "keywords",
+          "title": "Обманный запрос реквизитов: секретный код",
+          "enabled": true,
+          "risk": 84,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "секретный код",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "выманить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выманивать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "обманом",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное уведомление",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное сообщение",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "мошенническое письмо",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "ложно представляться",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выдавать себя",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 10,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": [
+            "не передавайте",
+            "не передавать",
+            "никогда не запрашивает",
+            "никогда не просит",
+            "цитата учебного образца",
+            "на обучении разбирали"
+          ]
+        },
+        {
+          "kind": "keywords",
+          "title": "Обманный запрос реквизитов: данные для входа",
+          "enabled": true,
+          "risk": 84,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "данные для входа",
+              "weight": 6,
+              "required": true
+            },
+            {
+              "text": "выманить",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выманивать",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "обманом",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное уведомление",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "поддельное сообщение",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "мошенническое письмо",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "ложно представляться",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выдавать себя",
+              "weight": 4,
+              "required": false
+            }
+          ],
+          "min_score": 10,
+          "window": 18,
+          "ordered": false,
+          "exclude_phrases": [
+            "не передавайте",
+            "не передавать",
+            "никогда не запрашивает",
+            "никогда не просит",
+            "цитата учебного образца",
+            "на обучении разбирали"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pack-ru2-data-exfil",
+      "name": "[RU4] Вывод информации за пределы организации",
+      "group_name": "Коммерческая информация",
+      "description": "Комбинации действий по пересылке внутренних материалов неуполномоченным получателям.",
+      "active": true,
+      "match_mode": "any",
+      "rules": [
+        {
+          "kind": "keywords",
+          "title": "Передача внутреннего файла внешнему получателю",
+          "enabled": true,
+          "risk": 78,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "внутренний",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "файл",
+              "weight": 3,
+              "required": true
+            },
+            {
+              "text": "личный",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "почта",
+              "weight": 2,
+              "required": false
+            },
+            {
+              "text": "внешний",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "отправить",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "переслать",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "передать",
+              "weight": 3,
+              "required": false
+            },
+            {
+              "text": "сторонний",
+              "weight": 4,
+              "required": false
+            },
+            {
+              "text": "выгрузить",
+              "weight": 3,
+              "required": false
+            }
+          ],
+          "min_score": 9,
+          "window": 16,
+          "ordered": false,
+          "exclude_phrases": []
+        },
+        {
+          "kind": "keywords",
+          "title": "Экспорт коммерческих документов",
+          "enabled": true,
+          "risk": 80,
+          "priority": 50,
+          "match_type": "flexible",
+          "terms": [
+            {
+              "text": "коммерческий",
+              "weight": 3,
+              "required": true
             },
             {
               "text": "документ",
