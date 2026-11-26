@@ -1,0 +1,513 @@
+[
+  {
+    "id": "MF500-0052",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0053",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0057",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0071",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0079",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0081",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0082",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0083",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0084",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0085",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0086",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0087",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0088",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0089",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0090",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0091",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0092",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0093",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0097",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0100",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0104",
+    "live": [],
+    "replay": [
+      "pack-ru2-extortion"
+    ]
+  },
+  {
+    "id": "MF500-0112",
+    "live": [],
+    "replay": [
+      "pack-ru2-sabotage"
+    ]
+  },
+  {
+    "id": "MF500-0150",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0161",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0162",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0163",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0164",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0165",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0166",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0167",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0186",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0187",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0189",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0190",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0197",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0198",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0201",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0202",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0205",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0208",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0213",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0214",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0215",
+    "live": [],
+    "replay": [
+      "pack-ru2-internal-docs"
+    ]
+  },
+  {
+    "id": "MF500-0219",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0225",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0229",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0230",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0231",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0234",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0237",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0374",
+    "live": [],
+    "replay": [
+      "pack-ru2-financial-plans"
+    ]
+  },
+  {
+    "id": "MF500-0377",
+    "live": [],
+    "replay": [
+      "pack-ru2-financial-plans"
+    ]
+  },
+  {
+    "id": "MF500-0383",
+    "live": [],
+    "replay": [
+      "pack-ru2-pricing"
+    ]
+  },
+  {
+    "id": "MF500-0384",
+    "live": [],
+    "replay": [
+      "pack-ru2-pricing"
+    ]
+  },
+  {
+    "id": "MF500-0393",
+    "live": [],
+    "replay": [
+      "pack-ru2-customer-data"
+    ]
+  },
+  {
+    "id": "MF500-0405",
+    "live": [],
+    "replay": [
+      "pack-ru2-internal-docs"
+    ]
+  },
+  {
+    "id": "MF500-0417",
+    "live": [],
+    "replay": [
+      "pack-ru2-pii-handling"
+    ]
+  },
+  {
+    "id": "MF500-0426",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0429",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0432",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0434",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0458",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0459",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0461",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0462",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0467",
+    "live": [],
+    "replay": [
+      "pack-ru2-explosive-threat"
+    ]
+  },
+  {
+    "id": "MF500-0472",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0475",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0476",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0480",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0484",
+    "live": [],
+    "replay": [
+      "pack-ru2-extortion"
+    ]
+  },
+  {
+    "id": "MF500-0493",
+    "live": [],
+    "replay": [
+      "pack-ru2-sabotage"
+    ]
+  },
+  {
+    "id": "MF500-0495",
+    "live": [],
+    "replay": [
+      "pack-ru2-sabotage"
+    ]
+  }
+]

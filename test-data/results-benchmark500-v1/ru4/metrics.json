@@ -1,0 +1,146 @@
+{
+  "messages": 500,
+  "scope": [
+    "pack-ru2-credential-transfer",
+    "pack-ru2-customer-data",
+    "pack-ru2-data-exfil",
+    "pack-ru2-explosive-threat",
+    "pack-ru2-extortion",
+    "pack-ru2-financial-plans",
+    "pack-ru2-internal-docs",
+    "pack-ru2-phishing",
+    "pack-ru2-pii-handling",
+    "pack-ru2-pricing",
+    "pack-ru2-sabotage",
+    "pack-ru2-violence-threat"
+  ],
+  "micro": {
+    "TP": 50,
+    "FP": 23,
+    "FN": 250,
+    "TN": 5677,
+    "precision": 0.684931506849315,
+    "recall": 0.16666666666666666,
+    "F1": 0.2680965147453083
+  },
+  "per_category": {
+    "pack-ru2-credential-transfer": {
+      "TP": 7,
+      "FP": 4,
+      "FN": 18,
+      "TN": 471,
+      "precision": 0.6363636363636364,
+      "recall": 0.28,
+      "F1": 0.3888888888888889
+    },
+    "pack-ru2-customer-data": {
+      "TP": 0,
+      "FP": 1,
+      "FN": 25,
+      "TN": 474,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-data-exfil": {
+      "TP": 0,
+      "FP": 0,
+      "FN": 25,
+      "TN": 475,
+      "precision": null,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-explosive-threat": {
+      "TP": 25,
+      "FP": 4,
+      "FN": 0,
+      "TN": 471,
+      "precision": 0.8620689655172413,
+      "recall": 1.0,
+      "F1": 0.9259259259259259
+    },
+    "pack-ru2-extortion": {
+      "TP": 1,
+      "FP": 1,
+      "FN": 24,
+      "TN": 474,
+      "precision": 0.5,
+      "recall": 0.04,
+      "F1": 0.07407407407407407
+    },
+    "pack-ru2-financial-plans": {
+      "TP": 0,
+      "FP": 2,
+      "FN": 25,
+      "TN": 473,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-internal-docs": {
+      "TP": 1,
+      "FP": 1,
+      "FN": 24,
+      "TN": 474,
+      "precision": 0.5,
+      "recall": 0.04,
+      "F1": 0.07407407407407407
+    },
+    "pack-ru2-phishing": {
+      "TP": 3,
+      "FP": 1,
+      "FN": 22,
+      "TN": 474,
+      "precision": 0.75,
+      "recall": 0.12,
+      "F1": 0.20689655172413793
+    },
+    "pack-ru2-pii-handling": {
+      "TP": 0,
+      "FP": 1,
+      "FN": 25,
+      "TN": 474,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-pricing": {
+      "TP": 0,
+      "FP": 2,
+      "FN": 25,
+      "TN": 473,
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0
+    },
+    "pack-ru2-sabotage": {
+      "TP": 1,
+      "FP": 2,
+      "FN": 24,
+      "TN": 473,
+      "precision": 0.3333333333333333,
+      "recall": 0.04,
+      "F1": 0.07142857142857142
+    },
+    "pack-ru2-violence-threat": {
+      "TP": 12,
+      "FP": 4,
+      "FN": 13,
+      "TN": 471,
+      "precision": 0.75,
+      "recall": 0.48,
+      "F1": 0.5853658536585366
+    }
+  },
+  "exact_match": 0.534,
+  "live_category_set_mismatches": 73,
+  "seconds": 7.76937709300546,
+  "wall_seconds_before_output": 7.787806300999364,
+  "input_hashes": {
+    "test-data/benchmark-500-v1/manifest.jsonl": "a8abdd6a67e3c7bd8747677aabf6d1416990ce25084b6d7e2f6a52d1b044a007",
+    "/tmp/mice-b500-observations.jsonl": "5b1ff9f7691fdffc999219cf039988aa1a6caa8acdc3e50f0fc75144868169af"
+  },
+  "configuration_sha256": "74cacd2509d3f3dc07202ead65202c8376c605243e59fe9057015c88592abc8a",
+  "caveat": "Frozen text replay; not end-to-end throughput or independent validation after tuning."
+}

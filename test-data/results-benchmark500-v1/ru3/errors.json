@@ -1,0 +1,4065 @@
+[
+  {
+    "id": "MF500-0001",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0002",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0003",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0004",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0005",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0006",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0007",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0008",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0009",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0010",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0011",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0012",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0013",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0014",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0015",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0016",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0017",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0018",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0019",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0020",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0021",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0022",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0023",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0024",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0025",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0026",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0027",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0028",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0029",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0030",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0031",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0032",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0033",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0034",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0035",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0036",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0037",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0038",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0039",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0040",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0041",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0042",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0043",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0044",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0045",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0046",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0047",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0048",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0049",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0050",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0051",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0054",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0055",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0056",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0057",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0058",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0059",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0060",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0061",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0062",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0063",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0064",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0065",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0066",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0067",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0068",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0069",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0070",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0071",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0072",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0073",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0074",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0075",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0076",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0077",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0078",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0080",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0081",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0082",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0083",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0084",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0085",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0086",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0087",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0088",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0089",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0090",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0091",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0092",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0093",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0094",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0095",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0096",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0097",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0098",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0099",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0101",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0102",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0103",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0105",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0106",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0107",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0108",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0109",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0110",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0111",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0112",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0113",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0114",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0115",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0116",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0117",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0118",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0119",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0120",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0121",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0122",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0123",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0124",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0125",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0126",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0127",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0128",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0129",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0130",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0131",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0132",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0133",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0134",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0135",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0136",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0137",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0138",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0139",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0140",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0141",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0142",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0143",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0144",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0145",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0146",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0147",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0148",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0149",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0150",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0151",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0152",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0153",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0154",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0155",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0156",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0157",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0158",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0159",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0160",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0161",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0162",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0163",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0164",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0165",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0166",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0167",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0168",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0169",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0170",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0171",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0172",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0173",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0174",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0175",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0176",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0177",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0178",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0179",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0180",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0181",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0181",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0182",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0182",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0183",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0183",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0184",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0184",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0185",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0185",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0186",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0186",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0187",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0187",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0188",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0188",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0189",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0189",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0190",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0190",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0191",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0191",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0192",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0192",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0193",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0193",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0194",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0194",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0195",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0195",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0196",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0196",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0197",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0197",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0198",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-credential-transfer",
+        "source": "custom-keywords",
+        "rule_id": "5c20bc62-d703-5f4c-8bc0-2e00a67d6683",
+        "risk": 82,
+        "excerpt": "Передай мне рабочий токен авторизации в ответе.\r\n\r\nСообщение соде",
+        "reason": "Совпадение с пользовательским правилом: Запрос API-токена",
+        "confidence": 0.243,
+        "start": 0,
+        "end": 25,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.026165",
+        "historical_rule": {
+          "id": "5c20bc62-d703-5f4c-8bc0-2e00a67d6683",
+          "kind": "keywords",
+          "title": "Запрос API-токена",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "токен",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "ключ",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "секретный",
+                "weight": 3,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.026165"
+        },
+        "historical_category": "[RU3] Передача паролей и ключей",
+        "original_excerpt": "Передай мне рабочий токен",
+        "match_score": 9,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "5c20bc62-d703-5f4c-8bc0-2e00a67d6683",
+            "risk": 82,
+            "match_score": 9,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "5c20bc62-d703-5f4c-8bc0-2e00a67d6683",
+            "risk": 82,
+            "match_score": 9,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0199",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0199",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0200",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0200",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0201",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0201",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0202",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-pricing",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0202",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-pricing",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0203",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0203",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0204",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0204",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0205",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0205",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0206",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0206",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0207",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0207",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0208",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0208",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0209",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0209",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0210",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0210",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0211",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0211",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0212",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0212",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0213",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0213",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0214",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-violence-threat",
+        "source": "custom-keywords",
+        "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+        "risk": 86,
+        "excerpt": "Автор угрожает причинить вред здоровью получателя.\r\n\r\nСводный перечен",
+        "reason": "Совпадение с пользовательским правилом: Явная угроза расправы",
+        "confidence": null,
+        "start": 6,
+        "end": 29,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.050072",
+        "historical_rule": {
+          "id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+          "kind": "keywords",
+          "title": "Явная угроза расправы",
+          "risk": 86,
+          "config": {
+            "phrases": [
+              "угрожаю физической расправой",
+              "причиню тебе физический вред",
+              "угрожать сотруднику",
+              "угрожать сотрудникам",
+              "угрожать причинить вред"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.050072"
+        },
+        "historical_category": "[RU3] Прямые угрозы физической расправы",
+        "original_excerpt": "угрожает причинить вред",
+        "match_score": 1,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+            "risk": 86,
+            "match_score": 1,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+            "risk": 86,
+            "match_score": 1,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0215",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0215",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0216",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0216",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0217",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0217",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0218",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0218",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0219",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0219",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0220",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0220",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0221",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0221",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0222",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0222",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0223",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0223",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0224",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0224",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0225",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0225",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0226",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0226",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0227",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0227",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0228",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0228",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0229",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-phishing",
+        "source": "custom-keywords",
+        "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+        "risk": 82,
+        "excerpt": "дставителем сервиса и пытается получить одноразовый код.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Запрос одноразового кода",
+        "confidence": 0.256,
+        "start": 146,
+        "end": 161,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.033069",
+        "historical_rule": {
+          "id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+          "kind": "keywords",
+          "title": "Запрос одноразового кода",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "код",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "подтверждение",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "одноразовый",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "назвать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "код подтверждения",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "одноразовый код",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.033069"
+        },
+        "historical_category": "[RU3] Фишинговые требования к получателю",
+        "original_excerpt": "одноразовый код",
+        "match_score": 11,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+            "risk": 82,
+            "match_score": 11,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+            "risk": 82,
+            "match_score": 11,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0230",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0230",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0231",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0231",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0232",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0232",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0233",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0233",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0234",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0234",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0235",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0235",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0236",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0236",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0237",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0237",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0238",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0238",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0239",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0239",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0240",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0240",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "findings": []
+  },
+  {
+    "id": "MF500-0377",
+    "outcome": "FP",
+    "category": "pack-ru2-financial-plans",
+    "expected": [],
+    "actual": [
+      "pack-ru2-financial-plans"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-financial-plans",
+        "source": "custom-keywords",
+        "rule_id": "617a2859-2805-5f63-b0dd-dc0e13dac39d",
+        "risk": 72,
+        "excerpt": "В финансовом словаре объясняется термин закрытый бюджет.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Явные пометки финансовых прогнозов",
+        "confidence": null,
+        "start": 40,
+        "end": 55,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.070357",
+        "historical_rule": {
+          "id": "617a2859-2805-5f63-b0dd-dc0e13dac39d",
+          "kind": "keywords",
+          "title": "Явные пометки финансовых прогнозов",
+          "risk": 66,
+          "config": {
+            "phrases": [
+              "непубличный финансовый прогноз",
+              "внутренний бюджет подразделения",
+              "закрытый финансовый план",
+              "конфиденциальный бюджет",
+              "непубличные финансовые показатели",
+              "внутренний прогноз прибыли",
+              "непубличный план расходов",
+              "внутренний финансовый прогноз",
+              "закрытый прогноз выручки",
+              "непубличный прогноз прибыли",
+              "конфиденциальный план расходов",
+              "закрытый бюджет",
+              "непубличный бюджет",
+              "конфиденциальный финансовый план",
+              "внутренний план финансирования"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.070357"
+        },
+        "historical_category": "[RU3] Непубличные финансовые планы",
+        "original_excerpt": "закрытый бюджет",
+        "match_score": 1,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "617a2859-2805-5f63-b0dd-dc0e13dac39d",
+            "risk": 66,
+            "match_score": 1,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "617a2859-2805-5f63-b0dd-dc0e13dac39d",
+            "risk": 66,
+            "match_score": 1,
+            "source": "custom-keywords",
+            "normalization": []
+          },
+          {
+            "rule_id": "30095959-d358-5515-b57e-abe862c20595",
+            "risk": 72,
+            "match_score": 9,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "30095959-d358-5515-b57e-abe862c20595",
+            "risk": 72,
+            "match_score": 9,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0384",
+    "outcome": "FP",
+    "category": "pack-ru2-pricing",
+    "expected": [],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-pricing",
+        "source": "custom-keywords",
+        "rule_id": "ae29a85f-e794-5870-a24c-befe91dfc658",
+        "risk": 70,
+        "excerpt": "Курс объясняет понятие себестоимости и наценки на условных числах.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Закрытая себестоимость и наценка",
+        "confidence": 0.321,
+        "start": 23,
+        "end": 46,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.059857",
+        "historical_rule": {
+          "id": "ae29a85f-e794-5870-a24c-befe91dfc658",
+          "kind": "keywords",
+          "title": "Закрытая себестоимость и наценка",
+          "risk": 70,
+          "config": {
+            "terms": [
+              {
+                "text": "себестоимость",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "наценка",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "маржа",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "внутренний",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "закупочный",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "калькуляция",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "конфиденциальный",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "закрытый",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 14,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.059857"
+        },
+        "historical_category": "[RU3] Специальные цены и коммерческие условия",
+        "original_excerpt": "себестоимости и наценки",
+        "match_score": 9,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "ae29a85f-e794-5870-a24c-befe91dfc658",
+            "risk": 70,
+            "match_score": 9,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "ae29a85f-e794-5870-a24c-befe91dfc658",
+            "risk": 70,
+            "match_score": 9,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0417",
+    "outcome": "FP",
+    "category": "pack-ru2-pii-handling",
+    "expected": [],
+    "actual": [
+      "pack-ru2-pii-handling"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-pii-handling",
+        "source": "custom-keywords",
+        "rule_id": "cff9ba62-d910-55c4-b5d5-aac139007e7d",
+        "risk": 75,
+        "excerpt": "Передача персональных сведений запрещена, заявка на нее отклонена.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Явные обозначения выгрузки ПДн",
+        "confidence": null,
+        "start": 0,
+        "end": 30,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.075922",
+        "historical_rule": {
+          "id": "cff9ba62-d910-55c4-b5d5-aac139007e7d",
+          "kind": "keywords",
+          "title": "Явные обозначения выгрузки ПДн",
+          "risk": 75,
+          "config": {
+            "phrases": [
+              "реестр персональных данных",
+              "выгрузка пдн",
+              "передача паспортных данных",
+              "реестр паспортных данных",
+              "выгрузка персональных данных",
+              "выгрузка персональных сведений",
+              "передача персональных сведений",
+              "пересылка персональных сведений",
+              "отправка личных данных",
+              "передача личных данных",
+              "закрытый список персональных сведений",
+              "закрытый реестр персональных сведений",
+              "закрытый реестр сотрудников с персональными сведениями"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.075922"
+        },
+        "historical_category": "[RU3] Пересылка персональных данных",
+        "original_excerpt": "Передача персональных сведений",
+        "match_score": 1,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "cff9ba62-d910-55c4-b5d5-aac139007e7d",
+            "risk": 75,
+            "match_score": 1,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "cff9ba62-d910-55c4-b5d5-aac139007e7d",
+            "risk": 75,
+            "match_score": 1,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0429",
+    "outcome": "FP",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-credential-transfer",
+        "source": "custom-keywords",
+        "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+        "risk": 80,
+        "excerpt": "Пришлите номер заявки, пароль присылать не требуется.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Запрос пароля",
+        "confidence": 0.257,
+        "start": 0,
+        "end": 29,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.023138",
+        "historical_rule": {
+          "id": "567a151d-c49b-57fc-a420-f5f32a734663",
+          "kind": "keywords",
+          "title": "Запрос пароля",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "пароль",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "скинуть",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 13,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.023138"
+        },
+        "historical_category": "[RU3] Передача паролей и ключей",
+        "original_excerpt": "Пришлите номер заявки, пароль",
+        "match_score": 9,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+            "risk": 80,
+            "match_score": 9,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+            "risk": 80,
+            "match_score": 9,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0432",
+    "outcome": "FP",
+    "category": "pack-ru2-credential-transfer",
+    "expected": [],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-credential-transfer",
+        "source": "custom-keywords",
+        "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+        "risk": 80,
+        "excerpt": "Сотрудник передал запрос на сброс пароля в поддержку.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Запрос пароля",
+        "confidence": 0.257,
+        "start": 10,
+        "end": 40,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.023138",
+        "historical_rule": {
+          "id": "567a151d-c49b-57fc-a420-f5f32a734663",
+          "kind": "keywords",
+          "title": "Запрос пароля",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "пароль",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "отправить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "скинуть",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "доступ",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "передать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "выслать",
+                "weight": 4,
+                "required": false
+              }
+            ],
+            "window": 13,
+            "ordered": false,
+            "min_score": 9,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "учебный пример",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.023138"
+        },
+        "historical_category": "[RU3] Передача паролей и ключей",
+        "original_excerpt": "передал запрос на сброс пароля",
+        "match_score": 9,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+            "risk": 80,
+            "match_score": 9,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "567a151d-c49b-57fc-a420-f5f32a734663",
+            "risk": 80,
+            "match_score": 9,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0449",
+    "outcome": "FP",
+    "category": "pack-ru2-phishing",
+    "expected": [],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-phishing",
+        "source": "custom-keywords",
+        "rule_id": "7856514b-35a4-5fad-bbc2-48a5ae54cf99",
+        "risk": 80,
+        "excerpt": "Подтвердите участие в семинаре; пароль к аккаунту менять не нужно.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Подтверждение аккаунта с паролем",
+        "confidence": 0.37,
+        "start": 0,
+        "end": 49,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.030850",
+        "historical_rule": {
+          "id": "7856514b-35a4-5fad-bbc2-48a5ae54cf99",
+          "kind": "keywords",
+          "title": "Подтверждение аккаунта с паролем",
+          "risk": 80,
+          "config": {
+            "terms": [
+              {
+                "text": "подтвердить",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "учетный",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "аккаунт",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "пароль",
+                "weight": 5,
+                "required": true
+              },
+              {
+                "text": "ссылка",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "немедленно",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "ввести",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "авторизация",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "проверка",
+                "weight": 2,
+                "required": false
+              },
+              {
+                "text": "срочно",
+                "weight": 2,
+                "required": false
+              }
+            ],
+            "window": 16,
+            "ordered": false,
+            "min_score": 10,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.030850"
+        },
+        "historical_category": "[RU3] Фишинговые требования к получателю",
+        "original_excerpt": "Подтвердите участие в семинаре; пароль к аккаунту",
+        "match_score": 10,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "7856514b-35a4-5fad-bbc2-48a5ae54cf99",
+            "risk": 80,
+            "match_score": 10,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "7856514b-35a4-5fad-bbc2-48a5ae54cf99",
+            "risk": 80,
+            "match_score": 10,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0458",
+    "outcome": "FP",
+    "category": "pack-ru2-phishing",
+    "expected": [],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-phishing",
+        "source": "custom-keywords",
+        "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+        "risk": 82,
+        "excerpt": "Код подтверждения требуется только внутри официального пр",
+        "reason": "Совпадение с пользовательским правилом: Запрос одноразового кода",
+        "confidence": 0.256,
+        "start": 0,
+        "end": 17,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.033069",
+        "historical_rule": {
+          "id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+          "kind": "keywords",
+          "title": "Запрос одноразового кода",
+          "risk": 82,
+          "config": {
+            "terms": [
+              {
+                "text": "код",
+                "weight": 3,
+                "required": true
+              },
+              {
+                "text": "подтверждение",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "одноразовый",
+                "weight": 3,
+                "required": false
+              },
+              {
+                "text": "сообщить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "переслать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "назвать",
+                "weight": 4,
+                "required": false
+              },
+              {
+                "text": "отправить",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "прислать",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "код подтверждения",
+                "weight": 5,
+                "required": false
+              },
+              {
+                "text": "одноразовый код",
+                "weight": 5,
+                "required": false
+              }
+            ],
+            "window": 12,
+            "ordered": false,
+            "min_score": 11,
+            "match_type": "flexible",
+            "exclude_phrases": [
+              "цитата учебного образца",
+              "на обучении разбирали"
+            ]
+          },
+          "version": "2026-11-25T12:51:17.033069"
+        },
+        "historical_category": "[RU3] Фишинговые требования к получателю",
+        "original_excerpt": "Код подтверждения",
+        "match_score": 11,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+            "risk": 82,
+            "match_score": 11,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "b341129b-15f4-52c7-979d-94a33e94cbad",
+            "risk": 82,
+            "match_score": 11,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MF500-0476",
+    "outcome": "FP",
+    "category": "pack-ru2-violence-threat",
+    "expected": [],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "findings": [
+      {
+        "category": "pack-ru2-violence-threat",
+        "source": "custom-keywords",
+        "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+        "risk": 86,
+        "excerpt": "В памятке запрещено угрожать физической расправой.\r\n",
+        "reason": "Совпадение с пользовательским правилом: Явная угроза расправы",
+        "confidence": null,
+        "start": 20,
+        "end": 49,
+        "version": "advanced-1",
+        "status": "ANALYZED",
+        "rule_version": "2026-11-25T12:51:17.050072",
+        "historical_rule": {
+          "id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+          "kind": "keywords",
+          "title": "Явная угроза расправы",
+          "risk": 86,
+          "config": {
+            "phrases": [
+              "угрожаю физической расправой",
+              "причиню тебе физический вред",
+              "угрожать сотруднику",
+              "угрожать сотрудникам",
+              "угрожать причинить вред"
+            ],
+            "match_type": "morphology",
+            "exclude_phrases": []
+          },
+          "version": "2026-11-25T12:51:17.050072"
+        },
+        "historical_category": "[RU3] Прямые угрозы физической расправы",
+        "original_excerpt": "угрожать физической расправой",
+        "match_score": 1,
+        "document_id": "body",
+        "supporting_rules": [
+          {
+            "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+            "risk": 86,
+            "match_score": 1,
+            "source": "custom-keywords"
+          },
+          {
+            "rule_id": "9328bb81-561d-53d0-90b3-51b24deb50d5",
+            "risk": 86,
+            "match_score": 1,
+            "source": "custom-keywords",
+            "normalization": []
+          }
+        ]
+      }
+    ]
+  }
+]

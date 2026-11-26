@@ -1,0 +1,22 @@
+{
+  "dataset_commit": "e34b5d94c563fa840d262d62b211ca2a372c1f1c",
+  "ru4_commit": "284173087cdb8408da6b11e672d2888af377a57c",
+  "rulepack_sha256": "d77c801b4051fe847890142dfd9cc064d415238ccd342bf9979fb4664eea5386",
+  "frozen_configuration_sha256": "387d17704cbbab498f759738c5f2f8a6a44c7de2fbbba323d183b2831285f866",
+  "manifest_sha256": "a8abdd6a67e3c7bd8747677aabf6d1416990ce25084b6d7e2f6a52d1b044a007",
+  "observations_sha256": "5b1ff9f7691fdffc999219cf039988aa1a6caa8acdc3e50f0fc75144868169af",
+  "normalizer": {
+    "enabled": true,
+    "mode": "detect",
+    "sensitivity": "high"
+  },
+  "benchmark_script_blob": "8885439ec9b1b1795ea21429f58acd13c5de24e0",
+  "settings": [
+    "all 500 messages",
+    "all 12 categories",
+    "native MIME parser and detection_evidence.analyze",
+    "no OCR, ML, LLM, database or policies"
+  ],
+  "ru3_configuration_sha256": "a4f8f73b88d3a8d5fe0e345c53ec475f95eff7b206136c228f629c4c21f85986",
+  "ru4_configuration_sha256": "74cacd2509d3f3dc07202ead65202c8376c605243e59fe9057015c88592abc8a"
+}

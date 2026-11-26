@@ -1,0 +1,114 @@
+[
+  {
+    "id": "MF500-0052",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0053",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0079",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0100",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0104",
+    "live": [],
+    "replay": [
+      "pack-ru2-extortion"
+    ]
+  },
+  {
+    "id": "MF500-0198",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0214",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  },
+  {
+    "id": "MF500-0229",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0377",
+    "live": [],
+    "replay": [
+      "pack-ru2-financial-plans"
+    ]
+  },
+  {
+    "id": "MF500-0384",
+    "live": [],
+    "replay": [
+      "pack-ru2-pricing"
+    ]
+  },
+  {
+    "id": "MF500-0417",
+    "live": [],
+    "replay": [
+      "pack-ru2-pii-handling"
+    ]
+  },
+  {
+    "id": "MF500-0429",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0432",
+    "live": [],
+    "replay": [
+      "pack-ru2-credential-transfer"
+    ]
+  },
+  {
+    "id": "MF500-0449",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0458",
+    "live": [],
+    "replay": [
+      "pack-ru2-phishing"
+    ]
+  },
+  {
+    "id": "MF500-0476",
+    "live": [],
+    "replay": [
+      "pack-ru2-violence-threat"
+    ]
+  }
+]

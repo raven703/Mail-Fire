@@ -1,0 +1,4357 @@
+[
+  {
+    "id": "MF500-0001",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Казначейство просит не раскрывать до заседания совета прогноз денежного потока на декабрь.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0002",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "План капитальных затрат следующего полугодия доступен лишь членам правления.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0003",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "До релиза отчетности оставьте оценку чистой прибыли внутри дирекции.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0004",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Расчет кассового разрыва на будущий месяц имеет гриф ДСП.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0005",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Плановый объем инвестиций еще не раскрыт рынку.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0006",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Не публикуйте расчет будущих дивидендов до решения акционеров.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0007",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Финансовая дирекция ограничила доступ к прогнозу оборота на год.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0008",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Сценарий будущего финансирования предназначен узкому кругу руководителей.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0009",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Ожидаемые денежные поступления по кварталам пока держим в секрете.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0010",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Предварительную смету затрат нового филиала нельзя раскрывать до утверждения.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0011",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Для этого дилера действует договорная ставка ниже общего тарифа; остальным ее не раскрываем.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0012",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Внутри отдела оставляем расчет торговой надбавки по ассортименту.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0013",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "У конкретного дистрибьютора согласован непубличный процент бонуса.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0014",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Приложена калькуляция входной цены, предназначенная только закупщикам.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0015",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Не показывайте другим заказчикам согласованную с этим партнером расценку.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0016",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Для сети утвержден отдельный размер ретро-бонуса вне общего каталога.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0017",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Таблица минимально допустимых отпускных цен предназначена руководителям продаж.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0018",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "По соглашению с поставщиком размер агентского вознаграждения не разглашается.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0019",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "У клиента специальная стоимость обслуживания, согласованная индивидуально.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0020",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Доступ к расчету валовой маржи по товарам ограничен.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0021",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Выгрузил карточки абонентов с телефонами и историей обращений из учетной системы.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0022",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Направляю массив записей о покупателях с суммами покупок и контактами.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0023",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В приложении журнал заказчиков с ответственными менеджерами и итогами встреч.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0024",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Собрал адресную книгу всех контрагентов из отдела продаж.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0025",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Таблица содержит историю взаимодействий по всему портфелю заказчиков.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0026",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Передаю экспорт карточек организаций с контактами представителей.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0027",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В выгрузке из системы продаж перечислены активные договоры по покупателям.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0028",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Файл содержит контакты и историю обращений всех подписчиков сервиса.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0029",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Сводный перечень контрагентов с именами контактных лиц и оборотами направлен во вложении.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0030",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Из системы лояльности экспортированы профили покупателей с историей покупок.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0031",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Материалы комиссии имеют отметку об ограниченном распространении.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0032",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Распоряжение доступно исключительно членам проектной группы.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0033",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Доклад ревизоров нельзя передавать лицам вне утвержденного списка.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0034",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Внутренний акт проверки не предназначен для публичного доступа.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0035",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Копия протокола выдается только по разрешению секретаря совета.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0036",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Служебное заключение имеет пометку ДСП.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0037",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Проект приказа запрещено рассылать за пределы юридического отдела.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0038",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Материалы внутреннего расследования не подлежат огласке.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0039",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Отчет комитета разрешено читать только участникам заседания.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0040",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Схема реорганизации имеет закрытый режим обращения.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0041",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Высылаю подрядчику анкеты со сведениями о месте жительства и датах рождения работников.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0042",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Прикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0043",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Таблицу домашних адресов и дат рождения сотрудников отправил стороннему консультанту.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0044",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Передаю файл с индивидуальными сведениями соискателей без их разрешения.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0045",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "По просьбе посредника направляю фотографии паспортов работников.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0046",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Переслал личные карточки персонала на адрес вне организации.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0047",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Отправляю список жильцов с датами рождения и адресами регистрации.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0048",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Внешнему исполнителю высланы сведения о личности участников опроса.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0049",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Прилагаю заполненные анкеты физических лиц с адресами проживания.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0050",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Передал партнеру копии документов, удостоверяющих личность сотрудников.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0051",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Сообщи мне секретную комбинацию для входа в служебный аккаунт.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0054",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Вышли секретный ключ для доступа к сервису, чтобы я мог войти.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0055",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Дай реквизиты входа от учетной записи администратора.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0056",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Скидываю коллеге код доступа к закрытому кабинету обычной почтой.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0057",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Направь действующий пароль от портала в открытом сообщении.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0058",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Передаю секрет аутентификации для общего аккаунта по почте.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0059",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Сообщите ключ авторизации стороннему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0060",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Отправьте мне учетные данные от тестируемой рабочей системы.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0061",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Служебную документацию перенес на свой домашний диск без разрешения владельца.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0062",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Копии внутренних отчетов загрузил в частный облачный аккаунт без согласия руководства.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0063",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Вынес архив отдела на стороннюю площадку, обходя установленный запрет.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0064",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Сохранил документы предприятия на личном устройстве вопреки правилам.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0065",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Внутренние материалы отправлены на мой внешний адрес без допуска.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0066",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Перенес корпоративный реестр в личное хранилище, не уведомив ответственного.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0067",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Выгрузку рабочих документов переслал неуполномоченному получателю.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0068",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Скопировал служебные сведения в частный аккаунт без разрешения.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0069",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Архив подразделения передал посторонней организации в обход регламента.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0070",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Рабочую переписку выгрузил на домашний компьютер без согласования.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0071",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Подозрительное письмо выдает себя за службу поддержки и добивается раскрытия реквизитов входа.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0072",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Ложное уведомление от якобы администратора предназначено для хищения учетных данных.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0073",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Обнаружено мошенническое обращение с целью получить код аутентификации.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0074",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Поддельное сообщение имитирует банковское уведомление ради получения секрета клиента.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0075",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Злоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0076",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Зафиксирована попытка обманного получения данных авторизации через почту.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0077",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Письмо от подставного отправителя направлено на завладение доступом к аккаунту.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0078",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Обращение с ложной идентификацией содержит запрос секретных реквизитов.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0080",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Сообщение имитирует официальный запрос с целью похищения данных для входа.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0081",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Поступило сообщение с прямой угрозой взрыва; требуется срочная оценка.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0082",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Адресат получил письмо, автор которого угрожает взорвать объект.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0083",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В обращении заявлена угроза совершения взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0084",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Получена недвусмысленная угроза взрыва имущества.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0085",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Письмо содержит заявление о намерении устроить взрыв.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0086",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Зафиксировано угрожающее сообщение о возможном умышленном взрыве.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0087",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Автор прямо объявляет о намерении взорвать имущество.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0088",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В сообщении содержится угроза причинения вреда посредством взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0089",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Поступившее обращение содержит угрозу взрыва в адрес организации.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0090",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Отправитель заявил о намерении совершить взрыв.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0091",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Получатель письма сообщает о прямой угрозе нанесения телесных повреждений.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0092",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Автор обращения угрожает физическим нападением на адресата.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0093",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "В письме заявлено намерение причинить человеку физический вред.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0094",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Поступило сообщение с угрозой избиения работника.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0095",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Отправитель прямо угрожает расправой над получателем.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0096",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "В обращении выражено намерение совершить насильственное нападение.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0097",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Адресат получил недвусмысленную угрозу убийством.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0098",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Сообщение содержит угрозу применения физической силы к человеку.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0099",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "В письме зафиксирована угроза нанесения травм.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0101",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Получено требование денежной выплаты под угрозой раскрытия частных сведений.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0102",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "В письме требуют вознаграждение за отказ от публикации конфиденциальной информации.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0103",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Адресата принуждают к оплате угрозой огласки личных данных.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0105",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Зафиксировано требование выкупа в обмен на неразглашение.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0106",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Отправитель шантажирует получателя и требует денежную компенсацию.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0107",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "В обращении выставлено денежное требование с угрозой причинения ущерба.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0108",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Поступило требование заплатить за сохранение сведений в секрете.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0109",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Автор требует выплату под угрозой распространения личной информации.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0110",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Получателю угрожают оглаской, если он откажется платить.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0111",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Автор письма заявляет о намерении умышленно нарушить работу информационной системы.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0112",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Поступило сообщение с угрозой преднамеренного повреждения серверной инфраструктуры.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0113",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "В письме содержится угроза намеренно остановить корпоративные сервисы.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0114",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Отправитель угрожает вывести из строя вычислительную систему.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0115",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Автор заявляет о намерении саботировать работу сети организации.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0116",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Получена угроза умышленного уничтожения рабочих резервных копий.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0117",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "В обращении высказано намерение преднамеренно нарушить доступность информационных ресурсов.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0118",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Письмо содержит угрозу умышленного повреждения IT-инфраструктуры.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0119",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Зафиксирована угроза намеренно нарушить работу корпоративного портала.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0120",
+    "group": "ordinary_positive",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Отправитель заявляет о намерении вывести серверные системы из строя.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0121",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Прогноз свободного дeнeжнoгo потока не предназначен для инвесторов до отчета.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0122",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Не выносите из финансового отдела расчет будущeй рентабельности.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0123",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Таблица будущих выплaт по проектам доступна тoлькo казначею.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0124",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Подготовлена закрытая oцeнкa финансового результата на слeдующий год.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0125",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "До объявления peзультaтoв не разглашайте плановую вeличину EBITDA.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0126",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Для этого кoнтpaктa действует персональная ставка, нe фигурирующая в публичном пpeдлoжeнии.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0127",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Партнер получил oсoбыe условия оплаты, не сooбщaйтe их другим дилерам.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0128",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "В закупочной вeдoмoсти содержатся закрытые цены пpoизвoдитeля.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0129",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Не раскрывайте кoнeчнoму покупателю внутренний расчет кoммepчeскoй надбавки.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0130",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Сумма индивидуального дискoнтa закреплена дополнительным соглашением.\r\n",
+    "expected": [
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0131",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Прикладываю перечень aбoнeнтoв с номерами договоров и контактными телефонами.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0132",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Список организаций сoдepжит сведения о переговорах и лицах, принимающих решения.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0133",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В архиве нaxoдятся профили заказчиков с истopиeй обслуживания.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0134",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В таблице сoбpaны контактные лица и oбъeмы закупок по каждому пoкупaтeлю.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0135",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Передаю выгрузку зaписeй отдела продаж с aдpeсaми клиентов.\r\n",
+    "expected": [
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0136",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Приложение к paспopяжeнию предназначено исключительно для дoпущeнныx работников.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0137",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Ведомость внутренней пpoвepки имеет ограниченный круг пoлучaтeлeй.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0138",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Заключение аудитора зaпpeщeнo публиковать без разрешения pукoвoдствa.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0139",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Рабочий проект инстpукции не предназначен для дoступa посторонних.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0140",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Справка комиссии пepeдaeтся только лицам с сooтвeтствующим допуском.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0141",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Сведения о мeстe регистрации работников направлены тpeтьeму лицу.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0142",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Выгрузку личных peквизитoв заявителей выслали посреднику.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0143",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Приложена ведомость с датами рождения и дoмaшними телефонами персонала для внeшнeгo адресата.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0144",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Пересылаю заполненные личныe анкеты кандидатов без пoлучeннoгo согласия.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0145",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Направляю за пpeдeлы отдела копии документов личнoсти участников программы.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0146",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Поделись паролем к служебной почте.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0147",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Прошу выслать пpивaтный ключ от нашего сepвисa.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0148",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Пришлите секрет для авторизации приложения.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0149",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Передай реквизиты вxoдa через обычное письмо вмeстo защищенного канала.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0150",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Пересылаю рабочий пapoль сотруднику в открытом видe.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0151",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Копия внутренней бaзы оказалась на моем пepсoнaльнoм диске вопреки запрету.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0152",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Переслал закрытые мaтepиaлы на сторонний адрес бeз согласия владельца.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0153",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Сохранил корпоративные дoкумeнты в своем частном oблaкe.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0154",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Служебные файлы вывeл за пределы разрешенной сpeды без допуска.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0155",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Передал внутренний oтчeт внешнему лицу, хотя paзpeшeниe отклонено.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0156",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Подозрительная рассылка мaскиpуeтся под уведомление о дoступe и требует секрет aутeнтификaции.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0157",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Выявлена подделка письмa руководителя для получения пapoлeй.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0158",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Фальшивое обращение к пользователю нацелено на paскpытиe учетных сведений.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0159",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Письмо с лoжным авторством содержит обманный зaпpoс кода доступа.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0160",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Обнаружен фишинговый зaпpoс на раскрытие конфиденциальных peквизитoв.\r\n",
+    "expected": [
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0161",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Адресату направлена явнaя угроза взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0162",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В письме зaявлeнo намерение устроить взрыв oбъeктa.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0163",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Автор сообщения угpoжaeт взрывом организации.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0164",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Получено сообщение oб угрозе преднамеренного взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0165",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В обращении зaфиксиpoвaнa прямая угроза взорвать oбъeкт.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0166",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Получено обращение с прямой угрозой физического нaсилия.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0167",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Отправитель заявил o намерении избить адресата.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0168",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Сообщение содержит угpoзу жестокой расправы.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0169",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "В письме выpaжeнo намерение причинить телесный вpeд.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0170",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Автор прямо угpoжaeт нападением на человека.\r\n",
+    "expected": [
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0171",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Письмо содержит тpeбoвaниe денег за прекращение шaнтaжa.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0172",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Адресата принуждают пepeвeсти средства под угрозой paзглaшeния.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0173",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Отправитель требует плaту за отказ от paскpытия закрытых материалов.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0174",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "В сообщении вымoгaeтся вознаграждение за молчание.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0175",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Получено незаконное тpeбoвaниe оплаты с угрозой публикaции сведений.\r\n",
+    "expected": [
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0176",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Автор угрожает пpeднaмepeннo сорвать работу вычислительного кoмплeксa.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0177",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Сообщение содержит угpoзу умышленного нарушения работы инфopмaциoннoй платформы.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0178",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Получена угроза сaбoтaжa корпоративных IT-сервисов.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0179",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "В письме зaявлeнo намерение преднамеренно повредить инфopмaциoнныe системы.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0180",
+    "group": "obfuscated",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Автор угрожает умышлeннo нарушить функционирование серверной сpeды.\r\n",
+    "expected": [
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0181",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Расчет кассового разрыва на будущий месяц имеет гриф ДСП.\r\n\r\nСлужебное заключение имеет пометку ДСП.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0181",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Расчет кассового разрыва на будущий месяц имеет гриф ДСП.\r\n\r\nСлужебное заключение имеет пометку ДСП.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0182",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Для этого контракта действует персональная ставка, не фигурирующая в публичном предложении.\r\n\r\nПрикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0182",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Для этого контракта действует персональная ставка, не фигурирующая в публичном предложении.\r\n\r\nПрикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0183",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "В приложении журнал заказчиков с ответственными менеджерами и итогами встреч.\r\n\r\nПришлите секрет для авторизации приложения.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0183",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В приложении журнал заказчиков с ответственными менеджерами и итогами встреч.\r\n\r\nПришлите секрет для авторизации приложения.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-customer-data"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0184",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Схема реорганизации имеет закрытый режим обращения.\r\n\r\nАрхив подразделения передал посторонней организации в обход регламента.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0184",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Схема реорганизации имеет закрытый режим обращения.\r\n\r\nАрхив подразделения передал посторонней организации в обход регламента.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0185",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Прикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n\r\nЗлоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0185",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Прикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n\r\nЗлоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0186",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Сообщите ключ авторизации стороннему исполнителю.\r\n\r\nПоступило сообщение с прямой угрозой взрыва; требуется срочная оценка.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0186",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Сообщите ключ авторизации стороннему исполнителю.\r\n\r\nПоступило сообщение с прямой угрозой взрыва; требуется срочная оценка.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0187",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Служебную документацию перенес на свой домашний диск без разрешения владельца.\r\n\r\nОтправитель заявил о намерении избить адресата.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0187",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Служебную документацию перенес на свой домашний диск без разрешения владельца.\r\n\r\nОтправитель заявил о намерении избить адресата.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0188",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Обращение с ложной идентификацией содержит запрос секретных реквизитов.\r\n\r\nПоступило требование заплатить за сохранение сведений в секрете.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0188",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Обращение с ложной идентификацией содержит запрос секретных реквизитов.\r\n\r\nПоступило требование заплатить за сохранение сведений в секрете.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0189",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В обращении зафиксирована прямая угроза взорвать объект.\r\n\r\nОтправитель угрожает вывести из строя вычислительную систему.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0189",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "В обращении зафиксирована прямая угроза взорвать объект.\r\n\r\nОтправитель угрожает вывести из строя вычислительную систему.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0190",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Адресат получил недвусмысленную угрозу убийством.\r\n\r\nДо объявления результатов не разглашайте плановую величину EBITDA.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0190",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Адресат получил недвусмысленную угрозу убийством.\r\n\r\nДо объявления результатов не разглашайте плановую величину EBITDA.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0191",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "В сообщении вымогается вознаграждение за молчание.\r\n\r\nДля этого контракта действует персональная ставка, не фигурирующая в публичном предложении.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0191",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "В сообщении вымогается вознаграждение за молчание.\r\n\r\nДля этого контракта действует персональная ставка, не фигурирующая в публичном предложении.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0192",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Получена угроза умышленного уничтожения рабочих резервных копий.\r\n\r\nВ выгрузке из системы продаж перечислены активные договоры по покупателям.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0192",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Получена угроза умышленного уничтожения рабочих резервных копий.\r\n\r\nВ выгрузке из системы продаж перечислены активные договоры по покупателям.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0193",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Таблица будущих выплат по проектам доступна только казначею.\r\n\r\nТаблицу домашних адресов и дат рождения сотрудников отправил стороннему консультанту.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0193",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Таблица будущих выплат по проектам доступна только казначею.\r\n\r\nТаблицу домашних адресов и дат рождения сотрудников отправил стороннему консультанту.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0194",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Не показывайте другим заказчикам согласованную с этим партнером расценку.\r\n\r\nПередай реквизиты входа через обычное письмо вместо защищенного канала.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0194",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Не показывайте другим заказчикам согласованную с этим партнером расценку.\r\n\r\nПередай реквизиты входа через обычное письмо вместо защищенного канала.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0195",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Список организаций содержит сведения о переговорах и лицах, принимающих решения.\r\n\r\nРабочую переписку выгрузил на домашний компьютер без согласования.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0195",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Список организаций содержит сведения о переговорах и лицах, принимающих решения.\r\n\r\nРабочую переписку выгрузил на домашний компьютер без согласования.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-data-exfil"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0196",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Внутренний акт проверки не предназначен для публичного доступа.\r\n\r\nЗафиксирована попытка обманного получения данных авторизации через почту.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0196",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Внутренний акт проверки не предназначен для публичного доступа.\r\n\r\nЗафиксирована попытка обманного получения данных авторизации через почту.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0197",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Сведения о месте регистрации работников направлены третьему лицу.\r\n\r\nАдресат получил письмо, автор которого угрожает взорвать объект.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0197",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Сведения о месте регистрации работников направлены третьему лицу.\r\n\r\nАдресат получил письмо, автор которого угрожает взорвать объект.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0198",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Передай мне рабочий токен авторизации в ответе.\r\n\r\nСообщение содержит угрозу жестокой расправы.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0199",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Рабочую переписку выгрузил на домашний компьютер без согласования.\r\n\r\nАвтор требует выплату под угрозой распространения личной информации.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0199",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Рабочую переписку выгрузил на домашний компьютер без согласования.\r\n\r\nАвтор требует выплату под угрозой распространения личной информации.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0200",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Ложное уведомление от якобы администратора предназначено для хищения учетных данных.\r\n\r\nАвтор заявляет о намерении саботировать работу сети организации.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0200",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Ложное уведомление от якобы администратора предназначено для хищения учетных данных.\r\n\r\nАвтор заявляет о намерении саботировать работу сети организации.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0201",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Поступившее обращение содержит угрозу взрыва в адрес организации.\r\n\r\nКазначейство просит не раскрывать до заседания совета прогноз денежного потока на декабрь.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0201",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Поступившее обращение содержит угрозу взрыва в адрес организации.\r\n\r\nКазначейство просит не раскрывать до заседания совета прогноз денежного потока на декабрь.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0202",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Получатель письма сообщает о прямой угрозе нанесения телесных повреждений.\r\n\r\nПартнер получил особые условия оплаты, не сообщайте их другим дилерам.\r\n",
+    "expected": [
+      "pack-ru2-pricing",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0202",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Получатель письма сообщает о прямой угрозе нанесения телесных повреждений.\r\n\r\nПартнер получил особые условия оплаты, не сообщайте их другим дилерам.\r\n",
+    "expected": [
+      "pack-ru2-pricing",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0203",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Поступило требование заплатить за сохранение сведений в секрете.\r\n\r\nФайл содержит контакты и историю обращений всех подписчиков сервиса.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0203",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Поступило требование заплатить за сохранение сведений в секрете.\r\n\r\nФайл содержит контакты и историю обращений всех подписчиков сервиса.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0204",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Автор угрожает умышленно нарушить функционирование серверной среды.\r\n\r\nВнутренний акт проверки не предназначен для публичного доступа.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0204",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Автор угрожает умышленно нарушить функционирование серверной среды.\r\n\r\nВнутренний акт проверки не предназначен для публичного доступа.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0205",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Финансовая дирекция ограничила доступ к прогнозу оборота на год.\r\n\r\nПересылаю рабочий пароль сотруднику в открытом виде.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0205",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Финансовая дирекция ограничила доступ к прогнозу оборота на год.\r\n\r\nПересылаю рабочий пароль сотруднику в открытом виде.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0206",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Не раскрывайте конечному покупателю внутренний расчет коммерческой надбавки.\r\n\r\nКопия внутренней базы оказалась на моем персональном диске вопреки запрету.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0206",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Не раскрывайте конечному покупателю внутренний расчет коммерческой надбавки.\r\n\r\nКопия внутренней базы оказалась на моем персональном диске вопреки запрету.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0207",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Передаю экспорт карточек организаций с контактами представителей.\r\n\r\nПисьмо от подставного отправителя направлено на завладение доступом к аккаунту.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0207",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Передаю экспорт карточек организаций с контактами представителей.\r\n\r\nПисьмо от подставного отправителя направлено на завладение доступом к аккаунту.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0208",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Заключение аудитора запрещено публиковать без разрешения руководства.\r\n\r\nВ обращении заявлена угроза совершения взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0208",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Заключение аудитора запрещено публиковать без разрешения руководства.\r\n\r\nВ обращении заявлена угроза совершения взрыва.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0209",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "По просьбе посредника направляю фотографии паспортов работников.\r\n\r\nВ письме выражено намерение причинить телесный вред.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0209",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "По просьбе посредника направляю фотографии паспортов работников.\r\n\r\nВ письме выражено намерение причинить телесный вред.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0210",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Прошу выслать приватный ключ от нашего сервиса.\r\n\r\nПолучателю угрожают оглаской, если он откажется платить.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0210",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Прошу выслать приватный ключ от нашего сервиса.\r\n\r\nПолучателю угрожают оглаской, если он откажется платить.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0211",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Сохранил документы предприятия на личном устройстве вопреки правилам.\r\n\r\nПолучена угроза умышленного уничтожения рабочих резервных копий.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0211",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Сохранил документы предприятия на личном устройстве вопреки правилам.\r\n\r\nПолучена угроза умышленного уничтожения рабочих резервных копий.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0212",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Подозрительная рассылка маскируется под уведомление о доступе и требует секрет аутентификации.\r\n\r\nПлан капитальных затрат следующего полугодия доступен лишь членам правления.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0212",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Подозрительная рассылка маскируется под уведомление о доступе и требует секрет аутентификации.\r\n\r\nПлан капитальных затрат следующего полугодия доступен лишь членам правления.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0213",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В обращении заявлена угроза совершения взрыва.\r\n\r\nВ закупочной ведомости содержатся закрытые цены производителя.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0213",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "В обращении заявлена угроза совершения взрыва.\r\n\r\nВ закупочной ведомости содержатся закрытые цены производителя.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0214",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Автор угрожает причинить вред здоровью получателя.\r\n\r\nСводный перечень контрагентов с именами контактных лиц и оборотами направлен во вложении.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0215",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "В письме требуют вознаграждение за отказ от публикации конфиденциальной информации.\r\n\r\nКопия протокола выдается только по разрешению секретаря совета.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0215",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "В письме требуют вознаграждение за отказ от публикации конфиденциальной информации.\r\n\r\nКопия протокола выдается только по разрешению секретаря совета.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0216",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Зафиксирована угроза намеренно нарушить работу корпоративного портала.\r\n\r\nВысылаю подрядчику анкеты со сведениями о месте жительства и датах рождения работников.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0216",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Зафиксирована угроза намеренно нарушить работу корпоративного портала.\r\n\r\nВысылаю подрядчику анкеты со сведениями о месте жительства и датах рождения работников.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0217",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Казначейство просит не раскрывать до заседания совета прогноз денежного потока на декабрь.\r\n\r\nПереслал закрытые материалы на сторонний адрес без согласия владельца.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0217",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Казначейство просит не раскрывать до заседания совета прогноз денежного потока на декабрь.\r\n\r\nПереслал закрытые материалы на сторонний адрес без согласия владельца.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0218",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "По соглашению с поставщиком размер агентского вознаграждения не разглашается.\r\n\r\nОбращение с ложной идентификацией содержит запрос секретных реквизитов.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0218",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "По соглашению с поставщиком размер агентского вознаграждения не разглашается.\r\n\r\nОбращение с ложной идентификацией содержит запрос секретных реквизитов.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0219",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Передаю выгрузку записей отдела продаж с адресами клиентов.\r\n\r\nПолучена недвусмысленная угроза взрыва имущества.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0219",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Передаю выгрузку записей отдела продаж с адресами клиентов.\r\n\r\nПолучена недвусмысленная угроза взрыва имущества.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0220",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Проект приказа запрещено рассылать за пределы юридического отдела.\r\n\r\nАвтор прямо угрожает нападением на человека.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0220",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Проект приказа запрещено рассылать за пределы юридического отдела.\r\n\r\nАвтор прямо угрожает нападением на человека.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0221",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Пересылаю заполненные личные анкеты кандидатов без полученного согласия.\r\n\r\nПисьмо содержит требование денег за прекращение шантажа.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0221",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Пересылаю заполненные личные анкеты кандидатов без полученного согласия.\r\n\r\nПисьмо содержит требование денег за прекращение шантажа.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0222",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Скидываю коллеге код доступа к закрытому кабинету обычной почтой.\r\n\r\nВ обращении высказано намерение преднамеренно нарушить доступность информационных ресурсов.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0222",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Скидываю коллеге код доступа к закрытому кабинету обычной почтой.\r\n\r\nВ обращении высказано намерение преднамеренно нарушить доступность информационных ресурсов.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0223",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Сохранил корпоративные документы в своем частном облаке.\r\n\r\nДо релиза отчетности оставьте оценку чистой прибыли внутри дирекции.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0223",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Сохранил корпоративные документы в своем частном облаке.\r\n\r\nДо релиза отчетности оставьте оценку чистой прибыли внутри дирекции.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0224",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Злоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.\r\n\r\nНе раскрывайте конечному покупателю внутренний расчет коммерческой надбавки.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0224",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Злоумышленник притворяется сотрудником IT и запрашивает конфиденциальный пароль.\r\n\r\nНе раскрывайте конечному покупателю внутренний расчет коммерческой надбавки.\r\n",
+    "expected": [
+      "pack-ru2-phishing",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0225",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "В письме заявлено намерение устроить взрыв объекта.\r\n\r\nИз системы лояльности экспортированы профили покупателей с историей покупок.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0225",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "В письме заявлено намерение устроить взрыв объекта.\r\n\r\nИз системы лояльности экспортированы профили покупателей с историей покупок.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-explosive-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0226",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Поступило сообщение с угрозой избиения работника.\r\n\r\nСлужебное заключение имеет пометку ДСП.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0226",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Поступило сообщение с угрозой избиения работника.\r\n\r\nСлужебное заключение имеет пометку ДСП.\r\n",
+    "expected": [
+      "pack-ru2-internal-docs",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0227",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Письмо содержит требование денег за прекращение шантажа.\r\n\r\nПрикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0227",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Письмо содержит требование денег за прекращение шантажа.\r\n\r\nПрикладываю копии удостоверений личности стажеров к письму внешнему исполнителю.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-pii-handling"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0228",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "В письме содержится угроза намеренно остановить корпоративные сервисы.\r\n\r\nПришлите секрет для авторизации приложения.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0228",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "В письме содержится угроза намеренно остановить корпоративные сервисы.\r\n\r\nПришлите секрет для авторизации приложения.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0229",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Предварительную смету затрат нового филиала нельзя раскрывать до утверждения.\r\n\r\nМошенник представился представителем сервиса и пытается получить одноразовый код.\r\n",
+    "expected": [
+      "pack-ru2-financial-plans",
+      "pack-ru2-phishing"
+    ],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0230",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Внутри отдела оставляем расчет торговой надбавки по ассортименту.\r\n\r\nПисьмо содержит заявление о намерении устроить взрыв.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0230",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Внутри отдела оставляем расчет торговой надбавки по ассортименту.\r\n\r\nПисьмо содержит заявление о намерении устроить взрыв.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0231",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Сводный перечень контрагентов с именами контактных лиц и оборотами направлен во вложении.\r\n\r\nПолучатель письма сообщает о прямой угрозе нанесения телесных повреждений.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0231",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Сводный перечень контрагентов с именами контактных лиц и оборотами направлен во вложении.\r\n\r\nПолучатель письма сообщает о прямой угрозе нанесения телесных повреждений.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0232",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Материалы комиссии имеют отметку об ограниченном распространении.\r\n\r\nАдресата принуждают перевести средства под угрозой разглашения.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0232",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Материалы комиссии имеют отметку об ограниченном распространении.\r\n\r\nАдресата принуждают перевести средства под угрозой разглашения.\r\n",
+    "expected": [
+      "pack-ru2-extortion",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0233",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Внешнему исполнителю высланы сведения о личности участников опроса.\r\n\r\nПисьмо содержит угрозу умышленного повреждения IT-инфраструктуры.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0233",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Внешнему исполнителю высланы сведения о личности участников опроса.\r\n\r\nПисьмо содержит угрозу умышленного повреждения IT-инфраструктуры.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0234",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Пересылаю рабочий пароль сотруднику в открытом виде.\r\n\r\nРасчет кассового разрыва на будущий месяц имеет гриф ДСП.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0234",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-financial-plans",
+    "text": "Пересылаю рабочий пароль сотруднику в открытом виде.\r\n\r\nРасчет кассового разрыва на будущий месяц имеет гриф ДСП.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-financial-plans"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0235",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Выгрузку рабочих документов переслал неуполномоченному получателю.\r\n\r\nСумма индивидуального дисконта закреплена дополнительным соглашением.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0235",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pricing",
+    "text": "Выгрузку рабочих документов переслал неуполномоченному получателю.\r\n\r\nСумма индивидуального дисконта закреплена дополнительным соглашением.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-pricing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0236",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-customer-data",
+    "text": "Письмо с ложным авторством содержит обманный запрос кода доступа.\r\n\r\nПрикладываю перечень абонентов с номерами договоров и контактными телефонами.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Сведения о клиентах выражены через абонентов, покупателей, контрагентов или историю взаимодействий; для FP присутствует отрицание передачи."
+  },
+  {
+    "id": "MF500-0236",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-phishing",
+    "text": "Письмо с ложным авторством содержит обманный запрос кода доступа.\r\n\r\nПрикладываю перечень абонентов с номерами договоров и контактными телефонами.\r\n",
+    "expected": [
+      "pack-ru2-customer-data",
+      "pack-ru2-phishing"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0237",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-explosive-threat",
+    "text": "Зафиксировано угрожающее сообщение о возможном умышленном взрыве.\r\n\r\nПроект приказа запрещено рассылать за пределы юридического отдела.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Прямое намерение улавливается лучше описания/отрицания угрозы; безопасное обсуждение вызывает FP."
+  },
+  {
+    "id": "MF500-0237",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-internal-docs",
+    "text": "Зафиксировано угрожающее сообщение о возможном умышленном взрыве.\r\n\r\nПроект приказа запрещено рассылать за пределы юридического отдела.\r\n",
+    "expected": [
+      "pack-ru2-explosive-threat",
+      "pack-ru2-internal-docs"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Ограниченный оборот обозначен косвенно либо сработало поле незаполненного шаблона."
+  },
+  {
+    "id": "MF500-0238",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-pii-handling",
+    "text": "Сообщение содержит угрозу жестокой расправы.\r\n\r\nТаблицу домашних адресов и дат рождения сотрудников отправил стороннему консультанту.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0238",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-violence-threat",
+    "text": "Сообщение содержит угрозу жестокой расправы.\r\n\r\nТаблицу домашних адресов и дат рождения сотрудников отправил стороннему консультанту.\r\n",
+    "expected": [
+      "pack-ru2-pii-handling",
+      "pack-ru2-violence-threat"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  },
+  {
+    "id": "MF500-0239",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Зафиксировано требование выкупа в обмен на неразглашение.\r\n\r\nПередай реквизиты входа через обычное письмо вместо защищенного канала.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0239",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-extortion",
+    "text": "Зафиксировано требование выкупа в обмен на неразглашение.\r\n\r\nПередай реквизиты входа через обычное письмо вместо защищенного канала.\r\n",
+    "expected": [
+      "pack-ru2-credential-transfer",
+      "pack-ru2-extortion"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Шантаж выражен новыми формулировками либо содержится отрицание требования."
+  },
+  {
+    "id": "MF500-0240",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-data-exfil",
+    "text": "Сообщение содержит угрозу умышленного нарушения работы информационной платформы.\r\n\r\nРабочую переписку выгрузил на домашний компьютер без согласования.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Внешняя передача выражена новыми глаголами и объектами или с разрывом привычных якорей."
+  },
+  {
+    "id": "MF500-0240",
+    "group": "mixed",
+    "outcome": "FN",
+    "category": "pack-ru2-sabotage",
+    "text": "Сообщение содержит угрозу умышленного нарушения работы информационной платформы.\r\n\r\nРабочую переписку выгрузил на домашний компьютер без согласования.\r\n",
+    "expected": [
+      "pack-ru2-data-exfil",
+      "pack-ru2-sabotage"
+    ],
+    "actual": [],
+    "matching_rule_ids": [],
+    "matched_excerpts": [],
+    "explanation": "Новые описания умышленного нарушения работы пропускаются, а технический отчёт или плановый ремонт дают FP."
+  },
+  {
+    "id": "MF500-0377",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-financial-plans",
+    "text": "В финансовом словаре объясняется термин закрытый бюджет.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-financial-plans"
+    ],
+    "matching_rule_ids": [
+      "617a2859-2805-5f63-b0dd-dc0e13dac39d"
+    ],
+    "matched_excerpts": [
+      "закрытый бюджет"
+    ],
+    "explanation": "Иная лексика финансового планирования либо отрицательный/учебный контекст; совпадение проверяется по конкретному письму."
+  },
+  {
+    "id": "MF500-0384",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-pricing",
+    "text": "Курс объясняет понятие себестоимости и наценки на условных числах.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-pricing"
+    ],
+    "matching_rule_ids": [
+      "ae29a85f-e794-5870-a24c-befe91dfc658"
+    ],
+    "matched_excerpts": [
+      "себестоимости и наценки"
+    ],
+    "explanation": "Новые обозначения индивидуальных цен или себестоимости либо открытый/учебный контекст."
+  },
+  {
+    "id": "MF500-0417",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-pii-handling",
+    "text": "Передача персональных сведений запрещена, заявка на нее отклонена.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-pii-handling"
+    ],
+    "matching_rule_ids": [
+      "cff9ba62-d910-55c4-b5d5-aac139007e7d"
+    ],
+    "matched_excerpts": [
+      "Передача персональных сведений"
+    ],
+    "explanation": "Передача данных описана без привычного якоря ПДн либо речь о запрете/отклонённой заявке."
+  },
+  {
+    "id": "MF500-0429",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Пришлите номер заявки, пароль присылать не требуется.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "matching_rule_ids": [
+      "567a151d-c49b-57fc-a420-f5f32a734663"
+    ],
+    "matched_excerpts": [
+      "Пришлите номер заявки, пароль"
+    ],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0432",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-credential-transfer",
+    "text": "Сотрудник передал запрос на сброс пароля в поддержку.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-credential-transfer"
+    ],
+    "matching_rule_ids": [
+      "567a151d-c49b-57fc-a420-f5f32a734663"
+    ],
+    "matched_excerpts": [
+      "передал запрос на сброс пароля"
+    ],
+    "explanation": "Пароль или ключ упомянут при передаче, запросе на сброс либо отрицании; штатные правила не всегда различают действие и контекст."
+  },
+  {
+    "id": "MF500-0449",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-phishing",
+    "text": "Подтвердите участие в семинаре; пароль к аккаунту менять не нужно.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "matching_rule_ids": [
+      "7856514b-35a4-5fad-bbc2-48a5ae54cf99"
+    ],
+    "matched_excerpts": [
+      "Подтвердите участие в семинаре; пароль к аккаунту"
+    ],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0458",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-phishing",
+    "text": "Код подтверждения требуется только внутри официального приложения, не в письме.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-phishing"
+    ],
+    "matching_rule_ids": [
+      "b341129b-15f4-52c7-979d-94a33e94cbad"
+    ],
+    "matched_excerpts": [
+      "Код подтверждения"
+    ],
+    "explanation": "Обманный запрос сформулирован иначе либо речь о законном подтверждении внутри приложения."
+  },
+  {
+    "id": "MF500-0476",
+    "group": "safe_hard",
+    "outcome": "FP",
+    "category": "pack-ru2-violence-threat",
+    "text": "В памятке запрещено угрожать физической расправой.\r\n",
+    "expected": [],
+    "actual": [
+      "pack-ru2-violence-threat"
+    ],
+    "matching_rule_ids": [
+      "9328bb81-561d-53d0-90b3-51b24deb50d5"
+    ],
+    "matched_excerpts": [
+      "угрожать физической расправой"
+    ],
+    "explanation": "Новые формулировки угрозы пропускаются, а правовое/защитное обсуждение и отрицание дают FP."
+  }
+]
