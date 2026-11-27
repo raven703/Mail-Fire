@@ -105,6 +105,28 @@ class UnifiedCatalogTests(TestCase):
         old = CategoryPicker(policy=True, selected=["RU_INN"])
         self.assertIn("RU_INN", {key for _, choices in old.choices for key, _ in choices})
 
+    def test_category_descriptions_use_readonly_modal_for_all_catalog_rows(self):
+        Category.objects.create(pk="CUSTOM_modal_test", name="Modal test", mode="custom",
+                                group_name="Test", description="Read only description")
+        rows = list(self.client.get("/categories/").context["categories"])
+        self.assertTrue(any(row.mode == "builtin" for row in rows))
+        self.assertTrue(any(row.mode == "custom" for row in rows))
+        for row in rows:
+            with self.subTest(category=row.pk):
+                response = self.client.get(f"/categories/{row.pk}/")
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, 'aria-labelledby="category-description-title"')
+                self.assertContains(response, 'class="editor-dialog category-description-dialog"')
+                self.assertNotContains(response, 'id="category-detail-panel"')
+                self.assertNotContains(response, 'class="primary">Сохранить</button>')
+        response = self.client.get("/categories/PHONE/?kind=system&q=all")
+        self.assertEqual(response.context["category_list_url"], "/categories/?kind=system&q=all")
+        self.assertContains(response, 'Правило контекста')
+        self.assertNotContains(self.client.get("/categories/PHONE/?rule=new"),
+                               'aria-labelledby="category-description-title"')
+        self.assertContains(self.client.get("/categories/CUSTOM_modal_test/?edit=1"),
+                            'aria-labelledby="category-title"')
+
     def test_training_labels_require_originals_permission(self):
         self.actor.originals = False
         self.actor.save(update_fields=["originals"])
