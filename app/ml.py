@@ -28,7 +28,7 @@ def snapshot_hash(examples):
     return hashlib.sha256(value.encode()).hexdigest()
 
 
-def train(examples, min_f1=0.7):
+def train(examples, min_f1=0.7, *, seed=42):
     from app.ml_split import partition
 
     if not 0 <= min_f1 <= 1:
@@ -45,10 +45,10 @@ def train(examples, min_f1=0.7):
         groups[key] = example
     if len(groups) < 30:
         raise ValueError("At least 30 distinct approved examples are required")
-    partitions = partition(groups)
+    partitions = partition(groups, seed=seed)
     if partitions is None:
         keys = sorted(groups)
-        rng = np.random.default_rng(42)
+        rng = np.random.default_rng(seed)
         rng.shuffle(keys)
         n = len(keys)
         partitions = {
@@ -73,7 +73,7 @@ def train(examples, min_f1=0.7):
     pipeline = Pipeline(
         [
             ("tfidf", TfidfVectorizer(ngram_range=(1, 2), max_features=50000)),
-            ("classifier", OneVsRestClassifier(LogisticRegression(max_iter=500, random_state=42))),
+            ("classifier", OneVsRestClassifier(LogisticRegression(max_iter=500, random_state=seed))),
         ]
     )
     pipeline.fit(x["train"], y["train"])
