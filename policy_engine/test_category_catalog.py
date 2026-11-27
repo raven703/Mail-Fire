@@ -163,6 +163,27 @@ class UnifiedCatalogTests(TestCase):
         response = self.client.post(rule_url, {"action": "delete_context"})
         self.assertRedirects(response, detail_url)
 
+    def test_builtin_detector_help_covers_visible_catalog(self):
+        from policy_engine.detector_help import builtin_help
+        from app.category_catalog import LEGACY_ALIASES
+        rows = Category.objects.filter(mode="builtin").exclude(pk__in=LEGACY_ALIASES)
+        for row in rows:
+            with self.subTest(category=row.pk):
+                self.assertIsNotNone(builtin_help(row.pk))
+                response = self.client.get(f"/categories/{row.pk}/")
+                self.assertContains(response, "Что обнаруживает")
+                self.assertContains(response, "Как обнаруживает")
+                self.assertContains(response, "Технические подробности")
+        response = self.client.get("/categories/SECRET/")
+        self.assertContains(response, "Gitleaks")
+        self.assertContains(response, "Дополнительные правила контекста")
+        self.assertContains(response, "Встроенные + 0")
+        self.assertContains(response, "Только чтение")
+        category = Category.objects.create(pk="CUSTOM_help_test", name="Help test",
+                                           mode="custom", group_name="Test")
+        self.assertNotContains(self.client.get(f"/categories/{category.pk}/"),
+                               'class="builtin-detector-help"')
+
     def test_training_labels_require_originals_permission(self):
         self.actor.originals = False
         self.actor.save(update_fields=["originals"])
