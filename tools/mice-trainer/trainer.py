@@ -108,6 +108,8 @@ def download(args):
 
 
 def training(args):
+    if not 0 <= args.min_f1 <= 1:
+        raise ValueError("min_f1 must be between 0 and 1")
     rows = read_rows(args.dataset)
     counts = prepare(rows)
     print(json.dumps(counts, ensure_ascii=False, indent=2), flush=True)
@@ -178,9 +180,10 @@ def evaluate(args):
         raise ValueError("Split SHA-256 mismatch")
     used = json.loads(split_file.read_text())
     hashes = {r["text_sha256"] for r in used}
+    groups = {r["group_id"] for r in used}
     rows = read_rows(args.dataset)
-    if any(group_hash(r["text"]) in hashes for r in rows):
-        raise ValueError("Evaluation contains text already seen during training/validation/test")
+    if any(group_hash(r["text"]) in hashes or r["group_id"] in groups for r in rows):
+        raise ValueError("Evaluation contains a text or group already seen during training/validation/test")
     categories = CATEGORIES if model.engine == "tfidf" else (model.category_id,)
     counts = {c: dict(tp=0, fp=0, fn=0, tn=0) for c in categories}
     for row in rows:
