@@ -118,6 +118,112 @@ BUILTIN_HELP = {
     }
 }
 
+DETAILS = {
+    "EMAIL": [
+        "Один текстовый шаблон; совпадение формата адреса достаточно.",
+        "Текст письма и извлечённый текст вложений."
+    ],
+    "PHONE": [
+        "Один текстовый шаблон российского номера с допустимыми разделителями.",
+        "Текст письма и извлечённый текст вложений."
+    ],
+    "INN": [
+        "Числовой формат и обязательная проверка контрольных цифр. Однообразные номера исключаются. Для настроенного шаблона документа дополнительно используются реквизиты бланка.",
+        "Текст письма и вложений; шаблон документа — при наличии эталона."
+    ],
+    "RU_SNILS": [
+        "Проверяется формат и контрольная сумма. При неверной сумме требуется явный локальный контекст СНИЛС, результат считается предполагаемым. Нулевые номера исключаются.",
+        "Текст письма и вложений; шаблон документа — при наличии эталона."
+    ],
+    "RU_PASSPORT": [
+        "Серия и номер проверяются вместе с паспортным контекстом в том же локальном блоке. Для зарегистрированного эталона возможна дополнительная проверка реквизитов бланка.",
+        "Текст письма и вложений; шаблон документа — при наличии эталона."
+    ],
+    "SECRET": [
+        "Текстовый шаблон либо сигнатура Gitleaks. Совпадения не проверяются обращением к внешним сервисам.",
+        "Извлечённый текст и содержимое вложений, передаваемое Gitleaks."
+    ],
+    "PRIVATE_KEY": [
+        "Распознавание заголовков закрытых ключей, без проверки содержимого ключа.",
+        "Извлечённый текст."
+    ],
+    "CONFIDENTIAL": [
+        "Достаточно одного из обозначений конфиденциальности в статическом шаблоне.",
+        "Извлечённый текст."
+    ],
+    "PROMPT_INJECTION": [
+        "Достаточно одного из альтернативных статических признаков: попытка отменить предыдущие инструкции или отключить анализ. Семантической интерпретации намерения нет.",
+        "Извлечённый текст письма и вложений."
+    ],
+    "CODE": [
+        "Распознавание характерных конструкций исходного кода, SQL или сценариев. Дополнительный локальный контекст конфиденциальности и передачи повышает риск.",
+        "Извлечённый текст."
+    ],
+    "SUSPICIOUS_COMMAND": [
+        "Статические признаки потенциально опасных команд; команды не выполняются.",
+        "Извлечённый текст."
+    ],
+    "YARA": [
+        "Любая совпавшая встроенная сигнатура формирует находку.",
+        "Байты вложений."
+    ],
+    "OFFICE_MACRO": [
+        "При наличии VBA-макросов учитываются результаты анализа типов AutoExec, Suspicious и IOC.",
+        "Поддерживаемые форматы вложений Office."
+    ],
+    "MALWARE": [
+        "ClamAV возвращает FOUND и имя совпавшей сигнатуры.",
+        "Вложения, переданные антивирусу."
+    ],
+    "REFERENCE_DOCUMENT": [
+        "Точное совпадение нормализованного отпечатка либо покрытие эталона не менее 30% и не менее трёх совпадающих фрагментов.",
+        "Извлечённый текст при наличии зарегистрированных эталонов."
+    ],
+    "SEMANTIC_REFERENCE": [
+        "Условие формирования отдельной находки не подтверждено в текущем конвейере.",
+        "Не подтверждено."
+    ]
+}
+
 def builtin_help(category_id):
     from app.category_catalog import LEGACY_ALIASES
-    return BUILTIN_HELP.get(LEGACY_ALIASES.get(category_id, category_id))
+    from app.detectors import TEXT_RULES, VERSION
+    from app.document_templates import TEMPLATES
+    from app import snils, passport
+
+    key = LEGACY_ALIASES.get(category_id, category_id)
+    if key not in BUILTIN_HELP:
+        return None
+    result = dict(BUILTIN_HELP[key])
+    result["logic"], result["scope"] = DETAILS[key]
+    result["rules"] = [
+        {"id": category.lower(), "kind": "Regex", "risk": risk, "version": VERSION,
+         "pattern": pattern, "flags": "Без учёта регистра" if pattern.startswith("(?i)") else
+         "Многострочный режим" if pattern.startswith("(?m)") else "Стандартный режим"}
+        for category, pattern, risk in TEXT_RULES if category == key
+    ]
+    if key in {"RU_SNILS", "RU_PASSPORT"}:
+        # Use the actual compiled expressions rather than maintaining copies.
+        patterns = [("Формат", snils._CANDIDATE), ("Контекст", snils._CONTEXT)] if key == "RU_SNILS" else [
+            ("Серия и номер", passport._FIELDS), ("Табличный формат", passport._TABLE),
+            ("Паспортный контекст", passport._CONTEXT)]
+        result["rules"].extend({"id": label, "kind": "Regex", "pattern": pattern.pattern,
+                                "flags": "Без учёта регистра" if pattern.flags & 2 else "Стандартный режим"}
+                               for label, pattern in patterns)
+    result["templates"] = [
+        {"id": name, "label": spec["label"], "anchors": spec["anchors"],
+         "minimum": spec["min_anchors"]}
+        for name, spec in TEMPLATES.items()
+        if LEGACY_ALIASES.get(spec["category"], spec["category"]) == key
+    ]
+    if key == "YARA":
+        import re
+        from app.advanced_detectors import YARA_SOURCE
+        result["signatures"] = re.findall(r"(?m)^rule\s+(\w+)\s*\{", YARA_SOURCE)
+    if key in {"SECRET", "MALWARE", "OFFICE_MACRO"}:
+        result["external_note"] = (
+            "Полный список внешних сигнатур не доступен через текущий интерфейс сканера. "
+            "Идентификаторы фактических совпадений доступны в результатах анализа, если движок их возвращает. "
+            "Список не имитируется и не загружается при открытии окна."
+        )
+    return result
