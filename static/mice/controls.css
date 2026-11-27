@@ -398,3 +398,76 @@ a:focus-visible, summary:focus-visible {
   z-index: 2;
 }
 .filters .category-search-field > button[data-clear-category-search]:disabled { opacity: .35; }
+
+/* Category actions: links and POST buttons share one compact menu treatment.
+   Keep the reset after the generic form controls and use theme tokens. */
+.category-actions-popover[popover] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  box-sizing: border-box;
+  width: 250px;
+  min-width: 0;
+  max-width: calc(100vw - 16px);
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 12px 35px rgba(20,30,50,.18);
+}
+.category-actions-popover[popover]:popover-open {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+.category-actions-popover[popover]:not(:popover-open) { display: none; }
+.category-actions-popover > form {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.category-actions-popover[popover] :is(a, button).category-actions-item {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  height: auto;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.category-actions-popover[popover] :is(a, button).category-actions-item:hover,
+.category-actions-popover[popover] :is(a, button).category-actions-item:focus-visible {
+  background: var(--selected);
+  color: var(--text);
+  border-color: transparent;
+  text-decoration: none;
+}
+.category-actions-popover[popover] :is(a, button).category-actions-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.category-actions-popover[popover] button.category-actions-item:active { transform: none; }
+.category-actions-popover[popover] button.category-actions-item:disabled {
+  opacity: var(--mf-control-disabled-opacity);
+  cursor: not-allowed;
+}
