@@ -1,0 +1,16 @@
+{
+  "annotation_status": "AI-authored synthetic fixture with explicitly authored spans; NOT independently human-reviewed gold",
+  "metric_scope": ["FIRST_NAME", "LAST_NAME", "MIDDLE_NAME", "CITY", "EMAIL", "PHONE"],
+  "examples": [
+    {"id": "ner-01", "text": "Контакт: Анна Смирнова, город Казань.", "entities": [["FIRST_NAME", "Анна"], ["LAST_NAME", "Смирнова"], ["CITY", "Казань"]]},
+    {"id": "ner-02", "text": "Получатель: Иван Петрович Соколов.", "entities": [["FIRST_NAME", "Иван"], ["MIDDLE_NAME", "Петрович"], ["LAST_NAME", "Соколов"]]},
+    {"id": "ner-03", "text": "Для связи напишите test@example.org.", "entities": [["EMAIL", "test@example.org"]]},
+    {"id": "ner-04", "text": "Учебный контакт: +7 (000) 000-00-00.", "entities": [["PHONE", "+7 (000) 000-00-00"]]},
+    {"id": "ner-05", "text": "Мария Кузнецова отправила письмо в Омск.", "entities": [["FIRST_NAME", "Мария"], ["LAST_NAME", "Кузнецова"], ["CITY", "Омск"]]},
+    {"id": "ner-06", "text": "В таблице есть столбцы имя, фамилия, телефон; строки пока пусты.", "entities": []},
+    {"id": "ner-07", "text": "Обсудим защиту персональных данных без указания конкретных лиц.", "entities": []},
+    {"id": "ner-08", "text": "Новые контакты не поступали, адресная книга пуста.", "entities": []},
+    {"id": "ner-09", "text": "Система проверяет шаблон электронной почты без конкретного адреса.", "entities": []},
+    {"id": "ner-10", "text": "Имя файла: протокол. Обсуждаем только общественные мероприятия.", "entities": []}
+  ]
+}

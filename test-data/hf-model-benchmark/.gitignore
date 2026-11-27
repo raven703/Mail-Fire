@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+cache/
+weights/
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.zip
+*.7z

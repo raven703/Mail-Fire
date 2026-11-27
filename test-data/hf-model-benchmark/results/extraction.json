@@ -1,0 +1,43 @@
+{
+  "errors": [
+    {
+      "id": "MF350-0304",
+      "source": "attachment",
+      "filename": "fixture-304.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    },
+    {
+      "id": "MF350-0311",
+      "source": "attachment",
+      "filename": "fixture-311.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    },
+    {
+      "id": "MF350-0319",
+      "source": "attachment",
+      "filename": "fixture-319.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    },
+    {
+      "id": "MF350-0327",
+      "source": "attachment",
+      "filename": "fixture-327.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    },
+    {
+      "id": "MF350-0335",
+      "source": "attachment",
+      "filename": "fixture-335.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    },
+    {
+      "id": "MF350-0348",
+      "source": "attachment",
+      "filename": "fixture-348.png",
+      "error": "RuntimeError: OCR unavailable: no tesseract executable; pixels not replaced by manifest hints"
+    }
+  ],
+  "messages": 350,
+  "missing_ocr": 6,
+  "note": "Predictions on affected messages are end-to-end extraction-limited, not unambiguous model failures"
+}
