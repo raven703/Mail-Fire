@@ -16,3 +16,6 @@ No references is explicitly skipped. Missing index, embedding errors and limits 
 ## Verification
 
 Run Django pipeline.test_semantic_detection, pipeline.test_inference, pipeline.test_unified_analysis, records.test_semantic_gc on the PostgreSQL/pgvector test environment. Then run real indexed reference, exact copy, paraphrase, unrelated text, missing index, worker failure, disabled detector, attachments and policy integration cases using the installed offline model. Measure precision/recall before production enablement.
+
+## UI readiness
+The detector settings show configured switch, deployment gate, active category, current-model indexed reference count and latest resource sample status. This is not a model/queue health check. Threshold can be saved by an administrator; database setting overrides the environment default and is frozen in the analysis configuration snapshot. Reference library distinguishes fingerprint and semantic index, excluding document-type templates. Validate permissions and all readiness states on the deployed UI.

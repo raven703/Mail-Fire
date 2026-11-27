@@ -216,13 +216,18 @@ def builtin_help(category_id):
         for name, spec in TEMPLATES.items()
         if LEGACY_ALIASES.get(spec["category"], spec["category"]) == key
     ]
+    if key == "REFERENCE_DOCUMENT":
+        result["requirements"] = "Нужен хотя бы один обычный эталонный документ с извлечённым текстом и отпечатком. Семантическая индексация не требуется. Шаблоны типов документов распознаются отдельно."
     if key == "SEMANTIC_REFERENCE":
+        result["requirements"] = "Нужен хотя бы один обычный загруженный эталон, проиндексированный текущей моделью, включённый детектор и активная категория, разрешение в конфигурации развёртывания и доступный semantic worker. Без эталонов проверка пропускается."
         from pipeline.semantic_detection import threshold, RISK
         from pipeline.inference import enabled
         result["risk"] = str(RISK) + " — вероятностный признак"
         try:
-            result["logic"] += f" Порог развёртывания: {threshold():.2f}."
-        except ValueError:
+            from records.models import Setting
+            options = Setting.objects.filter(pk="semantic_detection").values_list("value", flat=True).first()
+            result["logic"] += f" Настроенный порог: {threshold(options):.2f}."
+        except (ValueError, TypeError):
             result["logic"] += " Некорректная настройка порога."
         result["logic"] += " Автоматический анализ разрешён конфигурацией развёртывания." if enabled("semantic") else " Автоматический анализ выключен конфигурацией развёртывания."
     if key == "YARA":

@@ -14,8 +14,9 @@ MAX_MATCHES = 100
 DEFAULT_THRESHOLD = 0.85
 
 
-def threshold():
-    value = float(os.environ.get("MICE_SEMANTIC_THRESHOLD", str(DEFAULT_THRESHOLD)))
+def threshold(options=None):
+    options = options or {}
+    value = float(options.get("threshold", os.environ.get("MICE_SEMANTIC_THRESHOLD", str(DEFAULT_THRESHOLD))))
     if not math.isfinite(value) or not 0 < value <= 1:
         raise ValueError("Invalid semantic threshold")
     return value
@@ -32,8 +33,8 @@ def schedule(message, key):
     refs = sorted(str(row["id"]) for row in config.get("references", [])
                   if not (row.get("fingerprint") or {}).get("document_template"))
     try:
-        minimum = threshold()
-    except ValueError:
+        minimum = threshold(config.get("settings", {}).get("semantic_detection", {}))
+    except (ValueError, TypeError):
         minimum = None  # worker records a configuration error, not a clean result
     return enqueue("semantic.detect", {"message_id": message.pk, "content_id": message.content_id,
                                       "reference_ids": refs, "threshold": minimum},

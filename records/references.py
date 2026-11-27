@@ -69,7 +69,8 @@ def save_reference(actor, prepared):
 
 
 def indexed_references():
-    chunks = SemanticChunk.objects.filter(source_type="reference", source_id=OuterRef("pk")).order_by()
+    from records.semantic import MODEL
+    chunks = SemanticChunk.objects.filter(source_type="reference", source_id=OuterRef("pk"), model=MODEL).order_by()
     return Reference.objects.annotate(
         chunk_count=Subquery(chunks.values("source_id").annotate(count=Count("pk")).values("count")),
     )
