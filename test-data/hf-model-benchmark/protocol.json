@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "precision": "float32",
+  "device": "cuda:0",
+  "batch_size": 4,
+  "chunk_characters": 900,
+  "chunk_overlap_characters": 100,
+  "max_tokens": 512,
+  "aggregation": "maximum probability over all text windows; no thresholds fitted on B350",
+  "hypothesis_template": "This email contains {}.",
+  "classification_threshold": 0.5,
+  "threat_threshold": 0.4,
+  "ner_decision": "BIO argmax, no extra confidence threshold; exact type and character-span match only on separate authored fixture",
+  "categories": {
+    "commercial": {"description": "trade secrets, confidential commercial terms or non-public prices", "truth_any": ["pack-ru2-pricing"]},
+    "personal": {"description": "customer databases or personal information about individuals", "truth_any": ["pack-ru2-customer-data", "pack-ru2-pii-handling", "RU_PASSPORT", "RU_INN", "RU_SNILS"]},
+    "financial": {"description": "confidential internal financial documents, budgets or financial forecasts", "truth_any": ["pack-ru2-financial-plans"]},
+    "exfiltration": {"description": "unauthorized transfer or disclosure of confidential information", "truth_any": ["pack-ru2-data-exfil", "pack-ru2-credential-transfer", "SECRET"]},
+    "phishing": {"description": "a phishing attempt asking the recipient to disclose credentials, reveal a one-time code or follow a deceptive login link", "truth_any": ["pack-ru2-phishing"]},
+    "threat": {"description": "a real threat to commit violence, kill someone or cause an explosion", "truth_any": ["pack-ru2-violence-threat", "pack-ru2-explosive-threat"]},
+    "safe": {"description": "ordinary safe business correspondence without confidential disclosures, phishing or threats", "truth_no_issue": true}
+  },
+  "notes": [
+    "English hypotheses are identical for both NLI models; email text remains Russian.",
+    "The seven categories are operational proxies, not a complete mapping of all MICE categories.",
+    "Personal includes format identifiers as a broad document-level proxy, never an NER requirement.",
+    "Commercial uses pricing ground truth, not every possible trade secret; exfiltration includes SECRET/credential proxies.",
+    "Full 350-message classification cohorts keep all hard negatives and contexts; no selection by prediction.",
+    "NER on B350 is qualitative only: no gold entity spans exist.",
+    "Separate small authored synthetic NER fixture is not independently human-annotated or production evidence.",
+    "No tuning after smoke, no FP16, no CPU fallback, no model conversion or training."
+  ]
+}

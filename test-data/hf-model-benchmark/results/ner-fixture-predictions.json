@@ -1,0 +1,772 @@
+[
+  {
+    "id": "ner-01",
+    "entities": [
+      {
+        "label": "FIRST_NAME",
+        "start": 9,
+        "end": 13,
+        "score": 0.9995734095573425,
+        "text": "Анна"
+      },
+      {
+        "label": "LAST_NAME",
+        "start": 14,
+        "end": 22,
+        "score": 0.9993396401405334,
+        "text": "Смирнова"
+      },
+      {
+        "label": "CITY",
+        "start": 30,
+        "end": 36,
+        "score": 0.999461829662323,
+        "text": "Казань"
+      }
+    ],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "O",
+        "score": 0.9999796152114868
+      },
+      {
+        "start": 7,
+        "end": 8,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 9,
+        "end": 13,
+        "label": "B-FIRST_NAME",
+        "score": 0.9995734095573425
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "B-LAST_NAME",
+        "score": 0.9993396401405334
+      },
+      {
+        "start": 22,
+        "end": 23,
+        "label": "O",
+        "score": 0.9999794960021973
+      },
+      {
+        "start": 24,
+        "end": 29,
+        "label": "O",
+        "score": 0.9999785423278809
+      },
+      {
+        "start": 30,
+        "end": 36,
+        "label": "B-CITY",
+        "score": 0.999461829662323
+      },
+      {
+        "start": 36,
+        "end": 37,
+        "label": "O",
+        "score": 0.9999793767929077
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-02",
+    "entities": [
+      {
+        "label": "FIRST_NAME",
+        "start": 12,
+        "end": 16,
+        "score": 0.9995865225791931,
+        "text": "Иван"
+      },
+      {
+        "label": "MIDDLE_NAME",
+        "start": 17,
+        "end": 25,
+        "score": 0.9996600151062012,
+        "text": "Петрович"
+      },
+      {
+        "label": "LAST_NAME",
+        "start": 26,
+        "end": 33,
+        "score": 0.9993902444839478,
+        "text": "Соколов"
+      }
+    ],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "O",
+        "score": 0.9999788999557495
+      },
+      {
+        "start": 4,
+        "end": 10,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 10,
+        "end": 11,
+        "label": "O",
+        "score": 0.9999779462814331
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "B-FIRST_NAME",
+        "score": 0.9995865225791931
+      },
+      {
+        "start": 17,
+        "end": 25,
+        "label": "B-MIDDLE_NAME",
+        "score": 0.9996600151062012
+      },
+      {
+        "start": 26,
+        "end": 33,
+        "label": "B-LAST_NAME",
+        "score": 0.9993902444839478
+      },
+      {
+        "start": 33,
+        "end": 34,
+        "label": "O",
+        "score": 0.9999791383743286
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-03",
+    "entities": [
+      {
+        "label": "EMAIL",
+        "start": 19,
+        "end": 35,
+        "score": 0.9995985627174377,
+        "text": "test@example.org"
+      }
+    ],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 3,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 4,
+        "end": 9,
+        "label": "O",
+        "score": 0.9999793767929077
+      },
+      {
+        "start": 10,
+        "end": 18,
+        "label": "O",
+        "score": 0.9999791383743286
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "label": "B-EMAIL",
+        "score": 0.9995985627174377
+      },
+      {
+        "start": 23,
+        "end": 24,
+        "label": "I-EMAIL",
+        "score": 0.9996869564056396
+      },
+      {
+        "start": 24,
+        "end": 26,
+        "label": "I-EMAIL",
+        "score": 0.9997170567512512
+      },
+      {
+        "start": 26,
+        "end": 29,
+        "label": "I-EMAIL",
+        "score": 0.9997335076332092
+      },
+      {
+        "start": 29,
+        "end": 31,
+        "label": "I-EMAIL",
+        "score": 0.9997383952140808
+      },
+      {
+        "start": 31,
+        "end": 32,
+        "label": "I-EMAIL",
+        "score": 0.999760091304779
+      },
+      {
+        "start": 32,
+        "end": 35,
+        "label": "I-EMAIL",
+        "score": 0.9997598528862
+      },
+      {
+        "start": 35,
+        "end": 36,
+        "label": "O",
+        "score": 0.9999783039093018
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-04",
+    "entities": [
+      {
+        "label": "PHONE",
+        "start": 17,
+        "end": 35,
+        "score": 0.7991815209388733,
+        "text": "+7 (000) 000-00-00"
+      }
+    ],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 4,
+        "end": 7,
+        "label": "O",
+        "score": 0.9999796152114868
+      },
+      {
+        "start": 8,
+        "end": 15,
+        "label": "O",
+        "score": 0.9999794960021973
+      },
+      {
+        "start": 15,
+        "end": 16,
+        "label": "O",
+        "score": 0.9999788999557495
+      },
+      {
+        "start": 17,
+        "end": 18,
+        "label": "B-PHONE",
+        "score": 0.9994255304336548
+      },
+      {
+        "start": 18,
+        "end": 19,
+        "label": "I-PHONE",
+        "score": 0.7991815209388733
+      },
+      {
+        "start": 20,
+        "end": 21,
+        "label": "I-PHONE",
+        "score": 0.9995445609092712
+      },
+      {
+        "start": 21,
+        "end": 24,
+        "label": "I-PHONE",
+        "score": 0.9995405673980713
+      },
+      {
+        "start": 24,
+        "end": 25,
+        "label": "I-PHONE",
+        "score": 0.9995397329330444
+      },
+      {
+        "start": 26,
+        "end": 29,
+        "label": "I-PHONE",
+        "score": 0.9995392560958862
+      },
+      {
+        "start": 29,
+        "end": 30,
+        "label": "I-PHONE",
+        "score": 0.9995334148406982
+      },
+      {
+        "start": 30,
+        "end": 32,
+        "label": "I-PHONE",
+        "score": 0.999517560005188
+      },
+      {
+        "start": 32,
+        "end": 33,
+        "label": "I-PHONE",
+        "score": 0.9994937181472778
+      },
+      {
+        "start": 33,
+        "end": 35,
+        "label": "I-PHONE",
+        "score": 0.9994103908538818
+      },
+      {
+        "start": 35,
+        "end": 36,
+        "label": "O",
+        "score": 0.99997878074646
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-05",
+    "entities": [
+      {
+        "label": "FIRST_NAME",
+        "start": 0,
+        "end": 5,
+        "score": 0.9995867609977722,
+        "text": "Мария"
+      },
+      {
+        "label": "LAST_NAME",
+        "start": 6,
+        "end": 15,
+        "score": 0.9993460774421692,
+        "text": "Кузнецова"
+      },
+      {
+        "label": "CITY",
+        "start": 35,
+        "end": 39,
+        "score": 0.9994158744812012,
+        "text": "Омск"
+      }
+    ],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "B-FIRST_NAME",
+        "score": 0.9995867609977722
+      },
+      {
+        "start": 6,
+        "end": 15,
+        "label": "B-LAST_NAME",
+        "score": 0.9993460774421692
+      },
+      {
+        "start": 16,
+        "end": 25,
+        "label": "O",
+        "score": 0.9999784231185913
+      },
+      {
+        "start": 26,
+        "end": 32,
+        "label": "O",
+        "score": 0.9999779462814331
+      },
+      {
+        "start": 33,
+        "end": 34,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 35,
+        "end": 39,
+        "label": "B-CITY",
+        "score": 0.9994158744812012
+      },
+      {
+        "start": 39,
+        "end": 40,
+        "label": "O",
+        "score": 0.9999772310256958
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-06",
+    "entities": [],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 1,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 2,
+        "end": 9,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 10,
+        "end": 14,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 20,
+        "end": 22,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 23,
+        "end": 26,
+        "label": "O",
+        "score": 0.9999793767929077
+      },
+      {
+        "start": 26,
+        "end": 27,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 28,
+        "end": 35,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 35,
+        "end": 36,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 37,
+        "end": 44,
+        "label": "O",
+        "score": 0.9999790191650391
+      },
+      {
+        "start": 44,
+        "end": 45,
+        "label": "O",
+        "score": 0.9999796152114868
+      },
+      {
+        "start": 46,
+        "end": 52,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 53,
+        "end": 57,
+        "label": "O",
+        "score": 0.999980092048645
+      },
+      {
+        "start": 58,
+        "end": 63,
+        "label": "O",
+        "score": 0.999980092048645
+      },
+      {
+        "start": 63,
+        "end": 64,
+        "label": "O",
+        "score": 0.9999792575836182
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-07",
+    "entities": [],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "O",
+        "score": 0.9999803304672241
+      },
+      {
+        "start": 4,
+        "end": 7,
+        "label": "O",
+        "score": 0.9999803304672241
+      },
+      {
+        "start": 8,
+        "end": 14,
+        "label": "O",
+        "score": 0.999980092048645
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "O",
+        "score": 0.9999791383743286
+      },
+      {
+        "start": 28,
+        "end": 34,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 35,
+        "end": 38,
+        "label": "O",
+        "score": 0.9999803304672241
+      },
+      {
+        "start": 39,
+        "end": 47,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 48,
+        "end": 58,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 59,
+        "end": 62,
+        "label": "O",
+        "score": 0.9999796152114868
+      },
+      {
+        "start": 62,
+        "end": 63,
+        "label": "O",
+        "score": 0.9999799728393555
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-08",
+    "entities": [],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 6,
+        "end": 14,
+        "label": "O",
+        "score": 0.999980092048645
+      },
+      {
+        "start": 15,
+        "end": 17,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 18,
+        "end": 27,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 27,
+        "end": 28,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 29,
+        "end": 34,
+        "label": "O",
+        "score": 0.9999792575836182
+      },
+      {
+        "start": 34,
+        "end": 37,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 38,
+        "end": 43,
+        "label": "O",
+        "score": 0.9999793767929077
+      },
+      {
+        "start": 44,
+        "end": 49,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 49,
+        "end": 50,
+        "label": "O",
+        "score": 0.9999788999557495
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-09",
+    "entities": [],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 8,
+        "end": 17,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 18,
+        "end": 24,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 25,
+        "end": 36,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 37,
+        "end": 42,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 43,
+        "end": 46,
+        "label": "O",
+        "score": 0.9999799728393555
+      },
+      {
+        "start": 47,
+        "end": 58,
+        "label": "O",
+        "score": 0.9999797344207764
+      },
+      {
+        "start": 59,
+        "end": 65,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 65,
+        "end": 66,
+        "label": "O",
+        "score": 0.9999794960021973
+      }
+    ],
+    "truncated_windows": 0
+  },
+  {
+    "id": "ner-10",
+    "entities": [],
+    "tokens": [
+      {
+        "start": 0,
+        "end": 3,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 4,
+        "end": 9,
+        "label": "O",
+        "score": 0.9999803304672241
+      },
+      {
+        "start": 9,
+        "end": 10,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 11,
+        "end": 19,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 19,
+        "end": 20,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 21,
+        "end": 25,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 25,
+        "end": 30,
+        "label": "O",
+        "score": 0.9999803304672241
+      },
+      {
+        "start": 31,
+        "end": 37,
+        "label": "O",
+        "score": 0.9999802112579346
+      },
+      {
+        "start": 38,
+        "end": 50,
+        "label": "O",
+        "score": 0.9999794960021973
+      },
+      {
+        "start": 51,
+        "end": 62,
+        "label": "O",
+        "score": 0.9999798536300659
+      },
+      {
+        "start": 62,
+        "end": 63,
+        "label": "O",
+        "score": 0.9999803304672241
+      }
+    ],
+    "truncated_windows": 0
+  }
+]

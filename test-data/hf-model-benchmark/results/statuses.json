@@ -1,0 +1,85 @@
+{
+  "horizon": {
+    "status": "completed",
+    "labels": {
+      "0": "not_entailment",
+      "1": "entailment"
+    }
+  },
+  "mdeberta": {
+    "status": "completed",
+    "labels": {
+      "0": "entailment",
+      "1": "neutral",
+      "2": "contradiction"
+    }
+  },
+  "redmadrobot": {
+    "status": "completed",
+    "labels": {
+      "0": "O",
+      "1": "B-PASSPORT",
+      "2": "I-PASSPORT",
+      "3": "B-CREDIT_CARD",
+      "4": "I-CREDIT_CARD",
+      "5": "B-DRIVER_LICENSE",
+      "6": "I-DRIVER_LICENSE",
+      "7": "B-INN",
+      "8": "I-INN",
+      "9": "B-SNILS",
+      "10": "I-SNILS",
+      "11": "B-MILITARY_ID",
+      "12": "I-MILITARY_ID",
+      "13": "B-BIRTH_CERTIFICATE",
+      "14": "I-BIRTH_CERTIFICATE",
+      "15": "B-OMS",
+      "16": "I-OMS",
+      "17": "B-CITY",
+      "18": "B-COUNTRY",
+      "19": "B-DISTRICT",
+      "20": "B-EMAIL",
+      "21": "B-FIRST_NAME",
+      "22": "B-HOUSE",
+      "23": "B-IP_ADDRESS",
+      "24": "B-LAST_NAME",
+      "25": "B-MIDDLE_NAME",
+      "26": "B-PHONE",
+      "27": "B-REGION",
+      "28": "B-STREET",
+      "29": "B-URL",
+      "30": "I-CITY",
+      "31": "I-COUNTRY",
+      "32": "I-DISTRICT",
+      "33": "I-EMAIL",
+      "34": "I-FIRST_NAME",
+      "35": "I-HOUSE",
+      "36": "I-IP_ADDRESS",
+      "37": "I-LAST_NAME",
+      "38": "I-MIDDLE_NAME",
+      "39": "I-PHONE",
+      "40": "I-REGION",
+      "41": "I-STREET",
+      "42": "I-URL"
+    }
+  },
+  "sciencesoft": {
+    "status": "blocked_gpu",
+    "reason": "Only int8 ONNX CPU artifact; no PyTorch weights. No conversion, CPU fallback or weight modification permitted.",
+    "smoke": "not executable on requested GPU without changing artifact"
+  },
+  "gloomreach": {
+    "status": "completed",
+    "labels": {
+      "0": "profanity",
+      "1": "threat",
+      "2": "illegal"
+    }
+  },
+  "phishing": {
+    "status": "completed",
+    "labels": {
+      "0": "Phishing",
+      "1": "Legit"
+    }
+  }
+}

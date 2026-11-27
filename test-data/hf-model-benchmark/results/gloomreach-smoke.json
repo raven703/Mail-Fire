@@ -1,0 +1,142 @@
+{
+  "labels": {
+    "0": "profanity",
+    "1": "threat",
+    "2": "illegal"
+  },
+  "device": "cuda:0",
+  "dtype": "torch.float32",
+  "examples": [
+    {
+      "id": "probe-0",
+      "text": "Пожалуйста, пришлите пароль и код из СМС для входа по ссылке http://login.example.org.",
+      "scores": {
+        "threat": 0.006391472648829222
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 86,
+          "category": null,
+          "logits": [
+            -6.309244155883789,
+            -5.0463786125183105,
+            -4.345559120178223
+          ],
+          "probabilities": {
+            "profanity": 0.0018161037005484104,
+            "threat": 0.006391472648829222,
+            "illegal": 0.012798336334526539
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-1",
+      "text": "Я взорву ваш офис завтра.",
+      "scores": {
+        "threat": 0.006599301937967539
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 25,
+          "category": null,
+          "logits": [
+            -2.4300529956817627,
+            -5.014170169830322,
+            -7.305646896362305
+          ],
+          "probabilities": {
+            "profanity": 0.08090952038764954,
+            "threat": 0.006599301937967539,
+            "illegal": 0.0006712838658131659
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-2",
+      "text": "Анна Смирнова живёт в Казани. Контакт test@example.org.",
+      "scores": {
+        "threat": 0.0033185677602887154
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": null,
+          "logits": [
+            -5.0104546546936035,
+            -5.704897880554199,
+            -5.930283546447754
+          ],
+          "probabilities": {
+            "profanity": 0.006623705383390188,
+            "threat": 0.0033185677602887154,
+            "illegal": 0.0026506835129112005
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-3",
+      "text": "Это учебный пример фишинга. Никому не сообщайте пароль.",
+      "scores": {
+        "threat": 0.0012938041472807527
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": null,
+          "logits": [
+            -4.01481294631958,
+            -6.648873805999756,
+            -5.969857692718506
+          ],
+          "probabilities": {
+            "profanity": 0.017726430669426918,
+            "threat": 0.0012938041472807527,
+            "illegal": 0.0025480955373495817
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-4",
+      "text": "Угрозы не поступали, обсуждаем только учения.",
+      "scores": {
+        "threat": 0.0038514502812176943
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 45,
+          "category": null,
+          "logits": [
+            -4.9351806640625,
+            -5.555446624755859,
+            -6.465073108673096
+          ],
+          "probabilities": {
+            "profanity": 0.007137846201658249,
+            "threat": 0.0038514502812176943,
+            "illegal": 0.001554457237944007
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    }
+  ],
+  "interpretation": "NLI independent entailment vs contradiction/not_entailment softmax; phishing class 0; threat sigmoid head; NER BIO argmax"
+}

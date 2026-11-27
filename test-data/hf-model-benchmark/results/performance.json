@@ -1,0 +1,65 @@
+{
+  "horizon": {
+    "device": "cuda:0",
+    "dtype": "float32",
+    "messages": 350,
+    "model_load_download_seconds": 124.1411501980001,
+    "main_seconds": 21.80605485599881,
+    "messages_per_second": 16.050587889983024,
+    "peak_process_rss_bytes": 2520424448,
+    "peak_vram_allocated_bytes": 1319027712,
+    "peak_vram_reserved_bytes": 1342177280,
+    "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+  },
+  "mdeberta": {
+    "device": "cuda:0",
+    "dtype": "float32",
+    "messages": 350,
+    "model_load_download_seconds": 77.76264935700237,
+    "main_seconds": 19.659041389000777,
+    "messages_per_second": 17.80351305409148,
+    "peak_process_rss_bytes": 3039916032,
+    "peak_vram_allocated_bytes": 1247206400,
+    "peak_vram_reserved_bytes": 1367343104,
+    "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+  },
+  "redmadrobot": {
+    "device": "cuda:0",
+    "dtype": "float32",
+    "messages": 350,
+    "model_load_download_seconds": 106.62800442599837,
+    "main_seconds": 3.3548729800022556,
+    "messages_per_second": 104.32585736815726,
+    "peak_process_rss_bytes": 1780236288,
+    "peak_vram_allocated_bytes": 717295616,
+    "peak_vram_reserved_bytes": 752877568,
+    "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+  },
+  "sciencesoft": {
+    "status": "blocked_gpu"
+  },
+  "gloomreach": {
+    "device": "cuda:0",
+    "dtype": "float32",
+    "messages": 350,
+    "model_load_download_seconds": 2.022891584001627,
+    "main_seconds": 1.3956526110014238,
+    "messages_per_second": 250.77873766084542,
+    "peak_process_rss_bytes": 1476710400,
+    "peak_vram_allocated_bytes": 128905728,
+    "peak_vram_reserved_bytes": 140509184,
+    "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+  },
+  "phishing": {
+    "device": "cuda:0",
+    "dtype": "float32",
+    "messages": 350,
+    "model_load_download_seconds": 96.62485437700161,
+    "main_seconds": 3.021807926001202,
+    "messages_per_second": 115.82470116264457,
+    "peak_process_rss_bytes": 1874432000,
+    "peak_vram_allocated_bytes": 717691904,
+    "peak_vram_reserved_bytes": 773849088,
+    "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+  }
+}

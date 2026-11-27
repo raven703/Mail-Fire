@@ -1,0 +1,7 @@
+{
+  "status": "completed",
+  "labels": {
+    "0": "not_entailment",
+    "1": "entailment"
+  }
+}
