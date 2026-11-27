@@ -44,3 +44,11 @@ misclassified category/text pairs. `development-best.json` identifies best
 singles/ensembles/exclusions; the complete threshold grid is compressed.
 `comparison.json` records verified historical cohort/label/text comparability.
 No integration is implemented and no PR is merged by these scripts.
+
+Published `raw-cache/` contains compressed complete per-window score arrays,
+their ordered hypotheses, input/model hashes and original timing records.
+They are sufficient for recalculating decisions without another GPU pass.
+`validate_results.py` checks cached archives, all original EML hashes, fixed
+selection, per-category confusion matrices and the pre-B500 commit identity.
+The selection freeze commit is `5caf41e32049d39b0e46e0843152b4529478626a`.
+`environment.json` records device/runtime and source/protocol validation facts.

@@ -124,9 +124,9 @@ def main():
     save(HERE / 'performance.json', performance)
     for filename, values in [('summary.csv', summary), ('errors.csv', errors)]:
         with (HERE / filename).open('x', newline='', encoding='utf-8') as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(values[0]))
+            writer = csv.DictWriter(stream, fieldnames=list(values[0]), lineterminator='\n')
             writer.writeheader()
-            writer.writerows(values)
+            writer.writerows([{k: v.replace('\r\n', '\n').replace('\r', '\n') if isinstance(v, str) else v for k, v in r.items()} for r in values])
     with (HERE / 'predictions.jsonl').open('x', encoding='utf-8') as stream:
         for value in predictions:
             stream.write(json.dumps(value, ensure_ascii=False) + '\n')

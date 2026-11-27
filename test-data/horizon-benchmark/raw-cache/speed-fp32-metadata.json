@@ -1,0 +1,498 @@
+{
+  "revision": "a9a5a24e58c794a0f7532d3de842236435a9ae22",
+  "weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+  "hypotheses_sha256": "f134e621c2d52c61347c5ece2607fe8294c7dac3295e54b59a55a20aa251da6e",
+  "order": [
+    [
+      "pack-ru2-financial-plans",
+      "h0",
+      "Непубличные финансовые планы"
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h1",
+      "Non-public financial plans"
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h2",
+      "Письмо содержит внутренний бюджет, непубличный прогноз выручки или план будущих расходов организации."
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h3",
+      "The sender shares an internal financial forecast, budget or future spending plan not intended for the public."
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h4",
+      "Отправитель сообщает или пересылает внутренние плановые финансовые показатели, не опубликованные для общего доступа."
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h5",
+      "This email concerns non-public financial plans."
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h6",
+      "Письмо обсуждает только публичную финансовую отчётность, открытый бюджет или обычный счёт, без внутренних финансовых планов."
+    ],
+    [
+      "pack-ru2-financial-plans",
+      "h7",
+      "This is only public financial information or an ordinary invoice, without non-public financial plans."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h0",
+      "Специальные цены и коммерческие условия"
+    ],
+    [
+      "pack-ru2-pricing",
+      "h1",
+      "Individual commercial terms"
+    ],
+    [
+      "pack-ru2-pricing",
+      "h2",
+      "Письмо содержит индивидуальную скидку, специальную цену, закрытую себестоимость или непубличные коммерческие условия."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h3",
+      "The sender discloses a customer-specific discount, individually negotiated price, private cost or markup."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h4",
+      "В письме передают согласованные для конкретного контрагента цены и скидки либо внутреннюю себестоимость и наценку."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h5",
+      "This email concerns individual commercial terms."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h6",
+      "Письмо содержит только общедоступный прайс, обычную цену или счёт без индивидуальных коммерческих условий."
+    ],
+    [
+      "pack-ru2-pricing",
+      "h7",
+      "This is only a public price list or standard commercial offer, with no special individual terms."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h0",
+      "Ограничение распространения документов"
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h1",
+      "Restricted internal documents"
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h2",
+      "Письмо или вложенный документ содержит явную пометку внутреннего использования или ограничения распространения."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h3",
+      "The message marks documents as internal only, confidential, restricted distribution or not for external recipients."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h4",
+      "Отправитель передаёт документ с явным ограничением доступа или запрещает его дальнейшее распространение."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h5",
+      "This email concerns restricted internal documents."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h6",
+      "Письмо лишь обсуждает правила конфиденциальности или содержит общедоступные документы без действующей пометки ограничения доступа."
+    ],
+    [
+      "pack-ru2-internal-docs",
+      "h7",
+      "This only discusses confidentiality policy or public documents, not an actual restricted document."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h0",
+      "Выгрузки клиентов и контактных баз"
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h1",
+      "Customer database transfer"
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h2",
+      "Письмо сообщает о выгрузке или передаче массива клиентских записей, базы клиентов либо списка контактов."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h3",
+      "The sender exports, sends or requests a customer database, contact list or collection of customer records."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h4",
+      "Отправитель пересылает или просит выгрузить клиентскую базу, таблицу клиентов или список контактных записей."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h5",
+      "This email concerns customer database transfer."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h6",
+      "Письмо только обсуждает защиту базы или отдельного клиента, без передачи и запроса массива клиентских записей."
+    ],
+    [
+      "pack-ru2-customer-data",
+      "h7",
+      "This is only a discussion of database protection or one customer, with no customer-record export or transfer."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h0",
+      "Передача паролей и ключей"
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h1",
+      "Passwords and access keys transfer"
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h2",
+      "Письмо содержит просьбу передать рабочий пароль, API-токен, ключ доступа или саму передачу этих секретов."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h3",
+      "The sender requests or transmits a working password, API token, private key or other access secret."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h4",
+      "Отправитель просит прислать пароль или токен либо передаёт рабочие учётные данные и приватные ключи."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h5",
+      "This email concerns passwords and access keys transfer."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h6",
+      "Письмо лишь напоминает не передавать пароли или обсуждает безопасность, без запроса и передачи действующего секрета."
+    ],
+    [
+      "pack-ru2-credential-transfer",
+      "h7",
+      "This is only security advice, a dummy credential example or a prohibition on sharing passwords, with no real secret transfer request."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h0",
+      "Фишинговые требования к получателю"
+    ],
+    [
+      "pack-ru2-phishing",
+      "h1",
+      "Phishing demand"
+    ],
+    [
+      "pack-ru2-phishing",
+      "h2",
+      "Письмо требует от получателя сообщить пароль, одноразовый код или войти по ссылке под предлогом проверки или разблокировки."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h3",
+      "The recipient is urged to reveal a password or one-time code or follow a login link to verify or unblock an account."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h4",
+      "От получателя требуют подтвердить аккаунт, ввести пароль по ссылке или прислать код подтверждения."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h5",
+      "This email concerns phishing demand."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h6",
+      "Письмо только обсуждает распознавание фишинга, цитирует учебный пример или предупреждает не вводить пароль."
+    ],
+    [
+      "pack-ru2-phishing",
+      "h7",
+      "This is only an anti-phishing discussion, warning or training example, not a live demand for credentials or login."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h0",
+      "Вывод информации за пределы организации"
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h1",
+      "Unauthorized external data transfer"
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h2",
+      "Письмо содержит действие по выводу внутренних материалов организации внешнему неуполномоченному получателю."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h3",
+      "The sender sends or requests internal company files to be copied to an unauthorized external address or personal mailbox."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h4",
+      "Внутренние файлы или коммерческие документы организации пересылают либо предлагают выгрузить на личную почту или постороннему."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h5",
+      "This email concerns unauthorized external data transfer."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h6",
+      "Письмо лишь обсуждает предотвращение утечек либо разрешённый внутренний обмен, без вывода информации посторонним."
+    ],
+    [
+      "pack-ru2-data-exfil",
+      "h7",
+      "This only discusses preventing data leaks or authorized internal sharing, not actual external exfiltration."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h0",
+      "Шантаж и вымогательство"
+    ],
+    [
+      "pack-ru2-extortion",
+      "h1",
+      "Blackmail and extortion"
+    ],
+    [
+      "pack-ru2-extortion",
+      "h2",
+      "Письмо требует деньги или другие действия под угрозой раскрытия информации или причинения ущерба."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h3",
+      "The sender demands payment or compliance and threatens to leak information or cause damage if the recipient refuses."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h4",
+      "Отправитель требует выкуп или выполнение условий, иначе угрожает публикацией данных или ущербом."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h5",
+      "This email concerns blackmail and extortion."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h6",
+      "Письмо лишь цитирует шантаж в новости, учебном материале или обсуждении, без действующего требования под угрозой."
+    ],
+    [
+      "pack-ru2-extortion",
+      "h7",
+      "This only discusses or quotes extortion in news or training, without a current coercive demand."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h0",
+      "Сообщения с угрозой взрыва"
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h1",
+      "Threat of explosion"
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h2",
+      "Письмо выражает прямую угрозу взрыва либо утверждает, что взрывное устройство заложено в здании."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h3",
+      "The sender threatens to blow up a building or asserts that an explosive device has been planted."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h4",
+      "Отправитель угрожает взорвать офис или сообщает о заложенной им бомбе как о действующей угрозе."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h5",
+      "This email concerns threat of explosion."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h6",
+      "Письмо лишь цитирует угрозу из новости, книги или учений либо описывает безопасное обучение, без действующей угрозы взрыва."
+    ],
+    [
+      "pack-ru2-explosive-threat",
+      "h7",
+      "This is only news, fiction, a witness discussion or a training exercise about explosions, not a live bomb threat."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h0",
+      "Прямые угрозы физической расправы"
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h1",
+      "Direct threat of physical violence"
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h2",
+      "Письмо содержит прямую угрозу причинить физический вред адресату или другим людям."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h3",
+      "The sender directly threatens to kill, beat, shoot or physically harm the recipient or other people."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h4",
+      "Отправитель выражает намерение убить, избить, застрелить человека или расправиться с людьми."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h5",
+      "This email concerns direct threat of physical violence."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h6",
+      "Письмо лишь цитирует насилие в новости, художественном тексте или учебном примере, без прямой действующей угрозы."
+    ],
+    [
+      "pack-ru2-violence-threat",
+      "h7",
+      "This only quotes violence in fiction, news or training, without a current direct threat to harm people."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h0",
+      "Угрозы саботажа ИТ-инфраструктуры"
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h1",
+      "IT infrastructure sabotage threat"
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h2",
+      "Письмо выражает намерение умышленно повредить серверы, отключить инфраструктуру или уничтожить резервные копии."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h3",
+      "The sender threatens deliberate destruction of servers, intentional service disruption or deletion of backups."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h4",
+      "Отправитель угрожает вывести сервер из строя, уничтожить данные или умышленно удалить резервные копии."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h5",
+      "This email concerns it infrastructure sabotage threat."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h6",
+      "Письмо обсуждает штатное обслуживание, восстановление, тестирование или защиту ИТ, без намерения причинить умышленный ущерб."
+    ],
+    [
+      "pack-ru2-sabotage",
+      "h7",
+      "This is only authorized maintenance, backup testing or a quoted incident, not a deliberate sabotage threat."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h0",
+      "Пересылка персональных данных"
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h1",
+      "Personal data forwarding"
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h2",
+      "Письмо содержит организационный контекст передачи персональных данных, паспортных копий или анкет людей."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h3",
+      "The sender sends, forwards or requests personal records, passport scans or individuals personal data."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h4",
+      "Отправитель направляет или просит переслать персональные данные людей, паспортные сканы или заполненные анкеты."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h5",
+      "This email concerns personal data forwarding."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h6",
+      "Письмо лишь обсуждает законодательство и защиту персональных данных, без конкретной пересылки или запроса таких данных."
+    ],
+    [
+      "pack-ru2-pii-handling",
+      "h7",
+      "This only discusses personal-data protection policy, without sending or requesting actual personal records."
+    ]
+  ],
+  "dtype": "fp32",
+  "gpu": "NVIDIA GeForce RTX 4060",
+  "torch": "2.15.0+cu132",
+  "python": "3.14.4",
+  "batch_size": 16,
+  "max_tokens": 512,
+  "window_characters": 900,
+  "overlap": 100,
+  "score": "softmax([not_entailment, entailment])[1]",
+  "text_sha256": "5bef6deac7a12f65ee845148da918143878d8b4ebea218d54290d5db58621d17",
+  "git_commit": "5caf41e32049d39b0e46e0843152b4529478626a"
+}
