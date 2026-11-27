@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-pii-handling"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.3,
+    "validation": {
+      "pack-ru2-pii-handling": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "support": 4
+      }
+    },
+    "test": {
+      "pack-ru2-pii-handling": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 22
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 174.31097615799808,
+  "maxrss_kib": 1613324,
+  "artifact_sha256": "974bb64b04549e23e63c94c22809064e88183a60ee9443c745d6e369050a0067",
+  "artifact_bytes": 108750540,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

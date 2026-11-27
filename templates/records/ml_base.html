@@ -4,6 +4,7 @@
   {% include 'ui/page_header.html' with title='ML-модели и обучение' %}
   <p class="muted" role="status">ML-анализ выключен · Активных моделей: {{ active_count|default:0 }}</p>
   <nav class="tabs" aria-label="Модели и обучение">
+    {% if perms.identity.administer %}<a href="{% url 'trainer-import' %}">Импорт обученных моделей</a>{% endif %}
     <a href="{% url 'models-page' %}?tab=models"{% if request.resolver_match.url_name == 'models-page' and tab == 'models' %} aria-current="page"{% endif %}>Модели</a>
     {% if perms.identity.investigate and perms.identity.view_originals %}
     <a href="{% url 'datasets-page' %}"{% if request.resolver_match.url_name == 'datasets-page' or request.resolver_match.url_name == 'dataset-detail' %} aria-current="page"{% endif %}>Наборы данных</a>

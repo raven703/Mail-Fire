@@ -17,17 +17,20 @@ from records.catalogs import catalog as identity_catalog
 from records.datasets import datasets
 from records.detectors import detectors
 from records.llm_configuration import configuration as llm_page
-from records.ocr_settings import page as ocr_page, preview as ocr_preview
 from records.messages import imports, messages
 from records.model_management import models as models_page
+from records.ocr_settings import page as ocr_page
+from records.ocr_settings import preview as ocr_preview
 from records.operations import audit, configuration
 from records.performance import performance
 from records.reanalysis import bulk_reanalyze
 from records.references import references
 from records.retention import legal_hold, retention
 from records.semantic import page as semantic_page
+from records.trainer_views import trainer_import
 
 urlpatterns = [
+    path("models/import/", trainer_import, name="trainer-import"),
     path("messages/reanalyze/", bulk_reanalyze, name="messages-reanalyze"),
     path("semantic/", semantic_page, name="semantic-page"),
     path("models/", models_page, name="models-page"),

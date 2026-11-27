@@ -1,0 +1,385 @@
+{
+  "source_hashes": {
+    "b350": {
+      "manifest_sha256": "0555f190d9bfba4492d0470b1a082f712747d416274eb4c6d458bb10111869ef",
+      "observations_sha256": "669ad837e6432350527da365b4cfc1057aea20a2110bdaa3b3dec44116386075"
+    },
+    "b400": {
+      "manifest_sha256": "abe36beac47ccb7b8537fcc4ab6ec8f543428e8537440977285b9f7470b9972b",
+      "observations_sha256": "d18ab4b9e55e05832f079e94f6ec44bf0658003736ef7acdcce03c0fc61825cd"
+    }
+  },
+  "rows": 750,
+  "categories": [
+    "pack-ru2-credential-transfer",
+    "pack-ru2-customer-data",
+    "pack-ru2-data-exfil",
+    "pack-ru2-explosive-threat",
+    "pack-ru2-extortion",
+    "pack-ru2-financial-plans",
+    "pack-ru2-internal-docs",
+    "pack-ru2-phishing",
+    "pack-ru2-pii-handling",
+    "pack-ru2-pricing",
+    "pack-ru2-sabotage",
+    "pack-ru2-violence-threat"
+  ],
+  "source_counts": {
+    "b350": 350,
+    "b400": 400
+  },
+  "status_counts": {
+    "ANALYZED": 742,
+    "PARTIAL": 8
+  },
+  "exact_unique_texts": 730,
+  "exact_duplicate_rows": 20,
+  "exact_label_conflicts": [],
+  "scenario_label_conflicts": [],
+  "scenario_groups": 128,
+  "tfidf_native_split_sizes": {
+    "train": 438,
+    "validation": 146,
+    "test": 146
+  },
+  "tfidf_scenarios_in_multiple_splits": 79,
+  "tfidf_leak_examples": {
+    "b350:cost_margin": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:credential_transfer": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:customer_database_export": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:document_exfiltration": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:dummy_number": [
+      "test",
+      "train"
+    ],
+    "b350:explosive_threat": [
+      "train",
+      "validation"
+    ],
+    "b350:extortion": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:fake_credential_training": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:fictional_threat_quote": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:financial_forecast": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:inn_certificate": [
+      "test",
+      "train"
+    ],
+    "b350:internal_budget": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:it_sabotage": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:mixed_customer_price": [
+      "train",
+      "validation"
+    ],
+    "b350:mixed_finance_pii": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:normal_invoice": [
+      "train",
+      "validation"
+    ],
+    "b350:passport_russian": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:phishing_account": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:phishing_otp": [
+      "test",
+      "train",
+      "validation"
+    ],
+    "b350:phishing_training": [
+      "test",
+      "train"
+    ]
+  },
+  "neural_native_splits": {
+    "pack-ru2-credential-transfer": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 77,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-customer-data": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 78,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-data-exfil": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 77,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-explosive-threat": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 76,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-extortion": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 76,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-financial-plans": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 77,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-internal-docs": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 76,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-phishing": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 78,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-pii-handling": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 76,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:internal_budget"
+      ]
+    },
+    "pack-ru2-pricing": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 79,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-sabotage": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 79,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    },
+    "pack-ru2-violence-threat": {
+      "split_sizes": {
+        "train": 438,
+        "validation": 146,
+        "test": 146
+      },
+      "templates_in_multiple_splits": 75,
+      "leak_examples": [
+        "b350:cost_margin",
+        "b350:credential_transfer",
+        "b350:customer_database_export",
+        "b350:document_exfiltration",
+        "b350:dummy_number",
+        "b350:explosive_threat",
+        "b350:extortion",
+        "b350:fictional_threat_quote",
+        "b350:financial_forecast",
+        "b350:inn_certificate"
+      ]
+    }
+  },
+  "finding": "Native trainers split by individual text hash, not semantic scenario. Threshold validation is contaminated when scenario variants span splits."
+}

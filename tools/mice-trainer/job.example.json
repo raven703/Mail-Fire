@@ -1,0 +1,15 @@
+{
+  "name": "MICE production candidates",
+  "dataset": "datasets/train.jsonl",
+  "evaluation_dataset": "datasets/independent.jsonl",
+  "categories": ["pack-ru2-financial-plans", "pack-ru2-pricing"],
+  "engines": ["tfidf", "setfit", "rubert"],
+  "device": "cuda",
+  "epochs": 2,
+  "batch_size": 8,
+  "max_steps": 150,
+  "seed": 42,
+  "min_f1": 0.7,
+  "base": "~/mice-trainer-data/base_models/rubert-tiny2",
+  "output": "output/production-candidates"
+}

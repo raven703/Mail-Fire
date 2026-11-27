@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "rubert",
+    "labels": [
+      "pack-ru2-customer-data"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.3,
+    "validation": {
+      "pack-ru2-customer-data": {
+        "precision": 1.0,
+        "recall": 0.2,
+        "f1": 0.3333333333333333,
+        "support": 5
+      }
+    },
+    "test": {
+      "pack-ru2-customer-data": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 212.69921870199323,
+  "maxrss_kib": 1328580,
+  "artifact_sha256": "a4f1ed6dc718151cd43684c193a4d800d90fa58ed711e405fbbb010d0108c578",
+  "artifact_bytes": 108745151,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

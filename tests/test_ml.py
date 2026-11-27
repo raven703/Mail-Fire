@@ -35,3 +35,40 @@ def test_untrained_and_conflicting_labels():
     with pytest.raises(ValueError, match="Conflicting"):
         train([{"text": "same text", "labels": ["a"]}, {"text": "SAME   TEXT", "labels": ["b"]}])
     assert group_hash("SAME   TEXT") == group_hash("same text")
+
+
+def test_preassigned_grouped_training_keeps_semantic_groups_separate():
+    data = []
+    for split in ("train", "validation", "test"):
+        for label in ("finance", "public"):
+            for group in range(5):
+                data += [
+                    {"text": f"{label} scenario {split} {group} variant {variant}",
+                     "labels": [label], "group_id": f"{split}:{label}:{group}", "split": split}
+                    for variant in range(2)
+                ]
+    _, metrics, _ = train(data, min_f1=0)
+    hashes = metrics["split_group_hashes"]
+    lookup = {group_hash(row["text"]): row["group_id"] for row in data}
+    groups = [{lookup[key] for key in values} for values in hashes.values()]
+    assert all(not one & two for i, one in enumerate(groups) for two in groups[i + 1:])
+    with pytest.raises(ValueError, match="crosses splits"):
+        train(data + [{**data[0], "text": "different text", "split": "test"}])
+
+
+def test_grouped_training_rejects_missing_class_or_conflicting_duplicate():
+    data = examples()
+    for row in data:
+        row["group_id"] = row["labels"][0] + ":" + row["text"].split()[-1]
+    _, metrics, _ = train(data, min_f1=0)
+    assert sum(metrics["split_sizes"].values()) == len(data)
+    with pytest.raises(ValueError, match="conflicting group or split"):
+        train(data + [{**data[0], "group_id": "another"}])
+    for row in data:
+        row["split"] = "train" if "finance" in row["labels"] else "validation"
+    with pytest.raises(ValueError, match="Every split needs examples"):
+        train(data)
+    for i, row in enumerate(data):
+        row["split"] = "test" if i % 5 == 0 else "validation" if "finance" in row["labels"] else "train"
+    with pytest.raises(ValueError, match="Insufficient positive/negative label coverage"):
+        train(data)

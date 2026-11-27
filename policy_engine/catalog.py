@@ -13,7 +13,7 @@ DETECTORS = {
     ),
     "antivirus": ("Антивирус", "ClamAV INSTREAM; требует включённого сервиса", ["MALWARE"]),
     "secrets": ("Секреты и ключи", "Статические сигнатуры", ["SECRET", "PRIVATE_KEY"]),
-    "confidential": ("Коммерческая тайна", "Контекстные словари", ["CONFIDENTIAL"]),
+    "confidential": ("Грифы конфиденциальности", "Статические текстовые сигнатуры", ["CONFIDENTIAL"]),
     "code": ("Исходный код и команды", "Статические эвристики", ["CODE", "SUSPICIOUS_COMMAND"]),
     "prompt": ("Prompt injection", "Контекстные эвристики", ["PROMPT_INJECTION"]),
     "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),

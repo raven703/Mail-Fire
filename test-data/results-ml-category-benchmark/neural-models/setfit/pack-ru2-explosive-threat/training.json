@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-explosive-threat"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-explosive-threat": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    },
+    "test": {
+      "pack-ru2-explosive-threat": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 199.91744011599803,
+  "maxrss_kib": 1660696,
+  "artifact_sha256": "29f071bad22a12d496b1dba7b54e246be2b8734614ef361fa23acf4fd121dde7",
+  "artifact_bytes": 108751177,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

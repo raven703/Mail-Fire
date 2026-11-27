@@ -78,6 +78,24 @@ def test_binary_splits_are_stratified_without_leakage():
         _binary_data(data[:40], "FINANCE")
 
 
+def test_binary_preassigned_semantic_groups_and_class_coverage():
+    data = []
+    for split in ("train", "validation", "test"):
+        for positive in (False, True):
+            for group in range(4):
+                data.extend({"text": f"{split} {positive} {group} variant {variant}",
+                             "labels": ["FINANCE"] if positive else [],
+                             "group_id": f"{split}:{positive}:{group}", "split": split}
+                            for variant in range(2))
+    splits = _binary_data(data, "FINANCE")
+    assert all(set(targets) == {0, 1} for _, targets in splits.values())
+    with pytest.raises(ValueError, match="crosses splits"):
+        _binary_data(data + [{**data[0], "text": "other", "split": "test"}], "FINANCE")
+    missing = [{**row, "labels": []} if row["split"] == "validation" else row for row in data]
+    with pytest.raises(ValueError, match="Недостаточная представленность"):
+        _binary_data(missing, "FINANCE")
+
+
 def test_model_runtime_preference_and_failure_isolation(monkeypatch):
     from app import ml_runtime
 
@@ -95,10 +113,6 @@ def test_model_runtime_preference_and_failure_isolation(monkeypatch):
         ),
     ]
 
-    class Session:
-        def scalars(self, _query):
-            return iter(rows)
-
     monkeypatch.setattr(
         "app.ml.infer",
         lambda artifact, text: [
@@ -113,7 +127,7 @@ def test_model_runtime_preference_and_failure_isolation(monkeypatch):
         return {"category": category, "matched": True, "confidence": 0.94}
 
     monkeypatch.setattr("app.ml_engines.infer_binary", local)
-    predictions, errors = ml_runtime.infer_active(Session(), "synthetic")
+    predictions, errors = ml_runtime.infer_models(rows, "synthetic")
     assert next(p for p in predictions if p["category"] == "FINANCE")["confidence"] == 0.94
     assert next(p for p in predictions if p["category"] == "SECRET")["engine"] == "tfidf"
     assert len(errors) == 1 and errors[0]["model_id"] == "bad"

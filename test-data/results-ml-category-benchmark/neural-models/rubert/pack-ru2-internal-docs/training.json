@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "rubert",
+    "labels": [
+      "pack-ru2-internal-docs"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-internal-docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 20
+      }
+    },
+    "test": {
+      "pack-ru2-internal-docs": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 183.2433955430024,
+  "maxrss_kib": 1324384,
+  "artifact_sha256": "bb63b9d57cad2d956453b3aa04d1f225a57023e02a172fd42bff9565f1accfc3",
+  "artifact_bytes": 108744740,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}
