@@ -1,0 +1,58 @@
+{
+  "total_emails": 6000,
+  "jsonl_errors": [],
+  "unique_ids": 6000,
+  "duplicate_ids": 0,
+  "label_distribution": {
+    "('pack-ru2-financial-plans', 'pack-ru2-pricing')": 600,
+    "()": 3000,
+    "('pack-ru2-financial-plans',)": 1200,
+    "('pack-ru2-pricing',)": 1200
+  },
+  "financial_plans_count": 1800,
+  "pricing_count": 1800,
+  "unique_groups": 1660,
+  "group_size_distribution": {
+    "3": 1120,
+    "5": 480,
+    "4": 60
+  },
+  "max_group_size": 5,
+  "min_words": 22,
+  "max_words": 428,
+  "avg_words": 106.02366666666667,
+  "length_distribution": {
+    "medium": 3093,
+    "short": 1157,
+    "long": 1734,
+    "very_long": 16
+  },
+  "industry_distribution": {
+    "ecommerce": 325,
+    "it": 335,
+    "government_contractors": 322,
+    "banking": 355,
+    "construction": 326,
+    "telecom": 331,
+    "insurance": 338,
+    "wholesale": 331,
+    "oil_gas": 325,
+    "medicine": 328,
+    "energy": 341,
+    "retail": 338,
+    "consulting": 325,
+    "agriculture": 328,
+    "pharma": 331,
+    "manufacturing": 345,
+    "transport": 331,
+    "logistics": 345
+  },
+  "difficulty_distribution": {
+    "hard": 1986,
+    "medium": 2066,
+    "easy": 1948
+  },
+  "metadata_leak_count": 0,
+  "exact_duplicates": 0,
+  "near_duplicates": 1
+}
