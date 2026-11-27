@@ -11,7 +11,24 @@
       <h3>Базовый риск</h3><p>{{ detector_help.risk }}</p>
       <h3>Ограничения</h3><p>{{ detector_help.limitations }}</p>
       <details class="ui-disclosure"><summary>Технические подробности</summary>
-        <p><strong>Реализация:</strong> <code>{{ detector_help.source }}</code></p>
+        <h3>Логика срабатывания</h3><p>{{ detector_help.logic }}</p>
+        <h3>Область проверки</h3><p>{{ detector_help.scope }}</p>
+        {% for native_rule in detector_help.rules %}
+          <div class="builtin-rule-detail">
+            <strong>{{ native_rule.id }}</strong>
+            <p class="muted">{{ native_rule.kind }} · {{ native_rule.flags }}{% if native_rule.risk %} · Риск {{ native_rule.risk }}{% endif %}{% if native_rule.version %} · {{ native_rule.version }}{% endif %}</p>
+            {% if admin %}<details class="ui-disclosure"><summary>Исходное регулярное выражение</summary><pre class="builtin-rule-pattern"><code>{{ native_rule.pattern }}</code></pre></details>{% else %}<p class="muted">Исходный шаблон доступен администратору.</p>{% endif %}
+          </div>
+        {% endfor %}
+        {% for spec in detector_help.templates %}
+          <div class="builtin-rule-detail"><strong>{{ spec.label }}</strong>
+            <p>Порог постоянных реквизитов: {{ spec.minimum }}. Дополнительно проверяются переменные поля; для паспорта предусмотрена отдельная проверка серии и номера.</p>
+            {% if admin %}<ul>{% for anchor in spec.anchors %}<li>{{ anchor }}</li>{% endfor %}</ul>{% endif %}
+          </div>
+        {% endfor %}
+        {% if detector_help.signatures %}<h3>Встроенные сигнатуры</h3><ul>{% for signature in detector_help.signatures %}<li>{{ signature }}</li>{% endfor %}</ul>{% endif %}
+        {% if detector_help.external_note %}<p class="muted">{{ detector_help.external_note }}</p>{% endif %}
+        {% if admin %}<p class="muted">Реализация: <code>{{ detector_help.source }}</code></p>{% endif %}
         <p class="muted">Встроенные алгоритмы не редактируются здесь. Описание не является проверкой текущей доступности сервиса.</p>
       </details>
     {% else %}

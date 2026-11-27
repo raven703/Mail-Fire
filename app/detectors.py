@@ -2,6 +2,26 @@ import re
 
 VERSION = "rules-ru3-1"
 
+TEXT_RULES = (
+    ("EMAIL", r"\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b", 20),
+    ("PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 60),
+    ("INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 60),
+    (
+        "SECRET",
+        r'(?i)(?:password|passwd|api[_-]?key|access[_-]?token)\s*[:=]\s*["\x27]?[^\s"\x27]{8,}',
+        85,
+    ),
+    ("PRIVATE_KEY", r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----", 95),
+    ("CONFIDENTIAL", r"(?i)коммерческая\s+тайна|строго\s+конфиденциально|trade\s+secret", 65),
+    (
+        "PROMPT_INJECTION",
+        r"(?i)ignore\s+(?:all\s+)?previous\s+instructions|игнорируй\s+(?:все\s+)?предыдущие\s+инструкции|отключи\s+(?:dlp|анализ)",
+        60,
+    ),
+    ("CODE", r"(?m)^\s*(?:def \w+\(|import \w+|function \w+\(|SELECT .+ FROM |#!/bin/(?:ba)?sh)", 15),
+    ("SUSPICIOUS_COMMAND", r"(?i)powershell\s+.*-(?:enc|encodedcommand)|curl\s+[^\n]+\|\s*(?:ba)?sh", 80),
+)
+
 
 def inn_valid(value):
     if not value.isascii() or not value.isdigit() or len(set(value)) == 1:
@@ -22,26 +42,7 @@ def inn_valid(value):
 
 def detect(text, *, disabled=()):
     findings = []
-    rules = [
-        ("EMAIL", r"\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b", 20),
-        ("PHONE", r"(?<!\d)(?:\+7|8)[ ()-]*\d{3}[ ()-]*\d{3}[ -]*\d{2}[ -]*\d{2}(?!\d)", 60),
-        ("INN", r"(?<!\d)(?:\d{12}|\d{10})(?!\d)", 60),
-        (
-            "SECRET",
-            r'(?i)(?:password|passwd|api[_-]?key|access[_-]?token)\s*[:=]\s*["\x27]?[^\s"\x27]{8,}',
-            85,
-        ),
-        ("PRIVATE_KEY", r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----", 95),
-        ("CONFIDENTIAL", r"(?i)коммерческая\s+тайна|строго\s+конфиденциально|trade\s+secret", 65),
-        (
-            "PROMPT_INJECTION",
-            r"(?i)ignore\s+(?:all\s+)?previous\s+instructions|игнорируй\s+(?:все\s+)?предыдущие\s+инструкции|отключи\s+(?:dlp|анализ)",
-            60,
-        ),
-        ("CODE", r"(?m)^\s*(?:def \w+\(|import \w+|function \w+\(|SELECT .+ FROM |#!/bin/(?:ba)?sh)", 15),
-        ("SUSPICIOUS_COMMAND", r"(?i)powershell\s+.*-(?:enc|encodedcommand)|curl\s+[^\n]+\|\s*(?:ba)?sh", 80),
-    ]
-    for category, pattern, risk in rules:
+    for category, pattern, risk in TEXT_RULES:
         if category in disabled:
             continue
         for match in re.finditer(pattern, text):

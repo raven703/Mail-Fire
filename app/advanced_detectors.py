@@ -68,12 +68,7 @@ def pii(text, *, disabled=()):
     return output
 
 
-@lru_cache
-def yara_rules():
-    import yara
-
-    return yara.compile(
-        source=r"""
+YARA_SOURCE = r"""
 rule Suspicious_Encoded_PowerShell {
  strings: $a = "powershell" nocase $b = "-encodedcommand" nocase $c = "-enc " nocase
  condition: $a and ($b or $c)
@@ -81,7 +76,13 @@ rule Suspicious_Encoded_PowerShell {
 rule Executable_PE { strings: $mz = {4D 5A} condition: $mz at 0 and uint32(uint32(0x3c)) == 0x00004550 }
 rule EICAR_Test_File { strings: $a = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" condition: $a }
 """
-    )
+
+
+@lru_cache
+def yara_rules():
+    import yara
+
+    return yara.compile(source=YARA_SOURCE)
 
 
 def static_scan(data, name, *, engines=None):

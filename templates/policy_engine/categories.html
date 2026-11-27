@@ -19,7 +19,7 @@
         {% for row in group.list %}
         <tr>
           <td><span title="{{ row.description|default:row.pk }}">{{ row.name }}</span></td>
-          {% with count=rule_counts|lookup:row.pk %}<td>{% detection_method row count %}</td><td>{% if row.mode == 'builtin' %}<span title="Встроенный алгоритм и число дополнительных правил контекста">Встроенные + {{ count }}</span>{% else %}{{ count }}{% endif %}</td>{% endwith %}
+          {% with count=rule_counts|lookup:row.pk %}<td>{% detection_method row count %}</td><td>{% if row.mode == 'builtin' %}<span title="Дополнительных правил контекста: {{ count }}">+{{ count }}</span>{% else %}{{ count }}{% endif %}</td>{% endwith %}
           <td>{% if row.mode == "builtin" %}Встроенная{% else %}<span title="{{ row.match_mode|upper }} — {% if row.match_mode == 'all' %}все правила{% else %}любое правило{% endif %}">{{ row.match_mode|upper }}</span>{% endif %}</td>
           <td>{% if row.active %}{% include 'ui/badge.html' with text='Активна' %}{% else %}{% include 'ui/badge.html' with text='Архив' variant='CLOSED' %}{% endif %}</td>
           <td><div class="ui-row-actions">
