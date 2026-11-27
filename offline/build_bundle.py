@@ -29,6 +29,7 @@ def build():
         shutil.copy2(p, STAGE / p.name)
         (STAGE / p.name).chmod(0o755)
     shutil.copy2(ROOT / "offline/restore_config.py", STAGE)
+    shutil.copy2(ROOT / "offline/README.md", STAGE)
     shutil.copy2(ROOT / "scripts/native_resource_probe.sh", STAGE)
     script = (ROOT / "offline/export_config.py").read_text()
     wrapper = 'import os; os.environ.setdefault("DJANGO_SETTINGS_MODULE","mice.settings"); import django; django.setup(); exec(' + repr(script) + ')'
