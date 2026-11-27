@@ -350,9 +350,11 @@ def read_job(path):
         raise ValueError("Invalid engines/device")
     if "tfidf" in job["engines"] and len(job["categories"]) < 2:
         raise ValueError("TF-IDF requires at least two categories")
-    for key in ("epochs", "batch_size", "max_steps", "seed"):
+    for key in ("epochs", "batch_size", "seed"):
         if type(job[key]) is not int or job[key] < (0 if key == "seed" else 1):
             raise ValueError(f"Invalid {key}")
+    if type(job["max_steps"]) is not int or (job["max_steps"] != -1 and job["max_steps"] < 1):
+        raise ValueError("Invalid max_steps: expected -1 or a positive integer")
     if (type(job["min_f1"]) not in (int, float) or not math.isfinite(job["min_f1"]) or
             not 0 <= job["min_f1"] <= 1):
         raise ValueError("Invalid min_f1")

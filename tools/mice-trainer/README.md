@@ -12,7 +12,8 @@ Paths are resolved relative to the job JSON (home `~` is supported).
 the default is `~/mice-trainer-data/base_models/rubert-tiny2`. Base weights must
 already exist locally; run-job never downloads them. Output must not exist.
 Engine names are `tfidf`, `setfit`, `rubert`; device is `auto`, `cpu`, `cuda`.
-Epochs, batch_size and max_steps are positive integers, seed is nonnegative,
+Epochs and batch_size are positive integers; max_steps is a positive integer
+or -1 for training by the specified epoch count. Seed is nonnegative,
 min_f1 is in [0, 1]. These job fields are required, even for TF-IDF (whose
 native algorithm does not use neural training parameters).
 
@@ -81,7 +82,12 @@ python manage.py import_trainer_model /trusted/models.zip --trust-local-artifact
 
 Exact runtime versions of numpy/scikit-learn are required; neural models also
 require torch/transformers/safetensors, and SetFit additionally setfit and
-sentence-transformers. This conservative policy may require matching server
+sentence-transformers. For torch only, official wheel flavor suffixes `+cpu`
+and `+cu<digits>` (for example `+cu132`) are ignored: the complete public
+version must still match, including prerelease/dev markers. Other local torch
+suffixes and all other critical dependency versions remain strictly checked.
+CPU inference validation after explicit trust confirmation is still required.
+This conservative policy may require matching server
 dependency locks. ZIP limits: 1000 outer entries, 512 MiB per file, 2 GiB expanded
 total, 4 MiB manifest/report; native neural ZIPs allow at most 300 entries.
 Reverse-proxy/upload limits may be lower. All entries are validated, including

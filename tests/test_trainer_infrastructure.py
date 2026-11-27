@@ -112,6 +112,75 @@ def test_invalid_job(job, monkeypatch, key, value):
         trainer.read_job(job)
 
 
+@pytest.mark.parametrize("steps", [-1, 1, 150])
+def test_job_max_steps_allowed(job, monkeypatch, steps):
+    mock_rows(monkeypatch)
+    data = json.loads(job.read_text())
+    data["max_steps"] = steps
+    job.write_text(json.dumps(data))
+    parsed, _, _ = trainer.read_job(job)
+    assert parsed["max_steps"] == steps
+    training = Mock(side_effect=AssertionError("dry-run must not train"))
+    monkeypatch.setattr(trainer, "training", training)
+    assert trainer.run_job(SimpleNamespace(job=job, dry_run=True))["model_count"] == 5
+    training.assert_not_called()
+
+
+@pytest.mark.parametrize("steps", [-2, 0, True, False, -1.0, "-1", None])
+def test_job_max_steps_rejects_invalid(job, monkeypatch, steps):
+    mock_rows(monkeypatch)
+    data = json.loads(job.read_text())
+    data["max_steps"] = steps
+    job.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="max_steps"):
+        trainer.read_job(job)
+
+
+@pytest.mark.parametrize("exported,installed", [
+    ("2.9.1+cu132", "2.9.1+cpu"), ("2.9.1+cpu", "2.9.1+cu132"),
+    ("2.9.1+cu132", "2.9.1"), ("2.9.1", "2.9.1+cpu"),
+    ("2.9.1+cu128", "2.9.1+cu132"),
+    ("2.10.0rc1+cu132", "2.10.0rc1+cpu"),
+])
+@pytest.mark.parametrize("engine", ["setfit", "rubert"])
+def test_torch_cpu_cuda_flavors_compatible(monkeypatch, exported, installed, engine):
+    import app.trainer_package as packages
+    local = dict.fromkeys(("numpy", "scikit-learn", "transformers", "safetensors",
+                           "setfit", "sentence-transformers"), "fixture-exact")
+    local["torch"] = installed
+    monkeypatch.setattr(packages, "versions", lambda: local)
+    packages.check_versions({"engine": engine, "versions": dict(local, torch=exported)})
+
+
+@pytest.mark.parametrize("exported,installed", [
+    ("2.9.0+cu132", "2.9.1+cpu"), ("2.10.0+cu132", "2.9.1+cpu"),
+    ("2.9.1rc1+cu132", "2.9.1+cpu"), ("2.9.1.dev1+cu132", "2.9.1+cpu"),
+    ("2.9.1+custom", "2.9.1+cpu"), ("2.9.1+cu132.patch", "2.9.1+cpu"),
+    (None, "2.9.1+cpu"), ("2.9.1+cu132", None),
+])
+def test_torch_public_version_and_custom_builds_strict(monkeypatch, exported, installed):
+    import app.trainer_package as packages
+    local = dict.fromkeys(("numpy", "scikit-learn", "transformers", "safetensors"), "fixture")
+    local["torch"] = installed
+    monkeypatch.setattr(packages, "versions", lambda: local)
+    with pytest.raises(ValueError, match="torch"):
+        packages.check_versions({"engine": "rubert", "versions": dict(local, torch=exported)})
+
+
+@pytest.mark.parametrize("dependency", ["numpy", "scikit-learn", "transformers", "safetensors",
+                                         "setfit", "sentence-transformers"])
+def test_other_critical_dependencies_remain_exact(monkeypatch, dependency):
+    import app.trainer_package as packages
+    local = dict.fromkeys(("numpy", "scikit-learn", "transformers", "safetensors",
+                           "setfit", "sentence-transformers"), "1.0+cpu")
+    local["torch"] = "2.9.1+cpu"
+    exported = dict(local, torch="2.9.1+cu132")
+    exported[dependency] = "1.0+cu132"
+    monkeypatch.setattr(packages, "versions", lambda: local)
+    with pytest.raises(ValueError, match=dependency):
+        packages.check_versions({"engine": "setfit", "versions": exported})
+
+
 def test_orchestration_mock_training(job, monkeypatch):
     mock_rows(monkeypatch)
     data = json.loads(job.read_text())
@@ -276,6 +345,7 @@ def test_all_engines_same_split_and_independent_evaluation(job, monkeypatch):
     rows = mock_rows(monkeypatch)
     data = json.loads(job.read_text())
     data["evaluation_dataset"] = "independent.jsonl"
+    data["max_steps"] = -1
     job.write_text(json.dumps(data))
     external = [dict(id="external1", group_id="external", text="external positive", labels=["a", "b"]),
                 dict(id="external2", group_id="external", text="external negative", labels=[])]
@@ -283,6 +353,8 @@ def test_all_engines_same_split_and_independent_evaluation(job, monkeypatch):
     seen = []
 
     def fake_training(args):
+        assert args.max_steps == -1
+        assert args.epochs == data["epochs"]
         seen.append([r["split"] for r in map(json.loads, args.dataset.read_text().splitlines())])
         args.output.mkdir()
         meta = metadata()

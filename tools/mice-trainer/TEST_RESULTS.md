@@ -1,3 +1,18 @@
+# Follow-up infrastructure fixes — 2026-11-27
+
+- Targeted infrastructure/import suite: **69 passed** (isolated temporary venv).
+- Ruff and Python syntax compilation for changed Python files: passed.
+- JSON jobs accept `max_steps: -1`; tests verify dry-run, invalid values and
+  unchanged forwarding of both max_steps and epochs to all mock training calls.
+- PyTorch version checks allow identical public releases across official CPU/CUDA
+  wheel suffixes (including `+cu132` versus `+cpu`), with tests for both neural
+  engines and both directions. Public release/prerelease/dev mismatches, custom
+  suffix mismatches and other critical dependency mismatches remain rejected.
+- This verifies compatibility policy, not actual weight loading across installed
+  PyTorch builds. No real model training, inference, GPU smoke checks, benchmark,
+  model downloads or working-database access were performed in this follow-up.
+  Existing trusted-import CPU inference validation remains unchanged.
+
 # Infrastructure verification — 2026-11-27
 
 - Isolated Python environment: `/tmp/mice-trainer-infra-venv`, Python 3.12.

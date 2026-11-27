@@ -3,6 +3,7 @@ import hashlib
 import io
 import json
 import math
+import re
 import stat
 import zipfile
 from importlib.metadata import PackageNotFoundError, version
@@ -38,7 +39,13 @@ def check_versions(meta):
         required |= {"setfit", "sentence-transformers"}
     local = versions()
     for name in required:
-        if not meta["versions"].get(name) or meta["versions"][name] != local.get(name):
+        exported, installed = meta["versions"].get(name), local.get(name)
+        if name == "torch":
+            # Ignore only official CPU/CUDA wheel flavor labels, not arbitrary
+            # local patches. Keep the complete public release (including rc/dev).
+            exported = re.sub(r"\+(?:cpu|cu[0-9]+)$", "", exported) if isinstance(exported, str) else None
+            installed = re.sub(r"\+(?:cpu|cu[0-9]+)$", "", installed) if isinstance(installed, str) else None
+        if not exported or exported != installed:
             raise ValueError(f"Library version mismatch: {name}; use native dependency locks")
 
 
