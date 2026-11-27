@@ -132,12 +132,18 @@ def _hits(rule, category, text, matches, ml_scores, *, prepared=None, compiled=N
         return result
     if rule.kind == "ml":
         prediction = ml_scores.get(category.id)
+        predictions = prediction if isinstance(prediction, list) else [prediction] if prediction else []
+        return [dict(_make_finding(category, rule, "", "custom-ml", confidence=p["confidence"]),
+                     ml_engine=p.get("engine"), model_id=p.get("model_id")) for p in predictions
+                if p["matched"] and p["confidence"] >= float(config.get("min_confidence", .7))]
+    if rule.kind == "horizon":
+        prediction = ml_scores.get("horizon:" + rule.id)
         if (
             prediction
             and prediction["matched"]
-            and prediction["confidence"] >= float(config.get("min_confidence", 0.7))
         ):
-            return [_make_finding(category, rule, "", "custom-ml", confidence=prediction["confidence"])]
+            return [{**_make_finding(category, rule, prediction["excerpt"], "custom-horizon", confidence=prediction["confidence"]),
+                     **{k:v for k,v in prediction.items() if k not in {"matched"}}}]
         return []
     return []
 
@@ -150,14 +156,14 @@ def custom_findings(session, text, *, references=(), ml_scores=None, available_e
     for detecting, not proof that text is safe).
     """
     return evaluate_groups(
-        rules_for(session).values(), text, references=references,
+        rules_for(session).values(), text, references=references,  # noqa: F821 - retained legacy API, unused by Django
         ml_scores=ml_scores, available_engines=available_engines,
     )
 
 
 def evaluate_groups(groups, text, *, references=(), ml_scores=None, available_engines=None, normalized=None, compiled=None, prepared=None):
     """Persistence-independent rule evaluation shared by native Django and reference app."""
-    from app.text_match import PreparedDocument, CompiledRuleSet
+    from app.text_match import CompiledRuleSet, PreparedDocument
     prepared = prepared if prepared is not None else PreparedDocument(text)
     variant_prepared = PreparedDocument(normalized[0]) if normalized else None
     compiled = compiled if compiled is not None else CompiledRuleSet()

@@ -1,0 +1,128 @@
+{
+  "pack-ru2-financial-plans": {
+    "positive_hypotheses": [
+      "Непубличные финансовые планы",
+      "The sender shares an internal financial forecast, budget or future spending plan not intended for the public."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.25,
+    "combine": "mean",
+    "aggregation": "max"
+  },
+  "pack-ru2-pricing": {
+    "positive_hypotheses": [
+      "Письмо содержит индивидуальную скидку, специальную цену, закрытую себестоимость или непубличные коммерческие условия.",
+      "The sender discloses a customer-specific discount, individually negotiated price, private cost or markup."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.1,
+    "combine": "min",
+    "aggregation": "max"
+  },
+  "pack-ru2-internal-docs": {
+    "positive_hypotheses": [
+      "This email concerns restricted internal documents."
+    ],
+    "excluding_hypotheses": [
+      "Письмо лишь обсуждает правила конфиденциальности или содержит общедоступные документы без действующей пометки ограничения доступа."
+    ],
+    "threshold": 0.45,
+    "combine": "subtract",
+    "aggregation": "max"
+  },
+  "pack-ru2-customer-data": {
+    "positive_hypotheses": [
+      "Письмо сообщает о выгрузке или передаче массива клиентских записей, базы клиентов либо списка контактов.",
+      "Отправитель пересылает или просит выгрузить клиентскую базу, таблицу клиентов или список контактных записей."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.4,
+    "combine": "min",
+    "aggregation": "max"
+  },
+  "pack-ru2-credential-transfer": {
+    "positive_hypotheses": [
+      "Письмо содержит просьбу передать рабочий пароль, API-токен, ключ доступа или саму передачу этих секретов."
+    ],
+    "excluding_hypotheses": [
+      "Письмо лишь напоминает не передавать пароли или обсуждает безопасность, без запроса и передачи действующего секрета."
+    ],
+    "threshold": 0.15,
+    "combine": "product",
+    "aggregation": "max"
+  },
+  "pack-ru2-phishing": {
+    "positive_hypotheses": [
+      "Письмо требует от получателя сообщить пароль, одноразовый код или войти по ссылке под предлогом проверки или разблокировки.",
+      "This email concerns phishing demand."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.15,
+    "combine": "min",
+    "aggregation": "max"
+  },
+  "pack-ru2-data-exfil": {
+    "positive_hypotheses": [
+      "Unauthorized external data transfer",
+      "Внутренние файлы или коммерческие документы организации пересылают либо предлагают выгрузить на личную почту или постороннему."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.35,
+    "combine": "mean",
+    "aggregation": "max"
+  },
+  "pack-ru2-extortion": {
+    "positive_hypotheses": [
+      "Письмо требует деньги или другие действия под угрозой раскрытия информации или причинения ущерба."
+    ],
+    "excluding_hypotheses": [
+      "Письмо лишь цитирует шантаж в новости, учебном материале или обсуждении, без действующего требования под угрозой."
+    ],
+    "threshold": 0.1,
+    "combine": "subtract",
+    "aggregation": "max"
+  },
+  "pack-ru2-explosive-threat": {
+    "positive_hypotheses": [
+      "Сообщения с угрозой взрыва"
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.55,
+    "combine": "single",
+    "aggregation": "max"
+  },
+  "pack-ru2-violence-threat": {
+    "positive_hypotheses": [
+      "Прямые угрозы физической расправы",
+      "Письмо содержит прямую угрозу причинить физический вред адресату или другим людям."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.5,
+    "combine": "max",
+    "aggregation": "max"
+  },
+  "pack-ru2-sabotage": {
+    "positive_hypotheses": [
+      "Письмо выражает намерение умышленно повредить серверы, отключить инфраструктуру или уничтожить резервные копии.",
+      "The sender threatens deliberate destruction of servers, intentional service disruption or deletion of backups."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.1,
+    "combine": "mean",
+    "aggregation": "max"
+  },
+  "pack-ru2-pii-handling": {
+    "positive_hypotheses": [
+      "Пересылка персональных данных",
+      "Personal data forwarding",
+      "Письмо содержит организационный контекст передачи персональных данных, паспортных копий или анкет людей.",
+      "The sender sends, forwards or requests personal records, passport scans or individuals personal data.",
+      "Отправитель направляет или просит переслать персональные данные людей, паспортные сканы или заполненные анкеты.",
+      "This email concerns personal data forwarding."
+    ],
+    "excluding_hypotheses": [],
+    "threshold": 0.45,
+    "combine": "mean",
+    "aggregation": "max"
+  }
+}

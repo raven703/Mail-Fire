@@ -225,7 +225,7 @@
           const deleted = editor.querySelector('[name$="-DELETE"]');
           if (title.trim() && !(deleted && deleted.checked)) count++;
           details.querySelector('[data-rule-title]').textContent = title || 'Новое правило';
-          const kinds = {keywords: 'Ключевые слова', regex: 'Регулярное выражение', reference: 'Эталонные документы', ml: 'Модель машинного обучения'};
+          const kinds = {keywords: 'Ключевые слова', regex: 'Регулярное выражение', reference: 'Эталонные документы', ml: 'Модель машинного обучения', horizon: 'Horizon Zero-shot'};
           const terms = [...editor.querySelectorAll('[data-term-row] input[name$="_text"]')].filter(input => input.value.trim()).length;
           details.querySelector('[data-rule-meta]').textContent = (kinds[value('kind')] || 'Тип не выбран') +
             ' · Терминов: ' + terms + ' · Риск: ' + value('risk') +

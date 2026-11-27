@@ -127,6 +127,12 @@ def infer_optional(job):
     run(job)
 
 
+def infer_horizon(job):
+    from pipeline.horizon_detection import run
+
+    run(job)
+
+
 def analyze_message(job):
     from pipeline.analysis import analyze
 
@@ -134,6 +140,7 @@ def analyze_message(job):
 
 
 handlers = {
+    'horizon.infer': ('neural', infer_horizon),
     "analysis.analyze": ("analysis", analyze_message),
     "neural.infer": ("neural", infer_optional),
     "ml.infer": ("ml", infer_optional),

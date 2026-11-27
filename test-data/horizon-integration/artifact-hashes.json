@@ -1,0 +1,22 @@
+{
+  "README.md": "dde1175b904857ab4f6bc5b258e41f7a48dd684e52e2a1a7ebecf9da56d0211a",
+  "REPORT.md": "998c987293fb856dd6b18768208904dfd3d9b2c1d18d90023a072238e2171c76",
+  "category-grid-fp16.jsonl.gz": "9169ca228e124bc785f958db9bf0e9ed0124d4a67b38dd87c3338a578a1b9468",
+  "category-grid-fp32.jsonl.gz": "62ce5311a265451c505550866a589dc56e73f1b6c335bcb47dbdc24cad08de71",
+  "combine.py": "d56ba68dc271c045ad4c5e3f9631c400d7f2e86b293e80a2f156d397d34baa24",
+  "combined-predictions.jsonl.gz": "ec5ff6c922d9163b1751fbc9190f3264c1299bfe363ffb501c491a24428e68fd",
+  "cpu-results.json": "f7c9579c645b846c184ff6d7494737373900b34a8797b09f78173ce354836819",
+  "cpu_smoke.py": "f53eaefb58489c5f3e180956d767a3371a4c1e27fcafe3f1066cbc2d999622d1",
+  "metrics.json": "bdfb0e87b2be89285c2ca50fccf0116b3373940422cbfba147f967b9c3323b5b",
+  "provenance.json": "5135b564ededc2ab25a7f877841fdb4001c379c2d93db3d398a4879028a0f213",
+  "recommendations.json": "bf7dfe2b449cfb231047b257fa228cf2520a301b672d9bf91756eecba365c937",
+  "render_report.py": "f856f25fe0989bc6d1795d3d196cbc3bb7b96299c0d5e3b6fe4522648f986ccb",
+  "summary.csv": "953578412e7e48b0fed0174d7c5dc53f6f33a60ae2d57043e2e61ae774fc0781",
+  "validation/browser.json": "271bfc0d180c925c11f38affe917a589d1fd4cf2cc9c1d1a849ec8b5ccfe9713",
+  "validation/cpu-environment.txt": "a56bc250c43b2cf858f480f0535ed23c14102e9bb19f74a9f3eabd035175fb9d",
+  "validation/django-tests.log": "cb234937586ffec5d97ef544b1dbc1a3eaf97aa40a672de5d8fcc6d4d1a08ac8",
+  "validation/pip-check.txt": "09ad7eb5f8cdc3cc2830943253a63a8af7023ed5187c68b6a8db6ef4da997cbc",
+  "validation/pytest.log": "64013e3e3cdce01a7aa9806912d7b4e8569572798fbe69af8fee54e060d424f0",
+  "validation/ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+  "validation/test-environment.txt": "66b8b67761aa4680313dd5d413be0b5ff2197bb91af8d5bf3cd1eea71d675533"
+}

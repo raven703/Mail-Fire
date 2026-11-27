@@ -12,13 +12,13 @@ from django.http import HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
+from app.category_catalog import LEGACY_ALIASES
 from pipeline.models import WorkItem
 from pipeline.services import enqueue, finish, locked_current
 from records.category_picker import LabelForm
-from app.category_catalog import LEGACY_ALIASES
 from records.datasets import update_dataset
-from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
 from records.ml_status import ml_status
+from records.models import Audit, Category, MLDataset, MLModel, TrainingExample
 from records.operations import admin_access
 from records.workspace import access
 
@@ -119,11 +119,11 @@ def model_action(actor, model_id, action):
     with connection.cursor() as cursor:
         cursor.execute("SELECT pg_advisory_xact_lock(hashtext('ml-publication'))")
     row = get_object_or_404(MLModel.objects.select_for_update(), pk=model_id)
-    before = list(MLModel.objects.filter(category_id=row.category_id, active=True).values_list("pk", flat=True))
+    before = list(MLModel.objects.filter(category_id=row.category_id, engine=row.engine, active=True).values_list("pk", flat=True))
     if action in {"publish", "rollback"}:
         if not row.eligible:
             raise ValueError("Модель не прошла quality gate")
-        MLModel.objects.filter(category_id=row.category_id).update(active=False)
+        MLModel.objects.filter(category_id=row.category_id, engine=row.engine).update(active=False)
         row.active = True
         row.save(update_fields=["active"])
     elif action == "deactivate":

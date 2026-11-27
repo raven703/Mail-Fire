@@ -1,0 +1,27 @@
+Creating test database for alias 'default'...
+.............sssssssssssss.............................................................parser service=parser operation=mail status=408 reason=http_error
+parser service=parser operation=mail status=429 reason=overloaded
+parser service=parser operation=mail status=500 reason=http_error
+parser service=parser operation=mail status=502 reason=http_error
+parser service=parser operation=mail status=503 reason=unavailable
+parser service=parser operation=mail status=504 reason=upstream_timeout
+parser service=parser operation=mail status=301 reason=http_error
+parser service=parser operation=mail status=400 reason=invalid_request
+parser service=parser operation=mail status=401 reason=http_error
+parser service=parser operation=mail status=404 reason=http_error
+parser service=parser operation=mail status=413 reason=input_limit
+parser service=parser operation=mail status=422 reason=input_rejected
+.parser service=parser operation=mail status=0 reason=transport
+.parser status=429 reason=queue_full
+..........................................................................................................................................
+----------------------------------------------------------------------
+Ran 227 tests in 7.278s
+
+OK (skipped=13)
+Destroying test database for alias 'default'...
+Found 227 test(s).
+System check identified no issues (0 silenced).
+12 disabled rules installed; no categories/settings changed
+0 disabled rules installed; no categories/settings changed
+Imported 1 accounts; legacy sessions not imported
+Imported 0 accounts; legacy sessions not imported

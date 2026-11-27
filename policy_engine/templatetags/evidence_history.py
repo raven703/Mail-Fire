@@ -86,6 +86,26 @@ def group_findings(findings, document_names=None):
     return list(groups.values())
 
 
+def group_categories(groups):
+    """Optional category-level presentation; retain all original method groups."""
+    result = {}
+    for group in groups:
+        cid = group['finding'].get('category')
+        bucket = result.setdefault(cid, {'category':cid, 'name':group['finding'].get('historical_category') or cid,
+                                        'methods':[], 'groups':[]})
+        for row in [group['finding']] + group['finding'].get('supporting_rules', []):
+            method = row.get('ml_engine') or row.get('source', '')
+            if method not in bucket['methods']:
+                bucket['methods'].append(method)
+        bucket['groups'].append(group)
+    return list(result.values())
+
+
+@register.simple_tag(takes_context=True)
+def category_findings(context, findings):
+    return group_categories(grouped_findings(context, findings))
+
+
 @register.simple_tag(takes_context=True)
 def grouped_findings(context, findings):
     incident = context.get("incident")

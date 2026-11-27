@@ -1,0 +1,1058 @@
+{
+  "python": "3.14.4",
+  "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "torch": "2.15.0+cu132",
+  "transformers": "5.23.0",
+  "device": "cpu",
+  "CUDA_VISIBLE_DEVICES": "",
+  "weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+  "cold_probe_seconds": 3.4194516980023764,
+  "cold_probe_score": [
+    0.9081850051879883
+  ],
+  "peak_RSS_MiB": 1773.47265625,
+  "examples": [
+    {
+      "name": "short",
+      "characters": 28,
+      "seconds": 2.588513212001999,
+      "predictions": {
+        "pack-ru2-financial-plans": {
+          "confidence": 0.0502540972083807,
+          "matched": false,
+          "horizon_score": 0.0502540972083807,
+          "horizon_threshold": 0.25,
+          "horizon_hypotheses": [
+            {
+              "text": "Непубличные финансовые планы",
+              "score": 0.06823425740003586,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender shares an internal financial forecast, budget or future spending plan not intended for the public.",
+              "score": 0.03227393701672554,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "85a678c71cf2db3095a26c6da0f2c18333689496b70fc2c0e3fb1df889688063",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pricing": {
+          "confidence": 0.013278160244226456,
+          "matched": false,
+          "horizon_score": 0.013278160244226456,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит индивидуальную скидку, специальную цену, закрытую себестоимость или непубличные коммерческие условия.",
+              "score": 0.02027239464223385,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender discloses a customer-specific discount, individually negotiated price, private cost or markup.",
+              "score": 0.013278160244226456,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "bb7424553ab79726c693479580c5c0237f1d423bd043043fd2bc9ebc37736d4e",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-internal-docs": {
+          "confidence": 0.0,
+          "matched": false,
+          "horizon_score": 0.0,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "This email concerns restricted internal documents.",
+              "score": 0.010956166312098503,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь обсуждает правила конфиденциальности или содержит общедоступные документы без действующей пометки ограничения доступа.",
+              "score": 0.012037566863000393,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "8b80f7c44d535ef0a7e9af5e3bf93fdd350dddd1d82337cc8d972fe8b445bb92",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-customer-data": {
+          "confidence": 0.009036051109433174,
+          "matched": false,
+          "horizon_score": 0.009036051109433174,
+          "horizon_threshold": 0.4,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо сообщает о выгрузке или передаче массива клиентских записей, базы клиентов либо списка контактов.",
+              "score": 0.009036051109433174,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель пересылает или просит выгрузить клиентскую базу, таблицу клиентов или список контактных записей.",
+              "score": 0.011680331081151962,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8b1b882424b3a51ed190552f9735adf2249fbb9b6388692039f2214d83d3c709",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-credential-transfer": {
+          "confidence": 0.008729807268306985,
+          "matched": false,
+          "horizon_score": 0.008729807268306985,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит просьбу передать рабочий пароль, API-токен, ключ доступа или саму передачу этих секретов.",
+              "score": 0.008930710144340992,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь напоминает не передавать пароли или обсуждает безопасность, без запроса и передачи действующего секрета.",
+              "score": 0.022495733574032784,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "9c3d871142b84dd45a68779d167e8cb3f41abc1ca17e97158b7fea22f27fa3a7",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "product",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-phishing": {
+          "confidence": 0.0014512711204588413,
+          "matched": false,
+          "horizon_score": 0.0014512711204588413,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует от получателя сообщить пароль, одноразовый код или войти по ссылке под предлогом проверки или разблокировки.",
+              "score": 0.012546260841190815,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns phishing demand.",
+              "score": 0.0014512711204588413,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8f0cda51981860751c8b772477f063bf98c88810b56472d39934f2b0bc8f4264",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-data-exfil": {
+          "confidence": 0.00977142876945436,
+          "matched": false,
+          "horizon_score": 0.00977142876945436,
+          "horizon_threshold": 0.35,
+          "horizon_hypotheses": [
+            {
+              "text": "Unauthorized external data transfer",
+              "score": 0.0039922683499753475,
+              "polarity": "positive"
+            },
+            {
+              "text": "Внутренние файлы или коммерческие документы организации пересылают либо предлагают выгрузить на личную почту или постороннему.",
+              "score": 0.015550589188933372,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "fef618dca18fed01a91b971079a9498afa6a54e483ea0c5707d6e793bb20faab",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-extortion": {
+          "confidence": 0.023949000984430313,
+          "matched": false,
+          "horizon_score": 0.023949000984430313,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует деньги или другие действия под угрозой раскрытия информации или причинения ущерба.",
+              "score": 0.03366110846400261,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь цитирует шантаж в новости, учебном материале или обсуждении, без действующего требования под угрозой.",
+              "score": 0.009712107479572296,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "cf7ddc22492f98db7d64a642162b19783fe72b3a33bbf9f0a312e0a92ad092f8",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-explosive-threat": {
+          "confidence": 0.9274541735649109,
+          "matched": true,
+          "horizon_score": 0.9274541735649109,
+          "horizon_threshold": 0.55,
+          "horizon_hypotheses": [
+            {
+              "text": "Сообщения с угрозой взрыва",
+              "score": 0.9274541735649109,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "0571eb2d7bfc480480a9eb21d1a7cd29e678bb7c9667bb7ee261c78721b84397",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "single",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-violence-threat": {
+          "confidence": 0.32655462622642517,
+          "matched": false,
+          "horizon_score": 0.32655462622642517,
+          "horizon_threshold": 0.5,
+          "horizon_hypotheses": [
+            {
+              "text": "Прямые угрозы физической расправы",
+              "score": 0.32655462622642517,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит прямую угрозу причинить физический вред адресату или другим людям.",
+              "score": 0.18847699463367462,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "19e16ec7746c681035b020848906d1d481f62e05c38c5687a0dbd48a3e5a7004",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "max",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-sabotage": {
+          "confidence": 0.15491487458348274,
+          "matched": true,
+          "horizon_score": 0.15491487458348274,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо выражает намерение умышленно повредить серверы, отключить инфраструктуру или уничтожить резервные копии.",
+              "score": 0.12001707404851913,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender threatens deliberate destruction of servers, intentional service disruption or deletion of backups.",
+              "score": 0.18981267511844635,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "4fd74b77b9cc5f9f9b57a2f6ce5768e42dab17e2b92337c0bd0bafb690fce733",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pii-handling": {
+          "confidence": 0.008879261615220457,
+          "matched": false,
+          "horizon_score": 0.008879261615220457,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "Пересылка персональных данных",
+              "score": 0.002123592421412468,
+              "polarity": "positive"
+            },
+            {
+              "text": "Personal data forwarding",
+              "score": 0.0023850630968809128,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит организационный контекст передачи персональных данных, паспортных копий или анкет людей.",
+              "score": 0.035204578191041946,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender sends, forwards or requests personal records, passport scans or individuals personal data.",
+              "score": 0.004904658999294043,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель направляет или просит переслать персональные данные людей, паспортные сканы или заполненные анкеты.",
+              "score": 0.007083119358867407,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns personal data forwarding.",
+              "score": 0.0015745576238259673,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "58504d51d717482f42af8f3139eae9dfe0670e4692672b74fb36b2d6e0527dfc",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 28,
+          "excerpt": "Завтра взорву офис компании.",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "safe",
+      "characters": 33,
+      "seconds": 1.9791602570003306,
+      "predictions": {
+        "pack-ru2-financial-plans": {
+          "confidence": 0.012097707251086831,
+          "matched": false,
+          "horizon_score": 0.012097707251086831,
+          "horizon_threshold": 0.25,
+          "horizon_hypotheses": [
+            {
+              "text": "Непубличные финансовые планы",
+              "score": 0.017487915232777596,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender shares an internal financial forecast, budget or future spending plan not intended for the public.",
+              "score": 0.006707499269396067,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "85a678c71cf2db3095a26c6da0f2c18333689496b70fc2c0e3fb1df889688063",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pricing": {
+          "confidence": 0.024191273376345634,
+          "matched": false,
+          "horizon_score": 0.024191273376345634,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит индивидуальную скидку, специальную цену, закрытую себестоимость или непубличные коммерческие условия.",
+              "score": 0.024191273376345634,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender discloses a customer-specific discount, individually negotiated price, private cost or markup.",
+              "score": 0.026325061917304993,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "bb7424553ab79726c693479580c5c0237f1d423bd043043fd2bc9ebc37736d4e",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-internal-docs": {
+          "confidence": 0.0,
+          "matched": false,
+          "horizon_score": 0.0,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "This email concerns restricted internal documents.",
+              "score": 0.0033768112771213055,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь обсуждает правила конфиденциальности или содержит общедоступные документы без действующей пометки ограничения доступа.",
+              "score": 0.030605264008045197,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "8b80f7c44d535ef0a7e9af5e3bf93fdd350dddd1d82337cc8d972fe8b445bb92",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-customer-data": {
+          "confidence": 0.05208352580666542,
+          "matched": false,
+          "horizon_score": 0.05208352580666542,
+          "horizon_threshold": 0.4,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо сообщает о выгрузке или передаче массива клиентских записей, базы клиентов либо списка контактов.",
+              "score": 0.06348775327205658,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель пересылает или просит выгрузить клиентскую базу, таблицу клиентов или список контактных записей.",
+              "score": 0.05208352580666542,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8b1b882424b3a51ed190552f9735adf2249fbb9b6388692039f2214d83d3c709",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-credential-transfer": {
+          "confidence": 0.013792952507107917,
+          "matched": false,
+          "horizon_score": 0.013792952507107917,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит просьбу передать рабочий пароль, API-токен, ключ доступа или саму передачу этих секретов.",
+              "score": 0.014203519560396671,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь напоминает не передавать пароли или обсуждает безопасность, без запроса и передачи действующего секрета.",
+              "score": 0.02890600822865963,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "9c3d871142b84dd45a68779d167e8cb3f41abc1ca17e97158b7fea22f27fa3a7",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "product",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-phishing": {
+          "confidence": 0.00011700153117999434,
+          "matched": false,
+          "horizon_score": 0.00011700153117999434,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует от получателя сообщить пароль, одноразовый код или войти по ссылке под предлогом проверки или разблокировки.",
+              "score": 0.010056175291538239,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns phishing demand.",
+              "score": 0.00011700153117999434,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8f0cda51981860751c8b772477f063bf98c88810b56472d39934f2b0bc8f4264",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-data-exfil": {
+          "confidence": 0.02176282907021232,
+          "matched": false,
+          "horizon_score": 0.02176282907021232,
+          "horizon_threshold": 0.35,
+          "horizon_hypotheses": [
+            {
+              "text": "Unauthorized external data transfer",
+              "score": 0.00060522515559569,
+              "polarity": "positive"
+            },
+            {
+              "text": "Внутренние файлы или коммерческие документы организации пересылают либо предлагают выгрузить на личную почту или постороннему.",
+              "score": 0.04292043298482895,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "fef618dca18fed01a91b971079a9498afa6a54e483ea0c5707d6e793bb20faab",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-extortion": {
+          "confidence": 0.0,
+          "matched": false,
+          "horizon_score": 0.0,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует деньги или другие действия под угрозой раскрытия информации или причинения ущерба.",
+              "score": 0.0012114732526242733,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь цитирует шантаж в новости, учебном материале или обсуждении, без действующего требования под угрозой.",
+              "score": 0.017922699451446533,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "cf7ddc22492f98db7d64a642162b19783fe72b3a33bbf9f0a312e0a92ad092f8",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-explosive-threat": {
+          "confidence": 0.000866934540681541,
+          "matched": false,
+          "horizon_score": 0.000866934540681541,
+          "horizon_threshold": 0.55,
+          "horizon_hypotheses": [
+            {
+              "text": "Сообщения с угрозой взрыва",
+              "score": 0.000866934540681541,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "0571eb2d7bfc480480a9eb21d1a7cd29e678bb7c9667bb7ee261c78721b84397",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "single",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-violence-threat": {
+          "confidence": 0.00253714038990438,
+          "matched": false,
+          "horizon_score": 0.00253714038990438,
+          "horizon_threshold": 0.5,
+          "horizon_hypotheses": [
+            {
+              "text": "Прямые угрозы физической расправы",
+              "score": 0.00253714038990438,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит прямую угрозу причинить физический вред адресату или другим людям.",
+              "score": 0.0006045553018338978,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "19e16ec7746c681035b020848906d1d481f62e05c38c5687a0dbd48a3e5a7004",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "max",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-sabotage": {
+          "confidence": 0.002205467550083995,
+          "matched": false,
+          "horizon_score": 0.002205467550083995,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо выражает намерение умышленно повредить серверы, отключить инфраструктуру или уничтожить резервные копии.",
+              "score": 0.002248018281534314,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender threatens deliberate destruction of servers, intentional service disruption or deletion of backups.",
+              "score": 0.0021629168186336756,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "4fd74b77b9cc5f9f9b57a2f6ce5768e42dab17e2b92337c0bd0bafb690fce733",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pii-handling": {
+          "confidence": 0.016336758524024237,
+          "matched": false,
+          "horizon_score": 0.016336758524024237,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "Пересылка персональных данных",
+              "score": 0.009617346338927746,
+              "polarity": "positive"
+            },
+            {
+              "text": "Personal data forwarding",
+              "score": 0.0018938150024041533,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит организационный контекст передачи персональных данных, паспортных копий или анкет людей.",
+              "score": 0.03522797301411629,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender sends, forwards or requests personal records, passport scans or individuals personal data.",
+              "score": 0.016938479617238045,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель направляет или просит переслать персональные данные людей, паспортные сканы или заполненные анкеты.",
+              "score": 0.028850847855210304,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns personal data forwarding.",
+              "score": 0.005492089316248894,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "58504d51d717482f42af8f3139eae9dfe0670e4692672b74fb36b2d6e0527dfc",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 33,
+          "excerpt": "Спасибо за встречу. Хорошего дня!",
+          "horizon_windows": 1,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "long",
+      "characters": 1843,
+      "seconds": 35.420413265001116,
+      "predictions": {
+        "pack-ru2-financial-plans": {
+          "confidence": 0.060756806284189224,
+          "matched": false,
+          "horizon_score": 0.060756806284189224,
+          "horizon_threshold": 0.25,
+          "horizon_hypotheses": [
+            {
+              "text": "Непубличные финансовые планы",
+              "score": 0.08332550525665283,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender shares an internal financial forecast, budget or future spending plan not intended for the public.",
+              "score": 0.038188107311725616,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "85a678c71cf2db3095a26c6da0f2c18333689496b70fc2c0e3fb1df889688063",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pricing": {
+          "confidence": 0.0969865471124649,
+          "matched": false,
+          "horizon_score": 0.0969865471124649,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит индивидуальную скидку, специальную цену, закрытую себестоимость или непубличные коммерческие условия.",
+              "score": 0.0969865471124649,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender discloses a customer-specific discount, individually negotiated price, private cost or markup.",
+              "score": 0.11031699925661087,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "bb7424553ab79726c693479580c5c0237f1d423bd043043fd2bc9ebc37736d4e",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-internal-docs": {
+          "confidence": 0.0009644106030464172,
+          "matched": false,
+          "horizon_score": 0.0009644106030464172,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "This email concerns restricted internal documents.",
+              "score": 0.08065305650234222,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь обсуждает правила конфиденциальности или содержит общедоступные документы без действующей пометки ограничения доступа.",
+              "score": 0.0796886458992958,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "8b80f7c44d535ef0a7e9af5e3bf93fdd350dddd1d82337cc8d972fe8b445bb92",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-customer-data": {
+          "confidence": 0.07413646578788757,
+          "matched": false,
+          "horizon_score": 0.07413646578788757,
+          "horizon_threshold": 0.4,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо сообщает о выгрузке или передаче массива клиентских записей, базы клиентов либо списка контактов.",
+              "score": 0.10525575280189514,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель пересылает или просит выгрузить клиентскую базу, таблицу клиентов или список контактных записей.",
+              "score": 0.07413646578788757,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8b1b882424b3a51ed190552f9735adf2249fbb9b6388692039f2214d83d3c709",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-credential-transfer": {
+          "confidence": 0.033054229257319406,
+          "matched": false,
+          "horizon_score": 0.033054229257319406,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо содержит просьбу передать рабочий пароль, API-токен, ключ доступа или саму передачу этих секретов.",
+              "score": 0.035362306982278824,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь напоминает не передавать пароли или обсуждает безопасность, без запроса и передачи действующего секрета.",
+              "score": 0.06526943296194077,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "9c3d871142b84dd45a68779d167e8cb3f41abc1ca17e97158b7fea22f27fa3a7",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "product",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-phishing": {
+          "confidence": 0.009461890906095505,
+          "matched": false,
+          "horizon_score": 0.009461890906095505,
+          "horizon_threshold": 0.15,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует от получателя сообщить пароль, одноразовый код или войти по ссылке под предлогом проверки или разблокировки.",
+              "score": 0.04796402528882027,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns phishing demand.",
+              "score": 0.009461890906095505,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "8f0cda51981860751c8b772477f063bf98c88810b56472d39934f2b0bc8f4264",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "min",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-data-exfil": {
+          "confidence": 0.062078939750790596,
+          "matched": false,
+          "horizon_score": 0.062078939750790596,
+          "horizon_threshold": 0.35,
+          "horizon_hypotheses": [
+            {
+              "text": "Unauthorized external data transfer",
+              "score": 0.07587362825870514,
+              "polarity": "positive"
+            },
+            {
+              "text": "Внутренние файлы или коммерческие документы организации пересылают либо предлагают выгрузить на личную почту или постороннему.",
+              "score": 0.04828425124287605,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "fef618dca18fed01a91b971079a9498afa6a54e483ea0c5707d6e793bb20faab",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-extortion": {
+          "confidence": 0.0,
+          "matched": false,
+          "horizon_score": 0.0,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо требует деньги или другие действия под угрозой раскрытия информации или причинения ущерба.",
+              "score": 0.021225735545158386,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо лишь цитирует шантаж в новости, учебном материале или обсуждении, без действующего требования под угрозой.",
+              "score": 0.03270745277404785,
+              "polarity": "exclude"
+            }
+          ],
+          "horizon_config_version": "cf7ddc22492f98db7d64a642162b19783fe72b3a33bbf9f0a312e0a92ad092f8",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 0,
+          "end": 900,
+          "excerpt": "Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем",
+          "horizon_windows": 3,
+          "horizon_combine": "subtract",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-explosive-threat": {
+          "confidence": 0.7086796164512634,
+          "matched": true,
+          "horizon_score": 0.7086796164512634,
+          "horizon_threshold": 0.55,
+          "horizon_hypotheses": [
+            {
+              "text": "Сообщения с угрозой взрыва",
+              "score": 0.7086796164512634,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "0571eb2d7bfc480480a9eb21d1a7cd29e678bb7c9667bb7ee261c78721b84397",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 1600,
+          "end": 1843,
+          "excerpt": "ступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Завтра взорву офис компании.",
+          "horizon_windows": 3,
+          "horizon_combine": "single",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-violence-threat": {
+          "confidence": 0.10569991171360016,
+          "matched": false,
+          "horizon_score": 0.10569991171360016,
+          "horizon_threshold": 0.5,
+          "horizon_hypotheses": [
+            {
+              "text": "Прямые угрозы физической расправы",
+              "score": 0.10569991171360016,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит прямую угрозу причинить физический вред адресату или другим людям.",
+              "score": 0.06686865538358688,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "19e16ec7746c681035b020848906d1d481f62e05c38c5687a0dbd48a3e5a7004",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 1600,
+          "end": 1843,
+          "excerpt": "ступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Завтра взорву офис компании.",
+          "horizon_windows": 3,
+          "horizon_combine": "max",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-sabotage": {
+          "confidence": 0.08944997563958168,
+          "matched": false,
+          "horizon_score": 0.08944997563958168,
+          "horizon_threshold": 0.1,
+          "horizon_hypotheses": [
+            {
+              "text": "Письмо выражает намерение умышленно повредить серверы, отключить инфраструктуру или уничтожить резервные копии.",
+              "score": 0.07795355468988419,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender threatens deliberate destruction of servers, intentional service disruption or deletion of backups.",
+              "score": 0.10094639658927917,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "4fd74b77b9cc5f9f9b57a2f6ce5768e42dab17e2b92337c0bd0bafb690fce733",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 1600,
+          "end": 1843,
+          "excerpt": "ступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Завтра взорву офис компании.",
+          "horizon_windows": 3,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        },
+        "pack-ru2-pii-handling": {
+          "confidence": 0.06791060014317434,
+          "matched": false,
+          "horizon_score": 0.06791060014317434,
+          "horizon_threshold": 0.45,
+          "horizon_hypotheses": [
+            {
+              "text": "Пересылка персональных данных",
+              "score": 0.06471659243106842,
+              "polarity": "positive"
+            },
+            {
+              "text": "Personal data forwarding",
+              "score": 0.061823539435863495,
+              "polarity": "positive"
+            },
+            {
+              "text": "Письмо содержит организационный контекст передачи персональных данных, паспортных копий или анкет людей.",
+              "score": 0.10773836076259613,
+              "polarity": "positive"
+            },
+            {
+              "text": "The sender sends, forwards or requests personal records, passport scans or individuals personal data.",
+              "score": 0.076755091547966,
+              "polarity": "positive"
+            },
+            {
+              "text": "Отправитель направляет или просит переслать персональные данные людей, паспортные сканы или заполненные анкеты.",
+              "score": 0.06582599133253098,
+              "polarity": "positive"
+            },
+            {
+              "text": "This email concerns personal data forwarding.",
+              "score": 0.030604025349020958,
+              "polarity": "positive"
+            }
+          ],
+          "horizon_config_version": "58504d51d717482f42af8f3139eae9dfe0670e4692672b74fb36b2d6e0527dfc",
+          "model_version": "Horizon-Labs/multilingual-zeroshot-base",
+          "model_weights_sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73",
+          "start": 800,
+          "end": 1700,
+          "excerpt": "м общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедоступные новости. Обсуждаем общедос",
+          "horizon_windows": 3,
+          "horizon_combine": "mean",
+          "horizon_aggregation": "max"
+        }
+      },
+      "errors": []
+    }
+  ],
+  "warning": "Synthetic smoke only. Long-window aggregation not calibrated on natural long messages."
+}

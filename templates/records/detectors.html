@@ -7,7 +7,7 @@
     <div class="policy-row">
       <span class="policy-icon" aria-hidden="true">◇</span>
       <div class="policy-info"><strong>{{ row.name }}</strong><p>{{ row.engine }}</p>{% if row.categories %}<small>{{ row.categories|join:', ' }}</small>{% endif %}</div>
-      <span class="badge{% if row.enabled and row.id != 'ml' and row.id != 'semantic' %} OK{% endif %}">{% if row.id == 'ml' %}{{ row.status_label }} (конфигурация){% elif row.id == 'semantic' %}{{ row.readiness.label }}{% elif not row.available %}Недоступен{% elif row.enabled %}Включён{% else %}Отключён{% endif %}</span>
+      <span class="badge{% if row.enabled and row.id != 'ml' and row.id != 'semantic' and row.id != 'horizon' %} OK{% endif %}">{% if row.id == 'ml' %}{{ row.status_label }} (конфигурация){% elif row.id == 'semantic' or row.id == 'horizon' %}{{ row.readiness.label }}{% elif not row.available %}Недоступен{% elif row.enabled %}Включён{% else %}Отключён{% endif %}</span>
       <a class="action-button" href="?edit={{ row.id }}" aria-label="Настройки {{ row.name }}">⋯</a>
       {% if admin and row.id != 'ml' %}
       <form method="post">{% csrf_token %}<input type="hidden" name="detector" value="{{ row.id }}"><input type="hidden" name="action" value="toggle">{% if not row.enabled %}<input type="hidden" name="enabled" value="1">{% endif %}
@@ -22,6 +22,7 @@
     <form method="post" class="editor-dialog-layout">{% csrf_token %}<input type="hidden" name="detector" value="{{ selected.id }}">
       <header class="editor-dialog-header"><div class="editor-dialog-title"><h2 id="detector-title">Настройки · {{ selected.name }}</h2><p>{{ selected.engine }}</p></div><button type="button" class="editor-dialog-close" data-dialog-close aria-label="Закрыть">×</button></header>
       <div class="editor-dialog-body">
+        {% if selected.id == 'horizon' %}<p>Horizon: {{ selected.readiness.label }}</p><p>Модель: {{ selected.readiness.model }} · Deployment gate: {{ selected.readiness.gate|yesno:'включён,выключен' }} · Worker: {{ selected.readiness.worker }} · Включённых правил: {{ selected.readiness.rules }} · Последнее задание: {{ selected.readiness.last_job }}</p><p>Наличие настроек и файлов не подтверждает работоспособность модели. Гипотезы, порог и базовый риск редактируются в существующих пользовательских категориях. По умолчанию выключен; требуется независимая калибровка. Локальная модель, CPU по умолчанию, без внешних API.</p>{% endif %}
         {% if selected.id == 'ml' %}
         <p><strong>Статус:</strong> {{ selected.status_label }}</p>
         <p>Обученных моделей: {{ selected.total_count }} · Опубликовано: {{ selected.published_count }}</p>
@@ -37,6 +38,12 @@
         <p class="muted">Замеры worker и наличие индекса не подтверждают успешную загрузку модели или работу очереди.</p>
         <p>Последнее семантическое задание: {{ selected.readiness.last_job }}.</p>
         {% if perms.identity.view_originals %}<a class="action-button" href="{% url 'references-page' %}">Эталонные документы</a>{% endif %}
+        {% endif %}
+        {% if selected.id == 'horizon' %}
+        <h3>Готовность Horizon</h3>
+        <dl><dt>Состояние</dt><dd>{{ selected.readiness.label }}</dd><dt>Разрешён развёртыванием</dt><dd>{{ selected.readiness.gate|yesno:'Да,Нет' }}</dd><dt>Устройство</dt><dd>{{ selected.readiness.device }}</dd><dt>Worker</dt><dd>{{ selected.readiness.worker }}</dd><dt>Включённых правил</dt><dd>{{ selected.readiness.rules }}</dd><dt>Последнее задание</dt><dd>{{ selected.readiness.last_job }}</dd></dl>
+        {% if selected.readiness.error %}<p role="alert">{{ selected.readiness.error }}</p>{% endif %}
+        <p class="muted">Файлы модели проверяются только neural-worker. Выбор GPU не обнаруживает и не включает его автоматически. Без доступной CUDA выберите CPU; остальные детекторы продолжают работу.</p>
         {% endif %}
         {% if selected.categories %}<p>Категории · {{ selected.categories|join:', ' }}</p>{% endif %}
       </div>
