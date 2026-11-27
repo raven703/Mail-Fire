@@ -81,6 +81,27 @@ def main():
         page.goto(f'{base}/categories/?kind=system')
         assert page.locator('.ui-data-table-compact tbody tr').count() == 19
         assert page.locator('.ui-row-actions a[title="Редактировать"]').count() == 0
+        # Read-only descriptions: test every visible category via the real
+        # popover and HTMX navigation, including builtin and custom catalogs.
+        for kind in ("system", "custom"):
+            page.goto(f"{base}/categories/?kind={kind}")
+            links = page.locator('.category-actions-popover a').filter(has_text="Просмотр и описание")
+            urls = links.evaluate_all("nodes => nodes.map(node => node.getAttribute('href'))")
+            for index, url in enumerate(urls):
+                page.goto(f"{base}/categories/?kind={kind}")
+                link = page.locator('.category-actions-popover a').filter(has_text="Просмотр и описание")
+                link = link.nth(index)
+                assert link.get_attribute("href") == url
+                menu_id = link.evaluate("node => node.closest('[popover]').id")
+                page.locator(f'button[popovertarget="{menu_id}"]').click()
+                link.click()
+                dialog = page.locator('dialog.category-description-dialog[open]')
+                expect(dialog).to_be_visible()
+                expect(page.locator('#category-detail-panel')).to_have_count(0)
+                expect(dialog.locator('button[type="submit"].primary')).to_have_count(0)
+                page.keyboard.press("Escape")
+                expect(dialog).to_have_count(0)
+                page.wait_for_url(f"**/categories/?kind={kind}*")
         assert not errors, errors
         browser.close()
     print('PASS: category tables/groups, system permissions, tabs preserve unsaved fields/weights, inline rules, responsive themes; no writes')
