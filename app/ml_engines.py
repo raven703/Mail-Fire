@@ -10,6 +10,7 @@ import io
 import os
 import tempfile
 import zipfile
+from contextlib import contextmanager
 from functools import lru_cache
 from pathlib import Path
 
@@ -19,6 +20,21 @@ from sklearn.model_selection import train_test_split
 
 SUPPORTED = {"tfidf", "setfit", "rubert"}
 MAX_ARTIFACT = 600 * 1024 * 1024
+
+
+@contextmanager
+def _training_device(device):
+    # SetFit's underlying SentenceTransformer Trainer otherwise auto-selects
+    # CUDA even when the encoder was explicitly constructed on CPU.
+    previous = os.environ.get("ACCELERATE_USE_CPU")
+    os.environ["ACCELERATE_USE_CPU"] = "true" if device == "cpu" else "false"
+    try:
+        yield
+    finally:
+        if previous is None:
+            os.environ.pop("ACCELERATE_USE_CPU", None)
+        else:
+            os.environ["ACCELERATE_USE_CPU"] = previous
 
 
 def _offline():
@@ -63,7 +79,7 @@ def _base_path(engine):
     return str(path)
 
 
-def _binary_data(examples, category_id):
+def _binary_data(examples, category_id, seed=42):
     from app.ml import group_hash
     from app.ml_split import partition
 
@@ -86,11 +102,11 @@ def _binary_data(examples, category_id):
     y = np.array([v[1] for v in data])
     if min(np.bincount(y, minlength=2)) < 6:
         raise ValueError("Нужно минимум 6 положительных и 6 отрицательных примеров")
-    assigned = partition(metadata)
+    assigned = partition(metadata, seed=seed)
     if assigned is None:
-        x_train, x_hold, y_train, y_hold = train_test_split(x, y, test_size=0.4, random_state=42, stratify=y)
+        x_train, x_hold, y_train, y_hold = train_test_split(x, y, test_size=0.4, random_state=seed, stratify=y)
         x_val, x_test, y_val, y_test = train_test_split(
-            x_hold, y_hold, test_size=0.5, random_state=42, stratify=y_hold
+            x_hold, y_hold, test_size=0.5, random_state=seed, stratify=y_hold
         )
         splits = {"train": (x_train, y_train), "validation": (x_val, y_val), "test": (x_test, y_test)}
     else:
@@ -142,12 +158,20 @@ def _scores(engine, model, texts, tokenizer=None):
 
 
 def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size=8,
-                 epochs=None, max_steps=None, show_progress=False):
+                 epochs=None, max_steps=None, show_progress=False, seed=42):
     """Train using native artifact formats; CPU remains the server default."""
     if engine not in {"setfit", "rubert"}:
         raise ValueError("Неизвестный нейросетевой движок")
-    if device not in {"cpu", "cuda"}:
-        raise ValueError("device must be cpu or cuda")
+    if device not in {"auto", "cpu", "cuda"}:
+        raise ValueError("device must be auto, cpu or cuda")
+    if not 0 <= min_f1 <= 1:
+        raise ValueError("Invalid F1 threshold")
+    import torch
+    from transformers import set_seed
+
+    if device == "auto":
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+    set_seed(seed)
     if batch_size < 1 or (epochs is not None and epochs < 1):
         raise ValueError("batch_size and epochs must be positive")
     if max_steps is not None and max_steps != -1 and max_steps < 1:
@@ -158,7 +182,7 @@ def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size
         if not torch.cuda.is_available():
             raise RuntimeError("CUDA requested but unavailable")
     _offline()
-    splits = _binary_data(examples, category)
+    splits = _binary_data(examples, category, seed=seed)
     x_train, y_train = splits["train"]
     with tempfile.TemporaryDirectory(prefix="mailfire-train-") as tmp:
         output = Path(tmp) / "trained"
@@ -173,6 +197,7 @@ def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size
             )
             data = Dataset.from_dict({"text": x_train, "label": list(map(int, y_train))})
             args = TrainingArguments(
+                seed=seed,
                 batch_size=batch_size,
                 num_epochs=epochs if epochs is not None else 1,
                 max_steps=max_steps if max_steps is not None else 120,
@@ -183,8 +208,22 @@ def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size
                 report_to="none",
                 save_strategy="no",
             )
-            trainer = Trainer(model=model, args=args, train_dataset=data)
-            trainer.train()
+            with _training_device(device):
+                trainer = Trainer(model=model, args=args, train_dataset=data)
+                # SetFit does not expose Transformers' use_cpu parameter.
+                # Rebuild the underlying arguments/Accelerator before training;
+                # env-only selection is insufficient in Transformers 5.x.
+                if device == "cpu":
+                    from dataclasses import replace
+
+                    inner = trainer.st_trainer
+                    inner.args = replace(inner.args, use_cpu=True)
+                    inner.create_accelerator_and_postprocess()
+                    inner.model.to("cpu")
+                trainer.train()
+            actual_device = model.model_body.device.type
+            if actual_device != device:
+                raise RuntimeError(f"SetFit trained on {actual_device}, requested {device}")
             model.save_pretrained(str(output))
         else:
             try:
@@ -221,6 +260,8 @@ def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size
                     }
 
             args = TrainingArguments(
+                seed=seed,
+                data_seed=seed,
                 output_dir=str(Path(tmp) / "output"),
                 num_train_epochs=epochs if epochs is not None else 2,
                 max_steps=max_steps if max_steps is not None else 150,
@@ -241,6 +282,7 @@ def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size
             "split_sizes": {key: len(value[0]) for key, value in splits.items()},
             "base_model": "local-only",
             "training_device": device,
+            "seed": seed,
             "batch_size": batch_size,
             "epochs": epochs if epochs is not None else (1 if engine == "setfit" else 2),
             "max_steps": max_steps if max_steps is not None else (120 if engine == "setfit" else 150),

@@ -2,11 +2,10 @@
 
 import numpy as np
 
-
 SPLITS = ("train", "validation", "test")
 
 
-def partition(groups):
+def partition(groups, seed=42):
     """Return text-hash partitions, or None for the legacy trainer split.
 
     ``groups`` maps normalized text hashes to examples. All examples must use
@@ -42,7 +41,7 @@ def partition(groups):
             result[split].append(key)
     else:
         group_names = sorted(set(group_ids.values()))
-        np.random.default_rng(42).shuffle(group_names)
+        np.random.default_rng(seed).shuffle(group_names)
         n = len(group_names)
         assigned = {group: ("train" if i < int(n * .6) else "validation" if i < int(n * .8) else "test")
                     for i, group in enumerate(group_names)}

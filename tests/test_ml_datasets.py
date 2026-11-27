@@ -113,10 +113,6 @@ def test_model_runtime_preference_and_failure_isolation(monkeypatch):
         ),
     ]
 
-    class Session:
-        def scalars(self, _query):
-            return iter(rows)
-
     monkeypatch.setattr(
         "app.ml.infer",
         lambda artifact, text: [
@@ -131,7 +127,7 @@ def test_model_runtime_preference_and_failure_isolation(monkeypatch):
         return {"category": category, "matched": True, "confidence": 0.94}
 
     monkeypatch.setattr("app.ml_engines.infer_binary", local)
-    predictions, errors = ml_runtime.infer_active(Session(), "synthetic")
+    predictions, errors = ml_runtime.infer_models(rows, "synthetic")
     assert next(p for p in predictions if p["category"] == "FINANCE")["confidence"] == 0.94
     assert next(p for p in predictions if p["category"] == "SECRET")["engine"] == "tfidf"
     assert len(errors) == 1 and errors[0]["model_id"] == "bad"

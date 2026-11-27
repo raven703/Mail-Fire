@@ -35,8 +35,8 @@ training run may leave an incomplete output directory; do not deploy it.
 ## Dataset and training
 
 JSONL rows require id, group_id, labels, and either text or subject plus body.
-Only the text is passed to the classifier. The only supported category IDs
-in this initial CLI are pack-ru2-financial-plans and pack-ru2-pricing.
+Only the text is passed to the classifier. Category IDs are arbitrary nonempty
+strings. The first smoke fixture uses pack-ru2-financial-plans and pack-ru2-pricing.
 Exact normalized duplicates are rejected. Optional preassigned split metadata
 must be consistent across groups. Otherwise the native deterministic 60/20/20
 split is used and class coverage is checked. Split assignments are exported.
@@ -61,6 +61,111 @@ Never adjust thresholds against the final independent evaluation set.
 
 Only load artifacts created in a trusted environment. A hash is not an
 authenticity guarantee. Native artifacts can contain executable pickle data.
-Database import and activation on the actual MICE server are not implemented
-by this initial CLI; they require a separate trusted deployment workflow and
-compatibility tests. Do not copy model files directly into the production DB.
+The explicit server import command below creates inactive models only.
+Do not copy model files directly into the production DB.
+
+## Automatic installation and diagnostics
+
+```bash
+bash /home/user/Mice/tools/mice-trainer/install.sh
+/home/user/.venvs/mice-trainer/bin/python /home/user/Mice/tools/mice-trainer/trainer.py doctor --require-cuda
+```
+
+Replace `/home/user/Mice` with your absolute checkout path. Requires Linux/WSL2,
+Python 3.12+ with venv and internet access to PyPI. No apt, sudo, server, Docker
+or driver installation. On WSL install the NVIDIA driver on Windows only.
+The installer uses native `requirements.training.lock`, `requirements.neural.lock`
+and `tools/mice-trainer/requirements-dev.lock`, runs pip check and real CUDA
+matrix multiplication when a GPU is available. Set `MICE_TRAINER_ENV` or `PYTHON`
+to override the environment/interpreter. All four data directories are created:
+`/home/user/mice-trainer-data/{datasets,base_models,output,logs}`.
+
+For repeatable base downloads use
+`--revision e8ed3b0c8bbf4fb6984c3de043bf7d2f4e5969ae`. Training/inference are offline.
+`doctor` writes `/home/user/mice-trainer-data/logs/doctor.json`.
+Training automatically tees stdout/stderr and library progress into timestamped
+files in `/home/user/mice-trainer-data/logs/`.
+
+## Arbitrary categories, devices and seed
+
+`--category ID` selects one neural binary model; run once per category.
+TF-IDF uses all corpus labels or a subset selected with `--categories ID1 ID2 ...`
+(at least two labels, as required by the native global classifier).
+Neural models together implement multilabel classification exactly as in MICE.
+Unlisted labels on a row mean negative examples: annotations must be complete.
+`labels: []` is supported. No fixed category catalog is required in the Trainer.
+
+`--device auto` (CLI default) selects CUDA if available, otherwise CPU.
+`cuda` fails explicitly if unavailable; `cpu` forces CPU including SetFit's
+underlying Trainer. Native server training still defaults to CPU.
+TF-IDF always uses CPU regardless of this argument.
+`--seed 42` controls grouped splitting and training. Existing explicit split
+assignments are preserved. Grouped 60/20/20 proportions apply to group counts,
+not necessarily row counts. There is no automatic search for a favorable seed.
+
+Example full epoch-based training (positive max-steps overrides epochs):
+
+```bash
+/home/user/.venvs/mice-trainer/bin/python /home/user/Mice/tools/mice-trainer/trainer.py train \
+  --engine setfit --category pack-ru2-pricing --device auto \
+  --batch-size 8 --epochs 2 --max-steps -1 --seed 42 \
+  --dataset /home/user/mice-trainer-data/datasets/B-6000.jsonl \
+  --output /home/user/mice-trainer-data/output/B6000-setfit-pricing
+```
+
+For RuBERT change `--engine rubert` and use a new output directory.
+Reduce batch size on CUDA OOM. RuBERT truncates at 512 tokens.
+`--min-f1` controls the eligibility gate, never publication.
+
+**Semantic leakage:** the dataset author must assign the same `group_id` to
+every variant of a scenario/template/thread. Automatic semantic clustering or
+near-duplicate detection is not performed. Different hashes do not prove semantic
+independence. B-1000 must be independently authored and grouped, not a renamed
+copy of training examples. Evaluation rejects text/group overlap with all three
+training partitions and never adjusts thresholds.
+
+## Real end-to-end verification
+
+```bash
+/home/user/.venvs/mice-trainer/bin/python /home/user/Mice/tools/mice-trainer/smoke_check.py
+/home/user/.venvs/mice-trainer/bin/python -m pytest \
+  /home/user/Mice/tests/test_ml.py /home/user/Mice/tests/test_ml_datasets.py \
+  /home/user/Mice/tests/test_mice_trainer.py /home/user/Mice/tests/test_trainer_import.py -q
+CUDA_VISIBLE_DEVICES='' /home/user/.venvs/mice-trainer/bin/python /home/user/Mice/tools/mice-trainer/trainer.py evaluate \
+  --model /home/user/mice-trainer-data/output/B6000-setfit-pricing \
+  --dataset /home/user/mice-trainer-data/datasets/B-1000.jsonl \
+  --output /home/user/mice-trainer-data/output/B6000-setfit-pricing/B1000.json
+```
+
+The smoke suite trains five native models (global TF-IDF and both initial
+categories for each neural engine), reloads them on CPU, evaluates a separate
+plumbing fixture, repeats training and compares metrics, splits and CPU scores.
+All artifacts/logs remain outside Git. See `TEST_RESULTS.md` for actual results.
+The fixture is not a realistic semantic benchmark; B-6000/B-1000 quality remains
+to be measured. A seed is not a cross-hardware or cross-version bitwise guarantee.
+
+## Trusted transfer to the existing MICE server
+
+1. Transfer the complete export directory via a trusted channel. Compare hashes
+   with a manifest received separately. Hashes alone do not prove authenticity.
+2. Align server dependency versions with native locks, especially scikit-learn.
+3. Deploy this branch's import command to the existing server. Do not install the
+   server on the training computer. Ensure referenced category IDs already exist.
+4. Run the following **on the server**, initially without `--commit`:
+
+```bash
+CUDA_VISIBLE_DEVICES='' python /srv/mice/manage.py import_trainer_model \
+  /srv/mice-import/B6000-setfit-pricing --trust-local-artifact
+```
+
+After backup and administrator approval, add `--commit --name B6000-setfit-pricing`.
+Paths above are deployment examples; replace with your server's absolute paths.
+Dry run verifies SHA-256, scikit-learn version, native CPU inference and category
+existence. Commit creates a new `MLModel(active=False)` and does not update any
+existing model/category or activate the import. Repeat import creates another row.
+Quality-gate eligibility is retained; publication stays a separate manual native
+operation. The management command needs Django/DB **only on the existing server**.
+It was not executed against the working database during development.
+
+Never import untrusted pickle/joblib/checkpoints: they can execute code.
+There is intentionally no public upload endpoint or automatic publication.

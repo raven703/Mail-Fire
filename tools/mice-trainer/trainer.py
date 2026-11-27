@@ -1,9 +1,11 @@
 """Standalone MICE training CLI. Run with the trainer virtual environment."""
+# ruff: noqa: E402 -- direct CLI invocation requires the checkout on sys.path
 import argparse
 import hashlib
 import json
 import os
 import sys
+from datetime import datetime, timezone
 from importlib.metadata import version
 from pathlib import Path
 from types import SimpleNamespace
@@ -12,9 +14,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from app.ml import group_hash, train
-from app.ml_split import partition
 from app.ml_engines import train_binary
 from app.ml_runtime import infer_models
+from app.ml_split import partition
 
 CATEGORIES = ("pack-ru2-financial-plans", "pack-ru2-pricing")
 HOME = Path.home() / "mice-trainer-data"
@@ -31,6 +33,25 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def doctor(args):
+    import platform
+
+    import torch
+    info = {"python": sys.version, "platform": platform.platform(),
+            "versions": {p: version(p) for p in PACKAGES},
+            "cuda_available": torch.cuda.is_available(), "cuda_build": torch.version.cuda}
+    if torch.cuda.is_available():
+        x = torch.ones((512, 512), device="cuda")
+        info.update(gpu=torch.cuda.get_device_name(0), cuda_matmul=float((x @ x)[0, 0]),
+                    vram_bytes=torch.cuda.get_device_properties(0).total_memory)
+    for name in ("datasets", "base_models", "output", "logs"):
+        (HOME / name).mkdir(parents=True, exist_ok=True)
+    dump(HOME / "logs" / "doctor.json", info)
+    print(json.dumps(info, indent=2))
+    if args.require_cuda and not info["cuda_available"]:
+        raise RuntimeError("CUDA required but unavailable")
+
+
 def read_rows(path):
     rows, ids, hashes = [], set(), set()
     for line_no, line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
@@ -44,7 +65,7 @@ def read_rows(path):
             raise ValueError(f"Line {line_no}: missing or duplicate id")
         if not isinstance(group, str) or not group.strip():
             raise ValueError(f"Line {line_no}: missing group_id")
-        if (not isinstance(labels, list) or not all(isinstance(v, str) and v in CATEGORIES for v in labels)
+        if (not isinstance(labels, list) or not all(isinstance(v, str) and v.strip() for v in labels)
                 or len(labels) != len(set(labels))):
             raise ValueError(f"Line {line_no}: invalid labels")
         if "text" in row:
@@ -71,14 +92,17 @@ def read_rows(path):
     return rows
 
 
-def prepare(rows):
+def prepare(rows, categories=None, seed=42):
+    categories = categories or sorted({c for r in rows for c in r["labels"]})
+    if not categories:
+        raise ValueError("No categories selected")
     by_hash = {group_hash(row["text"]): row for row in rows}
-    parts = partition(by_hash)
+    parts = partition(by_hash, seed=seed)
     counts = {}
     for split, keys in parts.items():
         subset = [by_hash[k] for k in keys]
         counts[split] = {"total": len(subset)}
-        for category in CATEGORIES:
+        for category in categories:
             positives = sum(category in r["labels"] for r in subset)
             if not 0 < positives < len(subset):
                 raise ValueError(f"{split}: insufficient positive/negative coverage for {category}")
@@ -90,6 +114,7 @@ def prepare(rows):
 
 def download(args):
     from huggingface_hub import HfApi, snapshot_download
+
     from app.config import settings
     from app.ml_engines import _base_path
 
@@ -111,12 +136,20 @@ def training(args):
     if not 0 <= args.min_f1 <= 1:
         raise ValueError("min_f1 must be between 0 and 1")
     rows = read_rows(args.dataset)
-    counts = prepare(rows)
+    categories = args.categories or ([args.category] if args.category else sorted({c for r in rows for c in r["labels"]}))
+    if args.category and args.categories:
+        raise ValueError("Use --category or --categories, not both")
+    if args.engine == "tfidf":
+        for row in rows:
+            row["labels"] = [c for c in row["labels"] if c in categories]
+    counts = prepare(rows, categories, args.seed)
     print(json.dumps(counts, ensure_ascii=False, indent=2), flush=True)
     if args.engine == "tfidf" and args.category:
         raise ValueError("TF-IDF is global; omit --category")
     if args.engine != "tfidf" and not args.category:
         raise ValueError("Neural training requires --category")
+    if args.engine != "tfidf" and args.categories:
+        raise ValueError("Neural engines export one binary model; use --category per run")
     if args.engine != "tfidf":
         from app.config import settings
         from app.ml_engines import _base_path
@@ -128,12 +161,12 @@ def training(args):
     dump(args.output / "split.json", [{"id": r["id"], "group_id": r["group_id"], "split": r["split"],
                                        "text_sha256": group_hash(r["text"]), "labels": r["labels"]} for r in rows])
     if args.engine == "tfidf":
-        artifact, metrics, eligible = train(rows, min_f1=args.min_f1)
+        artifact, metrics, eligible = train(rows, min_f1=args.min_f1, seed=args.seed)
         filename = "model.pkl"
     else:
         artifact, metrics, eligible = train_binary(
             rows, args.engine, args.category, args.min_f1, device=args.device,
-            batch_size=args.batch_size, epochs=args.epochs, max_steps=args.max_steps, show_progress=True)
+            batch_size=args.batch_size, epochs=args.epochs, max_steps=args.max_steps, show_progress=True, seed=args.seed)
         filename = "model.zip"
     meta = {"format": 1, "engine": args.engine, "category_id": args.category,
             "artifact": filename, "artifact_sha256": sha(artifact),
@@ -141,7 +174,7 @@ def training(args):
             "split_sha256": sha((args.output / "split.json").read_bytes()),
             "metrics": metrics, "eligible": bool(eligible),
             "versions": {p: version(p) for p in PACKAGES},
-            "python": sys.version}
+             "python": sys.version, "seed": args.seed}
     source = args.base / "mice-source.json"
     if args.engine != "tfidf" and source.is_file():
         meta["base_source"] = json.loads(source.read_text())
@@ -184,7 +217,7 @@ def evaluate(args):
     rows = read_rows(args.dataset)
     if any(group_hash(r["text"]) in hashes or r["group_id"] in groups for r in rows):
         raise ValueError("Evaluation contains a text or group already seen during training/validation/test")
-    categories = CATEGORIES if model.engine == "tfidf" else (model.category_id,)
+    categories = meta["metrics"]["labels"] if model.engine == "tfidf" else (model.category_id,)
     counts = {c: dict(tp=0, fp=0, fn=0, tn=0) for c in categories}
     for row in rows:
         preds, errors = infer_models([model], row["text"])
@@ -228,6 +261,9 @@ def smoke_data(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    p = sub.add_parser("doctor")
+    p.add_argument("--require-cuda", action="store_true")
+    p.set_defaults(func=doctor)
     p = sub.add_parser("download-base")
     p.add_argument("--base", type=Path, default=BASE)
     p.add_argument("--revision", default="main")
@@ -239,9 +275,11 @@ def main():
     p.add_argument("--dataset", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--engine", choices=("tfidf", "setfit", "rubert"), required=True)
-    p.add_argument("--category", choices=CATEGORIES)
+    p.add_argument("--category")
+    p.add_argument("--categories", nargs="+")
+    p.add_argument("--seed", type=int, default=42)
     p.add_argument("--base", type=Path, default=BASE)
-    p.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    p.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     p.add_argument("--batch-size", type=int, default=8)
     p.add_argument("--epochs", type=int)
     p.add_argument("--max-steps", type=int)
@@ -257,6 +295,32 @@ def main():
     p.add_argument("--output", type=Path)
     p.set_defaults(func=evaluate)
     args = parser.parse_args()
+    # Capture library progress, stdout and stderr in a separate process: unlike
+    # redirect_stdout this also captures native extension and Trainer messages.
+    if args.command == "train" and not os.environ.get("MICE_TRAINER_LOG_CHILD"):
+        import subprocess
+
+        logs = HOME / "logs"
+        logs.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        log = logs / f"{stamp}-{args.engine}.log"
+        print(f"Training log: {log}", flush=True)
+        env = dict(os.environ, MICE_TRAINER_LOG_CHILD="1", PYTHONUNBUFFERED="1")
+        with log.open("x", encoding="utf-8") as stream:
+            process = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), *sys.argv[1:]],
+                                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                       text=True, env=env)
+            try:
+                for line in process.stdout:
+                    stream.write(line)
+                    stream.flush()
+                    print(line, end="", flush=True)
+                code = process.wait()
+            except KeyboardInterrupt:
+                process.terminate()
+                process.wait()
+                raise
+        raise SystemExit(code)
     args.func(args)
 
 
