@@ -1,6 +1,7 @@
 """Native category/rule editing, sharing the original rule validators."""
 
 import json
+from urllib.parse import urlencode
 from uuid import uuid4
 
 from django import forms
@@ -11,6 +12,7 @@ from django.forms.models import BaseModelFormSet
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from app.category_catalog import CONTEXT_CATEGORIES, CONTEXT_MARKER, LEGACY_ALIASES, possible_duplicates
@@ -193,7 +195,12 @@ def categories(request, category_id=None, rule_id=None):
         return redirect("/models/?tab=label")
     if query:
         rows = rows.filter(Q(name__icontains=query) | Q(group_name__icontains=query) | Q(pk__icontains=query))
+    list_filters = {key: value for key, value in (("kind", kind), ("q", query)) if value and (key != "kind" or value != "all")}
+    category_list_url = reverse("categories-page")
+    if list_filters:
+        category_list_url += "?" + urlencode(list_filters)
     return render(request, "policy_engine/categories.html", {
+        "category_list_url": category_list_url,
         "categories": rows, "category": category, "system": system, "admin": admin, "kind": kind, "query": query,
         "rules": (CategoryRule.objects.filter(category=category, config__builtin_context=True) if context_allowed else
                   CategoryRule.objects.filter(category=category)).order_by("priority", "created_at") if category else [],

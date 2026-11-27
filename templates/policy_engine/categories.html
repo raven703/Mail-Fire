@@ -8,14 +8,6 @@
     <label>Метод обнаружения<select name="kind"><option value="all"{% if kind == 'all' %} selected{% endif %}>Все категории</option><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Правила / ML</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Встроенный детектор</option></select></label>
     <button data-live-submit>Найти</button>
   </form>
-  {% if category and not form %}
-    <section id="category-detail-panel" class="category-detail-panel"><header><div><h2>{{ category.name }}</h2><p class="muted">{{ category.group_name }} · {{ category.pk }}</p></div><a href="{% url 'categories-page' %}">Закрыть</a></header>
-    <p>{{ category.description }}</p>
-    {% if system %}<p><strong>Метод:</strong> {% detection_method category rules|length %}. Алгоритм встроенного детектора фиксирован.</p>{% endif %}
-    {% if context_allowed %}<p class="muted">Правила контекста дополняют только совпадающий фрагмент уже обнаруженного встроенным детектором признака. Они не создают находок, не повышают риск и не заменяют проверку реквизитов.</p>{% if admin %}<a class="action-button" href="{% url 'category-detail' category.pk %}?rule=new">＋ Правило контекста</a>{% endif %}{% endif %}
-    {% for rule in rules %}<div class="policy-row"><div class="policy-info"><strong>{{ rule.title|default:rule.kind }}</strong><p>{{ rule.kind }} · {% if not context_allowed %}Риск {{ rule.risk }} · {% endif %}{{ rule.enabled|yesno:'Активно,Отключено' }}</p></div>{% if admin and context_allowed %}<a class="action-button" href="{% url 'category-rule' category.pk rule.pk %}">Редактировать</a><form method="post" action="{% url 'category-rule' category.pk rule.pk %}" hx-confirm="Удалить правило контекста? История сохранится.">{% csrf_token %}<button name="action" value="delete_context">Удалить</button></form>{% endif %}</div>{% empty %}{% if not system %}<p>Нет правил</p>{% endif %}{% endfor %}
-    </section>
-  {% endif %}
   {% category_rule_counts categories as rule_counts %}
   <section>
     {% regroup categories by group_name as groups %}
@@ -34,7 +26,7 @@
             {% if admin and row.mode != 'builtin' and row.mode != 'label' %}<a class="icon-control" href="{% url 'category-detail' row.pk %}?edit=1" aria-label="Правила и настройки · {{ row.name }}" title="Редактировать">{% include 'ui/icons/pencil.html' %}</a>{% endif %}
             <button type="button" class="icon-control category-actions-trigger" popovertarget="category-actions-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" aria-label="Действия · {{ row.name }}" title="Действия" data-category-actions-trigger>⋯</button>
             <div popover="auto" id="category-actions-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" class="category-actions-popover" aria-label="Действия · {{ row.name }}">
-              <a class="category-actions-item" href="{% url 'category-detail' row.pk %}#category-detail-panel">Просмотр и описание</a>
+              <a class="category-actions-item" href="{% url 'category-detail' row.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">Просмотр и описание</a>
               {% category_context_supported row as supported %}{% if admin and supported %}<a class="category-actions-item" href="{% url 'category-detail' row.pk %}?rule=new">Добавить правило контекста</a>{% endif %}
               {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button class="category-actions-item" name="action" value="archive">Архивировать</button></form>{% endif %}
             </div>
@@ -46,6 +38,9 @@
     </details>
     {% empty %}{% include 'ui/empty_state.html' with text='Нет подходящих категорий' %}{% endfor %}
   </section>
+  {% if category and not form %}
+    {% include 'ui/modal.html' with id='category-description' title=category.name dialog_class='category-description-dialog' content_template='policy_engine/_category_description_body.html' readonly=True close_url=category_list_url %}
+  {% endif %}
   {% if form %}
   {% url 'categories-page' as close_url %}
   {% if editing_rule %}{% with dialog_title='Правило' %}{% include 'ui/modal.html' with id='category' title=dialog_title dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endwith %}{% elif category %}{% with dialog_title='Правила и настройки · '|add:category.name %}{% include 'ui/modal.html' with id='category' title=dialog_title dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endwith %}{% else %}{% include 'ui/modal.html' with id='category' title='Новая категория' dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endif %}

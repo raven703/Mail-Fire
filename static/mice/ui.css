@@ -107,4 +107,3 @@ label :is(input, select, textarea) { color: var(--text); }
 @media (max-width: 650px) { main { padding: 12px; } .ui-filter-grid { grid-template-columns: minmax(0, 1fr); } .ui-filter-advanced, .ui-filter-actions { grid-column: 1 / -1; } }
 /* Category action popover styling lives in controls.css after generic controls. */
 .category-actions-trigger { cursor: pointer; font-size: 19px; }
-.category-detail-panel { scroll-margin-top: 85px; }

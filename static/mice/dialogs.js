@@ -20,7 +20,7 @@
       dialog.querySelectorAll('[data-dialog-close]').forEach(button => {
         button.addEventListener('click', close);
       });
-      dialog.querySelector('form').addEventListener('submit', event => {
+      dialog.querySelectorAll('form.editor-dialog-layout').forEach(form => form.addEventListener('submit', event => {
         const confirmation = event.submitter && event.submitter.dataset.confirm;
         if (confirmation && !window.confirm(confirmation)) {
           event.preventDefault();
@@ -30,7 +30,7 @@
         dialog.dataset.busy = 'true';
         // Preserve submitter name/value: disabling it here would omit the action.
         dialog.querySelectorAll('[data-dialog-close]').forEach(button => button.disabled = true);
-      });
+      }));
       dialog.showModal();
       const input = dialog.querySelector('input:not([type="hidden"]):not(:disabled)');
       if (input) input.focus();
