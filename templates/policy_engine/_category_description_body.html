@@ -1,6 +1,24 @@
 {% load category_ui %}
 <p class="muted">{{ category.group_name }} · {{ category.pk }}</p>
-<p>{{ category.description }}</p>
-    {% if system %}<p><strong>Метод:</strong> {% detection_method category rules|length %}. Алгоритм встроенного детектора фиксирован.</p>{% endif %}
-    {% if context_allowed %}<p class="muted">Правила контекста дополняют только совпадающий фрагмент уже обнаруженного встроенным детектором признака. Они не создают находок, не повышают риск и не заменяют проверку реквизитов.</p>{% if admin %}<a class="action-button" href="{% url 'category-detail' category.pk %}?rule=new&amp;kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">＋ Правило контекста</a>{% endif %}{% endif %}
-    {% for rule in rules %}<div class="policy-row"><div class="policy-info"><strong>{{ rule.title|default:rule.kind }}</strong><p>{{ rule.kind }} · {% if not context_allowed %}Риск {{ rule.risk }} · {% endif %}{{ rule.enabled|yesno:'Активно,Отключено' }}</p></div>{% if admin and context_allowed %}<a class="action-button" href="{% url 'category-rule' category.pk rule.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">Редактировать</a><form method="post" action="{% url 'category-rule' category.pk rule.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}" hx-confirm="Удалить правило контекста? История сохранится.">{% csrf_token %}<button name="action" value="delete_context">Удалить</button></form>{% endif %}</div>{% empty %}{% if not system %}<p>Нет правил</p>{% endif %}{% endfor %}
+{% if category.description %}<p>{{ category.description }}</p>{% endif %}
+    {% if system %}
+  {% builtin_detector_help category as detector_help %}
+  <div class="builtin-detector-help">
+    <p class="muted">Встроенный детектор · Только чтение</p>
+    {% if detector_help %}
+      <h3>Что обнаруживает</h3><p>{{ detector_help.description }}</p>
+      <h3>Как обнаруживает</h3><p>{{ detector_help.method }}</p>
+      <h3>Базовый риск</h3><p>{{ detector_help.risk }}</p>
+      <h3>Ограничения</h3><p>{{ detector_help.limitations }}</p>
+      <details class="ui-disclosure"><summary>Технические подробности</summary>
+        <p><strong>Реализация:</strong> <code>{{ detector_help.source }}</code></p>
+        <p class="muted">Встроенные алгоритмы не редактируются здесь. Описание не является проверкой текущей доступности сервиса.</p>
+      </details>
+    {% else %}
+      <p><strong>Метод:</strong> {% detection_method category rules|length %}.</p>
+      <p class="muted">Подробное описание этой реализации пока не подготовлено.</p>
+    {% endif %}
+  </div>
+{% endif %}
+    {% if context_allowed %}<h3>Дополнительные правила контекста ({{ rules|length }})</h3><p class="muted">Правила контекста дополняют только совпадающий фрагмент уже обнаруженного встроенным детектором признака. Они не создают находок, не повышают риск и не заменяют проверку реквизитов.</p>{% if admin %}<a class="action-button" href="{% url 'category-detail' category.pk %}?rule=new&amp;kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">＋ Правило контекста</a>{% endif %}{% endif %}
+    {% for rule in rules %}<div class="policy-row"><div class="policy-info"><strong>{{ rule.title|default:rule.kind }}</strong><p>{{ rule.kind }} · {% if not context_allowed %}Риск {{ rule.risk }} · {% endif %}{{ rule.enabled|yesno:'Активно,Отключено' }}</p></div>{% if admin and context_allowed %}<a class="action-button" href="{% url 'category-rule' category.pk rule.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">Редактировать</a><form method="post" action="{% url 'category-rule' category.pk rule.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}" hx-confirm="Удалить правило контекста? История сохранится.">{% csrf_token %}<button name="action" value="delete_context">Удалить</button></form>{% endif %}</div>{% empty %}{% if context_allowed %}<p class="muted">Дополнительных правил контекста нет.</p>{% elif not system %}<p>Нет правил</p>{% endif %}{% endfor %}
