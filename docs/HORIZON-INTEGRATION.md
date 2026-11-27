@@ -63,3 +63,21 @@ See `test-data/horizon-integration/COMPLETION-REPORT.md`. Earlier benchmark and
 browser artifacts are historical, not proof of this completion task. No quality
 benchmark, calibration, training, GPU inference or production update is part of
 this change.
+
+## Verified checkpoint and CPU runtime (2026-11-27)
+
+The complete snapshot is pinned to `a9a5a24e58c794a0f7532d3de842236435a9ae22`.
+The per-file SHA-256/size manifest is in
+`test-data/horizon-integration/validation/completion/checkpoint-manifest.json`.
+Download the full snapshot with huggingface_hub.snapshot_download using that
+explicit revision, then verify every file against the manifest and upstream
+SHA256SUMS before transfer. Do not execute the upstream training/export scripts.
+Keep weights outside the repository and mount them read-only.
+
+Build existing Dockerfiles and all dependencies while connected, use dedicated
+image tags, and transfer the prepared images using docker save/load. Offline
+runtime was exercised with PostgreSQL/RabbitMQ/parser and existing workers on
+an internal Docker network, including cold local model loading. An offline
+build from an empty wheel cache was not claimed. Keep all deployment gates OFF
+until explicitly enabling a test/accepted installation; CPU remains default.
+See the completion report for evidence and precise failure-test limitations.

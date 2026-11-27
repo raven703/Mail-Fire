@@ -1,0 +1,11 @@
+{
+  "create_reload": true,
+  "edit_reload": true,
+  "horizon_method": true,
+  "enabled_saved": true,
+  "device_roundtrip": [
+    "cuda",
+    "cpu"
+  ],
+  "page_errors": []
+}

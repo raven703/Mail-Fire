@@ -1,3 +1,59 @@
+# Integration completion — CPU container verification, 2026-11-27
+
+Base: b94d13c. Integration only; no benchmark, new corpus, training, calibration,
+combination-quality evaluation, optimization or GPU inference.
+
+## Completed follow-up
+
+- Downloaded the entire original upstream snapshot (30 files, 3,136,550,387 bytes)
+  at a9a5a24e58c794a0f7532d3de842236435a9ae22. All eight upstream SHA256SUMS
+  entries pass. SHA-256 and size of every snapshot file are recorded in
+  validation/completion/checkpoint-manifest.json. Host assets are outside Git at
+  /home/user/horizon-pr39-assets/checkpoint; no weights are committed.
+- Built existing runtime/training/neural Dockerfiles with dedicated
+  horizon-pr39-*:validation tags, without replacing production image tags.
+  Neural dependency check: 118 packages compatible. Existing lock was used.
+- Created internal horizon-pr39-validation Docker network, dedicated PostgreSQL
+  test_horizon database, RabbitMQ and existing parser/worker groups. Real durable
+  accept -> parse -> extraction -> OCR completion -> detection -> neural -> policy
+  completed for one disposable email and its text attachment. No inference mocks.
+- Body and attachment predictions persisted with actual weights SHA-256
+  9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73,
+  configuration identity, excerpts and source IDs. Horizon status OK; incident
+  created. Scores 0.8776274323 / 0.8617483377 are integration observations only,
+  not quality measurements or threshold recommendations.
+- Chromium verified enabling, explicit CUDA/CPU save/reload, selecting Horizon
+  in a new category rule, creating, editing and reloading that rule. No page errors.
+  Fixed discovered UI integration defect: Horizon rule summary said type not
+  selected because its name was missing from the existing JavaScript lookup.
+- Missing-model worker produced PARTIAL/FileNotFoundError for both sources;
+  independent keyword findings and incident remained. Explicit CUDA on a CPU
+  worker produced PARTIAL/RuntimeError, preserving independent results/incident.
+  No GPU inference ran; torch reports CUDA unavailable and zero devices.
+- Stopped neural worker: new message completed independent detection and policy,
+  incident created, Horizon job remained PENDING. After restart previous queued
+  work completed. Initial immediate incident assertions raced policy completion;
+  final database inspection confirms the incident (stopped-final.log).
+- Offline inference confirmed after staging: all application services attached
+  only to internal network; external TCP connect returned ENETUNREACH (101).
+  Worker started cold and loaded local weights with offline flags; no runtime
+  installation/download. This confirms prepared-image runtime, not an offline
+  rebuild from an empty dependency cache or GPU support.
+- Container Django suite: 229 tests, 13 opt-in skips, OK (28.172s).
+  JavaScript syntax and git whitespace checks pass.
+
+Evidence: validation/completion/. Historical benchmark files are not acceptance
+proof. Test assets and images remain outside Git. All default Horizon/GPU gates
+remain unchanged and OFF. Production deployment/data/settings untouched.
+
+## Scope limitations
+
+Attachment E2E covers text attachment, not every supported attachment format or
+OCR backend. Worker test covers clean stop/backlog/restart, not hard kill during
+an active inference or timeout exhaustion. No physical GPU support claim.
+
+## Previous follow-up (historical)
+
 # Integration completion follow-up — partial, not accepted for merge
 
 Base: 053f23c. Scope: updated PR39 Completion task — integration only.
