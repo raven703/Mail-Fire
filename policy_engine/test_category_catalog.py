@@ -177,12 +177,24 @@ class UnifiedCatalogTests(TestCase):
         response = self.client.get("/categories/SECRET/")
         self.assertContains(response, "Gitleaks")
         self.assertContains(response, "Дополнительные правила контекста")
-        self.assertContains(response, "Встроенные + 0")
+        self.assertContains(response, 'title="Дополнительных правил контекста: 0">+0')
         self.assertContains(response, "Только чтение")
         category = Category.objects.create(pk="CUSTOM_help_test", name="Help test",
                                            mode="custom", group_name="Test")
         self.assertNotContains(self.client.get(f"/categories/{category.pk}/"),
                                'class="builtin-detector-help"')
+
+    def test_builtin_help_uses_native_rule_source(self):
+        from app.detectors import TEXT_RULES
+        from policy_engine.detector_help import builtin_help
+        for category, pattern, risk in TEXT_RULES:
+            with self.subTest(category=category):
+                native = builtin_help(category)["rules"][0]
+                self.assertEqual(native["pattern"], pattern)
+                self.assertEqual(native["risk"], risk)
+                self.assertContains(self.client.get(f"/categories/{category}/"),
+                                    "Исходное регулярное выражение")
+        self.assertIn("Executable_PE", builtin_help("YARA")["signatures"])
 
     def test_training_labels_require_originals_permission(self):
         self.actor.originals = False
