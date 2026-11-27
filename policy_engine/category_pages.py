@@ -9,14 +9,15 @@ from django.db import transaction
 from django.db.models import Q
 from django.forms import modelformset_factory
 from django.forms.models import BaseModelFormSet
-from django.utils import timezone
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
 from app.category_catalog import CONTEXT_CATEGORIES, CONTEXT_MARKER, LEGACY_ALIASES, possible_duplicates
-from policy_engine.rule_forms import BuiltinContextRuleForm, StructuredRuleForm as RuleForm
+from policy_engine.rule_forms import BuiltinContextRuleForm
+from policy_engine.rule_forms import StructuredRuleForm as RuleForm
 from records.models import Audit, Category, CategoryRule
 
 
@@ -109,6 +110,7 @@ def save_category(actor, form, rules):
                                  details={"category_id": row.pk, "title": deleted.title})
         for rule in instances:
             rule.category = row
+            rule.created_at = timezone.now()
             rule.save()
     Audit.objects.create(actor=actor.pk, action="category_update", target=row.pk)
     return row
@@ -184,6 +186,7 @@ def categories(request, category_id=None, rule_id=None):
                         return HttpResponseForbidden("Категория изменилась")
                     item = form.save(commit=False)
                     item.category = current
+                    item.created_at = timezone.now()
                     item.save()
                     Audit.objects.create(actor=request.user.pk, action="rule_update", target=item.pk)
                 return redirect(filtered_url("category-detail", category_id=category.pk))

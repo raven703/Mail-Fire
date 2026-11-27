@@ -1,0 +1,156 @@
+{
+  "model": "Horizon-Labs/multilingual-zeroshot-base",
+  "revision": "a9a5a24e58c794a0f7532d3de842236435a9ae22",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 1570,
+      "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+    },
+    {
+      "path": "LICENSE",
+      "size": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "NOTICE",
+      "size": 1561,
+      "sha256": "0a8723b0b155874a10e4e709edc48f91df8be955cf2569522c4c532ac5779958"
+    },
+    {
+      "path": "README.md",
+      "size": 14388,
+      "sha256": "0d2c907d10421bba91c0057102669fcdced7ec5b536e8cb862a66019223cd27f"
+    },
+    {
+      "path": "SHA256SUMS",
+      "size": 690,
+      "sha256": "2ead30d4864148e90f8d96ab918701208694633c3bee107131be6aafadb6904c"
+    },
+    {
+      "path": "code/train/export_onnx.py",
+      "size": 2149,
+      "sha256": "37dff1f2086ca2ad4fee24b92004052fa77600b5349c7754e2c87aa8fc3398ed"
+    },
+    {
+      "path": "code/train/train.py",
+      "size": 7166,
+      "sha256": "2c4e8107ba509e1aef11c9ae5f71ae0f34990421c4ce17c0d1392683ca260b79"
+    },
+    {
+      "path": "code/zeroshot/build_evals.py",
+      "size": 4597,
+      "sha256": "b8c8ffed0022c26052b261049563b39197223c3d281a007b28b81f009be194e9"
+    },
+    {
+      "path": "code/zeroshot/build_evals2.py",
+      "size": 2337,
+      "sha256": "ddc56df0660a4471a9454156d3fb0d8076df01980645ae59f9450a935fdd9c6a"
+    },
+    {
+      "path": "code/zeroshot/build_zs_data.py",
+      "size": 6626,
+      "sha256": "22778fc039ead2f54e23262fabb2ecfb7bfa5511f25d2b6f81e9262c8d05ae44"
+    },
+    {
+      "path": "code/zeroshot/evaluate_zs.py",
+      "size": 4699,
+      "sha256": "290ed4459f8df25a61a98a96da756de834293ffe0a6440ad15734acf31bd90f8"
+    },
+    {
+      "path": "code/zeroshot/gen_zeroshot.py",
+      "size": 6703,
+      "sha256": "250163e14d85f74c6fd1c24fcfc8c00124a33a8107441b9fa36b7d7393f424ba"
+    },
+    {
+      "path": "code/zeroshot/gen_zeroshot_v2.py",
+      "size": 12904,
+      "sha256": "2d434dfe531f313c9b115c6b0457838f0a2ab096535274d4c28f88a6eb5046e7"
+    },
+    {
+      "path": "code/zeroshot/score_soft.py",
+      "size": 1677,
+      "sha256": "3c8fc69378770e23df639bdde3c1d156b2fd6e3483aa1ef31e2f8f1642a954c6"
+    },
+    {
+      "path": "code/zeroshot/translate_labels.py",
+      "size": 2819,
+      "sha256": "19e65ecde7ad02b04a4dffab1e808dae6919018a44997dab61469ca757f8fda9"
+    },
+    {
+      "path": "code/zeroshot/translate_labelsets.py",
+      "size": 2894,
+      "sha256": "747303f0197028d373f1f454bcd9cb827cc096454413d9c52f6c7b476aa65dd7"
+    },
+    {
+      "path": "code/zeroshot/translate_nli.py",
+      "size": 3751,
+      "sha256": "2bf38c6f7b354e6d576a16ba164089124b08d184d966adf304ffd275bd114711"
+    },
+    {
+      "path": "config.json",
+      "size": 2054,
+      "sha256": "2e2548d8faeda02604825e6cbb545fdd9a7a6e27805e1748dd6963459ab997d6"
+    },
+    {
+      "path": "eval/baselines.json",
+      "size": 43848,
+      "sha256": "44c21e4624988812b8d669d323ba813ff566679da321582082497629cb6ab7dd"
+    },
+    {
+      "path": "eval/native_labels.json",
+      "size": 578,
+      "sha256": "b6321b2e8cda5effc9c46d5be4b33cc8db34ac12e9755233798a5f4e008fa626"
+    },
+    {
+      "path": "eval/this_model.json",
+      "size": 5367,
+      "sha256": "737d82f836f207119504ce01f695ddc82a2c134e5d958558aa0cb17b5aabe1e0"
+    },
+    {
+      "path": "model.safetensors",
+      "size": 1230141424,
+      "sha256": "9c3f0e6138983c703a30a95e006b881225af39463b9f8cd5532e71999b1a1e73"
+    },
+    {
+      "path": "onnx/model.onnx",
+      "size": 1230730152,
+      "sha256": "2bbb42f77a47d54e8cd03670a2c4bf3410e5819c77c6b70588094832a95b2b01"
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "size": 641125912,
+      "sha256": "49498fdea5a13468ad4c2187fe51c925cf149b522ecd66c41f1005749ef3c4ed"
+    },
+    {
+      "path": "onnx/quantization_check.json",
+      "size": 1054,
+      "sha256": "7c801ffbfe1eeccf0af982a67e702f5015f0e0d3a6dcd09df6142eb305f4b25d"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "size": 636,
+      "sha256": "baec30ea10906f16adb8c18af7a34023002c1746542612b8b41c9f09e1351351"
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 34363287,
+      "sha256": "aebee76d0312011b0d73b08a255d4d11d25c83e9639324870c7b916ea102e13e"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 46440,
+      "sha256": "1d2f82c1341a79748e00efe82e67690f99d00b3c2a894f2b23128fd9d3519da3"
+    },
+    {
+      "path": "training/train_log.json",
+      "size": 1208,
+      "sha256": "f2396b48e9c15d7ac915579c317261bd7f445db6e3b188e0e03a120515db4cd1"
+    },
+    {
+      "path": "training/val_metrics.json",
+      "size": 538,
+      "sha256": "ce9afa611472d867c694e3f07f508cc4769f2568e104fd6c2bbe8572ad4996fa"
+    }
+  ]
+}

@@ -103,6 +103,12 @@ def reindex_semantic(job):
     reindex(job)
 
 
+def detect_semantic(job):
+    from pipeline.semantic_detection import run
+
+    run(job)
+
+
 def search_semantic(job):
     from records.semantic import search_job
 
@@ -121,6 +127,12 @@ def infer_optional(job):
     run(job)
 
 
+def infer_horizon(job):
+    from pipeline.horizon_detection import run
+
+    run(job)
+
+
 def analyze_message(job):
     from pipeline.analysis import analyze
 
@@ -128,12 +140,14 @@ def analyze_message(job):
 
 
 handlers = {
+    'horizon.infer': ('neural', infer_horizon),
     "analysis.analyze": ("analysis", analyze_message),
     "neural.infer": ("neural", infer_optional),
     "ml.infer": ("ml", infer_optional),
     "llm.infer": ("llm", infer_optional),
     "maintenance.gc": ("maintenance", collect_garbage),
     "semantic.reindex": ("semantic", reindex_semantic),
+    "semantic.detect": ("semantic", detect_semantic),
     "semantic.search": ("semantic", search_semantic),
     "training.model": ("training", train_model),
     "training.neural": ("neural_training", train_model),

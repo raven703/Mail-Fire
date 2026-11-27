@@ -4,6 +4,9 @@ from app.categories import safe_regex
 
 
 def validate_config(kind, config):
+    if kind == 'horizon':
+        from app.horizon import validate
+        return validate(config)
     def phrases(key):
         items = config.get(key, [])
         if not isinstance(items, list) or len(items) > 30 or any(

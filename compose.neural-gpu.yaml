@@ -1,0 +1,12 @@
+# Explicit optional infrastructure only. Does not select GPU inference.
+# Requires a CUDA-capable torch build in mice-neural and NVIDIA host runtime.
+# Admin must separately select GPU in Detectors -> Horizon.
+services:
+  neural:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -31,9 +31,10 @@ class InferenceRoutingTests(SimpleTestCase):
             evaluate.assert_called_once_with("message", "key")
 
     def test_explicit_ml_gate_routes_id_only_durable_work(self):
-        with patch.dict("os.environ", {"MICE_ML_INFERENCE_ENABLED": "true"}, clear=True), patch("pipeline.inference.enqueue") as enqueue, patch("pipeline.inference.MLModel.objects") as models, patch("pipeline.inference.Setting.objects") as settings, patch("records.models.Category.objects") as categories:
+        with patch.dict("os.environ", {"MICE_ML_INFERENCE_ENABLED": "true"}, clear=True), patch('policy_engine.service.request_evaluation') as evaluate, patch("pipeline.inference.enqueue") as enqueue, patch("pipeline.inference.MLModel.objects") as models, patch("pipeline.inference.Setting.objects") as settings, patch("records.models.Category.objects") as categories:
             models.filter.return_value.order_by.return_value = []
             settings.filter.return_value = []
             categories.filter.return_value.values.return_value = []
             route(SimpleNamespace(pk="message", content_id="content"), "key")
+            evaluate.assert_called_once_with('message','before-inference:key')
             enqueue.assert_called_once_with("ml.infer", {"message_id": "message", "content_id": "content", "snapshot": {"models": [], "settings": {}, "categories": []}}, "inference:key")

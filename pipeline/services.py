@@ -2,8 +2,8 @@ import random
 import uuid
 from datetime import timedelta
 
-from django.db import transaction
 from django.conf import settings
+from django.db import transaction
 from django.db.models import Max
 from django.db.models.fields.json import KeyTextTransform
 from django.utils import timezone
@@ -59,6 +59,14 @@ def analysis_message(job):
 
 
 def sync_terminal_analysis(job):
+    if job.kind == 'horizon.infer':
+        from pipeline.horizon_detection import terminal_failure
+        terminal_failure(job)
+        return
+    if job.kind == "semantic.detect":
+        from pipeline.semantic_detection import persist
+        persist(job, [], [{"engine": "semantic", "error": "worker_terminal_failure"}], "PARTIAL")
+        return
     message = analysis_message(job)
     if message is not None and message.status == "PENDING":
         # Prior evidence may remain after a failed reanalysis. It is not proof

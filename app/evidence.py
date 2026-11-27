@@ -3,9 +3,8 @@
 import re
 import unicodedata
 
-from app.text_normalizer import SEPARATED, TOKEN, ZERO_WIDTH, normalize
-
 from app.category_catalog import LEGACY_ALIASES as ALIASES
+from app.text_normalizer import SEPARATED, TOKEN, ZERO_WIDTH, normalize
 
 
 def normalization_safe_regex(pattern):
@@ -81,18 +80,18 @@ def unique_findings(findings):
             hit["context_matches"] = list(hit["context_matches"])
         hit["category"] = ALIASES.get(hit["category"], hit["category"])
         start, end = hit.get("start", 0), hit.get("end", 0)
-        if end > start:
+        if end > start and hit.get('source') != 'custom-horizon':
             key = (hit.get("document_id", "message"), hit["category"], start, end)
         else:
             key = (hit.get("document_id", "message"), hit["category"], hit.get("source"),
                    hit.get("rule_id"), hit.get("filename"), hit.get("excerpt"))
         if key not in indexed:
-            if end > start:
+            if end > start and hit.get('source') != 'custom-horizon':
                 # Different rules can describe the same minimal evidence with
                 # a wider context span. Containment is not an independent hit.
                 for prior_key, prior in indexed.items():
                     a, b = prior.get("start", 0), prior.get("end", 0)
-                    if (b > a and prior.get("document_id", "message") == hit.get("document_id", "message")
+                    if (b > a and prior.get('source') != 'custom-horizon' and prior.get("document_id", "message") == hit.get("document_id", "message")
                             and prior["category"] == hit["category"]
                             and ((a <= start and end <= b) or (start <= a and b <= end))):
                         key = prior_key
@@ -105,9 +104,9 @@ def unique_findings(findings):
                 continue
         prior = indexed[key]
         evidence = prior.setdefault("supporting_rules", [
-            {k: prior[k] for k in ("rule_id", "risk", "match_score", "source", "normalization") if k in prior}
+            {k: prior[k] for k in ("rule_id", "risk", "match_score", "source", "normalization", 'ml_engine', 'model_id', 'confidence') if k in prior}
         ])
-        detail = {k: hit[k] for k in ("rule_id", "risk", "match_score", "source", "normalization") if k in hit}
+        detail = {k: hit[k] for k in ("rule_id", "risk", "match_score", "source", "normalization", 'ml_engine', 'model_id', 'confidence') if k in hit}
         if detail not in evidence:
             evidence.append(detail)
         if hit.get("context_matches"):
@@ -120,7 +119,16 @@ def unique_findings(findings):
 
 
 def evidence_count(findings):
-    return len({(f.get("document_id", "message"), f["start"], f["end"])
+    # ML/Horizon corroborate a category, never an extra occurrence solely
+    # because another method detected the same category. Legacy-only counting
+    # stays unchanged, including multiple genuine regex occurrences.
+    findings = list(findings)
+    confirmations = {'custom-horizon', 'custom-ml', 'supervised-ml'}
+    non_horizon = [f for f in findings if f.get('source') not in confirmations]
+    covered = {(f.get('document_id', 'message'), f['category']) for f in non_horizon}
+    horizon = {(f.get('document_id', 'message'), f['category']) for f in findings if f.get('source') in confirmations} - covered
+    findings = non_horizon
+    return len(horizon) + len({(f.get("document_id", "message"), f["start"], f["end"])
                 if f.get("end", 0) > f.get("start", 0) else
                 (f.get("document_id", "message"), f["category"], f.get("source"),
                  f.get("rule_id"), f.get("filename"), f.get("excerpt")) for f in findings})

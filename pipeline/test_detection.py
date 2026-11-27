@@ -47,7 +47,7 @@ class DetectionCoordinatorTests(SimpleTestCase):
     def test_complete_deterministic_analysis_with_disabled_optional_checks(self):
         message, analysis, finish = self.run_detection()
         self.assertEqual(message.status, "ANALYZED")
-        self.assertEqual(analysis["skipped_checks"], ["antivirus", "llm", "ml"])
+        self.assertEqual(analysis["skipped_checks"], ["antivirus", 'horizon', "llm", "ml", "semantic"])
         self.assertEqual(finish.call_args.args[2]["status"], "ANALYZED")
 
     def test_static_engine_failure_is_partial_not_clean(self):

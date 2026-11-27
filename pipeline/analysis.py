@@ -12,7 +12,6 @@ from pipeline.parser_client import call
 from pipeline.services import finish, locked_current
 from records.models import Address, Attachment, Blob, Content, Message
 
-
 STATUSES = {"ANALYZED", "PARTIAL", "FAILED", "ENCRYPTED", "UNSUPPORTED"}
 
 
@@ -67,7 +66,7 @@ def analyze(job):
     parsed, rows, evidence = validate(result)
     errors = list(evidence["engine_errors"])
     findings = list(evidence["findings"])
-    skipped = set(evidence["skipped_checks"]) | {"ml", "llm"}
+    skipped = set(evidence["skipped_checks"]) | {"ml", "llm", "semantic", 'horizon'}
     enabled = config["settings"].get("detectors", {})
     av_states = []
     if enabled.get("antivirus", True):
@@ -83,8 +82,8 @@ def analyze(job):
                 errors.append({"engine": "antivirus", "error": type(exc).__name__})
     else:
         skipped.add("antivirus")
-    from app.evidence import unique_findings
     from app.analysis_status import classify_analysis
+    from app.evidence import unique_findings
     from policy_engine.catalog import DETECTORS
     disabled = {category for key, value in DETECTORS.items() if not enabled.get(key, True) for category in value[2]}
     disabled.update(config.get("inactive_categories", []))
@@ -101,10 +100,11 @@ def analyze(job):
     )
     if errors:
         status = "PARTIAL"
-    analysis = {"findings": findings, "engine_errors": errors,
+    analysis = {"findings": findings, "engine_errors": errors, 'analysis_generation':str(job.pk),
                 "skipped_checks": sorted(skipped | set(status_skipped)),
                 "normalization": evidence.get("normalization", {}),
-                "configuration_snapshot": config, "configuration_sha256": config_sha}
+                "configuration_snapshot": config, "configuration_sha256": config_sha,
+                "semantic_body_length": len(parsed["text"])}
     with transaction.atomic():
         locked_current(job.pk, job.token)
         message = Message.objects.select_for_update().get(pk=message.pk)

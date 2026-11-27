@@ -1,0 +1,162 @@
+{
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "corpus_sha256": "78127fea2e38ee3218b5a613a4bcd20ba7ba951b449c18d81246872c24ab856a",
+  "unit": "document; any reference match",
+  "references": 3,
+  "queries": [
+    {
+      "id": "a-exact",
+      "kind": "exact",
+      "positive": true,
+      "score": 1.0
+    },
+    {
+      "id": "b-exact",
+      "kind": "exact",
+      "positive": true,
+      "score": 1.0
+    },
+    {
+      "id": "c-exact",
+      "kind": "exact",
+      "positive": true,
+      "score": 1.0
+    },
+    {
+      "id": "a-part",
+      "kind": "partial",
+      "positive": true,
+      "score": 0.6545885882846691
+    },
+    {
+      "id": "b-part",
+      "kind": "partial",
+      "positive": true,
+      "score": 0.7332138635668068
+    },
+    {
+      "id": "c-part",
+      "kind": "partial",
+      "positive": true,
+      "score": 0.8726491536882367
+    },
+    {
+      "id": "a-para",
+      "kind": "paraphrase",
+      "positive": true,
+      "score": 0.8042241473930108
+    },
+    {
+      "id": "b-para",
+      "kind": "paraphrase",
+      "positive": true,
+      "score": 0.8077709095602118
+    },
+    {
+      "id": "c-para",
+      "kind": "paraphrase",
+      "positive": true,
+      "score": 0.9180245019358612
+    },
+    {
+      "id": "a-safe",
+      "kind": "thematic_safe",
+      "positive": false,
+      "score": 0.5816787211239998
+    },
+    {
+      "id": "b-safe",
+      "kind": "thematic_safe",
+      "positive": false,
+      "score": 0.5988883029691213
+    },
+    {
+      "id": "c-safe",
+      "kind": "thematic_safe",
+      "positive": false,
+      "score": 0.686260125394685
+    },
+    {
+      "id": "x1",
+      "kind": "unrelated",
+      "positive": false,
+      "score": 0.15284906094907103
+    },
+    {
+      "id": "x2",
+      "kind": "unrelated",
+      "positive": false,
+      "score": 0.17674344549139243
+    },
+    {
+      "id": "x3",
+      "kind": "unrelated",
+      "positive": false,
+      "score": 0.1709212654045923
+    }
+  ],
+  "metrics": [
+    {
+      "threshold": 0.7,
+      "TP": 8,
+      "FP": 0,
+      "FN": 1,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.8888888888888888,
+      "f1": 0.9411764705882353
+    },
+    {
+      "threshold": 0.75,
+      "TP": 7,
+      "FP": 0,
+      "FN": 2,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.7777777777777778,
+      "f1": 0.8750000000000001
+    },
+    {
+      "threshold": 0.8,
+      "TP": 7,
+      "FP": 0,
+      "FN": 2,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.7777777777777778,
+      "f1": 0.8750000000000001
+    },
+    {
+      "threshold": 0.85,
+      "TP": 5,
+      "FP": 0,
+      "FN": 4,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.5555555555555556,
+      "f1": 0.7142857142857143
+    },
+    {
+      "threshold": 0.9,
+      "TP": 4,
+      "FP": 0,
+      "FN": 5,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.4444444444444444,
+      "f1": 0.6153846153846153
+    },
+    {
+      "threshold": 0.95,
+      "TP": 3,
+      "FP": 0,
+      "FN": 6,
+      "TN": 6,
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "f1": 0.5
+    }
+  ],
+  "recommended_threshold_on_this_corpus": 0.7,
+  "limitations": "Synthetic small Russian corpus; calibration only, not held-out production validation."
+}

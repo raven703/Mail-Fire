@@ -47,7 +47,7 @@ def detect(job):
         if finding.get("rule_id") in rules:
             finding["configuration_sha256"] = config_sha
     enabled = config["settings"].get("detectors", {})
-    skipped = set(result.get("skipped_checks", [])) | {"ml", "llm"}
+    skipped = set(result.get("skipped_checks", [])) | {"ml", "llm", "semantic", 'horizon'}
     objects = [("message.eml", bytes(message.original_sha_ref.data))] + [
         (row.name, bytes(row.blob_sha_ref.data)) for row in attachments
     ]
@@ -105,8 +105,9 @@ def detect(job):
         "findings": findings, "engine_errors": errors,
         "skipped_checks": sorted(skipped | set(status_skipped)),
         "normalization": result.get("normalization", {}),
-        "configuration_snapshot": config,
+        "configuration_snapshot": config, 'analysis_generation':str(job.pk),
         "configuration_sha256": config_sha,
+        "semantic_body_length": len(parsed.output["text"]),
     }
     with transaction.atomic():
         locked_current(job.pk, job.token)

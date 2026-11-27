@@ -8,6 +8,7 @@
     {% if detector_help %}
       <h3>Что обнаруживает</h3><p>{{ detector_help.description }}</p>
       <h3>Как обнаруживает</h3><p>{{ detector_help.method }}</p>
+      {% if detector_help.requirements %}<h3>Необходимые условия работы</h3><p>{{ detector_help.requirements }}</p>{% if perms.identity.view_originals %}<a class="action-button" href="{% url 'references-page' %}">Эталонные документы</a>{% endif %}{% endif %}
       <h3>Базовый риск</h3><p>{{ detector_help.risk }}</p>
       <h3>Ограничения</h3><p>{{ detector_help.limitations }}</p>
       <details class="ui-disclosure"><summary>Технические подробности</summary>

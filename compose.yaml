@@ -32,6 +32,9 @@ x-worker: &worker
     MICE_OCR_BACKEND: ${MICE_OCR_BACKEND:-rapidocr}
     MICE_CLAMAV_HOST: ${MICE_CLAMAV_HOST:-}
     MICE_CLAMAV_PORT: ${MICE_CLAMAV_PORT:-3310}
+    MICE_SEMANTIC_INFERENCE_ENABLED: ${MICE_SEMANTIC_INFERENCE_ENABLED:-false}
+    MICE_HORIZON_INFERENCE_ENABLED: ${MICE_HORIZON_INFERENCE_ENABLED:-false}
+    MICE_SEMANTIC_THRESHOLD: ${MICE_SEMANTIC_THRESHOLD:-0.85}
     MICE_ML_INFERENCE_ENABLED: ${MICE_ML_INFERENCE_ENABLED:-false}
     MICE_LLM_INFERENCE_ENABLED: ${MICE_LLM_INFERENCE_ENABLED:-false}
     MICE_IMPORT_MAX_OBJECTS: ${MICE_IMPORT_MAX_OBJECTS:-200}
@@ -496,11 +499,20 @@ services:
     environment:
       <<: *runtime-env
       MICE_WORKER_GROUP: neural
+      MICE_HORIZON_MODEL_PATH: /opt/horizon
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
       ML_RUBERT_BASE_PATH: /opt/neural-models/rubert
       ML_SETFIT_BASE_PATH: /opt/neural-models/setfit
     volumes:
       - resources:/mice-metrics
       - ${MICE_NEURAL_MODELS_DIR:-./offline-models}:/opt/neural-models:ro
+      - type: bind
+        source: ${MICE_HORIZON_MODEL_DIR:-./offline-models/horizon}
+        target: /opt/horizon
+        read_only: true
+        bind:
+          create_host_path: false
     tmpfs: ['/tmp:size=4g,noexec,nosuid']
     mem_limit: ${MICE_NEURAL_MEMORY:-8g}
     cpus: ${MICE_NEURAL_CPUS:-4}

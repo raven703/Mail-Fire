@@ -4,7 +4,7 @@ from records.models import Category, CategoryRule, Reference, Setting
 
 
 def configuration():
-    settings = {row.pk: row.value for row in Setting.objects.filter(pk__in=["normalizer", "detectors"])}
+    settings = {row.pk: row.value for row in Setting.objects.filter(pk__in=["normalizer", "detectors", "semantic_detection", "horizon_detection"])}
     groups = {}
     for rule in CategoryRule.objects.filter(enabled=True, category__active=True).select_related("category").order_by(
         "priority", "created_at", "id"

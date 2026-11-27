@@ -111,10 +111,10 @@ BUILTIN_HELP = {
     },
     "SEMANTIC_REFERENCE": {
         "description": "Категория семантического сходства с эталоном.",
-        "method": "В каталоге заявлены Multilingual MiniLM / pgvector. В проверенном текущем конвейере отдельное формирование находок этой категории не подтверждено.",
-        "risk": "Не подтверждён",
-        "limitations": "Наличие категории в каталоге не означает, что соответствующий механизм выполняется.",
-        "source": "app/detector_catalog.py; app/detection_evidence.py; pipeline/inference.py"
+        "method": "Локальная Multilingual MiniLM: косинусное сходство фрагментов письма и индексированных эталонов в pgvector.",
+        "risk": "50 — вероятностный признак",
+        "limitations": "Требует включённого semantic worker и индексированных эталонов. Сходство не доказывает утечку; порог требует калибровки.",
+        "source": "records/semantic.py; pipeline/semantic_detection.py"
     }
 }
 
@@ -180,8 +180,8 @@ DETAILS = {
         "Извлечённый текст при наличии зарегистрированных эталонов."
     ],
     "SEMANTIC_REFERENCE": [
-        "Условие формирования отдельной находки не подтверждено в текущем конвейере.",
-        "Не подтверждено."
+        "Косинусное сходство не ниже настроенного порога; сохраняется лучшее совпадение для каждого документа и эталона.",
+        "Тело письма и извлечённый текст вложений по отдельности."
     ]
 }
 
@@ -216,6 +216,20 @@ def builtin_help(category_id):
         for name, spec in TEMPLATES.items()
         if LEGACY_ALIASES.get(spec["category"], spec["category"]) == key
     ]
+    if key == "REFERENCE_DOCUMENT":
+        result["requirements"] = "Нужен хотя бы один обычный эталонный документ с извлечённым текстом и отпечатком. Семантическая индексация не требуется. Шаблоны типов документов распознаются отдельно."
+    if key == "SEMANTIC_REFERENCE":
+        result["requirements"] = "Нужен хотя бы один обычный загруженный эталон, проиндексированный текущей моделью, включённый детектор и активная категория, разрешение в конфигурации развёртывания и доступный semantic worker. Без эталонов проверка пропускается."
+        from pipeline.semantic_detection import threshold, RISK
+        from pipeline.inference import enabled
+        result["risk"] = str(RISK) + " — вероятностный признак"
+        try:
+            from records.models import Setting
+            options = Setting.objects.filter(pk="semantic_detection").values_list("value", flat=True).first()
+            result["logic"] += f" Настроенный порог: {threshold(options):.2f}."
+        except (ValueError, TypeError):
+            result["logic"] += " Некорректная настройка порога."
+        result["logic"] += " Автоматический анализ разрешён конфигурацией развёртывания." if enabled("semantic") else " Автоматический анализ выключен конфигурацией развёртывания."
     if key == "YARA":
         import re
         from app.advanced_detectors import YARA_SOURCE
