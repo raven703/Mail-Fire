@@ -59,6 +59,10 @@ def analysis_message(job):
 
 
 def sync_terminal_analysis(job):
+    if job.kind == "semantic.detect":
+        from pipeline.semantic_detection import persist
+        persist(job, [], [{"engine": "semantic", "error": "worker_terminal_failure"}], "PARTIAL")
+        return
     message = analysis_message(job)
     if message is not None and message.status == "PENDING":
         # Prior evidence may remain after a failed reanalysis. It is not proof

@@ -16,7 +16,12 @@ def enabled(engine):
     return os.environ.get("MICE_" + engine.upper() + "_INFERENCE_ENABLED", "false").lower() == "true"
 
 
-def route(message, key):
+def route(message, key, *, after_semantic=False):
+    if not after_semantic and enabled("semantic"):
+        from pipeline.semantic_detection import schedule
+        job = schedule(message, key)
+        if job is not None:
+            return job
     kind = "ml.infer" if enabled("ml") else "llm.infer" if enabled("llm") else None
     if kind:
         model_snapshots = []
