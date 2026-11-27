@@ -1,0 +1,1017 @@
+{
+  "timings": [
+    {
+      "id": "MF300-0001",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.029195671999332262,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.028803960001823725,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.029572228002507472,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.026967560999764828,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.027100272000097902,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.02760681600193493,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.03368507000050158,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.02865095999732148,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.028680072999122785,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.027971157996944385,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.0335075990005862,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 12,
+      "repeat": 0,
+      "seconds": 0.027069559997471515,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.02738128599958145,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.025486687998636626,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.02599867900062236,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.02585446599914576,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.02524143200207618,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.026151764999667648,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.02549463900140836,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.04083289499976672,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.027651109998259926,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.025875906001601834,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.025914481000654632,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 12,
+      "repeat": 1,
+      "seconds": 0.026274122999893734,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.026383682001323905,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02570888899936108,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.026177589999861084,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.026434178002091357,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.026061758999276208,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02604186299868161,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02622833600253216,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02590883100128849,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02671394299977692,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02924646099927486,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.02707274999920628,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 12,
+      "repeat": 2,
+      "seconds": 0.028117434001615038,
+      "pairs": 12
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.06315640999673633,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05901982999785105,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.055439468000258785,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05586312400191673,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05504068200025358,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.061928396000439534,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.056692119000217644,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05655380600001081,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.057095665997621836,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05496849399787607,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05492115499873762,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 24,
+      "repeat": 0,
+      "seconds": 0.05160840099779307,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.05237016799947014,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.053171109000686556,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.05209097700208076,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.052869257000565995,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.051799083998048445,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.05770331999883638,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.05096704300012789,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.0524135909981851,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.052909321999322856,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.05270268000094802,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.056337264002650045,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 24,
+      "repeat": 1,
+      "seconds": 0.08726018499874044,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.07591645899810828,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.059546141001192154,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05427542799952789,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.053583654000249226,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05228663999878336,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.058465146998059936,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05251852500077803,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05300841999996919,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05557790099919657,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05283298699941952,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.05378337200090755,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 24,
+      "repeat": 2,
+      "seconds": 0.053590766998240724,
+      "pairs": 24
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.09077809800146497,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.12896296699909726,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.09783127999980934,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.08239595899794949,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.07946115800223197,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.1124264280006173,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.07916005000151927,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.08427532999849063,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.08437718200002564,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.08407768200049759,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.08269833399754134,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 48,
+      "repeat": 0,
+      "seconds": 0.0829954569999245,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08490841200182331,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08522873900074046,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08603253600085736,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08416882699748385,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08133375000033993,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.11324733699802891,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.07800880099966889,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08309723600177676,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.0844737109982816,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08367367699975148,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08335295200231485,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 48,
+      "repeat": 1,
+      "seconds": 0.08427425300033065,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08433969199904823,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08323329499762622,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08343503799915197,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08541205900110072,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08149142999900505,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.11345528500169166,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.07855290600127773,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08314881400292506,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08524700999987544,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08430904800115968,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08271270600016578,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 48,
+      "repeat": 2,
+      "seconds": 0.08286606699766708,
+      "pairs": 48
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.17265542400127742,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.17069806799918297,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.1664255920004507,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.1668352809974749,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.16773102700244635,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.23052084200026002,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.1607012919994304,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.16913995299910312,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.17207025500101736,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.16894822899848805,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.1662889620019996,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 96,
+      "repeat": 0,
+      "seconds": 0.16833353200127021,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.17338368999844533,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.1701035990008677,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.16735739199793898,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.16678700299962657,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.16198704999987967,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.23139271599939093,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.20145176999722025,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.17424922400095966,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.16732262600271497,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.17003451699929428,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.1671315429994138,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 96,
+      "repeat": 1,
+      "seconds": 0.16917076200115844,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0001",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.1716511079976044,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0002",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.16983567999704974,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0003",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.1663423080026405,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0004",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.16665330499745323,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0005",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.16189695900175138,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0006",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.22946055099964724,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0007",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.15703405999738607,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0008",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.16929120500208228,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0009",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.1725265409986605,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0010",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.1676590249990113,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0011",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.16717336700094165,
+      "pairs": 96
+    },
+    {
+      "id": "MF300-0012",
+      "hypotheses": 96,
+      "repeat": 2,
+      "seconds": 0.17099129999769502,
+      "pairs": 96
+    }
+  ],
+  "seconds": 12.448010370979318,
+  "peak_rss_bytes": 2915680256,
+  "peak_vram_allocated_bytes": 674977280,
+  "peak_vram_reserved_bytes": 698351616,
+  "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+}

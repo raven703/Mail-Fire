@@ -1,0 +1,27 @@
+{
+  "best_config_sha256": "5c361544f440b2c3a2decad256ab6411ddd65472d7f6e1a86a8bea44feeca2f0",
+  "hypotheses_sha256": "f134e621c2d52c61347c5ece2607fe8294c7dac3295e54b59a55a20aa251da6e",
+  "development": {
+    "b350": {
+      "fp32": "997cf0cd690e4f7759456ca33ad733adae0e1f0a4f105a36673fe4d4fe10d65f",
+      "fp16": "5c1de307ca953bdaed355690a57d6340a817dc8341e2b6bdd25022eafce95b7e"
+    },
+    "b400": {
+      "fp32": "167e65047aa07bbd0b0d064aa50ee6cf07e1774bd4e253ea04b2b4da6ebfaafa",
+      "fp16": "b7b8bad57debb4dd48831d4ad0b7df31db4c4b52b982a6473efdd94df97f14a3"
+    }
+  },
+  "protocol": "All selected rules fixed before first B500 preparation/inference. B500 previously used by MICE, not a virgin corpus.",
+  "decision_order": "Combine hypotheses inside each window, then aggregate windows; exclusions apply locally",
+  "scripts": {
+    "infer.py": "2ec35adbce35331e5fd65a5751cf3ad772ac1a91aee997db6cb769667019cb79",
+    "make_hypotheses.py": "eeda4179566b3cf7c27773e4ea14ae499e2b1866cd50c41034266a3cad8030a7",
+    "optimize.py": "b4e7091611ea7dcd45fca36b2578ebdf243ba50345391981f7d9e2abae0790ad",
+    "render_report.py": "d5dbbde80f66cd1a4fa7549d58a5854315379879319ec9f00bf5d990df002110",
+    "test_benchmark.py": "b2e884371c60a273e100f177731ac692696d8949132359948e365d12ddd6d983",
+    "report.py": "792f67c65a793c399edc62ca156b813290eca349c87675dca4abf871145a7b74",
+    "common.py": "84cf89611ef20ee75a5d5c631f4211435be4aa41074609b873eece435341a171",
+    "prepare_inputs.py": "fe2c89654bb2af4bd266cebee109782ac0a37f23353d62081bea069c14d4936f",
+    "fetch_inputs.py": "43c916ac501da5a8ed2527cc5e7554fb7edb4202ad7bc4f569bfdc74d36a7ca5"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "b350-fp32": {
+    "messages": 350,
+    "hypotheses": 96,
+    "seconds": 237.01258648497605,
+    "mean_seconds": 0.677178818528503,
+    "p50_seconds": 0.7568812405006611,
+    "p95_seconds": 1.075162585149883,
+    "messages_per_second": 1.4767148242660357,
+    "peak_rss_bytes": 2381230080,
+    "peak_vram_allocated_bytes": 1525040128,
+    "peak_vram_reserved_bytes": 1862270976,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "b350-fp16": {
+    "messages": 350,
+    "hypotheses": 96,
+    "seconds": 116.45856526101852,
+    "mean_seconds": 0.33273875788862434,
+    "p50_seconds": 0.3610262270012754,
+    "p95_seconds": 0.5836715448989708,
+    "messages_per_second": 3.005360741097447,
+    "peak_rss_bytes": 2916450304,
+    "peak_vram_allocated_bytes": 834433536,
+    "peak_vram_reserved_bytes": 1002438656,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "b400-fp32": {
+    "messages": 400,
+    "hypotheses": 96,
+    "seconds": 181.81428311996206,
+    "mean_seconds": 0.45453570779990515,
+    "p50_seconds": 0.4273519394992036,
+    "p95_seconds": 0.6582521995485876,
+    "messages_per_second": 2.2000471752600306,
+    "peak_rss_bytes": 2384990208,
+    "peak_vram_allocated_bytes": 1358539776,
+    "peak_vram_reserved_bytes": 1396703232,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "b400-fp16": {
+    "messages": 400,
+    "hypotheses": 96,
+    "seconds": 79.98401488496165,
+    "mean_seconds": 0.19996003721240413,
+    "p50_seconds": 0.18739170549815753,
+    "p95_seconds": 0.29349414234966387,
+    "messages_per_second": 5.000999269357842,
+    "peak_rss_bytes": 2916081664,
+    "peak_vram_allocated_bytes": 691910144,
+    "peak_vram_reserved_bytes": 708837376,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "b500-fp32": {
+    "messages": 500,
+    "hypotheses": 27,
+    "seconds": 34.9757390969753,
+    "mean_seconds": 0.0699514781939506,
+    "p50_seconds": 0.0674601110004005,
+    "p95_seconds": 0.08542295999977796,
+    "messages_per_second": 14.29562356391319,
+    "peak_rss_bytes": 2385158144,
+    "peak_vram_allocated_bytes": 1308465664,
+    "peak_vram_reserved_bytes": 1337982976,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "b500-fp16": {
+    "messages": 500,
+    "hypotheses": 27,
+    "seconds": 26.090988605981693,
+    "mean_seconds": 0.05218197721196339,
+    "p50_seconds": 0.050439374997949926,
+    "p95_seconds": 0.061132428848213745,
+    "messages_per_second": 19.1637046625887,
+    "peak_rss_bytes": 2916417536,
+    "peak_vram_allocated_bytes": 659486720,
+    "peak_vram_reserved_bytes": 677380096,
+    "scope": "Warmed CUDA inference incl tokenization, transfers, per-window scores; excludes model load, extraction and disk writes"
+  },
+  "speed-fp32": {
+    "groups": {
+      "12": {
+        "mean_seconds": 0.040796841166916745,
+        "p50_seconds": 0.04002713050067541,
+        "p95_seconds": 0.05738333275076002,
+        "messages_per_second": 24.51170167583776,
+        "observations": 36
+      },
+      "24": {
+        "mean_seconds": 0.07691067641654728,
+        "p50_seconds": 0.07537192499876255,
+        "p95_seconds": 0.10452830899794208,
+        "messages_per_second": 13.0020960234963,
+        "observations": 36
+      },
+      "48": {
+        "mean_seconds": 0.18496734830558934,
+        "p50_seconds": 0.18033778300014092,
+        "p95_seconds": 0.2459297779996632,
+        "messages_per_second": 5.406359604333377,
+        "observations": 36
+      },
+      "96": {
+        "mean_seconds": 0.37405952305562096,
+        "p50_seconds": 0.3633257660003437,
+        "p95_seconds": 0.49670099775175913,
+        "messages_per_second": 2.6733713175678315,
+        "observations": 36
+      }
+    },
+    "peak_rss_bytes": 2384805888,
+    "peak_vram_allocated_bytes": 1337338368,
+    "peak_vram_reserved_bytes": 1358954496
+  },
+  "speed-fp16": {
+    "groups": {
+      "12": {
+        "mean_seconds": 0.027696225416750368,
+        "p50_seconds": 0.026840751999770873,
+        "p95_seconds": 0.03355196675056504,
+        "messages_per_second": 36.106003072722366,
+        "observations": 36
+      },
+      "24": {
+        "mean_seconds": 0.05639630533288356,
+        "p50_seconds": 0.054598291499132756,
+        "p95_seconds": 0.06634642224707932,
+        "messages_per_second": 17.731658024358556,
+        "observations": 36
+      },
+      "48": {
+        "mean_seconds": 0.08748454183336839,
+        "p50_seconds": 0.08412325449899072,
+        "p95_seconds": 0.1132993239989446,
+        "messages_per_second": 11.430590811170935,
+        "observations": 36
+      },
+      "96": {
+        "mean_seconds": 0.1742009932775343,
+        "p50_seconds": 0.16904409099879558,
+        "p95_seconds": 0.22972562374980043,
+        "messages_per_second": 5.740495396641141,
+        "observations": 36
+      }
+    },
+    "peak_rss_bytes": 2915680256,
+    "peak_vram_allocated_bytes": 674977280,
+    "peak_vram_reserved_bytes": 698351616
+  },
+  "fp16_quality_delta": {
+    "changed_decisions": 1,
+    "max_score_delta": 0.004326179623603821,
+    "micro_F1": -0.0023506566508253446
+  }
+}
