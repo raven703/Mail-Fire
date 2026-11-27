@@ -1,0 +1,11 @@
+# Optional offline cache override. Use only with a separate test Compose project
+# and disposable database/broker; never apply it to the running deployment.
+services:
+  semantic:
+    environment:
+      EMBEDDING_CACHE_DIR: /opt/embedding-models
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
+      EMBEDDING_OFFLINE: 'true'
+    volumes:
+      - ${MICE_EMBEDDING_MODELS_DIR:?set absolute cache directory}:/opt/embedding-models:ro

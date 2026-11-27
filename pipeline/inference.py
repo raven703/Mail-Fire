@@ -21,6 +21,11 @@ def route(message, key, *, after_semantic=False):
         from pipeline.semantic_detection import schedule
         job = schedule(message, key)
         if job is not None:
+            # Optional inference must never hold deterministic findings hostage
+            # when its worker is stopped. Evaluate them now; semantic completion
+            # queues a newer evaluation through the existing fenced path.
+            from policy_engine.service import request_evaluation
+            request_evaluation(message.pk, "before-semantic:" + key)
             return job
     kind = "ml.infer" if enabled("ml") else "llm.infer" if enabled("llm") else None
     if kind:

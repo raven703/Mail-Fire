@@ -6,6 +6,7 @@ from pipeline.inference import enabled
 from pipeline.semantic_detection import threshold
 from records.models import Category, Metric, Reference, SemanticChunk
 from records.semantic import MODEL
+from pipeline.models import WorkItem
 
 
 def semantic_status(flags, options=None):
@@ -18,6 +19,13 @@ def semantic_status(flags, options=None):
     worker_label = {"ready": "Доступен по последнему замеру", "running": "Поступают замеры",
                     "missing": "Нет замеров", "stale": "Замеры устарели",
                     "degraded": "Проверка не прошла", "completed": "Завершён"}.get(worker, "Не подтверждён")
+    latest = WorkItem.objects.filter(kind__in=["semantic.detect", "semantic.reindex"]).order_by("-created_at", "-pk").first()
+    last_job = "Нет заданий"
+    failed = False
+    if latest:
+        failed = latest.status in {"DEAD", "CANCELLED"} or latest.output.get("status") == "PARTIAL"
+        last_job = ("Ошибка или неполный результат" if failed else
+                    {"PENDING": "В очереди", "RUNNING": "Выполняется", "DONE": "Завершено"}.get(latest.status, "Не подтверждён"))
     category_active = Category.objects.filter(pk="SEMANTIC_REFERENCE", active=True).exists()
     gate = enabled("semantic")
     try:
@@ -36,8 +44,10 @@ def semantic_status(flags, options=None):
         label = "Доступность worker не подтверждена"
     elif indexed < total:
         label = "Индекс неполный"
+    elif failed:
+        label = "Последнее задание завершилось с ошибкой или неполным результатом"
     else:
         label = "Условия выполнены"
     return {"label": label, "total": total, "indexed": indexed, "worker_label": worker_label,
             "gate": gate, "category_active": category_active, "threshold": minimum,
-            "configured": flags.get("semantic", True)}
+            "configured": flags.get("semantic", True), "last_job": last_job}

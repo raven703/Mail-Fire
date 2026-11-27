@@ -26,8 +26,9 @@ class SemanticRoutingTests(SimpleTestCase):
                                  {"id": "template", "fingerprint": {"document_template": { "kind": "passport" }}}]}
         message = SimpleNamespace(pk="m", content_id="c",
                                   content=SimpleNamespace(analysis={"configuration_snapshot": config}))
-        with patch.dict("os.environ", {"MICE_SEMANTIC_INFERENCE_ENABLED": "true", "MICE_SEMANTIC_THRESHOLD": ".85"}, clear=True), patch("pipeline.semantic_detection.enqueue") as enqueue:
+        with patch.dict("os.environ", {"MICE_SEMANTIC_INFERENCE_ENABLED": "true", "MICE_SEMANTIC_THRESHOLD": ".85"}, clear=True), patch("pipeline.semantic_detection.enqueue") as enqueue, patch("policy_engine.service.request_evaluation") as evaluate:
             route(message, "test")
+            evaluate.assert_called_once_with("m", "before-semantic:test")
             enqueue.assert_called_once_with("semantic.detect", {"message_id": "m", "content_id": "c",
                                              "reference_ids": ["ref"], "threshold": .85}, "semantic-detect:test")
 

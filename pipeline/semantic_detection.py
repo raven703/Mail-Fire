@@ -32,6 +32,8 @@ def schedule(message, key):
     # Keep only references present at deterministic-analysis time.
     refs = sorted(str(row["id"]) for row in config.get("references", [])
                   if not (row.get("fingerprint") or {}).get("document_template"))
+    if not refs:
+        return None
     try:
         minimum = threshold(config.get("settings", {}).get("semantic_detection", {}))
     except (ValueError, TypeError):
@@ -59,7 +61,8 @@ def compare_documents(parts, references, minimum):
         raise ValueError("Invalid semantic threshold")
     if not references:
         return [], [], "NO_REFERENCES"
-    names = dict(Reference.objects.filter(pk__in=references).values_list("pk", "name"))
+    names = dict(Reference.objects.filter(pk__in=references).exclude(
+        fingerprint__has_key="document_template").values_list("pk", "name"))
     indexed = SemanticChunk.objects.filter(source_type="reference", source_id__in=names, model=MODEL)
     available = set(indexed.values_list("source_id", flat=True).distinct())
     missing = set(references) - available
@@ -137,7 +140,13 @@ def persist(job, findings, errors, state):
 
 def run(job):
     from pipeline.inference import enabled
-    source = Content.objects.get(pk=job.payload["content_id"])
+    source = Content.objects.filter(pk=job.payload["content_id"]).first()
+    message = Message.objects.filter(pk=job.payload["message_id"]).first()
+    if source is None or message is None or message.content_id != source.pk or message.status == "PENDING":
+        with transaction.atomic():
+            locked_current(job.pk, job.token)
+            finish(job.pk, job.token, {"superseded": True})
+        return
     if not enabled("semantic"):
         findings, errors, state = [], [{"engine": "semantic", "error": "deployment_disabled"}], "PARTIAL"
     else:

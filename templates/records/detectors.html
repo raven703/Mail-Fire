@@ -35,6 +35,7 @@
         <dl><dt>Состояние</dt><dd>{{ selected.readiness.label }}</dd><dt>Обычные эталоны</dt><dd>{{ selected.readiness.total }}</dd><dt>В индексе текущей модели</dt><dd>{{ selected.readiness.indexed }}</dd><dt>Worker</dt><dd>{{ selected.readiness.worker_label }}</dd><dt>Разрешён развёртыванием</dt><dd>{{ selected.readiness.gate|yesno:'Да,Нет' }}</dd><dt>Категория активна</dt><dd>{{ selected.readiness.category_active|yesno:'Да,Нет' }}</dd><dt>Порог</dt><dd>{{ selected.readiness.threshold|default_if_none:'Некорректный' }}</dd></dl>
         <p>Без обычных загруженных и проиндексированных эталонов сравнение невозможно. Шаблоны типов документов не входят в семантический индекс.</p>
         <p class="muted">Замеры worker и наличие индекса не подтверждают успешную загрузку модели или работу очереди.</p>
+        <p>Последнее семантическое задание: {{ selected.readiness.last_job }}.</p>
         {% if perms.identity.view_originals %}<a class="action-button" href="{% url 'references-page' %}">Эталонные документы</a>{% endif %}
         {% endif %}
         {% if selected.categories %}<p>Категории · {{ selected.categories|join:', ' }}</p>{% endif %}

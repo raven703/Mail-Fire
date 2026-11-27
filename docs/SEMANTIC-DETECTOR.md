@@ -6,12 +6,12 @@ Audit: records/semantic.py already implements local MiniLM embeddings, reference
 
 - Set MICE_SEMANTIC_INFERENCE_ENABLED=true in the existing deployment environment.
 - Start the existing semantic profile/worker (docker compose --profile semantic up -d --build). Recreate runtime workers so the gate propagates.
-- MICE_SEMANTIC_THRESHOLD=0.85 is the initial cosine similarity threshold; valid range (0,1]. It is not a calibrated probability. Set a different value in the environment and recreate runtime workers.
+- MICE_SEMANTIC_THRESHOLD=0.85 is the initial cosine similarity threshold; valid range (0,1]. It is not a calibrated probability. Administrators can save a database override in detector settings without restart. The new value applies to subsequent analysis snapshots; queued jobs keep their original threshold. Changing the deployment gate still requires recreating runtime workers.
 - Enable the semantic detector in detector settings and ensure SEMANTIC_REFERENCE is active.
 - Index ordinary reference documents using the existing reference indexing UI. Template-only references are excluded. MICE_SEMANTIC_AUTO_INDEX=true optionally indexes new references.
 - Add SEMANTIC_REFERENCE to a policy and verify that the policy matches risk 50. Existing policies are not changed automatically.
 
-No references is explicitly skipped. Missing index, embedding errors and limits mark the analysis PARTIAL; deterministic findings still continue to policy evaluation. The worker snapshots threshold and reference IDs, compares body and attachments independently, stores best evidence per source/reference with similarity and excerpts. It reads the current index for those IDs (not an immutable vector snapshot). Limits: 500 query chunks, 100 findings, bounded batch size. Default gate OFF to avoid sending jobs to a nonexistent optional worker; enabling without starting the worker leaves jobs waiting. No speed or quality claim before real calibration.
+No references skips the optional queue. Missing index, embedding errors and limits mark the analysis PARTIAL. Deterministic findings are evaluated immediately, independently of the optional worker; semantic completion requests a newer policy evaluation. Thus a stopped worker cannot block incidents from the other detectors, although semantic work itself remains pending until the worker returns. The worker snapshots threshold and reference IDs, compares body and attachments independently, stores best evidence per source/reference with similarity and excerpts. It reads the current index for those IDs (not an immutable vector snapshot). Limits: 500 query chunks, 100 findings, bounded batch size. Default gate OFF. No additional worker group, schema or external LLM is introduced.
 
 ## Verification
 

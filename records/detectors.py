@@ -72,6 +72,7 @@ def detectors(request):
         rows[key] = {"id": key, "name": title, "engine": engine, "categories": categories, "available": available,
                      "enabled": normalizer["enabled"] if key == "normalizer" else available and flags.get(key, True)}
     rows["semantic"]["readiness"] = semantic
+    rows["semantic"]["enabled"] = semantic["configured"]
     form = None
     if selected:
         form_class = NormalizerForm if selected == "normalizer" and request.POST.get("action") != "toggle" else DetectorForm
