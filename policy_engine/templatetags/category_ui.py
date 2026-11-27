@@ -33,3 +33,9 @@ def detection_method(category, count=0):
 def category_context_supported(category):
     from app.category_catalog import CONTEXT_CATEGORIES
     return category.mode == "builtin" and category.pk in CONTEXT_CATEGORIES
+
+
+@register.simple_tag
+def builtin_detector_help(category):
+    from policy_engine.detector_help import builtin_help
+    return builtin_help(category.pk) if category.mode == "builtin" else None

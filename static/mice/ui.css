@@ -107,3 +107,9 @@ label :is(input, select, textarea) { color: var(--text); }
 @media (max-width: 650px) { main { padding: 12px; } .ui-filter-grid { grid-template-columns: minmax(0, 1fr); } .ui-filter-advanced, .ui-filter-actions { grid-column: 1 / -1; } }
 /* Category action popover styling lives in controls.css after generic controls. */
 .category-actions-trigger { cursor: pointer; font-size: 19px; }
+
+/* Read-only native detector documentation inside the category modal. */
+.builtin-detector-help h3, .category-description-dialog .editor-dialog-body > h3 { font-size: 13px; font-weight: 650; margin: 16px 0 6px; }
+.builtin-detector-help p { margin: 6px 0 12px; line-height: 1.55; }
+.builtin-detector-help code { overflow-wrap: anywhere; }
+.builtin-detector-help { border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px; }
