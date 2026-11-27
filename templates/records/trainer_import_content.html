@@ -1,0 +1,24 @@
+<h2>Импорт обученных моделей</h2>
+<p>Только для пакетов из доверенного источника. SHA-256 проверяет целостность, но не подтверждает автора. Модели будут неактивны; обучение не запускается.</p>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+{% if success %}<p role="status">{{ success }}</p>{% endif %}
+<form method="post" enctype="multipart/form-data" action="{% url 'trainer-import' %}" hx-post="{% url 'trainer-import' %}" hx-target="#trainer-import" hx-encoding="multipart/form-data">
+  {% csrf_token %}
+  <label>ZIP-пакет <input type="file" name="package" accept=".zip" required></label>
+  {% if manifest %}
+  <p>Проверено. Для подтверждения повторно выберите тот же ZIP-файл.</p>
+  <label><input type="checkbox" name="all" value="yes"> Импортировать весь пакет</label>
+  {% for model in manifest.models %}
+  <fieldset>
+    <legend><label><input type="checkbox" name="models" value="{{ model.id }}" checked> {{ model.id }} · {{ model.engine }}</label></legend>
+    <p>Категории: {{ model.categories|join:', ' }} · Пороги: {{ model.thresholds }}</p>
+    <p>Quality gate: {{ model.eligible|yesno:'пройден,не пройден' }}</p>
+    <details><summary>Метрики и версии библиотек</summary><pre>{{ model.metrics }}</pre><pre>{{ model.versions }}</pre></details>
+  </fieldset>
+  {% endfor %}
+  <label><input type="checkbox" name="trust" value="yes" required> Я доверяю источнику этого пакета и разрешаю десериализацию моделей</label>
+  <button type="submit" name="action" value="import">Импортировать выбранные модели</button>
+  {% else %}
+  <button type="submit" name="action" value="preview">Просмотреть пакет</button>
+  {% endif %}
+</form>

@@ -133,6 +133,8 @@ def download(args):
 
 
 def training(args):
+    from app.trainer_package import versions
+
     if not 0 <= args.min_f1 <= 1:
         raise ValueError("min_f1 must be between 0 and 1")
     rows = read_rows(args.dataset)
@@ -173,7 +175,7 @@ def training(args):
             "dataset_sha256": sha(args.dataset.read_bytes()),
             "split_sha256": sha((args.output / "split.json").read_bytes()),
             "metrics": metrics, "eligible": bool(eligible),
-            "versions": {p: version(p) for p in PACKAGES},
+            "versions": versions(),
              "python": sys.version, "seed": args.seed}
     source = args.base / "mice-source.json"
     if args.engine != "tfidf" and source.is_file():
@@ -261,6 +263,10 @@ def smoke_data(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    p = sub.add_parser("run-job")
+    p.add_argument("job", type=Path)
+    p.add_argument("--dry-run", action="store_true")
+    p.set_defaults(func=run_job)
     p = sub.add_parser("doctor")
     p.add_argument("--require-cuda", action="store_true")
     p.set_defaults(func=doctor)
@@ -322,6 +328,119 @@ def main():
                 raise
         raise SystemExit(code)
     args.func(args)
+
+
+def read_job(path):
+    """Validate before creating outputs or loading neural libraries."""
+    import math
+
+    job = json.loads(path.read_text(encoding="utf-8"))
+    required = {"name", "dataset", "categories", "engines", "device", "epochs",
+                "batch_size", "max_steps", "seed", "min_f1", "output"}
+    if not isinstance(job, dict) or required - job.keys() or job.keys() - required - {"evaluation_dataset", "base"}:
+        raise ValueError("Missing or unknown job fields")
+    if not isinstance(job["name"], str) or not job["name"].strip():
+        raise ValueError("Job name must be nonempty")
+    for key in ("categories", "engines"):
+        values = job[key]
+        if (not isinstance(values, list) or not values or
+                not all(isinstance(v, str) and v.strip() for v in values) or len(values) != len(set(values))):
+            raise ValueError(f"Invalid {key}")
+    if set(job["engines"]) - {"tfidf", "setfit", "rubert"} or job["device"] not in ("auto", "cpu", "cuda"):
+        raise ValueError("Invalid engines/device")
+    if "tfidf" in job["engines"] and len(job["categories"]) < 2:
+        raise ValueError("TF-IDF requires at least two categories")
+    for key in ("epochs", "batch_size", "max_steps", "seed"):
+        if type(job[key]) is not int or job[key] < (0 if key == "seed" else 1):
+            raise ValueError(f"Invalid {key}")
+    if (type(job["min_f1"]) not in (int, float) or not math.isfinite(job["min_f1"]) or
+            not 0 <= job["min_f1"] <= 1):
+        raise ValueError("Invalid min_f1")
+    for key in ("dataset", "evaluation_dataset", "output", "base"):
+        if key not in job or job[key] is None:
+            continue
+        if not isinstance(job[key], str) or not job[key].strip():
+            raise ValueError(f"Invalid {key} path")
+        value = Path(job[key]).expanduser()
+        job[key] = (path.resolve().parent / value).resolve()
+    if job.get("base") is None:
+        job["base"] = BASE
+    if job["output"].exists():
+        raise FileExistsError(job["output"])
+    rows = read_rows(job["dataset"])
+    if not 30 <= len(rows) <= 10000:
+        raise ValueError("Native engines require 30–10000 examples")
+    counts = prepare(rows, job["categories"], job["seed"])
+    evaluation = job.get("evaluation_dataset")
+    if evaluation:
+        external = read_rows(evaluation)
+        hashes = {group_hash(r["text"]) for r in rows}
+        groups = {r["group_id"] for r in rows}
+        ids = {r["id"] for r in rows}
+        if any(group_hash(r["text"]) in hashes or r["group_id"] in groups or r["id"] in ids for r in external):
+            raise ValueError("Evaluation dataset overlaps training dataset")
+        for category in job["categories"]:
+            if not 0 < sum(category in r["labels"] for r in external) < len(external):
+                raise ValueError(f"Evaluation lacks positive/negative coverage: {category}")
+    plan = [{"engine": engine, "category_id": category}
+            for engine in job["engines"]
+            for category in ([None] if engine == "tfidf" else job["categories"])]
+    return job, rows, {"name": job["name"], "model_count": len(plan), "models": plan,
+                       "split_counts": counts, "device": job["device"],
+                       "independent_evaluation": bool(evaluation)}
+
+
+def run_job(args):
+    from contextlib import redirect_stderr, redirect_stdout
+
+    from app.trainer_package import versions, write_package
+
+    job, rows, plan = read_job(args.job)
+    print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
+    if args.dry_run:
+        return plan
+    output = job["output"]
+    output.mkdir(parents=True, exist_ok=False)
+    dump(output / "plan.json", plan)
+    # Persist one split and feed exactly these assignments to every native engine.
+    split = [{k: r[k] for k in ("id", "group_id", "split")} for r in rows]
+    dump(output / "split.json", split)
+    prepared = output / ".job-input.jsonl"
+    models = []
+    report = {"name": job["name"], "status": "running", "models": []}
+    try:
+        prepared.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")
+        for index, item in enumerate(plan["models"], 1):
+            folder = output / f"model-{index}"
+            options = SimpleNamespace(**{k: job[k] for k in
+                ("seed", "base", "device", "batch_size", "epochs", "max_steps", "min_f1")},
+                dataset=prepared, output=folder, engine=item["engine"], category=item["category_id"],
+                categories=job["categories"] if item["engine"] == "tfidf" else None)
+            with (output / f"model-{index}.log").open("x", encoding="utf-8") as log:
+                with redirect_stdout(log), redirect_stderr(log):
+                    training(options)
+                    if job.get("evaluation_dataset"):
+                        evaluate(SimpleNamespace(model=folder, dataset=job["evaluation_dataset"],
+                                                 output=folder / "evaluation.json"))
+            meta = json.loads((folder / "training.json").read_text())
+            labels = meta["metrics"]["labels"]
+            meta.update(categories=labels, versions=versions(),
+                        thresholds=meta["metrics"].get("thresholds", [meta["metrics"].get("threshold")]))
+            if job.get("evaluation_dataset"):
+                meta["independent_evaluation"] = json.loads((folder / "evaluation.json").read_text())
+            models.append((meta, (folder / meta["artifact"]).read_bytes()))
+            report["models"].append({"engine": meta["engine"], "categories": labels,
+                                     "eligible": meta["eligible"], "metrics": meta["metrics"],
+                                     "independent_evaluation": meta.get("independent_evaluation")})
+        report["status"] = "completed"
+        write_package(output / "models.zip", models, report)
+    except Exception as exc:
+        report.update(status="failed", error=str(exc))
+        raise
+    finally:
+        prepared.unlink(missing_ok=True)
+        dump(output / "report.json", report)
+    return report
 
 
 if __name__ == "__main__":

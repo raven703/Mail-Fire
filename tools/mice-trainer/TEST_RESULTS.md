@@ -1,3 +1,30 @@
+# Infrastructure verification — 2026-11-27
+
+- Isolated Python environment: `/tmp/mice-trainer-infra-venv`, Python 3.12.
+- `python -m pytest tests/test_trainer_infrastructure.py tests/test_trainer_import.py -q`: **33 passed**.
+- Ruff 0.17.6 on all changed Python modules: passed.
+- `python -m py_compile` on all changed Python modules: passed.
+- `trainer.py run-job --help`: passed; `git diff --check`: passed.
+- Tests cover JSON validation, dry-run without writes/training, sequential mock
+  orchestration for all five models with identical splits, optional mock external
+  evaluation, failure reporting/input cleanup, single/multi-model packages,
+  manifest/hash/report corruption, unsafe paths/symlinks/duplicates/size limits,
+  categories/version checks, trust, selected import, inactive creation,
+  legacy CLI folder import, access denial, web preview/import and real Django
+  template parsing/rendering. CPU inference is mocked, not quality-evaluated.
+- Legacy import tests now use inert fixtures instead of fitting TF-IDF.
+- No model training, GPU checks, dataset generation, downloads of model weights,
+  classification-quality evaluation or benchmarks were run.
+- No working database was accessed. Server-facing checks use ORM/transaction
+  doubles and a Django configuration with `DATABASES={}`. Full project database
+  integration, actual MLModel persistence in PostgreSQL, browser end-to-end and
+  production proxy upload limits were **not** tested: no isolated project DB/server
+  deployment was provisioned. Existing model algorithms and active rows are untouched.
+- Native stdout from compiled libraries may require external CLI log capture;
+  per-model logs capture Python stdout/stderr. Exact library-version checks are
+  deliberately conservative. Runtime validation of real artifacts is deferred
+  to trusted model import, not performed during this infrastructure stage.
+
 # Реальные проверки — 27 ноября 2026
 
 ## Среда

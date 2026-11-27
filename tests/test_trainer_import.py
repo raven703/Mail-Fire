@@ -31,6 +31,13 @@ def importer(monkeypatch):
     models = Mock()
     models.objects.create.return_value.pk = "new-inactive"
     module("records.models", Category=categories, MLModel=models)
+    service_path = Path(__file__).resolve().parents[1] / "records/trainer_import.py"
+    service_spec = importlib.util.spec_from_file_location("records.trainer_import", service_path)
+    service = importlib.util.module_from_spec(service_spec)
+    monkeypatch.setitem(sys.modules, "records.trainer_import", service)
+    service_spec.loader.exec_module(service)
+    service.infer_models = Mock(return_value=([{"category": "custom-a", "threshold": .5},
+                                              {"category": "custom-b", "threshold": .5}], []))
     path = Path(__file__).resolve().parents[1] / "records/management/commands/import_trainer_model.py"
     spec = importlib.util.spec_from_file_location("trainer_import_command", path)
     imported = importlib.util.module_from_spec(spec)
@@ -43,16 +50,13 @@ def importer(monkeypatch):
 def export(tmp_path):
     import hashlib
 
-    from app.ml import group_hash, train
-
-    rows = [dict(text=f"{label} text номер {i}", labels=[label])
-            for label in ("custom-a", "custom-b") for i in range(70)]
-    assert len({group_hash(r["text"]) for r in rows}) == 140
-    artifact, metrics, eligible = train(rows, min_f1=0)
+    artifact = b"fixture-not-deserialized"
+    metrics = {"labels": ["custom-a", "custom-b"], "thresholds": [.5, .5]}
+    eligible = False
     (tmp_path / "model.pkl").write_bytes(artifact)
     meta = dict(engine="tfidf", category_id=None, artifact="model.pkl",
                 artifact_sha256=hashlib.sha256(artifact).hexdigest(), metrics=metrics,
-                eligible=eligible, versions={"scikit-learn": version("scikit-learn")})
+                eligible=eligible, versions={p: version(p) for p in ("scikit-learn", "numpy")})
     (tmp_path / "training.json").write_text(json.dumps(meta))
     return dict(folder=tmp_path, name="Test", commit=False, trust_local_artifact=True)
 

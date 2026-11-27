@@ -1,5 +1,101 @@
 # MICE Trainer (experimental)
 
+## Training jobs and deployment packages
+
+Infrastructure-only verification does **not** require training, GPU checks,
+base-model downloads, dataset generation or quality evaluation. The historical
+smoke commands below are not part of infrastructure verification.
+
+Copy `tools/mice-trainer/job.example.json` to the GPU computer and edit it.
+Paths are resolved relative to the job JSON (home `~` is supported).
+`evaluation_dataset` is optional and may be omitted or null. `base` is optional;
+the default is `~/mice-trainer-data/base_models/rubert-tiny2`. Base weights must
+already exist locally; run-job never downloads them. Output must not exist.
+Engine names are `tfidf`, `setfit`, `rubert`; device is `auto`, `cpu`, `cuda`.
+Epochs, batch_size and max_steps are positive integers, seed is nonnegative,
+min_f1 is in [0, 1]. These job fields are required, even for TF-IDF (whose
+native algorithm does not use neural training parameters).
+
+```bash
+python tools/mice-trainer/trainer.py run-job /path/to/job.json --dry-run
+# Later, separately on the RTX 4060 host, after reviewing the plan:
+python tools/mice-trainer/trainer.py run-job /path/to/job.json
+```
+
+Dry-run reads and validates the job and dataset, verifies class coverage and
+grouped train/validation/test assignments, and prints the model count without
+creating outputs, loading neural models, training or inference. CUDA availability
+and local base-model usability are checked only when native training is invoked.
+TF-IDF needs at least two categories and exports one global multilabel model;
+each neural engine exports one binary model per selected category. For two
+categories and all three engines the plan contains five models. Dataset size
+is limited to 30–10000 examples in this workflow. User category IDs must already
+exist in MICE before import; arbitrary category counts retain native engine
+constraints and available-memory limits.
+
+Every engine receives the same persisted group split. Native trainers select
+thresholds on validation and calculate validation/test metrics and quality gates.
+The optional independent dataset must not overlap by ID, group or normalized
+text, must cover positive/negative examples, and is evaluated after training
+without recalibrating thresholds. A failed quality gate does not silently drop
+a model: its status is preserved for review and native manual activation rules.
+
+Results contain plan.json, split.json (no mail text), per-model native exports,
+per-model Python stdout/stderr logs, report.json and models.zip. Native-extension
+output is not guaranteed to enter the Python log; capture the entire CLI output
+externally if needed. The temporary input copy is removed on success or exception
+(an abrupt OS/process termination may leave it; protect the output directory).
+Failures produce a failed report and no deployable completed package; use a new
+output directory for a retry. No resume or parallel training is implemented.
+
+The ZIP format version 1 contains only manifest.json, report.json and explicitly
+listed final model.pkl/model.zip artifacts. Manifest records category IDs,
+engines, thresholds, metrics, eligibility, library versions and SHA-256 hashes
+for artifacts and report. No emails, base snapshots or intermediate checkpoints
+are packaged. Neural native archives necessarily contain their final trained
+weights; no separate base-model directory is included. SHA-256 detects corruption,
+not authenticity; there are no signatures or certificates.
+
+### Web import (administrator only)
+
+1. Open **ML-модели и обучение → Импорт обученных моделей**.
+2. Select models.zip and click **Просмотреть пакет**. This only inspects metadata
+   and hashes, checks categories/library compatibility and ZIP limits; it does not
+   deserialize models.
+3. Review categories, engines, thresholds, quality gates and metrics. Select models
+   or the entire package. Re-select the **same ZIP** (browsers cannot retain file
+   inputs after preview); its digest must match the session's preview digest.
+4. Explicitly confirm trust in the source and import. Trusted native artifacts may
+   execute pickle/checkpoint code: do not import untrusted packages even if hashes
+   match. CPU inference validates selected artifacts, not classification quality.
+5. Imported MLModel rows are **inactive**. Use the existing manual activation
+   controls later. Import never trains models or changes existing active models.
+
+CLI uses the same service and retains legacy folder imports:
+
+```bash
+python manage.py import_trainer_model /trusted/models.zip --trust-local-artifact
+python manage.py import_trainer_model /trusted/models.zip --trust-local-artifact --commit
+# Optional repeated --model m1 --model m2 selects manifest model IDs.
+```
+
+Exact runtime versions of numpy/scikit-learn are required; neural models also
+require torch/transformers/safetensors, and SetFit additionally setfit and
+sentence-transformers. This conservative policy may require matching server
+dependency locks. ZIP limits: 1000 outer entries, 512 MiB per file, 2 GiB expanded
+total, 4 MiB manifest/report; native neural ZIPs allow at most 300 entries.
+Reverse-proxy/upload limits may be lower. All entries are validated, including
+unselected models. No ZIP extraction is performed by package inspection.
+
+Infrastructure tests (isolated environment; no real training):
+
+```bash
+python -m pytest tests/test_trainer_infrastructure.py tests/test_trainer_import.py -q
+```
+
+Do not run the whole historical Trainer test suite for an infrastructure-only
+check: some legacy tests deliberately train TF-IDF or generate smoke datasets.
+
 Run from the repository root in an isolated Python environment. No Django,
 PostgreSQL, Celery, RabbitMQ or Docker services are required.
 
