@@ -1,0 +1,263 @@
+{
+  "dtype": "fp32",
+  "revision": "a9a5a24e58c794a0f7532d3de842236435a9ae22",
+  "categories": {
+    "pack-ru2-financial-plans": {
+      "hypotheses": [
+        "h0",
+        "h3"
+      ],
+      "combine": "mean",
+      "aggregation": "max",
+      "threshold": 0.25,
+      "development": {
+        "TP": 60,
+        "FP": 3,
+        "FN": 3,
+        "TN": 684,
+        "precision": 0.9523809523809523,
+        "recall": 0.9523809523809523,
+        "F1": 0.9523809523809523,
+        "FPR": 0.004366812227074236
+      }
+    },
+    "pack-ru2-pricing": {
+      "hypotheses": [
+        "h2",
+        "h3"
+      ],
+      "combine": "min",
+      "aggregation": "max",
+      "threshold": 0.1,
+      "development": {
+        "TP": 53,
+        "FP": 0,
+        "FN": 4,
+        "TN": 693,
+        "precision": 1.0,
+        "recall": 0.9298245614035088,
+        "F1": 0.9636363636363636,
+        "FPR": 0.0
+      }
+    },
+    "pack-ru2-internal-docs": {
+      "hypotheses": [
+        "h5",
+        "h6"
+      ],
+      "combine": "subtract",
+      "aggregation": "max",
+      "threshold": 0.45,
+      "development": {
+        "TP": 31,
+        "FP": 15,
+        "FN": 17,
+        "TN": 687,
+        "precision": 0.6739130434782609,
+        "recall": 0.6458333333333334,
+        "F1": 0.6595744680851063,
+        "FPR": 0.021367521367521368
+      }
+    },
+    "pack-ru2-customer-data": {
+      "hypotheses": [
+        "h2",
+        "h4"
+      ],
+      "combine": "min",
+      "aggregation": "max",
+      "threshold": 0.4,
+      "development": {
+        "TP": 45,
+        "FP": 2,
+        "FN": 2,
+        "TN": 701,
+        "precision": 0.9574468085106383,
+        "recall": 0.9574468085106383,
+        "F1": 0.9574468085106383,
+        "FPR": 0.002844950213371266
+      }
+    },
+    "pack-ru2-credential-transfer": {
+      "hypotheses": [
+        "h2",
+        "h6"
+      ],
+      "combine": "product",
+      "aggregation": "max",
+      "threshold": 0.15,
+      "development": {
+        "TP": 39,
+        "FP": 20,
+        "FN": 4,
+        "TN": 687,
+        "precision": 0.6610169491525424,
+        "recall": 0.9069767441860465,
+        "F1": 0.7647058823529411,
+        "FPR": 0.028288543140028287
+      }
+    },
+    "pack-ru2-phishing": {
+      "hypotheses": [
+        "h2",
+        "h5"
+      ],
+      "combine": "min",
+      "aggregation": "max",
+      "threshold": 0.15,
+      "development": {
+        "TP": 29,
+        "FP": 4,
+        "FN": 21,
+        "TN": 696,
+        "precision": 0.8787878787878788,
+        "recall": 0.58,
+        "F1": 0.6987951807228916,
+        "FPR": 0.005714285714285714
+      }
+    },
+    "pack-ru2-data-exfil": {
+      "hypotheses": [
+        "h1",
+        "h4"
+      ],
+      "combine": "mean",
+      "aggregation": "max",
+      "threshold": 0.35,
+      "development": {
+        "TP": 39,
+        "FP": 14,
+        "FN": 6,
+        "TN": 691,
+        "precision": 0.7358490566037735,
+        "recall": 0.8666666666666667,
+        "F1": 0.7959183673469388,
+        "FPR": 0.019858156028368795
+      }
+    },
+    "pack-ru2-extortion": {
+      "hypotheses": [
+        "h2",
+        "h6"
+      ],
+      "combine": "subtract",
+      "aggregation": "max",
+      "threshold": 0.1,
+      "development": {
+        "TP": 27,
+        "FP": 11,
+        "FN": 13,
+        "TN": 699,
+        "precision": 0.7105263157894737,
+        "recall": 0.675,
+        "F1": 0.6923076923076923,
+        "FPR": 0.015492957746478873
+      }
+    },
+    "pack-ru2-explosive-threat": {
+      "hypotheses": [
+        "h0"
+      ],
+      "combine": "single",
+      "aggregation": "max",
+      "threshold": 0.55,
+      "development": {
+        "TP": 40,
+        "FP": 0,
+        "FN": 2,
+        "TN": 708,
+        "precision": 1.0,
+        "recall": 0.9523809523809523,
+        "F1": 0.975609756097561,
+        "FPR": 0.0
+      }
+    },
+    "pack-ru2-violence-threat": {
+      "hypotheses": [
+        "h0",
+        "h2"
+      ],
+      "combine": "max",
+      "aggregation": "max",
+      "threshold": 0.5,
+      "development": {
+        "TP": 35,
+        "FP": 8,
+        "FN": 6,
+        "TN": 701,
+        "precision": 0.813953488372093,
+        "recall": 0.8536585365853658,
+        "F1": 0.8333333333333334,
+        "FPR": 0.011283497884344146
+      }
+    },
+    "pack-ru2-sabotage": {
+      "hypotheses": [
+        "h2",
+        "h3"
+      ],
+      "combine": "mean",
+      "aggregation": "max",
+      "threshold": 0.1,
+      "development": {
+        "TP": 28,
+        "FP": 10,
+        "FN": 10,
+        "TN": 702,
+        "precision": 0.7368421052631579,
+        "recall": 0.7368421052631579,
+        "F1": 0.7368421052631579,
+        "FPR": 0.014044943820224719
+      }
+    },
+    "pack-ru2-pii-handling": {
+      "hypotheses": [
+        "h0",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ],
+      "combine": "mean",
+      "aggregation": "max",
+      "threshold": 0.45,
+      "development": {
+        "TP": 42,
+        "FP": 3,
+        "FN": 6,
+        "TN": 699,
+        "precision": 0.9333333333333333,
+        "recall": 0.875,
+        "F1": 0.9032258064516129,
+        "FPR": 0.004273504273504274
+      }
+    }
+  },
+  "selection": "Max pooled B350+B400 F1; ties fewer FP, fewer hypotheses, higher threshold, enumeration order",
+  "thresholds": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "window_characters": 900,
+  "overlap": 100,
+  "max_tokens": 512,
+  "multilabel": "Independent category score >= category threshold; no cross-category softmax",
+  "fp16_policy": "Same FP32-selected rules on B500; FP16 development optimum is diagnostic only"
+}
