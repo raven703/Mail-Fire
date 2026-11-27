@@ -170,12 +170,13 @@ def evaluate(job):
         for finding in [{**original, "category": ALIASES.get(original["category"], original["category"])}]
         if finding["category"] in config["active_categories"]
         and finding["category"] not in disabled
-        and (finding.get("source") not in {"custom-keywords", "custom-regex", "custom-reference", "custom-ml"}
+        and (finding.get("source") not in {"custom-keywords", "custom-regex", "custom-reference", "custom-ml", 'custom-horizon'}
              or "active_rule_ids" not in config or finding.get("rule_id") in config["active_rule_ids"])
         and not (
             not config["detectors"].get("ml", True)
             and finding.get("source") in {"supervised-ml", "custom-ml"}
         )
+        and not (finding.get('source') == 'custom-horizon' and not config['detectors'].get('horizon', False))
     ]
     matched = []
     for policy in payload["policies"]:

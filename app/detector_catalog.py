@@ -19,5 +19,6 @@ DETECTORS = {
     "reference": ("Эталонные документы", "Fingerprint / MinHash", ["REFERENCE_DOCUMENT"]),
     "semantic": ("Семантическое сходство", "Multilingual MiniLM / pgvector", ["SEMANTIC_REFERENCE"]),
     "ml": ("ML-классификатор", "TF-IDF / SetFit / RuBERT", []),
+    "horizon": ("Horizon Zero-shot", "Локальная NLI-модель · CPU / опциональный CUDA · выключен по умолчанию", []),
     "normalizer": ("Нормализация текста", "Детерминированный поиск с координатами оригинала", []),
 }

@@ -1,0 +1,400 @@
+{
+  "fp32": {
+    "pack-ru2-credential-transfer": {
+      "category": "pack-ru2-credential-transfer",
+      "members": [
+        "horizon-fp32",
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 1,
+      "TP": 16,
+      "TN": 474,
+      "FP": 1,
+      "FN": 9,
+      "precision": 0.9411764705882353,
+      "recall": 0.64,
+      "F1": 0.7619047619047619,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-customer-data": {
+      "category": "pack-ru2-customer-data",
+      "members": [
+        "horizon-fp32",
+        "setfit"
+      ],
+      "minimum_votes": 2,
+      "safe_FP": 0,
+      "TP": 6,
+      "TN": 475,
+      "FP": 0,
+      "FN": 19,
+      "precision": 1.0,
+      "recall": 0.24,
+      "F1": 0.3870967741935484,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-data-exfil": {
+      "category": "pack-ru2-data-exfil",
+      "members": [
+        "horizon-fp32"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 4,
+      "TP": 18,
+      "TN": 460,
+      "FP": 15,
+      "FN": 7,
+      "precision": 0.5454545454545454,
+      "recall": 0.72,
+      "F1": 0.6206896551724138,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-explosive-threat": {
+      "category": "pack-ru2-explosive-threat",
+      "members": [
+        "horizon-fp32"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 2,
+      "TP": 25,
+      "TN": 473,
+      "FP": 2,
+      "FN": 0,
+      "precision": 0.9259259259259259,
+      "recall": 1.0,
+      "F1": 0.9615384615384616,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-extortion": {
+      "category": "pack-ru2-extortion",
+      "members": [
+        "horizon-fp32"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 14,
+      "TN": 461,
+      "FP": 14,
+      "FN": 11,
+      "precision": 0.5,
+      "recall": 0.56,
+      "F1": 0.5283018867924528,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-financial-plans": {
+      "category": "pack-ru2-financial-plans",
+      "members": [
+        "horizon-fp32",
+        "rubert"
+      ],
+      "minimum_votes": 2,
+      "safe_FP": 1,
+      "TP": 7,
+      "TN": 474,
+      "FP": 1,
+      "FN": 18,
+      "precision": 0.875,
+      "recall": 0.28,
+      "F1": 0.42424242424242425,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-internal-docs": {
+      "category": "pack-ru2-internal-docs",
+      "members": [
+        "horizon-fp32",
+        "ru4"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 12,
+      "TP": 19,
+      "TN": 440,
+      "FP": 35,
+      "FN": 6,
+      "precision": 0.35185185185185186,
+      "recall": 0.76,
+      "F1": 0.4810126582278481,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-phishing": {
+      "category": "pack-ru2-phishing",
+      "members": [
+        "tfidf"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 0,
+      "TN": 475,
+      "FP": 0,
+      "FN": 25,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-pii-handling": {
+      "category": "pack-ru2-pii-handling",
+      "members": [
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 5,
+      "TN": 475,
+      "FP": 0,
+      "FN": 20,
+      "precision": 1.0,
+      "recall": 0.2,
+      "F1": 0.3333333333333333,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-pricing": {
+      "category": "pack-ru2-pricing",
+      "members": [
+        "horizon-fp32"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 3,
+      "TP": 10,
+      "TN": 472,
+      "FP": 3,
+      "FN": 15,
+      "precision": 0.7692307692307693,
+      "recall": 0.4,
+      "F1": 0.5263157894736842,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-sabotage": {
+      "category": "pack-ru2-sabotage",
+      "members": [
+        "horizon-fp32",
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 16,
+      "TN": 472,
+      "FP": 3,
+      "FN": 9,
+      "precision": 0.8421052631578947,
+      "recall": 0.64,
+      "F1": 0.7272727272727273,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-violence-threat": {
+      "category": "pack-ru2-violence-threat",
+      "members": [
+        "horizon-fp32"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 19,
+      "TN": 472,
+      "FP": 3,
+      "FN": 6,
+      "precision": 0.8636363636363636,
+      "recall": 0.76,
+      "F1": 0.8085106382978723,
+      "recommendation": "shadow-only; new-corpus validation required"
+    }
+  },
+  "fp16": {
+    "pack-ru2-credential-transfer": {
+      "category": "pack-ru2-credential-transfer",
+      "members": [
+        "horizon-fp16",
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 1,
+      "TP": 16,
+      "TN": 474,
+      "FP": 1,
+      "FN": 9,
+      "precision": 0.9411764705882353,
+      "recall": 0.64,
+      "F1": 0.7619047619047619,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-customer-data": {
+      "category": "pack-ru2-customer-data",
+      "members": [
+        "horizon-fp16",
+        "setfit"
+      ],
+      "minimum_votes": 2,
+      "safe_FP": 0,
+      "TP": 6,
+      "TN": 475,
+      "FP": 0,
+      "FN": 19,
+      "precision": 1.0,
+      "recall": 0.24,
+      "F1": 0.3870967741935484,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-data-exfil": {
+      "category": "pack-ru2-data-exfil",
+      "members": [
+        "horizon-fp16"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 4,
+      "TP": 17,
+      "TN": 460,
+      "FP": 15,
+      "FN": 8,
+      "precision": 0.53125,
+      "recall": 0.68,
+      "F1": 0.5964912280701754,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-explosive-threat": {
+      "category": "pack-ru2-explosive-threat",
+      "members": [
+        "horizon-fp16"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 2,
+      "TP": 25,
+      "TN": 473,
+      "FP": 2,
+      "FN": 0,
+      "precision": 0.9259259259259259,
+      "recall": 1.0,
+      "F1": 0.9615384615384616,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-extortion": {
+      "category": "pack-ru2-extortion",
+      "members": [
+        "horizon-fp16"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 14,
+      "TN": 461,
+      "FP": 14,
+      "FN": 11,
+      "precision": 0.5,
+      "recall": 0.56,
+      "F1": 0.5283018867924528,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-financial-plans": {
+      "category": "pack-ru2-financial-plans",
+      "members": [
+        "horizon-fp16",
+        "rubert"
+      ],
+      "minimum_votes": 2,
+      "safe_FP": 1,
+      "TP": 7,
+      "TN": 474,
+      "FP": 1,
+      "FN": 18,
+      "precision": 0.875,
+      "recall": 0.28,
+      "F1": 0.42424242424242425,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-internal-docs": {
+      "category": "pack-ru2-internal-docs",
+      "members": [
+        "horizon-fp16",
+        "ru4"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 12,
+      "TP": 19,
+      "TN": 440,
+      "FP": 35,
+      "FN": 6,
+      "precision": 0.35185185185185186,
+      "recall": 0.76,
+      "F1": 0.4810126582278481,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-phishing": {
+      "category": "pack-ru2-phishing",
+      "members": [
+        "tfidf"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 0,
+      "TN": 475,
+      "FP": 0,
+      "FN": 25,
+      "precision": 0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-pii-handling": {
+      "category": "pack-ru2-pii-handling",
+      "members": [
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 5,
+      "TN": 475,
+      "FP": 0,
+      "FN": 20,
+      "precision": 1.0,
+      "recall": 0.2,
+      "F1": 0.3333333333333333,
+      "recommendation": "shadow-only; new-corpus validation required"
+    },
+    "pack-ru2-pricing": {
+      "category": "pack-ru2-pricing",
+      "members": [
+        "horizon-fp16"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 3,
+      "TP": 10,
+      "TN": 472,
+      "FP": 3,
+      "FN": 15,
+      "precision": 0.7692307692307693,
+      "recall": 0.4,
+      "F1": 0.5263157894736842,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-sabotage": {
+      "category": "pack-ru2-sabotage",
+      "members": [
+        "horizon-fp16",
+        "setfit"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 16,
+      "TN": 472,
+      "FP": 3,
+      "FN": 9,
+      "precision": 0.8421052631578947,
+      "recall": 0.64,
+      "F1": 0.7272727272727273,
+      "recommendation": "not recommended for automated use; no candidate meets safety constraints"
+    },
+    "pack-ru2-violence-threat": {
+      "category": "pack-ru2-violence-threat",
+      "members": [
+        "horizon-fp16"
+      ],
+      "minimum_votes": 1,
+      "safe_FP": 0,
+      "TP": 19,
+      "TN": 472,
+      "FP": 3,
+      "FN": 6,
+      "precision": 0.8636363636363636,
+      "recall": 0.76,
+      "F1": 0.8085106382978723,
+      "recommendation": "shadow-only; new-corpus validation required"
+    }
+  }
+}

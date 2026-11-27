@@ -55,6 +55,7 @@ def documents(source, message_id):
 
 def compare_documents(parts, references, minimum):
     from pgvector.django import CosineDistance
+
     from records.semantic import MODEL, chunks, vectors
 
     if minimum is None or not math.isfinite(minimum) or not 0 < minimum <= 1:
@@ -111,8 +112,14 @@ def persist(job, findings, errors, state):
     """Caller owns the job lock and transaction; do not overwrite newer evidence."""
     from pipeline.inference import route
     message = Message.objects.select_for_update().filter(pk=job.payload["message_id"]).first()
-    if message is None or message.content_id != job.payload["content_id"] or message.status == "PENDING":
+    if message is None or message.status == "PENDING":
         return {"superseded": True}
+    if message.content_id != job.payload['content_id']:
+        original = Content.objects.filter(pk=job.payload['content_id']).first()
+        if (not original or original.text != message.content.text or
+                original.analysis.get('analysis_generation') != message.content.analysis.get('analysis_generation') or
+                original.analysis.get('configuration_snapshot') != message.content.analysis.get('configuration_snapshot')):
+            return {'superseded':True}
     source = message.content
     analysis = dict(source.analysis)
     analysis["findings"] = [f for f in analysis.get("findings", [])
@@ -142,7 +149,10 @@ def run(job):
     from pipeline.inference import enabled
     source = Content.objects.filter(pk=job.payload["content_id"]).first()
     message = Message.objects.filter(pk=job.payload["message_id"]).first()
-    if source is None or message is None or message.content_id != source.pk or message.status == "PENDING":
+    if (source is None or message is None or message.status == 'PENDING' or
+            (message.content_id != source.pk and (message.content.text != source.text or
+             message.content.analysis.get('analysis_generation') != source.analysis.get('analysis_generation') or
+             message.content.analysis.get('configuration_snapshot') != source.analysis.get('configuration_snapshot')))):
         with transaction.atomic():
             locked_current(job.pk, job.token)
             finish(job.pk, job.token, {"superseded": True})

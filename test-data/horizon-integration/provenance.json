@@ -1,0 +1,33 @@
+{
+  "source_hashes": {
+    "horizon_predictions": "ced20e325501a7a5b23b4e6666f5e5c0cfede700709cedd24dd4139694fdcb24",
+    "e3f5d016667d8db939b614055334fb50442d4899:test-data/results-benchmark500-v1/ru3/messages.json": "7d7382f9c867b85c173dc85099470d9777d82fa64d76a013d8e0b6af14ba284f",
+    "e3f5d016667d8db939b614055334fb50442d4899:test-data/results-benchmark500-v1/ru4/messages.json": "665d8fbe1555e13b53cfa659dcef74eb6fe382f70c5c887a4b3b3efbbf6320a6",
+    "19cdc936f342e2b7330fb07e1b5815a8dd604bcd:test-data/results-ml-category-benchmark/tfidf-b500/messages.json.gz.b64": "74807022337e33a3953d119991f3373624c0d55a851b760e6bac1f6d89d7baaf",
+    "19cdc936f342e2b7330fb07e1b5815a8dd604bcd:test-data/results-ml-category-benchmark/setfit-b500/messages.json.gz.b64": "f64dbcbf5168a769ec68f5ecdada6c681a65994712326fe22be0495b701b905c",
+    "19cdc936f342e2b7330fb07e1b5815a8dd604bcd:test-data/results-ml-category-benchmark/rubert-b500/messages.json.gz.b64": "af5c9980affd762244f26d0dd0836670f1cbd2f4cb43e9bbebda00d3ca611687",
+    "19cdc936f342e2b7330fb07e1b5815a8dd604bcd:test-data/results-ml-category-benchmark/experiment.json": "4c51d685ae64f43acebca4cbe484f538994d9f21884301b3349b7f165f23d6f4"
+  },
+  "observations_sha256": "5b1ff9f7691fdffc999219cf039988aa1a6caa8acdc3e50f0fc75144868169af",
+  "manifest_sha256": "a8abdd6a67e3c7bd8747677aabf6d1416990ce25084b6d7e2f6a52d1b044a007",
+  "verified_ids": 500,
+  "verified_categories": [
+    "pack-ru2-credential-transfer",
+    "pack-ru2-customer-data",
+    "pack-ru2-data-exfil",
+    "pack-ru2-explosive-threat",
+    "pack-ru2-extortion",
+    "pack-ru2-financial-plans",
+    "pack-ru2-internal-docs",
+    "pack-ru2-phishing",
+    "pack-ru2-pii-handling",
+    "pack-ru2-pricing",
+    "pack-ru2-sabotage",
+    "pack-ru2-violence-threat"
+  ],
+  "labels_equal": true,
+  "horizon_text_hashes_equal": true,
+  "historical_text_provenance": "Exact observations SHA256 matches ML experiment; legacy prediction rows omit text hashes",
+  "warning": "Exploratory combination selection on previously used B500, not independent evaluation",
+  "recommendation_policy": "precision>=.85, safe_FP<=2, TP>=5; then max recall, fewer safe FP, higher precision, fewer methods. Otherwise do not recommend automated use."
+}

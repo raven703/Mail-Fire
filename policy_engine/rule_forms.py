@@ -17,20 +17,26 @@ class StructuredRuleForm(forms.ModelForm):
     reference_ids = forms.MultipleChoiceField(required=False, label="Эталонные документы", widget=forms.CheckboxSelectMultiple)
     min_similarity = forms.FloatField(required=False, initial=.8, min_value=.5, max_value=1, label="Минимальное сходство")
     min_confidence = forms.FloatField(required=False, initial=.7, min_value=0, max_value=1, label="Минимальная уверенность ML")
+    positive_hypotheses = forms.CharField(required=False, label='Horizon: положительные гипотезы (по одной на строку)', widget=forms.Textarea(attrs={'rows': 4}))
+    excluding_hypotheses = forms.CharField(required=False, label='Horizon: исключающие гипотезы (по одной на строку)', widget=forms.Textarea(attrs={'rows': 3}))
+    horizon_threshold = forms.FloatField(required=False, initial=.5, min_value=.01, max_value=1, label='Порог Horizon')
+    combine = forms.ChoiceField(required=False, initial='mean', label='Объединение гипотез', choices=[(x,x) for x in ('single','mean','max','min','subtract','product')])
+    aggregation = forms.ChoiceField(required=False, initial='max', label='Агрегация фрагментов', choices=[(x,x) for x in ('max','mean','top2_mean','noisy_or')])
 
     class Meta:
         model = CategoryRule
         fields = ["title", "kind", "risk", "priority", "enabled"]
         widgets = {"kind": forms.Select(choices=[("keywords", "Ключевые слова"), ("regex", "Безопасный Regex"),
-                                                  ("reference", "Эталонные документы"), ("ml", "ML-модель")])}
+                                                  ("reference", "Эталонные документы"), ("ml", "ML-модель"), ('horizon', 'Horizon Zero-shot')])}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["reference_ids"].choices = list(Reference.objects.order_by("name").values_list("pk", "name"))
         config = self.instance.config or {}
-        for key in ("phrases", "exclude_phrases"):
+        for key in ("phrases", "exclude_phrases", 'positive_hypotheses', 'excluding_hypotheses'):
             self.initial[key] = "\n".join(config.get(key, []))
-        for key in ("match_type", "min_score", "window", "ordered", "pattern", "reference_ids", "min_similarity", "min_confidence"):
+        self.initial['horizon_threshold'] = config.get('threshold', .5)
+        for key in ("match_type", "min_score", "window", "ordered", "pattern", "reference_ids", "min_similarity", "min_confidence", 'combine', 'aggregation'):
             if key in config:
                 self.initial[key] = config[key]
         terms = config.get("terms", [])
@@ -59,6 +65,10 @@ class StructuredRuleForm(forms.ModelForm):
             config.update(reference_ids=values.get("reference_ids", []), min_similarity=values.get("min_similarity") if values.get("min_similarity") is not None else .8)
         elif kind == "ml":
             config["min_confidence"] = values.get("min_confidence") if values.get("min_confidence") is not None else .7
+        elif kind == 'horizon':
+            config = {key: [s.strip() for s in values.get(key, '').splitlines() if s.strip()] for key in ('positive_hypotheses', 'excluding_hypotheses')}
+            config.update(threshold=values.get('horizon_threshold') if values.get('horizon_threshold') is not None else .5,
+                          combine=values.get('combine') or 'mean', aggregation=values.get('aggregation') or 'max')
         try:
             validated = validate_config(kind, config)
             original = self.instance.config or {}

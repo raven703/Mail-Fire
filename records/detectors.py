@@ -9,8 +9,8 @@ from django.views.decorators.http import require_http_methods
 
 from app.text_normalizer import DEFAULTS
 from policy_engine.catalog import DETECTORS
-from records.models import Audit, Setting
 from records.ml_status import ml_status
+from records.models import Audit, Setting
 from records.operations import admin_access
 from records.workspace import access
 
@@ -63,6 +63,8 @@ def detectors(request):
     normalizer = {**DEFAULTS, **stored.get("normalizer", {})}
     from records.semantic_status import semantic_status
     semantic = semantic_status(flags, stored.get("semantic_detection"))
+    from records.horizon_status import horizon_status
+    horizon = horizon_status(flags)
     rows = {}
     for key, (title, engine, categories) in DETECTORS.items():
         if key == "ml":
@@ -73,10 +75,11 @@ def detectors(request):
                      "enabled": normalizer["enabled"] if key == "normalizer" else available and flags.get(key, True)}
     rows["semantic"]["readiness"] = semantic
     rows["semantic"]["enabled"] = semantic["configured"]
+    rows['horizon'].update(readiness=horizon, enabled=horizon['configured'])
     form = None
     if selected:
         form_class = NormalizerForm if selected == "normalizer" and request.POST.get("action") != "toggle" else DetectorForm
-        initial = normalizer if selected == "normalizer" else {"enabled": flags.get(selected, True) and selected != "ml"}
+        initial = normalizer if selected == "normalizer" else {"enabled": flags.get(selected, selected != 'horizon') and selected != "ml"}
         if selected == "semantic" and request.POST.get("action") != "toggle":
             form_class = SemanticForm
             initial["threshold"] = semantic["threshold"]

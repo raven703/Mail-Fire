@@ -1,6 +1,7 @@
-{% load evidence_history %}{% grouped_findings findings as groups %}
+{% load evidence_history %}{% category_findings findings as categories %}
 <div class="evidence-list">
-{% for group in groups %}{% with finding=group.finding %}
+{% for category in categories %}<section class="evidence-category"><h2>{{ category.name }}</h2><p>Методы: {{ category.methods|join:', ' }}</p>
+{% for group in category.groups %}{% with finding=group.finding %}
 <article class="evidence-card">
   <header><div><h3>{{ finding.historical_category|default:finding.category|default:'Обнаруженный признак' }}</h3>
     <small>{{ finding.historical_rule.title|default:finding.rule_id|default:finding.source }} · Совпадений: {{ group.matches|length }}</small></div>
@@ -14,6 +15,7 @@
       {% if match.excerpt %}<blockquote>{{ match.excerpt }}</blockquote>{% endif %}
       {% if match.reason %}<p>{{ match.reason }}</p>{% endif %}
       {% if match.source == 'semantic-reference' %}<p>Эталон: {{ match.reference_name }} · Косинусное сходство: {{ match.similarity_percent }}% · Порог: {{ match.semantic_threshold }}</p><details><summary>Совпадающий фрагмент эталона</summary><pre>{{ match.reference_excerpt }}</pre></details>{% endif %}
+      {% if match.source == 'custom-horizon' %}<p>Horizon score: {{ match.horizon_score }} · Порог: {{ match.horizon_threshold }} · {{ match.source_label }} {{ match.filename }}</p><p>Модель: {{ match.model_version }} · SHA256 весов: {{ match.model_weights_sha256 }} · Конфигурация: {{ match.horizon_config_version }}</p><p>{{ match.horizon_combine }} / {{ match.horizon_aggregation }} · Фрагментов: {{ match.horizon_windows }}</p><ul>{% for hypothesis in match.horizon_hypotheses %}<li>{{ hypothesis.polarity }} · {{ hypothesis.score }} · {{ hypothesis.text }}</li>{% endfor %}</ul>{% endif %}
       {% include "records/_builtin_context_matches.html" with finding=match only %}
       <details><summary>Подробности совпадения</summary><dl class="facts">
         <div><dt>Документ и координаты</dt><dd>{{ match.document_id|default:"message" }} · {{ match.start }}–{{ match.end }}</dd></div>
@@ -33,5 +35,5 @@
     <div><dt>Версия</dt><dd>{{ finding.version|default:'—' }}</dd></div>
   </dl></details>
 </article>
-{% endwith %}{% empty %}<p class="empty">Обнаруженные признаки отсутствуют или анализ ещё не завершён.</p>{% endfor %}
+{% endwith %}{% endfor %}</section>{% empty %}<p class="empty">Обнаруженные признаки отсутствуют или анализ ещё не завершён.</p>{% endfor %}
 </div>
