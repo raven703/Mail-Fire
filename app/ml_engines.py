@@ -118,7 +118,10 @@ def _bundle(folder, engine, category):
 
 def _scores(engine, model, texts, tokenizer=None):
     if engine == "setfit":
-        probabilities = np.asarray(model.predict_proba(texts), dtype=float)
+        probabilities = model.predict_proba(texts)
+        if hasattr(probabilities, "detach"):
+            probabilities = probabilities.detach().cpu().numpy()
+        probabilities = np.asarray(probabilities, dtype=float)
         if probabilities.ndim == 1:
             return probabilities
         return probabilities[:, 1]
@@ -130,15 +133,30 @@ def _scores(engine, model, texts, tokenizer=None):
         tokens = tokenizer(
             texts[start : start + 8], return_tensors="pt", truncation=True, padding=True, max_length=512
         )
+        device = next(model.parameters()).device
+        tokens = {name: tensor.to(device) for name, tensor in tokens.items()}
         with torch.no_grad():
             logits = model(**tokens).logits
         output.extend(torch.softmax(logits, dim=-1)[:, 1].cpu().numpy().tolist())
     return np.array(output)
 
 
-def train_binary(examples, engine, category, min_f1):
+def train_binary(examples, engine, category, min_f1, *, device="cpu", batch_size=8,
+                 epochs=None, max_steps=None, show_progress=False):
+    """Train using native artifact formats; CPU remains the server default."""
     if engine not in {"setfit", "rubert"}:
         raise ValueError("Неизвестный нейросетевой движок")
+    if device not in {"cpu", "cuda"}:
+        raise ValueError("device must be cpu or cuda")
+    if batch_size < 1 or (epochs is not None and epochs < 1):
+        raise ValueError("batch_size and epochs must be positive")
+    if max_steps is not None and max_steps != -1 and max_steps < 1:
+        raise ValueError("max_steps must be -1 or positive")
+    if device == "cuda":
+        import torch
+
+        if not torch.cuda.is_available():
+            raise RuntimeError("CUDA requested but unavailable")
     _offline()
     splits = _binary_data(examples, category)
     x_train, y_train = splits["train"]
@@ -151,16 +169,16 @@ def train_binary(examples, engine, category, min_f1):
             except ImportError as exc:
                 raise RuntimeError("Установите опциональные зависимости ml-neural") from exc
             model = SetFitModel.from_pretrained(
-                _base_path(engine), labels=["negative", "positive"], device="cpu", local_files_only=True
+                _base_path(engine), labels=["negative", "positive"], device=device, local_files_only=True
             )
             data = Dataset.from_dict({"text": x_train, "label": list(map(int, y_train))})
             args = TrainingArguments(
-                batch_size=8,
-                num_epochs=1,
-                max_steps=120,
+                batch_size=batch_size,
+                num_epochs=epochs if epochs is not None else 1,
+                max_steps=max_steps if max_steps is not None else 120,
                 num_iterations=5,
                 end_to_end=False,
-                show_progress_bar=False,
+                show_progress_bar=show_progress,
                 output_dir=str(Path(tmp) / "setfit-checkpoints"),
                 report_to="none",
                 save_strategy="no",
@@ -204,14 +222,14 @@ def train_binary(examples, engine, category, min_f1):
 
             args = TrainingArguments(
                 output_dir=str(Path(tmp) / "output"),
-                num_train_epochs=2,
-                max_steps=150,
-                per_device_train_batch_size=8,
+                num_train_epochs=epochs if epochs is not None else 2,
+                max_steps=max_steps if max_steps is not None else 150,
+                per_device_train_batch_size=batch_size,
                 save_strategy="no",
                 eval_strategy="no",
                 report_to="none",
-                use_cpu=True,
-                disable_tqdm=True,
+                use_cpu=device == "cpu",
+                disable_tqdm=not show_progress,
             )
             Trainer(model=model, args=args, train_dataset=BinaryData(x_train, y_train)).train()
             model.save_pretrained(str(output), safe_serialization=True)
@@ -222,6 +240,10 @@ def train_binary(examples, engine, category, min_f1):
             "quality_gate_min_f1": min_f1,
             "split_sizes": {key: len(value[0]) for key, value in splits.items()},
             "base_model": "local-only",
+            "training_device": device,
+            "batch_size": batch_size,
+            "epochs": epochs if epochs is not None else (1 if engine == "setfit" else 2),
+            "max_steps": max_steps if max_steps is not None else (120 if engine == "setfit" else 150),
         }
         thresholds = [0.3, 0.4, 0.5, 0.6, 0.7]
         vx, vy = splits["validation"]
