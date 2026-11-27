@@ -1,0 +1,581 @@
+{
+  "labels": {
+    "0": "not_entailment",
+    "1": "entailment"
+  },
+  "device": "cuda:0",
+  "dtype": "torch.float32",
+  "examples": [
+    {
+      "id": "probe-0",
+      "text": "Пожалуйста, пришлите пароль и код из СМС для входа по ссылке http://login.example.org.",
+      "scores": {
+        "commercial": 0.00867595337331295,
+        "personal": 0.014142011292278767,
+        "financial": 0.005980576388537884,
+        "exfiltration": 0.01771838776767254,
+        "phishing": 0.8645740747451782,
+        "threat": 0.003294643247500062,
+        "safe": 0.15342259407043457
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 86,
+          "category": "commercial",
+          "logits": [
+            3.3068182468414307,
+            -1.4316679239273071
+          ],
+          "probabilities": {
+            "not_entailment": 0.9913240671157837,
+            "entailment": 0.00867595337331295
+          },
+          "score": 0.00867595337331295
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "personal",
+          "logits": [
+            3.056581497192383,
+            -1.1877809762954712
+          ],
+          "probabilities": {
+            "not_entailment": 0.9858579635620117,
+            "entailment": 0.014142011292278767
+          },
+          "score": 0.014142011292278767
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "financial",
+          "logits": [
+            3.4817445278167725,
+            -1.6314953565597534
+          ],
+          "probabilities": {
+            "not_entailment": 0.9940193891525269,
+            "entailment": 0.005980576388537884
+          },
+          "score": 0.005980576388537884
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "exfiltration",
+          "logits": [
+            3.0419466495513916,
+            -0.9733282923698425
+          ],
+          "probabilities": {
+            "not_entailment": 0.9822815656661987,
+            "entailment": 0.01771838776767254
+          },
+          "score": 0.01771838776767254
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "phishing",
+          "logits": [
+            -0.2806055545806885,
+            1.5732067823410034
+          ],
+          "probabilities": {
+            "not_entailment": 0.1354258954524994,
+            "entailment": 0.8645740747451782
+          },
+          "score": 0.8645740747451782
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "threat",
+          "logits": [
+            3.693877935409546,
+            -2.018279552459717
+          ],
+          "probabilities": {
+            "not_entailment": 0.9967053532600403,
+            "entailment": 0.003294643247500062
+          },
+          "score": 0.003294643247500062
+        },
+        {
+          "start": 0,
+          "end": 86,
+          "category": "safe",
+          "logits": [
+            1.732366919517517,
+            0.024361388757824898
+          ],
+          "probabilities": {
+            "not_entailment": 0.8465774655342102,
+            "entailment": 0.15342259407043457
+          },
+          "score": 0.15342259407043457
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-1",
+      "text": "Я взорву ваш офис завтра.",
+      "scores": {
+        "commercial": 0.0066513060592114925,
+        "personal": 0.0027732683811336756,
+        "financial": 0.008247678168118,
+        "exfiltration": 0.013500816188752651,
+        "phishing": 0.013421372510492802,
+        "threat": 0.619240403175354,
+        "safe": 0.013029005378484726
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 25,
+          "category": "commercial",
+          "logits": [
+            3.5182647705078125,
+            -1.4880039691925049
+          ],
+          "probabilities": {
+            "not_entailment": 0.9933486580848694,
+            "entailment": 0.0066513060592114925
+          },
+          "score": 0.0066513060592114925
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "personal",
+          "logits": [
+            4.005817890167236,
+            -1.879133939743042
+          ],
+          "probabilities": {
+            "not_entailment": 0.9972266554832458,
+            "entailment": 0.0027732683811336756
+          },
+          "score": 0.0027732683811336756
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "financial",
+          "logits": [
+            3.3154401779174805,
+            -1.4741015434265137
+          ],
+          "probabilities": {
+            "not_entailment": 0.9917523264884949,
+            "entailment": 0.008247678168118
+          },
+          "score": 0.008247678168118
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "exfiltration",
+          "logits": [
+            3.160595178604126,
+            -1.1308170557022095
+          ],
+          "probabilities": {
+            "not_entailment": 0.9864991903305054,
+            "entailment": 0.013500816188752651
+          },
+          "score": 0.013500816188752651
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "phishing",
+          "logits": [
+            2.8235414028167725,
+            -1.4738532304763794
+          ],
+          "probabilities": {
+            "not_entailment": 0.986578643321991,
+            "entailment": 0.013421372510492802
+          },
+          "score": 0.013421372510492802
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "threat",
+          "logits": [
+            0.5566878318786621,
+            1.0430132150650024
+          ],
+          "probabilities": {
+            "not_entailment": 0.3807595670223236,
+            "entailment": 0.619240403175354
+          },
+          "score": 0.619240403175354
+        },
+        {
+          "start": 0,
+          "end": 25,
+          "category": "safe",
+          "logits": [
+            3.077347755432129,
+            -1.2501150369644165
+          ],
+          "probabilities": {
+            "not_entailment": 0.9869710206985474,
+            "entailment": 0.013029005378484726
+          },
+          "score": 0.013029005378484726
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-2",
+      "text": "Анна Смирнова живёт в Казани. Контакт test@example.org.",
+      "scores": {
+        "commercial": 0.013733037747442722,
+        "personal": 0.09268150478601456,
+        "financial": 0.005210584495216608,
+        "exfiltration": 0.015585571527481079,
+        "phishing": 0.05772911012172699,
+        "threat": 0.008643212728202343,
+        "safe": 0.11413653939962387
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": "commercial",
+          "logits": [
+            3.113370180130005,
+            -1.1607524156570435
+          ],
+          "probabilities": {
+            "not_entailment": 0.9862669706344604,
+            "entailment": 0.013733037747442722
+          },
+          "score": 0.013733037747442722
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "personal",
+          "logits": [
+            2.023892641067505,
+            -0.2574320435523987
+          ],
+          "probabilities": {
+            "not_entailment": 0.9073185324668884,
+            "entailment": 0.09268150478601456
+          },
+          "score": 0.09268150478601456
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "financial",
+          "logits": [
+            3.6689958572387695,
+            -1.5828434228897095
+          ],
+          "probabilities": {
+            "not_entailment": 0.9947894811630249,
+            "entailment": 0.005210584495216608
+          },
+          "score": 0.005210584495216608
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "exfiltration",
+          "logits": [
+            3.1467971801757812,
+            -0.9989040493965149
+          ],
+          "probabilities": {
+            "not_entailment": 0.9844144582748413,
+            "entailment": 0.015585571527481079
+          },
+          "score": 0.015585571527481079
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "phishing",
+          "logits": [
+            2.188002586364746,
+            -0.6045286655426025
+          ],
+          "probabilities": {
+            "not_entailment": 0.9422708749771118,
+            "entailment": 0.05772911012172699
+          },
+          "score": 0.05772911012172699
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "threat",
+          "logits": [
+            3.3103158473968506,
+            -1.4319844245910645
+          ],
+          "probabilities": {
+            "not_entailment": 0.9913567304611206,
+            "entailment": 0.008643212728202343
+          },
+          "score": 0.008643212728202343
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "safe",
+          "logits": [
+            1.9358078241348267,
+            -0.11335952579975128
+          ],
+          "probabilities": {
+            "not_entailment": 0.8858634829521179,
+            "entailment": 0.11413653939962387
+          },
+          "score": 0.11413653939962387
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-3",
+      "text": "Это учебный пример фишинга. Никому не сообщайте пароль.",
+      "scores": {
+        "commercial": 0.07701001316308975,
+        "personal": 0.01580735854804516,
+        "financial": 0.015027566812932491,
+        "exfiltration": 0.4049130380153656,
+        "phishing": 0.4348142743110657,
+        "threat": 0.0739884078502655,
+        "safe": 0.15154848992824554
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": "commercial",
+          "logits": [
+            2.184361457824707,
+            -0.2993215024471283
+          ],
+          "probabilities": {
+            "not_entailment": 0.9229899644851685,
+            "entailment": 0.07701001316308975
+          },
+          "score": 0.07701001316308975
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "personal",
+          "logits": [
+            3.0674965381622314,
+            -1.0638498067855835
+          ],
+          "probabilities": {
+            "not_entailment": 0.9841926693916321,
+            "entailment": 0.01580735854804516
+          },
+          "score": 0.01580735854804516
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "financial",
+          "logits": [
+            3.101642608642578,
+            -1.0810847282409668
+          ],
+          "probabilities": {
+            "not_entailment": 0.9849724173545837,
+            "entailment": 0.015027566812932491
+          },
+          "score": 0.015027566812932491
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "exfiltration",
+          "logits": [
+            1.0921783447265625,
+            0.7071430683135986
+          ],
+          "probabilities": {
+            "not_entailment": 0.5950869917869568,
+            "entailment": 0.4049130380153656
+          },
+          "score": 0.4049130380153656
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "phishing",
+          "logits": [
+            0.7844777703285217,
+            0.5222423076629639
+          ],
+          "probabilities": {
+            "not_entailment": 0.5651857852935791,
+            "entailment": 0.4348142743110657
+          },
+          "score": 0.4348142743110657
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "threat",
+          "logits": [
+            2.1499016284942627,
+            -0.3770765960216522
+          ],
+          "probabilities": {
+            "not_entailment": 0.9260115623474121,
+            "entailment": 0.0739884078502655
+          },
+          "score": 0.0739884078502655
+        },
+        {
+          "start": 0,
+          "end": 55,
+          "category": "safe",
+          "logits": [
+            1.83004629611969,
+            0.10753892362117767
+          ],
+          "probabilities": {
+            "not_entailment": 0.848451554775238,
+            "entailment": 0.15154848992824554
+          },
+          "score": 0.15154848992824554
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-4",
+      "text": "Угрозы не поступали, обсуждаем только учения.",
+      "scores": {
+        "commercial": 0.08711641281843185,
+        "personal": 0.004615181125700474,
+        "financial": 0.010514719411730766,
+        "exfiltration": 0.008957375772297382,
+        "phishing": 0.02350223809480667,
+        "threat": 0.002968155313283205,
+        "safe": 0.4761955142021179
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 45,
+          "category": "commercial",
+          "logits": [
+            2.055504083633423,
+            -0.29385906457901
+          ],
+          "probabilities": {
+            "not_entailment": 0.9128836393356323,
+            "entailment": 0.08711641281843185
+          },
+          "score": 0.08711641281843185
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "personal",
+          "logits": [
+            3.6835360527038574,
+            -1.6902422904968262
+          ],
+          "probabilities": {
+            "not_entailment": 0.9953848719596863,
+            "entailment": 0.004615181125700474
+          },
+          "score": 0.004615181125700474
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "financial",
+          "logits": [
+            3.246469736099243,
+            -1.2979389429092407
+          ],
+          "probabilities": {
+            "not_entailment": 0.9894853234291077,
+            "entailment": 0.010514719411730766
+          },
+          "score": 0.010514719411730766
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "exfiltration",
+          "logits": [
+            3.3123059272766113,
+            -1.3939744234085083
+          ],
+          "probabilities": {
+            "not_entailment": 0.9910426139831543,
+            "entailment": 0.008957375772297382
+          },
+          "score": 0.008957375772297382
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "phishing",
+          "logits": [
+            2.4919068813323975,
+            -1.2349697351455688
+          ],
+          "probabilities": {
+            "not_entailment": 0.9764977693557739,
+            "entailment": 0.02350223809480667
+          },
+          "score": 0.02350223809480667
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "threat",
+          "logits": [
+            3.48248291015625,
+            -2.3343591690063477
+          ],
+          "probabilities": {
+            "not_entailment": 0.9970318078994751,
+            "entailment": 0.002968155313283205
+          },
+          "score": 0.002968155313283205
+        },
+        {
+          "start": 0,
+          "end": 45,
+          "category": "safe",
+          "logits": [
+            0.8922988176345825,
+            0.7970088720321655
+          ],
+          "probabilities": {
+            "not_entailment": 0.5238044857978821,
+            "entailment": 0.4761955142021179
+          },
+          "score": 0.4761955142021179
+        }
+      ],
+      "truncated_windows": 0
+    }
+  ],
+  "interpretation": "NLI independent entailment vs contradiction/not_entailment softmax; phishing class 0; threat sigmoid head; NER BIO argmax"
+}

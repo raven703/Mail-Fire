@@ -1,7 +1,6 @@
 """Isolated frozen-weight GPU inference; each model runs in a separate process."""
 import argparse
 import gc
-import hashlib
 import json
 import os
 import platform
@@ -36,8 +35,14 @@ def verify_frozen():
 def model_load(key, info):
     import torch
     from huggingface_hub import snapshot_download
-    from transformers import (AutoConfig, AutoModel, AutoModelForSequenceClassification,
-                              AutoModelForTokenClassification, AutoTokenizer, BertConfig)
+    from transformers import (
+        AutoConfig,
+        AutoModel,
+        AutoModelForSequenceClassification,
+        AutoModelForTokenClassification,
+        AutoTokenizer,
+        BertConfig,
+    )
 
     folder = DATA / "models" / key
     patterns = ["*.json", "*.safetensors", "spm.model", "*.txt"]
@@ -62,6 +67,8 @@ def model_load(key, info):
 
         model = MultiTaskToxicityEncoder()
         state = torch.load(folder / "pytorch_model.bin", map_location="cpu", weights_only=True)
+        if "model_state_dict" in state:
+            state = state["model_state_dict"]
         # No missing/unexpected keys are allowed; no substitute encoder weights.
         model.load_state_dict(state, strict=True)
         del state
@@ -175,7 +182,7 @@ def worker(key):
 
     assert torch.cuda.is_available(), "GPU unavailable: CPU fallback is forbidden"
     protocol = json.loads((HERE / "protocol.json").read_text())
-    frozen = verify_frozen()
+    verify_frozen()
     info = json.loads((RESULTS / "model_audit.json").read_text())[key]
     if info["status"] in {"blocked_gpu", "unavailable"}:
         write_json(RESULTS / f"{key}-status.json", dict(status=info["status"], reason=info["reason"],
@@ -196,7 +203,6 @@ def worker(key):
         assert next(model.parameters()).device.type == "cuda"
         loaded = time.perf_counter()
         prepared = read_jsonl(RESULTS / "prepared.jsonl")
-        smoke = [row for row in prepared if row["id"] in frozen["smoke_ids"]]
         # Add task-specific positives without removing fixed hard-negative controls.
         probes = ["Пожалуйста, пришлите пароль и код из СМС для входа по ссылке http://login.example.org.",
                   "Я взорву ваш офис завтра.", "Анна Смирнова живёт в Казани. Контакт test@example.org.",
@@ -232,7 +238,7 @@ def worker(key):
                    peak_vram_allocated_bytes=torch.cuda.max_memory_allocated(), peak_vram_reserved_bytes=torch.cuda.max_memory_reserved(),
                    measurement="RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"))
         write_json(RESULTS / f"{key}-status.json", dict(status="completed", labels=labels))
-        del model
+        model = None
     except Exception:
         traceback.print_exc()
         write_json(RESULTS / f"{key}-status.json", dict(status="failed", error=traceback.format_exc()))

@@ -1,0 +1,12 @@
+{
+  "device": "cuda:0",
+  "dtype": "float32",
+  "messages": 350,
+  "model_load_download_seconds": 124.1411501980001,
+  "main_seconds": 21.80605485599881,
+  "messages_per_second": 16.050587889983024,
+  "peak_process_rss_bytes": 2520424448,
+  "peak_vram_allocated_bytes": 1319027712,
+  "peak_vram_reserved_bytes": 1342177280,
+  "measurement": "RSS sampled every 20ms; VRAM is process PyTorch allocated/reserved, not total desktop usage; main includes JSON serialization and NER fixture"
+}

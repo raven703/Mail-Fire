@@ -1,0 +1,5 @@
+{
+  "status": "blocked_gpu",
+  "reason": "Only int8 ONNX CPU artifact; no PyTorch weights. No conversion, CPU fallback or weight modification permitted.",
+  "smoke": "not executable on requested GPU without changing artifact"
+}

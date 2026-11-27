@@ -1,0 +1,131 @@
+{
+  "labels": {
+    "0": "Phishing",
+    "1": "Legit"
+  },
+  "device": "cuda:0",
+  "dtype": "torch.float32",
+  "examples": [
+    {
+      "id": "probe-0",
+      "text": "Пожалуйста, пришлите пароль и код из СМС для входа по ссылке http://login.example.org.",
+      "scores": {
+        "phishing": 0.9996910095214844
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 86,
+          "category": null,
+          "logits": [
+            3.965801477432251,
+            -4.116170883178711
+          ],
+          "probabilities": {
+            "Phishing": 0.9996910095214844,
+            "Legit": 0.0003089654492214322
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-1",
+      "text": "Я взорву ваш офис завтра.",
+      "scores": {
+        "phishing": 0.0005201341700740159
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 25,
+          "category": null,
+          "logits": [
+            -3.6686151027679443,
+            3.8922886848449707
+          ],
+          "probabilities": {
+            "Phishing": 0.0005201341700740159,
+            "Legit": 0.9994799494743347
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-2",
+      "text": "Анна Смирнова живёт в Казани. Контакт test@example.org.",
+      "scores": {
+        "phishing": 0.9762251377105713
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": null,
+          "logits": [
+            1.6369634866714478,
+            -2.078101396560669
+          ],
+          "probabilities": {
+            "Phishing": 0.9762251377105713,
+            "Legit": 0.023774849250912666
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-3",
+      "text": "Это учебный пример фишинга. Никому не сообщайте пароль.",
+      "scores": {
+        "phishing": 0.9836381673812866
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 55,
+          "category": null,
+          "logits": [
+            1.8923782110214233,
+            -2.203930139541626
+          ],
+          "probabilities": {
+            "Phishing": 0.9836381673812866,
+            "Legit": 0.01636180840432644
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    },
+    {
+      "id": "probe-4",
+      "text": "Угрозы не поступали, обсуждаем только учения.",
+      "scores": {
+        "phishing": 0.0010585094569250941
+      },
+      "windows": [
+        {
+          "start": 0,
+          "end": 45,
+          "category": null,
+          "logits": [
+            -3.3104798793792725,
+            3.5393548011779785
+          ],
+          "probabilities": {
+            "Phishing": 0.0010585094569250941,
+            "Legit": 0.9989414811134338
+          },
+          "score": null
+        }
+      ],
+      "truncated_windows": 0
+    }
+  ],
+  "interpretation": "NLI independent entailment vs contradiction/not_entailment softmax; phishing class 0; threat sigmoid head; NER BIO argmax"
+}
