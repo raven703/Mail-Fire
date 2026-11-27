@@ -121,12 +121,24 @@ def categories(request, category_id=None, rule_id=None):
     admin = request.user.has_perm("identity.administer")
     if not request.user.has_perm("identity.access_mice") or (request.method == "POST" and not admin):
         return HttpResponseForbidden("Недостаточно прав")
+    kind = request.GET.get("kind", "all")
+    if kind not in {"all", "system", "custom"}:
+        kind = "all"
+    query = request.GET.get("q", "").strip()[:200]
+    list_filters = {key: value for key, value in (("kind", kind), ("q", query))
+                    if value and (key != "kind" or value != "all")}
+
+    def filtered_url(route, **kwargs):
+        url = reverse(route, kwargs=kwargs or None)
+        return url + ("?" + urlencode(list_filters) if list_filters else "")
+
+    category_list_url = filtered_url("categories-page")
     category = get_object_or_404(Category, pk=category_id) if category_id else None
     rule = get_object_or_404(CategoryRule, pk=rule_id, category=category) if rule_id else None
     system = category and category.mode in {"builtin", "label"}
     context_allowed = bool(category and category.mode == "builtin" and category.pk in CONTEXT_CATEGORIES)
     if category and category.pk in LEGACY_ALIASES and request.method == "GET":
-        return redirect("category-detail", category_id=LEGACY_ALIASES[category.pk])
+        return redirect(filtered_url("category-detail", category_id=LEGACY_ALIASES[category.pk]))
     data = request.POST if request.method == "POST" else None
     action = data.get("action", "save") if data is not None else ""
     editing_rule = bool(rule or request.GET.get("rule") == "new" or (data and data.get("entity") == "rule"))
@@ -145,7 +157,7 @@ def categories(request, category_id=None, rule_id=None):
             rule.save(update_fields=["deleted_at"])
             Audit.objects.create(actor=request.user.pk, action="rule_delete", target=rule.pk,
                                  details={"category_id": category.pk, "title": rule.title})
-        return redirect("category-detail", category_id=category.pk)
+        return redirect(filtered_url("category-detail", category_id=category.pk))
     if context_allowed and rule and rule.config.get(CONTEXT_MARKER) is not True:
         return HttpResponseForbidden("Историческое правило не является правилом контекста")
     if action == "archive" and category:
@@ -154,7 +166,7 @@ def categories(request, category_id=None, rule_id=None):
             category.active = False
             category.save(update_fields=["active"])
             Audit.objects.create(actor=request.user.pk, action="category_archive", target=category.pk)
-        return redirect("categories-page")
+        return redirect(category_list_url)
     if editing and (not system or (context_allowed and editing_rule)):
         if editing_rule:
             if not category:
@@ -174,7 +186,7 @@ def categories(request, category_id=None, rule_id=None):
                     item.category = current
                     item.save()
                     Audit.objects.create(actor=request.user.pk, action="rule_update", target=item.pk)
-                return redirect("category-detail", category_id=category.pk)
+                return redirect(filtered_url("category-detail", category_id=category.pk))
         else:
             form = CategoryForm(data, instance=category)
             rules_form = category_rules(data, category)
@@ -182,9 +194,7 @@ def categories(request, category_id=None, rule_id=None):
                 needs_rules = form.cleaned_data["mode"] in {"custom", "rules"}
                 if not needs_rules or rules_form.is_valid():
                     row = save_category(request.user, form, rules_form if needs_rules else None)
-                    return redirect("category-detail", category_id=row.pk)
-    kind = request.GET.get("kind", "all")
-    query = request.GET.get("q", "").strip()[:200]
+                    return redirect(filtered_url("category-detail", category_id=row.pk))
     rows = Category.objects.order_by("group_name", "name")
     rows = rows.exclude(pk__in=LEGACY_ALIASES).exclude(mode="label")
     if kind == "system":
@@ -195,10 +205,6 @@ def categories(request, category_id=None, rule_id=None):
         return redirect("/models/?tab=label")
     if query:
         rows = rows.filter(Q(name__icontains=query) | Q(group_name__icontains=query) | Q(pk__icontains=query))
-    list_filters = {key: value for key, value in (("kind", kind), ("q", query)) if value and (key != "kind" or value != "all")}
-    category_list_url = reverse("categories-page")
-    if list_filters:
-        category_list_url += "?" + urlencode(list_filters)
     return render(request, "policy_engine/categories.html", {
         "category_list_url": category_list_url,
         "categories": rows, "category": category, "system": system, "admin": admin, "kind": kind, "query": query,
