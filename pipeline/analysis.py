@@ -67,7 +67,7 @@ def analyze(job):
     parsed, rows, evidence = validate(result)
     errors = list(evidence["engine_errors"])
     findings = list(evidence["findings"])
-    skipped = set(evidence["skipped_checks"]) | {"ml", "llm"}
+    skipped = set(evidence["skipped_checks"]) | {"ml", "llm", "semantic"}
     enabled = config["settings"].get("detectors", {})
     av_states = []
     if enabled.get("antivirus", True):
@@ -104,7 +104,8 @@ def analyze(job):
     analysis = {"findings": findings, "engine_errors": errors,
                 "skipped_checks": sorted(skipped | set(status_skipped)),
                 "normalization": evidence.get("normalization", {}),
-                "configuration_snapshot": config, "configuration_sha256": config_sha}
+                "configuration_snapshot": config, "configuration_sha256": config_sha,
+                "semantic_body_length": len(parsed["text"])}
     with transaction.atomic():
         locked_current(job.pk, job.token)
         message = Message.objects.select_for_update().get(pk=message.pk)

@@ -37,7 +37,7 @@ def vectors(parts):
     result = []
     for item in encoder().embed(parts):
         value = [float(number) for number in item]
-        if len(value) != 384 or any(not math.isfinite(number) for number in value):
+        if len(value) != 384 or any(not math.isfinite(number) for number in value) or not any(value):
             raise ValueError("Invalid embedding")
         result.append(value)
     if len(result) != len(parts):
@@ -50,7 +50,7 @@ def reindex(job):
     for kind, identifier in job.payload["items"][completed:]:
         model = Reference if kind == "reference" else Content
         source = model.objects.filter(pk=identifier).first()
-        parts = chunks(source.text) if source else []
+        parts = chunks(source.text) if source and not (kind == "reference" and source.fingerprint.get("document_template")) else []
         if len(parts) > 5000:
             raise ValueError("Document chunk limit")
         embeddings = vectors(parts) if parts else []

@@ -20,13 +20,8 @@ def fake_rule(kind, config, ident, *, risk=70, priority=100):
 
 def run(monkeypatch, text, rules, *, match_mode="any", refs=(), scores=None, engines=None):
     cat = SimpleNamespace(id="custom-test", name="Test", mode="custom", match_mode=match_mode)
-    monkeypatch.setattr(
-        categories,
-        "rules_for",
-        lambda session: {cat.id: {"category": cat, "rules": rules}},
-    )
-    return categories.custom_findings(
-        None,
+    return categories.evaluate_groups(
+        [{"category": cat, "rules": rules}],
         text,
         references=refs,
         ml_scores=scores,

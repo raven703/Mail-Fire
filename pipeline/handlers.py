@@ -103,6 +103,12 @@ def reindex_semantic(job):
     reindex(job)
 
 
+def detect_semantic(job):
+    from pipeline.semantic_detection import run
+
+    run(job)
+
+
 def search_semantic(job):
     from records.semantic import search_job
 
@@ -134,6 +140,7 @@ handlers = {
     "llm.infer": ("llm", infer_optional),
     "maintenance.gc": ("maintenance", collect_garbage),
     "semantic.reindex": ("semantic", reindex_semantic),
+    "semantic.detect": ("semantic", detect_semantic),
     "semantic.search": ("semantic", search_semantic),
     "training.model": ("training", train_model),
     "training.neural": ("neural_training", train_model),
