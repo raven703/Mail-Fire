@@ -1,5 +1,9 @@
 # Horizon integration and exploratory fusion
 
+Current integration-only follow-up: see `COMPLETION-REPORT.md` for actual tests
+and open blockers, and `../../docs/HORIZON-INTEGRATION.md` for CPU/GPU/offline
+setup. Historical results below do not establish completion of the new task.
+
 Read `REPORT.md` first. **B-500 fusion is exploratory, not independent validation.**
 No automatic deployment, merging, training, GPU benchmark, or model download.
 

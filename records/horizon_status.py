@@ -2,11 +2,10 @@
 
 from django.utils import timezone
 
-from app.horizon import model_directory
 from pipeline.inference import enabled
 from pipeline.models import WorkItem
 from pipeline.resources import service_state
-from records.models import CategoryRule, Metric
+from records.models import CategoryRule, Metric, Setting
 
 
 def horizon_status(flags):
@@ -25,11 +24,10 @@ def horizon_status(flags):
     worker = service_state(sample, timezone.now())
     latest = WorkItem.objects.filter(kind="horizon.infer").order_by("-created_at", "-pk").first()
     tested = bool(latest and latest.status == "DONE" and latest.output.get("status") == "OK")
-    try:
-        model_directory()
-        local_files = True
-    except FileNotFoundError:
-        local_files = False
+    # Web and worker have different filesystems: only worker results are evidence.
+    local_files = None
+    options = Setting.objects.filter(pk="horizon_detection").first()
+    device = (options.value if options else {}).get("device", "cpu")
     label = (
         "Отключён"
         if not configured or not gate
@@ -51,4 +49,6 @@ def horizon_status(flags):
         local_files=local_files,
         model=MODEL,
         last_job=latest.status if latest else "Нет заданий",
+        device=device,
+        error="GPU/Horizon недоступен или анализ неполный; проверьте worker и выберите CPU" if latest and latest.output.get("status") == "PARTIAL" else "",
     )

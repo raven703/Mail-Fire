@@ -26,7 +26,10 @@ def schedule(message, key):
 
 def evaluate_documents(parts, config, ml_predictions=(), *, cached=None, references=()):
     from app.categories import evaluate_groups
-    from app.horizon import MAX_PAIRS, MAX_WINDOWS, analyze_document
+    from app.horizon import MAX_PAIRS, MAX_WINDOWS, analyze_document, score_pairs
+    from functools import partial
+
+    device = config.get("settings", {}).get("horizon_detection", {}).get("device", "cpu")
 
     groups = [
         {"category": SimpleNamespace(**b["category"]), "rules": [SimpleNamespace(**r) for r in b["rules"]]}
@@ -39,7 +42,7 @@ def evaluate_documents(parts, config, ml_predictions=(), *, cached=None, referen
         if not text.strip():
             continue
         if cached is None:
-            predicted, failures = analyze_document(text, rules, budget=budget)
+            predicted, failures = analyze_document(text, rules, budget=budget, scorer=partial(score_pairs, device=device))
         else:
             predicted, failures = cached.get(identifier, {}), []
         errors.extend(dict(e, document_id=identifier) for e in failures)
@@ -150,9 +153,17 @@ def run(job):
         existing = analysis.get("findings", [])
         from app.evidence import unique_findings
 
-        analysis["findings"] = unique_findings(
-            [f for f in existing if not f.get("source", "").startswith("custom-")] + findings
-        )
+        # Refresh only categories for which Horizon returned a complete result.
+        # A failed optional method must never delete independent custom evidence.
+        complete = {c["document_id"] for c in checks if not c["partial"]}
+        horizon_categories = {b["category"]["id"] for b in job.payload["configuration"].get("groups", [])
+                              if any(r["kind"] == "horizon" for r in b["rules"])}
+        analysis["findings"] = unique_findings([
+            f for f in existing if not (
+                f.get("source", "").startswith("custom-")
+                and f.get("document_id", "body") in complete
+                and f.get("category") in horizon_categories)
+        ] + findings)
         analysis["engine_errors"] = [
             e for e in analysis.get("engine_errors", []) if e.get("engine") != "horizon"
         ] + errors

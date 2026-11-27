@@ -39,6 +39,12 @@
         <p>Последнее семантическое задание: {{ selected.readiness.last_job }}.</p>
         {% if perms.identity.view_originals %}<a class="action-button" href="{% url 'references-page' %}">Эталонные документы</a>{% endif %}
         {% endif %}
+        {% if selected.id == 'horizon' %}
+        <h3>Готовность Horizon</h3>
+        <dl><dt>Состояние</dt><dd>{{ selected.readiness.label }}</dd><dt>Разрешён развёртыванием</dt><dd>{{ selected.readiness.gate|yesno:'Да,Нет' }}</dd><dt>Устройство</dt><dd>{{ selected.readiness.device }}</dd><dt>Worker</dt><dd>{{ selected.readiness.worker }}</dd><dt>Включённых правил</dt><dd>{{ selected.readiness.rules }}</dd><dt>Последнее задание</dt><dd>{{ selected.readiness.last_job }}</dd></dl>
+        {% if selected.readiness.error %}<p role="alert">{{ selected.readiness.error }}</p>{% endif %}
+        <p class="muted">Файлы модели проверяются только neural-worker. Выбор GPU не обнаруживает и не включает его автоматически. Без доступной CUDA выберите CPU; остальные детекторы продолжают работу.</p>
+        {% endif %}
         {% if selected.categories %}<p>Категории · {{ selected.categories|join:', ' }}</p>{% endif %}
       </div>
       <footer class="editor-dialog-footer"><button type="button" data-dialog-close>Закрыть</button>{% if admin and selected.id != 'ml' %}<button class="primary">Сохранить</button>{% endif %}</footer>

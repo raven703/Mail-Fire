@@ -134,10 +134,9 @@ def encoder(path, device):
     return tokenizer, model, digest.hexdigest()
 
 
-def score_pairs(pairs):
+def score_pairs(pairs, *, device="cpu"):
     import torch
 
-    device = os.environ.get("MICE_HORIZON_DEVICE", "cpu")
     tokenizer, model, weight_hash = encoder(str(model_directory()), device)
     output = []
     for offset in range(0, len(pairs), 8):

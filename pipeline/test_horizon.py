@@ -111,7 +111,7 @@ class HorizonIntegrationTests(TestCase):
             with patch(
                 "app.horizon.analyze_document",
                 side_effect=lambda t, r, **kw: analyze_document(
-                    t, r, scorer=lambda p: ([0.9] * len(p), "weights"), **kw
+                    t, r, **{**kw, "scorer": lambda p: ([0.9] * len(p), "weights")}
                 ),
             ):
                 self.execute(job, run)
@@ -251,6 +251,33 @@ class HorizonIntegrationTests(TestCase):
             evaluator.assert_not_called()
 
     @patch.dict("os.environ", {"MICE_HORIZON_INFERENCE_ENABLED": "true"})
+    def test_unexpected_failure_preserves_custom_evidence(self):
+        message = self.message()
+        original = list(message.content.analysis["findings"])
+        with patch("pipeline.horizon_detection.evaluate_documents", side_effect=RuntimeError("private")):
+            self.execute(schedule(message, "unexpected"), run)
+        message.refresh_from_db()
+        self.assertEqual(message.content.analysis["findings"], original)
+        self.assertEqual(message.status, "PARTIAL")
+        self.assertNotIn("private", str(message.content.analysis))
+
+    def test_cpu_is_default_and_gpu_requires_explicit_setting(self):
+        from identity.models import User
+        from django.urls import reverse
+        user = User.objects.create_user("horizon-settings", role="admin")
+        self.client.force_login(user)
+        session = self.client.session
+        session["mice_access_version"] = user.access_version
+        session.save()
+        response = self.client.get(reverse("detectors-page") + "?edit=horizon")
+        self.assertContains(response, 'value="cpu" selected')
+        for device in ("cuda", "cpu"):
+            response = self.client.post(reverse("detectors-page"), {"detector": "horizon", "enabled": "on", "device": device})
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(configuration()["settings"]["horizon_detection"]["device"], device)
+        self.assertEqual(self.client.post(reverse("detectors-page"), {"detector": "horizon", "device": "automatic"}).status_code, 400)
+
+    @patch.dict("os.environ", {"MICE_HORIZON_INFERENCE_ENABLED": "true"})
     def test_horizon_queued_before_sibling_content_advance_still_runs(self):
         message = self.message()
         job = schedule(message, "sibling-first")
@@ -264,7 +291,7 @@ class HorizonIntegrationTests(TestCase):
         with patch(
             "app.horizon.analyze_document",
             side_effect=lambda t, r, **kw: analyze_document(
-                t, r, scorer=lambda p: ([0.9] * len(p), "weights"), **kw
+                t, r, **{**kw, "scorer": lambda p: ([0.9] * len(p), "weights")}
             ),
         ):
             self.execute(job, run)

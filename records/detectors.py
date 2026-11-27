@@ -23,6 +23,10 @@ class SemanticForm(DetectorForm):
     threshold = forms.FloatField(min_value=0.01, max_value=1.0, label="Порог косинусного сходства")
 
 
+class HorizonForm(DetectorForm):
+    device = forms.ChoiceField(choices=[("cpu", "CPU"), ("cuda", "GPU (CUDA, требуется подготовленный worker)")], initial="cpu", label="Устройство Horizon")
+
+
 class NormalizerForm(DetectorForm):
     mode = forms.ChoiceField(label="Режим", choices=[
         ("detect", "Отмечать искажения"), ("augment", "Добавлять восстановленный текст в разрешённые запросы LLM"),
@@ -46,6 +50,8 @@ def update_detector(actor, name, values):
     Setting.objects.update_or_create(pk=key, defaults={"value": stored})
     if name == "semantic" and "threshold" in values:
         Setting.objects.update_or_create(pk="semantic_detection", defaults={"value": {"threshold": values["threshold"]}})
+    if name == "horizon" and "device" in values:
+        Setting.objects.update_or_create(pk="horizon_detection", defaults={"value": {"device": values["device"]}})
     Audit.objects.create(actor=actor.pk, action=action, target=name, details=values)
 
 
@@ -83,6 +89,10 @@ def detectors(request):
         if selected == "semantic" and request.POST.get("action") != "toggle":
             form_class = SemanticForm
             initial["threshold"] = semantic["threshold"]
+        if selected == "horizon" and request.POST.get("action") != "toggle":
+            form_class = HorizonForm
+            row = Setting.objects.filter(pk="horizon_detection").first()
+            initial["device"] = (row.value if row else {}).get("device", "cpu")
         form = form_class(request.POST if request.method == "POST" else None, initial=initial)
     if request.method == "POST":
         denied = admin_access(request)
