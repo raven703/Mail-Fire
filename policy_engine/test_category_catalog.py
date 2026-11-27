@@ -127,6 +127,42 @@ class UnifiedCatalogTests(TestCase):
         self.assertContains(self.client.get("/categories/CUSTOM_modal_test/?edit=1"),
                             'aria-labelledby="category-title"')
 
+    def test_category_filters_survive_modal_navigation_and_mutations(self):
+        category = Category.objects.create(pk="CUSTOM_filter_test", name="Filter test",
+                                           mode="custom", group_name="Test")
+        filters = "kind=custom&q=Filter"
+        close_url = "/categories/?" + filters
+        listing = self.client.get(close_url)
+        self.assertContains(listing, "?new=1&amp;kind=custom&amp;q=Filter")
+        self.assertContains(listing, "?edit=1&amp;kind=custom&amp;q=Filter")
+        self.assertContains(listing, "?kind=custom&amp;q=Filter")
+        for path in ("/categories/?new=1&" + filters,
+                     f"/categories/{category.pk}/?edit=1&" + filters,
+                     f"/categories/{category.pk}/?{filters}"):
+            response = self.client.get(path)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.context["category_list_url"], close_url)
+            self.assertContains(response, 'data-close-url="/categories/?kind=custom&amp;q=Filter"')
+        response = self.client.post(f"/categories/{category.pk}/?{filters}", {"action": "archive"})
+        self.assertRedirects(response, close_url)
+        native_filters = "kind=system&q=RU_SNILS"
+        response = self.client.get("/categories/RU_SNILS/?" + native_filters)
+        self.assertContains(response, "?rule=new&amp;kind=system&amp;q=RU_SNILS")
+        response = self.client.get("/categories/RU_SNILS/?rule=new&" + native_filters)
+        self.assertContains(response, 'data-close-url="/categories/?kind=system&amp;q=RU_SNILS"')
+        data = {"entity": "rule", "title": "Filter context", "kind": "keywords", "risk": "0",
+                "priority": "100", "enabled": "on", "phrases": "sample token",
+                "match_type": "substring"}
+        response = self.client.post("/categories/RU_SNILS/?rule=new&" + native_filters, data)
+        detail_url = "/categories/RU_SNILS/?" + native_filters
+        self.assertRedirects(response, detail_url)
+        rule = CategoryRule.objects.get(category_id="RU_SNILS", config__builtin_context=True)
+        rule_url = f"/categories/RU_SNILS/rules/{rule.pk}/?{native_filters}"
+        response = self.client.get(rule_url)
+        self.assertContains(response, 'data-close-url="/categories/?kind=system&amp;q=RU_SNILS"')
+        response = self.client.post(rule_url, {"action": "delete_context"})
+        self.assertRedirects(response, detail_url)
+
     def test_training_labels_require_originals_permission(self):
         self.actor.originals = False
         self.actor.save(update_fields=["originals"])

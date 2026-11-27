@@ -2,7 +2,7 @@
 {% load category_ui %}
 {% block body %}
 <main class="management">
-  <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1">＋ Категория</a>{% endif %}</header>
+  <header><h1>Категории данных</h1>{% if admin %}<a class="action-button primary" href="{% url 'categories-page' %}?new=1&amp;kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">＋ Категория</a>{% endif %}</header>
   <form data-live-filter="categories" class="filters" method="get" action="{% url 'categories-page' %}">
     <label class="category-search-label">Поиск категории<span class="category-search-field"><input name="q" value="{{ query }}" placeholder="Название или группа"><button type="button" data-clear-category-search aria-label="Очистить поиск" title="Очистить поиск">×</button></span></label>
     <label>Метод обнаружения<select name="kind"><option value="all"{% if kind == 'all' %} selected{% endif %}>Все категории</option><option value="custom"{% if kind == 'custom' %} selected{% endif %}>Правила / ML</option><option value="system"{% if kind == 'system' %} selected{% endif %}>Встроенный детектор</option></select></label>
@@ -23,12 +23,12 @@
           <td>{% if row.mode == "builtin" %}Встроенная{% else %}<span title="{{ row.match_mode|upper }} — {% if row.match_mode == 'all' %}все правила{% else %}любое правило{% endif %}">{{ row.match_mode|upper }}</span>{% endif %}</td>
           <td>{% if row.active %}{% include 'ui/badge.html' with text='Активна' %}{% else %}{% include 'ui/badge.html' with text='Архив' variant='CLOSED' %}{% endif %}</td>
           <td><div class="ui-row-actions">
-            {% if admin and row.mode != 'builtin' and row.mode != 'label' %}<a class="icon-control" href="{% url 'category-detail' row.pk %}?edit=1" aria-label="Правила и настройки · {{ row.name }}" title="Редактировать">{% include 'ui/icons/pencil.html' %}</a>{% endif %}
+            {% if admin and row.mode != 'builtin' and row.mode != 'label' %}<a class="icon-control" href="{% url 'category-detail' row.pk %}?edit=1&amp;kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}" aria-label="Правила и настройки · {{ row.name }}" title="Редактировать">{% include 'ui/icons/pencil.html' %}</a>{% endif %}
             <button type="button" class="icon-control category-actions-trigger" popovertarget="category-actions-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" aria-label="Действия · {{ row.name }}" title="Действия" data-category-actions-trigger>⋯</button>
             <div popover="auto" id="category-actions-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" class="category-actions-popover" aria-label="Действия · {{ row.name }}">
               <a class="category-actions-item" href="{% url 'category-detail' row.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">Просмотр и описание</a>
-              {% category_context_supported row as supported %}{% if admin and supported %}<a class="category-actions-item" href="{% url 'category-detail' row.pk %}?rule=new">Добавить правило контекста</a>{% endif %}
-              {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button class="category-actions-item" name="action" value="archive">Архивировать</button></form>{% endif %}
+              {% category_context_supported row as supported %}{% if admin and supported %}<a class="category-actions-item" href="{% url 'category-detail' row.pk %}?rule=new&amp;kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}">Добавить правило контекста</a>{% endif %}
+              {% if admin and row.active and row.mode != 'builtin' and row.mode != 'label' %}<form method="post" action="{% url 'category-detail' row.pk %}?kind={{ kind|urlencode }}&amp;q={{ query|urlencode }}" hx-confirm="Архивировать категорию? История сохранится.">{% csrf_token %}<button class="category-actions-item" name="action" value="archive">Архивировать</button></form>{% endif %}
             </div>
           </div></td>
         </tr>
@@ -42,8 +42,9 @@
     {% include 'ui/modal.html' with id='category-description' title=category.name dialog_class='category-description-dialog' content_template='policy_engine/_category_description_body.html' readonly=True close_url=category_list_url %}
   {% endif %}
   {% if form %}
-  {% url 'categories-page' as close_url %}
+  {% with close_url=category_list_url %}
   {% if editing_rule %}{% with dialog_title='Правило' %}{% include 'ui/modal.html' with id='category' title=dialog_title dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endwith %}{% elif category %}{% with dialog_title='Правила и настройки · '|add:category.name %}{% include 'ui/modal.html' with id='category' title=dialog_title dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endwith %}{% else %}{% include 'ui/modal.html' with id='category' title='Новая категория' dialog_class='editor-dialog-wide rule-editor-dialog' content_template='policy_engine/_category_editor_body.html' %}{% endif %}
+  {% endwith %}
   {% endif %}
 </main>
 <script>
