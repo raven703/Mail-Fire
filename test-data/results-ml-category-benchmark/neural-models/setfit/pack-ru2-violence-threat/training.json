@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-violence-threat"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.3,
+    "validation": {
+      "pack-ru2-violence-threat": {
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "f1": 0.5,
+        "support": 6
+      }
+    },
+    "test": {
+      "pack-ru2-violence-threat": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 173.13669431499147,
+  "maxrss_kib": 1667340,
+  "artifact_sha256": "1df51d6d1191544ba61a10d3e30dc2dafdd82cd44d09b948b32f1b0ca60f4e72",
+  "artifact_bytes": 108751173,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "setfit",
+    "labels": [
+      "pack-ru2-data-exfil"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-data-exfil": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 24
+      }
+    },
+    "test": {
+      "pack-ru2-data-exfil": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 9
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 175.00893817000906,
+  "maxrss_kib": 1627004,
+  "artifact_sha256": "9adaf10188d012632ff835337ab860c095820bc1c03d694821da65f187d36c76",
+  "artifact_bytes": 108751363,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}

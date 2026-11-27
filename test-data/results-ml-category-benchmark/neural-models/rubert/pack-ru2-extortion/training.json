@@ -1,0 +1,38 @@
+{
+  "metrics": {
+    "engine": "rubert",
+    "labels": [
+      "pack-ru2-extortion"
+    ],
+    "quality_gate_min_f1": 0,
+    "split_sizes": {
+      "train": 392,
+      "validation": 200,
+      "test": 138
+    },
+    "base_model": "local-only",
+    "threshold": 0.7,
+    "validation": {
+      "pack-ru2-extortion": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 23
+      }
+    },
+    "test": {
+      "pack-ru2-extortion": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 15
+      }
+    }
+  },
+  "eligible": true,
+  "seconds": 180.48768294100591,
+  "maxrss_kib": 1330556,
+  "artifact_sha256": "8afb24a2689e77f2d10fda6c44ea7715965af0f839d438cc9aa38aae31849b3b",
+  "artifact_bytes": 108745625,
+  "split_sha256": "35d23d786c00821cc96c4de1a996ec830f0d98637a3a06235646e2082969bef8"
+}
