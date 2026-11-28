@@ -32,3 +32,8 @@ test-data/mailfire-synthetic-250-corrected/mailfire-synthetic-250/
 *.bin
 *.zip:Zone.Identifier
 *.tar.gz:Zone.Identifier
+
+# Historic generated benchmark outputs; keep summary reports and frozen inputs tracked.
+test-data/results-benchmark350-20261123/observations.jsonl
+test-data/results-current-20261120/incident-observations.json
+test-data/results-benchmark300-20261120/results.csv
